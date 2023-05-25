@@ -1,0 +1,5 @@
+{
+  "namespace": "minecraft",
+  "shader": "color_convolve",
+  "enabled": true
+}

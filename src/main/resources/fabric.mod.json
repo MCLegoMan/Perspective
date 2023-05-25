@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "perspective",
+  "version": "${version}",
+  "name": "Perspective",
+  "description": "Zoom, Perspective, Super Secret Settings",
+  "authors": [
+    "MCLegoMan"
+  ],
+  "contact": {
+    "homepage": "https://twitch.tv/mclegoman"
+  },
+  "license": "CC-BY 4.0",
+  "icon": "assets/perspective/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.mclegoman.perspective.PerspectiveMain"
+    ]
+  },
+  "mixins": [
+    "perspective.mixins.json"
+  ],
+  "depends": {
+  },
+  "suggests": {
+  }
+}

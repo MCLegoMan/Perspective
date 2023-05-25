@@ -1,0 +1,5 @@
+{
+  "namespace": "minecraft",
+  "shader": "wobble",
+  "enabled": true
+}

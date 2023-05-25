@@ -1,0 +1,5 @@
+{
+  "namespace": "minecraft",
+  "shader": "scan_pincushion",
+  "enabled": true
+}
