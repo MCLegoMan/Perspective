@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class PerspectiveSSSDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final ArrayList<Identifier> SHADERS = new ArrayList<>();
+    public static final ArrayList<String> SHADERS_NAME = new ArrayList<>();
     public static final String ID = "shaders/shaders";
     public PerspectiveSSSDataLoader() {
         super(new Gson(), ID);
@@ -31,6 +32,7 @@ public class PerspectiveSSSDataLoader extends JsonDataLoader implements Identifi
                 String SHADER = JsonHelper.getString(jsonObject, "shader");
                 Boolean ENABLED = JsonHelper.getBoolean(jsonObject, "enabled");
                 addToArrayList(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), ENABLED);
+                addToArrayList((NAMESPACE + ":" + SHADER), ENABLED);
             } catch (Exception e) {
                 PerspectiveMain.LOGGER.error(e.getLocalizedMessage());
             }
@@ -44,6 +46,9 @@ public class PerspectiveSSSDataLoader extends JsonDataLoader implements Identifi
 
     private void addToArrayList(Identifier id, Boolean enabled) {
         if (enabled && !SHADERS.contains(id)) SHADERS.add(id);
+    }
+    private void addToArrayList(String name, Boolean enabled) {
+        if (enabled && !SHADERS_NAME.contains(name)) SHADERS_NAME.add(name);
     }
 
     private void clearArrayLists() {

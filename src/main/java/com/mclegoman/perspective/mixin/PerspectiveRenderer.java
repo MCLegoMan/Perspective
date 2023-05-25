@@ -90,7 +90,7 @@ public abstract class PerspectiveRenderer {
                     }
                     if (!WAS_ENABLED && this.postProcessorEnabled)
                         client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(COLORS[(random.nextInt(COLORS.length))], Formatting.BOLD), PerspectiveUtils.booleanToString(this.postProcessorEnabled)));
-                    client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(COLORS[(random.nextInt(COLORS.length))], Formatting.BOLD), String.valueOf(PerspectiveSSSDataLoader.SHADERS.get(this.superSecretSettingIndex))));
+                    client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(COLORS[(random.nextInt(COLORS.length))], Formatting.BOLD), String.valueOf(PerspectiveSSSDataLoader.SHADERS_NAME.get(this.superSecretSettingIndex))));
                 }
             }
         } catch (Exception e) {

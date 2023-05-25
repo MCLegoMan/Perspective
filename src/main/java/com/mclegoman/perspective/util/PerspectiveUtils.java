@@ -37,8 +37,8 @@ public class PerspectiveUtils {
         KeyBindingHelper.registerKeyBinding(PerspectiveUtils.KEY_TOGGLE_SUPER_SECRET_SETTINGS);
     }
     public static String booleanToString(boolean BOOLEAN) {
-        if (BOOLEAN) return "ENABLED!";
-        else return "DISABLED!";
+        if (BOOLEAN) return "enabled";
+        else return "disabled";
     }
     static {
         KEY_ZOOM = new KeyBinding("key.perspective.zoom.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "category.perspective.zoom");
