@@ -13,6 +13,5 @@ public class PerspectiveClientMain implements ClientModInitializer {
         PerspectiveConfig.init();
         PerspectiveKeybindRegistry.init();
         PerspectiveUtils.init();
-        PerspectiveUtils.init();
     }
 }
