@@ -3,7 +3,8 @@ package com.mclegoman.perspective.dataloader;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.PerspectiveMain;
+import com.mclegoman.perspective.PerspectiveClientMain;
+import com.mclegoman.perspective.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
@@ -34,7 +35,7 @@ public class PerspectiveSSSDataLoader extends JsonDataLoader implements Identifi
                 addToArrayList(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), ENABLED);
                 addToArrayList((NAMESPACE + ":" + SHADER), ENABLED);
             } catch (Exception e) {
-                PerspectiveMain.LOGGER.error(e.getLocalizedMessage());
+                PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
             }
         });
     }

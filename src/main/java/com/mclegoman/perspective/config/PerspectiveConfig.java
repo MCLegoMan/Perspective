@@ -15,9 +15,9 @@ public class PerspectiveConfig {
     }
     private static void create() {
         CONFIG_PROVIDER.add("zoom properties file");
-        CONFIG_PROVIDER.add(new Pair<>("zoom_level", 80));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_level", 20));
     }
     private static void assign() {
-        ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", 80);
+        ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", 20);
     }
 }

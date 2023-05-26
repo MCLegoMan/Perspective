@@ -3,7 +3,7 @@
   "id": "perspective",
   "version": "${version}",
   "name": "Perspective",
-  "description": "Zoom, Perspective, Super Secret Settings",
+  "description": "Zoom, Perspective, Super Secret Settings\n\nNOTE: Super Secret Settings is a discontinued feature by Mojang AB. You may experience bugs.\nSuper Secret Settings disables when you use the vanilla \"Toggle Perspective (F5)\" keybind. If you use Perspectives keybinds, you will not experience this issue.",
   "authors": [
     "MCLegoMan"
   ],
@@ -15,7 +15,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.mclegoman.perspective.PerspectiveMain"
+      "com.mclegoman.perspective.PerspectiveClientMain"
+    ],
+    "server": [
+      "c"
     ]
   },
   "mixins": [
@@ -24,5 +27,6 @@
   "depends": {
   },
   "suggests": {
-  }
+  },
+  "accessWidener" : "perspective.accesswidener"
 }
