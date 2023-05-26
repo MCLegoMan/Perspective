@@ -1,5 +1,6 @@
 package com.mclegoman.perspective.mixin;
 
+import com.mclegoman.perspective.config.PerspectiveConfig;
 import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.registry.PerspectiveKeybindRegistry;
 import com.mclegoman.perspective.util.PerspectiveUtils;
@@ -23,11 +24,11 @@ public class PerspectiveMouse {
             PerspectiveData.LOGGER.info(String.valueOf(scroll));
             if (scroll > 0) {
                 PerspectiveUtils.zoomIn();
-                PerspectiveUtils.SHOW_ZOOM_LEVEL = 180;
+                PerspectiveUtils.SHOW_OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
             }
             else if (scroll < 0) {
                 PerspectiveUtils.zoomOut();
-                PerspectiveUtils.SHOW_ZOOM_LEVEL = 180;
+                PerspectiveUtils.SHOW_OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
             }
             ci.cancel();
         }

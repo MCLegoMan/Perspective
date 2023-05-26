@@ -5,7 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.PerspectiveClientMain;
 import com.mclegoman.perspective.data.PerspectiveData;
+import com.mclegoman.perspective.util.PerspectiveUtils;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -54,5 +56,6 @@ public class PerspectiveSSSDataLoader extends JsonDataLoader implements Identifi
 
     private void clearArrayLists() {
         SHADERS.clear();
+        SHADERS_NAME.clear();
     }
 }

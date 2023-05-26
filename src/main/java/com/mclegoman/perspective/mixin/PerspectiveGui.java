@@ -21,11 +21,10 @@ public abstract class PerspectiveGui {
     @Shadow @Final private MinecraftClient client;
     @Inject(method="render", at=@At("HEAD"))
     private void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
-        PerspectiveData.LOGGER.info(String.valueOf(PerspectiveUtils.SHOW_ZOOM_LEVEL));
         int ZOOM_AMOUNT = 100 - PerspectiveConfig.ZOOM_LEVEL;
         Text ZOOM_OVERLAY = Text.literal("Zoom Level: " + ZOOM_AMOUNT + "%");
-        if (PerspectiveUtils.SHOW_ZOOM_LEVEL > 0) {
-            PerspectiveUtils.SHOW_ZOOM_LEVEL = PerspectiveUtils.SHOW_ZOOM_LEVEL -1;
+        if (PerspectiveUtils.SHOW_OVERLAY > 0) {
+            PerspectiveUtils.SHOW_OVERLAY = PerspectiveUtils.SHOW_OVERLAY -1;
             context.drawTextWithShadow(this.getTextRenderer(), ZOOM_OVERLAY, (context.getScaledWindowWidth() / 2) - (client.textRenderer.getWidth(ZOOM_OVERLAY) / 2), 8, 0xFFAA00);
         }
     }
