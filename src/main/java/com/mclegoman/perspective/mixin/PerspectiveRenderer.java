@@ -1,11 +1,9 @@
 package com.mclegoman.perspective.mixin;
 
-import com.mclegoman.perspective.PerspectiveClientMain;
+import com.mclegoman.perspective.config.PerspectiveConfig;
 import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.dataloader.PerspectiveSSSDataLoader;
 import com.mclegoman.perspective.util.PerspectiveUtils;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.GameRenderer;
@@ -44,7 +42,7 @@ public abstract class PerspectiveRenderer {
             keySSSCycle();
             keySSSToggle();
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
@@ -53,7 +51,7 @@ public abstract class PerspectiveRenderer {
             if (!this.renderingPanorama) {
                 if (PerspectiveUtils.KEY_ZOOM.isPressed()) {
                     this.renderHand = false;
-                    int ZOOM_AMOUNT = PerspectiveUtils.ZOOM_LEVEL * client.options.getFov().getValue() / 100;
+                    int ZOOM_AMOUNT = PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100;
                     if (ZOOM_AMOUNT <= 0) ZOOM_AMOUNT = 1;
                     if (ZOOM_AMOUNT >= client.options.getFov().getValue()) ZOOM_AMOUNT = client.options.getFov().getValue();
                     callbackInfo.setReturnValue((double) ZOOM_AMOUNT);
@@ -62,7 +60,7 @@ public abstract class PerspectiveRenderer {
                 }
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keySSSCycle() {
@@ -78,13 +76,13 @@ public abstract class PerspectiveRenderer {
                             client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(PerspectiveUtils.COLORS[(random.nextInt(PerspectiveUtils.COLORS.length))], Formatting.BOLD), String.valueOf(PerspectiveSSSDataLoader.SHADERS_NAME.get(PerspectiveUtils.SSS_COUNT))));
                         }
                     } catch (Exception e) {
-                        PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+                        PerspectiveData.LOGGER.error(e.getLocalizedMessage());
                         this.postProcessorEnabled = false;
                     }
                 }
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
             this.postProcessorEnabled = false;
             client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(PerspectiveUtils.COLORS[(random.nextInt(PerspectiveUtils.COLORS.length))], Formatting.BOLD), PerspectiveUtils.booleanToString(this.postProcessorEnabled)));
         }
@@ -97,7 +95,7 @@ public abstract class PerspectiveRenderer {
                 client.options.setPerspective(PerspectiveUtils.PERSPECTIVES[PerspectiveUtils.PERSPECTIVE_COUNT]);
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keySSSToggle() {
@@ -111,7 +109,7 @@ public abstract class PerspectiveRenderer {
                 }
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
             this.postProcessorEnabled = false;
         }
     }
@@ -127,7 +125,7 @@ public abstract class PerspectiveRenderer {
             }
             else PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF_LOCK = false;
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keyHoldTPB() {
@@ -142,7 +140,7 @@ public abstract class PerspectiveRenderer {
             }
             else PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB_LOCK = false;
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keySetFP() {
@@ -151,7 +149,7 @@ public abstract class PerspectiveRenderer {
                 client.options.setPerspective(Perspective.FIRST_PERSON);
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keySetTPF() {
@@ -160,7 +158,7 @@ public abstract class PerspectiveRenderer {
                 client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keySetTPB() {
@@ -169,7 +167,7 @@ public abstract class PerspectiveRenderer {
                 client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
             }
         } catch (Exception e) {
-            PerspectiveClientMain.LOGGER.error(e.getLocalizedMessage());
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
 }

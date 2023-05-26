@@ -1,7 +1,6 @@
 package com.mclegoman.perspective.util;
 
 import com.mclegoman.perspective.config.PerspectiveConfig;
-import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.dataloader.PerspectiveSSSDataLoader;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -15,7 +14,6 @@ import org.lwjgl.glfw.GLFW;
 
 public class PerspectiveUtils {
     public static KeyBinding KEY_ZOOM;
-    public static int ZOOM_LEVEL;
     public static KeyBinding KEY_ZOOM_IN;
     public static KeyBinding KEY_ZOOM_OUT;
     public static KeyBinding KEY_HOLD_PERSPECTIVE_TPF;
@@ -35,8 +33,14 @@ public class PerspectiveUtils {
     public static void init() {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveSSSDataLoader());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (!((ZOOM_LEVEL + 1) > 100) && KEY_ZOOM_OUT.isPressed()) ZOOM_LEVEL = ZOOM_LEVEL + 1;
-            if (!((ZOOM_LEVEL - 1) < 0) && KEY_ZOOM_IN.isPressed()) ZOOM_LEVEL = ZOOM_LEVEL - 1;
+            if (!((PerspectiveConfig.ZOOM_LEVEL + 1) > 100) && KEY_ZOOM_OUT.isPressed()) {
+                PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL + 1;
+                PerspectiveConfig.write_to_file();
+            }
+            if (!((PerspectiveConfig.ZOOM_LEVEL - 1) < 0) && KEY_ZOOM_IN.isPressed()) {
+                PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL - 1;
+                PerspectiveConfig.write_to_file();
+            }
         });
     }
     public static String booleanToString(boolean BOOLEAN) {
@@ -45,7 +49,6 @@ public class PerspectiveUtils {
     }
     static {
         KEY_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "category.perspective.zoom"));
-        ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL;
         KEY_ZOOM_IN = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.in", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_PAGE_UP, "category.perspective.zoom"));
         KEY_ZOOM_OUT = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.out", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_PAGE_DOWN, "category.perspective.zoom"));
         KEY_HOLD_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_X, "category.perspective.zoom"));
