@@ -16,7 +16,8 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Random;
 
 public class PerspectiveKeybindRegistry {
-    public static KeyBinding KEY_ZOOM;
+    public static KeyBinding KEY_HOLD_ZOOM;
+    public static KeyBinding KEY_SET_ZOOM;
     public static KeyBinding KEY_ZOOM_IN;
     public static KeyBinding KEY_ZOOM_OUT;
     public static KeyBinding KEY_HOLD_PERSPECTIVE_TPF;
@@ -35,11 +36,14 @@ public class PerspectiveKeybindRegistry {
 
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (KEY_ZOOM.isPressed()) {
+            if (KEY_HOLD_ZOOM.isPressed()) {
                 IS_ZOOMING = true;
             }
-            if (!KEY_ZOOM.isPressed()) {
+            if (!KEY_HOLD_ZOOM.isPressed()) {
                 IS_ZOOMING = false;
+            }
+            if (KEY_SET_ZOOM.wasPressed()) {
+                IS_ZOOMING = !IS_ZOOMING;
             }
             if (KEY_ZOOM_IN.isPressed()) {
                 IS_ZOOMING_IN = true;
@@ -104,7 +108,8 @@ public class PerspectiveKeybindRegistry {
         });
     }
     static {
-        KEY_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "category.perspective.zoom"));
+        KEY_HOLD_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "category.perspective.zoom"));
+        KEY_SET_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.zoom"));
         KEY_ZOOM_IN = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.in", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_PAGE_UP, "category.perspective.zoom"));
         KEY_ZOOM_OUT = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.out", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_PAGE_DOWN, "category.perspective.zoom"));
         KEY_HOLD_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_X, "category.perspective.zoom"));
