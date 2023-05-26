@@ -19,7 +19,7 @@ public class PerspectiveMouse {
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-        if (PerspectiveKeybindRegistry.IS_ZOOMING) {
+        if (PerspectiveKeybindRegistry.IS_ZOOMING_HOLD || PerspectiveKeybindRegistry.IS_ZOOMING_SET) {
             double scroll = (client.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * client.options.getMouseWheelSensitivity().getValue();
             PerspectiveData.LOGGER.info(String.valueOf(scroll));
             if (scroll > 0) {

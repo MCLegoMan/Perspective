@@ -26,9 +26,10 @@ public class PerspectiveKeybindRegistry {
     public static KeyBinding KEY_SET_PERSPECTIVE_FP;
     public static KeyBinding KEY_SET_PERSPECTIVE_TPF;
     public static KeyBinding KEY_SET_PERSPECTIVE_TPB;
-    public static KeyBinding KEY_CYCLE_SUPER_SECRET_SETTINGS;
     public static KeyBinding KEY_TOGGLE_SUPER_SECRET_SETTINGS;
-    public static boolean IS_ZOOMING;
+    public static KeyBinding KEY_CYCLE_SUPER_SECRET_SETTINGS;
+    public static boolean IS_ZOOMING_HOLD;
+    public static boolean IS_ZOOMING_SET;
     public static boolean IS_ZOOMING_IN;
     public static boolean IS_ZOOMING_OUT;
     public static boolean HOLD_PERSPECTIVE_TPF_LOCK;
@@ -37,13 +38,13 @@ public class PerspectiveKeybindRegistry {
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (KEY_HOLD_ZOOM.isPressed()) {
-                IS_ZOOMING = true;
+                IS_ZOOMING_HOLD = true;
             }
             if (!KEY_HOLD_ZOOM.isPressed()) {
-                IS_ZOOMING = false;
+                IS_ZOOMING_HOLD = false;
             }
             if (KEY_SET_ZOOM.wasPressed()) {
-                IS_ZOOMING = !IS_ZOOMING;
+                IS_ZOOMING_SET = !IS_ZOOMING_SET;
             }
             if (KEY_ZOOM_IN.isPressed()) {
                 IS_ZOOMING_IN = true;
@@ -102,7 +103,7 @@ public class PerspectiveKeybindRegistry {
                         PerspectiveUtils.sendSSSMessage(PerspectiveUtils.booleanToString(client.gameRenderer.postProcessorEnabled));
                     }
                     client.gameRenderer.loadPostProcessor(PerspectiveSSSDataLoader.SHADERS.get(PerspectiveUtils.SSS_COUNT));
-                    PerspectiveUtils.sendSSSMessage(PerspectiveSSSDataLoader.SHADERS_NAME.get(PerspectiveUtils.SSS_COUNT));
+                    PerspectiveUtils.sendSSSMessage(Text.literal(PerspectiveSSSDataLoader.SHADERS_NAME.get(PerspectiveUtils.SSS_COUNT)));
                 }
             }
         });
@@ -118,7 +119,7 @@ public class PerspectiveKeybindRegistry {
         KEY_SET_PERSPECTIVE_FP = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.fp.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.zoom"));
         KEY_SET_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.zoom"));
         KEY_SET_PERSPECTIVE_TPB = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpb.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.zoom"));
-        KEY_CYCLE_SUPER_SECRET_SETTINGS = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.sss.cycle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F7, "category.perspective.sss"));
         KEY_TOGGLE_SUPER_SECRET_SETTINGS = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.sss.toggle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F8, "category.perspective.sss"));
+        KEY_CYCLE_SUPER_SECRET_SETTINGS = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.sss.cycle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F7, "category.perspective.sss"));
     }
 }

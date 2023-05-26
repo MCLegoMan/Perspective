@@ -3,12 +3,16 @@
   "id": "perspective",
   "version": "${version}",
   "name": "Perspective",
-  "description": "Zoom, Perspective, Super Secret Settings\n\nNOTE: Super Secret Settings is a discontinued feature by Mojang AB. You may experience bugs.\nSuper Secret Settings disables when you use the vanilla \"Toggle Perspective (F5)\" keybind. If you use Perspectives keybinds, you will not experience this issue.",
+  "description": "Making perspective easy.\n\nNOTE: Super Secret Settings is a discontinued feature by Mojang AB. You may experience bugs.\nSuper Secret Settings disables when you use the vanilla \"Toggle Perspective (F5)\" keybind. If you use Perspectives keybinds, you will not experience this issue.",
   "authors": [
     "MCLegoMan"
   ],
+  "contributors": [
+  ],
   "contact": {
-    "homepage": "https://twitch.tv/mclegoman"
+    "homepage": "https://github.com/mclegoman",
+    "sources": "https://github.com/mclegoman/perspective",
+    "issues": "https://github.com/mclegoman/perspective/issues"
   },
   "license": "CC-BY 4.0",
   "icon": "assets/perspective/icon.png",
@@ -18,7 +22,7 @@
       "com.mclegoman.perspective.PerspectiveClientMain"
     ],
     "server": [
-      "c"
+      "com.mclegoman.perspective.PerspectiveServer"
     ]
   },
   "mixins": [

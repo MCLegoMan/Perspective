@@ -22,7 +22,7 @@ public abstract class PerspectiveRenderer {
     private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveKeybindRegistry.IS_ZOOMING) {
+                if (PerspectiveKeybindRegistry.IS_ZOOMING_HOLD || PerspectiveKeybindRegistry.IS_ZOOMING_SET) {
                     this.renderHand = false;
                     int ZOOM_AMOUNT = PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100;
                     if (ZOOM_AMOUNT <= 0) ZOOM_AMOUNT = 1;

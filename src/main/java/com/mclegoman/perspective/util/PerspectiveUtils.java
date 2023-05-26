@@ -39,13 +39,13 @@ public class PerspectiveUtils {
             PerspectiveConfig.write_to_file();
         }
     }
-    public static String booleanToString(boolean BOOLEAN) {
-        if (BOOLEAN) return "enabled";
-        else return "disabled";
+    public static Text booleanToString(boolean BOOLEAN) {
+        if (BOOLEAN) return Text.translatable("message.perspective.enabled");
+        else return Text.translatable("message.perspective.disabled");
     }
-    public static void sendSSSMessage(String STRING) {
+    public static void sendSSSMessage(Text TEXT) {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        CLIENT.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(COLORS[(RANDOM.nextInt(PerspectiveUtils.COLORS.length))], Formatting.BOLD), STRING));
+        CLIENT.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.translatable("name.perspective.sss").formatted(COLORS[(RANDOM.nextInt(PerspectiveUtils.COLORS.length))], Formatting.BOLD), TEXT));
     }
     static {
         SHOW_OVERLAY = 0;

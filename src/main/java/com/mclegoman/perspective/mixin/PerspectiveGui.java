@@ -22,7 +22,7 @@ public abstract class PerspectiveGui {
     @Inject(method="render", at=@At("HEAD"))
     private void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
         int ZOOM_AMOUNT = 100 - PerspectiveConfig.ZOOM_LEVEL;
-        Text ZOOM_OVERLAY = Text.literal("Zoom Level: " + ZOOM_AMOUNT + "%");
+        Text ZOOM_OVERLAY = Text.translatable("name.perspective.zoom_overlay", Text.literal(ZOOM_AMOUNT + "%"));
         if (PerspectiveUtils.SHOW_OVERLAY > 0) {
             PerspectiveUtils.SHOW_OVERLAY = PerspectiveUtils.SHOW_OVERLAY -1;
             context.drawTextWithShadow(this.getTextRenderer(), ZOOM_OVERLAY, (context.getScaledWindowWidth() / 2) - (client.textRenderer.getWidth(ZOOM_OVERLAY) / 2), 8, 0xFFAA00);
