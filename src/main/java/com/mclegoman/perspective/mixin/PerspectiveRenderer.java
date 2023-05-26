@@ -3,6 +3,7 @@ package com.mclegoman.perspective.mixin;
 import com.mclegoman.perspective.config.PerspectiveConfig;
 import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.dataloader.PerspectiveSSSDataLoader;
+import com.mclegoman.perspective.registry.PerspectiveKeybindRegistry;
 import com.mclegoman.perspective.util.PerspectiveUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
@@ -49,7 +50,7 @@ public abstract class PerspectiveRenderer {
     private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveUtils.KEY_ZOOM.isPressed()) {
+                if (PerspectiveKeybindRegistry.IS_ZOOMING) {
                     this.renderHand = false;
                     int ZOOM_AMOUNT = PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100;
                     if (ZOOM_AMOUNT <= 0) ZOOM_AMOUNT = 1;
@@ -65,7 +66,7 @@ public abstract class PerspectiveRenderer {
     }
     private void keySSSCycle() {
         try {
-            if (PerspectiveUtils.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) {
+            if (PerspectiveKeybindRegistry.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) {
                 if (client.options.getPerspective().isFirstPerson()) {
                     try {
                         if (this.client.getCameraEntity() instanceof PlayerEntity) {
@@ -89,7 +90,7 @@ public abstract class PerspectiveRenderer {
     }
     private void keyPCycle() {
         try {
-            if (PerspectiveUtils.KEY_CYCLE_PERSPECTIVE.wasPressed()) {
+            if (PerspectiveKeybindRegistry.KEY_CYCLE_PERSPECTIVE.wasPressed()) {
                 if (PerspectiveUtils.PERSPECTIVE_COUNT < (PerspectiveUtils.PERSPECTIVES.length - 1)) PerspectiveUtils.PERSPECTIVE_COUNT = PerspectiveUtils.PERSPECTIVE_COUNT + 1;
                 else PerspectiveUtils.PERSPECTIVE_COUNT = 0;
                 client.options.setPerspective(PerspectiveUtils.PERSPECTIVES[PerspectiveUtils.PERSPECTIVE_COUNT]);
@@ -101,7 +102,7 @@ public abstract class PerspectiveRenderer {
     private void keySSSToggle() {
         try{
             if (this.client.getCameraEntity() instanceof PlayerEntity) {
-                if (PerspectiveUtils.KEY_TOGGLE_SUPER_SECRET_SETTINGS.wasPressed()) {
+                if (PerspectiveKeybindRegistry.KEY_TOGGLE_SUPER_SECRET_SETTINGS.wasPressed()) {
                     if (client.options.getPerspective().isFirstPerson()) {
                         this.postProcessorEnabled = !this.postProcessorEnabled;
                         client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss", Text.literal("[Super Secret Settings]:").formatted(PerspectiveUtils.COLORS[(random.nextInt(PerspectiveUtils.COLORS.length))], Formatting.BOLD), PerspectiveUtils.booleanToString(this.postProcessorEnabled)));
@@ -115,37 +116,37 @@ public abstract class PerspectiveRenderer {
     }
     private void keyHoldTPF() {
         try {
-            if (PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF.isPressed()) {
-                PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF_LOCK = true;
+            if (PerspectiveKeybindRegistry.KEY_HOLD_PERSPECTIVE_TPF.isPressed()) {
+                PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPF_LOCK = true;
                 client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
             }
-            else if (!PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF.isPressed() && PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF_LOCK) {
-                PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF_LOCK = false;
+            else if (!PerspectiveKeybindRegistry.KEY_HOLD_PERSPECTIVE_TPF.isPressed() && PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPF_LOCK) {
+                PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPF_LOCK = false;
                 client.options.setPerspective(Perspective.FIRST_PERSON);
             }
-            else PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPF_LOCK = false;
+            else PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPF_LOCK = false;
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keyHoldTPB() {
         try {
-            if (PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB.isPressed()) {
-                PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB_LOCK = true;
+            if (PerspectiveKeybindRegistry.KEY_HOLD_PERSPECTIVE_TPB.isPressed()) {
+                PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPB_LOCK = true;
                 client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
             }
-            else if (!PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB.isPressed() && PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB_LOCK) {
-                PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB_LOCK = false;
+            else if (!PerspectiveKeybindRegistry.KEY_HOLD_PERSPECTIVE_TPB.isPressed() && PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPB_LOCK) {
+                PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPB_LOCK = false;
                 client.options.setPerspective(Perspective.FIRST_PERSON);
             }
-            else PerspectiveUtils.KEY_HOLD_PERSPECTIVE_TPB_LOCK = false;
+            else PerspectiveKeybindRegistry.HOLD_PERSPECTIVE_TPB_LOCK = false;
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
     private void keySetFP() {
         try {
-            if (PerspectiveUtils.KEY_SET_PERSPECTIVE_FP.wasPressed()) {
+            if (PerspectiveKeybindRegistry.KEY_SET_PERSPECTIVE_FP.wasPressed()) {
                 client.options.setPerspective(Perspective.FIRST_PERSON);
             }
         } catch (Exception e) {
@@ -154,7 +155,7 @@ public abstract class PerspectiveRenderer {
     }
     private void keySetTPF() {
         try {
-            if (PerspectiveUtils.KEY_SET_PERSPECTIVE_TPF.wasPressed()) {
+            if (PerspectiveKeybindRegistry.KEY_SET_PERSPECTIVE_TPF.wasPressed()) {
                 client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
             }
         } catch (Exception e) {
@@ -163,7 +164,7 @@ public abstract class PerspectiveRenderer {
     }
     private void keySetTPB() {
         try {
-            if (PerspectiveUtils.KEY_SET_PERSPECTIVE_TPB.wasPressed()) {
+            if (PerspectiveKeybindRegistry.KEY_SET_PERSPECTIVE_TPB.wasPressed()) {
                 client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
             }
         } catch (Exception e) {
