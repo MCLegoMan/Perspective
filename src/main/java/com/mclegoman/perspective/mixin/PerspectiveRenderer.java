@@ -3,6 +3,7 @@ package com.mclegoman.perspective.mixin;
 import com.mclegoman.perspective.config.PerspectiveConfig;
 import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.registry.PerspectiveKeybindRegistry;
+import com.mclegoman.perspective.util.PerspectiveUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Final;
@@ -22,7 +23,7 @@ public abstract class PerspectiveRenderer {
     private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveKeybindRegistry.IS_ZOOMING_HOLD || PerspectiveKeybindRegistry.IS_ZOOMING_SET) {
+                if (PerspectiveUtils.IS_ZOOMING_HOLD || PerspectiveUtils.IS_ZOOMING_SET) {
                     this.renderHand = false;
                     int ZOOM_AMOUNT = PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100;
                     if (ZOOM_AMOUNT <= 0) ZOOM_AMOUNT = 1;

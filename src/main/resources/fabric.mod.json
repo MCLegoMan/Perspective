@@ -23,6 +23,9 @@
     ],
     "server": [
       "com.mclegoman.perspective.PerspectiveServer"
+    ],
+    "modmenu": [
+      "com.mclegoman.perspective.compat.PerspectiveModMenuCompat"
     ]
   },
   "mixins": [

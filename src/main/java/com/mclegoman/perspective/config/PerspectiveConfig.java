@@ -18,11 +18,11 @@ public class PerspectiveConfig {
     }
     private static void create() {
         CONFIG_PROVIDER.add(new Pair<>("zoom_level", 20));
-        CONFIG_PROVIDER.add(new Pair<>("overlay_delay", 100));
+        CONFIG_PROVIDER.add(new Pair<>("overlay_delay", 200));
     }
     private static void assign() {
         ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", 20);
-        OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", 100);
+        OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", 200);
     }
     public static void write_to_file() {
         PerspectiveConfig.getConfigProvider().write_to_file("zoom_level", PerspectiveConfig.ZOOM_LEVEL);

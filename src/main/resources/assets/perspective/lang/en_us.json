@@ -1,5 +1,6 @@
 {
-    "category.perspective.zoom": "Perspective",
+    "category.perspective.perspective": "Perspective",
+    "key.perspective.config": "Open Config",
     "key.perspective.zoom.hold": "Hold Zoom",
     "key.perspective.zoom.set": "Toggle Zoom",
     "key.perspective.zoom.in": "Adjust Zoom (Increase)",
@@ -13,9 +14,19 @@
     "category.perspective.sss": "Super Secret Settings",
     "key.perspective.sss.toggle": "Toggle Shaders",
     "key.perspective.sss.cycle": "Cycle Shaders",
-    "name.perspective.sss": "[Super Secret Settings]:",
-    "name.perspective.zoom_overlay": "Zoom: %s",
-    "message.perspective.enabled": "enabled",
-    "message.perspective.disabled": "disabled",
-    "chat.perspective.sss": "%s %s"
+    "overlay.perspective.zoom": "§6Zoom: %s",
+    "chat.perspective.enabled": "on",
+    "chat.perspective.disabled": "off",
+    "name.perspective.sss.title": "[Super Secret Settings]:",
+    "chat.perspective.sss.message": "%s %s",
+    "gui.perspective.config.title": "Perspective Config",
+    "gui.perspective.config.zoom_level": "Zoom: %s",
+    "gui.perspective.config.zoom_level.hover": "Sets how zoomed in the game will be when zooming.",
+    "gui.perspective.config.overlay_delay": "Zoom Overlay: %s",
+    "gui.perspective.config.overlay_delay.hover": "Sets how long the overlay will show when changing the zoom level.",
+    "overlay.perspective.warning": "§c§lYou are running a development build of Perspective.\nYou may experience some unexpected bugs.",
+    "gui.perspective.config.reset": "Reset to Default",
+    "gui.perspective.config.reset.hover": "Sets all config values to default.",
+    "gui.perspective.config.back": "Done",
+    "gui.perspective.config.back.hover": "Returns to the previous screen."
 }
