@@ -2,8 +2,6 @@ package com.mclegoman.perspective;
 
 import com.mclegoman.perspective.data.PerspectiveData;
 import net.fabricmc.api.ModInitializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PerspectiveServer implements ModInitializer {
     @Override

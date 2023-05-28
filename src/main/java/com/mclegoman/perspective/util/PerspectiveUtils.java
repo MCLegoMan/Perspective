@@ -1,18 +1,10 @@
 package com.mclegoman.perspective.util;
 
 import com.mclegoman.perspective.config.PerspectiveConfig;
-import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.dataloader.PerspectiveSSSDataLoader;
-import com.mclegoman.perspective.screen.PerspectiveConfigScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resource.ResourceType;

@@ -2,7 +2,6 @@ package com.mclegoman.perspective.mixin;
 
 import com.mclegoman.perspective.config.PerspectiveConfig;
 import com.mclegoman.perspective.data.PerspectiveData;
-import com.mclegoman.perspective.registry.PerspectiveKeybindRegistry;
 import com.mclegoman.perspective.util.PerspectiveUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;

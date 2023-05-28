@@ -1,6 +1,5 @@
 package com.mclegoman.perspective.config;
 
-import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
 

@@ -5,10 +5,8 @@ import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,9 @@
 package com.mclegoman.perspective.mixin;
 
 import com.mclegoman.perspective.config.PerspectiveConfig;
-import com.mclegoman.perspective.data.PerspectiveData;
 import com.mclegoman.perspective.util.PerspectiveUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.text.Text;
