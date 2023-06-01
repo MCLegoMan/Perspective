@@ -1,0 +1,33 @@
+{
+    "targets": [
+        "shareware",
+        "notch",
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "shareware",
+            "intarget": "minecraft:main",
+            "outtarget": "shareware"
+        },
+        {
+            "name": "notch",
+            "intarget": "shareware",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "DitherSampler",
+                    "id": "dither",
+                    "width": 1,
+                    "height": 1,
+                    "bilinear": false
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}
