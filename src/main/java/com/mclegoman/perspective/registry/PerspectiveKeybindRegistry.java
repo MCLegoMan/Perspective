@@ -76,12 +76,15 @@ public class PerspectiveKeybindRegistry {
             }
             if (KEY_SET_PERSPECTIVE_FP.wasPressed()) {
                 client.options.setPerspective(Perspective.FIRST_PERSON);
+                PerspectiveUtils.PERSPECTIVE_COUNT = 0;
             }
             if (KEY_SET_PERSPECTIVE_TPB.wasPressed()) {
                 client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
+                PerspectiveUtils.PERSPECTIVE_COUNT = 1;
             }
             if (KEY_SET_PERSPECTIVE_TPF.wasPressed()) {
                 client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
+                PerspectiveUtils.PERSPECTIVE_COUNT = 2;
             }
             if (KEY_TOGGLE_SUPER_SECRET_SETTINGS.wasPressed()) {
                 PerspectiveUtils.toggleSSS(client);
