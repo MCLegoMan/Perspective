@@ -23,3 +23,6 @@
 ## More Information:  
 Super Secret Settings was hidden from the game in 1.9 for an "internal rewrite".  
 You may experience bugs/issues with this feature.  
+
+**Mod Recommendations:**  
+[Souper Secret Settings by Nettakrim](https://modrinth.com/mod/souper-secret-settings)    
