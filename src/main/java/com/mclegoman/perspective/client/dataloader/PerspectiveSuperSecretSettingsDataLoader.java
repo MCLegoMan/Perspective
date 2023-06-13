@@ -13,14 +13,14 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class PerspectiveSSSDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final ArrayList<Identifier> SHADERS = new ArrayList<>();
     public static final ArrayList<String> SHADERS_NAME = new ArrayList<>();
     public static int getShaderAmount() {
         return SHADERS.size() - 1;
     }
     public static final String ID = "shaders/shaders";
-    public PerspectiveSSSDataLoader() {
+    public PerspectiveSuperSecretSettingsDataLoader() {
         super(new Gson(), ID);
     }
 
