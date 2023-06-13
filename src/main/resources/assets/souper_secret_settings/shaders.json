@@ -1,0 +1,12 @@
+{
+  "namespaces": [
+    {
+      "replace": false,
+      "namespace": "perspective",
+      "shaders": [
+        "grayscale",
+        "shareware"
+      ]
+    }
+  ]
+}
