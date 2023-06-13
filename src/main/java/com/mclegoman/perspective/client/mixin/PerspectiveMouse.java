@@ -1,8 +1,6 @@
 package com.mclegoman.perspective.client.mixin;
 
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
-import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Final;

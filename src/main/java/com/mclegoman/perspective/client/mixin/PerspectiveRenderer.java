@@ -1,8 +1,6 @@
 package com.mclegoman.perspective.client.mixin;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.helpers.PerspectiveTick;
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
