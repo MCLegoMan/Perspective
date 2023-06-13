@@ -1,8 +1,10 @@
-package com.mclegoman.perspective.mixin;
+package com.mclegoman.perspective.client.mixin;
 
-import com.mclegoman.perspective.config.PerspectiveConfig;
-import com.mclegoman.perspective.data.PerspectiveData;
-import com.mclegoman.perspective.util.PerspectiveUtils;
+import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.helpers.PerspectiveTick;
+import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Final;
@@ -22,15 +24,10 @@ public abstract class PerspectiveRenderer {
     private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveUtils.IS_ZOOMING_HOLD || PerspectiveUtils.IS_ZOOMING_SET) {
+                if (PerspectiveZoomUtils.isZooming()) {
                     this.renderHand = false;
-                    int ZOOM_AMOUNT = PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100;
-                    if (ZOOM_AMOUNT <= 0) ZOOM_AMOUNT = 1;
-                    if (ZOOM_AMOUNT >= client.options.getFov().getValue()) ZOOM_AMOUNT = client.options.getFov().getValue();
-                    callbackInfo.setReturnValue((double) ZOOM_AMOUNT);
-                } else {
-                    this.renderHand = true;
-                }
+                    callbackInfo.setReturnValue((double) Math.max(Math.max(1, PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100)));
+                } else this.renderHand = true;
             }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());

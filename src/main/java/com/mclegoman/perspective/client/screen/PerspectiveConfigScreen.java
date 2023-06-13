@@ -1,7 +1,7 @@
-package com.mclegoman.perspective.screen;
+package com.mclegoman.perspective.client.screen;
 
-import com.mclegoman.perspective.config.PerspectiveConfig;
-import com.mclegoman.perspective.data.PerspectiveData;
+import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.font.MultilineText;

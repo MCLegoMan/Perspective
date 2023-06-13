@@ -1,12 +1,12 @@
-package com.mclegoman.perspective.mixin;
+package com.mclegoman.perspective.client.mixin;
 
-import com.mclegoman.perspective.config.PerspectiveConfig;
-import com.mclegoman.perspective.data.PerspectiveData;
-import com.mclegoman.perspective.util.PerspectiveUtils;
+import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,17 +18,10 @@ public class PerspectiveMouse {
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-        if (PerspectiveUtils.IS_ZOOMING_HOLD || PerspectiveUtils.IS_ZOOMING_SET) {
+        if (PerspectiveZoomUtils.isZooming()) {
             double scroll = (client.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * client.options.getMouseWheelSensitivity().getValue();
-            PerspectiveData.LOGGER.info(String.valueOf(scroll));
-            if (scroll > 0) {
-                PerspectiveUtils.zoomIn();
-                PerspectiveUtils.SHOW_OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
-            }
-            else if (scroll < 0) {
-                PerspectiveUtils.zoomOut();
-                PerspectiveUtils.SHOW_OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
-            }
+            if (scroll > 0) PerspectiveZoomUtils.in();
+            else if (scroll < 0) PerspectiveZoomUtils.out();
             ci.cancel();
         }
     }

@@ -1,9 +1,9 @@
-package com.mclegoman.perspective.dataloader;
+package com.mclegoman.perspective.client.dataloader;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.data.PerspectiveData;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
@@ -17,6 +17,9 @@ import java.util.Map;
 public class PerspectiveSSSDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final ArrayList<Identifier> SHADERS = new ArrayList<>();
     public static final ArrayList<String> SHADERS_NAME = new ArrayList<>();
+    public static int getShaderAmount() {
+        return SHADERS.size() - 1;
+    }
     public static final String ID = "shaders/shaders";
     public PerspectiveSSSDataLoader() {
         super(new Gson(), ID);

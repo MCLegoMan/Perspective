@@ -8,6 +8,7 @@
     "MCLegoMan"
   ],
   "contributors": [
+    "Nettakrim"
   ],
   "contact": {
     "homepage": "https://github.com/mclegoman",
@@ -19,13 +20,13 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.mclegoman.perspective.PerspectiveClientMain"
+      "com.mclegoman.perspective.client.PerspectiveClient"
     ],
     "server": [
-      "com.mclegoman.perspective.PerspectiveServer"
+      "com.mclegoman.perspective.server.PerspectiveServer"
     ],
     "modmenu": [
-      "com.mclegoman.perspective.compat.PerspectiveModMenuCompat"
+      "com.mclegoman.perspective.compat.PerspectiveModMenu"
     ]
   },
   "mixins": [
