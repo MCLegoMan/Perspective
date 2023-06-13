@@ -28,5 +28,9 @@
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Sets all config values to default.",
     "gui.perspective.config.back": "Done",
-    "gui.perspective.config.back.hover": "Returns to the previous screen."
+    "gui.perspective.config.back.hover": "Returns to the previous screen.",
+    "gui.perspective.config.contribute": "Contribute",
+    "gui.perspective.config.contribute.hover": "Opens the Perspective Github page in your web browser.",
+    "gui.perspective.config.bug_report": "Report a bug",
+    "gui.perspective.config.bug_report.hover": "Opens the Perspective Issues page in your web browser."
 }

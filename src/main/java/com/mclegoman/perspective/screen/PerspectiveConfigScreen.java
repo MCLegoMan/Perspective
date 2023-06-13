@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
@@ -49,6 +50,8 @@ public class PerspectiveConfigScreen extends Screen {
                 PerspectiveConfig.OVERLAY_DELAY = (int) ((value) * 1000);
             }
         }, 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.overlay_delay.hover"), Text.translatable("gui.perspective.config.overlay_delay.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.contribute.hover"), Text.translatable("gui.perspective.config.contribute.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.bug_report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.bug_report.hover"), Text.translatable("gui.perspective.config.bug_report.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
             PerspectiveConfig.ZOOM_LEVEL = 20;
             PerspectiveConfig.OVERLAY_DELAY = 200;
@@ -75,7 +78,7 @@ public class PerspectiveConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
-        if (PerspectiveData.DEVELOPMENT_BUILD) {
+        if (PerspectiveData.IS_DEVELOPMENT) {
             MultilineText WARNING = MultilineText.create(this.textRenderer, Text.translatable("overlay.perspective.warning"), this.width - 100);
             WARNING.drawCenterWithShadow(context, this.width / 2, 16, 9, 0xFFFFFF);
         }
