@@ -28,6 +28,7 @@ public abstract class PerspectiveRenderer {
                 } else this.renderHand = true;
             }
         } catch (Exception e) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst zooming.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
