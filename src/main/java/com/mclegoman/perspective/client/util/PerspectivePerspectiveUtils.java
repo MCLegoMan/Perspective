@@ -72,6 +72,8 @@ public class PerspectivePerspectiveUtils {
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Perspectives.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+            PerspectiveConfig.SUPER_SECRET_SETTINGS = 0;
+            PerspectiveConfig.write_to_file();
         }
     }
 }
