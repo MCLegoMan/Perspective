@@ -50,6 +50,8 @@ public class PerspectiveSuperSecretSettingsUtil {
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+            PerspectiveConfig.SUPER_SECRET_SETTINGS = 0;
+            PerspectiveConfig.write_to_file();
         }
     }
     private static Text booleanToString(boolean BOOLEAN) {
