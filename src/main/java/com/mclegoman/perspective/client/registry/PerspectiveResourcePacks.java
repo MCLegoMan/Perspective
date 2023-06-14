@@ -16,11 +16,11 @@ import net.minecraft.util.Identifier;
 
 public class PerspectiveResourcePacks {
     /**
-     When including custom shaders with Perspective, create a new resource pack and register it here along with a comment with the following details:
-     Resource Pack: ___________________
-     Author: _________
-     Github: https://github.com/_________
-     Licence: _________
+        When including custom shaders with Perspective, create a new resource pack and register it here along with a comment with the following details:
+        Resource Pack: ___________________
+        Author: _________
+        Github: https://github.com/_________
+        Licence: _________
      **/
     public static void init() {
         /*
