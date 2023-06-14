@@ -8,7 +8,6 @@
 
 package com.mclegoman.perspective.client.registry;
 
-import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -29,9 +28,6 @@ public class PerspectiveKeybindings {
     public static KeyBinding KEY_CYCLE_SUPER_SECRET_SETTINGS;
     public static KeyBinding KEY_CONFIG;
     public static void init() {
-        PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing Keybindings");
-    }
-    static {
         KEY_CONFIG = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.config", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_HOLD_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "category.perspective.perspective"));
         KEY_SET_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
