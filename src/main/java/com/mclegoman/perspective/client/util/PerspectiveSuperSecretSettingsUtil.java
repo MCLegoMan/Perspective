@@ -27,7 +27,8 @@ public class PerspectiveSuperSecretSettingsUtil {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveSuperSecretSettingsDataLoader());
     }
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client);
+        if (!client.options.sneakKey.isPressed() && PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client, true);
+        if (client.options.sneakKey.isPressed() && PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client, false);
         if (PerspectiveKeybindings.KEY_TOGGLE_SUPER_SECRET_SETTINGS.wasPressed()) toggle(client);
     }
     public static void toggle(MinecraftClient client) {
@@ -40,10 +41,15 @@ public class PerspectiveSuperSecretSettingsUtil {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }
-    public static void cycle(MinecraftClient client) {
+    public static void cycle(MinecraftClient client, boolean forwards) {
         try {
-            if (PerspectiveConfig.SUPER_SECRET_SETTINGS < PerspectiveSuperSecretSettingsDataLoader.getShaderAmount()) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS + 1;
-            else PerspectiveConfig.SUPER_SECRET_SETTINGS = 0;
+            if (forwards) {
+                if (PerspectiveConfig.SUPER_SECRET_SETTINGS < PerspectiveSuperSecretSettingsDataLoader.getShaderAmount()) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS + 1;
+                else PerspectiveConfig.SUPER_SECRET_SETTINGS = 0;
+            } else {
+                if (PerspectiveConfig.SUPER_SECRET_SETTINGS > 0) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS - 1;
+                else PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveSuperSecretSettingsDataLoader.getShaderAmount();
+            }
             if (!client.gameRenderer.postProcessorEnabled) toggle(client);
             else set(client);
         } catch (Exception e) {
