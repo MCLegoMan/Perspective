@@ -3,7 +3,6 @@
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
     License: CC-BY 4.0
-
 */
 
 package com.mclegoman.perspective.client.config;

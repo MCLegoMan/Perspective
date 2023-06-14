@@ -3,7 +3,6 @@
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
     License: CC-BY 4.0
-
 */
 
 package com.mclegoman.perspective.client.util;
@@ -27,8 +26,7 @@ public class PerspectiveSuperSecretSettingsUtil {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveSuperSecretSettingsDataLoader());
     }
     public static void tick(MinecraftClient client) {
-        if (!client.options.sneakKey.isPressed() && PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client, true);
-        if (client.options.sneakKey.isPressed() && PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client, false);
+        if (PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client, client.options.sneakKey.isPressed());
         if (PerspectiveKeybindings.KEY_TOGGLE_SUPER_SECRET_SETTINGS.wasPressed()) toggle(client);
     }
     public static void toggle(MinecraftClient client) {
@@ -41,7 +39,7 @@ public class PerspectiveSuperSecretSettingsUtil {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }
-    public static void cycle(MinecraftClient client, boolean forwards) {
+    public static void cycle(MinecraftClient client, Boolean forwards) {
         try {
             if (forwards) {
                 if (PerspectiveConfig.SUPER_SECRET_SETTINGS < PerspectiveSuperSecretSettingsDataLoader.getShaderAmount()) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS + 1;
@@ -69,7 +67,7 @@ public class PerspectiveSuperSecretSettingsUtil {
             PerspectiveConfig.write_to_file();
         }
     }
-    private static Text booleanToString(boolean BOOLEAN) {
+    private static Text booleanToString(Boolean BOOLEAN) {
         if (BOOLEAN) return Text.translatable("chat.perspective.enabled");
         else return Text.translatable("chat.perspective.disabled");
     }

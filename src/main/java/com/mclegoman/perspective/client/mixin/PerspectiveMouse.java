@@ -3,7 +3,6 @@
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
     License: CC-BY 4.0
-
 */
 
 package com.mclegoman.perspective.client.mixin;
@@ -26,8 +25,8 @@ public class PerspectiveMouse {
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (PerspectiveZoomUtils.isZooming()) {
             double scroll = (client.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * client.options.getMouseWheelSensitivity().getValue();
-            if (scroll > 0) PerspectiveZoomUtils.in();
-            else if (scroll < 0) PerspectiveZoomUtils.out();
+            if (scroll > 0) PerspectiveZoomUtils.zoom(true);
+            else if (scroll < 0) PerspectiveZoomUtils.zoom(false);
             ci.cancel();
         }
     }

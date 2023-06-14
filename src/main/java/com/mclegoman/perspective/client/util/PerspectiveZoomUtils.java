@@ -3,7 +3,6 @@
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
     License: CC-BY 4.0
-
 */
 
 package com.mclegoman.perspective.client.util;
@@ -19,22 +18,16 @@ public class PerspectiveZoomUtils {
         return PerspectiveKeybindings.KEY_HOLD_ZOOM.isPressed() || SET_ZOOM;
     }
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.KEY_ZOOM_IN.wasPressed()) in();
-        if (PerspectiveKeybindings.KEY_ZOOM_OUT.wasPressed()) out();
+        if (PerspectiveKeybindings.KEY_ZOOM_IN.wasPressed()) zoom(true);
+        if (PerspectiveKeybindings.KEY_ZOOM_OUT.wasPressed()) zoom(false);
         if (PerspectiveKeybindings.KEY_SET_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
-        if (OVERLAY > 0) OVERLAY = OVERLAY -1;
+        if (OVERLAY > 0) OVERLAY = OVERLAY - 1;
     }
-    public static void in() {
+    public static void zoom(boolean in) {
         OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
-        if (!((PerspectiveConfig.ZOOM_LEVEL - 1) < 0)) {
-            PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL - 1;
-            PerspectiveConfig.write_to_file();
-        }
-    }
-    public static void out() {
-        OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
-        if (!((PerspectiveConfig.ZOOM_LEVEL + 1) > 100)) {
-            PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL + 1;
+        if (!((PerspectiveConfig.ZOOM_LEVEL - 1) < 0) && !((PerspectiveConfig.ZOOM_LEVEL + 1) > 100)) {
+            if (in) PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL - 1;
+            else PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL + 1;
             PerspectiveConfig.write_to_file();
         }
     }

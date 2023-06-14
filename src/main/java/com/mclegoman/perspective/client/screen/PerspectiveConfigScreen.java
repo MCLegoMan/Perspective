@@ -3,7 +3,6 @@
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
     License: CC-BY 4.0
-
 */
 
 package com.mclegoman.perspective.client.screen;
@@ -61,9 +60,7 @@ public class PerspectiveConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.contribute.hover"), Text.translatable("gui.perspective.config.contribute.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.bug_report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.bug_report.hover"), Text.translatable("gui.perspective.config.bug_report.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
-            PerspectiveConfig.ZOOM_LEVEL = 20;
-            PerspectiveConfig.OVERLAY_DELAY = 200;
-            PerspectiveConfig.write_to_file();
+            PerspectiveConfig.reset();
             client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {
