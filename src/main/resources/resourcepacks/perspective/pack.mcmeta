@@ -1,0 +1,11 @@
+{
+  "pack": {
+    "pack_format": 15,
+    "description": [
+      {
+        "translate": "resourcepack.perspective.default.description",
+        "color": "light_gray"
+      }
+    ]
+  }
+}

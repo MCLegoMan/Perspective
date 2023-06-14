@@ -3,7 +3,7 @@
   "id": "perspective",
   "version": "${version}",
   "name": "Perspective",
-  "description": "Making perspective easy.\n\nNOTE: Super Secret Settings is a discontinued feature by Mojang AB. You may experience bugs.\nSuper Secret Settings disables when you use the vanilla \"Toggle Perspective (F5)\" keybind. If you use Perspectives keybinds, you will not experience this issue.",
+  "description": "Zoom, Perspective, Super Secret Settings for FabricMC.\nIncluded Custom Shaders:\n- Shareware (Credit: MCLegoMan)\n- Grayscale (Credit: MCLegoMan)\nShader Fixes:\n- Bits (Credit: Nettakrim)\n- Blur (Credit: Nettakrim)\n- Flip (Credit: Nettakrim)\n- Outline (Credit: Nettakrim)\nYou can add custom Super Secret Settings using resource packs in both the Perspective and Souper Secret Settings layouts.",
   "authors": [
     "MCLegoMan"
   ],

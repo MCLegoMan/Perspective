@@ -1,3 +1,11 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+
+*/
+
 package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -24,7 +32,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
         return CONTENTS;
     }
     public void getContents() {
-        String contents = ("#perspective properties file\n");
+        String contents = ("#" + PerspectiveData.ID + " properties file\n");
         for (Pair<String, ?> option : CONFIG_LIST) {
             contents += option.getFirst() + "=" + option.getSecond() + "\n";
         }
@@ -42,7 +50,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
             }
             CONFIG_LIST = NEW_CONFIG_LIST;
             getContents();
-            PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve("perspective.properties").toFile(), StandardCharsets.UTF_8);
+            PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve(PerspectiveData.ID + ".properties").toFile(), StandardCharsets.UTF_8);
             writer.write(CONTENTS);
             writer.close();
         } catch (Exception e) {

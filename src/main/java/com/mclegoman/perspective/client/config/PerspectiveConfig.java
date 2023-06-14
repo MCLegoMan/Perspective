@@ -1,7 +1,16 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+
+*/
+
 package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.screen.PerspectiveConfigScreen;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.MinecraftClient;
@@ -17,7 +26,7 @@ public class PerspectiveConfig {
     public static void init() {
         CONFIG_PROVIDER = new PerspectiveConfigProvider();
         create();
-        CONFIG = SimpleConfig.of("perspective").provider(CONFIG_PROVIDER).request();
+        CONFIG = SimpleConfig.of(PerspectiveData.ID).provider(CONFIG_PROVIDER).request();
         assign();
     }
     private static void create() {

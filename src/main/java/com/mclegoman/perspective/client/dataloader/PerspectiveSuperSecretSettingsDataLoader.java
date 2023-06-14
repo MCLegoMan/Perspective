@@ -1,3 +1,11 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+
+*/
+
 package com.mclegoman.perspective.client.dataloader;
 
 import com.google.gson.Gson;
@@ -33,11 +41,10 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
             clearArrayLists();
             prepared.forEach((identifier, jsonElement) -> {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    String NAMESPACE = JsonHelper.getString(jsonObject, "namespace");
+                    String NAMESPACE = JsonHelper.getString(jsonObject, "namespace", PerspectiveData.ID);
                     String SHADER = JsonHelper.getString(jsonObject, "shader");
-                    Boolean ENABLED = JsonHelper.getBoolean(jsonObject, "enabled");
-                    addToArrayList(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), ENABLED);
-                    addToArrayList((NAMESPACE + ":" + SHADER), ENABLED);
+                    Boolean ENABLED = JsonHelper.getBoolean(jsonObject, "enabled", true);
+                    sendToArray(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), (NAMESPACE + ":" + SHADER), ENABLED);
             });
             parseSouperSecretSettingsShader(manager);
         } catch (Exception e) {
@@ -48,14 +55,21 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("perspective", ID);
+        return new Identifier(PerspectiveData.ID, ID);
     }
 
-    private void addToArrayList(Identifier id, Boolean enabled) {
-        if (enabled && !SHADERS.contains(id)) SHADERS.add(id);
-    }
-    private void addToArrayList(String name, Boolean enabled) {
-        if (enabled && !SHADERS_NAME.contains(name)) SHADERS_NAME.add(name);
+    private void sendToArray(Identifier id, String name, Boolean enabled) {
+        if (enabled) {
+            if (!SHADERS.contains(id) && !SHADERS_NAME.contains(name)) {
+                SHADERS.add(id);
+                SHADERS_NAME.add(name);
+            }
+        } else {
+            if (SHADERS.contains(id) && SHADERS_NAME.contains(name)) {
+                SHADERS.remove(id);
+                SHADERS_NAME.remove(name);
+            }
+        }
     }
 
     private void clearArrayLists() {
@@ -71,12 +85,12 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
                 JsonObject souper_shaders = JsonHelper.deserialize(resource.getReader());
                 for (JsonElement shaderspaces : souper_shaders.getAsJsonArray("namespaces")) {
                     JsonObject shaderspaces_object = JsonHelper.asObject(shaderspaces, "namespacelist");
-                    String NAMESPACE = JsonHelper.getString(shaderspaces_object, "namespace");
+                    String NAMESPACE = JsonHelper.getString(shaderspaces_object, "namespace", PerspectiveData.ID);
                     JsonArray shaders = JsonHelper.getArray(shaderspaces_object, "shaders");
+                    Boolean ENABLED = JsonHelper.getBoolean(shaderspaces_object, "enabled", true);
                     for (JsonElement shader : shaders) {
                         String SHADER = shader.getAsString().replace("\"", "");
-                        addToArrayList(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), true);
-                        addToArrayList((NAMESPACE + ":" + SHADER), true);
+                        sendToArray(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), (NAMESPACE + ":" + SHADER), ENABLED);
                     }
                 }
             }

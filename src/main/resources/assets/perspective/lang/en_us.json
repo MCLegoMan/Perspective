@@ -32,5 +32,7 @@
     "gui.perspective.config.contribute": "Contribute",
     "gui.perspective.config.contribute.hover": "Opens the Perspective Github page in your web browser.",
     "gui.perspective.config.bug_report": "Report a bug",
-    "gui.perspective.config.bug_report.hover": "Opens the Perspective Issues page in your web browser."
+    "gui.perspective.config.bug_report.hover": "Opens the Perspective Issues page in your web browser.",
+    "resourcepack.perspective.default.name": "Perspective Shaders",
+    "resourcepack.perspective.default.description": "Custom Super Secret Settings"
 }
