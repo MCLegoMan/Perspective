@@ -22,11 +22,11 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.Map;
 
 public class PerspectiveConfigDefaultsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-    public static int ZOOM_LEVEL;
-    public static int OVERLAY_DELAY;
-    public static int SUPER_SECRET_SETTINGS;
-    public static int PERSPECTIVE;
-    private static final String ID = "config";
+    public static int ZOOM_LEVEL = 20;
+    public static int OVERLAY_DELAY = 20;
+    public static int SUPER_SECRET_SETTINGS = 0;
+    public static int PERSPECTIVE = 0;
+    private static final String ID = "config.json";
     public PerspectiveConfigDefaultsDataLoader() {
         super(new Gson(), ID);
     }
