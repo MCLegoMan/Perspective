@@ -57,13 +57,13 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
         try {
             clear();
             // Perspective Resource Pack Layout
-            for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
-                JsonObject READER = JsonHelper.deserialize(resource.getReader());
+            prepared.forEach((identifier, jsonElement) -> {
+                JsonObject READER = jsonElement.getAsJsonObject();
                 String NAMESPACE = JsonHelper.getString(READER, "namespace", PerspectiveData.ID);
                 String SHADER = JsonHelper.getString(READER, "shader");
                 Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
                 add(NAMESPACE, SHADER, ENABLED);
-            }
+            });
             // Souper Secret Settings Resource Pack Layout Compatibility
             // https://github.com/Nettakrim/Souper-Secret-Settings
             for (Resource resource : manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"))) {
