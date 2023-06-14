@@ -21,7 +21,8 @@ import net.minecraft.util.Formatting;
 import java.util.Random;
 
 public class PerspectiveSuperSecretSettingsUtil {
-    public static Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
+    private static Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
+    private static Formatting LAST_COLOR;
     public static void init() {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveSuperSecretSettingsDataLoader());
     }
@@ -67,7 +68,13 @@ public class PerspectiveSuperSecretSettingsUtil {
         else return Text.translatable("chat.perspective.disabled");
     }
     private static void sendMessage(MinecraftClient client, Text message) {
+        client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss.message", Text.translatable("name.perspective.sss.title").formatted(getRandomColor(), Formatting.BOLD), message));
+    }
+    private static Formatting getRandomColor() {
         Random random = new Random();
-        client.inGameHud.getChatHud().addMessage(Text.translatable("chat.perspective.sss.message", Text.translatable("name.perspective.sss.title").formatted(COLORS[(random.nextInt(COLORS.length))], Formatting.BOLD), message));
+        Formatting COLOR = LAST_COLOR;
+        while (COLOR == LAST_COLOR) COLOR = COLORS[(random.nextInt(COLORS.length))];
+        LAST_COLOR = COLOR;
+        return COLOR;
     }
 }

@@ -31,7 +31,7 @@ public class PerspectiveConfig {
     }
     private static void create() {
         CONFIG_PROVIDER.add(new Pair<>("zoom_level", 20));
-        CONFIG_PROVIDER.add(new Pair<>("overlay_delay", 200));
+        CONFIG_PROVIDER.add(new Pair<>("overlay_delay", 20));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", 0));
         CONFIG_PROVIDER.add(new Pair<>("perspective", 0));
     }
@@ -39,7 +39,7 @@ public class PerspectiveConfig {
         ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", 20);
         OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", 200);
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", 0);
-        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("perspective", 0);
+        PERSPECTIVE = CONFIG.getOrDefault("perspective", 0);
     }
     public static void write_to_file() {
         PerspectiveConfig.getConfigProvider().write_to_file("zoom_level", PerspectiveConfig.ZOOM_LEVEL);

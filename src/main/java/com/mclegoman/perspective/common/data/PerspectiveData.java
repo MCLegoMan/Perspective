@@ -21,8 +21,8 @@ public class PerspectiveData {
     public static final String ID = "perspective";
     public static final Integer MAJOR_VERSION = 1;
     public static final Integer MINOR_VERSION = 0;
-    public static final Integer PATCH_VERSION = 0;
-    public static final RTUReleaseTypes RELEASE_TYPE = RTUReleaseTypes.RELEASE;
+    public static final Integer PATCH_VERSION = 1;
+    public static final RTUReleaseTypes RELEASE_TYPE = RTUReleaseTypes.RELEASE_CANDIDATE;
     public static final Integer BUILD_VERSION = 1;
     public static final Boolean IS_DEVELOPMENT = RTUReleaseTypeHelper.isDevelopment(RELEASE_TYPE);
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION + "-" + RTUReleaseTypeHelper.getString(RELEASE_TYPE, RTUTranslationTypes.NORMAL) + "." + BUILD_VERSION;
