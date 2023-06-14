@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.client.config;
 
-import com.mclegoman.perspective.client.dataloader.PerspectiveConfigDefaultsDataLoader;
+import com.mclegoman.perspective.client.dataloader.PerspectiveDefaultConfigDataLoader;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.screen.PerspectiveConfigScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -26,29 +26,29 @@ public class PerspectiveConfig {
     public static int SUPER_SECRET_SETTINGS;
     public static int PERSPECTIVE;
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDefaultsDataLoader());
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveDefaultConfigDataLoader());
         CONFIG_PROVIDER = new PerspectiveConfigProvider();
         create();
         CONFIG = SimpleConfig.of(PerspectiveData.ID).provider(CONFIG_PROVIDER).request();
         assign();
     }
     private static void create() {
-        CONFIG_PROVIDER.add(new Pair<>("zoom_level", PerspectiveConfigDefaultsDataLoader.ZOOM_LEVEL));
-        CONFIG_PROVIDER.add(new Pair<>("overlay_delay", PerspectiveConfigDefaultsDataLoader.OVERLAY_DELAY));
-        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", PerspectiveConfigDefaultsDataLoader.SUPER_SECRET_SETTINGS));
-        CONFIG_PROVIDER.add(new Pair<>("perspective", PerspectiveConfigDefaultsDataLoader.PERSPECTIVE));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL));
+        CONFIG_PROVIDER.add(new Pair<>("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY));
+        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS));
+        CONFIG_PROVIDER.add(new Pair<>("perspective", PerspectiveDefaultConfigDataLoader.PERSPECTIVE));
     }
     private static void assign() {
-        ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveConfigDefaultsDataLoader.ZOOM_LEVEL);
-        OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", PerspectiveConfigDefaultsDataLoader.OVERLAY_DELAY);
-        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveConfigDefaultsDataLoader.SUPER_SECRET_SETTINGS);
-        PERSPECTIVE = CONFIG.getOrDefault("perspective", PerspectiveConfigDefaultsDataLoader.PERSPECTIVE);
+        ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
+        OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY);
+        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS);
+        PERSPECTIVE = CONFIG.getOrDefault("perspective", PerspectiveDefaultConfigDataLoader.PERSPECTIVE);
     }
     public static void reset() {
-        ZOOM_LEVEL = PerspectiveConfigDefaultsDataLoader.ZOOM_LEVEL;
-        OVERLAY_DELAY = PerspectiveConfigDefaultsDataLoader.OVERLAY_DELAY;
-        SUPER_SECRET_SETTINGS = PerspectiveConfigDefaultsDataLoader.SUPER_SECRET_SETTINGS;
-        PERSPECTIVE = PerspectiveConfigDefaultsDataLoader.PERSPECTIVE;
+        ZOOM_LEVEL = PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL;
+        OVERLAY_DELAY = PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY;
+        SUPER_SECRET_SETTINGS = PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS;
+        PERSPECTIVE = PerspectiveDefaultConfigDataLoader.PERSPECTIVE;
         write_to_file();
     }
     public static void write_to_file() {

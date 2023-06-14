@@ -16,7 +16,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PerspectiveSuperSecretSettingsUtil {

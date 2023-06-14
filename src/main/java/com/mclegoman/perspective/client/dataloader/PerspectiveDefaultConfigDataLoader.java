@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.dataloader;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -19,26 +20,27 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 
+import java.util.ArrayList;
 import java.util.Map;
 
-public class PerspectiveConfigDefaultsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static int ZOOM_LEVEL = 20;
     public static int OVERLAY_DELAY = 20;
     public static int SUPER_SECRET_SETTINGS = 0;
     public static int PERSPECTIVE = 0;
-    private static final String ID = "config.json";
-    public PerspectiveConfigDefaultsDataLoader() {
+    public static final String ID = "config";
+    public PerspectiveDefaultConfigDataLoader() {
         super(new Gson(), ID);
     }
+
     @Override
     public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
         try {
-            for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, "config.json"))) {
-                JsonObject default_settings = JsonHelper.deserialize(resource.getReader());
-                ZOOM_LEVEL = JsonHelper.getInt(default_settings, "zoom_level", 20);
-                OVERLAY_DELAY = JsonHelper.getInt(default_settings, "overlay_delay", 20);
-                SUPER_SECRET_SETTINGS = JsonHelper.getInt(default_settings, "super_secret_settings", 0);
-                PERSPECTIVE = JsonHelper.getInt(default_settings, "perspective", 0);
+            for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
+                ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level");
+                OVERLAY_DELAY = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "overlay_delay");
+                SUPER_SECRET_SETTINGS = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "super_secret_settings");
+                PERSPECTIVE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "perspective");
             }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst loading Default Config data.");

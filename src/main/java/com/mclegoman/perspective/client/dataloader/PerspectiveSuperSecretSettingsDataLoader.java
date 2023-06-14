@@ -19,7 +19,6 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -29,73 +28,61 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
     public static int getShaderAmount() {
         return SHADERS.size() - 1;
     }
+    private void add(String NAMESPACE, String SHADER, Boolean ENABLED) {
+        SHADER = SHADER.replace("\"", "");
+        Identifier ID = new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json"));
+        String NAME = NAMESPACE + ":" + SHADER;
+        if (ENABLED) {
+            if (!SHADERS.contains(ID) && !SHADERS_NAME.contains(NAME)) {
+                SHADERS.add(ID);
+                SHADERS_NAME.add(NAME);
+            }
+        } else {
+            if (SHADERS.contains(ID) && SHADERS_NAME.contains(NAME)) {
+                SHADERS.remove(ID);
+                SHADERS_NAME.remove(NAME);
+            }
+        }
+    }
+    private void clear() {
+        SHADERS.clear();
+        SHADERS_NAME.clear();
+    }
     public static final String ID = "shaders/shaders";
     public PerspectiveSuperSecretSettingsDataLoader() {
         super(new Gson(), ID);
     }
-
     @Override
     public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
         try {
-            clearArrayLists();
-            prepared.forEach((identifier, jsonElement) -> {
-                    JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    String NAMESPACE = JsonHelper.getString(jsonObject, "namespace", PerspectiveData.ID);
-                    String SHADER = JsonHelper.getString(jsonObject, "shader");
-                    Boolean ENABLED = JsonHelper.getBoolean(jsonObject, "enabled", true);
-                    sendToArray(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), (NAMESPACE + ":" + SHADER), ENABLED);
-            });
-            parseSouperSecretSettingsShader(manager);
+            clear();
+            // Perspective Resource Pack Layout
+            for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
+                JsonObject READER = JsonHelper.deserialize(resource.getReader());
+                String NAMESPACE = JsonHelper.getString(READER, "namespace", PerspectiveData.ID);
+                String SHADER = JsonHelper.getString(READER, "shader");
+                Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
+                add(NAMESPACE, SHADER, ENABLED);
+            }
+            // Souper Secret Settings Resource Pack Layout Compatibility
+            // https://github.com/Nettakrim/Souper-Secret-Settings
+            for (Resource resource : manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"))) {
+                JsonObject READER = JsonHelper.deserialize(resource.getReader());
+                for (JsonElement namespaces : READER.getAsJsonArray("namespaces")) {
+                    JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
+                    String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.ID);
+                    JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders");
+                    Boolean ENABLED = JsonHelper.getBoolean(namespacelist, "enabled", true);
+                    for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), ENABLED);
+                }
+            }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst loading Super Secret Settings data.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }
-
     @Override
     public Identifier getFabricId() {
         return new Identifier(PerspectiveData.ID, ID);
-    }
-
-    private void sendToArray(Identifier id, String name, Boolean enabled) {
-        if (enabled) {
-            if (!SHADERS.contains(id) && !SHADERS_NAME.contains(name)) {
-                SHADERS.add(id);
-                SHADERS_NAME.add(name);
-            }
-        } else {
-            if (SHADERS.contains(id) && SHADERS_NAME.contains(name)) {
-                SHADERS.remove(id);
-                SHADERS_NAME.remove(name);
-            }
-        }
-    }
-
-    private void clearArrayLists() {
-        SHADERS.clear();
-        SHADERS_NAME.clear();
-    }
-
-    // Souper Secret Settings Resource Pack Compatibility
-    // https://github.com/Nettakrim/Souper-Secret-Settings
-    private void parseSouperSecretSettingsShader(ResourceManager resourceManager) {
-        try {
-            for (Resource resource : resourceManager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"))) {
-                JsonObject souper_shaders = JsonHelper.deserialize(resource.getReader());
-                for (JsonElement shaderspaces : souper_shaders.getAsJsonArray("namespaces")) {
-                    JsonObject shaderspaces_object = JsonHelper.asObject(shaderspaces, "namespacelist");
-                    String NAMESPACE = JsonHelper.getString(shaderspaces_object, "namespace", PerspectiveData.ID);
-                    JsonArray shaders = JsonHelper.getArray(shaderspaces_object, "shaders");
-                    Boolean ENABLED = JsonHelper.getBoolean(shaderspaces_object, "enabled", true);
-                    for (JsonElement shader : shaders) {
-                        String SHADER = shader.getAsString().replace("\"", "");
-                        sendToArray(new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json")), (NAMESPACE + ":" + SHADER), ENABLED);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst loading 'Souper Secret Settings' Super Secret Settings data.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
-        }
     }
 }
