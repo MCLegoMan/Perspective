@@ -2,4 +2,4 @@
 
  - [ ] Resource Pack Documentation  
  - [ ] Move LegoLib API Data to Perspective  
- - [ ] Move Flip and Nameable Entities from LegoLib
+ - [ ] Move Nameable Flip/Texture Entities from LegoLib
