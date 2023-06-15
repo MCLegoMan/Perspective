@@ -11,8 +11,8 @@ import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class PerspectiveGui {
     @Shadow @Final private MinecraftClient client;
     @Inject(method="render", at=@At("HEAD"))
-    private void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (PerspectiveZoomUtils.OVERLAY > 0) MultilineText.create(client.textRenderer, Text.translatable("overlay.perspective.zoom", Text.literal((100 - PerspectiveConfig.ZOOM_LEVEL) + "%")), context.getScaledWindowWidth() / 2 - 100).drawCenterWithShadow(context, context.getScaledWindowWidth() / 2, 16, 9, 0xFFFFFF);
+    private void renderHUD(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+        if (PerspectiveZoomUtils.OVERLAY > 0) MultilineText.create(client.textRenderer, Text.translatable("overlay.perspective.zoom", Text.literal((100 - PerspectiveConfig.ZOOM_LEVEL) + "%")), client.getWindow().getScaledWidth() / 2 - 100).drawCenterWithShadow(matrices, client.getWindow().getScaledWidth() / 2, 16, 9, 0xFFFFFF);
     }
 }
