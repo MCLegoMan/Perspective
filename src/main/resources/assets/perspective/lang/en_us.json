@@ -34,5 +34,12 @@
     "gui.perspective.config.bug_report": "Report a bug",
     "gui.perspective.config.bug_report.hover": "Opens the Perspective Issues page in your web browser.",
     "resourcepack.perspective.default.name": "Perspective Shaders",
-    "resourcepack.perspective.default.description": "Custom Super Secret Settings"
+    "resourcepack.perspective.default.description": "Custom Super Secret Settings",
+    "resourcepack.perspective.ddw.name": "Perspective DDW",
+    "resourcepack.perspective.ddw.description": "Disables Development Warning",
+    "gui.perspective.development_warning.title": "%s Development Build",
+    "gui.perspective.development_warning.timer.seconds": "seconds",
+    "gui.perspective.development_warning.timer.second": "second",
+    "gui.perspective.development_warning.timer.message": "Press ESC or wait %s %s."
+
 }

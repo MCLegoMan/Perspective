@@ -2,5 +2,7 @@
   "zoom_level": 20,
   "overlay_delay": 20,
   "super_secret_settings": 0,
-  "perspective": 0
+  "perspective": 0,
+  "show_development_warning": true,
+  "config_version": 2
 }
