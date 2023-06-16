@@ -25,10 +25,14 @@ public class PerspectiveZoomUtils {
     }
     public static void zoom(boolean in) {
         OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
-        if (!((PerspectiveConfig.ZOOM_LEVEL - 1) < 0) && !((PerspectiveConfig.ZOOM_LEVEL + 1) > 100)) {
-            if (in) PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL - 1;
-            else PerspectiveConfig.ZOOM_LEVEL = PerspectiveConfig.ZOOM_LEVEL + 1;
-            PerspectiveConfig.write_to_file();
+        if (in) {
+            if (PerspectiveConfig.ZOOM_LEVEL <= 0) PerspectiveConfig.ZOOM_LEVEL = 0;
+            else PerspectiveConfig.ZOOM_LEVEL -= 1;
         }
+        else {
+            if (PerspectiveConfig.ZOOM_LEVEL >= 100) PerspectiveConfig.ZOOM_LEVEL = 100;
+            else PerspectiveConfig.ZOOM_LEVEL += 1;
+        }
+        PerspectiveConfig.write_to_file();
     }
 }
