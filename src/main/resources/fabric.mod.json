@@ -21,19 +21,12 @@
   "entrypoints": {
     "client": [
       "com.mclegoman.perspective.client.PerspectiveClient"
-    ],
-    "server": [
-      "com.mclegoman.perspective.server.PerspectiveServer"
-    ],
-    "modmenu": [
-      "com.mclegoman.perspective.compat.PerspectiveModMenu"
     ]
   },
   "mixins": [
     "perspective.mixins.json"
   ],
   "depends": {
-    "minecraft": ["~1.19.4"]
   },
   "suggests": {
   },

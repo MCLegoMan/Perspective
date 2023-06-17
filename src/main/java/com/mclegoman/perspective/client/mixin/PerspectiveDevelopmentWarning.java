@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.mixin;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -29,7 +28,7 @@ public abstract class PerspectiveDevelopmentWarning {
         if (PerspectiveData.IS_DEVELOPMENT && !DEVELOPMENT_WARNING) {
             DEVELOPMENT_WARNING = true;
             if (PerspectiveConfig.SHOW_DEVELOPMENT_WARNING && screen instanceof TitleScreen) {
-                this.setScreen(new PerspectiveDevelopmentWarningScreen(screen, 200));
+                //this.setScreen(new PerspectiveDevelopmentWarningScreen(screen, 200));
                 ci.cancel();
             }
         }

@@ -8,14 +8,10 @@
 package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.dataloader.PerspectiveDefaultConfigDataLoader;
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
-import com.mclegoman.perspective.client.screen.PerspectiveConfigScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
-import com.mojang.datafixers.util.Pair;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourceType;
+import net.minecraft.util.Pair;
 
 public class PerspectiveConfig {
     public static SimpleConfig CONFIG;
@@ -28,7 +24,6 @@ public class PerspectiveConfig {
     public static boolean SHOW_DEVELOPMENT_WARNING;
     public static int CONFIG_VERSION;
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveDefaultConfigDataLoader());
         CONFIG_PROVIDER = new PerspectiveConfigProvider();
         create();
         CONFIG = SimpleConfig.of(PerspectiveData.ID).provider(CONFIG_PROVIDER).request();
@@ -69,6 +64,6 @@ public class PerspectiveConfig {
         PerspectiveConfig.getConfigProvider().write_to_file("config_version", PerspectiveConfig.CONFIG_VERSION);
     }
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.KEY_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen));
+        //if (PerspectiveKeybindings.KEY_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen));
     }
 }

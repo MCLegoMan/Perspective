@@ -1,5 +1,6 @@
 plugins {
-	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'fabric-loom' version "1.2-SNAPSHOT"
+	id 'legacy-looming' version "1.2-SNAPSHOT"
 	id 'maven-publish'
 }
 
@@ -12,24 +13,30 @@ base {
 
 loom {
 	if ("${project.accesswidener}" == "true") accessWidenerPath = file("${project.accesswidener_path}")
+	// customMinecraftManifest.set("https://meta.legacyfabric.net/v2/manifest/${minecraft_version}")
+
+	// Required by 1.7.x
+	// runs {
+	// 	client {
+	// 		programArgs "--userProperties", "{}"
+	// 	}
+	// }
 }
 
 repositories {
 	maven { url 'https://jitpack.io' }
-	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url 'https://repository.apache.org/snapshots' }
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	mappings(legacy.yarn(project.minecraft_version, project.yarn_mappings))
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation ("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:${project.fabric_version}")
+	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
 
-	include(modImplementation "com.github.MCLegoMan:SimpleFabric:${project.simplefabric_version}")
-	include(modImplementation "com.github.MCLegoMan:ReleaseTypeUtils:${project.rtu_version}")
-
-	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+	include(modImplementation files('libs/simplefabric-1.0.2.jar'))
 }
 
 processResources {
@@ -41,14 +48,14 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 8
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 jar {
@@ -63,6 +70,7 @@ publishing {
 			from components.java
 		}
 	}
+
 	repositories {
 	}
 }

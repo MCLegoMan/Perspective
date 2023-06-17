@@ -9,10 +9,10 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.Pair;
+
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
     public void getContents() {
         String contents = ("#" + PerspectiveData.ID + " properties file\n");
         for (Pair<String, ?> option : CONFIG_LIST) {
-            contents += option.getFirst() + "=" + option.getSecond() + "\n";
+            contents += option.getLeft() + "=" + option.getRight() + "\n";
         }
         CONTENTS = contents;
     }
@@ -41,7 +41,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
         try {
             List<Pair> NEW_CONFIG_LIST = this.CONFIG_LIST;
             for (Pair<String, ?> key : NEW_CONFIG_LIST) {
-                String KEY_FIRST = key.getFirst();
+                String KEY_FIRST = key.getLeft();
                 int KEY_INDEX = NEW_CONFIG_LIST.indexOf(key);
                 if (KEY_FIRST.equals(KEY_NAME)) {
                     NEW_CONFIG_LIST.set(KEY_INDEX, new Pair(KEY_NAME, KEY_VALUE));
@@ -49,7 +49,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
             }
             CONFIG_LIST = NEW_CONFIG_LIST;
             getContents();
-            PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve(PerspectiveData.ID + ".properties").toFile(), StandardCharsets.UTF_8);
+            PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve(PerspectiveData.ID + ".properties").toFile());
             writer.write(CONTENTS);
             writer.close();
         } catch (Exception e) {

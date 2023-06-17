@@ -12,8 +12,8 @@ import com.mclegoman.releasetypeutils.util.RTUReleaseTypes;
 import com.mclegoman.releasetypeutils.util.RTUTranslationTypes;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PerspectiveData {
     public static final String NAME = "Perspective";
@@ -26,7 +26,7 @@ public class PerspectiveData {
     public static final Boolean IS_DEVELOPMENT = RTUReleaseTypeHelper.isDevelopment(RELEASE_TYPE);
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION + "-" + RTUReleaseTypeHelper.getString(RELEASE_TYPE, RTUTranslationTypes.NORMAL) + "." + BUILD_VERSION;
     public static final String PREFIX = "[" + NAME + " " + VERSION + "] ";
-    public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
+    public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(ID).get();
     public static final int CONFIG_VERSION = 2;
 }

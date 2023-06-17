@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.util.PerspectivePerspectiveUtils;
 import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.legacyfabric.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class PerspectiveTick {
     public static void init() {

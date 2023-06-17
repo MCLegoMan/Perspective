@@ -26,12 +26,12 @@ public abstract class PerspectiveRenderer {
     @Shadow private boolean renderingPanorama;
     @Shadow private boolean renderHand;
     @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
-    private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
+    private void keyZoom(CallbackInfoReturnable<Float> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
                 if (PerspectiveZoomUtils.isZooming()) {
                     this.renderHand = false;
-                    callbackInfo.setReturnValue((double) Math.max(Math.max(1, PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100)));
+                    callbackInfo.setReturnValue(Math.max(Math.max(1, PerspectiveConfig.ZOOM_LEVEL * client.options.fov / 100), Math.min(client.options.fov, PerspectiveConfig.ZOOM_LEVEL * client.options.fov / 100)));
                 } else this.renderHand = true;
             }
         } catch (Exception e) {

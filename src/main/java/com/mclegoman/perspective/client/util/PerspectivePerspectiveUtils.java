@@ -11,54 +11,53 @@ import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.Perspective;
 
 import java.util.ArrayList;
 
 public class PerspectivePerspectiveUtils {
-    private static final ArrayList<Perspective> PERSPECTIVES = new ArrayList<>();
+    private static final ArrayList<Integer> PERSPECTIVES = new ArrayList<>();
     private static int getPerspectiveAmount() {
         return PERSPECTIVES.size() - 1;
     }
     private static boolean HOLD_THIRD_PERSON_BACK_LOCK;
     private static boolean HOLD_THIRD_PERSON_FRONT_LOCK;
     public static void init() {
-        PERSPECTIVES.add(Perspective.FIRST_PERSON);
-        PERSPECTIVES.add(Perspective.THIRD_PERSON_BACK);
-        PERSPECTIVES.add(Perspective.THIRD_PERSON_FRONT);
+        PERSPECTIVES.add(0);
+        PERSPECTIVES.add(1);
+        PERSPECTIVES.add(2);
     }
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.KEY_CYCLE_PERSPECTIVE.wasPressed()) cycle(client);
         if (PerspectiveKeybindings.KEY_SET_PERSPECTIVE_FP.wasPressed()) {
-            if (PERSPECTIVES.contains(Perspective.FIRST_PERSON)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.FIRST_PERSON);
+            if (PERSPECTIVES.contains(0)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(0);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
         if (PerspectiveKeybindings.KEY_SET_PERSPECTIVE_TPB.wasPressed()) {
-            if (PERSPECTIVES.contains(Perspective.THIRD_PERSON_BACK)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.THIRD_PERSON_BACK);
+            if (PERSPECTIVES.contains(1)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(1);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
         if (PerspectiveKeybindings.KEY_SET_PERSPECTIVE_TPF.wasPressed()) {
-            if (PERSPECTIVES.contains(Perspective.THIRD_PERSON_FRONT)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.THIRD_PERSON_FRONT);
+            if (PERSPECTIVES.contains(2)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(2);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
         if (PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPB.isPressed()) {
             HOLD_THIRD_PERSON_BACK_LOCK = true;
-            if (PERSPECTIVES.contains(Perspective.THIRD_PERSON_BACK)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.THIRD_PERSON_BACK);
+            if (PERSPECTIVES.contains(1)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(1);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
         if (!PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPB.isPressed() && HOLD_THIRD_PERSON_BACK_LOCK) {
             HOLD_THIRD_PERSON_BACK_LOCK = false;
-            if (PERSPECTIVES.contains(Perspective.FIRST_PERSON)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.FIRST_PERSON);
+            if (PERSPECTIVES.contains(0)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(0);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
         if (PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPF.isPressed()) {
             HOLD_THIRD_PERSON_FRONT_LOCK = true;
-            if (PERSPECTIVES.contains(Perspective.THIRD_PERSON_FRONT)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.THIRD_PERSON_FRONT);
+            if (PERSPECTIVES.contains(2)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(2);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
         if (!PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPF.isPressed() && HOLD_THIRD_PERSON_FRONT_LOCK) {
             HOLD_THIRD_PERSON_FRONT_LOCK = false;
-            if (PERSPECTIVES.contains(Perspective.FIRST_PERSON)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(Perspective.FIRST_PERSON);
+            if (PERSPECTIVES.contains(0)) PerspectiveConfig.PERSPECTIVE = PERSPECTIVES.indexOf(0);
             set(client, PERSPECTIVES.get(PerspectiveConfig.PERSPECTIVE));
         }
     }
@@ -72,9 +71,9 @@ public class PerspectivePerspectiveUtils {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }
-    private static void set(MinecraftClient client, Perspective perspective) {
+    private static void set(MinecraftClient client, int perspective) {
         try {
-            client.options.setPerspective(perspective);
+            client.options.perspective = perspective;
             PerspectiveConfig.write_to_file();
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Perspectives.");
