@@ -1,3 +1,4 @@
 accessWidener	v1	named
 accessible method net/minecraft/client/render/GameRenderer loadShader (Lnet/minecraft/util/Identifier;)V
 accessible field net/minecraft/client/render/GameRenderer shadersEnabled Z
+accessible field net/minecraft/client/render/GameRenderer SHADERS_LOCATIONS [Lnet/minecraft/util/Identifier;

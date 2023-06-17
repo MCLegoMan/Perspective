@@ -13,10 +13,13 @@ import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.legacyfabric.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.legacyfabric.fabric.api.util.Identifier;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.JsonHelper;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -69,20 +72,21 @@ public class PerspectiveSuperSecretSettingsDataLoader implements IdentifiableRes
 //            });
             // Souper Secret Settings Resource Pack Layout Compatibility
             // https://github.com/Nettakrim/Souper-Secret-Settings
-            for (Resource resource : resourceManager.getAllResources(new net.minecraft.util.Identifier("souper_secret_settings", "shaders.json"))) {
-                try(InputStream stream = resource.getInputStream()) {
-                    JsonObject obj = new JsonObject().getAsJsonObject(stream.toString());
-                    for (JsonElement namespaces : obj.getAsJsonArray("namespaces")) {
-                        JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
-                        String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.ID);
-                        JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders");
-                        Boolean ENABLED = JsonHelper.getBoolean(namespacelist, "enabled", true);
-                        for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), ENABLED);
-                    }
-                } catch(Exception e) {
-                    PerspectiveData.LOGGER.error("Error occurred while loading resource json " + resource.getId().toString(), e);
-                }
-            }
+//            for (Resource resource : resourceManager.getAllResources(new net.minecraft.util.Identifier("souper_secret_settings", "shaders.json"))) {
+//                try {
+//                    BufferedReader reader = new BufferedReader(new FileReader(MinecraftClient.getInstance().runDirectory.getPath() + "shaders.json"));
+//                    JsonHelper.
+//                    for (JsonElement namespaces : reader.getAsJsonArray("namespaces")) {
+//                        JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
+//                        String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.ID);
+//                        JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders");
+//                        Boolean ENABLED = JsonHelper.getBoolean(namespacelist, "enabled", true);
+//                        for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), ENABLED);
+//                    }
+//                } catch(Exception e) {
+//                    PerspectiveData.LOGGER.error("Error occurred while loading resource json " + resource.getId().toString(), e);
+//                }
+//            }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst loading Super Secret Settings data.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());

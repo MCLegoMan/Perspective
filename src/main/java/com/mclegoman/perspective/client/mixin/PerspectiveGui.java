@@ -34,7 +34,7 @@ public abstract class PerspectiveGui {
     @Inject(method="render", at=@At("TAIL"))
     private void renderHUD(float tickDelta, CallbackInfo ci) {
         if (PerspectiveZoomUtils.OVERLAY > 0) {
-            String TEXT =  (100 - PerspectiveConfig.ZOOM_LEVEL) + "%";
+            String TEXT = (100 - PerspectiveConfig.ZOOM_LEVEL) + "%";
             double WIDTH = new Window(this.client).getScaledWidth();
             getFontRenderer().drawWithShadow(I18n.translate("overlay.perspective.zoom", TEXT), (float)WIDTH / 2 - (float)getFontRenderer().getStringWidth(I18n.translate("overlay.perspective.zoom", TEXT)) / 2, 18, 0xFFAA00);
         }

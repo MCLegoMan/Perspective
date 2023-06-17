@@ -11,8 +11,12 @@ import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.dataloader.PerspectiveSuperSecretSettingsDataLoader;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
+import net.legacyfabric.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -22,7 +26,7 @@ public class PerspectiveSuperSecretSettingsUtil {
     private static Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
     private static Formatting LAST_COLOR;
     public static void init() {
-        //ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveSuperSecretSettingsDataLoader());
+        ResourceManagerHelper.getInstance().registerReloadListener(new PerspectiveSuperSecretSettingsDataLoader());
     }
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.KEY_CYCLE_SUPER_SECRET_SETTINGS.wasPressed()) cycle(client, client.options.sneakKey.isPressed());
@@ -41,11 +45,11 @@ public class PerspectiveSuperSecretSettingsUtil {
     public static void cycle(MinecraftClient client, Boolean forwards) {
         try {
             if (forwards) {
-                if (PerspectiveConfig.SUPER_SECRET_SETTINGS < PerspectiveSuperSecretSettingsDataLoader.getShaderAmount()) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS + 1;
+                if (PerspectiveConfig.SUPER_SECRET_SETTINGS < GameRenderer.SHADERS_LOCATIONS.length - 1) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS + 1;
                 else PerspectiveConfig.SUPER_SECRET_SETTINGS = 0;
             } else {
                 if (PerspectiveConfig.SUPER_SECRET_SETTINGS > 0) PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveConfig.SUPER_SECRET_SETTINGS - 1;
-                else PerspectiveConfig.SUPER_SECRET_SETTINGS = PerspectiveSuperSecretSettingsDataLoader.getShaderAmount();
+                else PerspectiveConfig.SUPER_SECRET_SETTINGS = GameRenderer.SHADERS_LOCATIONS.length  - 1;
             }
             if (!client.gameRenderer.shadersEnabled) toggle(client);
             else set(client);
@@ -56,8 +60,8 @@ public class PerspectiveSuperSecretSettingsUtil {
     }
     private static void set(MinecraftClient client) {
         try {
-            client.gameRenderer.loadShader(PerspectiveSuperSecretSettingsDataLoader.SHADERS.get(PerspectiveConfig.SUPER_SECRET_SETTINGS));
-            sendMessage(client, PerspectiveSuperSecretSettingsDataLoader.SHADERS_NAME.get(PerspectiveConfig.SUPER_SECRET_SETTINGS));
+            client.gameRenderer.loadShader(GameRenderer.SHADERS_LOCATIONS[PerspectiveConfig.SUPER_SECRET_SETTINGS]);
+            sendMessage(client, GameRenderer.SHADERS_LOCATIONS[PerspectiveConfig.SUPER_SECRET_SETTINGS].toString());
             PerspectiveConfig.write_to_file();
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
@@ -67,11 +71,11 @@ public class PerspectiveSuperSecretSettingsUtil {
         }
     }
     private static String booleanToString(Boolean BOOLEAN) {
-        if (BOOLEAN) return I18n.translate("chat.perspective.enabled");
-        else return I18n.translate("chat.perspective.disabled");
+        if (BOOLEAN) return "on";
+        else return "off";
     }
     private static void sendMessage(MinecraftClient client, String message) {
-        client.inGameHud.getChatHud().addMessage(Text.Serializer.deserializeText(I18n.translate("chat.perspective.sss.message", I18n.translate("name.perspective.sss.title"), message)));
+        //client.inGameHud.getChatHud().addMessage(Text.Serializer.deserializeText(I18n.translate("chat.perspective.sss.message", I18n.translate("name.perspective.sss.title"), message)));
     }
     private static Formatting getRandomColor() {
         Random random = new Random();
