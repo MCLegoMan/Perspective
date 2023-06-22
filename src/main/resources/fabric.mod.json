@@ -3,7 +3,7 @@
   "id": "perspective",
   "version": "${version}",
   "name": "Perspective",
-  "description": "Zoom, Perspective, Super Secret Settings for FabricMC.\nIncluded Custom Shaders:\n- Shareware (Credit: MCLegoMan)\n- Grayscale (Credit: MCLegoMan)\nShader Fixes:\n- Bits (Credit: Nettakrim)\n- Blur (Credit: Nettakrim)\n- Flip (Credit: Nettakrim)\n- Outline (Credit: Nettakrim)\nYou can add custom Super Secret Settings using resource packs in both the Perspective and Souper Secret Settings layouts.",
+  "description": "Zoom, Perspective, Super Secret Settings for FabricMC.\nCredits and Attribution:\n- Vanilla Shader Fixes: Nettakrim\nYou can add custom Super Secret Settings using resource packs in both the Perspective and Souper Secret Settings layouts.",
   "authors": [
     "MCLegoMan"
   ],
@@ -21,9 +21,6 @@
   "entrypoints": {
     "client": [
       "com.mclegoman.perspective.client.PerspectiveClient"
-    ],
-    "server": [
-      "com.mclegoman.perspective.server.PerspectiveServer"
     ],
     "modmenu": [
       "com.mclegoman.perspective.compat.PerspectiveModMenu"

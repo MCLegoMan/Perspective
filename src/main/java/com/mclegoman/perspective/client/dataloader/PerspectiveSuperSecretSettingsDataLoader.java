@@ -12,6 +12,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.PerspectiveData;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
@@ -20,11 +22,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-    public static final ArrayList<Identifier> SHADERS = new ArrayList<>();
-    public static final ArrayList<String> SHADERS_NAME = new ArrayList<>();
+    public static final List<Identifier> SHADERS = new ArrayList<>();
+    public static final List<String> SHADERS_NAME = new ArrayList<>();
     public static int getShaderAmount() {
         return SHADERS.size() - 1;
     }

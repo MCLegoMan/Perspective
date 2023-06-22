@@ -5,9 +5,12 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.mixin;
+package com.mclegoman.perspective.client.mixin.zoom;
 
+import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Final;
@@ -16,10 +19,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(Mouse.class)
-public class PerspectiveMouse {
+public abstract class PerspectiveMouse {
     @Shadow @Final private MinecraftClient client;
+
+    @Shadow public abstract boolean wasMiddleButtonClicked();
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
@@ -28,6 +35,15 @@ public class PerspectiveMouse {
             if (scroll > 0) PerspectiveZoomUtils.zoom(true);
             else if (scroll < 0) PerspectiveZoomUtils.zoom(false);
             ci.cancel();
+        }
+    }
+    @Inject(at = @At("HEAD"), method = "onMouseButton", cancellable = true)
+    private void onClick(long window, int button, int action, int mods, CallbackInfo ci) {
+        if (PerspectiveZoomUtils.isZooming()) {
+            if (wasMiddleButtonClicked()) {
+                PerspectiveZoomUtils.reset();
+                ci.cancel();
+            }
         }
     }
 }

@@ -7,16 +7,20 @@
 
 package com.mclegoman.perspective.client.registry;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
+@Environment(EnvType.CLIENT)
 public class PerspectiveKeybindings {
     public static KeyBinding KEY_HOLD_ZOOM;
     public static KeyBinding KEY_SET_ZOOM;
     public static KeyBinding KEY_ZOOM_IN;
     public static KeyBinding KEY_ZOOM_OUT;
+    public static KeyBinding KEY_ZOOM_RESET;
     public static KeyBinding KEY_HOLD_PERSPECTIVE_TPF;
     public static KeyBinding KEY_HOLD_PERSPECTIVE_TPB;
     public static KeyBinding KEY_CYCLE_PERSPECTIVE;
@@ -32,6 +36,7 @@ public class PerspectiveKeybindings {
         KEY_SET_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_ZOOM_IN = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.in", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_ZOOM_OUT = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.out", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
+        KEY_ZOOM_RESET = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.reset", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_HOLD_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_X, "category.perspective.perspective"));
         KEY_HOLD_PERSPECTIVE_TPB = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpb.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, "category.perspective.perspective"));
         KEY_CYCLE_PERSPECTIVE = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.cycle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));

@@ -1,0 +1,5 @@
+{
+  "namespace": "minecraft",
+  "sound": "block.piston.extend",
+  "enabled": true
+}

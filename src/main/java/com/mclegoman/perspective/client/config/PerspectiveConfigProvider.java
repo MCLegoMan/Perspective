@@ -10,12 +10,15 @@ package com.mclegoman.perspective.client.config;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
     private String CONTENTS = "";
     public List<Pair> getConfigList() {

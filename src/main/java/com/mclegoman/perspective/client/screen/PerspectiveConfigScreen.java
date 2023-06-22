@@ -8,6 +8,8 @@
 package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.util.PerspectiveNamedEntityUtils;
+import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -46,10 +48,10 @@ public class PerspectiveConfigScreen extends Screen {
             }
         }, 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.zoom_level.hover"), Text.translatable("gui.perspective.config.zoom_level.hover")));
         double OVERLAY_DELAY_VALUE = (double) PerspectiveConfig.OVERLAY_DELAY / 1000;
-        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf(PerspectiveConfig.OVERLAY_DELAY))), OVERLAY_DELAY_VALUE) {
+        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf((int)PerspectiveConfig.OVERLAY_DELAY / 20))), OVERLAY_DELAY_VALUE) {
             @Override
             protected void updateMessage() {
-                setMessage(Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf(PerspectiveConfig.OVERLAY_DELAY))));
+                setMessage(Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf((int)PerspectiveConfig.OVERLAY_DELAY / 20))));
             }
 
             @Override
@@ -57,6 +59,20 @@ public class PerspectiveConfigScreen extends Screen {
                 PerspectiveConfig.OVERLAY_DELAY = (int) ((value) * 1000);
             }
         }, 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.overlay_delay.hover"), Text.translatable("gui.perspective.config.overlay_delay.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_named_entity", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.TEXTURED_NAMED_ENTITY)), (button) -> {
+            PerspectiveConfig.TEXTURED_NAMED_ENTITY = !PerspectiveConfig.TEXTURED_NAMED_ENTITY;
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.textured_named_entity.hover"), Text.translatable("gui.perspective.config.textured_named_entity.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_random_entity", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.TEXTURED_RANDOM_ENTITY)), (button) -> {
+            PerspectiveConfig.TEXTURED_RANDOM_ENTITY = !PerspectiveConfig.TEXTURED_RANDOM_ENTITY;
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.textured_random_entity.hover"), Text.translatable("gui.perspective.config.textured_random_entity.hover")));
+        if (PerspectiveData.IS_DEVELOPMENT) {
+            GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.show_development_warning", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.SHOW_DEVELOPMENT_WARNING)), (button) -> {
+                PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;
+                client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+            }).build(), 2).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.show_development_warning.hover"), Text.translatable("gui.perspective.config.show_development_warning.hover")));
+        }
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.contribute.hover"), Text.translatable("gui.perspective.config.contribute.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.bug_report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.bug_report.hover"), Text.translatable("gui.perspective.config.bug_report.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {

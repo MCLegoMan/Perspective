@@ -1,0 +1,5 @@
+{
+  "namespace": "minecraft",
+  "sound": "block.pointed_dripstone.drip_water",
+  "enabled": true
+}

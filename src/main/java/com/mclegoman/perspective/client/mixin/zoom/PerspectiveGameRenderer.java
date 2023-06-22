@@ -5,11 +5,13 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.mixin;
+package com.mclegoman.perspective.client.mixin.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Final;
@@ -19,8 +21,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(GameRenderer.class)
-public abstract class PerspectiveRenderer {
+public abstract class PerspectiveGameRenderer {
     @Shadow @Final
     MinecraftClient client;
     @Shadow private boolean renderingPanorama;

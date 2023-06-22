@@ -8,14 +8,21 @@
 package com.mclegoman.perspective.client;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.dataloader.PerspectiveNamedEntityTextureDataLoader;
 import com.mclegoman.perspective.client.helpers.PerspectiveTick;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.registry.PerspectiveResourcePacks;
+import com.mclegoman.perspective.client.util.PerspectiveNamedEntityUtils;
 import com.mclegoman.perspective.client.util.PerspectivePerspectiveUtils;
 import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.resource.ResourceType;
 
+@Environment(EnvType.CLIENT)
 public class PerspectiveClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
@@ -25,6 +32,7 @@ public class PerspectiveClient implements ClientModInitializer {
         PerspectiveKeybindings.init();
         PerspectivePerspectiveUtils.init();
         PerspectiveSuperSecretSettingsUtil.init();
+        PerspectiveNamedEntityUtils.init();
         PerspectiveTick.init();
     }
 }

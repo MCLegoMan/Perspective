@@ -5,11 +5,13 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.mixin;
+package com.mclegoman.perspective.client.mixin.development;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -20,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(MinecraftClient.class)
 public abstract class PerspectiveDevelopmentWarning {
     private static boolean DEVELOPMENT_WARNING;

@@ -10,6 +10,8 @@ package com.mclegoman.perspective.common.data;
 import com.mclegoman.releasetypeutils.helper.RTUReleaseTypeHelper;
 import com.mclegoman.releasetypeutils.util.RTUReleaseTypes;
 import com.mclegoman.releasetypeutils.util.RTUTranslationTypes;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import org.slf4j.Logger;

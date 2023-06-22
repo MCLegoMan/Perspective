@@ -3,6 +3,10 @@
   "overlay_delay": 20,
   "super_secret_settings": 0,
   "perspective": 0,
+  "textured_named_entity": true,
+  "textured_random_entity": false,
+  "allow_april_fools": true,
+  "force_april_fools": false,
   "show_development_warning": true,
-  "config_version": 2
+  "config_version": 3
 }

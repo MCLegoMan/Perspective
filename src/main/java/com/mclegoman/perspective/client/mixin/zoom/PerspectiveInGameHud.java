@@ -5,10 +5,12 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.mixin;
+package com.mclegoman.perspective.client.mixin.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.DrawContext;
@@ -21,8 +23,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
-public abstract class PerspectiveGui {
+public abstract class PerspectiveInGameHud {
     @Shadow @Final private MinecraftClient client;
     @Inject(method="render", at=@At("HEAD"))
     private void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
