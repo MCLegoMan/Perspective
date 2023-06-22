@@ -1,4 +1,7 @@
 {
+    "gui.perspective.config.show_development_warning": "Development Warning: %s",
+    "gui.perspective.development_warning.description": "You are running a development build of Perspective.\nYou may experience some unexpected bugs.",
+
     "category.perspective.perspective": "Perspective",
     "key.perspective.config": "Open Config",
     "key.perspective.zoom.hold": "Hold Zoom",
@@ -15,7 +18,9 @@
     "category.perspective.sss": "Super Secret Settings",
     "key.perspective.sss.toggle": "Toggle Shaders",
     "key.perspective.sss.cycle": "Cycle Shaders",
-    "overlay.perspective.zoom": "§6Zoom: %s",
+
+    "gui.perspective.zoom": "§6Zoom: %s",
+
     "chat.perspective.enabled": "on",
     "chat.perspective.disabled": "off",
     "name.perspective.sss.title": "[Super Secret Settings]:",
@@ -25,12 +30,14 @@
     "gui.perspective.config.zoom_level.hover": "Sets how zoomed in the game will be when zooming.",
     "gui.perspective.config.overlay_delay": "Zoom Overlay: %s",
     "gui.perspective.config.overlay_delay.hover": "Sets how long the overlay will show when changing the zoom level.",
-    "overlay.perspective.warning": "§c§lYou are running a development build of Perspective.\nYou may experience some unexpected bugs.",
     "gui.perspective.config.textured_named_entity": "Textured Named Entity: %s",
     "gui.perspective.config.textured_named_entity.hover": "Toggles functionality of Textured Named Entity.",
     "gui.perspective.config.textured_random_entity": "Textured Random Entity: %s",
     "gui.perspective.config.textured_random_entity.hover": "Toggles functionality of Textured Random Entity.",
-    "gui.perspective.config.show_development_warning": "Development Warning: %s",
+    "gui.perspective.config.allow_april_fools": "Allow April Fools Prank: %s",
+    "gui.perspective.config.allow_april_fools.hover": "Allow Perspective's April Fools Prank on April Fools.",
+    "gui.perspective.config.force_april_fools": "Force April Fools Prank: %s",
+    "gui.perspective.config.force_april_fools.hover": "Forces Perspective into thinking it's April Fools.",
     "gui.perspective.config.show_development_warning.hover": "Toggles development warning on startup.",
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Sets all config values to default.",

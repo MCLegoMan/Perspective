@@ -11,6 +11,7 @@ import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.helpers.PerspectiveTick;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.registry.PerspectiveResourcePacks;
+import com.mclegoman.perspective.client.util.PerspectiveAprilFoolsUtils;
 import com.mclegoman.perspective.client.util.PerspectiveTexturedEntityUtils;
 import com.mclegoman.perspective.client.util.PerspectivePerspectiveUtils;
 import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
@@ -30,6 +31,7 @@ public class PerspectiveClient implements ClientModInitializer {
         PerspectivePerspectiveUtils.init();
         PerspectiveSuperSecretSettingsUtil.init();
         PerspectiveTexturedEntityUtils.init();
+        PerspectiveAprilFoolsUtils.init();
         PerspectiveTick.init();
     }
 }

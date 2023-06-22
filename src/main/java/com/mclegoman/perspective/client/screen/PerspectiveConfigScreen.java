@@ -20,6 +20,7 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveConfigScreen extends Screen {
@@ -33,7 +34,8 @@ public class PerspectiveConfigScreen extends Screen {
     protected void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(4);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(new TextWidget(Text.translatable("gui.perspective.config.title"), textRenderer), 2);
+        if (PerspectiveData.IS_DEVELOPMENT) GRID_ADDER.add(new MultilineTextWidget(Text.translatable("gui.perspective.development_warning.description").formatted(Formatting.RED).formatted(Formatting.BOLD), textRenderer).setCentered(true), 2);
+        GRID_ADDER.add(new TextWidget(Text.translatable("gui.perspective.config.title").formatted(Formatting.WHITE), textRenderer), 2);
         double ZOOM_LEVEL_VALUE = 1 - ((double) PerspectiveConfig.ZOOM_LEVEL / 100);
         GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.zoom_level", Text.literal((int) (100 - PerspectiveConfig.ZOOM_LEVEL) + "%")), ZOOM_LEVEL_VALUE) {
             @Override
@@ -66,6 +68,14 @@ public class PerspectiveConfigScreen extends Screen {
             PerspectiveConfig.TEXTURED_RANDOM_ENTITY = !PerspectiveConfig.TEXTURED_RANDOM_ENTITY;
             client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.textured_random_entity.hover"), Text.translatable("gui.perspective.config.textured_random_entity.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.allow_april_fools", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.ALLOW_APRIL_FOOLS)), (button) -> {
+            PerspectiveConfig.ALLOW_APRIL_FOOLS = !PerspectiveConfig.ALLOW_APRIL_FOOLS;
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.allow_april_fools.hover"), Text.translatable("gui.perspective.config.allow_april_fools.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.force_april_fools", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.FORCE_APRIL_FOOLS)), (button) -> {
+            PerspectiveConfig.FORCE_APRIL_FOOLS = !PerspectiveConfig.FORCE_APRIL_FOOLS;
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.force_april_fools.hover"), Text.translatable("gui.perspective.config.force_april_fools.hover")));
         if (PerspectiveData.IS_DEVELOPMENT) {
             GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.show_development_warning", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.SHOW_DEVELOPMENT_WARNING)), (button) -> {
                 PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;
@@ -98,9 +108,5 @@ public class PerspectiveConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
-        if (PerspectiveData.IS_DEVELOPMENT) {
-            MultilineText WARNING = MultilineText.create(this.textRenderer, Text.translatable("overlay.perspective.warning"), this.width - 100);
-            WARNING.drawCenterWithShadow(context, this.width / 2, 16, 9, 0xFFFFFF);
-        }
     }
 }

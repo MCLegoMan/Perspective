@@ -19,6 +19,7 @@ import net.minecraft.client.gui.widget.SimplePositioningWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveDevelopmentWarningScreen extends Screen {
@@ -52,14 +53,14 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         Text state;
         if (seconds != 1) state = Text.translatable("gui.perspective.development_warning.timer.seconds");
         else state = Text.translatable("gui.perspective.development_warning.timer.second");
-        return Text.translatable("gui.perspective.development_warning.timer.message", seconds, state);
+        return Text.translatable("gui.perspective.development_warning.timer.message", seconds, state).formatted(Formatting.GOLD);
     }
     protected void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(4);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new TextWidget(Text.translatable("gui.perspective.development_warning.title", PerspectiveData.NAME), textRenderer), 1);
-        GRID_ADDER.add(new MultilineTextWidget(Text.translatable("overlay.perspective.warning"), textRenderer).setCentered(true), 1);
-        GRID_ADDER.add(new TextWidget(getTimerText(ticksToSeconds(TIMER_TICKS) + 1), textRenderer).setTextColor(0xFFAA00), 1);
+        GRID_ADDER.add(new MultilineTextWidget(Text.translatable("gui.perspective.development_warning.title", PerspectiveData.NAME).formatted(Formatting.WHITE), textRenderer), 1);
+        GRID_ADDER.add(new MultilineTextWidget(Text.translatable("gui.perspective.development_warning.description").formatted(Formatting.RED).formatted(Formatting.BOLD), textRenderer).setCentered(true), 1);
+        GRID_ADDER.add(new MultilineTextWidget(getTimerText(ticksToSeconds(TIMER_TICKS) + 1), textRenderer), 1);
         GRID.refreshPositions();
         GRID.forEachChild(this::addDrawableChild);
         initTabNavigation();
@@ -73,7 +74,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     }
 
     public Text getNarratedTitle() {
-        return ScreenTexts.joinSentences(Text.translatable("overlay.perspective.warning"));
+        return ScreenTexts.joinSentences(Text.translatable("gui.perspective.development_warning.description"));
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

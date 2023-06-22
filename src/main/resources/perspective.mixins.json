@@ -3,6 +3,8 @@
   "package": "com.mclegoman.perspective.client.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "april_fools.PerspectiveLivingEntityRenderer",
+    "april_fools.PerspectivePlayerEntityRenderer",
     "development.PerspectiveDevelopmentWarning",
     "textured_entity.PerspectiveAllayEntityRenderer",
     "textured_entity.PerspectiveArmorStandEntityRenderer",
@@ -32,7 +34,6 @@
     "textured_entity.PerspectiveEvokerEntityRenderer",
     "textured_entity.PerspectiveEvokerFangsEntityRenderer",
     "textured_entity.PerspectiveExperienceOrbEntityRenderer",
-    "textured_entity.PerspectiveFallingBlockEntityRenderer",
     "textured_entity.PerspectiveFireworkRocketEntityRenderer",
     "textured_entity.PerspectiveFoxEntityRenderer",
     "textured_entity.PerspectiveFrogEntityRenderer",
