@@ -43,6 +43,7 @@ public class PerspectiveSuperSecretSettingsUtil {
             client.gameRenderer.togglePostProcessorEnabled();
             sendMessage(client, booleanToString(client.gameRenderer.postProcessorEnabled));
             if (client.gameRenderer.postProcessorEnabled) set(client);
+            else client.gameRenderer.postProcessor.close();
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to toggle Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
