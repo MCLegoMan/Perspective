@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.util.PerspectiveNamedEntityUtils;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;

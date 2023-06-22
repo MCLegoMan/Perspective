@@ -8,16 +8,12 @@
 package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.dataloader.PerspectiveNamedEntityTextureDataLoader;
-import com.mclegoman.perspective.client.dataloader.PerspectiveSuperSecretSettingsSoundsDataLoader;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
-import net.minecraft.resource.ResourceType;
 
 import java.util.ArrayList;
 
