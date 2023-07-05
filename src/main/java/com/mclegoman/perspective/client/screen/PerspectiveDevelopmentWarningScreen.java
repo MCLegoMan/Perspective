@@ -74,7 +74,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     }
 
     public Text getNarratedTitle() {
-        return ScreenTexts.joinSentences(Text.translatable("gui.perspective.development_warning.description"));
+        return ScreenTexts.joinSentences();
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

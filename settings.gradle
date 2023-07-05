@@ -1,10 +1,13 @@
 pluginManagement {
     repositories {
-        jcenter()
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
         gradlePluginPortal()
     }
+}
+
+if (JavaVersion.current().ordinal() + 1 < 17) {
+    throw new IllegalStateException("Please run gradle with Java 17+!")
 }

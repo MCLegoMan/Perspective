@@ -100,7 +100,7 @@ public class PerspectiveConfigScreen extends Screen {
         SimplePositioningWidget.setPos(GRID, getNavigationFocus());
     }
     public Text getNarratedTitle() {
-        return ScreenTexts.joinSentences(this.title);
+        return ScreenTexts.joinSentences();
     }
     public boolean shouldCloseOnEsc() {
         return false;

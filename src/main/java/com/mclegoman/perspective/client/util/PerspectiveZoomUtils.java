@@ -19,7 +19,11 @@ public class PerspectiveZoomUtils {
     public static int OVERLAY;
     public static boolean SET_ZOOM;
     public static boolean isZooming() {
-        return PerspectiveKeybindings.KEY_HOLD_ZOOM.isPressed() || SET_ZOOM;
+        try {
+            return PerspectiveKeybindings.KEY_HOLD_ZOOM.isPressed() || SET_ZOOM;
+        } catch (Exception ignored) {
+        }
+        return false;
     }
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.KEY_ZOOM_IN.wasPressed()) zoom(true);

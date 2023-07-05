@@ -21,10 +21,10 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
     private String CONTENTS = "";
-    public List<Pair> getConfigList() {
+    public List<Pair<String, ?>> getConfigList() {
         return CONFIG_LIST;
     }
-    private List<Pair> CONFIG_LIST = new ArrayList<>();
+    private List<Pair<String, ?>> CONFIG_LIST = new ArrayList<>();
     public void add(Pair<String, ?> keyValuePair) {
         CONFIG_LIST.add(keyValuePair);
         getContents();
@@ -34,20 +34,20 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
         return CONTENTS;
     }
     public void getContents() {
-        String contents = ("#" + PerspectiveData.ID + " properties file\n");
+        StringBuilder contents = new StringBuilder(("#" + PerspectiveData.ID + " properties file\n"));
         for (Pair<String, ?> option : CONFIG_LIST) {
-            contents += option.getFirst() + "=" + option.getSecond() + "\n";
+            contents.append(option.getFirst()).append("=").append(option.getSecond()).append("\n");
         }
-        CONTENTS = contents;
+        CONTENTS = contents.toString();
     }
     public void write_to_file(String KEY_NAME, Object KEY_VALUE) {
         try {
-            List<Pair> NEW_CONFIG_LIST = this.CONFIG_LIST;
+            List<Pair<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
             for (Pair<String, ?> key : NEW_CONFIG_LIST) {
                 String KEY_FIRST = key.getFirst();
                 int KEY_INDEX = NEW_CONFIG_LIST.indexOf(key);
                 if (KEY_FIRST.equals(KEY_NAME)) {
-                    NEW_CONFIG_LIST.set(KEY_INDEX, new Pair(KEY_NAME, KEY_VALUE));
+                    NEW_CONFIG_LIST.set(KEY_INDEX, new Pair<>(KEY_NAME, KEY_VALUE));
                 }
             }
             CONFIG_LIST = NEW_CONFIG_LIST;

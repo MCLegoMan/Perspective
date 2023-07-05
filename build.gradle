@@ -3,7 +3,7 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+version = project.version
 group = project.maven_group
 
 base {
@@ -11,7 +11,7 @@ base {
 }
 
 loom {
-	if ("${project.accesswidener}" == "true") accessWidenerPath = file("${project.accesswidener_path}")
+	if (project.accesswidener == "true") accessWidenerPath = file(project.accesswidener_path)
 }
 
 repositories {
@@ -19,17 +19,21 @@ repositories {
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 }
 
+runClient.doFirst {
+	args = ['--username', "MCLegoMan${new Random().nextInt(1000)}"]
+}
+
+
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	minecraft "com.mojang:minecraft:${project.minecraft}"
+	mappings "net.fabricmc:yarn:${project.mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "com.github.mclegoman:simplefabric:${project.simplefabric}"
+	modImplementation "com.github.mclegoman:releasetypeutils:${project.releasetypeutils}"
 
-	include(modImplementation "com.github.MCLegoMan:SimpleFabric:${project.simplefabric_version}")
-	include(modImplementation "com.github.MCLegoMan:ReleaseTypeUtils:${project.rtu_version}")
-
-	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 }
 
 processResources {
