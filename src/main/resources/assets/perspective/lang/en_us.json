@@ -1,6 +1,6 @@
 {
-    "gui.perspective.config.show_development_warning": "Development Warning: %s",
     "gui.perspective.development_warning.description": "You are running a development build of Perspective.\nYou may experience some unexpected bugs.",
+    "gui.perspective.development_warning.checkbox": "Do not show this screen in future.",
 
     "category.perspective.perspective": "Perspective",
     "key.perspective.config": "Open Config",
@@ -38,6 +38,7 @@
     "gui.perspective.config.allow_april_fools.hover": "Allow Perspective's April Fools Prank on April Fools.",
     "gui.perspective.config.force_april_fools": "Force April Fools Prank: %s",
     "gui.perspective.config.force_april_fools.hover": "Forces Perspective into thinking it's April Fools.",
+    "gui.perspective.config.show_development_warning": "Development Warning: %s",
     "gui.perspective.config.show_development_warning.hover": "Toggles development warning on startup.",
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Sets all config values to default.",
@@ -52,7 +53,7 @@
     "gui.perspective.development_warning.title": "%s Development Build",
     "gui.perspective.development_warning.timer.seconds": "seconds",
     "gui.perspective.development_warning.timer.second": "second",
-    "gui.perspective.development_warning.timer.message": "Press ESC or wait %s %s.",
+    "gui.perspective.development_warning.timer.message": "Press any key or wait %s %s.",
     "gui.perspective.true": "ON",
     "gui.perspective.false": "OFF"
 }

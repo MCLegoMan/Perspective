@@ -1,5 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id "com.modrinth.minotaur" version "2.+"
+	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id 'maven-publish'
 }
 
@@ -68,5 +70,35 @@ publishing {
 		}
 	}
 	repositories {
+	}
+}
+
+modrinth {
+	token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
+	projectId = "${project.modrinth_id}"
+	versionNumber = "${project.version}"
+	versionType = "${project.version_type}"
+	versionName = "[${project.title}]"
+	uploadFile = remapJar
+	gameVersions = ['1.20', '1.20.1']
+	loaders = ['fabric', 'quilt']
+	changelog = rootProject.file("CHANGELOG.md").text
+	dependencies {
+		required.project("P7dR8mSH") // Fabric-API
+	}
+	syncBodyFrom = rootProject.file("README.md").text
+}
+curseforge {
+	apiKey = rootProject.file(".env").text.readLines().get(1).replace("CURSEFORGE=", "").replace("\"", "")
+	project {
+		id = "${project.curseforge_id}"
+		changelog = rootProject.file("CHANGELOG.md").text
+		releaseType = "${project.version_type}"
+		gameVersionStrings = ['1.20', '1.20.1']
+		mainArtifact(jar) {
+			displayName = "[${project.title}]"
+		}
+	}
+	options {
 	}
 }

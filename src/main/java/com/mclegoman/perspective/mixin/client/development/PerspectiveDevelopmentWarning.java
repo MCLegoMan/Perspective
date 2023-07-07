@@ -32,7 +32,7 @@ public abstract class PerspectiveDevelopmentWarning {
         if (PerspectiveData.IS_DEVELOPMENT && !DEVELOPMENT_WARNING) {
             DEVELOPMENT_WARNING = true;
             if (PerspectiveConfig.SHOW_DEVELOPMENT_WARNING && screen instanceof TitleScreen) {
-                this.setScreen(new PerspectiveDevelopmentWarningScreen(screen, 200));
+                this.setScreen(new PerspectiveDevelopmentWarningScreen(screen, 200, true));
                 ci.cancel();
             }
         }
