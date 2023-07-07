@@ -27,12 +27,13 @@ import net.minecraft.util.Identifier;
 public class PerspectiveConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private final GridWidget GRID;
+    private boolean SHOULD_CLOSE;
     public PerspectiveConfigScreen(Screen PARENT) {
         super(Text.translatable("gui.perspective.config.title"));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
     }
-    protected void init() {
+    public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
         GRID_ADDER.add(createTitle());
@@ -44,6 +45,14 @@ public class PerspectiveConfigScreen extends Screen {
         GRID.forEachChild(this::addDrawableChild);
         initTabNavigation();
     }
+
+    public void tick() {
+        if (this.SHOULD_CLOSE) {
+            PerspectiveConfig.write_to_file();
+            client.setScreen(PARENT_SCREEN);
+        }
+    }
+
     private GridWidget createTitle() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -59,9 +68,9 @@ public class PerspectiveConfigScreen extends Screen {
                 PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;
                 client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
             }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.show_development_warning.hover"), Text.translatable("gui.perspective.config.show_development_warning.hover")));
-            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(Text.literal("?"), (button) -> {
+            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.test_development_warning"), (button) -> {
                 client.setScreen(new PerspectiveDevelopmentWarningScreen(client.currentScreen, 200, false));
-            }).width(20).build());
+            }).width(20).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.test_development_warning.hover"), Text.translatable("gui.perspective.config.test_development_warning.hover")));;
             GRID_ADDER.add(DEVELOPMENT_BUTTONS);
         } else {
             GRID_ADDER.add(new IconWidget(224, 42, new Identifier(PerspectiveData.ID, "textures/config/logo/release.png")), 2);
@@ -138,13 +147,12 @@ public class PerspectiveConfigScreen extends Screen {
             client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {
-            PerspectiveConfig.write_to_file();
-            client.setScreen(PARENT_SCREEN);
+            this.SHOULD_CLOSE = true;
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.back.hover"), Text.translatable("gui.perspective.config.back.hover")));
         return GRID;
     }
 
-    protected void initTabNavigation() {
+    public void initTabNavigation() {
         SimplePositioningWidget.setPos(GRID, getNavigationFocus());
     }
     public Text getNarratedTitle() {
@@ -155,10 +163,7 @@ public class PerspectiveConfigScreen extends Screen {
     }
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == 256) {
-            PerspectiveConfig.write_to_file();
-            client.setScreen(PARENT_SCREEN);
-        }
+        if (keyCode == 256) this.SHOULD_CLOSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

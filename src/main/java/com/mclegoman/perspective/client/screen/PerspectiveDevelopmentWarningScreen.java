@@ -32,6 +32,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     private final boolean SHOW_CHECKBOX;
     @Nullable
     protected CheckboxWidget checkbox;
+    private boolean SHOULD_CLOSE;
     public PerspectiveDevelopmentWarningScreen(Screen parent_screen, int timer_ticks, boolean show_checkbox) {
         super(Text.translatable("gui.perspective.config.title"));
         this.GRID = new GridWidget();
@@ -46,14 +47,17 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         if (SHOW_CHECKBOX) {
             if (this.checkbox.isChecked() == PerspectiveConfig.SHOW_DEVELOPMENT_WARNING) {
                 PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !this.checkbox.isChecked();
-                PerspectiveConfig.write_to_file();
             }
         }
         if (TIMER_TICKS > 0) {
             TIMER_TICKS -= 1;
             client.setScreen(new PerspectiveDevelopmentWarningScreen(PARENT_SCREEN, TIMER_TICKS, SHOW_CHECKBOX));
         }
-        else client.setScreen(PARENT_SCREEN);
+        else this.SHOULD_CLOSE = true;
+        if (this.SHOULD_CLOSE) {
+            PerspectiveConfig.write_to_file();
+            client.setScreen(PARENT_SCREEN);
+        }
         super.tick();
     }
     private int ticksToSeconds(int ticks) {
@@ -110,7 +114,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        client.setScreen(PARENT_SCREEN);
+        this.SHOULD_CLOSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
