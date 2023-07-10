@@ -10,7 +10,7 @@
 </div>
 <br>
 <div id="features">
-<h2>Features</h2>
+<h1>Features</h1>
 <p>
  - Adjustable Zoom<br>
  - Hold Perspective Keybindings<br>
@@ -20,15 +20,15 @@
 </p>
 </div>
 <br><div id="requires">
-<h2>Mod Requirements</h2>
-<h4>FabricMC</h4>
+<h1>Mod Requirements</h1>
+<h2>FabricMC</h2>
 <p> - <a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br></p>
-<h4>QuiltMC</h4>
+<h2>QuiltMC</h2>
 <p> - <a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a><br></p>
 </div>
 <br>
 <div id="faq">
-<h2>FAQ</h2>
+<h1>FAQ</h1>
 <b>
 Q: Will this mod work on Forge?<br>
 A: No. This mod is developed for FabricMC.<br>
@@ -53,7 +53,7 @@ A: Yes, You can find me on <a href="https://twitch.tv/mclegoman">Twitch</a> and 
 </div>
 <br>
 <div id="compatible">
-<h2>Compatible Mods</h2>
+<h1>Compatible Mods</h1>
 <p>
 <a href="https://modrinth.com/mod/souper-secret-settings">Souper Secret Settings</a> by Nettakrim
 </p>
