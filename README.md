@@ -21,10 +21,10 @@ Toggle Super Secret Settings Keybinding<br>
 </div>
 <br><div id="requires">
 <h2>Requires</h2>
-<p>
-If you are running FabricMC, use <a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br>
-If you are running QuiltMC, use <a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a>
-</p>
+<h4>FabricMC Requirements</h4>
+<p><a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br></p>
+<h4>QuiltMC Requirements</h4>
+<p><a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a><br></p>
 </div>
 <br>
 <div id="faq">
