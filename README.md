@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Perspective</title>
-    </head>
     <body>
         <div id="content" style="text-align: center; padding: 16px;">
             <div id="header">
