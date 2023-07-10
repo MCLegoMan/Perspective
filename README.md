@@ -1,7 +1,9 @@
-![Perspective](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png)
-
-**Perspective is currently developed for FabricMC and is tested for QuiltMC.**  
-**Other mod-loaders are not supported.**
+<div align="center">
+    </br>
+    <img src="https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png">
+    <a href="https://modrinth.com/mod/mclegoman-perspective"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png"></a>
+    <a href="https://www.curseforge.com/minecraft/mc-mods/perspective"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/curseforge_64h.png"></a>
+</div>
 
 #### Features:
 + Adjustable Zoom

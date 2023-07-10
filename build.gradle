@@ -32,8 +32,8 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 
-	modImplementation "com.github.mclegoman:simplefabric:${project.simplefabric}"
-	modImplementation "com.github.mclegoman:releasetypeutils:${project.releasetypeutils}"
+	include(modImplementation "com.github.mclegoman:simplefabric:${project.simplefabric}")
+	include(modImplementation "com.github.mclegoman:releasetypeutils:${project.releasetypeutils}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 }
