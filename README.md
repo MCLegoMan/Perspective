@@ -19,6 +19,13 @@ Cycle Super Secret Settings Keybinding<br>
 Toggle Super Secret Settings Keybinding<br>
 </p>
 </div>
+<br><div id="requires">
+<h2>Requires</h2>
+<p>
+If you are running FabricMC, use <a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br>
+If you are running QuiltMC, use <a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a>
+</p>
+</div>
 <br>
 <div id="faq">
 <h2>FAQ</h2>
