@@ -1,11 +1,8 @@
-title: ![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png)
+title: Perspective
 description: Perspective
 remote_theme: just-the-docs/just-the-docs
 
 url: https://mclegoman.github.io/perspective
-
-aux_links:
-  Download: https://www.curseforge.com/minecraft/mc-mods/perspective/files
 
 nav_external_links:
   - title: Curseforge
