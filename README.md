@@ -5,8 +5,8 @@
 <a href="https://www.curseforge.com/minecraft/mc-mods/perspective"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/curseforge_64h.png" alt="Curseforge"></a>
 <a href="https://github.com/MCLegoMan/perspective"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/github_64h.png" alt="Github"></a>
 <br>
-<img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/fabric_64h.png" alt="Fabric">
-<img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/quilt_64h.png" alt="Quilt">
+<a href="https://fabricmc.net"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/fabric_64h.png" alt="Fabric"></a>
+<a href="https://quiltmc.org"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/quilt_64h.png" alt="Quilt"></a>
 </div>
 <div id="features">
 <h2>Features</h2>
