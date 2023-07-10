@@ -1,2 +1,6 @@
-title: Perspective
-description: Zoom, Perspective, Super Secret Settings for FabricMC
+theme: just-the-docs
+
+url: https://MCLegoMan.github.io/Perspective
+
+aux_links:
+  GitHub: https://github.com/MCLegoMan/Perspective
