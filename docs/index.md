@@ -6,5 +6,4 @@ description: "Zoom, Perspective, Super Secret Settings for FabricMC"
 has_children: false
 permalink: /
 ---
-![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png)  
-{: .d-inline-block }
+![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png)
