@@ -1,6 +1,65 @@
- remote_theme: just-the-docs/just-the-docs
+title: Perspective
+description: Perspective
+remote_theme: just-the-docs/just-the-docs
 
-url: https://MCLegoMan.github.io/Perspective
+url: https://mclegoman.github.io/perspective
 
 aux_links:
-  GitHub: https://github.com/MCLegoMan/Perspective
+  Download: https://www.curseforge.com/minecraft/mc-mods/perspective/files
+
+nav_external_links:
+  - title: Curseforge
+    url: https://www.curseforge.com/minecraft/mc-mods/perspective
+  - title: Github
+    url: https://github.com/MCLegoMan/Perspective
+  - title: Report an Issue
+    url: https://github.com/MCLegoMan/Perspective/issues/new/choose
+  - title: Donate
+    url: https://ko-fi.com/mclegoman
+
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s\-/]+/
+  rel_url: true
+  button: false
+
+enable_copy_code_button: true
+
+callouts:
+  warning:
+    title: WARNING
+    color: red
+  important:
+    title: IMPORTANT
+    color: purple
+  note:
+    title: NOTE
+    color: purple
+  recommendedtools:
+    title: RECOMMENDED TOOLS
+    color: green
+  latestrelease:
+    title: LATEST RELEASE
+    color: purple
+  release:
+    title: RELEASE
+    color: green
+  development:
+    title: DEVELOPMENT
+    color: yellow
+  requires:
+    title: REQUIRES
+    color: blue
+
+nav_sort: case_sensitive
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+color_scheme: dark
+
+footer_content: "LegoLib is not an official Minecraft product.</br>We are not approved by or associated with Mojang AB and/or Microsoft.</br></br>Copyright &copy; 2023 Daniel-Tayden Larsen.</br>LegoLib Documentation is licensed under the CC-BY 4.0 license."
