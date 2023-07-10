@@ -20,10 +20,10 @@
 </p>
 </div>
 <br><div id="requires">
-<h2>Requires</h2>
-<h4>FabricMC Requirements</h4>
+<h2>Mod Requirements</h2>
+<h4>FabricMC</h4>
 <p> - <a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br></p>
-<h4>QuiltMC Requirements</h4>
+<h4>QuiltMC</h4>
 <p> - <a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a><br></p>
 </div>
 <br>
