@@ -8,6 +8,7 @@
 <a href="https://fabricmc.net"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/fabric_64h.png" alt="Fabric"></a>
 <a href="https://quiltmc.org"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/quilt_64h.png" alt="Quilt"></a>
 </div>
+<br>
 <div id="features">
 <h2>Features</h2>
 <p>
@@ -18,6 +19,7 @@ Cycle Super Secret Settings Keybinding<br>
 Toggle Super Secret Settings Keybinding<br>
 </p>
 </div>
+<br>
 <div id="faq">
 <h2>FAQ</h2>
 <b>
@@ -41,7 +43,8 @@ A: Yes, as long as you give attribution.<br>
 Q: Do you make any other content?<br>
 A: Yes, You can find me on <a href="https://twitch.tv/mclegoman">Twitch</a> and <a href="https://youtube.com/@MCLegoMan">YouTube</a>.
 </b>
-</div> 
+</div>
+<br>
 <div id="compatible">
 <h2>Compatible Mods</h2>
 <p>
