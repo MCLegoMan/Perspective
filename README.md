@@ -1,4 +1,4 @@
-<div id="content" style="text-align: center; padding: 16px;">
+<div id="content">
 <div id="header">
 <img src="https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png" alt="Perspective">
 <a href="https://modrinth.com/mod/mclegoman-perspective"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png" alt="Modrinth"></a>
@@ -12,19 +12,19 @@
 <div id="features">
 <h2>Features</h2>
 <p>
-Adjustable Zoom<br>
-Hold Perspective Keybindings<br>
-Set Perspective Keybindings<br>
-Cycle Super Secret Settings Keybinding<br>
-Toggle Super Secret Settings Keybinding<br>
+ - Adjustable Zoom<br>
+ - Hold Perspective Keybindings<br>
+ - Set Perspective Keybindings<br>
+ - Cycle Super Secret Settings Keybinding<br>
+ - Toggle Super Secret Settings Keybinding<br>
 </p>
 </div>
 <br><div id="requires">
 <h2>Requires</h2>
 <h4>FabricMC Requirements</h4>
-<p><a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br></p>
+<p> - <a href="https://modrinth.com/mod/fabric-api">Fabric API</a><br></p>
 <h4>QuiltMC Requirements</h4>
-<p><a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a><br></p>
+<p> - <a href="https://modrinth.com/mod/qsl">Quilted Fabric API (QFAPI)</a><br></p>
 </div>
 <br>
 <div id="faq">
