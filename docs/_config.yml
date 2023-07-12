@@ -37,7 +37,7 @@ callouts:
     title: "REQUIRES"
     color: blue
   untitled:
-    color: blue
+    color: green
   development:
     title: "DEVELOPMENT"
     color: yellow
@@ -46,7 +46,7 @@ callouts:
     color: green
   add_to_showcase:
     title: "WANT TO ADD A VIDEO TO THIS LIST?"
-    color: purple
+    color: blue
 
 nav_sort: case_sensitive
 
