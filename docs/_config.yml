@@ -45,7 +45,7 @@ callouts:
     title: RELEASE
     color: green
   add_to_showcase:
-    title: WANT TO ADD A VIDEO TO THIS LIST?
+    title: "WANT TO ADD A VIDEO TO THIS LIST?"
     color: purple
 
 nav_sort: case_sensitive
