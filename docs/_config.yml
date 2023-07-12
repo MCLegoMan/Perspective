@@ -32,25 +32,18 @@ callouts:
     color: red
   important:
     title: IMPORTANT
-    color: purple
-  note:
-    title: NOTE
-    color: purple
-  recommendedtools:
-    title: RECOMMENDED TOOLS
-    color: green
-  latestrelease:
-    title: LATEST RELEASE
-    color: purple
-  release:
-    title: RELEASE
-    color: green
-  development:
-    title: DEVELOPMENT
     color: yellow
   requires:
     title: REQUIRES
     color: blue
+  note:
+    color: purple
+  development:
+    title: DEVELOPMENT
+    color: yellow
+  release:
+    title: RELEASE
+    color: green
 
 nav_sort: case_sensitive
 

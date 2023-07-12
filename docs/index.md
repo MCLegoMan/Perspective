@@ -7,7 +7,7 @@ permalink: /
 ---
 ![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/titles/documentation.png)
 
-{: .warning}  
+{: .important}  
 > Perspective Documentation is not complete!
 
 
