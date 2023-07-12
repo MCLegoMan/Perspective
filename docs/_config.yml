@@ -28,21 +28,21 @@ enable_copy_code_button: true
 
 callouts:
   warning:
-    title: WARNING
+    title: "WARNING"
     color: red
   important:
-    title: IMPORTANT
+    title: "IMPORTANT"
     color: yellow
   requires:
-    title: REQUIRES
+    title: "REQUIRES"
     color: blue
   untitled:
-    color: purple
+    color: blue
   development:
-    title: DEVELOPMENT
+    title: "DEVELOPMENT"
     color: yellow
   release:
-    title: RELEASE
+    title: "RELEASE"
     color: green
   add_to_showcase:
     title: "WANT TO ADD A VIDEO TO THIS LIST?"
