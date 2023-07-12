@@ -37,13 +37,16 @@ callouts:
     title: REQUIRES
     color: blue
   untitled:
-    color: purple
+    color: skyblue
   development:
     title: DEVELOPMENT
     color: yellow
   release:
     title: RELEASE
     color: green
+  add_to_showcase:
+    title: WANT TO ADD A VIDEO TO THIS LIST?
+    color: purple
 
 nav_sort: case_sensitive
 
