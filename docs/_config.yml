@@ -36,7 +36,7 @@ callouts:
   requires:
     title: REQUIRES
     color: blue
-  note:
+  untitled:
     color: purple
   development:
     title: DEVELOPMENT
