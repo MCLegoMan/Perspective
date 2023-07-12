@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Home
-nav_order: 1
+title: Showcases
+nav_order: 2
 has_children: false
-permalink: /
+permalink: /showcases/
 ---
 ![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png)](https://modrinth.com/mod/mclegoman-perspective)
@@ -12,5 +12,9 @@ permalink: /
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/fabric_64h.png)](https://fabricmc.net)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/quilt_64h.png)](https://quiltmc.org)
 
-{: .warning}  
+{: .warning}
 > Perspective Documentation is not complete!
+
+<div>
+<iframe src="https://www.youtube-nocookie.com/embed/Yo2tEApUyW4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
