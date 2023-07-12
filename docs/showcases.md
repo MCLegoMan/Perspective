@@ -16,5 +16,7 @@ permalink: /showcases/
 > Perspective Documentation is not complete!
 
 <div>
-<iframe src="https://www.youtube-nocookie.com/embed/Yo2tEApUyW4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" src="https://www.youtube-nocookie.com/embed/Yo2tEApUyW4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>  </iframe>
+<h3><a href="https://www.youtube.com/watch?v=Yo2tEApUyW4">New Client Side Mods for Minecraft 1.20.1!</a></h3>
+<p><a href="https://www.youtube.com/@TheGentooGamer">The Gentoo Gamer</a></p>
 </div>
