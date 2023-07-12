@@ -17,4 +17,8 @@ public class PerspectiveTranslationUtils {
         if (BOOLEAN) return Text.translatable("gui.perspective.true");
         else return Text.translatable("gui.perspective.false");
     }
+    public static Text perspectiveHoldTranslate(boolean BOOLEAN) {
+        if (BOOLEAN) return Text.translatable("gui.perspective.hold_perspective.first_person");
+        else return Text.translatable("gui.perspective.hold_perspective.prev_perspective");
+    }
 }

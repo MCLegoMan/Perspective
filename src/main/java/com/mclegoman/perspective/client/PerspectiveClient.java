@@ -25,7 +25,6 @@ public class PerspectiveClient implements ClientModInitializer {
         PerspectiveConfig.init();
         PerspectiveResourcePacks.init();
         PerspectiveKeybindings.init();
-        PerspectivePerspectiveUtils.init();
         PerspectiveSuperSecretSettingsUtil.init();
         PerspectiveTexturedEntityUtils.init();
         PerspectiveAprilFoolsUtils.init();

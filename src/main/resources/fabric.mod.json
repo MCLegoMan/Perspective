@@ -3,13 +3,16 @@
   "id": "perspective",
   "version": "${version}",
   "name": "Perspective",
-  "description": "Zoom, Perspective, Super Secret Settings for FabricMC.\nCredits and Attribution:\n- Vanilla Shader Fixes: Nettakrim\nYou can add custom Super Secret Settings using resource packs in both the Perspective and Souper Secret Settings layouts.",
-  "authors": [
-    "MCLegoMan"
-  ],
-  "contributors": [
-    "Nettakrim"
-  ],
+  "description": "Perspective allows you to Zoom, Set and Hold Perspectives, Use Super Secret Settings, and use custom textures for Named/Random entities.\nCredits and Attribution:\n- Vanilla Shader Fixes: Nettakrim",
+  "authors": [{
+    "name": "MCLegoMan"
+  }],
+  "contributors": [{
+    "name": "Nettakrim",
+    "contributions": [
+      "Vanilla Shader Fixes"
+    ]
+  }],
   "contact": {
     "homepage": "https://github.com/mclegoman",
     "sources": "https://github.com/mclegoman/perspective",

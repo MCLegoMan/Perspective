@@ -1,8 +1,8 @@
 {
   "zoom_level": 20,
   "overlay_delay": 20,
+  "perspective_hold": true,
   "super_secret_settings": 0,
-  "perspective": 0,
   "textured_named_entity": true,
   "textured_random_entity": false,
   "allow_april_fools": true,

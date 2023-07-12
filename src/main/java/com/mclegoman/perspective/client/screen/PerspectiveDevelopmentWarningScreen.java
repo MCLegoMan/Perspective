@@ -28,7 +28,6 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private final GridWidget GRID;
     private int TIMER_TICKS;
-    private int TIMER_SECS;
     private final boolean SHOW_CHECKBOX;
     @Nullable
     protected CheckboxWidget checkbox;
@@ -38,7 +37,6 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = parent_screen;
         TIMER_TICKS = timer_ticks;
-        TIMER_SECS = ticksToSeconds(timer_ticks);
         SHOW_CHECKBOX = show_checkbox;
     }
 

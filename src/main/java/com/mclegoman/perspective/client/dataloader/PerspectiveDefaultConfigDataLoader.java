@@ -8,9 +8,7 @@
 package com.mclegoman.perspective.client.dataloader;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,7 +20,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
@@ -30,8 +27,8 @@ public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implement
     public static int ZOOM_LEVEL = 20;
     public static int OVERLAY_DELAY = 20;
     public static int SUPER_SECRET_SETTINGS = 0;
+    public static boolean PERSPECTIVE_HOLD = true;
     public static String DEFAULT_SUPER_SECRET_SETTINGS_SOUND = "minecraft:block.pointed_dripstone.drip_water";
-    public static int PERSPECTIVE = 0;
     public static boolean TEXTURED_NAMED_ENTITY = true;
     public static boolean TEXTURED_RANDOM_ENTITY = false;
     public static boolean ALLOW_APRIL_FOOLS = true;
@@ -50,7 +47,7 @@ public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implement
                 ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level");
                 OVERLAY_DELAY = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "overlay_delay");
                 SUPER_SECRET_SETTINGS = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "super_secret_settings");
-                PERSPECTIVE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "perspective");
+                PERSPECTIVE_HOLD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "perspective_hold");
                 TEXTURED_NAMED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "textured_named_entity");
                 TEXTURED_RANDOM_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "textured_random_entity");
                 ALLOW_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "allow_april_fools");

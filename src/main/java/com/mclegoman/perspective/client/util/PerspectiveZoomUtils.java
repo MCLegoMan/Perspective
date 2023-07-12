@@ -42,11 +42,11 @@ public class PerspectiveZoomUtils {
             if (PerspectiveConfig.ZOOM_LEVEL >= 100) PerspectiveConfig.ZOOM_LEVEL = 100;
             else PerspectiveConfig.ZOOM_LEVEL += 1;
         }
-        PerspectiveConfig.write_to_file();
+        PerspectiveConfig.TICK_SAVE = true;
     }
     public static void reset() {
         OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
         PerspectiveConfig.ZOOM_LEVEL = PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL;
-        PerspectiveConfig.write_to_file();
+        PerspectiveConfig.TICK_SAVE = true;
     }
 }

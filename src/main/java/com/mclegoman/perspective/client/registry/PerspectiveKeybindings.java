@@ -23,7 +23,6 @@ public class PerspectiveKeybindings {
     public static KeyBinding KEY_ZOOM_RESET;
     public static KeyBinding KEY_HOLD_PERSPECTIVE_TPF;
     public static KeyBinding KEY_HOLD_PERSPECTIVE_TPB;
-    public static KeyBinding KEY_CYCLE_PERSPECTIVE;
     public static KeyBinding KEY_SET_PERSPECTIVE_FP;
     public static KeyBinding KEY_SET_PERSPECTIVE_TPF;
     public static KeyBinding KEY_SET_PERSPECTIVE_TPB;
@@ -39,7 +38,6 @@ public class PerspectiveKeybindings {
         KEY_ZOOM_RESET = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.reset", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_HOLD_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_X, "category.perspective.perspective"));
         KEY_HOLD_PERSPECTIVE_TPB = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpb.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, "category.perspective.perspective"));
-        KEY_CYCLE_PERSPECTIVE = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.cycle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_SET_PERSPECTIVE_FP = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.fp.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_SET_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_SET_PERSPECTIVE_TPB = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpb.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
