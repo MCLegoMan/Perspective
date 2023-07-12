@@ -9,3 +9,10 @@ permalink: /
 
 {: .warning}  
 > Perspective Documentation is not complete!
+
+
+
+## Helpful Links  
+- [Minecraft Wiki: Creating a resource pack](https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack)
+- [Souper Secret Settings](https://modrinth.com/mod/souper-secret-settings)
+- [Souper Secret Settings: Resourcepack Guide](https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/ResourcepackGuide/ResourcepackGuide.md)
