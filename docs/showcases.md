@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Mod Showcases
+title: Showcases
 nav_order: 2
 has_children: false
 permalink: /showcases/
 ---
-![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/titles/mod_showcases.png)
+![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/titles/showcases.png)
 
 {: .add_to_showcase}
 > Create a GitHub Issue with the video url attached.
