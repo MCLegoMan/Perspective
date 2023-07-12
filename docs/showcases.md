@@ -7,7 +7,7 @@ permalink: /showcases/
 ---
 ![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/titles/mod_showcases.png)
 
-{: .info}
+{: .note}
 > Want to add a video to this list?  
 > Create an Issue with the showcase in the title and the link in the description.
 
