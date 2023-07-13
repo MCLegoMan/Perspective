@@ -1,28 +1,33 @@
 {
     "targets": [
-        "shareware",
-        "notch",
+        "0",
+        "1",
         "swap"
     ],
     "passes": [
         {
-            "name": "shareware",
+            "name": "downscale",
             "intarget": "minecraft:main",
-            "outtarget": "shareware"
+            "outtarget": "0"
         },
         {
             "name": "notch",
-            "intarget": "shareware",
-            "outtarget": "swap",
+            "intarget": "0",
+            "outtarget": "1",
             "auxtargets": [
                 {
                     "name": "DitherSampler",
                     "id": "dither",
-                    "width": 1,
-                    "height": 1,
-                    "bilinear": false
+                    "width": 64,
+                    "height": 64,
+                    "bilinear": true
                 }
             ]
+        },
+        {
+            "name": "downscale",
+            "intarget": "1",
+            "outtarget": "swap"
         },
         {
             "name": "blit",

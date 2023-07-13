@@ -1,7 +1,9 @@
 {
   "zoom_level": 20,
+  "zoom_show_hud": true,
   "overlay_delay": 20,
   "perspective_hold": true,
+  "perspective_hold_show_hud": true,
   "super_secret_settings": 0,
   "textured_named_entity": true,
   "textured_random_entity": false,

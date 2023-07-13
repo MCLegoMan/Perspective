@@ -25,9 +25,11 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static int ZOOM_LEVEL = 20;
+    public static boolean ZOOM_SHOW_HUD = true;
     public static int OVERLAY_DELAY = 20;
     public static int SUPER_SECRET_SETTINGS = 0;
     public static boolean PERSPECTIVE_HOLD = true;
+    public static boolean PERSPECTIVE_HOLD_SHOW_HUD = true;
     public static String DEFAULT_SUPER_SECRET_SETTINGS_SOUND = "minecraft:block.pointed_dripstone.drip_water";
     public static boolean TEXTURED_NAMED_ENTITY = true;
     public static boolean TEXTURED_RANDOM_ENTITY = false;
@@ -45,9 +47,11 @@ public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implement
         try {
             for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
                 ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level");
+                ZOOM_SHOW_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "zoom_show_hud");
                 OVERLAY_DELAY = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "overlay_delay");
                 SUPER_SECRET_SETTINGS = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "super_secret_settings");
                 PERSPECTIVE_HOLD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "perspective_hold");
+                PERSPECTIVE_HOLD_SHOW_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "perspective_hold_show_hud");
                 TEXTURED_NAMED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "textured_named_entity");
                 TEXTURED_RANDOM_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "textured_random_entity");
                 ALLOW_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "allow_april_fools");

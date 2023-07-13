@@ -67,5 +67,11 @@
     "gui.perspective.true": "ON",
     "gui.perspective.false": "OFF",
     "gui.perspective.hold_perspective.first_person": "First Person",
-    "gui.perspective.hold_perspective.prev_perspective": "Previous Perspective"
+    "gui.perspective.hold_perspective.prev_perspective": "Previous Perspective",
+
+
+    "gui.perspective.config.zoom_show_hud": "Zoom: Show HUD: %s",
+    "gui.perspective.config.zoom_show_hud.hover": "Toggles whether you can see your HUD when zooming.",
+    "gui.perspective.config.perspective_hold_show_hud": "Perspective Hold: Show HUD: %s",
+    "gui.perspective.config.perspective_hold_show_hud.hover": "Toggles whether you can see your HUD when holding a perspective."
 }

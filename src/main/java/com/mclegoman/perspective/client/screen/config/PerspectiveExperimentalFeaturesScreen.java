@@ -37,6 +37,7 @@ public class PerspectiveExperimentalFeaturesScreen extends Screen {
         GRID_ADDER.add(createTitle());
         GRID_ADDER.add(createTexturedEntity());
         GRID_ADDER.add(createAprilFools());
+        GRID_ADDER.add(createShowHUD());
         GRID_ADDER.add(createPerspective());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
@@ -99,6 +100,20 @@ public class PerspectiveExperimentalFeaturesScreen extends Screen {
             client.setScreen(new PerspectiveExperimentalFeaturesScreen(PARENT_SCREEN));
             PerspectiveData.LOGGER.info(String.valueOf(button.getWidth()));
         }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.force_april_fools.hover"), Text.translatable("gui.perspective.config.force_april_fools.hover")));
+        return GRID;
+    }
+    private GridWidget createShowHUD() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.zoom_show_hud", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.ZOOM_SHOW_HUD)), (button) -> {
+            PerspectiveConfig.ZOOM_SHOW_HUD = !PerspectiveConfig.ZOOM_SHOW_HUD;
+            client.setScreen(new PerspectiveExperimentalFeaturesScreen(PARENT_SCREEN));
+        }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.zoom_show_hud.hover"), Text.translatable("gui.perspective.config.zoom_show_hud.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.perspective_hold_show_hud", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.PERSPECTIVE_HOLD_SHOW_HUD)), (button) -> {
+            PerspectiveConfig.PERSPECTIVE_HOLD_SHOW_HUD = !PerspectiveConfig.PERSPECTIVE_HOLD_SHOW_HUD;
+            client.setScreen(new PerspectiveExperimentalFeaturesScreen(PARENT_SCREEN));
+        }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.perspective_hold_show_hud.hover"), Text.translatable("gui.perspective.config.perspective_hold_show_hud.hover")));
         return GRID;
     }
     private GridWidget createPerspective() {

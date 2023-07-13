@@ -7,6 +7,7 @@
     "client.april_fools.PerspectiveLivingEntityRenderer",
     "client.april_fools.PerspectivePlayerEntityRenderer",
     "client.development.PerspectiveDevelopmentWarning",
+    "client.supersecretsettings.PerspectiveSSSNamespaceFix",
     "client.textured_entity.PerspectiveAllayEntityRenderer",
     "client.textured_entity.PerspectiveArmorStandEntityRenderer",
     "client.textured_entity.PerspectiveArrowEntityRenderer",

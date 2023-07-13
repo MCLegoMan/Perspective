@@ -14,13 +14,39 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class PerspectivePerspectiveUtils {
+    public static boolean isHoldingPerspective() {
+        try {
+            return HOLD_THIRD_PERSON_BACK_LOCK || HOLD_THIRD_PERSON_FRONT_LOCK;
+        } catch (Exception ignored) {
+        }
+        return false;
+    }
     private static boolean HOLD_THIRD_PERSON_BACK_LOCK;
     private static Perspective HOLD_THIRD_PERSON_BACK_PREV;
     private static boolean HOLD_THIRD_PERSON_FRONT_LOCK;
     private static Perspective HOLD_THIRD_PERSON_FRONT_PREV;
+    private static final List<Perspective> PERSPECTIVES = new ArrayList<>();
+    public static void init() {
+        PERSPECTIVES.addAll(Arrays.asList(Perspective.values()));
+    }
     public static void tick(MinecraftClient client) {
+        if (PerspectiveKeybindings.KEY_CYCLE_PERSPECTIVE.wasPressed()) {
+            if (client.options.sneakKey.isPressed()) {
+                if ((PERSPECTIVES.indexOf(client.options.getPerspective()) - 1) >= 0) {
+                    client.options.setPerspective(PERSPECTIVES.get((PERSPECTIVES.indexOf(client.options.getPerspective()) - 1)));
+                } else {
+                    client.options.setPerspective(PERSPECTIVES.get((PERSPECTIVES.size() - 1)));
+                }
+            } else {
+                client.options.setPerspective(PERSPECTIVES.get(PERSPECTIVES.indexOf(client.options.getPerspective())).next());
+            }
+        }
         if (PerspectiveKeybindings.KEY_SET_PERSPECTIVE_FP.wasPressed()) client.options.setPerspective(Perspective.FIRST_PERSON);
         if (PerspectiveKeybindings.KEY_SET_PERSPECTIVE_TPB.wasPressed()) client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
         if (PerspectiveKeybindings.KEY_SET_PERSPECTIVE_TPF.wasPressed()) client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);

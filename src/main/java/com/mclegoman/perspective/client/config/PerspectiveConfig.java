@@ -25,8 +25,10 @@ public class PerspectiveConfig {
     public static PerspectiveConfigProvider getConfigProvider() {return CONFIG_PROVIDER;}
     private static PerspectiveConfigProvider CONFIG_PROVIDER;
     public static int ZOOM_LEVEL;
+    public static boolean ZOOM_SHOW_HUD;
     public static int OVERLAY_DELAY;
     public static boolean PERSPECTIVE_HOLD;
+    public static boolean PERSPECTIVE_HOLD_SHOW_HUD;
     public static int SUPER_SECRET_SETTINGS;
     public static String DEFAULT_SUPER_SECRET_SETTINGS_SOUND;
     public static boolean TEXTURED_NAMED_ENTITY;
@@ -46,8 +48,10 @@ public class PerspectiveConfig {
     }
     private static void create() {
         CONFIG_PROVIDER.add(new Pair<>("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_show_hud", PerspectiveDefaultConfigDataLoader.ZOOM_SHOW_HUD));
         CONFIG_PROVIDER.add(new Pair<>("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY));
         CONFIG_PROVIDER.add(new Pair<>("perspective_hold", PerspectiveDefaultConfigDataLoader.PERSPECTIVE_HOLD));
+        CONFIG_PROVIDER.add(new Pair<>("perspective_hold_show_hud", PerspectiveDefaultConfigDataLoader.PERSPECTIVE_HOLD_SHOW_HUD));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS));
         CONFIG_PROVIDER.add(new Pair<>("default_super_secret_settings_sound", PerspectiveDefaultConfigDataLoader.DEFAULT_SUPER_SECRET_SETTINGS_SOUND));
         CONFIG_PROVIDER.add(new Pair<>("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY));
@@ -59,8 +63,10 @@ public class PerspectiveConfig {
     }
     private static void assign() {
         ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
+        ZOOM_SHOW_HUD = CONFIG.getOrDefault("zoom_show_hud", PerspectiveDefaultConfigDataLoader.ZOOM_SHOW_HUD);
         OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY);
         PERSPECTIVE_HOLD = CONFIG.getOrDefault("perspective_hold", PerspectiveDefaultConfigDataLoader.PERSPECTIVE_HOLD);
+        PERSPECTIVE_HOLD_SHOW_HUD = CONFIG.getOrDefault("perspective_hold_show_hud", PerspectiveDefaultConfigDataLoader.PERSPECTIVE_HOLD_SHOW_HUD);
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS);
         DEFAULT_SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("default_super_secret_settings_sound", PerspectiveDefaultConfigDataLoader.DEFAULT_SUPER_SECRET_SETTINGS_SOUND);
         TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
@@ -73,8 +79,10 @@ public class PerspectiveConfig {
     }
     public static void reset() {
         ZOOM_LEVEL = PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL;
+        ZOOM_SHOW_HUD = PerspectiveDefaultConfigDataLoader.ZOOM_SHOW_HUD;
         OVERLAY_DELAY = PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY;
         PERSPECTIVE_HOLD = PerspectiveDefaultConfigDataLoader.PERSPECTIVE_HOLD;
+        PERSPECTIVE_HOLD_SHOW_HUD = PerspectiveDefaultConfigDataLoader.PERSPECTIVE_HOLD_SHOW_HUD;
         SUPER_SECRET_SETTINGS = PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS;
         DEFAULT_SUPER_SECRET_SETTINGS_SOUND = PerspectiveDefaultConfigDataLoader.DEFAULT_SUPER_SECRET_SETTINGS_SOUND;
         SHOW_DEVELOPMENT_WARNING = PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING;
@@ -88,8 +96,10 @@ public class PerspectiveConfig {
     public static void write_to_file() {
         PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Writing config to file.");
         getConfigProvider().write_to_file("zoom_level", ZOOM_LEVEL);
+        getConfigProvider().write_to_file("zoom_show_hud", ZOOM_SHOW_HUD);
         getConfigProvider().write_to_file("overlay_delay", OVERLAY_DELAY);
         getConfigProvider().write_to_file("perspective_hold", PERSPECTIVE_HOLD);
+        getConfigProvider().write_to_file("perspective_hold_show_hud", PERSPECTIVE_HOLD_SHOW_HUD);
         getConfigProvider().write_to_file("super_secret_settings", SUPER_SECRET_SETTINGS);
         getConfigProvider().write_to_file("default_super_secret_settings_sound", DEFAULT_SUPER_SECRET_SETTINGS_SOUND);
         getConfigProvider().write_to_file("show_development_warning", SHOW_DEVELOPMENT_WARNING);
