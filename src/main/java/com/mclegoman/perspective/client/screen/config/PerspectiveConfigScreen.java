@@ -8,7 +8,11 @@
 package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
 import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
+import com.mclegoman.perspective.client.util.PerspectiveConfigScreenUtils;
+import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -34,8 +38,10 @@ public class PerspectiveConfigScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(createTitle());
+        GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createZoom());
+        GRID_ADDER.add(createSuperSecretSettingsAndShowHUD());
+        GRID_ADDER.add(createAprilFools());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
         GRID.forEachChild(this::addDrawableChild);
@@ -44,61 +50,65 @@ public class PerspectiveConfigScreen extends Screen {
 
     public void tick() {
         if (this.SHOULD_CLOSE) {
-            PerspectiveConfig.write_to_file();
+            PerspectiveConfigHelper.saveConfig(false);
             client.setScreen(PARENT_SCREEN);
         }
-    }
-
-    private GridWidget createTitle() {
-        GridWidget GRID = new GridWidget();
-        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        if (PerspectiveData.IS_DEVELOPMENT) {
-            GRID_ADDER.add(new IconWidget(224, 42, new Identifier(PerspectiveData.ID, "textures/config/logo/development.png")));
-            GridWidget DEVELOPMENT_BUTTONS = new GridWidget();
-            DEVELOPMENT_BUTTONS.getMainPositioner().alignHorizontalCenter().margin(2);
-            GridWidget.Adder DEVELOPMENT_BUTTONS_ADDER = DEVELOPMENT_BUTTONS.createAdder(2);
-            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.show_development_warning", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.SHOW_DEVELOPMENT_WARNING)), (button) -> {
-                PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;
-                client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
-            }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.show_development_warning.hover"), Text.translatable("gui.perspective.config.show_development_warning.hover")));
-            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.test_development_warning"), (button) -> {
-                client.setScreen(new PerspectiveDevelopmentWarningScreen(client.currentScreen, 200, false));
-            }).width(20).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.test_development_warning.hover"), Text.translatable("gui.perspective.config.test_development_warning.hover")));;
-            GRID_ADDER.add(DEVELOPMENT_BUTTONS);
-        } else {
-            GRID_ADDER.add(new IconWidget(224, 42, new Identifier(PerspectiveData.ID, "textures/config/logo/release.png")), 2);
-        }
-        return GRID;
     }
     private GridWidget createZoom() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        double ZOOM_LEVEL_VALUE = 1 - ((double) PerspectiveConfig.ZOOM_LEVEL / 100);
-        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.zoom_level", Text.literal((int) (100 - PerspectiveConfig.ZOOM_LEVEL) + "%")), ZOOM_LEVEL_VALUE) {
+        double ZOOM_LEVEL_VALUE = (double) (int) PerspectiveConfigHelper.getConfig("zoom_level") / 100;
+        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.zoom_level", Text.literal((int) ((int)PerspectiveConfigHelper.getConfig("zoom_level")) + "%")), ZOOM_LEVEL_VALUE) {
             @Override
             protected void updateMessage() {
-                setMessage(Text.translatable("gui.perspective.config.zoom_level", Text.literal((int) (100 - PerspectiveConfig.ZOOM_LEVEL) + "%")));
+                setMessage(Text.translatable("gui.perspective.config.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")));
             }
 
             @Override
             protected void applyValue() {
-                PerspectiveConfig.ZOOM_LEVEL = (int) ((1 - value) * 100);
+                PerspectiveConfigHelper.setConfig("zoom_level", (int) ((value) * 100));
             }
         }, 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.zoom_level.hover"), Text.translatable("gui.perspective.config.zoom_level.hover")));
-        double OVERLAY_DELAY_VALUE = (double) PerspectiveConfig.OVERLAY_DELAY / 1000;
-        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf((int)PerspectiveConfig.OVERLAY_DELAY / 20))), OVERLAY_DELAY_VALUE) {
+        double OVERLAY_VALUE = (double) (int) PerspectiveConfigHelper.getConfig("overlay_delay") / 10;
+        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf(PerspectiveConfigHelper.getConfig("overlay_delay")))), OVERLAY_VALUE) {
             @Override
             protected void updateMessage() {
-                setMessage(Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf((int)PerspectiveConfig.OVERLAY_DELAY / 20))));
+                setMessage(Text.translatable("gui.perspective.config.overlay_delay", Text.literal(String.valueOf(PerspectiveConfigHelper.getConfig("overlay_delay")))));
             }
 
             @Override
             protected void applyValue() {
-                PerspectiveConfig.OVERLAY_DELAY = (int) ((value) * 1000);
+                PerspectiveConfigHelper.setConfig("overlay_delay", (int) ((value) * 10));
             }
         }, 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.overlay_delay.hover"), Text.translatable("gui.perspective.config.overlay_delay.hover")));
+        return GRID;
+    }
+    private GridWidget createSuperSecretSettingsAndShowHUD() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings"), (button) -> {
+            client.setScreen(new PerspectiveSuperSecretSettingsScreen(client.currentScreen));
+        }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings.hover"), Text.translatable("gui.perspective.config.super_secret_settings.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.hide_hud", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("hide_hud"))), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_hud", !(boolean)PerspectiveConfigHelper.getConfig("hide_hud"));
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.hide_hud.hover"), Text.translatable("gui.perspective.config.hide_hud.hover")));
+        return GRID;
+    }
+    private GridWidget createAprilFools() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.allow_april_fools", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"))), (button) -> {
+            PerspectiveConfigHelper.setConfig("allow_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"));
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.allow_april_fools.hover"), Text.translatable("gui.perspective.config.allow_april_fools.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.force_april_fools", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("force_april_fools"))), (button) -> {
+            PerspectiveConfigHelper.setConfig("force_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("force_april_fools"));
+            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.force_april_fools.hover"), Text.translatable("gui.perspective.config.force_april_fools.hover")));
         return GRID;
     }
     private GridWidget createFooter() {
@@ -112,7 +122,7 @@ public class PerspectiveConfigScreen extends Screen {
             client.setScreen(new PerspectiveExperimentalFeaturesScreen(client.currentScreen));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.experimental.hover"), Text.translatable("gui.perspective.config.experimental.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
-            PerspectiveConfig.reset();
+            PerspectiveConfigHelper.resetConfig();
             client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {

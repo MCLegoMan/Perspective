@@ -2,11 +2,13 @@
   "required": true,
   "package": "com.mclegoman.perspective.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "com.mclegoman.perspective.client.helpers.supersecretsettings.PerspectiveSSSNamespaceFixPlugin",
   "client": [
     "client.api.PerspectivePlayerListEntry",
     "client.april_fools.PerspectiveLivingEntityRenderer",
     "client.april_fools.PerspectivePlayerEntityRenderer",
     "client.development.PerspectiveDevelopmentWarning",
+    "client.supersecretsettings.PerspectiveGameRenderer",
     "client.supersecretsettings.PerspectiveSSSNamespaceFix",
     "client.textured_entity.PerspectiveAllayEntityRenderer",
     "client.textured_entity.PerspectiveArmorStandEntityRenderer",

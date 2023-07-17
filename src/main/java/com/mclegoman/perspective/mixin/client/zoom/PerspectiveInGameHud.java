@@ -8,6 +8,8 @@
 package com.mclegoman.perspective.mixin.client.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
 import com.mclegoman.perspective.client.util.PerspectivePerspectiveUtils;
 import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
 import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
@@ -31,8 +33,9 @@ public abstract class PerspectiveInGameHud {
     @Shadow @Final private MinecraftClient client;
     @Inject(method="render", at=@At("HEAD"), cancellable = true)
     private void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (PerspectiveZoomUtils.OVERLAY > 0) MultilineText.create(client.textRenderer, Text.translatable("gui.perspective.overlay.zoom", Text.literal((100 - PerspectiveConfig.ZOOM_LEVEL) + "%")), context.getScaledWindowWidth() / 2 - 100).drawCenterWithShadow(context, context.getScaledWindowWidth() / 2, 16, 9, 0xFFFFFF);
-        if (PerspectiveZoomUtils.isZooming() && !PerspectiveConfig.ZOOM_SHOW_HUD) ci.cancel();
-        if (PerspectivePerspectiveUtils.isHoldingPerspective() && !PerspectiveConfig.PERSPECTIVE_HOLD_SHOW_HUD) ci.cancel();
+        if (PerspectiveZoomUtils.OVERLAY > 0) {
+            MultilineText.create(client.textRenderer, Text.translatable("gui.perspective.overlay.zoom", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")), context.getScaledWindowWidth() / 2 - 100).drawCenterWithShadow(context, context.getScaledWindowWidth() / 2, 16, 9, 0xFFFFFF);
+        }
+        if ((PerspectiveZoomUtils.isZooming() || PerspectivePerspectiveUtils.isHoldingPerspective()) && (boolean)PerspectiveConfigHelper.getConfig("hide_hud")) ci.cancel();
     }
 }

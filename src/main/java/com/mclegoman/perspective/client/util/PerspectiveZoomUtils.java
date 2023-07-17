@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.client.util;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.dataloader.PerspectiveDefaultConfigDataLoader;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.config.PerspectiveDefaultConfigDataLoader;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,6 +16,9 @@ import net.minecraft.client.MinecraftClient;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoomUtils {
+    public static double getZoomFOV(MinecraftClient client) {
+        return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100));
+    }
     public static int OVERLAY;
     public static boolean SET_ZOOM;
     public static boolean isZooming() {
@@ -33,20 +36,20 @@ public class PerspectiveZoomUtils {
         if (OVERLAY > 0) OVERLAY = OVERLAY - 1;
     }
     public static void zoom(boolean in) {
-        OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
+        OVERLAY = Math.min((int)PerspectiveConfigHelper.getConfig("overlay_delay") * 20, (10) * 20);
         if (in) {
-            if (PerspectiveConfig.ZOOM_LEVEL <= 0) PerspectiveConfig.ZOOM_LEVEL = 0;
-            else PerspectiveConfig.ZOOM_LEVEL -= 1;
+            if ((int)PerspectiveConfigHelper.getConfig("zoom_level") >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);
+            else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") + 1);
         }
         else {
-            if (PerspectiveConfig.ZOOM_LEVEL >= 100) PerspectiveConfig.ZOOM_LEVEL = 100;
-            else PerspectiveConfig.ZOOM_LEVEL += 1;
+            if ((int)PerspectiveConfigHelper.getConfig("zoom_level") <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
+            else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") - 1);
         }
-        PerspectiveConfig.TICK_SAVE = true;
+        PerspectiveConfigHelper.saveConfig(true);
     }
     public static void reset() {
-        OVERLAY = PerspectiveConfig.OVERLAY_DELAY;
-        PerspectiveConfig.ZOOM_LEVEL = PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL;
-        PerspectiveConfig.TICK_SAVE = true;
+        OVERLAY = Math.min((int)PerspectiveConfigHelper.getConfig("overlay_delay") * 20, (10) * 20);
+        PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
+        PerspectiveConfigHelper.saveConfig(true);
     }
 }

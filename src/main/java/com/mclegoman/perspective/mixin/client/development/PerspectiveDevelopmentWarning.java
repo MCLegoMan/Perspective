@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.mixin.client.development;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -31,7 +32,7 @@ public abstract class PerspectiveDevelopmentWarning {
     private void perspective$setScreen(Screen screen, CallbackInfo ci) {
         if (PerspectiveData.IS_DEVELOPMENT && !DEVELOPMENT_WARNING) {
             DEVELOPMENT_WARNING = true;
-            if (PerspectiveConfig.SHOW_DEVELOPMENT_WARNING && screen instanceof TitleScreen) {
+            if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && screen instanceof TitleScreen) {
                 this.setScreen(new PerspectiveDevelopmentWarningScreen(screen, 200, true));
                 ci.cancel();
             }

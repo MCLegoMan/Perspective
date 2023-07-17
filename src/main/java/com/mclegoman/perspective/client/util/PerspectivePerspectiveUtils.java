@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -53,7 +54,7 @@ public class PerspectivePerspectiveUtils {
         if (!PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPB.isPressed() && !HOLD_THIRD_PERSON_BACK_LOCK) {
             if (PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPF.isPressed()) {
                 if (!HOLD_THIRD_PERSON_FRONT_LOCK) {
-                    HOLD_THIRD_PERSON_FRONT_PREV = setPrev(client);
+                    HOLD_THIRD_PERSON_FRONT_PREV = client.options.getPerspective();
                     if (client.options.getPerspective().equals(Perspective.THIRD_PERSON_FRONT)) client.options.setPerspective(Perspective.FIRST_PERSON);
                     else client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
                 }
@@ -67,7 +68,7 @@ public class PerspectivePerspectiveUtils {
         if (!PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPF.isPressed() && !HOLD_THIRD_PERSON_FRONT_LOCK) {
             if (PerspectiveKeybindings.KEY_HOLD_PERSPECTIVE_TPB.isPressed()) {
                 if (!HOLD_THIRD_PERSON_BACK_LOCK) {
-                    HOLD_THIRD_PERSON_BACK_PREV = setPrev(client);
+                    HOLD_THIRD_PERSON_BACK_PREV = client.options.getPerspective();
                     if (client.options.getPerspective().equals(Perspective.THIRD_PERSON_BACK)) client.options.setPerspective(Perspective.FIRST_PERSON);
                     else client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
                 }
@@ -78,9 +79,5 @@ public class PerspectivePerspectiveUtils {
             HOLD_THIRD_PERSON_BACK_LOCK = false;
             client.options.setPerspective(HOLD_THIRD_PERSON_BACK_PREV);
         }
-    }
-    private static Perspective setPrev(MinecraftClient client) {
-        if (PerspectiveConfig.PERSPECTIVE_HOLD) return Perspective.FIRST_PERSON;
-        else return client.options.getPerspective();
     }
 }

@@ -8,7 +8,9 @@
 package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
+import com.mclegoman.perspective.client.util.PerspectiveConfigScreenUtils;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -35,7 +37,7 @@ public class PerspectiveInformationScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(createTitle());
+        GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveInformationScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createInformation());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
@@ -48,34 +50,11 @@ public class PerspectiveInformationScreen extends Screen {
             client.setScreen(PARENT_SCREEN);
         }
     }
-
-    private GridWidget createTitle() {
-        GridWidget GRID = new GridWidget();
-        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        if (PerspectiveData.IS_DEVELOPMENT) {
-            GRID_ADDER.add(new IconWidget(224, 42, new Identifier(PerspectiveData.ID, "textures/config/logo/development.png")));
-            GridWidget DEVELOPMENT_BUTTONS = new GridWidget();
-            DEVELOPMENT_BUTTONS.getMainPositioner().alignHorizontalCenter().margin(2);
-            GridWidget.Adder DEVELOPMENT_BUTTONS_ADDER = DEVELOPMENT_BUTTONS.createAdder(2);
-            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.show_development_warning", PerspectiveTranslationUtils.booleanTranslate(PerspectiveConfig.SHOW_DEVELOPMENT_WARNING)), (button) -> {
-                PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;
-                client.setScreen(new PerspectiveInformationScreen(PARENT_SCREEN));
-            }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.show_development_warning.hover"), Text.translatable("gui.perspective.config.show_development_warning.hover")));
-            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.test_development_warning"), (button) -> {
-                client.setScreen(new PerspectiveDevelopmentWarningScreen(client.currentScreen, 200, false));
-            }).width(20).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.test_development_warning.hover"), Text.translatable("gui.perspective.config.test_development_warning.hover")));;
-            GRID_ADDER.add(DEVELOPMENT_BUTTONS);
-        } else {
-            GRID_ADDER.add(new IconWidget(224, 42, new Identifier(PerspectiveData.ID, "textures/config/logo/release.png")), 2);
-        }
-        return GRID;
-    }
     private GridWidget createInformation() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.documentation"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective", this, true)).build(), 2).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.documentation.hover"), Text.translatable("gui.perspective.config.documentation.hover")));
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.documentation"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective", this, true)).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.documentation.hover"), Text.translatable("gui.perspective.config.documentation.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.contribute.hover"), Text.translatable("gui.perspective.config.contribute.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.bug_report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.bug_report.hover"), Text.translatable("gui.perspective.config.bug_report.hover")));
         return GRID;
@@ -85,7 +64,7 @@ public class PerspectiveInformationScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
-            PerspectiveConfig.reset();
+            PerspectiveConfigHelper.resetConfig();
             client.setScreen(new PerspectiveInformationScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {

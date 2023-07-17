@@ -11,10 +11,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -51,6 +54,7 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
     private void clear() {
         SHADERS.clear();
         SHADERS_NAME.clear();
+        add("minecraft", "none", true);
     }
     public static final String ID = "shaders/shaders";
     public PerspectiveSuperSecretSettingsDataLoader() {
@@ -80,6 +84,8 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
                     for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), ENABLED);
                 }
             }
+            PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), SHADERS.size() - 1));
+            PerspectiveSuperSecretSettingsUtil.set(MinecraftClient.getInstance(), true);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst loading Super Secret Settings data.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());

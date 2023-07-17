@@ -35,8 +35,10 @@ public abstract class PerspectiveGameRenderer {
             if (!this.renderingPanorama) {
                 if (PerspectiveZoomUtils.isZooming()) {
                     this.renderHand = false;
-                    callbackInfo.setReturnValue((double) Math.max(Math.max(1, PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), PerspectiveConfig.ZOOM_LEVEL * client.options.getFov().getValue() / 100)));
-                } else this.renderHand = true;
+                    callbackInfo.setReturnValue(PerspectiveZoomUtils.getZoomFOV(client));
+                } else {
+                    this.renderHand = true;
+                }
             }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst zooming.");

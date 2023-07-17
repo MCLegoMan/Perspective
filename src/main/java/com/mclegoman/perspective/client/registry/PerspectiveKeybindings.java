@@ -30,6 +30,7 @@ public class PerspectiveKeybindings {
     public static KeyBinding KEY_TOGGLE_SUPER_SECRET_SETTINGS;
     public static KeyBinding KEY_CYCLE_SUPER_SECRET_SETTINGS;
     public static KeyBinding KEY_CONFIG;
+    public static KeyBinding KEY_PANORAMA_SCREENSHOT;
     public static void init() {
         KEY_CONFIG = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.config", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_HOLD_ZOOM = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.zoom.hold", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "category.perspective.perspective"));
@@ -43,6 +44,7 @@ public class PerspectiveKeybindings {
         KEY_SET_PERSPECTIVE_FP = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.fp.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_SET_PERSPECTIVE_TPF = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpf.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
         KEY_SET_PERSPECTIVE_TPB = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.tpb.set", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category.perspective.perspective"));
+        KEY_PANORAMA_SCREENSHOT = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.take_panorama_screenshot", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F4, "category.perspective.perspective"));
         KEY_TOGGLE_SUPER_SECRET_SETTINGS = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.sss.toggle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F8, "category.perspective.sss"));
         KEY_CYCLE_SUPER_SECRET_SETTINGS = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.perspective.sss.cycle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F7, "category.perspective.sss"));
     }

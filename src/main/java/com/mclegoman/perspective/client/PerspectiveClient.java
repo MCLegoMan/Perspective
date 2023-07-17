@@ -8,7 +8,8 @@
 package com.mclegoman.perspective.client;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.helpers.PerspectiveTick;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.helpers.tick.PerspectiveTick;
 import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.registry.PerspectiveResourcePacks;
 import com.mclegoman.perspective.client.util.*;
@@ -22,7 +23,7 @@ public class PerspectiveClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing Perspective");
-        PerspectiveConfig.init();
+        PerspectiveConfigHelper.init();
         PerspectiveResourcePacks.init();
         PerspectiveKeybindings.init();
         PerspectiveSuperSecretSettingsUtil.init();

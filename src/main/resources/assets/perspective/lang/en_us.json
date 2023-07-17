@@ -21,8 +21,6 @@
 
     "gui.perspective.overlay.zoom": "§6Zoom: %s",
 
-    "chat.perspective.enabled": "on",
-    "chat.perspective.disabled": "off",
     "name.perspective.sss.title": "[Super Secret Settings]:",
     "chat.perspective.sss.message": "%s %s",
     "gui.perspective.config.title": "Perspective Config",
@@ -38,7 +36,7 @@
     "gui.perspective.config.allow_april_fools.hover": "Allow Perspective's April Fools Prank on April Fools.",
     "gui.perspective.config.force_april_fools": "Force April Fools Prank: %s",
     "gui.perspective.config.force_april_fools.hover": "Forces Perspective into thinking it's April Fools.",
-    "gui.perspective.config.perspective_hold": "Hold Perspective Return: %s",
+    "gui.perspective.config.perspective_hold": "Updated Hold Perspective: %s",
     "gui.perspective.config.perspective_hold.hover": "Toggles functionality of ending Hold Perspective.",
     "gui.perspective.config.show_development_warning": "Development Warning: %s",
     "gui.perspective.config.show_development_warning.hover": "Toggles whether the Development Warning screen is shown on startup.",
@@ -64,14 +62,39 @@
     "gui.perspective.development_warning.timer.seconds": "seconds",
     "gui.perspective.development_warning.timer.second": "second",
     "gui.perspective.development_warning.timer.message": "Press any key or wait %s %s.",
-    "gui.perspective.true": "ON",
-    "gui.perspective.false": "OFF",
     "gui.perspective.hold_perspective.first_person": "First Person",
     "gui.perspective.hold_perspective.prev_perspective": "Previous Perspective",
 
+    "gui.perspective.true": "ON",
+    "gui.perspective.false": "OFF",
 
-    "gui.perspective.config.zoom_show_hud": "Zoom: Show HUD: %s",
-    "gui.perspective.config.zoom_show_hud.hover": "Toggles whether you can see your HUD when zooming.",
+    "gui.perspective.enabled": "Enabled",
+    "gui.perspective.disabled": "Disabled",
+
+    "gui.perspective.config.hide_hud": "Hide HUD: %s",
+    "gui.perspective.config.hide_hud.hover": "Toggles whether you can see your HUD when zooming or holding your perspective.",
     "gui.perspective.config.perspective_hold_show_hud": "Perspective Hold: Show HUD: %s",
-    "gui.perspective.config.perspective_hold_show_hud.hover": "Toggles whether you can see your HUD when holding a perspective."
+    "gui.perspective.config.perspective_hold_show_hud.hover": "Toggles whether you can see your HUD when holding a perspective.",
+
+    "gui.perspective.config.zoom_overlay_type": "Zoom Overlay Type: %s",
+    "gui.perspective.config.zoom_overlay_type.hover": "Toggles the style of the Zoom Overlay output.",
+
+    "chat.perspective.panorama.saved": "Saved panorama as %s",
+    "chat.perspective.panorama.incompatible": "Cannot save panorama. Not compatible with %s",
+
+
+    "gui.perspective.config.super_secret_settings": "Super Secret Settings",
+    "gui.perspective.config.super_secret_settings.hover": "Opens Perspective's Super Secret Settings Config Screen.",
+
+    "gui.perspective.config.super_secret_settings_cycle": "Shader: %s",
+    "gui.perspective.config.super_secret_settings_cycle.hover": "Cycles through the super secret settings.",
+
+    "gui.perspective.config.super_secret_settings_mode": "Shader Mode: %s",
+    "gui.perspective.config.super_secret_settings_mode.hover": "Toggles between GAME and SCREEN.",
+
+    "gui.perspective.config.super_secret_settings_enabled": "%s",
+    "gui.perspective.config.super_secret_settings_enabled.hover": "Toggles Super Secret Settings.",
+
+    "gui.perspective.super_secret_settings_mode.game": "GAME",
+    "gui.perspective.super_secret_settings_mode.screen": "SCREEN"
 }

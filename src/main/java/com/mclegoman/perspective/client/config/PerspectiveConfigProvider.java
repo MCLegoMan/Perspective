@@ -25,22 +25,22 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
         return CONFIG_LIST;
     }
     private List<Pair<String, ?>> CONFIG_LIST = new ArrayList<>();
-    public void add(Pair<String, ?> keyValuePair) {
+    public void add(String ID, Pair<String, ?> keyValuePair) {
         CONFIG_LIST.add(keyValuePair);
-        getContents();
+        getContents(ID);
     }
     @Override
     public String get(String namespace) {
         return CONTENTS;
     }
-    public void getContents() {
-        StringBuilder contents = new StringBuilder(("#" + PerspectiveData.ID + " properties file\n"));
+    public void getContents(String ID) {
+        StringBuilder contents = new StringBuilder(("#" + ID + " properties file\n"));
         for (Pair<String, ?> option : CONFIG_LIST) {
             contents.append(option.getFirst()).append("=").append(option.getSecond()).append("\n");
         }
         CONTENTS = contents.toString();
     }
-    public void write_to_file(String KEY_NAME, Object KEY_VALUE) {
+    public void write_to_file(String ID, String KEY_NAME, Object KEY_VALUE) {
         try {
             List<Pair<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
             for (Pair<String, ?> key : NEW_CONFIG_LIST) {
@@ -51,8 +51,8 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
                 }
             }
             CONFIG_LIST = NEW_CONFIG_LIST;
-            getContents();
-            PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve(PerspectiveData.ID + ".properties").toFile(), StandardCharsets.UTF_8);
+            getContents(ID);
+            PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve( ID + ".properties").toFile(), StandardCharsets.UTF_8);
             writer.write(CONTENTS);
             writer.close();
         } catch (Exception e) {

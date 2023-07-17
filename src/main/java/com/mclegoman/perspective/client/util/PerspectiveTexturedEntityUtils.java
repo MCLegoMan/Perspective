@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
 import com.mclegoman.perspective.client.dataloader.PerspectiveTexturedEntityDataLoader;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -32,10 +33,10 @@ public class PerspectiveTexturedEntityUtils {
             List<Text> textReg = getTextRegistry(entity_type);
             String namespace = entity_type.substring(0, entity_type.lastIndexOf(":"));
             String entity_name = entity_type.substring(entity_type.lastIndexOf(":") + 1);
-            if (PerspectiveConfig.TEXTURED_NAMED_ENTITY && textReg.contains(entity.getCustomName())) {
+            if (PerspectiveExperimentalConfig.TEXTURED_NAMED_ENTITY && textReg.contains(entity.getCustomName())) {
                 if (!stringReg.get(textReg.indexOf(entity.getCustomName())).equalsIgnoreCase("default")) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(textReg.indexOf(entity.getCustomName())).toLowerCase() + suffix + ".png");
             }
-            if (PerspectiveConfig.TEXTURED_RANDOM_ENTITY && (!PerspectiveConfig.TEXTURED_NAMED_ENTITY || !textReg.contains(entity.getCustomName()))) {
+            if (PerspectiveExperimentalConfig.TEXTURED_RANDOM_ENTITY && (!PerspectiveExperimentalConfig.TEXTURED_NAMED_ENTITY || !textReg.contains(entity.getCustomName()))) {
                 int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), stringReg.size());
                 if (!stringReg.get(index).equalsIgnoreCase("default")) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(index).toLowerCase() + suffix + ".png");
             }

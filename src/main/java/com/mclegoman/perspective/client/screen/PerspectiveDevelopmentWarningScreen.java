@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,8 +44,8 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     @Override
     public void tick() {
         if (SHOW_CHECKBOX) {
-            if (this.checkbox.isChecked() == PerspectiveConfig.SHOW_DEVELOPMENT_WARNING) {
-                PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = !this.checkbox.isChecked();
+            if (this.checkbox.isChecked() == (boolean)PerspectiveConfigHelper.getConfig("show_development_warning")) {
+                PerspectiveConfigHelper.setConfig("show_development_warning", !this.checkbox.isChecked());
             }
         }
         if (TIMER_TICKS > 0) {
@@ -53,7 +54,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         }
         else this.SHOULD_CLOSE = true;
         if (this.SHOULD_CLOSE) {
-            PerspectiveConfig.write_to_file();
+            PerspectiveConfigHelper.saveConfig(false);
             client.setScreen(PARENT_SCREEN);
         }
         super.tick();
@@ -101,7 +102,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
         Text checkMessage = Text.translatable("gui.perspective.development_warning.checkbox");
         int j = this.textRenderer.getWidth(checkMessage);
-        this.checkbox = new CheckboxWidget(this.width / 2 - j / 2 - 8, GRID.getY(), j + 24, 20, checkMessage, !PerspectiveConfig.SHOW_DEVELOPMENT_WARNING);
+        this.checkbox = new CheckboxWidget(this.width / 2 - j / 2 - 8, GRID.getY(), j + 24, 20, checkMessage, !(boolean)PerspectiveConfigHelper.getConfig("show_development_warning"));
         GRID_ADDER.add(this.checkbox, 2);
         return GRID;
     }
