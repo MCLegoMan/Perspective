@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveDefaultConfigDataLoader;
+import com.mclegoman.perspective.client.config.PerspectiveConfigDataLoader;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -49,7 +49,7 @@ public class PerspectiveZoom {
     }
     public static void reset() {
         OVERLAY = Math.min((int)PerspectiveConfigHelper.getConfig("overlay_delay") * 20, (10) * 20);
-        PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
+        PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
         PerspectiveConfigHelper.saveConfig(true);
     }
 }

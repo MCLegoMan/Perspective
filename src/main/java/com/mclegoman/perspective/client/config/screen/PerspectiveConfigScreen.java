@@ -8,11 +8,11 @@
 package com.mclegoman.perspective.client.config.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.screen.aprilfoolsprank.PerspectiveAprilFoolsPrankScreen;
+import com.mclegoman.perspective.client.config.screen.april_fools_prank.PerspectiveAprilFoolsPrankScreen;
 import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalFeaturesScreen;
 import com.mclegoman.perspective.client.config.screen.information.PerspectiveInformationScreen;
-import com.mclegoman.perspective.client.config.screen.shaders.PerspectiveSuperSecretSettingsScreen;
-import com.mclegoman.perspective.client.config.screen.texturedentity.PerspectiveTexturedEntityScreen;
+import com.mclegoman.perspective.client.config.screen.shaders.PerspectiveShadersScreen;
+import com.mclegoman.perspective.client.config.screen.textured_entity.PerspectiveTexturedEntityScreen;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -90,7 +90,7 @@ public class PerspectiveConfigScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings"), (button) -> {
-            client.setScreen(new PerspectiveSuperSecretSettingsScreen(client.currentScreen));
+            client.setScreen(new PerspectiveShadersScreen(client.currentScreen));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings.hover"), Text.translatable("gui.perspective.config.super_secret_settings.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.hide_hud", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("hide_hud"))), (button) -> {
             PerspectiveConfigHelper.setConfig("hide_hud", !(boolean)PerspectiveConfigHelper.getConfig("hide_hud"));

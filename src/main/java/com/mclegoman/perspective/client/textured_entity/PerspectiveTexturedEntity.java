@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.texturedentity;
+package com.mclegoman.perspective.client.textured_entity;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.common.data.PerspectiveData;

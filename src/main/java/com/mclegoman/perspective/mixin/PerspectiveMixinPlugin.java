@@ -1,3 +1,10 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+*/
+
 package com.mclegoman.perspective.mixin;
 
 import net.fabricmc.loader.api.FabricLoader;
@@ -21,7 +28,7 @@ public class PerspectiveMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.supersecretsettings.PerspectiveSSSNamespaceFix")) return !FabricLoader.getInstance().isModLoaded("souper_secret_settings") && !FabricLoader.getInstance().isModLoaded("architectury");
+        if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderNamespaceFix")) return !(FabricLoader.getInstance().isModLoaded("souper_secret_settings") || FabricLoader.getInstance().isModLoaded("architectury"));
         return true;
     }
 

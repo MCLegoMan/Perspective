@@ -37,31 +37,31 @@ public class PerspectiveConfig {
         assign();
     }
     protected static void create() {
-        CONFIG_PROVIDER.add(ID, new Pair<>("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL));
-        CONFIG_PROVIDER.add(ID, new Pair<>("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY));
-        CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS));
-        CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings_mode", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
-        CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings_enabled", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
-        CONFIG_PROVIDER.add(ID, new Pair<>("hide_hud", PerspectiveDefaultConfigDataLoader.HIDE_HUD));
-        CONFIG_PROVIDER.add(ID, new Pair<>("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY));
-        CONFIG_PROVIDER.add(ID, new Pair<>("textured_random_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_RANDOM_ENTITY));
-        CONFIG_PROVIDER.add(ID, new Pair<>("allow_april_fools", PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS));
-        CONFIG_PROVIDER.add(ID, new Pair<>("force_april_fools", PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS));
-        CONFIG_PROVIDER.add(ID, new Pair<>("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
+        CONFIG_PROVIDER.add(ID, new Pair<>("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL));
+        CONFIG_PROVIDER.add(ID, new Pair<>("overlay_delay", PerspectiveConfigDataLoader.OVERLAY_DELAY));
+        CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS));
+        CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
+        CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
+        CONFIG_PROVIDER.add(ID, new Pair<>("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD));
+        CONFIG_PROVIDER.add(ID, new Pair<>("textured_named_entity", PerspectiveConfigDataLoader.TEXTURED_NAMED_ENTITY));
+        CONFIG_PROVIDER.add(ID, new Pair<>("textured_random_entity", PerspectiveConfigDataLoader.TEXTURED_RANDOM_ENTITY));
+        CONFIG_PROVIDER.add(ID, new Pair<>("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS));
+        CONFIG_PROVIDER.add(ID, new Pair<>("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS));
+        CONFIG_PROVIDER.add(ID, new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
         CONFIG_PROVIDER.add(ID, new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
-        ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
-        OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY);
-        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS);
-        SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
-        SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
-        HIDE_HUD = CONFIG.getOrDefault("hide_hud", PerspectiveDefaultConfigDataLoader.HIDE_HUD);
-        TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
-        TEXTURED_RANDOM_ENTITY = CONFIG.getOrDefault("textured_random_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
-        ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS);
-        FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS);
-        SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
+        ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
+        OVERLAY_DELAY = CONFIG.getOrDefault("overlay_delay", PerspectiveConfigDataLoader.OVERLAY_DELAY);
+        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
+        SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+        SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
+        HIDE_HUD = CONFIG.getOrDefault("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
+        TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", PerspectiveConfigDataLoader.TEXTURED_NAMED_ENTITY);
+        TEXTURED_RANDOM_ENTITY = CONFIG.getOrDefault("textured_random_entity", PerspectiveConfigDataLoader.TEXTURED_NAMED_ENTITY);
+        ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
+        FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
+        SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {

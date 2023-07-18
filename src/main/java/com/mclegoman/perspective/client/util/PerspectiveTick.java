@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.util;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
 import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
-import com.mclegoman.perspective.client.shaders.PerspectiveSuperSecretSettings;
+import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +21,7 @@ public class PerspectiveTick {
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             PerspectivePerspective.tick(client);
-            PerspectiveSuperSecretSettings.tick(client);
+            PerspectiveShader.tick(client);
             PerspectiveZoom.tick(client);
             PerspectiveConfigHelper.tick(client);
             PerspectivePanorama.tick(client);

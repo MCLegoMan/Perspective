@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.config.screen.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.shaders.PerspectiveSuperSecretSettings;
+import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
@@ -22,11 +22,11 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveSuperSecretSettingsScreen extends Screen {
+public class PerspectiveShadersScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveSuperSecretSettingsScreen(Screen PARENT) {
+    public PerspectiveShadersScreen(Screen PARENT) {
         super(Text.translatable("gui.perspective.config.title"));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
@@ -34,8 +34,8 @@ public class PerspectiveSuperSecretSettingsScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN)));
-        GRID_ADDER.add(createSuperSecretSettings());
+        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveShadersScreen(PARENT_SCREEN)));
+        GRID_ADDER.add(createShaders());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
         GRID.forEachChild(this::addDrawableChild);
@@ -47,26 +47,26 @@ public class PerspectiveSuperSecretSettingsScreen extends Screen {
             client.setScreen(PARENT_SCREEN);
         }
     }
-    private GridWidget createSuperSecretSettings() {
+    private GridWidget createShaders() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_cycle", Text.literal(PerspectiveShaderDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))).formatted(PerspectiveSuperSecretSettings.getRandomColor())), (button) -> {
-            PerspectiveSuperSecretSettings.cycle(client, true, true);
-            client.setScreen(new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_cycle", Text.literal(PerspectiveShaderDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))).formatted(PerspectiveShader.getRandomColor())), (button) -> {
+            PerspectiveShader.cycle(client, true, true);
+            client.setScreen(new PerspectiveShadersScreen(PARENT_SCREEN));
         }).width(304).build(), 2).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings_cycle.hover"), Text.translatable("gui.perspective.config.super_secret_settings_cycle.hover")));
 
 
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_mode", PerspectiveTranslationUtils.superSecretSettingsModeTranslate((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode"))), (button) -> {
             PerspectiveConfigHelper.setConfig("super_secret_settings_mode", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode"));
-            client.setScreen(new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN));
+            client.setScreen(new PerspectiveShadersScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings_mode.hover"), Text.translatable("gui.perspective.config.super_secret_settings_mode.hover")));
 
 
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_enabled", PerspectiveTranslationUtils.enabledDisabledTranslate((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"))), (button) -> {
             PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
-            client.setScreen(new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN));
+            client.setScreen(new PerspectiveShadersScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings_enabled.hover"), Text.translatable("gui.perspective.config.super_secret_settings_enabled.hover")));
         return GRID;
     }
@@ -76,7 +76,7 @@ public class PerspectiveSuperSecretSettingsScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            client.setScreen(new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN));
+            client.setScreen(new PerspectiveShadersScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {
             this.SHOULD_CLOSE = true;

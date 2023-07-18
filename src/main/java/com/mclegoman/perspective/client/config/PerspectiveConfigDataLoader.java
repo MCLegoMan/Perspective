@@ -9,9 +9,6 @@ package com.mclegoman.perspective.client.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,7 +23,7 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class PerspectiveConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static boolean INIT;
     // Normal Config
     public static int ZOOM_LEVEL;
@@ -42,7 +39,7 @@ public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implement
     public static boolean TEXTURED_NAMED_ENTITY;
     public static boolean TEXTURED_RANDOM_ENTITY;
     public static final String ID = "config";
-    public PerspectiveDefaultConfigDataLoader() {
+    public PerspectiveConfigDataLoader() {
         super(new Gson(), ID);
     }
 

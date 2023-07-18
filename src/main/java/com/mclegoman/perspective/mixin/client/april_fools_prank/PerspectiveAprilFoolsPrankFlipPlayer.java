@@ -5,9 +5,9 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.april_fools;
+package com.mclegoman.perspective.mixin.client.april_fools_prank;
 
-import com.mclegoman.perspective.client.aprilfoolsprank.PerspectiveAprilFoolsPrank;
+import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)
-public class PerspectiveLivingEntityRenderer {
+public class PerspectiveAprilFoolsPrankFlipPlayer {
     @Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
     private static void shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         try {

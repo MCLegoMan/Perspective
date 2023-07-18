@@ -5,10 +5,10 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.april_fools;
+package com.mclegoman.perspective.mixin.client.april_fools_prank;
 
-import com.mclegoman.perspective.client.aprilfoolsprank.PerspectiveAprilFoolsPrankDataLoader;
-import com.mclegoman.perspective.client.aprilfoolsprank.PerspectiveAprilFoolsPrank;
+import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrankDataLoader;
+import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PlayerEntityRenderer.class)
-public class PerspectivePlayerEntityRenderer {
+public class PerspectiveAprilFoolsPrankReplaceSkin {
     private boolean isSLIM;
 
     @Inject(at = @At("RETURN"), method = "<init>")
@@ -43,7 +43,7 @@ public class PerspectivePlayerEntityRenderer {
                         String type;
                         if (isSLIM) type = "slim";
                         else type = "wide";
-                        cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
+                        cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools_prank/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
                     }
                 }
             }

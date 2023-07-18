@@ -5,9 +5,10 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.aprilfoolsprank;
+package com.mclegoman.perspective.client.april_fools_prank;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 
@@ -17,7 +18,11 @@ import java.util.TimeZone;
 
 public class PerspectiveAprilFoolsPrank {
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveAprilFoolsPrankDataLoader());
+        try {
+            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveAprilFoolsPrankDataLoader());
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize april fools prank: {}", (Object)error);
+        }
     }
     public static boolean isAprilFools() {
         if ((boolean)PerspectiveConfigHelper.getConfig("force_april_fools")) return true;

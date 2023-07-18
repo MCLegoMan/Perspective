@@ -1,3 +1,10 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+*/
+
 package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
@@ -13,7 +20,7 @@ public class PerspectiveConfigHelper {
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
     protected static final int DEFAULT_CONFIG_VERSION = 3;
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveDefaultConfigDataLoader());
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
     }
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.KEY_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen));
@@ -49,17 +56,17 @@ public class PerspectiveConfigHelper {
         }
     }
     public static void resetConfig() {
-        setConfig("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
-        setConfig("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY);
-        setConfig("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS);
-        setConfig("super_secret_settings_mode", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
-        setConfig("super_secret_settings_enabled", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
-        setConfig("hide_hud", PerspectiveDefaultConfigDataLoader.HIDE_HUD);
-        setConfig("allow_april_fools", PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS);
-        setConfig("force_april_fools", PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS);
-        setConfig("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-        setConfig("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
-        setConfig("textured_random_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_RANDOM_ENTITY);
+        setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
+        setConfig("overlay_delay", PerspectiveConfigDataLoader.OVERLAY_DELAY);
+        setConfig("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
+        setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+        setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
+        setConfig("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
+        setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
+        setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
+        setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
+        setConfig("textured_named_entity", PerspectiveConfigDataLoader.TEXTURED_NAMED_ENTITY);
+        setConfig("textured_random_entity", PerspectiveConfigDataLoader.TEXTURED_RANDOM_ENTITY);
         // Experimental
     }
     public static void setConfig(String ID, Object VALUE) {

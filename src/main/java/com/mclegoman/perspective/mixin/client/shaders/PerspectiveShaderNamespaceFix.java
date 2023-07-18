@@ -1,4 +1,11 @@
-package com.mclegoman.perspective.mixin.client.supersecretsettings;
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+*/
+
+package com.mclegoman.perspective.mixin.client.shaders;
 
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.util.Identifier;
@@ -9,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 // Shader Namespace Fix - Forked from Souper Secret Settings
 // https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/mixin/JsonEffectShaderProgramMixin.java
 @Mixin(JsonEffectShaderProgram.class)
-public class PerspectiveSSSNamespaceFix {
+public class PerspectiveShaderNamespaceFix {
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
     private Identifier init(String id) {
         return get(id);

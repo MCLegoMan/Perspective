@@ -5,11 +5,10 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.config.screen.texturedentity;
+package com.mclegoman.perspective.client.config.screen.april_fools_prank;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
-import com.mclegoman.perspective.client.config.screen.aprilfoolsprank.PerspectiveAprilFoolsPrankScreen;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,11 +22,11 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveTexturedEntityScreen extends Screen {
+public class PerspectiveAprilFoolsPrankScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveTexturedEntityScreen(Screen PARENT) {
+    public PerspectiveAprilFoolsPrankScreen(Screen PARENT) {
         super(Text.translatable("gui.perspective.config.title"));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
@@ -35,8 +34,8 @@ public class PerspectiveTexturedEntityScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveTexturedEntityScreen(PARENT_SCREEN)));
-        GRID_ADDER.add(createInformation());
+        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN)));
+        GRID_ADDER.add(createAprilFools());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
         GRID.forEachChild(this::addDrawableChild);
@@ -48,11 +47,11 @@ public class PerspectiveTexturedEntityScreen extends Screen {
             client.setScreen(PARENT_SCREEN);
         }
     }
-    private GridWidget createInformation() {
+    private GridWidget createAprilFools() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_entity", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"))), (button) -> {
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.allow_april_fools", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"))), (button) -> {
             PerspectiveConfigHelper.setConfig("allow_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"));
             client.setScreen(new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.allow_april_fools.hover"), Text.translatable("gui.perspective.config.allow_april_fools.hover")));
@@ -68,7 +67,7 @@ public class PerspectiveTexturedEntityScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            client.setScreen(new PerspectiveTexturedEntityScreen(PARENT_SCREEN));
+            client.setScreen(new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {
             this.SHOULD_CLOSE = true;

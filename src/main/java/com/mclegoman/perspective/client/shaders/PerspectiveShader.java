@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveSuperSecretSettings {
+public class PerspectiveShader {
     @Nullable
     public static PostEffectProcessor postProcessor;
     private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
