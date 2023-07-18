@@ -31,8 +31,12 @@ import java.util.Map;
 public class PerspectiveAprilFoolsPrankDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final List<String> REGISTRY = new ArrayList<>();
     private void add(String NAME, Boolean ENABLED) {
-        if (ENABLED) REGISTRY.add(NAME);
-        else REGISTRY.remove(NAME);
+        try {
+            if (ENABLED) REGISTRY.add(NAME);
+            else REGISTRY.remove(NAME);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add april fools prank to registry: {}", (Object)error);
+        }
     }
     private void reset() {
         try {
@@ -65,7 +69,7 @@ public class PerspectiveAprilFoolsPrankDataLoader extends JsonDataLoader impleme
             Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
             add(SKIN, ENABLED);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load april fools prank skin: {}", (Object)error);
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load april fools prank: {}", (Object)error);
         }
     }
 }
