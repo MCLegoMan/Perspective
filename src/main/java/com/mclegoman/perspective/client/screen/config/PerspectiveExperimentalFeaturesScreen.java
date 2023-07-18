@@ -7,13 +7,9 @@
 
 package com.mclegoman.perspective.client.screen.config;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
-import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
-import com.mclegoman.perspective.client.util.PerspectiveConfigScreenUtils;
-import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
-import com.mclegoman.perspective.common.data.PerspectiveData;
+import com.mclegoman.perspective.client.config.PerspectiveConfigScreenUtils;
+import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -22,7 +18,7 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveExperimentalFeaturesScreen extends Screen {
@@ -38,7 +34,7 @@ public class PerspectiveExperimentalFeaturesScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
         GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveExperimentalFeaturesScreen(PARENT_SCREEN)));
-        GRID_ADDER.add(createTexturedEntity());
+        GRID_ADDER.add(createEmpty());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
         GRID.forEachChild(this::addDrawableChild);
@@ -50,16 +46,23 @@ public class PerspectiveExperimentalFeaturesScreen extends Screen {
             client.setScreen(PARENT_SCREEN);
         }
     }
+    private GridWidget createEmpty() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+        GRID_ADDER.add(new MultilineTextWidget(Text.translatable("gui.perspective.config.experimental.none").formatted(Formatting.RED).formatted(Formatting.BOLD), textRenderer).setCentered(true));
+        return GRID;
+    }
     private GridWidget createTexturedEntity() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_named_entity", PerspectiveTranslationUtils.onOffTranslate(PerspectiveExperimentalConfig.TEXTURED_NAMED_ENTITY)), (button) -> {
-            PerspectiveExperimentalConfig.TEXTURED_NAMED_ENTITY = !PerspectiveExperimentalConfig.TEXTURED_NAMED_ENTITY;
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_named_entity", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("textured_named_entity"))), (button) -> {
+            PerspectiveConfigHelper.setConfig("textured_named_entity", !(boolean)PerspectiveConfigHelper.getConfig("textured_named_entity"));
             client.setScreen(new PerspectiveExperimentalFeaturesScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.textured_named_entity.hover"), Text.translatable("gui.perspective.config.textured_named_entity.hover")));
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_random_entity", PerspectiveTranslationUtils.onOffTranslate(PerspectiveExperimentalConfig.TEXTURED_RANDOM_ENTITY)), (button) -> {
-            PerspectiveExperimentalConfig.TEXTURED_RANDOM_ENTITY = !PerspectiveExperimentalConfig.TEXTURED_RANDOM_ENTITY;
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_random_entity", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("textured_random_entity"))), (button) -> {
+            PerspectiveConfigHelper.setConfig("textured_random_entity", !(boolean)PerspectiveConfigHelper.getConfig("textured_random_entity"));
             client.setScreen(new PerspectiveExperimentalFeaturesScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.textured_random_entity.hover"), Text.translatable("gui.perspective.config.textured_random_entity.hover")));
         return GRID;

@@ -24,6 +24,8 @@ public class PerspectiveConfig {
     protected static boolean SUPER_SECRET_SETTINGS_MODE;
     protected static boolean SUPER_SECRET_SETTINGS_ENABLED;
     protected static boolean HIDE_HUD;
+    protected static boolean TEXTURED_NAMED_ENTITY;
+    protected static boolean TEXTURED_RANDOM_ENTITY;
     protected static boolean ALLOW_APRIL_FOOLS;
     protected static boolean FORCE_APRIL_FOOLS;
     protected static boolean SHOW_DEVELOPMENT_WARNING;
@@ -41,6 +43,8 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings_mode", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
         CONFIG_PROVIDER.add(ID, new Pair<>("super_secret_settings_enabled", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
         CONFIG_PROVIDER.add(ID, new Pair<>("hide_hud", PerspectiveDefaultConfigDataLoader.HIDE_HUD));
+        CONFIG_PROVIDER.add(ID, new Pair<>("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY));
+        CONFIG_PROVIDER.add(ID, new Pair<>("textured_random_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_RANDOM_ENTITY));
         CONFIG_PROVIDER.add(ID, new Pair<>("allow_april_fools", PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS));
         CONFIG_PROVIDER.add(ID, new Pair<>("force_april_fools", PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS));
         CONFIG_PROVIDER.add(ID, new Pair<>("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
@@ -53,6 +57,8 @@ public class PerspectiveConfig {
         SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
         SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
         HIDE_HUD = CONFIG.getOrDefault("hide_hud", PerspectiveDefaultConfigDataLoader.HIDE_HUD);
+        TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
+        TEXTURED_RANDOM_ENTITY = CONFIG.getOrDefault("textured_random_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS);
         FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS);
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
@@ -65,6 +71,8 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.write_to_file(ID, "super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
         CONFIG_PROVIDER.write_to_file(ID, "super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
         CONFIG_PROVIDER.write_to_file(ID, "hide_hud", HIDE_HUD);
+        CONFIG_PROVIDER.write_to_file(ID, "textured_named_entity", TEXTURED_NAMED_ENTITY);
+        CONFIG_PROVIDER.write_to_file(ID, "textured_random_entity", TEXTURED_NAMED_ENTITY);
         CONFIG_PROVIDER.write_to_file(ID, "allow_april_fools", ALLOW_APRIL_FOOLS);
         CONFIG_PROVIDER.write_to_file(ID, "force_april_fools", FORCE_APRIL_FOOLS);
         CONFIG_PROVIDER.write_to_file(ID, "show_development_warning", SHOW_DEVELOPMENT_WARNING);

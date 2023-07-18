@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity;
 
-import com.mclegoman.perspective.client.util.PerspectiveTexturedEntityUtils;
+import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntityUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.ExperienceOrbEntityRenderer;

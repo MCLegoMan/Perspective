@@ -2,7 +2,7 @@
   "required": true,
   "package": "com.mclegoman.perspective.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "com.mclegoman.perspective.client.helpers.supersecretsettings.PerspectiveSSSNamespaceFixPlugin",
+  "plugin": "com.mclegoman.perspective.mixin.PerspectiveMixinPlugin",
   "client": [
     "client.api.PerspectivePlayerListEntry",
     "client.april_fools.PerspectiveLivingEntityRenderer",

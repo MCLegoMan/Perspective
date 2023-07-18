@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.april_fools;
 
-import com.mclegoman.perspective.client.dataloader.PerspectiveAprilFoolsDataLoader;
-import com.mclegoman.perspective.client.util.PerspectiveAprilFoolsUtils;
+import com.mclegoman.perspective.client.april_fools.PerspectiveAprilFoolsDataLoader;
+import com.mclegoman.perspective.client.april_fools.PerspectiveAprilFoolsUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

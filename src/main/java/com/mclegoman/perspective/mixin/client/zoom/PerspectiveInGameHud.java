@@ -7,12 +7,9 @@
 
 package com.mclegoman.perspective.mixin.client.zoom;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
-import com.mclegoman.perspective.client.util.PerspectivePerspectiveUtils;
-import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
-import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
+import com.mclegoman.perspective.client.perspective.PerspectivePerspectiveUtils;
+import com.mclegoman.perspective.client.zoom.PerspectiveZoomUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

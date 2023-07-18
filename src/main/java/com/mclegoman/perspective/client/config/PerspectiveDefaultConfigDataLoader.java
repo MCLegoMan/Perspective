@@ -57,9 +57,9 @@ public class PerspectiveDefaultConfigDataLoader extends JsonDataLoader implement
                 ALLOW_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);
                 FORCE_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
                 SHOW_DEVELOPMENT_WARNING = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_development_warning", true);
-                // Experimental Config
                 TEXTURED_NAMED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "textured_named_entity", true);
                 TEXTURED_RANDOM_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "textured_random_entity", false);
+                // Experimental Config
             }
             if (!INIT) {
                 PerspectiveConfig.init();

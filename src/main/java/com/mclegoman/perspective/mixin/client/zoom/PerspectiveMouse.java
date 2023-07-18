@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.zoom;
 
-import com.mclegoman.perspective.client.util.PerspectiveZoomUtils;
+import com.mclegoman.perspective.client.zoom.PerspectiveZoomUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

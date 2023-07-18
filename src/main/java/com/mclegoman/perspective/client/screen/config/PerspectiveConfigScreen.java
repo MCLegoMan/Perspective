@@ -7,23 +7,20 @@
 
 package com.mclegoman.perspective.client.screen.config;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
-import com.mclegoman.perspective.client.screen.PerspectiveDevelopmentWarningScreen;
-import com.mclegoman.perspective.client.util.PerspectiveConfigScreenUtils;
-import com.mclegoman.perspective.client.util.PerspectiveSuperSecretSettingsUtil;
-import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
-import com.mclegoman.perspective.common.data.PerspectiveData;
+import com.mclegoman.perspective.client.config.PerspectiveConfigScreenUtils;
+import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.*;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.GridWidget;
+import net.minecraft.client.gui.widget.SimplePositioningWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveConfigScreen extends Screen {
@@ -41,7 +38,7 @@ public class PerspectiveConfigScreen extends Screen {
         GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createZoom());
         GRID_ADDER.add(createSuperSecretSettingsAndShowHUD());
-        GRID_ADDER.add(createAprilFools());
+        GRID_ADDER.add(createTexturedEntityAndAprilFools());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
         GRID.forEachChild(this::addDrawableChild);
@@ -97,18 +94,16 @@ public class PerspectiveConfigScreen extends Screen {
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.hide_hud.hover"), Text.translatable("gui.perspective.config.hide_hud.hover")));
         return GRID;
     }
-    private GridWidget createAprilFools() {
+    private GridWidget createTexturedEntityAndAprilFools() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.allow_april_fools", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"))), (button) -> {
-            PerspectiveConfigHelper.setConfig("allow_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"));
-            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
-        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.allow_april_fools.hover"), Text.translatable("gui.perspective.config.allow_april_fools.hover")));
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.force_april_fools", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("force_april_fools"))), (button) -> {
-            PerspectiveConfigHelper.setConfig("force_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("force_april_fools"));
-            client.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN));
-        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.force_april_fools.hover"), Text.translatable("gui.perspective.config.force_april_fools.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_entity"), (button) -> {
+            client.setScreen(new PerspectiveTexturedEntityScreen(client.currentScreen));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.textured_entity.hover"), Text.translatable("gui.perspective.config.textured_entity.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.april_fools_prank"), (button) -> {
+            client.setScreen(new PerspectiveAprilFoolsPrankScreen(client.currentScreen));
+        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.april_fools_prank.hover"), Text.translatable("gui.perspective.config.april_fools_prank.hover")));
         return GRID;
     }
     private GridWidget createFooter() {
@@ -130,7 +125,6 @@ public class PerspectiveConfigScreen extends Screen {
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.back.hover"), Text.translatable("gui.perspective.config.back.hover")));
         return GRID;
     }
-
     public void initTabNavigation() {
         SimplePositioningWidget.setPos(GRID, getNavigationFocus());
     }

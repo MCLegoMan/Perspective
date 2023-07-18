@@ -56,7 +56,9 @@ public class PerspectiveConfigHelper {
         setConfig("allow_april_fools", (boolean)PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS);
         setConfig("force_april_fools", (boolean)PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS);
         setConfig("show_development_warning", (boolean)PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-        PerspectiveExperimentalConfig.reset();
+        setConfig("textured_named_entity", (boolean)PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
+        setConfig("textured_random_entity", (boolean)PerspectiveDefaultConfigDataLoader.TEXTURED_RANDOM_ENTITY);
+        // Experimental
     }
     public static void setConfig(String ID, Object VALUE) {
         switch (ID) {
@@ -70,6 +72,9 @@ public class PerspectiveConfigHelper {
             case "force_april_fools" -> PerspectiveConfig.FORCE_APRIL_FOOLS = (boolean)VALUE;
             case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
             case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
+            case "textured_named_entity" -> PerspectiveConfig.TEXTURED_NAMED_ENTITY = (boolean)VALUE;
+            case "textured_random_entity" -> PerspectiveConfig.TEXTURED_RANDOM_ENTITY = (boolean)VALUE;
+            // Experimental
         }
     }
     public static Object getConfig(String ID) {
@@ -84,6 +89,9 @@ public class PerspectiveConfigHelper {
             case "force_april_fools" -> {return (boolean)PerspectiveConfig.FORCE_APRIL_FOOLS;}
             case "show_development_warning" -> {return (boolean)PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "config_version" -> {return (int)PerspectiveConfig.CONFIG_VERSION;}
+            case "textured_named_entity" -> {return (boolean)PerspectiveConfig.TEXTURED_NAMED_ENTITY;}
+            case "textured_random_entity" -> {return (boolean)PerspectiveConfig.TEXTURED_RANDOM_ENTITY;}
+            // Experimental
         }
         return new Object();
     }

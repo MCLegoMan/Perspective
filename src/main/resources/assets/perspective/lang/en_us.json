@@ -96,5 +96,10 @@
     "gui.perspective.config.super_secret_settings_enabled.hover": "Toggles Super Secret Settings.",
 
     "gui.perspective.super_secret_settings_mode.game": "GAME",
-    "gui.perspective.super_secret_settings_mode.screen": "SCREEN"
+    "gui.perspective.super_secret_settings_mode.screen": "SCREEN",
+
+    "gui.perspective.config.experimental.none": "\n\nThere is currently no experiments available.\n\n",
+
+    "gui.perspective.config.april_fools_prank": "April Fools Prank",
+    "gui.perspective.config.textured_entity": "Textured Entity"
 }
