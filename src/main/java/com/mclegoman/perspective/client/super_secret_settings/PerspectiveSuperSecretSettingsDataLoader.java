@@ -37,28 +37,40 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
         return SHADERS.size() - 1;
     }
     private void add(String NAMESPACE, String SHADER, Boolean ENABLED) {
-        SHADER = SHADER.replace("\"", "");
-        Identifier ID = new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json"));
-        String NAME = NAMESPACE + ":" + SHADER;
-        if (ENABLED) {
-            if (!SHADERS.contains(ID) && !SHADERS_NAME.contains(NAME)) {
-                SHADERS.add(ID);
-                SHADERS_NAME.add(NAME);
+        try {
+            SHADER = SHADER.replace("\"", "");
+            Identifier ID = new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json"));
+            String NAME = NAMESPACE + ":" + SHADER;
+            if (ENABLED) {
+                if (!SHADERS.contains(ID) && !SHADERS_NAME.contains(NAME)) {
+                    SHADERS.add(ID);
+                    SHADERS_NAME.add(NAME);
+                }
+            } else {
+                if (SHADERS.contains(ID) && SHADERS_NAME.contains(NAME)) {
+                    SHADERS.remove(ID);
+                    SHADERS_NAME.remove(NAME);
+                }
             }
-        } else {
-            if (SHADERS.contains(ID) && SHADERS_NAME.contains(NAME)) {
-                SHADERS.remove(ID);
-                SHADERS_NAME.remove(NAME);
-            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add super secret settings to registry: {}", (Object)error);
         }
     }
     private void reset() {
-        SHADERS.clear();
-        SHADERS_NAME.clear();
-        addDefaultValues();
+        try {
+            SHADERS.clear();
+            SHADERS_NAME.clear();
+            addDefaultValues();
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset super secret settings registry: {}", (Object)error);
+        }
     }
     private void addDefaultValues() {
-        add("minecraft", "none", true);
+        try {
+            add("minecraft", "none", true);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default super secret settings values to registry: {}", (Object)error);
+        }
     }
     public static final String ID = "shaders/shaders";
     public PerspectiveSuperSecretSettingsDataLoader() {
