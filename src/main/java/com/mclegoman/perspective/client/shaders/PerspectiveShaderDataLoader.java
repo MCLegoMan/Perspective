@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.supersecretsettings;
+package com.mclegoman.perspective.client.shaders;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class PerspectiveShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final List<Identifier> SHADERS = new ArrayList<>();
     public static final List<String> SHADERS_NAME = new ArrayList<>();
     public static int getShaderAmount() {
@@ -52,7 +52,7 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
                 }
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add super secret settings to registry: {}", (Object)error);
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add shader to registry: {}", (Object)error);
         }
     }
     private void reset() {
@@ -61,18 +61,18 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
             SHADERS_NAME.clear();
             add$default();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset super secret settings registry: {}", (Object)error);
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset shaders registry: {}", (Object)error);
         }
     }
     private void add$default() {
         try {
             add("minecraft", "none", true);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default super secret settings values to registry: {}", (Object)error);
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default shaders to registry: {}", (Object)error);
         }
     }
     public static final String ID = "shaders/shaders";
-    public PerspectiveSuperSecretSettingsDataLoader() {
+    public PerspectiveShaderDataLoader() {
         super(new Gson(), ID);
     }
     @Override
@@ -84,7 +84,7 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
             PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), SHADERS.size() - 1));
             PerspectiveSuperSecretSettings.set(MinecraftClient.getInstance(), true);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply super secret settings dataloader: {}", (Object)error);
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply shaders dataloader: {}", (Object)error);
         }
     }
     @Override

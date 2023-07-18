@@ -1,7 +1,7 @@
 package com.mclegoman.perspective.mixin.client.supersecretsettings;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.supersecretsettings.PerspectiveSuperSecretSettings;
+import com.mclegoman.perspective.client.shaders.PerspectiveSuperSecretSettings;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

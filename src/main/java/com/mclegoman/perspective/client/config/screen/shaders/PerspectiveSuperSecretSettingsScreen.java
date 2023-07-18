@@ -5,11 +5,11 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.config.screen.supersecretsettings;
+package com.mclegoman.perspective.client.config.screen.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.supersecretsettings.PerspectiveSuperSecretSettings;
-import com.mclegoman.perspective.client.supersecretsettings.PerspectiveSuperSecretSettingsDataLoader;
+import com.mclegoman.perspective.client.shaders.PerspectiveSuperSecretSettings;
+import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
@@ -52,7 +52,7 @@ public class PerspectiveSuperSecretSettingsScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_cycle", Text.literal(PerspectiveSuperSecretSettingsDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))).formatted(PerspectiveSuperSecretSettings.getRandomColor())), (button) -> {
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_cycle", Text.literal(PerspectiveShaderDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))).formatted(PerspectiveSuperSecretSettings.getRandomColor())), (button) -> {
             PerspectiveSuperSecretSettings.cycle(client, true, true);
             client.setScreen(new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN));
         }).width(304).build(), 2).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings_cycle.hover"), Text.translatable("gui.perspective.config.super_secret_settings_cycle.hover")));

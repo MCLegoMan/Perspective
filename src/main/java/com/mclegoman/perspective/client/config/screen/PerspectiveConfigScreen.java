@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.aprilfoolsprank.PerspectiveAprilFoolsPrankScreen;
 import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalFeaturesScreen;
 import com.mclegoman.perspective.client.config.screen.information.PerspectiveInformationScreen;
-import com.mclegoman.perspective.client.config.screen.supersecretsettings.PerspectiveSuperSecretSettingsScreen;
+import com.mclegoman.perspective.client.config.screen.shaders.PerspectiveSuperSecretSettingsScreen;
 import com.mclegoman.perspective.client.config.screen.texturedentity.PerspectiveTexturedEntityScreen;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;

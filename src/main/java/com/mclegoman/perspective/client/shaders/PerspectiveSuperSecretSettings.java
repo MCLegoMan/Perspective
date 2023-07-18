@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.supersecretsettings;
+package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
@@ -38,7 +38,7 @@ public class PerspectiveSuperSecretSettings {
     private static final List<Identifier> SOUND_EVENTS = new ArrayList<>();
     public static void init() {
         try {
-            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveSuperSecretSettingsDataLoader());
+            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveShaderDataLoader());
             for (Identifier id : Registries.SOUND_EVENT.getIds()) {
                 if (!id.toString().contains("music")) {
                     SOUND_EVENTS.add(id);
@@ -67,11 +67,11 @@ public class PerspectiveSuperSecretSettings {
     public static void cycle(MinecraftClient client, Boolean forwards, boolean SILENT) {
         try {
             if (forwards) {
-                if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") < PerspectiveSuperSecretSettingsDataLoader.getShaderAmount()) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") + 1);
+                if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") < PerspectiveShaderDataLoader.getShaderAmount()) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") + 1);
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
             } else {
                 if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") > 0) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") - 1);
-                else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveSuperSecretSettingsDataLoader.getShaderAmount());
+                else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveShaderDataLoader.getShaderAmount());
             }
             if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, SILENT);
             else set(client, SILENT);
@@ -84,9 +84,9 @@ public class PerspectiveSuperSecretSettings {
     public static void set(MinecraftClient client, boolean SILENT) {
         try {
             if (postProcessor != null) postProcessor.close();
-            postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), PerspectiveSuperSecretSettingsDataLoader.SHADERS.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings")));
+            postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), PerspectiveShaderDataLoader.SHADERS.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings")));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-            if (!SILENT) sendMessage(client, Text.of(PerspectiveSuperSecretSettingsDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));
+            if (!SILENT) sendMessage(client, Text.of(PerspectiveShaderDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));
             try {
                 if (!SILENT && client.world != null && client.player != null) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
             } catch (Exception e) {
@@ -99,7 +99,7 @@ public class PerspectiveSuperSecretSettings {
             PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
             try {
                 if (postProcessor != null) postProcessor.close();
-                postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), PerspectiveSuperSecretSettingsDataLoader.SHADERS.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings")));
+                postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), PerspectiveShaderDataLoader.SHADERS.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings")));
                 postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
             } catch (Exception ignored) {}
             PerspectiveConfigHelper.saveConfig(true);

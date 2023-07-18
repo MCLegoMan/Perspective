@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.util;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
 import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
-import com.mclegoman.perspective.client.supersecretsettings.PerspectiveSuperSecretSettings;
+import com.mclegoman.perspective.client.shaders.PerspectiveSuperSecretSettings;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
