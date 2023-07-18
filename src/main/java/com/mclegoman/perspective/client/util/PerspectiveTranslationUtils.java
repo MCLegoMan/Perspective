@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.lang;
+package com.mclegoman.perspective.client.util;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

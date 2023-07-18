@@ -7,9 +7,7 @@
 
 package com.mclegoman.perspective.client.perspective;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
-import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -20,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class PerspectivePerspectiveUtils {
+public class PerspectivePerspective {
     public static boolean isHoldingPerspective() {
         try {
             return HOLD_THIRD_PERSON_BACK_LOCK || HOLD_THIRD_PERSON_FRONT_LOCK;

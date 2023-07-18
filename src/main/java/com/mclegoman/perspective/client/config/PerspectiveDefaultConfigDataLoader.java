@@ -9,6 +9,9 @@ package com.mclegoman.perspective.client.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mclegoman.perspective.client.config.PerspectiveConfig;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.config.PerspectiveExperimentalConfig;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

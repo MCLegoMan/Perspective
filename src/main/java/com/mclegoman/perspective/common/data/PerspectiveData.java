@@ -14,6 +14,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,4 +31,5 @@ public class PerspectiveData {
     public static final String PREFIX = "[" + NAME + " " + VERSION + "] ";
     public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
     public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(ID).get();
+    public static final Identifier LOGO = IS_DEVELOPMENT ? new Identifier(ID, "textures/logo/development.png") : new Identifier(ID, "textures/logo/release.png");
 }

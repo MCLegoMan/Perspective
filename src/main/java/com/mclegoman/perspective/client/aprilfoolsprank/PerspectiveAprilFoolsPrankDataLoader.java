@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.april_fools;
+package com.mclegoman.perspective.client.aprilfoolsprank;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveAprilFoolsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class PerspectiveAprilFoolsPrankDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final List<String> REGISTRY = new ArrayList<>();
     private void add(String NAME, Boolean ENABLED) {
         if (ENABLED) REGISTRY.add(NAME);
@@ -35,7 +35,7 @@ public class PerspectiveAprilFoolsDataLoader extends JsonDataLoader implements I
         REGISTRY.clear();
     }
     public static final String ID = "april_fools";
-    public PerspectiveAprilFoolsDataLoader() {
+    public PerspectiveAprilFoolsPrankDataLoader() {
         super(new Gson(), ID);
     }
     @Override

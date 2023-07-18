@@ -9,13 +9,13 @@ package com.mclegoman.perspective.client.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.PerspectiveDefaultConfigDataLoader;
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveZoomUtils {
+public class PerspectiveZoom {
     public static double getZoomFOV(MinecraftClient client) {
         return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100));
     }

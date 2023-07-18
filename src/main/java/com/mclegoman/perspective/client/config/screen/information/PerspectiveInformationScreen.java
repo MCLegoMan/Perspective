@@ -5,29 +5,26 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.screen.config;
+package com.mclegoman.perspective.client.config.screen.information;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveConfigScreenUtils;
-import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
+import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.SimplePositioningWidget;
+import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveTexturedEntityScreen extends Screen {
+public class PerspectiveInformationScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveTexturedEntityScreen(Screen PARENT) {
+    public PerspectiveInformationScreen(Screen PARENT) {
         super(Text.translatable("gui.perspective.config.title"));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
@@ -35,7 +32,7 @@ public class PerspectiveTexturedEntityScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveTexturedEntityScreen(PARENT_SCREEN)));
+        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveInformationScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createInformation());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
@@ -51,15 +48,10 @@ public class PerspectiveTexturedEntityScreen extends Screen {
     private GridWidget createInformation() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.textured_entity", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"))), (button) -> {
-            PerspectiveConfigHelper.setConfig("allow_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"));
-            client.setScreen(new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN));
-        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.allow_april_fools.hover"), Text.translatable("gui.perspective.config.allow_april_fools.hover")));
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.force_april_fools", PerspectiveTranslationUtils.onOffTranslate((boolean)PerspectiveConfigHelper.getConfig("force_april_fools"))), (button) -> {
-            PerspectiveConfigHelper.setConfig("force_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("force_april_fools"));
-            client.setScreen(new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN));
-        }).build(), 1).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.force_april_fools.hover"), Text.translatable("gui.perspective.config.force_april_fools.hover")));
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.documentation"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective", this, true)).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.documentation.hover"), Text.translatable("gui.perspective.config.documentation.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.contribute.hover"), Text.translatable("gui.perspective.config.contribute.hover")));
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.bug_report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.bug_report.hover"), Text.translatable("gui.perspective.config.bug_report.hover")));
         return GRID;
     }
     private GridWidget createFooter() {
@@ -68,7 +60,7 @@ public class PerspectiveTexturedEntityScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            client.setScreen(new PerspectiveTexturedEntityScreen(PARENT_SCREEN));
+            client.setScreen(new PerspectiveInformationScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.reset.hover"), Text.translatable("gui.perspective.config.reset.hover")));
         GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.back"), (button) -> {
             this.SHOULD_CLOSE = true;

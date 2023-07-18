@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.super_secret_settings;
+package com.mclegoman.perspective.client.supersecretsettings;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,7 +24,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +82,7 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
             prepared.forEach(this::layout$perspective);
             layout$souper_secret_settings(manager);
             PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), SHADERS.size() - 1));
-            PerspectiveSuperSecretSettingsUtil.set(MinecraftClient.getInstance(), true);
+            PerspectiveSuperSecretSettings.set(MinecraftClient.getInstance(), true);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply super secret settings dataloader: {}", (Object)error);
         }

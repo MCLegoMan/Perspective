@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.zoom;
 
-import com.mclegoman.perspective.client.zoom.PerspectiveZoomUtils;
+import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -26,18 +26,18 @@ public abstract class PerspectiveMouse {
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-        if (PerspectiveZoomUtils.isZooming()) {
+        if (PerspectiveZoom.isZooming()) {
             double scroll = (client.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * client.options.getMouseWheelSensitivity().getValue();
-            if (scroll > 0) PerspectiveZoomUtils.zoom(true);
-            else if (scroll < 0) PerspectiveZoomUtils.zoom(false);
+            if (scroll > 0) PerspectiveZoom.zoom(true);
+            else if (scroll < 0) PerspectiveZoom.zoom(false);
             ci.cancel();
         }
     }
     @Inject(at = @At("HEAD"), method = "onMouseButton", cancellable = true)
     private void onClick(long window, int button, int action, int mods, CallbackInfo ci) {
-        if (PerspectiveZoomUtils.isZooming()) {
+        if (PerspectiveZoom.isZooming()) {
             if (button == 2) {
-                PerspectiveZoomUtils.reset();
+                PerspectiveZoom.reset();
                 ci.cancel();
             }
         }

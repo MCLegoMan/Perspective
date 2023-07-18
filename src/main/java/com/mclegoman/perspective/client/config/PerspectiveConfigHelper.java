@@ -1,16 +1,16 @@
 package com.mclegoman.perspective.client.config;
 
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
-import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreen;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourceType;
 
 public class PerspectiveConfigHelper {
-    private static boolean SAVE_VIA_TICK;
-    private static int SAVE_VIA_TICK_TICKS;
-    private static final int SAVE_VIA_TICK_SAVE_TICK = 20;
+    protected static boolean SAVE_VIA_TICK;
+    protected static int SAVE_VIA_TICK_TICKS;
+    protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
     protected static final int DEFAULT_CONFIG_VERSION = 3;
     public static void init() {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveDefaultConfigDataLoader());
@@ -49,17 +49,17 @@ public class PerspectiveConfigHelper {
         }
     }
     public static void resetConfig() {
-        setConfig("zoom_level", (int)PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
-        setConfig("overlay_delay", (int)PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY);
-        setConfig("super_secret_settings", (int)PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS);
-        setConfig("super_secret_settings_mode", (boolean)PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
-        setConfig("super_secret_settings_enabled", (boolean)PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
-        setConfig("hide_hud", (boolean)PerspectiveDefaultConfigDataLoader.HIDE_HUD);
-        setConfig("allow_april_fools", (boolean)PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS);
-        setConfig("force_april_fools", (boolean)PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS);
-        setConfig("show_development_warning", (boolean)PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-        setConfig("textured_named_entity", (boolean)PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
-        setConfig("textured_random_entity", (boolean)PerspectiveDefaultConfigDataLoader.TEXTURED_RANDOM_ENTITY);
+        setConfig("zoom_level", PerspectiveDefaultConfigDataLoader.ZOOM_LEVEL);
+        setConfig("overlay_delay", PerspectiveDefaultConfigDataLoader.OVERLAY_DELAY);
+        setConfig("super_secret_settings", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS);
+        setConfig("super_secret_settings_mode", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+        setConfig("super_secret_settings_enabled", PerspectiveDefaultConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
+        setConfig("hide_hud", PerspectiveDefaultConfigDataLoader.HIDE_HUD);
+        setConfig("allow_april_fools", PerspectiveDefaultConfigDataLoader.ALLOW_APRIL_FOOLS);
+        setConfig("force_april_fools", PerspectiveDefaultConfigDataLoader.FORCE_APRIL_FOOLS);
+        setConfig("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
+        setConfig("textured_named_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_NAMED_ENTITY);
+        setConfig("textured_random_entity", PerspectiveDefaultConfigDataLoader.TEXTURED_RANDOM_ENTITY);
         // Experimental
     }
     public static void setConfig(String ID, Object VALUE) {
@@ -81,18 +81,18 @@ public class PerspectiveConfigHelper {
     }
     public static Object getConfig(String ID) {
         switch (ID) {
-            case "zoom_level" -> {return (int)PerspectiveConfig.ZOOM_LEVEL;}
-            case "overlay_delay" ->  {return (int)PerspectiveConfig.OVERLAY_DELAY;}
-            case "super_secret_settings" -> {return (int)PerspectiveConfig.SUPER_SECRET_SETTINGS;}
-            case "super_secret_settings_mode" -> {return (boolean)PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}
-            case "super_secret_settings_enabled" -> {return (boolean)PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}
-            case "hide_hud" -> {return (boolean)PerspectiveConfig.HIDE_HUD;}
-            case "allow_april_fools" -> {return (boolean)PerspectiveConfig.ALLOW_APRIL_FOOLS;}
-            case "force_april_fools" -> {return (boolean)PerspectiveConfig.FORCE_APRIL_FOOLS;}
-            case "show_development_warning" -> {return (boolean)PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
-            case "config_version" -> {return (int)PerspectiveConfig.CONFIG_VERSION;}
-            case "textured_named_entity" -> {return (boolean)PerspectiveConfig.TEXTURED_NAMED_ENTITY;}
-            case "textured_random_entity" -> {return (boolean)PerspectiveConfig.TEXTURED_RANDOM_ENTITY;}
+            case "zoom_level" -> {return PerspectiveConfig.ZOOM_LEVEL;}
+            case "overlay_delay" ->  {return PerspectiveConfig.OVERLAY_DELAY;}
+            case "super_secret_settings" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS;}
+            case "super_secret_settings_mode" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}
+            case "super_secret_settings_enabled" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}
+            case "hide_hud" -> {return PerspectiveConfig.HIDE_HUD;}
+            case "allow_april_fools" -> {return PerspectiveConfig.ALLOW_APRIL_FOOLS;}
+            case "force_april_fools" -> {return PerspectiveConfig.FORCE_APRIL_FOOLS;}
+            case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
+            case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
+            case "textured_named_entity" -> {return PerspectiveConfig.TEXTURED_NAMED_ENTITY;}
+            case "textured_random_entity" -> {return PerspectiveConfig.TEXTURED_RANDOM_ENTITY;}
             // Experimental
         }
         return new Object();

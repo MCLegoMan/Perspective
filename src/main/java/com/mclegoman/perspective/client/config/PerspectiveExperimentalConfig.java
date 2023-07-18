@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 

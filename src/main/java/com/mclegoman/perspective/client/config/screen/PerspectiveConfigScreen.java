@@ -5,11 +5,15 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.screen.config;
+package com.mclegoman.perspective.client.config.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveConfigScreenUtils;
-import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
+import com.mclegoman.perspective.client.config.screen.aprilfoolsprank.PerspectiveAprilFoolsPrankScreen;
+import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalFeaturesScreen;
+import com.mclegoman.perspective.client.config.screen.information.PerspectiveInformationScreen;
+import com.mclegoman.perspective.client.config.screen.supersecretsettings.PerspectiveSuperSecretSettingsScreen;
+import com.mclegoman.perspective.client.config.screen.texturedentity.PerspectiveTexturedEntityScreen;
+import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -35,7 +39,7 @@ public class PerspectiveConfigScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN)));
+        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createZoom());
         GRID_ADDER.add(createSuperSecretSettingsAndShowHUD());
         GRID_ADDER.add(createTexturedEntityAndAprilFools());

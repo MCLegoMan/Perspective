@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.client.panorama;
 
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
@@ -20,7 +20,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 
 @Environment(EnvType.CLIENT)
-public class PerspectivePanoramaUtils {
+public class PerspectivePanorama {
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.KEY_PANORAMA_SCREENSHOT.wasPressed()) {
             if (!FabricLoader.getInstance().isModLoaded("sodium")) {

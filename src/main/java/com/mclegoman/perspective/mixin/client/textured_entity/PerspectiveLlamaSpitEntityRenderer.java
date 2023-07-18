@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity;
 
-import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntityUtils;
+import com.mclegoman.perspective.client.texturedentity.PerspectiveTexturedEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LlamaSpitEntityRenderer;
@@ -24,6 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PerspectiveLlamaSpitEntityRenderer {
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof LlamaSpitEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:llama_spit", "", cir.getReturnValue()));
+        if (entity instanceof LlamaSpitEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:llama_spit", "", cir.getReturnValue()));
     }
 }

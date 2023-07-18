@@ -5,13 +5,13 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.screen.config;
+package com.mclegoman.perspective.client.config.screen.supersecretsettings;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.super_secret_settings.PerspectiveSuperSecretSettingsDataLoader;
-import com.mclegoman.perspective.client.config.PerspectiveConfigScreenUtils;
-import com.mclegoman.perspective.client.super_secret_settings.PerspectiveSuperSecretSettingsUtil;
-import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
+import com.mclegoman.perspective.client.supersecretsettings.PerspectiveSuperSecretSettings;
+import com.mclegoman.perspective.client.supersecretsettings.PerspectiveSuperSecretSettingsDataLoader;
+import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
+import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -34,7 +34,7 @@ public class PerspectiveSuperSecretSettingsScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN)));
+        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createSuperSecretSettings());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();
@@ -52,8 +52,8 @@ public class PerspectiveSuperSecretSettingsScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
-        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_cycle", Text.literal(PerspectiveSuperSecretSettingsDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))).formatted(PerspectiveSuperSecretSettingsUtil.getRandomColor())), (button) -> {
-            PerspectiveSuperSecretSettingsUtil.cycle(client, true, true);
+        GRID_ADDER.add(ButtonWidget.builder(Text.translatable("gui.perspective.config.super_secret_settings_cycle", Text.literal(PerspectiveSuperSecretSettingsDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))).formatted(PerspectiveSuperSecretSettings.getRandomColor())), (button) -> {
+            PerspectiveSuperSecretSettings.cycle(client, true, true);
             client.setScreen(new PerspectiveSuperSecretSettingsScreen(PARENT_SCREEN));
         }).width(304).build(), 2).setTooltip(Tooltip.of(Text.translatable("gui.perspective.config.super_secret_settings_cycle.hover"), Text.translatable("gui.perspective.config.super_secret_settings_cycle.hover")));
 

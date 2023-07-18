@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.zoom;
 
-import com.mclegoman.perspective.client.zoom.PerspectiveZoomUtils;
+import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,9 +31,9 @@ public abstract class PerspectiveGameRenderer {
     private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveZoomUtils.isZooming()) {
+                if (PerspectiveZoom.isZooming()) {
                     this.renderHand = false;
-                    callbackInfo.setReturnValue(PerspectiveZoomUtils.getZoomFOV(client));
+                    callbackInfo.setReturnValue(PerspectiveZoom.getZoomFOV(client));
                 } else {
                     this.renderHand = true;
                 }

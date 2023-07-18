@@ -5,11 +5,11 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.super_secret_settings;
+package com.mclegoman.perspective.client.supersecretsettings;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.registry.PerspectiveKeybindings;
-import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
+import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveSuperSecretSettingsUtil {
+public class PerspectiveSuperSecretSettings {
     @Nullable
     public static PostEffectProcessor postProcessor;
     private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
@@ -75,6 +75,7 @@ public class PerspectiveSuperSecretSettingsUtil {
             }
             if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, SILENT);
             else set(client, SILENT);
+            PerspectiveConfigHelper.saveConfig(true);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to cycle Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
@@ -86,7 +87,6 @@ public class PerspectiveSuperSecretSettingsUtil {
             postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), PerspectiveSuperSecretSettingsDataLoader.SHADERS.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings")));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
             if (!SILENT) sendMessage(client, Text.of(PerspectiveSuperSecretSettingsDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));
-            PerspectiveConfigHelper.saveConfig(true);
             try {
                 if (!SILENT && client.world != null && client.player != null) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
             } catch (Exception e) {

@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.april_fools;
 
-import com.mclegoman.perspective.client.april_fools.PerspectiveAprilFoolsDataLoader;
-import com.mclegoman.perspective.client.april_fools.PerspectiveAprilFoolsUtils;
+import com.mclegoman.perspective.client.aprilfoolsprank.PerspectiveAprilFoolsPrankDataLoader;
+import com.mclegoman.perspective.client.aprilfoolsprank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -37,13 +37,13 @@ public class PerspectivePlayerEntityRenderer {
     private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         try {
             if (entity instanceof PlayerEntity) {
-                if (PerspectiveAprilFoolsUtils.isPrankEnabled() && PerspectiveAprilFoolsUtils.isAprilFools()) {
-                    if (PerspectiveAprilFoolsDataLoader.REGISTRY.size() > 0) {
-                        int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), PerspectiveAprilFoolsDataLoader.REGISTRY.size());
+                if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) {
+                    if (PerspectiveAprilFoolsPrankDataLoader.REGISTRY.size() > 0) {
+                        int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), PerspectiveAprilFoolsPrankDataLoader.REGISTRY.size());
                         String type;
                         if (isSLIM) type = "slim";
                         else type = "wide";
-                        cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools/" + type + "/" + PerspectiveAprilFoolsDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
+                        cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
                     }
                 }
             }

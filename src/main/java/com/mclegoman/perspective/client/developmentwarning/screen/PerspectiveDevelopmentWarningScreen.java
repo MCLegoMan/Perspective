@@ -5,20 +5,16 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.screen;
+package com.mclegoman.perspective.client.developmentwarning.screen;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfig;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.*;
-import net.minecraft.client.input.KeyCodes;
 import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -33,6 +29,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     @Nullable
     protected CheckboxWidget checkbox;
     private boolean SHOULD_CLOSE;
+    private boolean SHOULD_SAVE;
     public PerspectiveDevelopmentWarningScreen(Screen parent_screen, int timer_ticks, boolean show_checkbox) {
         super(Text.translatable("gui.perspective.config.title"));
         this.GRID = new GridWidget();
@@ -46,6 +43,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         if (SHOW_CHECKBOX) {
             if (this.checkbox.isChecked() == (boolean)PerspectiveConfigHelper.getConfig("show_development_warning")) {
                 PerspectiveConfigHelper.setConfig("show_development_warning", !this.checkbox.isChecked());
+                SHOULD_SAVE = true;
             }
         }
         if (TIMER_TICKS > 0) {
@@ -54,7 +52,10 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         }
         else this.SHOULD_CLOSE = true;
         if (this.SHOULD_CLOSE) {
-            PerspectiveConfigHelper.saveConfig(false);
+            if (SHOULD_SAVE) {
+                PerspectiveConfigHelper.saveConfig(false);
+                SHOULD_SAVE = false;
+            }
             client.setScreen(PARENT_SCREEN);
         }
         super.tick();
@@ -83,7 +84,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new IconWidget(256, 48, new Identifier(PerspectiveData.ID, "textures/config/logo/development.png")));
+        GRID_ADDER.add(new IconWidget(256, 48, PerspectiveData.LOGO));
         return GRID;
     }
 

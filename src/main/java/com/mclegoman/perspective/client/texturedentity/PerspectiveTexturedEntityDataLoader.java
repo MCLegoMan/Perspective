@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.textured_entity;
+package com.mclegoman.perspective.client.texturedentity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

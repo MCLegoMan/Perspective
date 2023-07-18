@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity;
 
-import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntityUtils;
+import com.mclegoman.perspective.client.texturedentity.PerspectiveTexturedEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -31,6 +31,6 @@ public class PerspectiveDrownedOverlayFeatureRenderer {
     @Shadow @Final private static Identifier SKIN;
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("HEAD"))
     private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
-        if (entity instanceof DrownedEntity) SKIN = PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:drowned", "_outer_layer", new Identifier("textures/entity/zombie/drowned_outer_layer.png"));
+        if (entity instanceof DrownedEntity) SKIN = PerspectiveTexturedEntity.getTexture(entity, "minecraft:drowned", "_outer_layer", new Identifier("textures/entity/zombie/drowned_outer_layer.png"));
     }
 }

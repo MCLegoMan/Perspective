@@ -5,10 +5,9 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.textured_entity;
+package com.mclegoman.perspective.client.texturedentity;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntityDataLoader;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveTexturedEntityUtils {
+public class PerspectiveTexturedEntity {
     public static void init() {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveTexturedEntityDataLoader());

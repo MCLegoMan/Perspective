@@ -5,15 +5,14 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.screen.config;
+package com.mclegoman.perspective.client.config.screen.aprilfoolsprank;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.PerspectiveConfigScreenUtils;
-import com.mclegoman.perspective.client.lang.PerspectiveTranslationUtils;
+import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
+import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -35,7 +34,7 @@ public class PerspectiveAprilFoolsPrankScreen extends Screen {
     public void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(0);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenUtils.createTitle(client, new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN)));
+        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN)));
         GRID_ADDER.add(createAprilFools());
         GRID_ADDER.add(createFooter());
         GRID.refreshPositions();

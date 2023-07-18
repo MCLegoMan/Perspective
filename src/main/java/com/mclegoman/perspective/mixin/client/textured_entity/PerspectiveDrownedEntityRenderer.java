@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity;
 
-import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntityUtils;
+import com.mclegoman.perspective.client.texturedentity.PerspectiveTexturedEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.DrownedEntityRenderer;
@@ -24,6 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PerspectiveDrownedEntityRenderer {
     @Inject(at = @At("RETURN"), method = "getTexture", cancellable = true)
     private void getTexture(ZombieEntity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof DrownedEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:drowned", "", cir.getReturnValue()));
+        if (entity instanceof DrownedEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:drowned", "", cir.getReturnValue()));
     }
 }

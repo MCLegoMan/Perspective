@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity;
 
-import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntityUtils;
+import com.mclegoman.perspective.client.texturedentity.PerspectiveTexturedEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MinecartEntityRenderer;
@@ -24,12 +24,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PerspectiveMinecartEntityRenderer {
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof ChestMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:chest_minecart", "", cir.getReturnValue()));
-        else if (entity instanceof CommandBlockMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:command_block_minecart", "", cir.getReturnValue()));
-        else if (entity instanceof FurnaceMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:furnace_minecart", "", cir.getReturnValue()));
-        else if (entity instanceof HopperMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:hopper_minecart", "", cir.getReturnValue()));
-        else if (entity instanceof SpawnerMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:spawner_minecart", "", cir.getReturnValue()));
-        else if (entity instanceof TntMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:tnt_minecart", "", cir.getReturnValue()));
-        else if (entity instanceof MinecartEntity) cir.setReturnValue(PerspectiveTexturedEntityUtils.getTexture(entity, "minecraft:minecart", "", cir.getReturnValue()));
+        if (entity instanceof ChestMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:chest_minecart", "", cir.getReturnValue()));
+        else if (entity instanceof CommandBlockMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:command_block_minecart", "", cir.getReturnValue()));
+        else if (entity instanceof FurnaceMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:furnace_minecart", "", cir.getReturnValue()));
+        else if (entity instanceof HopperMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:hopper_minecart", "", cir.getReturnValue()));
+        else if (entity instanceof SpawnerMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:spawner_minecart", "", cir.getReturnValue()));
+        else if (entity instanceof TntMinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:tnt_minecart", "", cir.getReturnValue()));
+        else if (entity instanceof MinecartEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:minecart", "", cir.getReturnValue()));
     }
 }
