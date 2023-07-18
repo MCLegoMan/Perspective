@@ -40,7 +40,9 @@ public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implemen
         try {
             REGISTRY.clear();
             add$default();
-        } catch (Exception error) {PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset textured entity registry: {}", (Object)error);}
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset textured entity registry: {}", (Object)error);
+        }
     }
     private void add$default() {
         try {

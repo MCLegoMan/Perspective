@@ -42,8 +42,8 @@ public class PerspectiveConfigHelper {
             SAVE_VIA_TICK = true;
         } else {
             PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Writing config to file.");
-            PerspectiveConfig.write_to_file();
-            PerspectiveExperimentalConfig.write_to_file();
+            PerspectiveConfig.save();
+            PerspectiveExperimentalConfig.save();
         }
     }
     public static void resetConfig() {

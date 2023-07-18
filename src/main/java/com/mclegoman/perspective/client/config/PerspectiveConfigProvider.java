@@ -40,7 +40,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
         }
         CONTENTS = contents.toString();
     }
-    public void write_to_file(String ID, String KEY_NAME, Object KEY_VALUE) {
+    public void setConfig(String KEY_NAME, Object KEY_VALUE) {
         try {
             List<Pair<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
             for (Pair<String, ?> key : NEW_CONFIG_LIST) {
@@ -51,6 +51,12 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
                 }
             }
             CONFIG_LIST = NEW_CONFIG_LIST;
+        } catch (Exception e) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        }
+    }
+    public void saveConfig(String ID) {
+        try {
             getContents(ID);
             PrintWriter writer = new PrintWriter(FabricLoader.getInstance().getConfigDir().resolve( ID + ".properties").toFile(), StandardCharsets.UTF_8);
             writer.write(CONTENTS);

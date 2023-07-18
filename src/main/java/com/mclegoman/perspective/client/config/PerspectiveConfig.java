@@ -64,18 +64,19 @@ public class PerspectiveConfig {
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveDefaultConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
-    protected static void write_to_file() {
-        CONFIG_PROVIDER.write_to_file(ID, "zoom_level", ZOOM_LEVEL);
-        CONFIG_PROVIDER.write_to_file(ID, "overlay_delay", OVERLAY_DELAY);
-        CONFIG_PROVIDER.write_to_file(ID, "super_secret_settings", SUPER_SECRET_SETTINGS);
-        CONFIG_PROVIDER.write_to_file(ID, "super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
-        CONFIG_PROVIDER.write_to_file(ID, "super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
-        CONFIG_PROVIDER.write_to_file(ID, "hide_hud", HIDE_HUD);
-        CONFIG_PROVIDER.write_to_file(ID, "textured_named_entity", TEXTURED_NAMED_ENTITY);
-        CONFIG_PROVIDER.write_to_file(ID, "textured_random_entity", TEXTURED_NAMED_ENTITY);
-        CONFIG_PROVIDER.write_to_file(ID, "allow_april_fools", ALLOW_APRIL_FOOLS);
-        CONFIG_PROVIDER.write_to_file(ID, "force_april_fools", FORCE_APRIL_FOOLS);
-        CONFIG_PROVIDER.write_to_file(ID, "show_development_warning", SHOW_DEVELOPMENT_WARNING);
-        CONFIG_PROVIDER.write_to_file(ID, "config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
+    protected static void save() {
+        CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
+        CONFIG_PROVIDER.setConfig("overlay_delay", OVERLAY_DELAY);
+        CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
+        CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
+        CONFIG_PROVIDER.setConfig("super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
+        CONFIG_PROVIDER.setConfig("hide_hud", HIDE_HUD);
+        CONFIG_PROVIDER.setConfig("textured_named_entity", TEXTURED_NAMED_ENTITY);
+        CONFIG_PROVIDER.setConfig("textured_random_entity", TEXTURED_NAMED_ENTITY);
+        CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
+        CONFIG_PROVIDER.setConfig("force_april_fools", FORCE_APRIL_FOOLS);
+        CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
+        CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
+        CONFIG_PROVIDER.saveConfig(ID);
     }
 }

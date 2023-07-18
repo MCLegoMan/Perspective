@@ -28,6 +28,6 @@ public class PerspectiveExperimentalConfig {
     }
     protected static void assign() {
     }
-    protected static void write_to_file() {
+    protected static void save() {
     }
 }
