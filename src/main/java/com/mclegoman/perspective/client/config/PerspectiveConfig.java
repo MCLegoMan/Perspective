@@ -77,6 +77,5 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("force_april_fools", FORCE_APRIL_FOOLS);
         CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
-        CONFIG_PROVIDER.saveConfig(ID);
     }
 }

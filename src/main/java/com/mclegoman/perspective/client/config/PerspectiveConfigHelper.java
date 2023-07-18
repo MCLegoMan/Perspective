@@ -43,7 +43,9 @@ public class PerspectiveConfigHelper {
         } else {
             PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Writing config to file.");
             PerspectiveConfig.save();
+            PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
             PerspectiveExperimentalConfig.save();
+            PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
         }
     }
     public static void resetConfig() {
