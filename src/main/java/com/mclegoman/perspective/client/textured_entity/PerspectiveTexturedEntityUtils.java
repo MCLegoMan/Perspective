@@ -24,7 +24,11 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class PerspectiveTexturedEntityUtils {
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveTexturedEntityDataLoader());
+        try {
+            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveTexturedEntityDataLoader());
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize textured entity texture: {}", (Object)error);
+        }
     }
     public static Identifier getTexture(Entity entity, String entity_type, String suffix, Identifier default_identifier) {
         try {
@@ -41,28 +45,35 @@ public class PerspectiveTexturedEntityUtils {
                     if (!stringReg.get(index).equalsIgnoreCase("default")) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(index).toLowerCase() + suffix + ".png");
                 }
             }
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Textured Entity texture.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set textured entity texture: {}", (Object)error);
         }
         return default_identifier;
     }
 
     private static List<String> getStringRegistry(String entity_type) {
         List<String> entity_registry = new ArrayList<>();
-        for (List<String> registry : PerspectiveTexturedEntityDataLoader.REGISTRY) {
-            String type = registry.get(0);
-            String name = registry.get(1);
-            if (type.equalsIgnoreCase(entity_type)) entity_registry.add(name);
+        try {
+            for (List<String> registry : PerspectiveTexturedEntityDataLoader.REGISTRY) {
+                String type = registry.get(0);
+                String name = registry.get(1);
+                if (type.equalsIgnoreCase(entity_type)) entity_registry.add(name);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get textured entity string registry: {}", (Object)error);
         }
         return entity_registry;
     }
     private static List<Text> getTextRegistry(String entity_type) {
         List<Text> entity_registry = new ArrayList<>();
-        for (List<String> registry : PerspectiveTexturedEntityDataLoader.REGISTRY) {
-            String type = registry.get(0);
-            String name = registry.get(1);
-            if (type.equalsIgnoreCase(entity_type)) entity_registry.add(Text.literal(name));
+        try {
+            for (List<String> registry : PerspectiveTexturedEntityDataLoader.REGISTRY) {
+                String type = registry.get(0);
+                String name = registry.get(1);
+                if (type.equalsIgnoreCase(entity_type)) entity_registry.add(Text.literal(name));
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get textured entity text registry: {}", (Object)error);
         }
         return entity_registry;
     }
