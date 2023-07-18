@@ -7,17 +7,21 @@
 
 package com.mclegoman.perspective.client.config.screen.april_fools_prank;
 
+import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrankDataLoader;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.util.PerspectiveTranslationUtils;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.SimplePositioningWidget;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
@@ -32,19 +36,27 @@ public class PerspectiveAprilFoolsPrankScreen extends Screen {
         this.PARENT_SCREEN = PARENT;
     }
     public void init() {
-        GRID.getMainPositioner().alignHorizontalCenter().margin(0);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN)));
-        GRID_ADDER.add(createAprilFools());
-        GRID_ADDER.add(createFooter());
-        GRID.refreshPositions();
-        GRID.forEachChild(this::addDrawableChild);
-        initTabNavigation();
+        try {
+            GRID.getMainPositioner().alignHorizontalCenter().margin(0);
+            GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveAprilFoolsPrankScreen(PARENT_SCREEN)));
+            GRID_ADDER.add(createAprilFools());
+            GRID_ADDER.add(createFooter());
+            GRID.refreshPositions();
+            GRID.forEachChild(this::addDrawableChild);
+            initTabNavigation();
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config>april fools prank screen: {}", (Object)error);
+        }
     }
 
     public void tick() {
-        if (this.SHOULD_CLOSE) {
-            client.setScreen(PARENT_SCREEN);
+        try {
+            if (this.SHOULD_CLOSE) {
+                client.setScreen(PARENT_SCREEN);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config>april fools prank screen: {}", (Object)error);
         }
     }
     private GridWidget createAprilFools() {
@@ -76,7 +88,11 @@ public class PerspectiveAprilFoolsPrankScreen extends Screen {
     }
 
     public void initTabNavigation() {
-        SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+        try {
+            SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config>april fools prank screen TabNavigation: {}", (Object)error);
+        }
     }
     public Text getNarratedTitle() {
         return ScreenTexts.joinSentences();
@@ -90,7 +106,11 @@ public class PerspectiveAprilFoolsPrankScreen extends Screen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
-        super.render(context, mouseX, mouseY, delta);
+        try {
+            this.renderBackground(context);
+            super.render(context, mouseX, mouseY, delta);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to render config>april fools prank screen: {}", (Object)error);
+        }
     }
 }
