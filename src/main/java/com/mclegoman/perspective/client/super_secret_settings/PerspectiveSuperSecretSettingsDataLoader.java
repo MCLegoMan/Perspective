@@ -60,12 +60,12 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
         try {
             SHADERS.clear();
             SHADERS_NAME.clear();
-            addDefaultValues();
+            add$default();
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset super secret settings registry: {}", (Object)error);
         }
     }
-    private void addDefaultValues() {
+    private void add$default() {
         try {
             add("minecraft", "none", true);
         } catch (Exception error) {
@@ -100,7 +100,7 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
             Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
             add(NAMESPACE, SHADER, ENABLED);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load shader: {}", (Object)error);
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load perspective shader: {}", (Object)error);
         }
     }
     private void layout$souper_secret_settings(ResourceManager manager) {
@@ -115,7 +115,7 @@ public class PerspectiveSuperSecretSettingsDataLoader extends JsonDataLoader imp
                     for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), ENABLED);
                 }
             } catch (Exception error) {
-                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load shader list: {}", (Object)error);
+                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load souper secret settings shader list: {}", (Object)error);
             }
         }
     }
