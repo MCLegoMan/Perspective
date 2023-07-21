@@ -1,4 +1,4 @@
- - Fixed Mixin Plugin.  
+ - Fixed Mixin Plugin. Required for compatibility with Souper Secret Settings and Architectury.
 
 **More Info**  
 Due to the amount of testing whilst developing this version, I have decided to release this as a BETA instead of an ALPHA.  
