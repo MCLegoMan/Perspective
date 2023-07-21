@@ -9,15 +9,9 @@
 <a href="https://quiltmc.org"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/quilt_64h.png" alt="Quilt"></a>
 </div>
 <br>
-<div id="features">
-<h1>Features</h1>
-<p>
- - Adjustable Zoom<br>
- - Hold Perspective Keybindings<br>
- - Set Perspective Keybindings<br>
- - Cycle Super Secret Settings Keybinding<br>
- - Toggle Super Secret Settings Keybinding<br>
-</p>
+<div id="description">
+<h1>About</h1>
+<p>Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to zoom, change and hold perspectives, have custom textures on named/random entities, take panoramic screenshots, and use super secret settings!</p>
 </div>
 <br><div id="requires">
 <h1>Mod Requirements</h1>
