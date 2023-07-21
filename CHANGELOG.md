@@ -1,13 +1,18 @@
-## [1.20] Perspective 1.1.0-alpha.1  
- - Added Named and Random Textured Entity, configurable via resource pack.
- - Added April Fools' Prank with config options to allow and force the prank.
- - Added Reset Zoom, both a dedicated keybinding and middle mouse click.
- - Added customizable default config - customizable via resource pack.
- - Added Custom Cape mixin. (_No, this will not be available for end users, this is for developers only_)
- - Added Development Warning Screen for Development Builds. (auto-detects when it is a development build, can be toggled to not show in config)
- - Added Publish to Modrinth and Curseforge tasks via Minotaur and CurseGradle.
- - Perspective now gets tested for Quilt compatibility.
- - Config Version is now 3.
- - Config Screen now saves and closes on ESC.
- - Development Warning Screen closes on any key.
- - Development Warning Screen now has checkbox to stop screen coming up in future.
+## [1.20.x] Perspective 1.1.0-beta.1  
+ - Added Development Warning Screen. Auto-Detects weather the current version is a development build.  
+ - Updated Hold Perspective to go back to the previous perspective.  
+ - Added middle mouse click to reset zoom whilst zooming.  
+ - Added Customizable Default Config. (Documentation coming soon)  
+ - Added April Fools' Prank.  
+ - Added Textured Entity  
+ - Updated Super Secret Settings to have two different modes. (default)"Game" and "Screen". This fixes the issue where pressing F4 or cycling perspectives via the vanilla keybinding would remove the shader. Note: Some shaders aren't as nice to use on "Screen" mode.  
+ - Removed Cycle Perspective. This was only added due to the vanilla keybinding removing the shader.
+ - Removed Increase/Decrease zoom level keybindings.
+ - Added Take Panorama Screenshot. This is not compatible with Sodium.  
+ - You can now close the config screens by pressing ESC.  
+ - Updated Config Version to 3.  
+
+**More Info**  
+Due to the amount of testing whilst developing this version, I have decided to release this as a BETA instead of an ALPHA.  
+Note, as this is a development build, you may experience some bugs/issues.  
+Please report any bugs you find to Perspective's [Issues](https://github.com/MCLegoMan/Perspective/issues) page with any information you have.
