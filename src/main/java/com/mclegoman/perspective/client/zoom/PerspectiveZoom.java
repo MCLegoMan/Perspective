@@ -7,49 +7,74 @@
 
 package com.mclegoman.perspective.client.zoom;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.PerspectiveConfigDataLoader;
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
+    public static Text OVERLAY_MESSAGE;
+    public static int OVERLAY_REMAINING;
     public static double getZoomFOV(MinecraftClient client) {
         return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100));
     }
-    public static int OVERLAY;
     public static boolean SET_ZOOM;
     public static boolean isZooming() {
         try {
-            return PerspectiveKeybindings.KEY_HOLD_ZOOM.isPressed() || SET_ZOOM;
+            return PerspectiveKeybindings.HOLD_ZOOM.isPressed() || SET_ZOOM;
         } catch (Exception ignored) {
         }
         return false;
     }
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.KEY_ZOOM_IN.wasPressed()) zoom(true);
-        if (PerspectiveKeybindings.KEY_ZOOM_OUT.wasPressed()) zoom(false);
-        if (PerspectiveKeybindings.KEY_ZOOM_RESET.wasPressed()) reset();
-        if (PerspectiveKeybindings.KEY_SET_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
-        if (OVERLAY > 0) OVERLAY = OVERLAY - 1;
-    }
-    public static void zoom(boolean in) {
-        OVERLAY = Math.min((int)PerspectiveConfigHelper.getConfig("overlay_delay") * 20, (10) * 20);
-        if (in) {
-            if ((int)PerspectiveConfigHelper.getConfig("zoom_level") >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);
-            else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") + 1);
+        try {
+            if (PerspectiveKeybindings.TOGGLE_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
+            if (OVERLAY_REMAINING > 0) OVERLAY_REMAINING -= 1;
+            else OVERLAY_MESSAGE = null;
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick zoom: {}", (Object)error);
         }
-        else {
-            if ((int)PerspectiveConfigHelper.getConfig("zoom_level") <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
-            else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") - 1);
-        }
-        PerspectiveConfigHelper.saveConfig(true);
     }
-    public static void reset() {
-        OVERLAY = Math.min((int)PerspectiveConfigHelper.getConfig("overlay_delay") * 20, (10) * 20);
-        PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
-        PerspectiveConfigHelper.saveConfig(true);
+    public static void zoom(boolean in, MinecraftClient client) {
+        try {
+            if (in) {
+                if ((int)PerspectiveConfigHelper.getConfig("zoom_level") >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);
+                else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") + 1);
+            }
+            else {
+                if ((int)PerspectiveConfigHelper.getConfig("zoom_level") <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
+                else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") - 1);
+            }
+            setOverlay(client, 40);
+            PerspectiveConfigHelper.saveConfig(true);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set zoom level: {}", (Object)error);
+        }
+    }
+    public static void reset(MinecraftClient client) {
+        try {
+            if ((int)PerspectiveConfigHelper.getConfig("zoom_level") != PerspectiveConfigDataLoader.ZOOM_LEVEL) {
+                PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
+                setOverlay(client, 40);
+                PerspectiveConfigHelper.saveConfig(true);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset zoom level: {}", (Object)error);
+        }
+    }
+
+    private static void setOverlay(MinecraftClient client, int time) {
+        try {
+            OVERLAY_REMAINING = time;
+            OVERLAY_MESSAGE = Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set overlay: {}", (Object)error);
+        }
     }
 }

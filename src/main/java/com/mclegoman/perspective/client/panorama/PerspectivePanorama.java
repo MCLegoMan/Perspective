@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Environment(EnvType.CLIENT)
 public class PerspectivePanorama {
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.KEY_PANORAMA_SCREENSHOT.wasPressed()) {
+        if (PerspectiveKeybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) {
             if (!FabricLoader.getInstance().isModLoaded("sodium")) {
                 String time = getTime();
                 File directory = new File(client.runDirectory.getPath() + "/panorama/" + time);

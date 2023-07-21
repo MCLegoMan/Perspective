@@ -20,29 +20,41 @@ public class PerspectiveConfigHelper {
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
     protected static final int DEFAULT_CONFIG_VERSION = 3;
     public static void init() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
+        try {
+            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config: {}", (Object)error);
+        }
     }
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.KEY_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen));
-        if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
-        else {
-            if (SAVE_VIA_TICK) {
-                saveConfig(false);
-                SAVE_VIA_TICK = false;
+        try {
+            if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen));
+            if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
+            else {
+                if (SAVE_VIA_TICK) {
+                    saveConfig(false);
+                    SAVE_VIA_TICK = false;
+                }
+                SAVE_VIA_TICK_TICKS = 0;
             }
-            SAVE_VIA_TICK_TICKS = 0;
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config: {}", (Object)error);
         }
     }
     protected static void updateConfig() {
-        if ((int)getConfig("config_version") != DEFAULT_CONFIG_VERSION) {
-            PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Updating config to the latest version.");
-            if ((int)getConfig("config_version") < 3) {
-                setConfig("zoom_level", 100 - (int)getConfig("zoom_level"));
-                setConfig("overlay_delay", (int)getConfig("overlay_delay") / 20);
+        try {
+            if ((int)getConfig("config_version") != DEFAULT_CONFIG_VERSION) {
+                PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Attempting to update config to the latest version.");
+                if ((int)getConfig("config_version") < 3) {
+                    setConfig("zoom_level", 100 - (int)getConfig("zoom_level"));
+                }
+                setConfig("config_version", DEFAULT_CONFIG_VERSION);
+                PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Successfully updated config to the latest version.");
             }
-            setConfig("config_version", DEFAULT_CONFIG_VERSION);
+            saveConfig(false);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to update config: {}", (Object)error);
         }
-        saveConfig(false);
     }
     public static void saveConfig(boolean onTick) {
         if (onTick) {
@@ -56,51 +68,54 @@ public class PerspectiveConfigHelper {
         }
     }
     public static void resetConfig() {
-        setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
-        setConfig("overlay_delay", PerspectiveConfigDataLoader.OVERLAY_DELAY);
-        setConfig("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
-        setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
-        setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
-        setConfig("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
-        setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
-        setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
-        setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-        setConfig("textured_named_entity", PerspectiveConfigDataLoader.TEXTURED_NAMED_ENTITY);
-        setConfig("textured_random_entity", PerspectiveConfigDataLoader.TEXTURED_RANDOM_ENTITY);
-        // Experimental
+        try {
+            setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
+            setConfig("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
+            setConfig("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
+            setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+            setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
+            setConfig("named_textured_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY);
+            setConfig("random_textured_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY);
+            setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
+            setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
+            setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
+        }
+
     }
     public static void setConfig(String ID, Object VALUE) {
-        switch (ID) {
-            case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = (int)VALUE;
-            case "overlay_delay" -> PerspectiveConfig.OVERLAY_DELAY = (int)VALUE;
-            case "super_secret_settings" -> PerspectiveConfig.SUPER_SECRET_SETTINGS = (int)VALUE;
-            case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (boolean)VALUE;
-            case "super_secret_settings_enabled" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
-            case "hide_hud" -> PerspectiveConfig.HIDE_HUD = (boolean)VALUE;
-            case "allow_april_fools" -> PerspectiveConfig.ALLOW_APRIL_FOOLS = (boolean)VALUE;
-            case "force_april_fools" -> PerspectiveConfig.FORCE_APRIL_FOOLS = (boolean)VALUE;
-            case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
-            case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
-            case "textured_named_entity" -> PerspectiveConfig.TEXTURED_NAMED_ENTITY = (boolean)VALUE;
-            case "textured_random_entity" -> PerspectiveConfig.TEXTURED_RANDOM_ENTITY = (boolean)VALUE;
-            // Experimental
+        try {
+            switch (ID) {
+                case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = (int)VALUE;
+                case "hide_hud" -> PerspectiveConfig.HIDE_HUD = (boolean)VALUE;
+                case "super_secret_settings" -> PerspectiveConfig.SUPER_SECRET_SETTINGS = (int)VALUE;
+                case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (boolean)VALUE;
+                case "super_secret_settings_enabled" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
+                case "named_textured_entity" -> PerspectiveConfig.NAMED_TEXTURED_ENTITY = (boolean)VALUE;
+                case "random_textured_entity" -> PerspectiveConfig.RANDOM_TEXTURED_ENTITY = (boolean)VALUE;
+                case "allow_april_fools" -> PerspectiveConfig.ALLOW_APRIL_FOOLS = (boolean)VALUE;
+                case "force_april_fools" -> PerspectiveConfig.FORCE_APRIL_FOOLS = (boolean)VALUE;
+                case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
+                case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set {} config value: {}", ID, error);
         }
     }
     public static Object getConfig(String ID) {
         switch (ID) {
             case "zoom_level" -> {return PerspectiveConfig.ZOOM_LEVEL;}
-            case "overlay_delay" ->  {return PerspectiveConfig.OVERLAY_DELAY;}
+            case "hide_hud" -> {return PerspectiveConfig.HIDE_HUD;}
             case "super_secret_settings" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS;}
             case "super_secret_settings_mode" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}
             case "super_secret_settings_enabled" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}
-            case "hide_hud" -> {return PerspectiveConfig.HIDE_HUD;}
+            case "named_textured_entity" -> {return PerspectiveConfig.NAMED_TEXTURED_ENTITY;}
+            case "random_textured_entity" -> {return PerspectiveConfig.RANDOM_TEXTURED_ENTITY;}
             case "allow_april_fools" -> {return PerspectiveConfig.ALLOW_APRIL_FOOLS;}
             case "force_april_fools" -> {return PerspectiveConfig.FORCE_APRIL_FOOLS;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
-            case "textured_named_entity" -> {return PerspectiveConfig.TEXTURED_NAMED_ENTITY;}
-            case "textured_random_entity" -> {return PerspectiveConfig.TEXTURED_RANDOM_ENTITY;}
-            // Experimental
         }
         return new Object();
     }

@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.zoom;
+package com.mclegoman.perspective.mixin.client.zoom_hold_perspective;
 
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(GameRenderer.class)
-public abstract class PerspectiveGameRenderer {
+public abstract class PerspectiveZooming {
     @Shadow @Final
     MinecraftClient client;
     @Shadow private boolean renderingPanorama;

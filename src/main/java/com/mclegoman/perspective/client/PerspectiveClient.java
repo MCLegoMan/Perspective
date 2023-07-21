@@ -24,14 +24,17 @@ import net.fabricmc.api.Environment;
 public class PerspectiveClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing Perspective");
-        PerspectiveConfigHelper.init();
-        PerspectiveResourcePacks.init();
-        PerspectiveKeybindings.init();
-        PerspectiveShader.init();
-        PerspectiveTexturedEntity.init();
-        PerspectiveAprilFoolsPrank.init();
-        PerspectivePerspective.init();
-        PerspectiveTick.init();
+        try {
+            PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing {}", PerspectiveData.ID);
+            PerspectiveConfigHelper.init();
+            PerspectiveResourcePacks.init();
+            PerspectiveKeybindings.init();
+            PerspectiveShader.init();
+            PerspectiveTexturedEntity.init();
+            PerspectiveAprilFoolsPrank.init();
+            PerspectiveTick.init();
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to initialize {}: {}", PerspectiveData.ID, error);
+        }
     }
 }

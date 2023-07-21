@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.developmentwarning.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -17,7 +18,6 @@ import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -31,7 +31,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     private boolean SHOULD_CLOSE;
     private boolean SHOULD_SAVE;
     public PerspectiveDevelopmentWarningScreen(Screen parent_screen, int timer_ticks, boolean show_checkbox) {
-        super(Text.translatable("gui.perspective.config.title"));
+        super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = parent_screen;
         TIMER_TICKS = timer_ticks;
@@ -40,6 +40,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
 
     @Override
     public void tick() {
+        PerspectiveData.LOGGER.debug("DEVELOPMENT WARNING SCREEN OPEN");
         if (SHOW_CHECKBOX) {
             if (this.checkbox.isChecked() == (boolean)PerspectiveConfigHelper.getConfig("show_development_warning")) {
                 PerspectiveConfigHelper.setConfig("show_development_warning", !this.checkbox.isChecked());
@@ -48,7 +49,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         }
         if (TIMER_TICKS > 0) {
             TIMER_TICKS -= 1;
-            client.setScreen(new PerspectiveDevelopmentWarningScreen(PARENT_SCREEN, TIMER_TICKS, SHOW_CHECKBOX));
+            PerspectiveData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PARENT_SCREEN, TIMER_TICKS, SHOW_CHECKBOX));
         }
         else this.SHOULD_CLOSE = true;
         if (this.SHOULD_CLOSE) {
@@ -56,18 +57,12 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
                 PerspectiveConfigHelper.saveConfig(false);
                 SHOULD_SAVE = false;
             }
-            client.setScreen(PARENT_SCREEN);
+            PerspectiveData.CLIENT.setScreen(PARENT_SCREEN);
         }
         super.tick();
     }
     private int ticksToSeconds(int ticks) {
         return (ticks - 1) / 20;
-    }
-    private Text getTimerText(int seconds) {
-        Text state;
-        if (seconds != 1) state = Text.translatable("gui.perspective.development_warning.timer.seconds");
-        else state = Text.translatable("gui.perspective.development_warning.timer.second");
-        return Text.translatable("gui.perspective.development_warning.timer.message", seconds, state).formatted(Formatting.GOLD);
     }
     protected void init() {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -92,8 +87,8 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new MultilineTextWidget(Text.translatable("gui.perspective.development_warning.description").formatted(Formatting.RED).formatted(Formatting.BOLD), textRenderer).setCentered(true));
-        GRID_ADDER.add(new MultilineTextWidget(getTimerText(ticksToSeconds(TIMER_TICKS) + 1), textRenderer));
+        GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getTranslation("development_warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), textRenderer).setCentered(true));
+        GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getTranslation("development_warning.timer", new Object[]{ticksToSeconds(TIMER_TICKS) + 1, PerspectiveTranslation.getPlural(ticksToSeconds(TIMER_TICKS) + 1, "time.seconds")}, new Formatting[]{Formatting.GOLD}), textRenderer));
         return GRID;
     }
 
@@ -107,25 +102,17 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GRID_ADDER.add(this.checkbox, 2);
         return GRID;
     }
-
     public boolean shouldCloseOnEsc() {
         return false;
     }
-
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         this.SHOULD_CLOSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
-
     protected void initTabNavigation() {
         SimplePositioningWidget.setPos(GRID, this.getNavigationFocus());
     }
-
-    public Text getNarratedTitle() {
-        return ScreenTexts.joinSentences();
-    }
-
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context);
         super.render(context, mouseX, mouseY, delta);

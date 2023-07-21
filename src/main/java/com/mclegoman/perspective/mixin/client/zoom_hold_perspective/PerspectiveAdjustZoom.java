@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.zoom;
+package com.mclegoman.perspective.mixin.client.zoom_hold_perspective;
 
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import net.fabricmc.api.EnvType;
@@ -21,15 +21,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(Mouse.class)
-public abstract class PerspectiveMouse {
+public abstract class PerspectiveAdjustZoom {
     @Shadow @Final private MinecraftClient client;
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
             double scroll = (client.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * client.options.getMouseWheelSensitivity().getValue();
-            if (scroll > 0) PerspectiveZoom.zoom(true);
-            else if (scroll < 0) PerspectiveZoom.zoom(false);
+            if (scroll > 0) PerspectiveZoom.zoom(true, client);
+            else if (scroll < 0) PerspectiveZoom.zoom(false, client);
             ci.cancel();
         }
     }
@@ -37,7 +37,7 @@ public abstract class PerspectiveMouse {
     private void onClick(long window, int button, int action, int mods, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
             if (button == 2) {
-                PerspectiveZoom.reset();
+                PerspectiveZoom.reset(client);
                 ci.cancel();
             }
         }

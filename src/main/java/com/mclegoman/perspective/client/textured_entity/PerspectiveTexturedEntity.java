@@ -35,11 +35,11 @@ public class PerspectiveTexturedEntity {
             List<Text> textReg = getTextRegistry(entity_type);
             String namespace = entity_type.substring(0, entity_type.lastIndexOf(":"));
             String entity_name = entity_type.substring(entity_type.lastIndexOf(":") + 1);
-            if ((boolean)PerspectiveConfigHelper.getConfig("textured_named_entity") && textReg.contains(entity.getCustomName())) {
+            if ((boolean)PerspectiveConfigHelper.getConfig("named_textured_entity") && textReg.contains(entity.getCustomName())) {
                 if (!stringReg.get(textReg.indexOf(entity.getCustomName())).equalsIgnoreCase("default")) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(textReg.indexOf(entity.getCustomName())).toLowerCase() + suffix + ".png");
             }
-            if ((boolean)PerspectiveConfigHelper.getConfig("textured_random_entity")) {
-                if ((!(boolean)PerspectiveConfigHelper.getConfig("textured_named_entity")) || ((boolean)PerspectiveConfigHelper.getConfig("textured_named_entity") && !textReg.contains(entity.getCustomName()))) {
+            if ((boolean)PerspectiveConfigHelper.getConfig("random_textured_entity")) {
+                if ((!(boolean)PerspectiveConfigHelper.getConfig("named_textured_entity")) || ((boolean)PerspectiveConfigHelper.getConfig("named_textured_entity") && !textReg.contains(entity.getCustomName()))) {
                     int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), stringReg.size());
                     if (!stringReg.get(index).equalsIgnoreCase("default")) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(index).toLowerCase() + suffix + ".png");
                 }

@@ -18,10 +18,14 @@ public class PerspectiveExperimentalConfig {
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
     protected static void init() {
-        CONFIG_PROVIDER = new PerspectiveConfigProvider();
-        create();
-        CONFIG = SimpleConfig.of(ID).provider(CONFIG_PROVIDER).request();
-        assign();
+        try {
+            CONFIG_PROVIDER = new PerspectiveConfigProvider();
+            create();
+            CONFIG = SimpleConfig.of(ID).provider(CONFIG_PROVIDER).request();
+            assign();
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize {} config: {}", ID, error);
+        }
     }
     protected static void create() {
     }
