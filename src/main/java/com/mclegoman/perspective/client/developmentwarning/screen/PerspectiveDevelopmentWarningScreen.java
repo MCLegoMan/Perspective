@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.developmentwarning.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -48,7 +49,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         }
         if (TIMER_TICKS > 0) {
             TIMER_TICKS -= 1;
-            PerspectiveData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PARENT_SCREEN, TIMER_TICKS, SHOW_CHECKBOX));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PARENT_SCREEN, TIMER_TICKS, SHOW_CHECKBOX));
         }
         else this.SHOULD_CLOSE = true;
         if (this.SHOULD_CLOSE) {
@@ -56,7 +57,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
                 PerspectiveConfigHelper.saveConfig(false);
                 SHOULD_SAVE = false;
             }
-            PerspectiveData.CLIENT.setScreen(PARENT_SCREEN);
+            PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
         }
         super.tick();
     }
@@ -78,7 +79,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new IconWidget(256, 48, PerspectiveData.LOGO));
+        GRID_ADDER.add(new IconWidget(256, 48, PerspectiveClientData.LOGO));
         return GRID;
     }
 

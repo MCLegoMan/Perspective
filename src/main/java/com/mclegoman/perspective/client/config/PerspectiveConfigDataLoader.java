@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.developmentwarning.screen.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -62,8 +63,8 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 PerspectiveExperimentalConfig.init();
                 PerspectiveConfigHelper.updateConfig();
                 if (PerspectiveData.IS_DEVELOPMENT) {
-                    if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveData.CLIENT.currentScreen instanceof TitleScreen) {
-                        PerspectiveData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PerspectiveData.CLIENT.currentScreen, 200, true));
+                    if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
+                        PerspectiveClientData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PerspectiveClientData.CLIENT.currentScreen, 200, true));
                     }
                 }
                 INIT = true;

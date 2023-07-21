@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.config.screen;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.developmentwarning.screen.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
@@ -25,7 +26,7 @@ public class PerspectiveConfigScreenHelper {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new IconWidget(224, 42, PerspectiveData.LOGO));
+        GRID_ADDER.add(new IconWidget(224, 42, PerspectiveClientData.LOGO));
         if (PerspectiveData.IS_DEVELOPMENT) {
             GridWidget DEVELOPMENT_BUTTONS = new GridWidget();
             DEVELOPMENT_BUTTONS.getMainPositioner().alignHorizontalCenter().margin(2);

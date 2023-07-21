@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.config.screen.shaders;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalConfigScreen;
 import com.mclegoman.perspective.client.config.screen.textured_entity.PerspectiveTexturedEntityConfigScreen;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
@@ -86,7 +87,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("reset", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;

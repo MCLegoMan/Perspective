@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.panorama;
 
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -50,14 +51,14 @@ public class PerspectivePanorama {
                         client.player.setPitch(PITCH);
                     }
                 }
-                sendMessage(PerspectiveData.CLIENT, PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.success", new Object[]{Text.literal(time).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, directory.getAbsolutePath())))}));
-            } else sendMessage(PerspectiveData.CLIENT, PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.failure", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}));
+                sendMessage(PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.success", new Object[]{Text.literal(time).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, directory.getAbsolutePath())))}));
+            } else sendMessage(PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.failure", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}));
         }
     }
     private static String getTime() {
         return String.valueOf(LocalDateTime.now()).replace(":", "");
     }
-    private static void sendMessage(MinecraftClient client, Text message) {
-        client.inGameHud.getChatHud().addMessage(message);
+    private static void sendMessage(Text message) {
+        PerspectiveClientData.CLIENT.inGameHud.getChatHud().addMessage(message);
     }
 }

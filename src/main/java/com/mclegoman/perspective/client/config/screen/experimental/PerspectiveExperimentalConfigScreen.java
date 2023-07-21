@@ -11,6 +11,7 @@ import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.config.screen.april_fools_prank.PerspectiveAprilFoolsPrankConfigScreen;
 import com.mclegoman.perspective.client.config.screen.shaders.PerspectiveShadersConfigScreen;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -67,7 +68,7 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("reset", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;

@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.config.screen.april_fools_prank;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -38,7 +39,7 @@ public class PerspectiveAprilFoolsPrankConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveData.CLIENT, new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN)));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN)));
             GRID_ADDER.add(createAprilFools());
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -52,7 +53,7 @@ public class PerspectiveAprilFoolsPrankConfigScreen extends Screen {
     public void tick() {
         try {
             if (this.SHOULD_CLOSE) {
-                PerspectiveData.CLIENT.setScreen(PARENT_SCREEN);
+                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config>april fools prank screen: {}", (Object)error);
@@ -64,11 +65,11 @@ public class PerspectiveAprilFoolsPrankConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank.allow", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("allow_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"));
-            PerspectiveData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("april_fools_prank.allow", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank.force", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_april_fools"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("force_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("force_april_fools"));
-            PerspectiveData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("april_fools_prank.force", true)));
         return GRID;
     }
@@ -78,7 +79,7 @@ public class PerspectiveAprilFoolsPrankConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("reset", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;

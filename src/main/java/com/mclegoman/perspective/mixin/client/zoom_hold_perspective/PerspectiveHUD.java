@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.mixin.client.zoom_hold_perspective;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -43,12 +44,12 @@ public abstract class PerspectiveHUD {
             }
             if (l > 8) {
                 context.getMatrices().push();
-                context.getMatrices().translate((float)(PerspectiveData.CLIENT.getWindow().getScaledWidth() / 2), 27, 0.0F);
+                context.getMatrices().translate((float)(PerspectiveClientData.CLIENT.getWindow().getScaledWidth() / 2), 27, 0.0F);
                 k = 16777215;
                 m = l << 24 & -16777216;
-                n = PerspectiveData.CLIENT.textRenderer.getWidth(PerspectiveZoom.OVERLAY_MESSAGE);
-                this.drawTextBackground(context, PerspectiveData.CLIENT.textRenderer, -4, n, 16777215 | m);
-                context.drawTextWithShadow(PerspectiveData.CLIENT.textRenderer, PerspectiveZoom.OVERLAY_MESSAGE, -n / 2, -4, k | m);
+                n = PerspectiveClientData.CLIENT.textRenderer.getWidth(PerspectiveZoom.OVERLAY_MESSAGE);
+                this.drawTextBackground(context, PerspectiveClientData.CLIENT.textRenderer, -4, n, 16777215 | m);
+                context.drawTextWithShadow(PerspectiveClientData.CLIENT.textRenderer, PerspectiveZoom.OVERLAY_MESSAGE, -n / 2, -4, k | m);
                 context.getMatrices().pop();
             }
         }

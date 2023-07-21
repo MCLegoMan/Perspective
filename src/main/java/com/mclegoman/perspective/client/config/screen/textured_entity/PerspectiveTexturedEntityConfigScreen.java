@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.config.screen.textured_entity;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -38,7 +39,7 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveData.CLIENT, new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN)));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN)));
             GRID_ADDER.add(createInformation());
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -51,7 +52,7 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
 
     public void tick() {
         if (this.SHOULD_CLOSE) {
-            PerspectiveData.CLIENT.setScreen(PARENT_SCREEN);
+            PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
         }
     }
     private GridWidget createInformation() {
@@ -60,11 +61,11 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity.named", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("named_textured_entity"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("named_textured_entity", !(boolean)PerspectiveConfigHelper.getConfig("named_textured_entity"));
-            PerspectiveData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity.named", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity.random", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("random_textured_entity"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("random_textured_entity", !(boolean)PerspectiveConfigHelper.getConfig("random_textured_entity"));
-            PerspectiveData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
         }).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity.random", true)));
         return GRID;
     }
@@ -74,7 +75,7 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("reset", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;
