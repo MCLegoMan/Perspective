@@ -40,7 +40,6 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
 
     @Override
     public void tick() {
-        PerspectiveData.LOGGER.debug("DEVELOPMENT WARNING SCREEN OPEN");
         if (SHOW_CHECKBOX) {
             if (this.checkbox.isChecked() == (boolean)PerspectiveConfigHelper.getConfig("show_development_warning")) {
                 PerspectiveConfigHelper.setConfig("show_development_warning", !this.checkbox.isChecked());

@@ -63,7 +63,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 PerspectiveConfigHelper.updateConfig();
                 if (PerspectiveData.IS_DEVELOPMENT) {
                     if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveData.CLIENT.currentScreen instanceof TitleScreen) {
-                        PerspectiveData.LOGGER.info("SETTING SCREEN!");
                         PerspectiveData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PerspectiveData.CLIENT.currentScreen, 200, true));
                     }
                 }
