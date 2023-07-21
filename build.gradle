@@ -78,7 +78,7 @@ modrinth {
 	projectId = "${project.modrinth_id}"
 	versionNumber = "${project.version}"
 	versionType = "${project.version_type}"
-	versionName = "[${project.title}]"
+	versionName = "${project.title}"
 	uploadFile = remapJar
 	gameVersions = ['1.20', '1.20.1']
 	loaders = ['fabric', 'quilt']
@@ -94,9 +94,9 @@ curseforge {
 		id = "${project.curseforge_id}"
 		changelog = rootProject.file("CHANGELOG.md").text
 		releaseType = "${project.version_type}"
-		gameVersionStrings = ['1.20', '1.20.1']
+		gameVersionStrings = ['1.20', '1.20.1', "Java 17", "Fabric", "Quilt"]
 		mainArtifact(jar) {
-			displayName = "[${project.title}]"
+			displayName = "${project.title}"
 		}
 	}
 	options {
