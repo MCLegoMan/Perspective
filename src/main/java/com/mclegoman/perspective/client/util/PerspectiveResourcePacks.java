@@ -7,6 +7,8 @@
 
 package com.mclegoman.perspective.client.util;
 
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,6 +33,6 @@ public class PerspectiveResourcePacks {
             Github: https://github.com/MCLegoMan
             License: CC-BY 4.0
         */
-        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), PerspectiveData.MOD_CONTAINER, Text.translatable("resourcepack.perspective.default.name"), ResourcePackActivationType.DEFAULT_ENABLED);
+        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), PerspectiveData.MOD_CONTAINER, PerspectiveTranslation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
     }
 }

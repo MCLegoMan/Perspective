@@ -50,7 +50,7 @@
     "gui.perspective.message.zoom_level": "Zoom: %s",
     "gui.perspective.message.shader": "Super Secret Settings: %s",
     "gui.perspective.message.take_panorama_screenshot.success": "Saved panorama as %s",
-    "gui.perspective.message.take_panorama_screenshot.failure": "Cannot save panorama. Not compatible with %s",
+    "gui.perspective.message.take_panorama_screenshot.failure": "Cannot save panorama: Incompatible with %s.",
 
     "gui.perspective.keybindings.category.perspective": "Perspective",
     "gui.perspective.keybindings.keybinding.cycle_shaders": "Cycle Super Secret Settings",
