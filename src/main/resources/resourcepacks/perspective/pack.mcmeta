@@ -3,7 +3,7 @@
     "pack_format": 15,
     "description": [
       {
-        "translate": "resourcepack.perspective.default.description",
+        "translate": "gui.perspective.resource_pack.perspective_default.description",
         "color": "light_gray"
       }
     ]
