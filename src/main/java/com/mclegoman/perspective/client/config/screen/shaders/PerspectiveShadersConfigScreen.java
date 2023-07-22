@@ -8,8 +8,6 @@
 package com.mclegoman.perspective.client.config.screen.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalConfigScreen;
-import com.mclegoman.perspective.client.config.screen.textured_entity.PerspectiveTexturedEntityConfigScreen;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
@@ -42,7 +40,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveShadersConfigScreen(PARENT_SCREEN)));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveShadersConfigScreen(PARENT_SCREEN)));
             GRID_ADDER.add(createShaders());
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -55,7 +53,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
 
     public void tick() {
         if (this.SHOULD_CLOSE) {
-            client.setScreen(PARENT_SCREEN);
+            PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
         }
     }
     private GridWidget createShaders() {
@@ -64,20 +62,20 @@ public class PerspectiveShadersConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.shader", new Object[]{PerspectiveShaderDataLoader.SHADERS_NAME.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))}, new Formatting[]{PerspectiveShader.getRandomColor()}), (button) -> {
-            PerspectiveShader.cycle(client, true, true);
-            client.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
+            PerspectiveShader.cycle(PerspectiveClientData.CLIENT, true, true);
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
         }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.shader", true)));
 
 
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.mode", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean) PerspectiveConfigHelper.getConfig("super_secret_settings_mode"), PerspectiveTranslationType.SHADER_MODE)}), (button) -> {
             PerspectiveConfigHelper.setConfig("super_secret_settings_mode", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode"));
-            client.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.mode", true)));
 
 
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.toggle", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean) PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE)}), (button) -> {
             PerspectiveShader.toggle(PerspectiveClientData.CLIENT, true);
-            client.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.toggle", true)));
         return GRID;
     }
