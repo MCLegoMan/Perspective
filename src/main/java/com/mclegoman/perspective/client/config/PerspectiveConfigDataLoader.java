@@ -37,6 +37,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean RANDOM_TEXTURED_ENTITY;
     public static boolean ALLOW_APRIL_FOOLS;
     public static boolean FORCE_APRIL_FOOLS;
+    public static boolean FORCE_PRIDE;
     public static boolean SHOW_DEVELOPMENT_WARNING;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
@@ -56,6 +57,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 RANDOM_TEXTURED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "random_textured_entity", false);
                 ALLOW_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);
                 FORCE_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
+                FORCE_PRIDE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_pride", false);
                 SHOW_DEVELOPMENT_WARNING = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_development_warning", true);
             }
             if (!INIT) {

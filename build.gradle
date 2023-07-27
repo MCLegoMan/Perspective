@@ -1,3 +1,15 @@
+buildscript {
+	dependencies {
+		classpath 'de.guntram.mcmod:crowdin-translate:1.4+1.19-pre2'
+	}
+	repositories {
+		maven {
+			name = 'CrowdinTranslate source'
+			url = "https://minecraft.guntram.de/maven/"
+		}
+	}
+}
+
 plugins {
 	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id "com.modrinth.minotaur" version "2.+"
@@ -19,6 +31,7 @@ loom {
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url 'https://minecraft.guntram.de/maven/' }
 }
 
 runClient.doFirst {
@@ -36,6 +49,9 @@ dependencies {
 	include(modImplementation "com.github.mclegoman:releasetypeutils:${project.releasetypeutils}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+
+	modImplementation "de.guntram.mcmod:crowdin-translate:1.4+1.19.3"
+	include "de.guntram.mcmod:crowdin-translate:1.4+1.19.3"
 }
 
 processResources {
@@ -102,3 +118,6 @@ curseforge {
 	options {
 	}
 }
+
+apply plugin: 'de.guntram.mcmod.crowdin-translate'
+crowdintranslate.crowdinProjectName = 'perspective'

@@ -7,10 +7,7 @@
 
 package com.mclegoman.perspective.client.config.screen.information;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
-import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalConfigScreen;
-import com.mclegoman.perspective.client.config.screen.textured_entity.PerspectiveTexturedEntityConfigScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;

@@ -26,7 +26,7 @@ public class PerspectiveConfigScreenHelper {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new IconWidget(224, 42, PerspectiveClientData.LOGO));
+        GRID_ADDER.add(new IconWidget(224, 42, PerspectiveClientData.getLogo()));
         if (PerspectiveData.IS_DEVELOPMENT) {
             GridWidget DEVELOPMENT_BUTTONS = new GridWidget();
             DEVELOPMENT_BUTTONS.getMainPositioner().alignHorizontalCenter().margin(2);

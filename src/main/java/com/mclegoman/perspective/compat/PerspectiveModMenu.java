@@ -18,6 +18,6 @@ import net.minecraft.client.MinecraftClient;
 public class PerspectiveModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> new PerspectiveConfigScreen(MinecraftClient.getInstance().currentScreen);
+        return parent -> new PerspectiveConfigScreen(MinecraftClient.getInstance().currentScreen, false);
     }
 }

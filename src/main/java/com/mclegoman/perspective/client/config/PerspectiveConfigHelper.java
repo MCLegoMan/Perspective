@@ -28,7 +28,7 @@ public class PerspectiveConfigHelper {
     }
     public static void tick(MinecraftClient client) {
         try {
-            if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen));
+            if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen, false));
             if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
             else {
                 if (SAVE_VIA_TICK) {
@@ -78,6 +78,7 @@ public class PerspectiveConfigHelper {
             setConfig("random_textured_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY);
             setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
             setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
+            setConfig("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
@@ -96,6 +97,7 @@ public class PerspectiveConfigHelper {
                 case "random_textured_entity" -> PerspectiveConfig.RANDOM_TEXTURED_ENTITY = (boolean)VALUE;
                 case "allow_april_fools" -> PerspectiveConfig.ALLOW_APRIL_FOOLS = (boolean)VALUE;
                 case "force_april_fools" -> PerspectiveConfig.FORCE_APRIL_FOOLS = (boolean)VALUE;
+                case "force_pride" -> PerspectiveConfig.FORCE_PRIDE = (boolean)VALUE;
                 case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
             }
@@ -114,6 +116,7 @@ public class PerspectiveConfigHelper {
             case "random_textured_entity" -> {return PerspectiveConfig.RANDOM_TEXTURED_ENTITY;}
             case "allow_april_fools" -> {return PerspectiveConfig.ALLOW_APRIL_FOOLS;}
             case "force_april_fools" -> {return PerspectiveConfig.FORCE_APRIL_FOOLS;}
+            case "force_pride" -> {return PerspectiveConfig.FORCE_PRIDE;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
         }

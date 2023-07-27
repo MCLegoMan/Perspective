@@ -5,29 +5,32 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.config.screen.experimental;
+package com.mclegoman.perspective.client.config.screen.more_options;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.*;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.GridWidget;
+import net.minecraft.client.gui.widget.SimplePositioningWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveExperimentalConfigScreen extends Screen {
+public class PerspectiveMoreOptionsConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveExperimentalConfigScreen(Screen PARENT) {
+    public PerspectiveMoreOptionsConfigScreen(Screen PARENT) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
@@ -36,27 +39,34 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveExperimentalConfigScreen(PARENT_SCREEN)));
-            GRID_ADDER.add(createEmpty());
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN)));
+            GRID_ADDER.add(createPride());
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config>experimental screen: {}", (Object)error);
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config>pride screen: {}", (Object)error);
         }
     }
 
     public void tick() {
-        if (this.SHOULD_CLOSE) {
-            client.setScreen(PARENT_SCREEN);
+        try {
+            if (this.SHOULD_CLOSE) {
+                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config>pride screen: {}", (Object)error);
         }
     }
-    private GridWidget createEmpty() {
+    private GridWidget createPride() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation("experimental.none"), textRenderer).setCentered(true));
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("pride.force", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("force_pride", !(boolean)PerspectiveConfigHelper.getConfig("force_pride"));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN));
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("pride.force", true)));
         return GRID;
     }
     private GridWidget createFooter() {
@@ -65,14 +75,18 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("reset", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;
     }
 
     public void initTabNavigation() {
-        SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+        try {
+            SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config>pride screen TabNavigation: {}", (Object)error);
+        }
     }
     public Text getNarratedTitle() {
         return ScreenTexts.joinSentences();
@@ -86,7 +100,11 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
-        super.render(context, mouseX, mouseY, delta);
+        try {
+            this.renderBackground(context);
+            super.render(context, mouseX, mouseY, delta);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to render config>pride screen: {}", (Object)error);
+        }
     }
 }

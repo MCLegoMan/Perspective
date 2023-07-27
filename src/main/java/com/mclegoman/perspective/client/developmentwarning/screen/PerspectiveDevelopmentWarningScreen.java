@@ -79,7 +79,7 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new IconWidget(256, 48, PerspectiveClientData.LOGO));
+        GRID_ADDER.add(new IconWidget(256, 48, PerspectiveClientData.getLogo()));
         return GRID;
     }
 

@@ -10,13 +10,13 @@ package com.mclegoman.perspective.client;
 import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
-import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntity;
 import com.mclegoman.perspective.client.util.PerspectiveTick;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.util.PerspectiveResourcePacks;
 import com.mclegoman.perspective.common.data.PerspectiveData;
+import de.guntram.mcmod.crowdintranslate.CrowdinTranslate;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,6 +27,7 @@ public class PerspectiveClient implements ClientModInitializer {
     public void onInitializeClient() {
         try {
             PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing {}", PerspectiveData.ID);
+            CrowdinTranslate.downloadTranslations(PerspectiveData.ID);
             PerspectiveConfigHelper.init();
             PerspectiveResourcePacks.init();
             PerspectiveKeybindings.init();
