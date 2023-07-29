@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 // Shader Namespace Fix - Forked from Souper Secret Settings
 // https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/mixin/JsonEffectShaderProgramMixin.java
-@Mixin(JsonEffectShaderProgram.class)
+@Mixin(priority = 10000, value = JsonEffectShaderProgram.class)
 public class PerspectiveShaderNamespaceFix {
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
     private Identifier perspective$init(String id) {

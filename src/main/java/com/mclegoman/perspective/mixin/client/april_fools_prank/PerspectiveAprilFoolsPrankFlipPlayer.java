@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LivingEntityRenderer.class)
+@Mixin(priority = 10000, value = LivingEntityRenderer.class)
 public class PerspectiveAprilFoolsPrankFlipPlayer {
     @Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
     private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {

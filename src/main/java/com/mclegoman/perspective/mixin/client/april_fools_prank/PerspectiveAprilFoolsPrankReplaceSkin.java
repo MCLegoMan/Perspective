@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(PlayerEntityRenderer.class)
+@Mixin(priority = 10000, value = PlayerEntityRenderer.class)
 public class PerspectiveAprilFoolsPrankReplaceSkin {
     private boolean isSLIM;
 

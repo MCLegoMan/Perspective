@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(HuskEntityRenderer.class)
+@Mixin(priority = 10000, value = HuskEntityRenderer.class)
 public class PerspectiveHuskEntityRenderer {
-    @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof HuskEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:husk", "", cir.getReturnValue()));
     }

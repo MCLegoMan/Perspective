@@ -44,6 +44,8 @@
     "gui.perspective.config.information.report.hover": "Open Perspective's Issues page in your web browser.",
     "gui.perspective.config.experimental": "Experimental",
     "gui.perspective.config.experimental.hover": "Open Perspective's experimental config screen.",
+    "gui.perspective.config.experimental.hide_armor": "Hide Armor: %s",
+    "gui.perspective.config.experimental.hide_armor.hover": "Toggles the rendering of armor.",
     "gui.perspective.config.experimental.none": "\n\nThere is currently no experiments available.\n\n",
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",

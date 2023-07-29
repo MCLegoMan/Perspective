@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(BatEntityRenderer.class)
+@Mixin(priority = 10000, value = BatEntityRenderer.class)
 public class PerspectiveBatEntityRenderer {
-    @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof BatEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:bat", "", cir.getReturnValue()));
     }

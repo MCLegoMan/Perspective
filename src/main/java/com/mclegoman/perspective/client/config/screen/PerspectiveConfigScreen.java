@@ -112,7 +112,7 @@ public class PerspectiveConfigScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveInformationScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information", true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
             this.REFRESH = true;

@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings({"rawtypes", "unchecked"})
-@Mixin(PigEntityRenderer.class)
+@Mixin(priority = 10000, value = PigEntityRenderer.class)
 public abstract class PerspectivePigEntityRenderer extends LivingEntityRenderer {
     public PerspectivePigEntityRenderer(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius) {
         super(ctx, model, shadowRadius);
@@ -36,7 +36,7 @@ public abstract class PerspectivePigEntityRenderer extends LivingEntityRenderer 
     private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
         this.addFeature(new PerspectiveSaddleableEntityOverlayFeatureRenderer(this, new PigEntityModel(context.getPart(EntityModelLayers.PIG_SADDLE)), "minecraft:pig", new Identifier("textures/entity/pig/pig_overlay.png")));
     }
-    @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof PigEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:pig", "", cir.getReturnValue()));
     }

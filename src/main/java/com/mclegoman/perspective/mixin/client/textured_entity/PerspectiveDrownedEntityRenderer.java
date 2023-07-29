@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(DrownedEntityRenderer.class)
+@Mixin(priority = 10000, value = DrownedEntityRenderer.class)
 public class PerspectiveDrownedEntityRenderer {
-    @Inject(at = @At("HEAD"), method = "getTexture", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTexture", cancellable = true)
     private void perspective$getTexture(ZombieEntity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof DrownedEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:drowned", "", cir.getReturnValue()));
     }

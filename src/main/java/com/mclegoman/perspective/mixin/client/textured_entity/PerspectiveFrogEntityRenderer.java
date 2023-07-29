@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(FrogEntityRenderer.class)
+@Mixin(priority = 10000, value = FrogEntityRenderer.class)
 public class PerspectiveFrogEntityRenderer {
-    @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof FrogEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:frog", "", cir.getReturnValue()));
     }

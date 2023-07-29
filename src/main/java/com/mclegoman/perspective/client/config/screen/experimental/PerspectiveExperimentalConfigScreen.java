@@ -8,9 +8,11 @@
 package com.mclegoman.perspective.client.config.screen.experimental;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreen;
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,19 +27,21 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public class PerspectiveExperimentalConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
+    private boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveExperimentalConfigScreen(Screen PARENT) {
+    public PerspectiveExperimentalConfigScreen(Screen PARENT, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
+        this.REFRESH = REFRESH;
     }
     public void init() {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveExperimentalConfigScreen(PARENT_SCREEN)));
-            GRID_ADDER.add(createEmpty());
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, true)));
+            GRID_ADDER.add(createHide());
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
@@ -48,6 +52,9 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
     }
 
     public void tick() {
+        if (this.REFRESH) {
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, false));
+        }
         if (this.SHOULD_CLOSE) {
             client.setScreen(PARENT_SCREEN);
         }
@@ -59,13 +66,23 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation("experimental.none"), textRenderer).setCentered(true));
         return GRID;
     }
+    private GridWidget createHide() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
+            this.REFRESH = true;
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}, true)));
+        return GRID;
+    }
     private GridWidget createFooter() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN));
+            REFRESH = true;
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("reset", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;

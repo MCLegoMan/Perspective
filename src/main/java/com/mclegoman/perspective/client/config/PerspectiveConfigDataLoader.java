@@ -39,7 +39,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean FORCE_APRIL_FOOLS;
     public static boolean FORCE_PRIDE;
     public static boolean SHOW_DEVELOPMENT_WARNING;
-    public static boolean HIDE_NAMETAGS;
     public static boolean HIDE_ARMOR;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
@@ -61,7 +60,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 FORCE_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
                 FORCE_PRIDE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_pride", false);
                 SHOW_DEVELOPMENT_WARNING = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_development_warning", true);
-                HIDE_NAMETAGS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
                 HIDE_ARMOR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
             }
             if (!INIT) {

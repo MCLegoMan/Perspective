@@ -46,6 +46,6 @@ public class PerspectiveKeybindings {
         SET_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding("set_perspective_third_person_front", GLFW.GLFW_KEY_KP_3);
         TAKE_PANORAMA_SCREENSHOT = getKeybinding("take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN);
         TOGGLE_SHADERS = getKeybinding("toggle_shaders", GLFW.GLFW_KEY_F8);
-        TOGGLE_ZOOM = getKeybinding("toggle_zoom", GLFW.GLFW_KEY_LEFT_ALT);
+        TOGGLE_ZOOM = getKeybinding("toggle_zoom", GLFW.GLFW_KEY_B);
     }
 }

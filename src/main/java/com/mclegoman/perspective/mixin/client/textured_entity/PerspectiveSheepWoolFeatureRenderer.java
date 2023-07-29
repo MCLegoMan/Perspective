@@ -25,13 +25,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(SheepWoolFeatureRenderer.class)
+@Mixin(priority = 10000, value = SheepWoolFeatureRenderer.class)
 public class PerspectiveSheepWoolFeatureRenderer {
     @Mutable
     @Shadow
     @Final
     private static Identifier SKIN;
-    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("HEAD"))
+    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("RETURN"))
     private void perspective$render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
         if (entity instanceof SheepEntity) SKIN = PerspectiveTexturedEntity.getTexture(entity, "minecraft:sheep", "_fur", new Identifier("textures/entity/sheep/sheep_fur.png"));
     }

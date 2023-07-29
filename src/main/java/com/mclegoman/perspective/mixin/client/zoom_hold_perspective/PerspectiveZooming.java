@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(GameRenderer.class)
+@Mixin(priority = 10000, value = GameRenderer.class)
 public abstract class PerspectiveZooming {
     @Shadow @Final
     MinecraftClient client;

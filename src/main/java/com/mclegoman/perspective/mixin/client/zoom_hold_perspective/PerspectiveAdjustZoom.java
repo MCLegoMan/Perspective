@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(Mouse.class)
+@Mixin(priority = 10000, value = Mouse.class)
 public abstract class PerspectiveAdjustZoom {
     @Shadow @Final private MinecraftClient client;
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)

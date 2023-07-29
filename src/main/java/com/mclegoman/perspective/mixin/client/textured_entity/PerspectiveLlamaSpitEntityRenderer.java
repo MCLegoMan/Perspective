@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LlamaSpitEntityRenderer.class)
+@Mixin(priority = 10000, value = LlamaSpitEntityRenderer.class)
 public class PerspectiveLlamaSpitEntityRenderer {
-    @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof LlamaSpitEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:llama_spit", "", cir.getReturnValue()));
     }
