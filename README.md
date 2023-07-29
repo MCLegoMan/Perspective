@@ -46,7 +46,7 @@ A: Yes, You can find me on <a href="https://twitch.tv/mclegoman">Twitch</a> and 
 <br>
 Q: Where can I get Perspective's latest news?<br>
 Perspective's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@perspective@social.mclegoman.com</a><br>
-MCLegoMan's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@mclegoman@social.mclegoman.com</a><br>
+MCLegoMan's Mastodon: <a rel="me" href="https://social.mclegoman.com/@mclegoman">@mclegoman@social.mclegoman.com</a><br>
 MCLegoMan's Discord: <a rel="me" href="https://discord.gg/vjbvjpFFPm">Lego's Coffee Shop</a><br>
 </br>
 </div>
