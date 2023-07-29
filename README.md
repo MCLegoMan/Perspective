@@ -44,10 +44,12 @@ A: Yes, as long as you give attribution.<br>
 Q: Do you make any other content?<br>
 A: Yes, You can find me on <a href="https://twitch.tv/mclegoman">Twitch</a> and <a href="https://youtube.com/@MCLegoMan">YouTube</a>.<br>
 <br>
-Q: Do you have Social Media?<br>
-A: Yes! You can follow Perspective's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@perspective@social.mclegoman.com</a>.<br>
-You also can follow my Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@mclegoman@social.mclegoman.com</a> and/or join my Discord: <a rel="me" href="https://discord.gg/vjbvjpFFPm">Lego's Coffee Shop</a><br>
-</b>
+Q: Where can I stay up to date with Perspective's news.<br>
+A: Yes!<br>
+Perspective's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@perspective@social.mclegoman.com</a><br>
+MCLegoMan's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@mclegoman@social.mclegoman.com</a><br>
+MCLegoMan's Discord: <a rel="me" href="https://discord.gg/vjbvjpFFPm">Lego's Coffee Shop</a><br>
+</br>
 </div>
 <br>
 <div id="compatible">
