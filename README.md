@@ -42,7 +42,7 @@ Q: Am I allowed to add this mod to my own modpack?<br>
 A: Yes, as long as you give attribution.<br>
 <br>
 Q: Do you make any other content?<br>
-A: Yes, You can find me on <a href="https://twitch.tv/mclegoman">Twitch</a> and <a href="https://youtube.com/@MCLegoMan">YouTube</a>.
+A: Yes, You can find me on <a href="https://twitch.tv/mclegoman">Twitch</a> and <a href="https://youtube.com/@MCLegoMan">YouTube</a>.<br>
 <br>
 Q: Do you have Social Media?<br>
 A: Yes! You can follow Perspective's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@perspective@social.mclegoman.com</a>.<br>
