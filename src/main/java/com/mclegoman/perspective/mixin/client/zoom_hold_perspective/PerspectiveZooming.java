@@ -28,7 +28,7 @@ public abstract class PerspectiveZooming {
     @Shadow private boolean renderingPanorama;
     @Shadow private boolean renderHand;
     @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
-    private void keyZoom(CallbackInfoReturnable<Double> callbackInfo) {
+    private void perspective$getFov(CallbackInfoReturnable<Double> callbackInfo) {
         try {
             if (!this.renderingPanorama) {
                 if (PerspectiveZoom.isZooming()) {

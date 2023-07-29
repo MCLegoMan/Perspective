@@ -32,7 +32,7 @@ public class PerspectiveSheepWoolFeatureRenderer {
     @Final
     private static Identifier SKIN;
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("HEAD"))
-    private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
+    private void perspective$render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
         if (entity instanceof SheepEntity) SKIN = PerspectiveTexturedEntity.getTexture(entity, "minecraft:sheep", "_fur", new Identifier("textures/entity/sheep/sheep_fur.png"));
     }
 }

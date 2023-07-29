@@ -23,9 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Mouse.class)
 public abstract class PerspectiveAdjustZoom {
     @Shadow @Final private MinecraftClient client;
-
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
-    private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
+    private void perspective$onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
             double scroll = (client.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * client.options.getMouseWheelSensitivity().getValue();
             if (scroll > 0) PerspectiveZoom.zoom(true, client);
@@ -34,7 +33,7 @@ public abstract class PerspectiveAdjustZoom {
         }
     }
     @Inject(at = @At("HEAD"), method = "onMouseButton", cancellable = true)
-    private void onClick(long window, int button, int action, int mods, CallbackInfo ci) {
+    private void perspective$onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
             if (button == 2) {
                 PerspectiveZoom.reset(client);

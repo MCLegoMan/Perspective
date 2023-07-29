@@ -18,14 +18,14 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(JsonEffectShaderProgram.class)
 public class PerspectiveShaderNamespaceFix {
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
-    private Identifier init(String id) {
-        return get(id);
+    private Identifier perspective$init(String id) {
+        return perspective$get(id);
     }
     @Redirect(method = "loadEffect", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
-    private static Identifier loadEffect(String id) {
-        return get(id);
+    private static Identifier perspective$loadEffect(String id) {
+        return perspective$get(id);
     }
-    private static Identifier get(String id) {
+    private static Identifier perspective$get(String id) {
         if (id.contains(":")) {
             String[] shader = id.substring(16).split(":");
             return new Identifier(shader[0], "shaders/program/" + shader[1]);

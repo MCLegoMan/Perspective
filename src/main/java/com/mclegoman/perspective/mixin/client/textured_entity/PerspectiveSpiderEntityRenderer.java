@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SpiderEntityRenderer.class)
 public class PerspectiveSpiderEntityRenderer {
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof SpiderEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:spider", "", cir.getReturnValue()));
     }
 }

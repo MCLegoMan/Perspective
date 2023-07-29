@@ -6,6 +6,7 @@
   "client": [
     "client.april_fools_prank.PerspectiveAprilFoolsPrankFlipPlayer",
     "client.april_fools_prank.PerspectiveAprilFoolsPrankReplaceSkin",
+    "client.experimental.PerspectiveArmorFeatureRenderer",
     "client.shaders.PerspectiveShaderNamespaceFix",
     "client.shaders.PerspectiveShaderRenderer",
     "client.textured_entity.PerspectiveAllayEntityRenderer",

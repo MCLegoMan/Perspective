@@ -32,12 +32,12 @@ public abstract class PerspectivePigEntityRenderer extends LivingEntityRenderer 
     public PerspectivePigEntityRenderer(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius) {
         super(ctx, model, shadowRadius);
     }
-    @Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
-    private void addHatLayer(EntityRendererFactory.Context context, CallbackInfo ci) {
+    @Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("RETURN"))
+    private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
         this.addFeature(new PerspectiveSaddleableEntityOverlayFeatureRenderer(this, new PigEntityModel(context.getPart(EntityModelLayers.PIG_SADDLE)), "minecraft:pig", new Identifier("textures/entity/pig/pig_overlay.png")));
     }
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof PigEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:pig", "", cir.getReturnValue()));
     }
 }

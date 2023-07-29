@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HoglinEntityRenderer.class)
 public class PerspectiveHoglinEntityRenderer {
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof HoglinEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:hoglin", "", cir.getReturnValue()));
     }
 }

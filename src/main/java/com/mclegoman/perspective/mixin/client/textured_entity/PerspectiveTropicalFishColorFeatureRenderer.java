@@ -76,7 +76,7 @@ public class PerspectiveTropicalFishColorFeatureRenderer {
     @Final
     private static Identifier CLAYFISH_TEXTURE;
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("HEAD"))
-    private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
+    private void perspective$render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
         if (entity instanceof TropicalFishEntity) {
             if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.KOB)) KOB_TEXTURE = PerspectiveTexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_kob", new Identifier("textures/entity/fish/tropical_a_pattern_1.png"));
             else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.SUNSTREAK)) SUNSTREAK_TEXTURE = PerspectiveTexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_sunstreak", new Identifier("textures/entity/fish/tropical_a_pattern_2.png"));

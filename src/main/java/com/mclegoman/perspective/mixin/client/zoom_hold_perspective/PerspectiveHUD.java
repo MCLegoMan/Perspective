@@ -25,11 +25,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
 public abstract class PerspectiveHUD {
-
     @Shadow protected abstract void drawTextBackground(DrawContext context, TextRenderer textRenderer, int yOffset, int width, int color);
-
     @Inject(method="render", at=@At("HEAD"), cancellable = true)
-    private void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
+    private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
         int k;
         float h;
         int m;

@@ -18,20 +18,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public class PerspectiveShaderRenderer {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
-    private void render$game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-        if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") && shouldRender()) PerspectiveShader.postProcessor.render(tickDelta);
+    private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
+        if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") && perspective$shouldRender()) PerspectiveShader.postProcessor.render(tickDelta);
     }
     @Inject(method = "render", at = @At(value = "TAIL"))
-    private void render$overlay(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") && shouldRender()) PerspectiveShader.postProcessor.render(tickDelta);
+    private void perspective$render_overlay(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
+        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") && perspective$shouldRender()) PerspectiveShader.postProcessor.render(tickDelta);
     }
     @Inject(method = "onResized", at = @At(value = "TAIL"))
-    private void onResized(int width, int height, CallbackInfo ci) {
+    private void perspective$onResized(int width, int height, CallbackInfo ci) {
         if (PerspectiveShader.postProcessor != null) {
             PerspectiveShader.postProcessor.setupDimensions(width, height);
         }
     }
-    private boolean shouldRender() {
+    private boolean perspective$shouldRender() {
         return PerspectiveShader.postProcessor != null && (boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled");
     }
 }
