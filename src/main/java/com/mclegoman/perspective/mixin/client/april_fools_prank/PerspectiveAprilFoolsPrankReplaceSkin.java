@@ -29,12 +29,12 @@ public class PerspectiveAprilFoolsPrankReplaceSkin {
     private boolean isSLIM;
 
     @Inject(at = @At("RETURN"), method = "<init>")
-    private void init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci){
+    private void perspective$init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci){
         isSLIM = slim;
     }
 
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         try {
             if (entity instanceof PlayerEntity) {
                 if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) {
