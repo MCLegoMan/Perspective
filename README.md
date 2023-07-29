@@ -48,7 +48,7 @@ Q: Where can I get Perspective's latest news?<br>
 Perspective's Mastodon: <a rel="me" href="https://social.mclegoman.com/@perspective">@perspective@social.mclegoman.com</a><br>
 MCLegoMan's Mastodon: <a rel="me" href="https://social.mclegoman.com/@mclegoman">@mclegoman@social.mclegoman.com</a><br>
 MCLegoMan's Discord: <a rel="me" href="https://discord.gg/vjbvjpFFPm">Lego's Coffee Shop</a><br>
-</br>
+</b>
 </div>
 <br>
 <div id="compatible">
