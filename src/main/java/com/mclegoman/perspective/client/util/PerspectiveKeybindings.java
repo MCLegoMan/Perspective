@@ -27,6 +27,7 @@ public class PerspectiveKeybindings {
     public static KeyBinding SET_PERSPECTIVE_THIRD_PERSON_BACK;
     public static KeyBinding SET_PERSPECTIVE_THIRD_PERSON_FRONT;
     public static KeyBinding TAKE_PANORAMA_SCREENSHOT;
+    public static KeyBinding TOGGLE_ARMOR;
     public static KeyBinding TOGGLE_SHADERS;
     public static KeyBinding TOGGLE_ZOOM;
     public static void init() {
@@ -45,6 +46,7 @@ public class PerspectiveKeybindings {
         SET_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding("set_perspective_third_person_back", GLFW.GLFW_KEY_KP_2);
         SET_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding("set_perspective_third_person_front", GLFW.GLFW_KEY_KP_3);
         TAKE_PANORAMA_SCREENSHOT = getKeybinding("take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN);
+        TOGGLE_ARMOR = getKeybinding("toggle_armor", GLFW.GLFW_KEY_F6);
         TOGGLE_SHADERS = getKeybinding("toggle_shaders", GLFW.GLFW_KEY_F8);
         TOGGLE_ZOOM = getKeybinding("toggle_zoom", GLFW.GLFW_KEY_B);
     }
