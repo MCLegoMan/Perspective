@@ -18,7 +18,6 @@ public class PerspectiveExperimentalConfig {
     protected static final String ID = PerspectiveData.ID + "-experimental";
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
-    protected static boolean HIDE_NAMETAGS;
     protected static boolean HIDE_ARMOR;
     protected static void init() {
         try {
@@ -31,12 +30,12 @@ public class PerspectiveExperimentalConfig {
         }
     }
     protected static void create() {
-        CONFIG_PROVIDER.add(new Pair<>("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS));
+        CONFIG_PROVIDER.add(new Pair<>("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR));
     }
     protected static void assign() {
-        HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
+        HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
     }
     protected static void save() {
-        CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
+        CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
     }
 }

@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin(ZombieHorseEntityRenderer.class)
 public class PerspectiveZombieHorseEntityRenderer {
-    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof SkeletonHorseEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:skeleton_horse", "", cir.getReturnValue()));
         else if (entity instanceof ZombieHorseEntity) cir.setReturnValue(PerspectiveTexturedEntity.getTexture(entity, "minecraft:zombie_horse", "", cir.getReturnValue()));

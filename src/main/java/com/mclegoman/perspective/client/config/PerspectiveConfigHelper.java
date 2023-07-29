@@ -80,7 +80,6 @@ public class PerspectiveConfigHelper {
             setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
             setConfig("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-            setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
@@ -102,7 +101,6 @@ public class PerspectiveConfigHelper {
                 case "force_pride" -> PerspectiveConfig.FORCE_PRIDE = (boolean)VALUE;
                 case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
-                case "hide_nametags" -> PerspectiveExperimentalConfig.HIDE_NAMETAGS = (boolean)VALUE;
                 case "hide_armor" -> PerspectiveExperimentalConfig.HIDE_ARMOR = (boolean)VALUE;
             }
         } catch (Exception error) {
@@ -123,7 +121,6 @@ public class PerspectiveConfigHelper {
             case "force_pride" -> {return PerspectiveConfig.FORCE_PRIDE;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
-            case "hide_nametags" -> {return PerspectiveExperimentalConfig.HIDE_NAMETAGS;}
             case "hide_armor" -> {return PerspectiveExperimentalConfig.HIDE_ARMOR;}
         }
         return new Object();
