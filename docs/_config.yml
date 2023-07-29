@@ -7,8 +7,10 @@ url: https://mclegoman.github.io/perspective
 nav_external_links:
   - title: Curseforge
     url: https://www.curseforge.com/minecraft/mc-mods/perspective
-  - title: Github
-    url: https://github.com/MCLegoMan/Perspective
+  - title: Source Code
+    url: https://mclegoman.github.io/Perspective/SourceCode
+  - title: Crowdin
+    url: https://crowdin.com/project/perspective
   - title: Report an Issue
     url: https://github.com/MCLegoMan/Perspective/issues/new/choose
   - title: Donate
