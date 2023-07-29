@@ -65,6 +65,7 @@ public class PerspectiveShader {
                 postProcessor = null;
             }
         }
+        PerspectiveConfigHelper.saveConfig(true);
     }
     public static void cycle(MinecraftClient client, Boolean forwards, boolean SILENT) {
         try {

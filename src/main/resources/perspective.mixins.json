@@ -101,9 +101,9 @@
     "client.textured_entity.PerspectiveZombieEntityRenderer",
     "client.textured_entity.PerspectiveZombieHorseEntityRenderer",
     "client.textured_entity.PerspectiveZombieVillagerEntityRenderer",
-    "client.zoom_hold_perspective.PerspectiveZooming",
+    "client.zoom_hold_perspective.PerspectiveAdjustZoom",
     "client.zoom_hold_perspective.PerspectiveHUD",
-    "client.zoom_hold_perspective.PerspectiveAdjustZoom"
+    "client.zoom_hold_perspective.PerspectiveZooming"
   ],
   "injectors": {
     "defaultRequire": 1
