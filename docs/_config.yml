@@ -13,6 +13,8 @@ nav_external_links:
     url: https://crowdin.com/project/perspective
   - title: Report an Issue
     url: https://github.com/MCLegoMan/Perspective/issues/new/choose
+  - title: Mastodon
+    url: https://social.mclegoman.com/@perspective
   - title: Donate
     url: https://ko-fi.com/mclegoman
 
