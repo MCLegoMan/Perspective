@@ -1,6 +1,19 @@
- - Fixed Mixin Plugin. Required for compatibility with Souper Secret Settings and Architectury.
+## CHANGELOG  
+ - Fixed Enable/Disable button functionality on the shader config screen.  
+ - Added Crowdin Support.  
+ - Added `overlay` layer to `minecraft:pig`.  
+ - Added Pride Perspective Logo. (Checks if it currently June or if "Force Pride" config option is enabled.)  
+ - Updated and Added April Fools' Prank skins.  
+ - Renamed mixin namespace to `mclegoman-perspective`. [Fixed #3]  
+ - Updated to RTU 2.0.0.  
 
-**More Info**  
-Due to the amount of testing whilst developing this version, I have decided to release this as a BETA instead of an ALPHA.  
-Note, as this is a development build, you may experience some bugs/issues.  
-Please report any bugs you find to Perspective's [Issues](https://github.com/MCLegoMan/Perspective/issues) page with any information you have.
+### Experimental  
+ - Toggleable Rendering of Armour. [Default Keybinding: F6]  
+**Please note, experimental features may get removed or changed in future updates.**  
+
+### Resource Packs  
+#### Perspective Default:  
+ - Technoblade pig now uses the `overlay` layer for the crown.  
+
+### Found a bug?  
+You can report any bugs or issues you encounter with Perspective on our [Issues](https://github.com/MCLegoMan/Perspective/issues) page.  
