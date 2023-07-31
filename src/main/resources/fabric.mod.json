@@ -27,7 +27,7 @@
     ]
   },
   "mixins": [
-    "perspective.mixins.json"
+    "mclegoman-perspective.mixins.json"
   ],
   "depends": {
     "minecraft": "~1.20",
