@@ -25,40 +25,40 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-    public static final List<Identifier> SHADERS = new ArrayList<>();
-    public static final List<String> SHADERS_NAME = new ArrayList<>();
+    public static final List<Map<Identifier, String>> REGISTRY = new ArrayList<>();
     public static int getShaderAmount() {
-        return SHADERS.size() - 1;
+        return REGISTRY.size() - 1;
+    }
+    public static Object get(int SHADER, boolean NAME) {
+        for (Map.Entry<Identifier, String> SHADER_MAP : REGISTRY.get(SHADER).entrySet()) {
+            if (!NAME) return SHADER_MAP.getKey();
+            else return SHADER_MAP.getValue();
+        }
+        return null;
     }
     private void add(String NAMESPACE, String SHADER, Boolean ENABLED) {
         try {
             SHADER = SHADER.replace("\"", "");
             Identifier ID = new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json"));
             String NAME = NAMESPACE + ":" + SHADER;
+            Map<Identifier, String> SHADER_MAP = new HashMap<>();
+            SHADER_MAP.put(ID, NAME);
             if (ENABLED) {
-                if (!SHADERS.contains(ID) && !SHADERS_NAME.contains(NAME)) {
-                    SHADERS.add(ID);
-                    SHADERS_NAME.add(NAME);
-                }
-            } else {
-                if (SHADERS.contains(ID) && SHADERS_NAME.contains(NAME)) {
-                    SHADERS.remove(ID);
-                    SHADERS_NAME.remove(NAME);
-                }
-            }
+                if (!REGISTRY.contains(SHADER_MAP)) REGISTRY.add(SHADER_MAP);
+            } else REGISTRY.remove(SHADER_MAP);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add shader to registry: {}", (Object)error);
         }
     }
     private void reset() {
         try {
-            SHADERS.clear();
-            SHADERS_NAME.clear();
+            REGISTRY.clear();
             add$default();
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset shaders registry: {}", (Object)error);
@@ -81,7 +81,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             reset();
             prepared.forEach(this::layout$perspective);
             layout$souper_secret_settings(manager);
-            PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), SHADERS.size() - 1));
+            PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
             PerspectiveShader.set(MinecraftClient.getInstance(), true);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply shaders dataloader: {}", (Object)error);
