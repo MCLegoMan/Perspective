@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 @Environment(EnvType.CLIENT)
 public class PerspectiveTranslation {
     public static Text getVariableTranslation(boolean toggle, PerspectiveTranslationType type) {
-        return toggle ? getTranslation("variable." + type.asString() + ".on", new Object[]{}, new Formatting[]{}) : getTranslation("variable." + type.asString() + ".off", new Object[]{}, new Formatting[]{});
+        return toggle ? getTranslation("variable." + type.asString() + ".on") : getTranslation("variable." + type.asString() + ".off");
     }
     public static Text getConfigTranslation(String name, Object[] variables, Formatting[] formattings, boolean hover) {
         return hover ? getTranslation("config." + name + ".hover", variables, formattings) : getTranslation("config." + name, variables, formattings);

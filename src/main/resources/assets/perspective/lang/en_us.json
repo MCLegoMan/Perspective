@@ -14,7 +14,7 @@
     "gui.perspective.config.shaders.hover": "Open Perspective's Super Secret Settings config screen.",
     "gui.perspective.config.shaders.shader": "Shader: %s",
     "gui.perspective.config.shaders.shader.hover": "Cycles through Perspective's shaders.",
-    "gui.perspective.config.shaders.mode": "Shader Mode: %s",
+    "gui.perspective.config.shaders.mode": "Shader Mode: %s%s",
     "gui.perspective.config.shaders.mode.hover": "Cycles through Perspective's shader modes.",
     "gui.perspective.config.shaders.toggle": "%s",
     "gui.perspective.config.shaders.toggle.hover": "Toggle functionality of Perspective's Super Secret Settings.",
@@ -81,6 +81,8 @@
     "gui.perspective.variable.onff.off": "OFF",
     "gui.perspective.variable.shader_mode.on": "Screen",
     "gui.perspective.variable.shader_mode.off": "Game",
+    "gui.perspective.variable.disable_screen_mode.on": "*",
+    "gui.perspective.variable.disable_screen_mode.off": "",
     "gui.perspective.time.seconds.single": "second",
     "gui.perspective.time.seconds.plural": "seconds",
     "gui.perspective.version_overlay": "Minecraft %s"

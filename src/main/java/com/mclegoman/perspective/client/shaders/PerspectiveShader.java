@@ -91,9 +91,9 @@ public class PerspectiveShader {
         try {
             DEPTH_FIX = true;
             if (postProcessor != null) postProcessor.close();
-            postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), false)));
+            postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-            if (!SILENT) setOverlay(client, Text.of((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), true)));
+            if (!SILENT) setOverlay(client, Text.of((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
             try {
                 if (!SILENT && client.world != null && client.player != null) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
             } catch (Exception e) {
@@ -107,7 +107,7 @@ public class PerspectiveShader {
             PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
             try {
                 if (postProcessor != null) postProcessor.close();
-                postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), false)));
+                postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
                 postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
             } catch (Exception ignored) {}
             PerspectiveConfigHelper.saveConfig(true);
@@ -126,5 +126,14 @@ public class PerspectiveShader {
         while (COLOR == LAST_COLOR) COLOR = COLORS[(random.nextInt(COLORS.length))];
         LAST_COLOR = COLOR;
         return COLOR;
+    }
+    public static boolean shouldRenderShader() {
+        return postProcessor != null && (boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled");
+    }
+    public static boolean shouldDisableScreenMode() {
+        return (Boolean)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.DISABLE_SCREEN_MODE));
+    }
+    public static void render(float tickDelta) {
+        if (postProcessor != null) postProcessor.render(tickDelta);
     }
 }

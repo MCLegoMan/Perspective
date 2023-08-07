@@ -25,33 +25,47 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-    public static final List<Map<Identifier, String>> REGISTRY = new ArrayList<>();
+    public static final List<List<Object>> REGISTRY = new ArrayList<>();
     public static int getShaderAmount() {
         return REGISTRY.size() - 1;
     }
-    public static Object get(int SHADER, boolean NAME) {
-        for (Map.Entry<Identifier, String> SHADER_MAP : REGISTRY.get(SHADER).entrySet()) {
-            if (!NAME) return SHADER_MAP.getKey();
-            else return SHADER_MAP.getValue();
-        }
+    public static Object get(int SHADER, PerspectiveShaderRegistryValue VALUE) {
+        List<Object> SHADER_MAP = REGISTRY.get(SHADER);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.ID)) return SHADER_MAP.get(0);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.NAME)) return SHADER_MAP.get(1);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.HIDE_ARMOR)) return SHADER_MAP.get(2);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.HIDE_NAMETAGS)) return SHADER_MAP.get(3);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(4);
         return null;
     }
-    private void add(String NAMESPACE, String SHADER, Boolean ENABLED) {
+    private void add(String NAMESPACE, String SHADER, Boolean HIDE_ARMOR, Boolean HIDE_NAMETAGS, Boolean DISABLE_SCREEN_MODE, Boolean ENABLED) {
         try {
             SHADER = SHADER.replace("\"", "");
             Identifier ID = new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json"));
             String NAME = NAMESPACE + ":" + SHADER;
-            Map<Identifier, String> SHADER_MAP = new HashMap<>();
-            SHADER_MAP.put(ID, NAME);
+            List<Object> SHADER_MAP = new ArrayList<>();
+            SHADER_MAP.add(ID);
+            SHADER_MAP.add(NAME);
+            SHADER_MAP.add(HIDE_ARMOR);
+            SHADER_MAP.add(HIDE_NAMETAGS);
+            SHADER_MAP.add(DISABLE_SCREEN_MODE);
+            boolean ALREADY_REGISTERED = false;
+            List<Object> REGISTRY_MAP = SHADER_MAP;
+            for (List<Object> SHADER_MAP_IN_REGISTRY : REGISTRY) {
+                if (SHADER_MAP_IN_REGISTRY.contains(ID)) {
+                    ALREADY_REGISTERED = true;
+                    REGISTRY_MAP = SHADER_MAP_IN_REGISTRY;
+                    break;
+                }
+            }
             if (ENABLED) {
-                if (!REGISTRY.contains(SHADER_MAP)) REGISTRY.add(SHADER_MAP);
-            } else REGISTRY.remove(SHADER_MAP);
+                if (!ALREADY_REGISTERED) REGISTRY.add(SHADER_MAP);
+            } else REGISTRY.remove(REGISTRY_MAP);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add shader to registry: {}", (Object)error);
         }
@@ -66,7 +80,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
     }
     private void add$default() {
         try {
-            add("minecraft", "none", true);
+            add("minecraft", "none",false, false, false, true);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default shaders to registry: {}", (Object)error);
         }
@@ -96,8 +110,11 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             JsonObject READER = jsonElement.getAsJsonObject();
             String NAMESPACE = JsonHelper.getString(READER, "namespace", PerspectiveData.ID);
             String SHADER = JsonHelper.getString(READER, "shader");
+            Boolean HIDE_ARMOR = JsonHelper.getBoolean(READER, "hide_armor", false);
+            Boolean HIDE_NAMETAGS = JsonHelper.getBoolean(READER, "hide_nametags", false);
+            Boolean DISABLE_SCREEN_MODE = JsonHelper.getBoolean(READER, "disable_screen_mode", false);
             Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
-            add(NAMESPACE, SHADER, ENABLED);
+            add(NAMESPACE, SHADER, HIDE_ARMOR, HIDE_NAMETAGS, DISABLE_SCREEN_MODE, ENABLED);
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load perspective shader: {}", (Object)error);
         }
@@ -110,8 +127,17 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
                     JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
                     String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.ID);
                     JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders");
+                    JsonArray HIDE_ARMOR = JsonHelper.getArray(namespacelist, "hide_armor", new JsonArray());
+                    JsonArray HIDE_NAMETAGS = JsonHelper.getArray(namespacelist, "hide_nametags", new JsonArray());
+                    JsonArray DISABLE_SCREEN_MODE = JsonHelper.getArray(namespacelist, "disable_screen_mode", new JsonArray());
                     Boolean ENABLED = JsonHelper.getBoolean(namespacelist, "enabled", true);
-                    for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), ENABLED);
+                    List<String> HIDE_ARMOR_SHADERS = new ArrayList<>();
+                    for (JsonElement SHADER : HIDE_ARMOR) HIDE_ARMOR_SHADERS.add(SHADER.getAsString());
+                    List<String> HIDE_NAMETAGS_SHADERS = new ArrayList<>();
+                    for (JsonElement SHADER : HIDE_NAMETAGS) HIDE_NAMETAGS_SHADERS.add(SHADER.getAsString());
+                    List<String> DISABLE_SCREEN_MODE_SHADERS = new ArrayList<>();
+                    for (JsonElement SHADER : DISABLE_SCREEN_MODE) DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), HIDE_ARMOR_SHADERS.contains(SHADER.getAsString()), HIDE_NAMETAGS_SHADERS.contains(SHADER.getAsString()), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), ENABLED);
                 }
             } catch (Exception error) {
                 PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load souper secret settings shader list: {}", (Object)error);
