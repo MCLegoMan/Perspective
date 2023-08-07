@@ -131,7 +131,8 @@ public class PerspectiveShader {
         return postProcessor != null && (boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled");
     }
     public static boolean shouldDisableScreenMode() {
-        return (Boolean)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.DISABLE_SCREEN_MODE));
+        if (!(boolean)PerspectiveConfigHelper.getConfig("bypass_limits")) return (Boolean)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.DISABLE_SCREEN_MODE));
+        else return false;
     }
     public static void render(float tickDelta) {
         if (postProcessor != null) postProcessor.render(tickDelta);
