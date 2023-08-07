@@ -30,6 +30,7 @@ public class PerspectiveConfig {
     protected static boolean FORCE_PRIDE;
     protected static boolean VERSION_OVERLAY;
     protected static boolean SHOW_DEVELOPMENT_WARNING;
+    protected static boolean BYPASS_LIMITS;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -54,6 +55,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE));
         CONFIG_PROVIDER.add(new Pair<>("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY));
         CONFIG_PROVIDER.add(new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
+        CONFIG_PROVIDER.add(new Pair<>("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -69,6 +71,7 @@ public class PerspectiveConfig {
         FORCE_PRIDE = CONFIG.getOrDefault("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
         VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
+        BYPASS_LIMITS = CONFIG.getOrDefault("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -84,6 +87,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("force_pride", FORCE_PRIDE);
         CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
         CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
+        CONFIG_PROVIDER.setConfig("bypass_limits", BYPASS_LIMITS);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
 }

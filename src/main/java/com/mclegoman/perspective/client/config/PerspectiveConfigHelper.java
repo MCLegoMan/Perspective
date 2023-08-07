@@ -18,7 +18,7 @@ public class PerspectiveConfigHelper {
     protected static boolean SAVE_VIA_TICK;
     protected static int SAVE_VIA_TICK_TICKS;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-    protected static final int DEFAULT_CONFIG_VERSION = 4;
+    protected static final int DEFAULT_CONFIG_VERSION = 5;
     public static void init() {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
@@ -81,6 +81,7 @@ public class PerspectiveConfigHelper {
             setConfig("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
             setConfig("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
+            setConfig("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
         } catch (Exception error) {
@@ -103,6 +104,7 @@ public class PerspectiveConfigHelper {
                 case "force_pride" -> PerspectiveConfig.FORCE_PRIDE = (boolean)VALUE;
                 case "version_overlay" -> PerspectiveConfig.VERSION_OVERLAY = (boolean)VALUE;
                 case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
+                case "bypass_limits" -> PerspectiveConfig.BYPASS_LIMITS = (boolean)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
                 case "hide_armor" -> PerspectiveExperimentalConfig.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> PerspectiveExperimentalConfig.HIDE_NAMETAGS = (boolean)VALUE;
@@ -125,6 +127,7 @@ public class PerspectiveConfigHelper {
             case "force_pride" -> {return PerspectiveConfig.FORCE_PRIDE;}
             case "version_overlay" -> {return PerspectiveConfig.VERSION_OVERLAY;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
+            case "bypass_limits" -> {return PerspectiveConfig.BYPASS_LIMITS;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             case "hide_armor" -> {return PerspectiveExperimentalConfig.HIDE_ARMOR;}
             case "hide_nametags" -> {return PerspectiveExperimentalConfig.HIDE_NAMETAGS;}

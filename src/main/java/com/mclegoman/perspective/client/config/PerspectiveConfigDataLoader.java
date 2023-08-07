@@ -40,6 +40,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean FORCE_PRIDE;
     public static boolean VERSION_OVERLAY;
     public static boolean SHOW_DEVELOPMENT_WARNING;
+    public static boolean BYPASS_LIMITS;
     public static boolean HIDE_ARMOR;
     public static boolean HIDE_NAMETAGS;
     public static final String ID = "config";
@@ -63,6 +64,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 FORCE_PRIDE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_pride", false);
                 VERSION_OVERLAY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
                 SHOW_DEVELOPMENT_WARNING = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_development_warning", true);
+                BYPASS_LIMITS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "bypass_limits", false);
                 HIDE_ARMOR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
                 HIDE_NAMETAGS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
             }
