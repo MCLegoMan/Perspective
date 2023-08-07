@@ -8,14 +8,15 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
-import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
@@ -33,6 +34,8 @@ import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveShader {
+    public static Framebuffer DEPTH_FRAME_BUFFER;
+    public static boolean DEPTH_FIX;
     @Nullable
     public static PostEffectProcessor postProcessor;
     private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
@@ -86,6 +89,7 @@ public class PerspectiveShader {
     }
     public static void set(MinecraftClient client, boolean SILENT) {
         try {
+            DEPTH_FIX = true;
             if (postProcessor != null) postProcessor.close();
             postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), PerspectiveShaderDataLoader.SHADERS.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings")));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
@@ -96,6 +100,7 @@ public class PerspectiveShader {
                 PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to play random Super Secret Settings sound.");
                 PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
             }
+            DEPTH_FIX = false;
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());

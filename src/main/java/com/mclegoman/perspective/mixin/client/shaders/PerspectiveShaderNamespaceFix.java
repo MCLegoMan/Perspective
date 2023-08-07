@@ -2,7 +2,10 @@
     Perspective
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: CC-BY 4.0
+
+    This class was forked from Souper Secret Settings by Nettakrim.
+    Licensed under GNU Lesser General Public License v3.0
+    https://github.com/Nettakrim/Souper-Secret-Settings
 */
 
 package com.mclegoman.perspective.mixin.client.shaders;
@@ -13,8 +16,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-// Shader Namespace Fix - Forked from Souper Secret Settings
-// https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/mixin/JsonEffectShaderProgramMixin.java
 @Mixin(priority = 10000, value = JsonEffectShaderProgram.class)
 public class PerspectiveShaderNamespaceFix {
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
