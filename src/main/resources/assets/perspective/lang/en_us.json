@@ -32,8 +32,10 @@
     "gui.perspective.config.april_fools_prank.force.hover": "Toggle if Perspective is forced into thinking it is currently April 1st. (Requires: Allow Prank)",
     "gui.perspective.config.more_options": "More Options",
     "gui.perspective.config.more_options.hover": "Open Perspective's More Options config screen.",
-    "gui.perspective.config.pride.force": "Force Pride: %s",
-    "gui.perspective.config.pride.force.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
+    "gui.perspective.config.more_options.force_pride": "Force Pride: %s",
+    "gui.perspective.config.more_options.force_pride.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
+    "gui.perspective.config.more_options.version_overlay": "Version Overlay: %s",
+    "gui.perspective.config.more_options.version_overlay.hover": "Toggle visibility of the Minecraft version overlay.",
     "gui.perspective.config.information": "Information",
     "gui.perspective.config.information.hover": "Open Perspective's Information screen.",
     "gui.perspective.config.information.documentation": "Documentation",
@@ -46,6 +48,8 @@
     "gui.perspective.config.experimental.hover": "Open Perspective's experimental config screen.",
     "gui.perspective.config.experimental.hide_armor": "Hide Armor: %s",
     "gui.perspective.config.experimental.hide_armor.hover": "Toggles the rendering of armor.",
+    "gui.perspective.config.experimental.hide_nametags": "Hide Nametags: %s",
+    "gui.perspective.config.experimental.hide_nametags.hover": "Toggles the rendering of nametags.",
     "gui.perspective.config.experimental.none": "\n\nThere is currently no experiments available.\n\n",
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",
@@ -65,6 +69,8 @@
     "gui.perspective.keybindings.keybinding.set_perspective_third_person_back": "Set Perspective (Third Person Back)",
     "gui.perspective.keybindings.keybinding.set_perspective_third_person_front": "Set Perspective (Third Person Front)",
     "gui.perspective.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
+    "gui.perspective.keybindings.keybinding.toggle_armor": "Toggle Armor",
+    "gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
     "gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
     "gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
     "gui.perspective.resource_pack.perspective_default": "Perspective Default",
@@ -76,5 +82,6 @@
     "gui.perspective.variable.shader_mode.on": "Screen",
     "gui.perspective.variable.shader_mode.off": "Game",
     "gui.perspective.time.seconds.single": "second",
-    "gui.perspective.time.seconds.plural": "seconds"
+    "gui.perspective.time.seconds.plural": "seconds",
+    "gui.perspective.version_overlay": "Minecraft %s"
 }

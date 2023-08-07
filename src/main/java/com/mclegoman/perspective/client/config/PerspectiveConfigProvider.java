@@ -9,11 +9,12 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
-import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
+import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

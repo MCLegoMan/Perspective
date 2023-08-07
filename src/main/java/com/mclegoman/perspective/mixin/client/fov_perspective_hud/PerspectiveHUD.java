@@ -5,14 +5,16 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.zoom_hold_perspective;
+package com.mclegoman.perspective.mixin.client.fov_perspective_hud;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -26,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 10000, value = InGameHud.class)
 public abstract class PerspectiveHUD {
     @Shadow protected abstract void drawTextBackground(DrawContext context, TextRenderer textRenderer, int yOffset, int width, int color);
+
     @Inject(method="render", at=@At("HEAD"), cancellable = true)
     private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
         int k;
@@ -52,6 +55,10 @@ public abstract class PerspectiveHUD {
         }
         if ((PerspectiveZoom.isZooming() || PerspectivePerspective.isHoldingPerspective()) && (boolean)PerspectiveConfigHelper.getConfig("hide_hud")) {
             ci.cancel();
+        } else {
+            if (!PerspectiveClientData.CLIENT.options.debugEnabled) {
+                if ((boolean)PerspectiveConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(PerspectiveClientData.CLIENT.textRenderer, PerspectiveTranslation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+            }
         }
     }
 }

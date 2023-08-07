@@ -7,6 +7,10 @@
     "client.april_fools_prank.PerspectiveAprilFoolsPrankFlipPlayer",
     "client.april_fools_prank.PerspectiveAprilFoolsPrankReplaceSkin",
     "client.experimental.PerspectiveArmorFeatureRenderer",
+    "client.experimental.PerspectiveLivingEntityRenderer",
+    "client.fov_perspective_hud.PerspectiveAdjustZoom",
+    "client.fov_perspective_hud.PerspectiveHUD",
+    "client.fov_perspective_hud.PerspectiveZooming",
     "client.shaders.PerspectiveShaderNamespaceFix",
     "client.shaders.PerspectiveShaderRenderer",
     "client.textured_entity.PerspectiveAllayEntityRenderer",
@@ -101,10 +105,7 @@
     "client.textured_entity.PerspectiveZoglinEntityRenderer",
     "client.textured_entity.PerspectiveZombieEntityRenderer",
     "client.textured_entity.PerspectiveZombieHorseEntityRenderer",
-    "client.textured_entity.PerspectiveZombieVillagerEntityRenderer",
-    "client.zoom_hold_perspective.PerspectiveAdjustZoom",
-    "client.zoom_hold_perspective.PerspectiveHUD",
-    "client.zoom_hold_perspective.PerspectiveZooming"
+    "client.textured_entity.PerspectiveZombieVillagerEntityRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

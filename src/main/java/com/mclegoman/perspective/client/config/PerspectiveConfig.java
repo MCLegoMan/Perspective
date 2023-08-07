@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.data.PerspectiveData;
-import com.mclegoman.simplefabric.fabric_simplelibs.simple_config.SimpleConfig;
+import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,6 +28,7 @@ public class PerspectiveConfig {
     protected static boolean ALLOW_APRIL_FOOLS;
     protected static boolean FORCE_APRIL_FOOLS;
     protected static boolean FORCE_PRIDE;
+    protected static boolean VERSION_OVERLAY;
     protected static boolean SHOW_DEVELOPMENT_WARNING;
     protected static int CONFIG_VERSION;
     protected static void init() {
@@ -51,6 +52,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS));
         CONFIG_PROVIDER.add(new Pair<>("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS));
         CONFIG_PROVIDER.add(new Pair<>("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE));
+        CONFIG_PROVIDER.add(new Pair<>("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY));
         CONFIG_PROVIDER.add(new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
@@ -65,6 +67,7 @@ public class PerspectiveConfig {
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
         FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
         FORCE_PRIDE = CONFIG.getOrDefault("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
+        VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
@@ -79,6 +82,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
         CONFIG_PROVIDER.setConfig("force_april_fools", FORCE_APRIL_FOOLS);
         CONFIG_PROVIDER.setConfig("force_pride", FORCE_PRIDE);
+        CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
         CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }

@@ -40,7 +40,7 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
             GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN)));
-            GRID_ADDER.add(createPride());
+            GRID_ADDER.add(createPrideAndVersionOverlay());
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
@@ -59,14 +59,18 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config>pride screen: {}", (Object)error);
         }
     }
-    private GridWidget createPride() {
+    private GridWidget createPrideAndVersionOverlay() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("pride.force", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("force_pride", !(boolean)PerspectiveConfigHelper.getConfig("force_pride"));
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN));
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("pride.force", true)));
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("version_overlay"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("version_overlay", !(boolean)PerspectiveConfigHelper.getConfig("version_overlay"));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN));
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", true)));
         return GRID;
     }
     private GridWidget createFooter() {

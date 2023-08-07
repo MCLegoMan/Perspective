@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.zoom_hold_perspective;
+package com.mclegoman.perspective.mixin.client.fov_perspective_hud;
 
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import com.mclegoman.perspective.common.data.PerspectiveData;
