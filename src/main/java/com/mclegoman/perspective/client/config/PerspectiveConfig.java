@@ -23,6 +23,7 @@ public class PerspectiveConfig {
     protected static int SUPER_SECRET_SETTINGS;
     protected static boolean SUPER_SECRET_SETTINGS_MODE;
     protected static boolean SUPER_SECRET_SETTINGS_ENABLED;
+    protected static boolean SUPER_SECRET_SETTINGS_SOUND;
     protected static boolean NAMED_TEXTURED_ENTITY;
     protected static boolean RANDOM_TEXTURED_ENTITY;
     protected static boolean ALLOW_APRIL_FOOLS;
@@ -50,6 +51,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
+        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
         CONFIG_PROVIDER.add(new Pair<>("textured_named_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("textured_random_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS));
@@ -68,6 +70,7 @@ public class PerspectiveConfig {
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
         SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
         SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
+        SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
         NAMED_TEXTURED_ENTITY = CONFIG.getOrDefault("textured_named_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY);
         RANDOM_TEXTURED_ENTITY = CONFIG.getOrDefault("textured_random_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY);
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -86,6 +89,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
         CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
         CONFIG_PROVIDER.setConfig("super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
+        CONFIG_PROVIDER.setConfig("super_secret_settings_sound", SUPER_SECRET_SETTINGS_SOUND);
         CONFIG_PROVIDER.setConfig("named_textured_entity", NAMED_TEXTURED_ENTITY);
         CONFIG_PROVIDER.setConfig("random_textured_entity", RANDOM_TEXTURED_ENTITY);
         CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);

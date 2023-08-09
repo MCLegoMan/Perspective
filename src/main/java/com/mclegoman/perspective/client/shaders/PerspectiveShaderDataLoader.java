@@ -96,7 +96,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             prepared.forEach(this::layout$perspective);
             layout$souper_secret_settings(manager);
             PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
-            PerspectiveShader.set(MinecraftClient.getInstance(), true);
+            PerspectiveShader.set(MinecraftClient.getInstance(), true, true);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply shaders dataloader: {}", (Object)error);
         }
