@@ -79,6 +79,8 @@ public class PerspectiveConfigHelper {
             setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
             setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
             setConfig("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
+            setConfig("force_pride_type", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE);
+            setConfig("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
             setConfig("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
             setConfig("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS);
@@ -102,6 +104,8 @@ public class PerspectiveConfigHelper {
                 case "allow_april_fools" -> PerspectiveConfig.ALLOW_APRIL_FOOLS = (boolean)VALUE;
                 case "force_april_fools" -> PerspectiveConfig.FORCE_APRIL_FOOLS = (boolean)VALUE;
                 case "force_pride" -> PerspectiveConfig.FORCE_PRIDE = (boolean)VALUE;
+                case "force_pride_type" -> PerspectiveConfig.FORCE_PRIDE_TYPE = (boolean)VALUE;
+                case "force_pride_type_index" -> PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX = (int)VALUE;
                 case "version_overlay" -> PerspectiveConfig.VERSION_OVERLAY = (boolean)VALUE;
                 case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
                 case "bypass_limits" -> PerspectiveConfig.BYPASS_LIMITS = (boolean)VALUE;
@@ -125,6 +129,8 @@ public class PerspectiveConfigHelper {
             case "allow_april_fools" -> {return PerspectiveConfig.ALLOW_APRIL_FOOLS;}
             case "force_april_fools" -> {return PerspectiveConfig.FORCE_APRIL_FOOLS;}
             case "force_pride" -> {return PerspectiveConfig.FORCE_PRIDE;}
+            case "force_pride_type" -> {return PerspectiveConfig.FORCE_PRIDE_TYPE;}
+            case "force_pride_type_index" -> {return PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX;}
             case "version_overlay" -> {return PerspectiveConfig.VERSION_OVERLAY;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "bypass_limits" -> {return PerspectiveConfig.BYPASS_LIMITS;}

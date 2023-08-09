@@ -14,20 +14,24 @@ import net.minecraft.util.Identifier;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 
 public class PerspectiveClientData {
     public static final MinecraftClient CLIENT = MinecraftClient.getInstance();
     private static final String[] PRIDE_LOGOS = new String[]{"pride", "trans"};
-    private static final String PRIDE_LOGO = PRIDE_LOGOS[new Random().nextInt(PRIDE_LOGOS.length)];
+    private static final String PRIDE_LOGO = getPrideLogoType();
     public static Identifier getLogo() {
         return PerspectiveData.IS_DEVELOPMENT ? getLogoType(true, isPride()) : getLogoType(false, isPride());
     }
     private static Identifier getLogoType(boolean development, boolean pride) {
         return development ? new Identifier(PerspectiveData.ID, (getLogoPath(pride) + "development.png")) : new Identifier(PerspectiveData.ID, (getLogoPath(pride) + "release.png"));
+    }
+    private static String getPrideLogoType() {
+        if ((boolean)PerspectiveConfigHelper.getConfig("force_pride_type")) {
+            return PRIDE_LOGOS[(int)PerspectiveConfigHelper.getConfig("force_pride_type_index")];
+        }
+        return PRIDE_LOGOS[new Random().nextInt(PRIDE_LOGOS.length)];
     }
     private static String getLogoPath(boolean pride) {
         return pride ? "textures/logo/pride/" + PRIDE_LOGO + "/" : "textures/logo/normal/";

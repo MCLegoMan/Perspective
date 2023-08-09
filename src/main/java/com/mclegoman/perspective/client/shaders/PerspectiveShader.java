@@ -61,7 +61,7 @@ public class PerspectiveShader {
     public static void toggle(MinecraftClient client, boolean SILENT) {
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
         if (!SILENT) setOverlay(client, PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE));
-        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true);
+        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true);
         else {
             if (postProcessor != null) {
                 postProcessor.close();
@@ -80,14 +80,14 @@ public class PerspectiveShader {
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveShaderDataLoader.getShaderAmount());
             }
             if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, SILENT);
-            else set(client, SILENT);
+            else set(client, forwards, SILENT);
             PerspectiveConfigHelper.saveConfig(true);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to cycle Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }
-    public static void set(MinecraftClient client, boolean SILENT) {
+    public static void set(MinecraftClient client, Boolean forwards, boolean SILENT) {
         try {
             DEPTH_FIX = true;
             if (postProcessor != null) postProcessor.close();
@@ -104,12 +104,16 @@ public class PerspectiveShader {
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
-            PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
             try {
-                if (postProcessor != null) postProcessor.close();
-                postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
-                postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-            } catch (Exception ignored) {}
+                cycle(client, forwards, false);
+            } catch (Exception error) {
+                PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
+                try {
+                    if (postProcessor != null) postProcessor.close();
+                    postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
+                    postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+                } catch (Exception ignored) {}
+            }
             PerspectiveConfigHelper.saveConfig(true);
         }
     }

@@ -28,6 +28,8 @@ public class PerspectiveConfig {
     protected static boolean ALLOW_APRIL_FOOLS;
     protected static boolean FORCE_APRIL_FOOLS;
     protected static boolean FORCE_PRIDE;
+    protected static boolean FORCE_PRIDE_TYPE;
+    protected static int FORCE_PRIDE_TYPE_INDEX;
     protected static boolean VERSION_OVERLAY;
     protected static boolean SHOW_DEVELOPMENT_WARNING;
     protected static boolean BYPASS_LIMITS;
@@ -53,6 +55,8 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS));
         CONFIG_PROVIDER.add(new Pair<>("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS));
         CONFIG_PROVIDER.add(new Pair<>("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE));
+        CONFIG_PROVIDER.add(new Pair<>("force_pride_type", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE));
+        CONFIG_PROVIDER.add(new Pair<>("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
         CONFIG_PROVIDER.add(new Pair<>("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY));
         CONFIG_PROVIDER.add(new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
         CONFIG_PROVIDER.add(new Pair<>("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS));
@@ -69,6 +73,8 @@ public class PerspectiveConfig {
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
         FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
         FORCE_PRIDE = CONFIG.getOrDefault("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
+        FORCE_PRIDE_TYPE = CONFIG.getOrDefault("force_pride_type", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE);
+        FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
         VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         BYPASS_LIMITS = CONFIG.getOrDefault("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS);
@@ -85,6 +91,8 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
         CONFIG_PROVIDER.setConfig("force_april_fools", FORCE_APRIL_FOOLS);
         CONFIG_PROVIDER.setConfig("force_pride", FORCE_PRIDE);
+        CONFIG_PROVIDER.setConfig("force_pride_type", FORCE_PRIDE_TYPE);
+        CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
         CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
         CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
         CONFIG_PROVIDER.setConfig("bypass_limits", BYPASS_LIMITS);

@@ -38,6 +38,8 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean ALLOW_APRIL_FOOLS;
     public static boolean FORCE_APRIL_FOOLS;
     public static boolean FORCE_PRIDE;
+    public static boolean FORCE_PRIDE_TYPE;
+    public static int FORCE_PRIDE_TYPE_INDEX;
     public static boolean VERSION_OVERLAY;
     public static boolean SHOW_DEVELOPMENT_WARNING;
     public static boolean BYPASS_LIMITS;
@@ -62,6 +64,8 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 ALLOW_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);
                 FORCE_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
                 FORCE_PRIDE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_pride", false);
+                FORCE_PRIDE_TYPE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "force_pride_type", false);
+                FORCE_PRIDE_TYPE_INDEX = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "force_pride_type_index", 0);
                 VERSION_OVERLAY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
                 SHOW_DEVELOPMENT_WARNING = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_development_warning", true);
                 BYPASS_LIMITS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "bypass_limits", false);
