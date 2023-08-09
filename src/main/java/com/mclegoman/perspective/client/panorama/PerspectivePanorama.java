@@ -88,8 +88,7 @@ public class PerspectivePanorama {
                             framebuffer.beginWrite(true);
                             PerspectiveClientData.CLIENT.gameRenderer.renderWorld(1.0F, 0L, new MatrixStack());
                             try {Thread.sleep(10L);} catch (InterruptedException ignored) {}
-                            PerspectiveScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer, (message) -> {
-                            });
+                            PerspectiveScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
                         }
                         File pack_file = new File(rpDirLoc + "/pack.mcmeta");
                         if (pack_file.createNewFile()) {
