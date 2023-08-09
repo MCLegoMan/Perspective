@@ -28,4 +28,7 @@ public class PerspectiveData {
     public static final String PREFIX = "[" + NAME + " " + VERSION + "] ";
     public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
     public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(ID).get();
+    public static boolean isModInstalled(String MOD_ID) {
+        return FabricLoader.getInstance().isModLoaded(MOD_ID);
+    }
 }

@@ -17,10 +17,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.SimpleFramebuffer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,7 +46,7 @@ public class PerspectivePanorama {
             try {
                 if (INCOMPATIBLE_MODS_FOUND.size() == 0) {
                     String panoramaName = getTime();
-                    String rpDirLoc = PerspectiveClientData.CLIENT.runDirectory.getPath() + "/panorama/" + panoramaName;
+                    String rpDirLoc = PerspectiveClientData.CLIENT.runDirectory.getPath() + "/resourcepacks/" + panoramaName;
                     String assetsDirLoc = rpDirLoc + "/assets/minecraft/textures/gui/title/background";
                     if (new File(assetsDirLoc).mkdirs()) {
                         int framebufferWidth = PerspectiveClientData.CLIENT.getWindow().getFramebufferWidth();
@@ -86,8 +86,8 @@ public class PerspectivePanorama {
                                 }
                             }
                             framebuffer.beginWrite(true);
-                            PerspectiveClientData.CLIENT.gameRenderer.renderWorld(1.0F, 0L, new MatrixStack());
-                            try {Thread.sleep(10L);} catch (InterruptedException ignored) {}
+                            PerspectiveClientData.CLIENT.gameRenderer.render(PerspectiveClientData.CLIENT.getTickDelta(), Util.getMeasuringTimeNano(), true);
+                            try {Thread.sleep(166L);} catch (InterruptedException ignored) {}
                             PerspectiveScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
                         }
                         File pack_file = new File(rpDirLoc + "/pack.mcmeta");
