@@ -87,7 +87,6 @@ public class PerspectivePanorama {
                             }
                             framebuffer.beginWrite(true);
                             PerspectiveClientData.CLIENT.gameRenderer.render(PerspectiveClientData.CLIENT.getTickDelta(), Util.getMeasuringTimeNano(), true);
-                            try {Thread.sleep(166L);} catch (InterruptedException ignored) {}
                             PerspectiveScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
                         }
                         File pack_file = new File(rpDirLoc + "/pack.mcmeta");
