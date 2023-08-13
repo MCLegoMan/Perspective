@@ -81,6 +81,30 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
     private void add$default() {
         try {
             add("minecraft", "none",false, false, false, true);
+            add("minecraft", "antialias",false, false, false, true);
+            add("minecraft", "art",false, false, false, true);
+            add("minecraft", "bits",false, false, false, true);
+            add("minecraft", "blobs",false, false, false, true);
+            add("minecraft", "blobs2",false, false, false, true);
+            add("minecraft", "blur",false, false, false, true);
+            add("minecraft", "bumpy",false, false, false, true);
+            add("minecraft", "color_convolve",false, false, false, true);
+            add("minecraft", "creeper",false, false, false, true);
+            add("minecraft", "deconverge",false, false, false, true);
+            add("minecraft", "desaturate",false, false, false, true);
+            add("minecraft", "flip",false, false, true, true);
+            add("minecraft", "fxaa",false, false, false, true);
+            add("minecraft", "green",false, false, false, true);
+            add("minecraft", "invert",false, false, false, true);
+            add("minecraft", "notch",false, false, false, true);
+            add("minecraft", "ntsc",false, false, false, true);
+            add("minecraft", "outline",false, false, false, true);
+            add("minecraft", "pencil",false, false, false, true);
+            add("minecraft", "phosphor",false, false, false, true);
+            add("minecraft", "scan_pincushion",false, false, false, true);
+            add("minecraft", "sobel",false, false, false, true);
+            add("minecraft", "spider",false, false, true, true);
+            add("minecraft", "wobble",false, false, false, true);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default shaders to registry: {}", (Object)error);
         }
