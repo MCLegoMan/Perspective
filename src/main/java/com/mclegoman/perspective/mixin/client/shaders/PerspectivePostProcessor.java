@@ -25,14 +25,14 @@ public class PerspectivePostProcessor {
     private boolean useDepth;
 
     @Inject(at = @At(value = "INVOKE", target = "Ljava/lang/String;substring(II)Ljava/lang/String;"), method = "parsePass")
-    public void detectDepth(TextureManager textureManager, JsonElement jsonPass, CallbackInfo ci) {
+    public void perspective$detectDepth(TextureManager textureManager, JsonElement jsonPass, CallbackInfo ci) {
         if (PerspectiveShader.DEPTH_FIX) {
             useDepth = true;
         }
     }
 
     @Inject(at = @At(value = "HEAD"), method = "render")
-    public void fixDepth(float tickDelta, CallbackInfo ci) {
+    public void perspective$fixDepth(float tickDelta, CallbackInfo ci) {
         if (useDepth) {
             PerspectiveClientData.CLIENT.getFramebuffer().copyDepthFrom(PerspectiveShader.DEPTH_FRAME_BUFFER);
         }
