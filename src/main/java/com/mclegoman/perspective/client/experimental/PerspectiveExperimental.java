@@ -14,6 +14,6 @@ import net.minecraft.client.MinecraftClient;
 public class PerspectiveExperimental {
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.TOGGLE_ARMOR.wasPressed()) PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
-        if (PerspectiveKeybindings.TOGGLE_ARMOR.wasPressed()) PerspectiveConfigHelper.setConfig("hide_nametags", !(boolean)PerspectiveConfigHelper.getConfig("hide_nametags"));
+        if (PerspectiveKeybindings.TOGGLE_NAMETAGS.wasPressed()) PerspectiveConfigHelper.setConfig("hide_nametags", !(boolean)PerspectiveConfigHelper.getConfig("hide_nametags"));
     }
 }

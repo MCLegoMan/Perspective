@@ -1,0 +1,8 @@
+{
+  "namespace": "perspective",
+  "shader": "gentoo",
+  "hide_armor": false,
+  "hide_nametags": false,
+  "disable_screen_mode": false,
+  "enabled": true
+}
