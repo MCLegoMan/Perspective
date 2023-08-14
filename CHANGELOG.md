@@ -1,12 +1,9 @@
-## CHANGELOG  
- - Default minecraft shaders are now loaded in the add$default function, this makes them show up first in the cycle.
- - Fixed "Hide Nametags" keybinding functionality. (It was set to the wrong keybinding)
- - Removed "delay"/"lag" when taking a panorama screenshot.
+## DEVELOPERS NOTE  
+If no major bugs are found within the next couple of days, this release will become the next full release.  
 
-# Resource Packs
-## Perspective: Default
- - Removed "perspective:oldschool" shader
- - Added "perspective:gentoo" shader
+## CHANGELOG  
+ - Perspective's Overlay is now uses HudRenderCallback.  
+ - Super Secret Settings now uses Perspective's Overlay.  
 
 ### Found a bug?  
-You can report any bugs or issues you encounter with Perspective on our [Issues](https://github.com/MCLegoMan/Perspective/issues) page.  
+You can report any bugs or issues you encounter with Perspective on our [Issues](https://github.com/MCLegoMan/Perspective/issues) page.    
