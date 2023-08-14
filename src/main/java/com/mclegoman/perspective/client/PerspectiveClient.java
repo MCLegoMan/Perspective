@@ -9,12 +9,13 @@ package com.mclegoman.perspective.client;
 
 import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntity;
-import com.mclegoman.perspective.client.util.PerspectiveTick;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.client.util.PerspectiveResourcePacks;
+import com.mclegoman.perspective.client.util.PerspectiveTick;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import de.guntram.mcmod.crowdintranslate.CrowdinTranslate;
 import net.fabricmc.api.ClientModInitializer;
@@ -35,6 +36,7 @@ public class PerspectiveClient implements ClientModInitializer {
             PerspectivePanorama.init();
             PerspectiveTexturedEntity.init();
             PerspectiveAprilFoolsPrank.init();
+            PerspectiveOverlay.init();
             PerspectiveTick.init();
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to initialize {}: {}", PerspectiveData.ID, error);

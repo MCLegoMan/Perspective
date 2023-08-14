@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigDataLoader;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -51,7 +52,7 @@ public class PerspectiveZoom {
                 if ((int)PerspectiveConfigHelper.getConfig("zoom_level") <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
                 else PerspectiveConfigHelper.setConfig("zoom_level", (int)PerspectiveConfigHelper.getConfig("zoom_level") - 1);
             }
-            setOverlay(client, 40);
+            setOverlay();
             PerspectiveConfigHelper.saveConfig(true);
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set zoom level: {}", (Object)error);
@@ -61,20 +62,14 @@ public class PerspectiveZoom {
         try {
             if ((int)PerspectiveConfigHelper.getConfig("zoom_level") != PerspectiveConfigDataLoader.ZOOM_LEVEL) {
                 PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
-                setOverlay(client, 40);
+                setOverlay();
                 PerspectiveConfigHelper.saveConfig(true);
             }
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset zoom level: {}", (Object)error);
         }
     }
-
-    private static void setOverlay(MinecraftClient client, int time) {
-        try {
-            OVERLAY_REMAINING = time;
-            OVERLAY_MESSAGE = Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD);
-        } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set overlay: {}", (Object)error);
-        }
+    private static void setOverlay(){
+        PerspectiveOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
     }
 }

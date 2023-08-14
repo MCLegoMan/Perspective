@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
@@ -56,11 +57,14 @@ public class PerspectiveShader {
     }
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false);
-        if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false);
+        if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
     }
-    public static void toggle(MinecraftClient client, boolean SILENT) {
+    public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
-        if (!SILENT) setOverlay(client, PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE));
+        if (!SILENT) {
+            if (SHOW_SHADER_NAME) setOverlay(Text.literal((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
+            else setOverlay(PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE));
+        }
         if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true);
         else {
             if (postProcessor != null) {
@@ -79,7 +83,7 @@ public class PerspectiveShader {
                 if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") > 0) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") - 1);
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveShaderDataLoader.getShaderAmount());
             }
-            if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, SILENT);
+            if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, false, true);
             else set(client, forwards, SILENT);
             PerspectiveConfigHelper.saveConfig(true);
         } catch (Exception e) {
@@ -93,7 +97,7 @@ public class PerspectiveShader {
             if (postProcessor != null) postProcessor.close();
             postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-            if (!SILENT) setOverlay(client, Text.of((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
+            if (!SILENT) setOverlay(Text.literal((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
             try {
                 if (!SILENT && client.world != null && client.player != null && (boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_sound")) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
             } catch (Exception e) {
@@ -117,12 +121,8 @@ public class PerspectiveShader {
             PerspectiveConfigHelper.saveConfig(true);
         }
     }
-    private static void setOverlay(MinecraftClient client, Text message) {
-        try {
-            Objects.requireNonNull(client.player).sendMessage(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()), true);
-        } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set overlay: {}", (Object)error);
-        }
+    private static void setOverlay(Text message) {
+        PerspectiveOverlay.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
     }
     public static Formatting getRandomColor() {
         Random random = new Random();
