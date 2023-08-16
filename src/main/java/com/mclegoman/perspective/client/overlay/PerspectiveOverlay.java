@@ -9,9 +9,8 @@ package com.mclegoman.perspective.client.overlay;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
-import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
-import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
+import com.mclegoman.perspective.client.util.PerspectiveHideHUD;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.font.TextRenderer;
@@ -35,7 +34,7 @@ public class PerspectiveOverlay {
                     context.drawTextWithShadow(textRenderer, MESSAGE, -n / 2, -4, k | m);
                     context.getMatrices().pop();
                 }
-            if (!((PerspectiveZoom.isZooming() || PerspectivePerspective.isHoldingPerspective()) && (boolean) PerspectiveConfigHelper.getConfig("hide_hud"))) {
+            if (!PerspectiveHideHUD.shouldHideHUD()) {
                 if (!PerspectiveClientData.CLIENT.options.debugEnabled) {
                     if ((boolean)PerspectiveConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(textRenderer, PerspectiveTranslation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
                 }

@@ -9,7 +9,7 @@
     "client.experimental.PerspectiveArmorFeatureRenderer",
     "client.experimental.PerspectiveLivingEntityRenderer",
     "client.fov_perspective_hud.PerspectiveAdjustZoom",
-    "client.fov_perspective_hud.PerspectiveInGameHud",
+    "client.fov_perspective_hud.PerspectiveInGameHUD",
     "client.fov_perspective_hud.PerspectiveZooming",
     "client.shaders.PerspectivePostProcessor",
     "client.shaders.PerspectiveShaderNamespaceFix",
