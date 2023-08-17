@@ -17,7 +17,7 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.version
+version = project.mod_version + project.mc_version
 group = project.maven_group
 
 base {
@@ -52,10 +52,10 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "version", project.mod_version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": project.mod_version
 	}
 }
 
@@ -89,7 +89,7 @@ publishing {
 modrinth {
 	token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
 	projectId = "${project.modrinth_id}"
-	versionNumber = "${project.version}"
+	versionNumber = "${project.mod_version}${project.mc_version}"
 	versionType = "${project.version_type}"
 	versionName = "${project.title}"
 	uploadFile = remapJar
@@ -98,6 +98,7 @@ modrinth {
 	changelog = rootProject.file("CHANGELOG.md").text
 	dependencies {
 		required.project("P7dR8mSH") // Fabric-API
+		required.project("qvIfYCYJ") // QFAPI
 	}
 	syncBodyFrom = rootProject.file("README.md").text
 }
@@ -108,11 +109,15 @@ curseforge {
 		changelog = rootProject.file("CHANGELOG.md").text
 		releaseType = "${project.version_type}"
 		gameVersionStrings = ['1.20', '1.20.1', "Java 17", "Fabric", "Quilt"]
-		mainArtifact(jar) {
-			displayName = "${project.title}"
+		afterEvaluate {
+			mainArtifact(remapJar) {
+				displayName = "${project.title}"
+			}
+			uploadTask.dependsOn(remapJar)
 		}
 	}
 	options {
+		forgeGradleIntegration = false
 	}
 }
 
