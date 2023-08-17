@@ -123,3 +123,8 @@ curseforge {
 
 apply plugin: 'de.guntram.mcmod.crowdin-translate'
 crowdintranslate.crowdinProjectName = 'perspective'
+
+tasks.register("uploadToModrinthAndCurseforge") {
+	modrinth
+	curseforge
+}
