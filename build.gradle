@@ -24,10 +24,6 @@ base {
 	archivesName = project.archives_base_name
 }
 
-loom {
-	if (project.accesswidener == "true") accessWidenerPath = file(project.accesswidener_path)
-}
-
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }

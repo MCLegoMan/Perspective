@@ -37,6 +37,5 @@
     "fabric-api": "*"
   },
   "suggests": {
-  },
-  "accessWidener" : "perspective.accesswidener"
+  }
 }

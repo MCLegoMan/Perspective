@@ -1,2 +1,0 @@
-accessWidener	v1	named
-accessible method net/minecraft/client/util/ScreenshotRecorder getScreenshotFilename (Ljava/io/File;)Ljava/io/File;

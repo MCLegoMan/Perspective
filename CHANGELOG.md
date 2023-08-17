@@ -1,10 +1,9 @@
 ## DEVELOPERS NOTE  
-This release fixes some final bugs found in the previous release candidate, if no more bugs are found, 1.1.0 will be released.  
+QuiltMC should work on this release. I've had a look over for bugs on both Quilt and Fabric and haven't found anymore. I'll release 1.1.0 tomorrow if no more bugs are found.  
 
 ## CHANGELOG  
- - Fixed HideHUD functionality, It wasn't moved to PerspectiveTick from InGameHUD mixin when moving the HUD Overlays.  
- - Taking Panorama Screenshots will now hide nametags due to rendering glitches involving nametags.  
- - Updated client to PerspectiveClientData.CLIENT in some classes.  
+ - Removed accesswidener, PerspectiveScreenshotRecorder now requires a filename.  
+ - QuiltMC and FabricMC have both been tested for this version, and no more bugs have been found with any of Perspectives features.  
 
 ### Found a bug?  
 You can report any bugs or issues you encounter with Perspective on our [Issues](https://github.com/MCLegoMan/Perspective/issues) page.  
