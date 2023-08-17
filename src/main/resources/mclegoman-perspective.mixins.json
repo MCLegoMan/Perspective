@@ -14,6 +14,7 @@
     "client.shaders.PerspectivePostProcessor",
     "client.shaders.PerspectiveShaderNamespaceFix",
     "client.shaders.PerspectiveShaderRenderer",
+    "client.shaders.PerspectiveShaderTextureNamespaceFix",
     "client.shaders.PerspectiveWorldRenderer",
     "client.textured_entity.PerspectiveAllayEntityRenderer",
     "client.textured_entity.PerspectiveArmorStandEntityRenderer",
