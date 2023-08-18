@@ -54,11 +54,15 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
     }
 
     public void tick() {
-        if (this.REFRESH) {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, false));
-        }
-        if (this.SHOULD_CLOSE) {
-            client.setScreen(PARENT_SCREEN);
+        try {
+            if (this.REFRESH) {
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, false));
+            }
+            if (this.SHOULD_CLOSE) {
+                client.setScreen(PARENT_SCREEN);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$experimental screen: {}", (Object)error);
         }
     }
     private GridWidget createEmpty() {

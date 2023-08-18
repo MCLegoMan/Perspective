@@ -61,12 +61,16 @@ public class PerspectiveConfigScreen extends Screen {
     }
 
     public void tick() {
-        if (this.REFRESH) {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN, false));
-        }
-        if (this.SHOULD_CLOSE) {
-            PerspectiveConfigHelper.saveConfig(false);
-            PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+        try {
+            if (this.REFRESH) {
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveConfigScreen(PARENT_SCREEN, false));
+            }
+            if (this.SHOULD_CLOSE) {
+                PerspectiveConfigHelper.saveConfig(false);
+                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config screen: {}", (Object)error);
         }
     }
     private GridWidget createZoom() {

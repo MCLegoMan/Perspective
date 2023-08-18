@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.config.screen.information;
 
 import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -49,8 +50,12 @@ public class PerspectiveInformationScreen extends Screen {
     }
 
     public void tick() {
-        if (this.SHOULD_CLOSE) {
-            client.setScreen(PARENT_SCREEN);
+        try {
+            if (this.SHOULD_CLOSE) {
+                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$info screen: {}", (Object)error);
         }
     }
     private GridWidget createInformation() {

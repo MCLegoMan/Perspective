@@ -55,8 +55,12 @@ public class PerspectiveShadersConfigScreen extends Screen {
     }
 
     public void tick() {
-        if (this.SHOULD_CLOSE) {
-            PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+        try {
+            if (this.SHOULD_CLOSE) {
+                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$shaders screen: {}", (Object)error);
         }
     }
     private GridWidget createShaders() {

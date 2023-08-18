@@ -56,7 +56,7 @@ public class PerspectiveAprilFoolsPrankConfigScreen extends Screen {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config>april fools prank screen: {}", (Object)error);
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$april_fools screen: {}", (Object)error);
         }
     }
     private GridWidget createAprilFools() {

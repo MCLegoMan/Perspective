@@ -56,7 +56,7 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config>pride screen: {}", (Object)error);
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$more_options screen: {}", (Object)error);
         }
     }
     private GridWidget createPrideAndVersionOverlay() {

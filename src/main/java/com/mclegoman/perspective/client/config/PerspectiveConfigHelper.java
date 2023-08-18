@@ -57,14 +57,18 @@ public class PerspectiveConfigHelper {
         }
     }
     public static void saveConfig(boolean onTick) {
-        if (onTick) {
-            SAVE_VIA_TICK = true;
-        } else {
-            PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Writing config to file.");
-            PerspectiveConfig.save();
-            PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
-            PerspectiveExperimentalConfig.save();
-            PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
+        try {
+            if (onTick) {
+                SAVE_VIA_TICK = true;
+            } else {
+                PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Writing config to file.");
+                PerspectiveConfig.save();
+                PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
+                PerspectiveExperimentalConfig.save();
+                PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
+            }
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to save config: {}", (Object)error);
         }
     }
     public static void resetConfig() {
