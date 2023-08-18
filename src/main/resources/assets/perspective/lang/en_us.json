@@ -41,7 +41,7 @@
     "gui.perspective.config.information.documentation": "Documentation",
     "gui.perspective.config.information.documentation.hover": "Open Perspective's Documentation website in your web browser.",
     "gui.perspective.config.information.support": "Donate",
-    "gui.perspective.config.information.support.hover": "Donations help MCLegoMan continue to make cool and exciting things! (Opens MCLegoMan's Ko-Fi in your web browser.)",
+    "gui.perspective.config.information.support.hover": "Opens MCLegoMan's Ko-Fi in your web browser.",
     "gui.perspective.config.information.contribute": "Contribute",
     "gui.perspective.config.information.contribute.hover": "Open Perspective's GitHub Repository in your web browser.",
     "gui.perspective.config.information.report": "Report a bug",
