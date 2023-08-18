@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin;
 
-import net.fabricmc.loader.api.FabricLoader;
+import com.mclegoman.perspective.common.data.PerspectiveData;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -29,10 +29,10 @@ public class PerspectiveMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderNamespaceFix")) {
-            return !(FabricLoader.getInstance().isModLoaded("souper_secret_settings") || FabricLoader.getInstance().isModLoaded("architectury") || FabricLoader.getInstance().isModLoaded("satin"));
+            return !(PerspectiveData.isModInstalled("souper_secret_settings") || PerspectiveData.isModInstalled("architectury") || PerspectiveData.isModInstalled("satin"));
         }
         if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderTextureNamespaceFix")) {
-            return !(FabricLoader.getInstance().isModLoaded("souper_secret_settings"));
+            return !(PerspectiveData.isModInstalledVersionOrHigher("souper_secret_settings", "1.0.6"));
         }
         else return true;
     }

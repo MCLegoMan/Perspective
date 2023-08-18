@@ -12,6 +12,7 @@ import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseType;
 import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseTypes;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,5 +31,17 @@ public class PerspectiveData {
     public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(ID).get();
     public static boolean isModInstalled(String MOD_ID) {
         return FabricLoader.getInstance().isModLoaded(MOD_ID);
+    }
+    public static boolean isModInstalledVersionOrHigher(String MOD_ID, String REQUIRED_VERSION) {
+        try {
+            if (FabricLoader.getInstance().isModLoaded(MOD_ID)) {
+                Version MOD_VER = Version.parse(FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString());
+                Version REQ_VER = Version.parse(REQUIRED_VERSION);
+                return MOD_VER.compareTo(REQ_VER) >= 0;
+            }
+        } catch (Exception error) {
+            LOGGER.error(PerspectiveData.PREFIX + "Failed to check mod version for " + MOD_ID + ": {}", (Object)error);
+        }
+        return false;
     }
 }
