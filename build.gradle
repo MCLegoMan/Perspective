@@ -87,37 +87,41 @@ publishing {
 }
 
 modrinth {
-	token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
-	projectId = "${project.modrinth_id}"
-	versionNumber = "${project.mod_version}${project.mc_version}"
-	versionType = "${project.version_type}"
-	versionName = "${project.title}"
-	uploadFile = remapJar
-	gameVersions = ['1.20', '1.20.1']
-	loaders = ['fabric', 'quilt']
-	changelog = rootProject.file("CHANGELOG.md").text
-	dependencies {
-		required.project("P7dR8mSH") // Fabric-API
-		required.project("qvIfYCYJ") // QFAPI
+	if (rootProject.file(".env").exists()) {
+		token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
+		projectId = "${project.modrinth_id}"
+		versionNumber = "${project.mod_version}${project.mc_version}"
+		versionType = "${project.version_type}"
+		versionName = "${project.title}"
+		uploadFile = remapJar
+		gameVersions = ['1.20', '1.20.1']
+		loaders = ['fabric', 'quilt']
+		changelog = rootProject.file("CHANGELOG.md").text
+		dependencies {
+			required.project("P7dR8mSH") // Fabric-API
+			required.project("qvIfYCYJ") // QFAPI
+		}
+		syncBodyFrom = rootProject.file("README.md").text
 	}
-	syncBodyFrom = rootProject.file("README.md").text
 }
 curseforge {
-	apiKey = rootProject.file(".env").text.readLines().get(1).replace("CURSEFORGE=", "").replace("\"", "")
-	project {
-		id = "${project.curseforge_id}"
-		changelog = rootProject.file("CHANGELOG.md").text
-		releaseType = "${project.version_type}"
-		gameVersionStrings = ['1.20', '1.20.1', "Java 17", "Fabric", "Quilt"]
-		afterEvaluate {
-			mainArtifact(remapJar) {
-				displayName = "${project.title}"
+	if (rootProject.file(".env").exists()) {
+		apiKey = rootProject.file(".env").text.readLines().get(1).replace("CURSEFORGE=", "").replace("\"", "")
+		project {
+			id = "${project.curseforge_id}"
+			changelog = rootProject.file("CHANGELOG.md").text
+			releaseType = "${project.version_type}"
+			gameVersionStrings = ['1.20', '1.20.1', "Java 17", "Fabric", "Quilt"]
+			afterEvaluate {
+				mainArtifact(remapJar) {
+					displayName = "${project.title}"
+				}
+				uploadTask.dependsOn(remapJar)
 			}
-			uploadTask.dependsOn(remapJar)
 		}
-	}
-	options {
-		forgeGradleIntegration = false
+		options {
+			forgeGradleIntegration = false
+		}
 	}
 }
 
