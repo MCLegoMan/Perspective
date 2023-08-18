@@ -1,8 +1,8 @@
-## Perspective 1.1.0  
+# Perspective 1.1.0  
 **This release has so many new features that I hope you all enjoy!**  
 
 
-### Features  
+## Features  
 
 - Added Screen Mode for Super Secret Settings  
     - Screen Mode overlays the shader on the entire game, including screens.  
@@ -27,7 +27,7 @@
     - Reimplements the Version Overlay from early versions of Minecraft.  
 
 
-### Technical  
+## Technical  
 
 - Zoom Level is now stored as the value of the percentage in the config, instead of using the (100 - value) method.  
 - Perspective's config is now accessed via PerspectiveConfigDataLoader, this is to allow for multiple config files.  
@@ -35,7 +35,7 @@
 - Added Perspective Overlay which doesn't get hidden when HideHUD is active.  
 - Vanilla doesn't account for namespace for shaders, in both the shader program and shader textures, Perspective now fixes that. (Contributor: Nettakrim)  
 
-### Experimental Features  
+## Experimental Features  
 **These features aren't ready to be fully released yet, however you can try them out using the Experimental config.**  
 **Note: Experiments can be removed at any point.**  
 
@@ -49,7 +49,7 @@
 _Both of these experiments are planned to have a customisable data/resource pack dataloader for specific players, however this feature is not in the mod yet._  
 
 
-### F.A.Q  
+## F.A.Q  
 - How do I add a Textured Entity, Shader, or Custom Default Config Values?  
     - Tutorials will be added to [Perspective Documentation](mclegoman.github.io/perspective/) soon.  
     - I'll try to add some basic information asap.  
