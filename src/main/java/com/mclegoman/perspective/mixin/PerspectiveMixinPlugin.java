@@ -28,7 +28,12 @@ public class PerspectiveMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderNamespaceFix")) return !(FabricLoader.getInstance().isModLoaded("souper_secret_settings") || FabricLoader.getInstance().isModLoaded("architectury") || FabricLoader.getInstance().isModLoaded("satin"));
+        if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderNamespaceFix")) {
+            return !(FabricLoader.getInstance().isModLoaded("souper_secret_settings") || FabricLoader.getInstance().isModLoaded("architectury") || FabricLoader.getInstance().isModLoaded("satin"));
+        }
+        if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderTextureNamespaceFix")) {
+            return !(FabricLoader.getInstance().isModLoaded("souper_secret_settings"));
+        }
         else return true;
     }
 
