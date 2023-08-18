@@ -32,7 +32,7 @@ public class PerspectiveMixinPlugin implements IMixinConfigPlugin {
             return !(PerspectiveData.isModInstalled("souper_secret_settings") || PerspectiveData.isModInstalled("architectury") || PerspectiveData.isModInstalled("satin"));
         }
         if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.shaders.PerspectiveShaderTextureNamespaceFix")) {
-            return !(PerspectiveData.isModInstalledVersionOrHigher("souper_secret_settings", "1.0.6"));
+            return !(PerspectiveData.isModInstalledVersionOrHigher("souper_secret_settings", "1.0.6", true));
         }
         else return true;
     }

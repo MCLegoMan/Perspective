@@ -32,10 +32,11 @@ public class PerspectiveData {
     public static boolean isModInstalled(String MOD_ID) {
         return FabricLoader.getInstance().isModLoaded(MOD_ID);
     }
-    public static boolean isModInstalledVersionOrHigher(String MOD_ID, String REQUIRED_VERSION) {
+    public static boolean isModInstalledVersionOrHigher(String MOD_ID, String REQUIRED_VERSION, boolean SUBSTRING) {
         try {
             if (FabricLoader.getInstance().isModLoaded(MOD_ID)) {
-                Version MOD_VER = Version.parse(FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString());
+                String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+                Version MOD_VER = Version.parse(SUBSTRING ? MOD_VERSION.substring(0, MOD_VERSION.indexOf("-")) : MOD_VERSION);
                 Version REQ_VER = Version.parse(REQUIRED_VERSION);
                 return MOD_VER.compareTo(REQ_VER) >= 0;
             }

@@ -1,6 +1,14 @@
 /*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
 
- */
+    This class was written and contributed by Nettakrim.
+
+    This class can also be found in Souper-Secret-Settings.
+    Licensed under GNU Lesser General Public License v3.0
+    https://github.com/Nettakrim/Souper-Secret-Settings
+*/
 
 package com.mclegoman.perspective.mixin.client.shaders;
 
