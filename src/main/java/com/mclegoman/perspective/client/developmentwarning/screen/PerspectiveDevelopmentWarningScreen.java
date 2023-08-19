@@ -40,9 +40,11 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
     @Override
     public void tick() {
         if (SHOW_CHECKBOX) {
-            if (this.checkbox.isChecked() == (boolean)PerspectiveConfigHelper.getConfig("show_development_warning")) {
-                PerspectiveConfigHelper.setConfig("show_development_warning", !this.checkbox.isChecked());
-                SHOULD_SAVE = true;
+            if (this.checkbox != null) {
+                if (this.checkbox.isChecked() == (boolean)PerspectiveConfigHelper.getConfig("show_development_warning")) {
+                    PerspectiveConfigHelper.setConfig("show_development_warning", !this.checkbox.isChecked());
+                    SHOULD_SAVE = true;
+                }
             }
         }
         if (TIMER_TICKS > 0) {

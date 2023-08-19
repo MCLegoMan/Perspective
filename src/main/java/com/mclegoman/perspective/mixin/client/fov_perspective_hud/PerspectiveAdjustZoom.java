@@ -24,8 +24,8 @@ public abstract class PerspectiveAdjustZoom {
     private void perspective$onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
             double scroll = (PerspectiveClientData.CLIENT.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * PerspectiveClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
-            if (scroll > 0) PerspectiveZoom.zoom(true, PerspectiveClientData.CLIENT);
-            else if (scroll < 0) PerspectiveZoom.zoom(false, PerspectiveClientData.CLIENT);
+            if (scroll > 0) PerspectiveZoom.zoom(true);
+            else if (scroll < 0) PerspectiveZoom.zoom(false);
             ci.cancel();
         }
     }

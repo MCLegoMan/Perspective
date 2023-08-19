@@ -20,8 +20,6 @@ import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
-    public static Text OVERLAY_MESSAGE;
-    public static int OVERLAY_REMAINING;
     public static double getZoomFOV(MinecraftClient client) {
         return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100));
     }
@@ -36,13 +34,11 @@ public class PerspectiveZoom {
     public static void tick(MinecraftClient client) {
         try {
             if (PerspectiveKeybindings.TOGGLE_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
-            if (OVERLAY_REMAINING > 0) OVERLAY_REMAINING -= 1;
-            else OVERLAY_MESSAGE = null;
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick zoom: {}", (Object)error);
         }
     }
-    public static void zoom(boolean in, MinecraftClient client) {
+    public static void zoom(boolean in) {
         try {
             if (in) {
                 if ((int)PerspectiveConfigHelper.getConfig("zoom_level") >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);

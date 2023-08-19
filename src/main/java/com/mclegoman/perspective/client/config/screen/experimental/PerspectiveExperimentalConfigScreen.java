@@ -59,7 +59,7 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
                 PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, false));
             }
             if (this.SHOULD_CLOSE) {
-                client.setScreen(PARENT_SCREEN);
+                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$experimental screen: {}", (Object)error);

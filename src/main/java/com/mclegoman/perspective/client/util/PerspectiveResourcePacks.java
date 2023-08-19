@@ -21,7 +21,7 @@ public class PerspectiveResourcePacks {
         When including resource packs with Perspective, register it here along with a comment with the following details:
         Resource Pack: ___________________
         Author: _________
-        Github: https://github.com/_________
+        Github: github.com/_________
         Licence: _________
      **/
     public static void init() {

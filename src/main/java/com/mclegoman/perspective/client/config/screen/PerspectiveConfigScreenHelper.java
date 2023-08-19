@@ -34,9 +34,7 @@ public class PerspectiveConfigScreenHelper {
                 PerspectiveConfigHelper.setConfig("show_development_warning", !(boolean)PerspectiveConfigHelper.getConfig("show_development_warning"));
                 client.setScreen(SCREEN);
             }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("development_warning", true)));
-            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("development_warning_preview"), (button) -> {
-                client.setScreen(new PerspectiveDevelopmentWarningScreen(SCREEN, 200, false));
-            }).width(20).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("development_warning_preview", true)));
+            DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("development_warning_preview"), (button) -> client.setScreen(new PerspectiveDevelopmentWarningScreen(SCREEN, 200, false))).width(20).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("development_warning_preview", true)));
             GRID_ADDER.add(DEVELOPMENT_BUTTONS);
         }
         return GRID;
