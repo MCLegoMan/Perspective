@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
-import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
+import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
@@ -59,7 +59,7 @@ public class PerspectiveShader {
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false);
         if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
-        if (PerspectiveKeybindings.SET_RANDOM_SHADER.wasPressed()) random();
+        if (PerspectiveKeybindings.RANDOM_SHADER.wasPressed()) random();
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
@@ -137,7 +137,7 @@ public class PerspectiveShader {
         }
     }
     private static void setOverlay(Text message) {
-        PerspectiveOverlay.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+        PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
     }
     public static Formatting getRandomColor() {
         Random random = new Random();

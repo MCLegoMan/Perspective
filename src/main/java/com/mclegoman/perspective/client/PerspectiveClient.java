@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client;
 
 import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
+import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntity;
@@ -36,7 +36,7 @@ public class PerspectiveClient implements ClientModInitializer {
             PerspectivePanorama.init();
             PerspectiveTexturedEntity.init();
             PerspectiveAprilFoolsPrank.init();
-            PerspectiveOverlay.init();
+            PerspectiveHUDOverlays.init();
             PerspectiveTick.init();
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to initialize {}: {}", PerspectiveData.ID, error);

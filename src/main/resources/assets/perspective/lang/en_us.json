@@ -68,6 +68,7 @@
     "gui.perspective.keybindings.keybinding.hold_perspective_third_person_front": "Hold Perspective (Third Person Front)",
     "gui.perspective.keybindings.keybinding.hold_zoom": "Hold Zoom",
     "gui.perspective.keybindings.keybinding.open_config": "Open Config",
+    "gui.perspective.keybindings.keybinding.random_shader": "Random Super Secret Setting",
     "gui.perspective.keybindings.keybinding.set_perspective_first_person": "Set Perspective (First Person)",
     "gui.perspective.keybindings.keybinding.set_perspective_third_person_back": "Set Perspective (Third Person Back)",
     "gui.perspective.keybindings.keybinding.set_perspective_third_person_front": "Set Perspective (Third Person Front)",

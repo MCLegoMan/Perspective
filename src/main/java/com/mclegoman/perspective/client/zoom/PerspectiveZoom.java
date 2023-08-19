@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigDataLoader;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
+import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -70,6 +70,6 @@ public class PerspectiveZoom {
         }
     }
     private static void setOverlay(){
-        PerspectiveOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
+        PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
     }
 }
