@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.overlay.PerspectiveOverlay;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
@@ -58,6 +59,7 @@ public class PerspectiveShader {
     public static void tick(MinecraftClient client) {
         if (PerspectiveKeybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false);
         if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
+        if (PerspectiveKeybindings.SET_RANDOM_SHADER.wasPressed()) random();
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
@@ -83,12 +85,21 @@ public class PerspectiveShader {
                 if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") > 0) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") - 1);
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveShaderDataLoader.getShaderAmount());
             }
-            if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, false, true);
-            else set(client, forwards, SILENT);
-            PerspectiveConfigHelper.saveConfig(true);
+            set(client, forwards, SILENT);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to cycle Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        }
+    }
+    public static void random() {
+        try {
+            int SHADER = (int)PerspectiveConfigHelper.getConfig("super_secret_settings");
+            while (SHADER == (int)PerspectiveConfigHelper.getConfig("super_secret_settings")) SHADER = Math.max(1, new Random().nextInt(PerspectiveShaderDataLoader.getShaderAmount()));
+            PerspectiveConfigHelper.setConfig("super_secret_settings", SHADER);
+            PerspectiveShader.set(PerspectiveClientData.CLIENT, true, false);
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to randomize Super Secret Settings.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + error.getLocalizedMessage());
         }
     }
     public static void set(MinecraftClient client, Boolean forwards, boolean SILENT) {
@@ -105,6 +116,8 @@ public class PerspectiveShader {
                 PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
             }
             DEPTH_FIX = false;
+            if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
+            PerspectiveConfigHelper.saveConfig(true);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
@@ -116,6 +129,8 @@ public class PerspectiveShader {
                     if (postProcessor != null) postProcessor.close();
                     postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
                     postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+                    if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
+                    PerspectiveConfigHelper.saveConfig(true);
                 } catch (Exception ignored) {}
             }
             PerspectiveConfigHelper.saveConfig(true);

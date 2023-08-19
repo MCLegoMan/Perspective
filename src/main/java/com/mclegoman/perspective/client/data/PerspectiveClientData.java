@@ -19,23 +19,20 @@ import java.util.TimeZone;
 
 public class PerspectiveClientData {
     public static final MinecraftClient CLIENT = MinecraftClient.getInstance();
-    private static final String[] PRIDE_LOGOS = new String[]{"pride", "trans"};
+    public static final String[] PRIDE_LOGOS = new String[]{"pride", "trans"};
     public static Identifier getLogo() {
-        return PerspectiveData.IS_DEVELOPMENT ? getLogoType(true, isPride()) : getLogoType(false, isPride());
+        return PerspectiveData.IS_DEVELOPMENT ? getLogoType(PerspectiveData.ID, true, isPride()) : getLogoType(PerspectiveData.ID, false, isPride());
     }
-    private static Identifier getLogoType(boolean development, boolean pride) {
-        return development ? new Identifier(PerspectiveData.ID, (getLogoPath(pride) + "development.png")) : new Identifier(PerspectiveData.ID, (getLogoPath(pride) + "release.png"));
+    public static Identifier getLogoType(String namespace, boolean development, boolean pride) {
+        return development ? new Identifier(namespace, (getLogoPath(pride) + "development.png")) : new Identifier(namespace, (getLogoPath(pride) + "release.png"));
     }
-    private static String getPrideLogoType() {
-        if ((boolean)PerspectiveConfigHelper.getConfig("force_pride_type")) {
-            return PRIDE_LOGOS[(int)PerspectiveConfigHelper.getConfig("force_pride_type_index")];
-        }
-        return PRIDE_LOGOS[new Random().nextInt(PRIDE_LOGOS.length)];
+    public static String getPrideLogoType() {
+        return ((boolean)PerspectiveConfigHelper.getConfig("force_pride_type")) ? PRIDE_LOGOS[(int)PerspectiveConfigHelper.getConfig("force_pride_type_index")] : PRIDE_LOGOS[new Random().nextInt(PRIDE_LOGOS.length)];
     }
-    private static String getLogoPath(boolean pride) {
+    public static String getLogoPath(boolean pride) {
         return pride ? "textures/logo/pride/" + getPrideLogoType() + "/" : "textures/logo/normal/";
     }
-    private static boolean isPride() {
+    public static boolean isPride() {
         if ((boolean) PerspectiveConfigHelper.getConfig("force_pride")) return true;
         else {
             LocalDate date = LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId());
