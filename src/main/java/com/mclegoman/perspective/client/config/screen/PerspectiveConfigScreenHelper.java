@@ -19,7 +19,6 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.IconWidget;
-import net.minecraft.util.Formatting;
 
 public class PerspectiveConfigScreenHelper {
     public static GridWidget createTitle(MinecraftClient client, Screen SCREEN) {

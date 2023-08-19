@@ -18,20 +18,20 @@ import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveKeybindings {
-    public static KeyBinding CYCLE_SHADERS;
-    public static KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_BACK;
-    public static KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_FRONT;
-    public static KeyBinding HOLD_ZOOM;
-    public static KeyBinding OPEN_CONFIG;
-    public static KeyBinding RANDOM_SHADER;
-    public static KeyBinding SET_PERSPECTIVE_FIRST_PERSON;
-    public static KeyBinding SET_PERSPECTIVE_THIRD_PERSON_BACK;
-    public static KeyBinding SET_PERSPECTIVE_THIRD_PERSON_FRONT;
-    public static KeyBinding TAKE_PANORAMA_SCREENSHOT;
-    public static KeyBinding TOGGLE_ARMOR;
-    public static KeyBinding TOGGLE_NAMETAGS;
-    public static KeyBinding TOGGLE_SHADERS;
-    public static KeyBinding TOGGLE_ZOOM;
+    public static final KeyBinding CYCLE_SHADERS;
+    public static final KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_BACK;
+    public static final KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_FRONT;
+    public static final KeyBinding HOLD_ZOOM;
+    public static final KeyBinding OPEN_CONFIG;
+    public static final KeyBinding RANDOM_SHADER;
+    public static final KeyBinding SET_PERSPECTIVE_FIRST_PERSON;
+    public static final KeyBinding SET_PERSPECTIVE_THIRD_PERSON_BACK;
+    public static final KeyBinding SET_PERSPECTIVE_THIRD_PERSON_FRONT;
+    public static final KeyBinding TAKE_PANORAMA_SCREENSHOT;
+    public static final KeyBinding TOGGLE_ARMOR;
+    public static final KeyBinding TOGGLE_NAMETAGS;
+    public static final KeyBinding TOGGLE_SHADERS;
+    public static final KeyBinding TOGGLE_ZOOM;
     public static void init() {
         PerspectiveData.LOGGER.info("Initializing keybindings");
     }
