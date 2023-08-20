@@ -12,8 +12,7 @@ buildscript {
 
 plugins {
 	id 'fabric-loom' version '1.2-SNAPSHOT'
-	id "com.modrinth.minotaur" version "2.+"
-	id "com.matthewprenger.cursegradle" version "1.4.0"
+	id "me.shedaniel.unified-publishing" version "0.1.+"
 	id 'maven-publish'
 }
 
@@ -86,38 +85,33 @@ publishing {
 	}
 }
 
-modrinth {
-	if (rootProject.file(".env").exists()) {
-		token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
-		projectId = "${project.modrinth_id}"
-		versionNumber = "${project.mod_version}${project.mc_version}"
-		versionType = "${project.version_type}"
-		versionName = "${project.title}"
-		uploadFile = remapJar
-		gameVersions = ['1.20', '1.20.1']
-		loaders = ['fabric', 'quilt']
+unifiedPublishing {
+	project {
+		displayName = "${project.title}"
+		version = "${project.version}${project.mc_version}"
 		changelog = rootProject.file("CHANGELOG.md").text
-		dependencies {
-			required.project("P7dR8mSH") // Fabric-API
-			required.project("qvIfYCYJ") // QFAPI
-		}
-		syncBodyFrom = rootProject.file("README.md").text
-	}
-}
-curseforge {
-	if (rootProject.file(".env").exists()) {
-		apiKey = rootProject.file(".env").text.readLines().get(1).replace("CURSEFORGE=", "").replace("\"", "")
-		project {
+		releaseType = "${project.version_type}"
+		gameVersions = ['1.20', '1.20.1']
+		gameLoaders = ["Fabric", "Quilt", "Client", "Java 17"]
+
+		mainPublication tasks.remapJar
+
+		curseforge {
+			token = rootProject.file(".env").text.readLines().get(1).replace("CURSEFORGE=", "").replace("\"", "")
 			id = "${project.curseforge_id}"
-			changelog = rootProject.file("CHANGELOG.md").text
-			releaseType = "${project.version_type}"
-			gameVersionStrings = ['1.20', '1.20.1', "Java 17", "Fabric", "Quilt"]
-			mainArtifact(jar) {
-				displayName = "${project.title}"
+			relations {
+				depends "fabric-api"
+				depends "qsl"
 			}
 		}
-		options {
-			forgeGradleIntegration = false
+
+		modrinth {
+			token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
+			id = "${project.modrinth_id}"
+			relations {
+				depends "fabric-api"
+				depends "qsl"
+			}
 		}
 	}
 }
