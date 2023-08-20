@@ -1,5 +1,5 @@
-# Perspective 1.1.1  
-**Squashed some bugs and added a new keybinding!**
+# Perspective 1.1.1 Release Candidate 1  
+Squashed some bugs and added a new keybinding.
 
 ## Changelog
 - Added Random Super Secret Setting Keybinding. (No default key bound)
