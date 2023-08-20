@@ -92,7 +92,7 @@ unifiedPublishing {
 		changelog = rootProject.file("CHANGELOG.md").text
 		releaseType = "${project.version_type}"
 		gameVersions = ['1.20', '1.20.1']
-		gameLoaders = ["Fabric", "Quilt", "Client", "Java 17"]
+		gameLoaders = ["fabric", "quilt"]
 
 		mainPublication tasks.remapJar
 
