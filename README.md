@@ -29,8 +29,8 @@ A: Yes. Currently, Perspective is developed for FabricMC and is tested for Quilt
 Perspective's Development may change in the future.<br>
 <br>
 Q: Why is the zoom/hold perspective keybind(s) not working?<br>
-A: Make sure there are no conflicts with the keybinding.<br>
-You may need to disable or change the keybindings of "Load Hotbar Activator" and "Save Hotbar Activator" as they are set to the same keybinding(s) by default.<br>
+A: Make sure there are no conflicts with the keybinding(s).<br>
+You may need to disable or change the keybinding(s) of "Load Hotbar Activator" and "Save Hotbar Activator" as they are set to the same keybinding(s) by default.<br>
 <br>
 Q: Can I add my own Super Secret Setting Shader?<br>
 A: Yes! Perspective is compatible with both the Perspective and <a href="https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/ResourcepackGuide/ResourcepackGuide.md">Souper Secret Settings</a> layouts. (Tutorial for Perspective is coming soon!)<br>
