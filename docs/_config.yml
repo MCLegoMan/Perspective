@@ -5,8 +5,8 @@ remote_theme: just-the-docs/just-the-docs
 url: https://mclegoman.github.io/perspective
 
 nav_external_links:
-  - title: Curseforge
-    url: https://www.curseforge.com/minecraft/mc-mods/perspective
+  - title: Modrinth
+    url: https://modrinth.com/mod/mclegoman-perspective
   - title: Source Code
     url: https://mclegoman.github.io/Perspective/SourceCode
   - title: Crowdin

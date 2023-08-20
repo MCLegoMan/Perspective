@@ -8,7 +8,8 @@ permalink: /
 ![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/titles/documentation.png)
 
 {: .important}  
-> Perspective Documentation is not complete!  
+> Perspective Documentation is currently a work in progress.  
+> You may not find all the information you need at the moment.  
 
 **Welcome to the Perspective Documentation.**  
 This page will hopefully contain all the information you need to use Perspective in your own projects.  
