@@ -69,7 +69,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.shader", new Object[]{PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)}, new Formatting[]{PerspectiveShader.getRandomColor()}), (button) -> {
-            PerspectiveShader.cycle(PerspectiveClientData.CLIENT, true, true);
+            PerspectiveShader.cycle(PerspectiveClientData.CLIENT, true, true, false);
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(PARENT_SCREEN));
         }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.shader", true)));
 

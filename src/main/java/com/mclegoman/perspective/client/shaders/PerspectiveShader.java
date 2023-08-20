@@ -57,9 +57,9 @@ public class PerspectiveShader {
         }
     }
     public static void tick(MinecraftClient client) {
-        if (PerspectiveKeybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false);
+        if (PerspectiveKeybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false, true);
         if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
-        if (PerspectiveKeybindings.RANDOM_SHADER.wasPressed()) random();
+        if (PerspectiveKeybindings.RANDOM_SHADER.wasPressed()) random(false, true);
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
@@ -67,7 +67,7 @@ public class PerspectiveShader {
             if (SHOW_SHADER_NAME) setOverlay(Text.literal((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
             else setOverlay(PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE));
         }
-        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true);
+        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true, true);
         else {
             if (postProcessor != null) {
                 postProcessor.close();
@@ -76,33 +76,33 @@ public class PerspectiveShader {
         }
         PerspectiveConfigHelper.saveConfig(true);
     }
-    public static void cycle(MinecraftClient client, Boolean forwards, boolean SILENT) {
+    public static void cycle(MinecraftClient client, boolean FORWARDS, boolean SILENT, boolean SAVE_CONFIG) {
         try {
-            if (forwards) {
+            if (FORWARDS) {
                 if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") < PerspectiveShaderDataLoader.getShaderAmount()) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") + 1);
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
             } else {
                 if ((int)PerspectiveConfigHelper.getConfig("super_secret_settings") > 0) PerspectiveConfigHelper.setConfig("super_secret_settings", (int)PerspectiveConfigHelper.getConfig("super_secret_settings") - 1);
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveShaderDataLoader.getShaderAmount());
             }
-            set(client, forwards, SILENT);
+            set(client, FORWARDS, SILENT, SAVE_CONFIG);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to cycle Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }
-    public static void random() {
+    public static void random(boolean SILENT, boolean SAVE_CONFIG) {
         try {
             int SHADER = (int)PerspectiveConfigHelper.getConfig("super_secret_settings");
             while (SHADER == (int)PerspectiveConfigHelper.getConfig("super_secret_settings")) SHADER = Math.max(1, new Random().nextInt(PerspectiveShaderDataLoader.getShaderAmount()));
             PerspectiveConfigHelper.setConfig("super_secret_settings", SHADER);
-            PerspectiveShader.set(PerspectiveClientData.CLIENT, true, false);
+            PerspectiveShader.set(PerspectiveClientData.CLIENT, true, SILENT, SAVE_CONFIG);
         } catch (Exception error) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to randomize Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + error.getLocalizedMessage());
         }
     }
-    public static void set(MinecraftClient client, Boolean forwards, boolean SILENT) {
+    public static void set(MinecraftClient client, Boolean forwards, boolean SILENT, boolean SAVE_CONFIG) {
         try {
             DEPTH_FIX = true;
             if (postProcessor != null) postProcessor.close();
@@ -117,12 +117,12 @@ public class PerspectiveShader {
             }
             DEPTH_FIX = false;
             if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
-            PerspectiveConfigHelper.saveConfig(true);
+            if (SAVE_CONFIG) PerspectiveConfigHelper.saveConfig(true);
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
             try {
-                cycle(client, forwards, false);
+                cycle(client, forwards, false, SAVE_CONFIG);
             } catch (Exception error) {
                 PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
                 try {
@@ -133,7 +133,7 @@ public class PerspectiveShader {
                     PerspectiveConfigHelper.saveConfig(true);
                 } catch (Exception ignored) {}
             }
-            PerspectiveConfigHelper.saveConfig(true);
+            if (SAVE_CONFIG) PerspectiveConfigHelper.saveConfig(true);
         }
     }
     private static void setOverlay(Text message) {
