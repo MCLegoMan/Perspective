@@ -47,6 +47,6 @@ public class PerspectiveHUDOverlays {
     }
     public static void setOverlay(Text text) {
         MESSAGE = text;
-        REMAINING = 60;
+        REMAINING = 40;
     }
 }
