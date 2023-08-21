@@ -21,7 +21,7 @@ public class PerspectiveData {
     public static final String ID = "perspective";
     public static final Integer MAJOR_VERSION = 1;
     public static final Integer MINOR_VERSION = 1;
-    public static final Integer PATCH_VERSION = 1;
+    public static final Integer PATCH_VERSION = 2;
     public static final RTUReleaseTypes RELEASE_TYPE = RTUReleaseTypes.RELEASE;
     public static final Integer BUILD_VERSION = 1;
     public static final Boolean IS_DEVELOPMENT = RTUReleaseType.isDevelopmentBuild(RELEASE_TYPE);
