@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.experimental.PerspectiveExperimental;
+import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
 import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
@@ -27,6 +28,7 @@ public class PerspectiveTick {
             PerspectiveConfigHelper.tick(client);
             PerspectivePanorama.tick(client);
             PerspectiveExperimental.tick(client);
+            PerspectiveHUDOverlays.tick(client);
         });
     }
 }

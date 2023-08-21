@@ -13,6 +13,7 @@ import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.util.PerspectiveHideHUD;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.text.Text;
 
@@ -22,8 +23,8 @@ public class PerspectiveHUDOverlays {
     public static void init() {
         HudRenderCallback.EVENT.register((context, tickDelta) -> {
             TextRenderer textRenderer = PerspectiveClientData.CLIENT.textRenderer;
-            REMAINING = REMAINING - tickDelta;
-            int l = (int)(REMAINING * 255.0F / 20.0F);
+            float h = REMAINING - tickDelta;
+            int l = (int)(h * 255.0F / 20.0F);
             if (l > 255) l = 255;
             if (l > 10) {
                 context.getMatrices().push();
@@ -40,6 +41,9 @@ public class PerspectiveHUDOverlays {
                 }
             }
         });
+    }
+    public static void tick(MinecraftClient client) {
+        if (REMAINING > 0) REMAINING -= 1;
     }
     public static void setOverlay(Text text) {
         MESSAGE = text;
