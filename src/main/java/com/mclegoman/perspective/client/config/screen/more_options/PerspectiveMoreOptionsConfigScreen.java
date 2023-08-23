@@ -84,7 +84,6 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;
     }
-
     public void initTabNavigation() {
         try {
             SimplePositioningWidget.setPos(GRID, getNavigationFocus());

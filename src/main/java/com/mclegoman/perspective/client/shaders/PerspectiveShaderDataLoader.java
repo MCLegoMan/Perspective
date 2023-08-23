@@ -144,13 +144,14 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
         }
     }
     private void layout$souper_secret_settings(ResourceManager manager) {
-        for (Resource resource : manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"))) {
+        List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"));
+        for (Resource resource : SHADER_LISTS) {
             try {
                 JsonObject READER = JsonHelper.deserialize(resource.getReader());
                 for (JsonElement namespaces : READER.getAsJsonArray("namespaces")) {
                     JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
                     String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.ID);
-                    JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders");
+                    JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders", new JsonArray());
                     JsonArray HIDE_ARMOR = JsonHelper.getArray(namespacelist, "hide_armor", new JsonArray());
                     JsonArray HIDE_NAMETAGS = JsonHelper.getArray(namespacelist, "hide_nametags", new JsonArray());
                     JsonArray DISABLE_SCREEN_MODE = JsonHelper.getArray(namespacelist, "disable_screen_mode", new JsonArray());

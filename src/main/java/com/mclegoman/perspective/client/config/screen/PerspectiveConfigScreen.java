@@ -99,7 +99,7 @@ public class PerspectiveConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false, false))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity", true)));
         return GRID;
     }

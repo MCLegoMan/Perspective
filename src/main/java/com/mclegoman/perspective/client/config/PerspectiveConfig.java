@@ -24,6 +24,7 @@ public class PerspectiveConfig {
     protected static boolean SUPER_SECRET_SETTINGS_MODE;
     protected static boolean SUPER_SECRET_SETTINGS_ENABLED;
     protected static boolean SUPER_SECRET_SETTINGS_SOUND;
+    protected static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
     protected static boolean NAMED_TEXTURED_ENTITY;
     protected static boolean RANDOM_TEXTURED_ENTITY;
     protected static boolean ALLOW_APRIL_FOOLS;
@@ -33,7 +34,6 @@ public class PerspectiveConfig {
     protected static int FORCE_PRIDE_TYPE_INDEX;
     protected static boolean VERSION_OVERLAY;
     protected static boolean SHOW_DEVELOPMENT_WARNING;
-    protected static boolean BYPASS_LIMITS;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -52,6 +52,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
+        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_options_screen", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN));
         CONFIG_PROVIDER.add(new Pair<>("textured_named_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("textured_random_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS));
@@ -61,7 +62,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
         CONFIG_PROVIDER.add(new Pair<>("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY));
         CONFIG_PROVIDER.add(new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
-        CONFIG_PROVIDER.add(new Pair<>("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -71,6 +71,7 @@ public class PerspectiveConfig {
         SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
         SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
         SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
+        SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = CONFIG.getOrDefault("super_secret_settings_options_screen", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
         NAMED_TEXTURED_ENTITY = CONFIG.getOrDefault("textured_named_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY);
         RANDOM_TEXTURED_ENTITY = CONFIG.getOrDefault("textured_random_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY);
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -80,7 +81,6 @@ public class PerspectiveConfig {
         FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
         VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-        BYPASS_LIMITS = CONFIG.getOrDefault("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -90,6 +90,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
         CONFIG_PROVIDER.setConfig("super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
         CONFIG_PROVIDER.setConfig("super_secret_settings_sound", SUPER_SECRET_SETTINGS_SOUND);
+        CONFIG_PROVIDER.setConfig("super_secret_settings_options_screen", SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
         CONFIG_PROVIDER.setConfig("named_textured_entity", NAMED_TEXTURED_ENTITY);
         CONFIG_PROVIDER.setConfig("random_textured_entity", RANDOM_TEXTURED_ENTITY);
         CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
@@ -99,7 +100,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
         CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
         CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
-        CONFIG_PROVIDER.setConfig("bypass_limits", BYPASS_LIMITS);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
 }

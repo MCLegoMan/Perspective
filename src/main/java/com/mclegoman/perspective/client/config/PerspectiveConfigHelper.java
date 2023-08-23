@@ -18,7 +18,7 @@ public class PerspectiveConfigHelper {
     protected static boolean SAVE_VIA_TICK;
     protected static int SAVE_VIA_TICK_TICKS;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-    protected static final int DEFAULT_CONFIG_VERSION = 5;
+    protected static final int DEFAULT_CONFIG_VERSION = 6;
     public static void init() {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
@@ -79,6 +79,7 @@ public class PerspectiveConfigHelper {
             setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
             setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
             setConfig("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
+            setConfig("super_secret_settings_options_screen", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
             setConfig("named_textured_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY);
             setConfig("random_textured_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY);
             setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -88,7 +89,6 @@ public class PerspectiveConfigHelper {
             setConfig("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
             setConfig("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
-            setConfig("bypass_limits", PerspectiveConfigDataLoader.BYPASS_LIMITS);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
         } catch (Exception error) {
@@ -105,6 +105,7 @@ public class PerspectiveConfigHelper {
                 case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (boolean)VALUE;
                 case "super_secret_settings_enabled" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
                 case "super_secret_settings_sound" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND = (boolean)VALUE;
+                case "super_secret_settings_options_screen" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean)VALUE;
                 case "named_textured_entity" -> PerspectiveConfig.NAMED_TEXTURED_ENTITY = (boolean)VALUE;
                 case "random_textured_entity" -> PerspectiveConfig.RANDOM_TEXTURED_ENTITY = (boolean)VALUE;
                 case "allow_april_fools" -> PerspectiveConfig.ALLOW_APRIL_FOOLS = (boolean)VALUE;
@@ -114,7 +115,6 @@ public class PerspectiveConfigHelper {
                 case "force_pride_type_index" -> PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX = (int)VALUE;
                 case "version_overlay" -> PerspectiveConfig.VERSION_OVERLAY = (boolean)VALUE;
                 case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
-                case "bypass_limits" -> PerspectiveConfig.BYPASS_LIMITS = (boolean)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
                 case "hide_armor" -> PerspectiveExperimentalConfig.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> PerspectiveExperimentalConfig.HIDE_NAMETAGS = (boolean)VALUE;
@@ -131,6 +131,7 @@ public class PerspectiveConfigHelper {
             case "super_secret_settings_mode" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}
             case "super_secret_settings_enabled" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}
             case "super_secret_settings_sound" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND;}
+            case "super_secret_settings_options_screen" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;}
             case "named_textured_entity" -> {return PerspectiveConfig.NAMED_TEXTURED_ENTITY;}
             case "random_textured_entity" -> {return PerspectiveConfig.RANDOM_TEXTURED_ENTITY;}
             case "allow_april_fools" -> {return PerspectiveConfig.ALLOW_APRIL_FOOLS;}
@@ -140,11 +141,13 @@ public class PerspectiveConfigHelper {
             case "force_pride_type_index" -> {return PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX;}
             case "version_overlay" -> {return PerspectiveConfig.VERSION_OVERLAY;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
-            case "bypass_limits" -> {return PerspectiveConfig.BYPASS_LIMITS;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             case "hide_armor" -> {return PerspectiveExperimentalConfig.HIDE_ARMOR;}
             case "hide_nametags" -> {return PerspectiveExperimentalConfig.HIDE_NAMETAGS;}
+            default -> {
+                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get {} config value: Invalid Key", ID);
+                return new Object();
+            }
         }
-        return new Object();
     }
 }
