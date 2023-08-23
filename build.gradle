@@ -27,6 +27,8 @@ repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 	maven { url 'https://minecraft.guntram.de/maven/' }
+	maven { url 'https://cursemaven.com' }
+	maven { url 'https://maven2.bai.lol' }
 }
 
 runClient.doFirst {
@@ -45,6 +47,8 @@ dependencies {
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 	modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
+	modImplementation "curse.maven:wthit-440979:${project.wthit}"
+	modImplementation "lol.bai:badpackets:fabric-${project.badpackets}"
 
 	modImplementation "de.guntram.mcmod:crowdin-translate:1.4+1.19.3"
 	include "de.guntram.mcmod:crowdin-translate:1.4+1.19.3"
