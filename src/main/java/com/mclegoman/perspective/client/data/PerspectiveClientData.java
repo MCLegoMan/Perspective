@@ -20,6 +20,7 @@ import java.util.TimeZone;
 public class PerspectiveClientData {
     public static final MinecraftClient CLIENT = MinecraftClient.getInstance();
     public static final String[] PRIDE_LOGOS = new String[]{"pride", "trans"};
+    public static final int PRIDE_LOGO = new Random().nextInt(PRIDE_LOGOS.length);
     public static Identifier getLogo() {
         return PerspectiveData.IS_DEVELOPMENT ? getLogoType(PerspectiveData.ID, true, isPride()) : getLogoType(PerspectiveData.ID, false, isPride());
     }
@@ -27,7 +28,7 @@ public class PerspectiveClientData {
         return development ? new Identifier(namespace, (getLogoPath(pride) + "development.png")) : new Identifier(namespace, (getLogoPath(pride) + "release.png"));
     }
     public static String getPrideLogoType() {
-        return ((boolean)PerspectiveConfigHelper.getConfig("force_pride_type")) ? PRIDE_LOGOS[(int)PerspectiveConfigHelper.getConfig("force_pride_type_index")] : PRIDE_LOGOS[new Random().nextInt(PRIDE_LOGOS.length)];
+        return ((boolean)PerspectiveConfigHelper.getConfig("force_pride_type")) ? PRIDE_LOGOS[(int)PerspectiveConfigHelper.getConfig("force_pride_type_index")] : PRIDE_LOGOS[PRIDE_LOGO];
     }
     public static String getLogoPath(boolean pride) {
         return pride ? "textures/logo/pride/" + getPrideLogoType() + "/" : "textures/logo/normal/";
