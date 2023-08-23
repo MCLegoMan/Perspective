@@ -27,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(priority = 10000, value = GameRenderer.class)
 public abstract class PerspectiveGameRenderer {
     @Shadow private boolean renderingPanorama;
-    @Shadow private boolean renderHand;
     @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
     private void perspective$getFov(CallbackInfoReturnable<Double> ci) {
         try {
