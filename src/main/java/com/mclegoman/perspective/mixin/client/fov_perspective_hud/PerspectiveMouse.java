@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(priority = 10000, value = Mouse.class)
-public abstract class PerspectiveAdjustZoom {
+public abstract class PerspectiveMouse {
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void perspective$onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
