@@ -31,11 +31,6 @@ repositories {
 	maven { url 'https://maven2.bai.lol' }
 }
 
-runClient.doFirst {
-	args = ['--username', "MCLegoMan${new Random().nextInt(1000)}"]
-}
-
-
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft}"
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
