@@ -13,11 +13,14 @@ import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
@@ -26,15 +29,10 @@ public abstract class PerspectiveGameRenderer {
     @Shadow private boolean renderingPanorama;
     @Shadow private boolean renderHand;
     @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
-    private void perspective$getFov(CallbackInfoReturnable<Double> callbackInfo) {
+    private void perspective$getFov(CallbackInfoReturnable<Double> ci) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveZoom.isZooming()) {
-                    this.renderHand = false;
-                    callbackInfo.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT));
-                } else {
-                    this.renderHand = true;
-                }
+                if (PerspectiveZoom.isZooming()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT));
             }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst zooming.");
@@ -45,6 +43,15 @@ public abstract class PerspectiveGameRenderer {
     private void perspective$renderBlockOutline(CallbackInfoReturnable<Boolean> cir) {
         try {
             if (PerspectiveHideHUD.shouldHideHUD()) cir.setReturnValue(false);
+        } catch (Exception e) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to HideHUD$renderCrosshair.");
+            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
+        }
+    }
+    @Inject(at = @At("HEAD"), method = "renderHand", cancellable = true)
+    private void perspective$renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+        try {
+            if (PerspectiveHideHUD.shouldHideHUD()) ci.cancel();
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to HideHUD$renderCrosshair.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
