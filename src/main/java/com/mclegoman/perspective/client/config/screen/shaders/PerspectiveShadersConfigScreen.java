@@ -18,6 +18,7 @@ import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
@@ -129,7 +130,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) this.SHOULD_CLOSE = true;
-        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) this.CYCLE_DIRECTION = false;
+        if (keyCode == KeyBindingHelper.getBoundKeyOf(PerspectiveClientData.CLIENT.options.sneakKey).getCode()) this.CYCLE_DIRECTION = false;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
