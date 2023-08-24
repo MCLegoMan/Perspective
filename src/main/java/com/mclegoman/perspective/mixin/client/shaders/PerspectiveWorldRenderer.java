@@ -29,7 +29,6 @@ public class PerspectiveWorldRenderer {
     public void perspective$saveDepthFabulous(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f positionMatrix, CallbackInfo ci) {
         PerspectiveShader.DEPTH_FRAME_BUFFER.copyDepthFrom(PerspectiveClientData.CLIENT.getFramebuffer());
     }
-
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderWorldBorder(Lnet/minecraft/client/render/Camera;)V", ordinal = 1), method = "render")
     public void perspective$saveDepthFastFancy(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f projectionMatrix, CallbackInfo ci) {
         PerspectiveShader.DEPTH_FRAME_BUFFER.copyDepthFrom(PerspectiveClientData.CLIENT.getFramebuffer());

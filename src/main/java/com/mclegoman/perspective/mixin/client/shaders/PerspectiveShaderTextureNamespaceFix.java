@@ -24,7 +24,6 @@ public class PerspectiveShaderTextureNamespaceFix {
     private static Identifier perspective$loadTexture(String id) {
         return perspective$get(id);
     }
-
     private static Identifier perspective$get(String id) {
         if (id.contains(":")) {
             String[] shader = id.substring(16).split(":");

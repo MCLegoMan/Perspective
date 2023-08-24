@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.april_fools_prank;
 
-import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrankDataLoader;
 import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
+import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrankDataLoader;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,14 +27,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(priority = 10000, value = PlayerEntityRenderer.class)
 public class PerspectiveAprilFoolsPrankReplaceSkin {
     private boolean isSLIM;
-
     @Inject(at = @At("RETURN"), method = "<init>")
     private void perspective$init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci){
         isSLIM = slim;
     }
-
     @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+    private void perspective$getSkin(Entity entity, CallbackInfoReturnable<Identifier> cir) {
         try {
             if (entity instanceof PlayerEntity) {
                 if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) {
@@ -48,7 +46,7 @@ public class PerspectiveAprilFoolsPrankReplaceSkin {
                 }
             }
         } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set April Fools getTexture.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set April Fools getSkin.");
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
         }
     }

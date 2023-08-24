@@ -27,13 +27,11 @@ public class PerspectiveShaderRenderer {
     private void perspective$render_overlay(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
         if (PerspectiveShader.shouldRenderShader() && ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") && !PerspectiveShader.shouldDisableScreenMode())) PerspectiveShader.render(tickDelta);
     }
-
     @Inject(method = "onResized", at = @At(value = "TAIL"))
     private void perspective$onResized(int width, int height, CallbackInfo ci) {
         if (PerspectiveShader.postProcessor != null) {
             PerspectiveShader.postProcessor.setupDimensions(width, height);
         }
-
         /*
             Perspective
             Author: MCLegoMan
