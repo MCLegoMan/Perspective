@@ -22,7 +22,7 @@ public class PerspectiveData {
     public static final Integer MAJOR_VERSION = 1;
     public static final Integer MINOR_VERSION = 1;
     public static final Integer PATCH_VERSION = 3;
-    public static final RTUReleaseTypes RELEASE_TYPE = RTUReleaseTypes.RELEASE;
+    public static final RTUReleaseTypes RELEASE_TYPE = RTUReleaseTypes.RELEASE_CANDIDATE;
     public static final Integer BUILD_VERSION = 1;
     public static final Boolean IS_DEVELOPMENT = RTUReleaseType.isDevelopmentBuild(RELEASE_TYPE);
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + PATCH_VERSION + "-" + RTUReleaseType.releaseTypeString(RELEASE_TYPE, RTUReleaseTranslationTypes.NORMAL) + "." + BUILD_VERSION;
