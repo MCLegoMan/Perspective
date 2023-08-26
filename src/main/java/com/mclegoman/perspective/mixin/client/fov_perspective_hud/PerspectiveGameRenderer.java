@@ -33,8 +33,8 @@ public abstract class PerspectiveGameRenderer {
         try {
             if (!this.renderingPanorama) {
                 if ((boolean) PerspectiveConfigHelper.getConfig("smooth_zoom")) {
-                    if (PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom > PerspectiveZoom.zoomFOV(PerspectiveClientData.CLIENT)) PerspectiveZoom.setSmoothZoom(PerspectiveClientData.CLIENT, 4, true);
-                    if (!PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom < PerspectiveClientData.CLIENT.options.getFov().getValue()) PerspectiveZoom.setSmoothZoom(PerspectiveClientData.CLIENT, 6, false);
+                    if (PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom > PerspectiveZoom.zoomFOV(PerspectiveClientData.CLIENT)) PerspectiveZoom.setSmoothZoom(PerspectiveClientData.CLIENT, 6, true);
+                    if (!PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom < PerspectiveClientData.CLIENT.options.getFov().getValue()) PerspectiveZoom.setSmoothZoom(PerspectiveClientData.CLIENT, 8, false);
                     if (PerspectiveZoom.isZooming()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT, true, true));
                     else if (!PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom != PerspectiveClientData.CLIENT.options.getFov().getValue()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT, false, true));
                 } else {
