@@ -58,7 +58,7 @@
     "gui.perspective.config.experimental.hide_nametags": "Hide Nametags: %s",
     "gui.perspective.config.experimental.hide_nametags.hover": "Toggles the rendering of nametags.",
     "gui.perspective.config.experimental.smooth_zoom": "Smooth Zoom: %s",
-    "gui.perspective.config.experimental.smooth_zoom.hover": "Toggles smoothness of toggling zoom.",
+    "gui.perspective.config.experimental.smooth_zoom.hover": "Toggles smoothness of toggling zoom. (Note: The speed of this feature is tied to your fps.)",
     "gui.perspective.config.experimental.none": "\n\nThere is currently no experiments available.\n\n",
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",
