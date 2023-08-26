@@ -91,6 +91,7 @@ public class PerspectiveConfigHelper {
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
+            setConfig("smooth_zoom", PerspectiveConfigDataLoader.SMOOTH_ZOOM);
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
         }
@@ -118,6 +119,7 @@ public class PerspectiveConfigHelper {
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
                 case "hide_armor" -> PerspectiveExperimentalConfig.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> PerspectiveExperimentalConfig.HIDE_NAMETAGS = (boolean)VALUE;
+                case "smooth_zoom" -> PerspectiveExperimentalConfig.SMOOTH_ZOOM = (boolean)VALUE;
             }
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set {} config value: {}", ID, error);
@@ -144,6 +146,7 @@ public class PerspectiveConfigHelper {
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             case "hide_armor" -> {return PerspectiveExperimentalConfig.HIDE_ARMOR;}
             case "hide_nametags" -> {return PerspectiveExperimentalConfig.HIDE_NAMETAGS;}
+            case "smooth_zoom" -> {return PerspectiveExperimentalConfig.SMOOTH_ZOOM;}
             default -> {
                 PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get {} config value: Invalid Key", ID);
                 return new Object();

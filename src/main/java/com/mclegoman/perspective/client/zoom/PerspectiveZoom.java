@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.zoom;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigDataLoader;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -20,8 +21,25 @@ import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
-    public static double getZoomFOV(MinecraftClient client) {
+    public static double smoothZoom = PerspectiveClientData.CLIENT.options.getFov().getValue();
+    public static double zoomFOV(MinecraftClient client) {
         return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100));
+    }
+    public static double getZoomFOV(MinecraftClient client, boolean direction, boolean smooth_zoom) {
+        if (smooth_zoom) {
+            if (direction) {
+                return Math.max(smoothZoom, zoomFOV(client));
+            }
+            else {
+                return Math.min(smoothZoom, PerspectiveClientData.CLIENT.options.getFov().getValue());
+            }
+        } else return zoomFOV(client);
+    }
+    public static void setSmoothZoom(MinecraftClient client, int amount, boolean direction) {
+        for (int i = 0; i < amount; i++) {
+            if (direction) smoothZoom = Math.max(smoothZoom - 1, zoomFOV(client));
+            else smoothZoom = Math.min(smoothZoom + 1, PerspectiveClientData.CLIENT.options.getFov().getValue());
+        }
     }
     public static boolean SET_ZOOM;
     public static boolean isZooming() {

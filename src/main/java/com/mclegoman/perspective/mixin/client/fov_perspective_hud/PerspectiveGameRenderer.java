@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.fov_perspective_hud;
 
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.util.PerspectiveHideHUD;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
@@ -31,7 +32,14 @@ public abstract class PerspectiveGameRenderer {
     private void perspective$getFov(CallbackInfoReturnable<Double> ci) {
         try {
             if (!this.renderingPanorama) {
-                if (PerspectiveZoom.isZooming()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT));
+                if ((boolean) PerspectiveConfigHelper.getConfig("smooth_zoom")) {
+                    if (PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom > PerspectiveZoom.zoomFOV(PerspectiveClientData.CLIENT)) PerspectiveZoom.setSmoothZoom(PerspectiveClientData.CLIENT, 4, true);
+                    if (!PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom < PerspectiveClientData.CLIENT.options.getFov().getValue()) PerspectiveZoom.setSmoothZoom(PerspectiveClientData.CLIENT, 6, false);
+                    if (PerspectiveZoom.isZooming()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT, true, true));
+                    else if (!PerspectiveZoom.isZooming() && PerspectiveZoom.smoothZoom != PerspectiveClientData.CLIENT.options.getFov().getValue()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT, false, true));
+                } else {
+                    if (PerspectiveZoom.isZooming()) ci.setReturnValue(PerspectiveZoom.getZoomFOV(PerspectiveClientData.CLIENT, true, false));
+                }
             }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst zooming.");

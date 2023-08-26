@@ -18,6 +18,7 @@ import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.SimplePositioningWidget;
 import net.minecraft.screen.ScreenTexts;
@@ -38,8 +39,9 @@ public class PerspectiveInformationScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveInformationScreen(PARENT_SCREEN)));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveInformationScreen(PARENT_SCREEN), true, "information"));
             GRID_ADDER.add(createInformation());
+            GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
@@ -62,17 +64,18 @@ public class PerspectiveInformationScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.documentation"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective", this, true)).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.documentation", true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.support"), ConfirmLinkScreen.opening("https://ko-fi.com/mclegoman", this, true)).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.support", true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.contribute", true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.report", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.documentation"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective", this, true)).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.documentation", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.contribute"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.contribute", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.report", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.credits_attribution"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective/credits_attribution", this, true)).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.credits_attribution", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information.licenses"), ConfirmLinkScreen.opening("https://mclegoman.github.io/Perspective/licenses", this, true)).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information.licenses", true)));
         return GRID;
     }
     private GridWidget createFooter() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).width(304).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("back", true)));
         return GRID;
     }
 

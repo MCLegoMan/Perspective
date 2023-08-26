@@ -23,10 +23,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.SimplePositioningWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
@@ -47,10 +44,12 @@ public class PerspectiveConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN, true)));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN, true), false, ""));
             GRID_ADDER.add(createZoom());
             GRID_ADDER.add(createSuperSecretSettingsAndTexturedEntity());
             GRID_ADDER.add(createAprilFoolsAndMoreOptions());
+            GRID_ADDER.add(createInformationAndExperiments());
+            GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
@@ -111,12 +110,18 @@ public class PerspectiveConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options", true)));
         return GRID;
     }
-    private GridWidget createFooter() {
+    private GridWidget createInformationAndExperiments() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveInformationScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("information", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental", true)));
+        return GRID;
+    }
+    private GridWidget createFooter() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
             this.REFRESH = true;

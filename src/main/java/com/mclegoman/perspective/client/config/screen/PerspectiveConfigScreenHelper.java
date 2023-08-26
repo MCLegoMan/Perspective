@@ -16,12 +16,10 @@ import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.IconWidget;
+import net.minecraft.client.gui.widget.*;
 
 public class PerspectiveConfigScreenHelper {
-    public static GridWidget createTitle(MinecraftClient client, Screen SCREEN) {
+    public static GridWidget createTitle(MinecraftClient client, Screen SCREEN, boolean showPageName, String pageName) {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
@@ -37,6 +35,8 @@ public class PerspectiveConfigScreenHelper {
             DEVELOPMENT_BUTTONS_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("development_warning_preview"), (button) -> client.setScreen(new PerspectiveDevelopmentWarningScreen(SCREEN, 200, false))).width(20).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("development_warning_preview", true)));
             GRID_ADDER.add(DEVELOPMENT_BUTTONS);
         }
+        if (showPageName) GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation(pageName), PerspectiveClientData.CLIENT.textRenderer).setCentered(true));
+        GRID_ADDER.add(new EmptyWidget(4, 4));
         return GRID;
     }
 }
