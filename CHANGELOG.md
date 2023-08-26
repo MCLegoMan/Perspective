@@ -8,6 +8,7 @@
 - super secret settings config screen's cycle can now go backwards when using the sneak keybinding.
 - perspective config screens now display their name at the top of the screen.
 - the reset and back buttons on config screens are now separated from the main config options.
+- added WTHIT support for hide hud.
 
 ## Experimental
 - Added Smooth Zoom experimental option.
