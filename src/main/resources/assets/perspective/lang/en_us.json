@@ -1,6 +1,7 @@
 {
-    "gui.perspective.development_warning": "You are running a development build of Perspective.\nYou may experience some unexpected bugs.",
-    "gui.perspective.development_warning.timer": "Press any key or wait %s %s.",
+    "gui.perspective.development_warning": "You are running a development build of Perspective.\nYou may experience some unexpected bugs and/or issues.",
+    "gui.perspective.downgrade_warning": "Downgrading Perspective is not supported.\nYou may experience some unexpected bugs and/or issues.",
+    "gui.perspective.warning.timer": "Press any key or wait %s %s.",
     "gui.perspective.development_warning.checkbox": "Do not show this screen at startup.",
     "gui.perspective.config.development_warning": "Development Warning: %s",
     "gui.perspective.config.development_warning.hover": "Toggle visibility of the Development Warning screen on startup.",
