@@ -9,13 +9,10 @@ package com.mclegoman.perspective.client.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.mclegoman.perspective.client.data.PerspectiveClientData;
-import com.mclegoman.perspective.client.developmentwarning.screen.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -80,11 +77,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 PerspectiveConfig.init();
                 PerspectiveExperimentalConfig.init();
                 PerspectiveConfigHelper.updateConfig();
-                if (PerspectiveData.IS_DEVELOPMENT) {
-                    if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
-                        PerspectiveClientData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PerspectiveClientData.CLIENT.currentScreen, 200, true));
-                    }
-                }
                 INIT = true;
             }
         } catch (Exception error) {

@@ -7,11 +7,15 @@
 
 package com.mclegoman.perspective.client.config;
 
-import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreen;
+import com.mclegoman.perspective.client.data.PerspectiveClientData;
+import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreen;
+import com.mclegoman.perspective.client.screen.developmentwarning.PerspectiveDevelopmentWarningScreen;
+import com.mclegoman.perspective.client.screen.downgradewarning.PerspectiveDowngradeWarningScreen;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.resource.ResourceType;
 
 public class PerspectiveConfigHelper {
@@ -19,6 +23,8 @@ public class PerspectiveConfigHelper {
     protected static int SAVE_VIA_TICK_TICKS;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
     protected static final int DEFAULT_CONFIG_VERSION = 6;
+    private static boolean DEV_WARN;
+    private static boolean DG_WARN;
     public static void init() {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
@@ -28,6 +34,18 @@ public class PerspectiveConfigHelper {
     }
     public static void tick(MinecraftClient client) {
         try {
+            if (DEV_WARN) {
+                if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
+                    PerspectiveClientData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PerspectiveClientData.CLIENT.currentScreen, 200, true));
+                    DEV_WARN = false;
+                }
+            }
+            if (DG_WARN) {
+                if (PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
+                    PerspectiveClientData.CLIENT.setScreen(new PerspectiveDowngradeWarningScreen(PerspectiveClientData.CLIENT.currentScreen, 200));
+                    DG_WARN = false;
+                }
+            }
             if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen, false));
             if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
             else {
@@ -44,12 +62,21 @@ public class PerspectiveConfigHelper {
     protected static void updateConfig() {
         try {
             if ((int)getConfig("config_version") != DEFAULT_CONFIG_VERSION) {
-                PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Attempting to update config to the latest version.");
-                if ((int)getConfig("config_version") < 3) {
-                    setConfig("zoom_level", 100 - (int)getConfig("zoom_level"));
+                if ((int)getConfig("config_version") < DEFAULT_CONFIG_VERSION) {
+                    PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Attempting to update config to the latest version.");
+                    if ((int)getConfig("config_version") < 3) {
+                        setConfig("zoom_level", 100 - (int)getConfig("zoom_level"));
+                    }
+                    setConfig("config_version", DEFAULT_CONFIG_VERSION);
+                    PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Successfully updated config to the latest version.");
+                } else if ((int)getConfig("config_version") > DEFAULT_CONFIG_VERSION) {
+                    PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Downgrading Perspective is not supported. You may experience some unexpected bugs and/or issues.");
+                    DG_WARN = true;
                 }
-                setConfig("config_version", DEFAULT_CONFIG_VERSION);
-                PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Successfully updated config to the latest version.");
+            }
+            if (PerspectiveData.IS_DEVELOPMENT) {
+                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "You are running a development build of Perspective. You may experience some unexpected bugs and/or issues.");
+                DEV_WARN = true;
             }
             saveConfig(false);
         } catch (Exception error) {

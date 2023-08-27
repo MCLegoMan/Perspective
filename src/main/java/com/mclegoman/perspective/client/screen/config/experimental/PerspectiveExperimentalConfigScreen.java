@@ -5,11 +5,11 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.config.screen.experimental;
+package com.mclegoman.perspective.client.screen.config.experimental;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
+import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;

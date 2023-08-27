@@ -5,16 +5,16 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.config.screen;
+package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.screen.april_fools_prank.PerspectiveAprilFoolsPrankConfigScreen;
-import com.mclegoman.perspective.client.config.screen.experimental.PerspectiveExperimentalConfigScreen;
-import com.mclegoman.perspective.client.config.screen.information.PerspectiveInformationScreen;
-import com.mclegoman.perspective.client.config.screen.more_options.PerspectiveMoreOptionsConfigScreen;
-import com.mclegoman.perspective.client.config.screen.shaders.PerspectiveShadersConfigScreen;
-import com.mclegoman.perspective.client.config.screen.textured_entity.PerspectiveTexturedEntityConfigScreen;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
+import com.mclegoman.perspective.client.screen.config.april_fools_prank.PerspectiveAprilFoolsPrankConfigScreen;
+import com.mclegoman.perspective.client.screen.config.experimental.PerspectiveExperimentalConfigScreen;
+import com.mclegoman.perspective.client.screen.config.information.PerspectiveInformationScreen;
+import com.mclegoman.perspective.client.screen.config.more_options.PerspectiveMoreOptionsConfigScreen;
+import com.mclegoman.perspective.client.screen.config.shaders.PerspectiveShadersConfigScreen;
+import com.mclegoman.perspective.client.screen.config.textured_entity.PerspectiveTexturedEntityConfigScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.common.data.PerspectiveData;

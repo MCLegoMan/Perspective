@@ -8,8 +8,8 @@
 package com.mclegoman.perspective.mixin.client.compat;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.screen.shaders.PerspectiveShadersConfigScreen;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
+import com.mclegoman.perspective.client.screen.config.shaders.PerspectiveShadersConfigScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;

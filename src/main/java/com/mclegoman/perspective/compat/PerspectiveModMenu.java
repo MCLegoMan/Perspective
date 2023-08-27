@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.compat;
 
-import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreen;
+import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;

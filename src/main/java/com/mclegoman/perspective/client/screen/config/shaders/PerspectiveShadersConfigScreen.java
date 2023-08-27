@@ -5,11 +5,11 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.client.config.screen.shaders;
+package com.mclegoman.perspective.client.screen.config.shaders;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.config.screen.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
+import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderRegistryValue;
