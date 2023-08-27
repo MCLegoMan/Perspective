@@ -44,6 +44,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean HIDE_ARMOR;
     public static boolean HIDE_NAMETAGS;
     public static boolean SMOOTH_ZOOM;
+    public static int SMOOTH_ZOOM_SCALE;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
         super(new Gson(), ID);
@@ -72,6 +73,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 HIDE_ARMOR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
                 HIDE_NAMETAGS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
                 SMOOTH_ZOOM = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "smooth_zoom", false);
+                SMOOTH_ZOOM_SCALE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "smooth_zoom_scale", 6);
             }
             if (!INIT) {
                 PerspectiveConfig.init();
