@@ -68,7 +68,7 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation("experimental.none"), textRenderer).setCentered(true));
+        GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation("experimental.none", new Formatting[]{Formatting.RED, Formatting.BOLD}), PerspectiveClientData.CLIENT.textRenderer).setCentered(true));
         return GRID;
     }
     private GridWidget createExperiments() {
