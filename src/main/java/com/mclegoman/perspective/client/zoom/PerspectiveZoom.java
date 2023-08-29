@@ -44,7 +44,7 @@ public class PerspectiveZoom {
     public static boolean SET_ZOOM;
     public static boolean isZooming() {
         try {
-            return PerspectiveKeybindings.HOLD_ZOOM.isPressed() || SET_ZOOM;
+            if (PerspectiveClientData.CLIENT.player != null) return (PerspectiveKeybindings.HOLD_ZOOM.isPressed() || SET_ZOOM) && !PerspectiveClientData.CLIENT.player.isUsingSpyglass();
         } catch (Exception ignored) {
         }
         return false;
