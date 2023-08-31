@@ -40,7 +40,7 @@ public abstract class PerspectiveInGameHUD {
             }
             if (PerspectiveHideHUD.shouldHideHUD()) ci.cancel();
         } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to HideHUD$render.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to InGameHUD$render.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }

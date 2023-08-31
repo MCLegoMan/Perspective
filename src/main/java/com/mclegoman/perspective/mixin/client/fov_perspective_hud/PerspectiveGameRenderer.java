@@ -42,7 +42,7 @@ public abstract class PerspectiveGameRenderer {
                 }
             }
         } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst zooming.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to GameRenderer$getFov.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
@@ -51,7 +51,7 @@ public abstract class PerspectiveGameRenderer {
         try {
             if (PerspectiveHideHUD.shouldHideHUD()) cir.setReturnValue(false);
         } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to HideHUD$renderCrosshair.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to GameRenderer$renderCrosshair.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
@@ -60,7 +60,7 @@ public abstract class PerspectiveGameRenderer {
         try {
             if (PerspectiveHideHUD.shouldHideHUD()) ci.cancel();
         } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to HideHUD$renderCrosshair.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to GameRenderer$renderHand.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }

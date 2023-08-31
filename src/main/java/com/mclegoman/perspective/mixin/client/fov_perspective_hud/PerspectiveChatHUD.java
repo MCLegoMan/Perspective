@@ -25,7 +25,7 @@ public abstract class PerspectiveChatHUD {
         try {
             if (PerspectiveHideHUD.shouldHideHUD()) cir.setReturnValue(true);
         } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to HideHUD$renderChat.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to ChatHUD$renderChat.");
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
