@@ -19,6 +19,9 @@ public class PerspectiveConfig {
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
     protected static int ZOOM_LEVEL;
+    protected static int CHANGE_ZOOM_MULTIPLIER;
+    protected static boolean SMOOTH_ZOOM;
+    protected static int SMOOTH_ZOOM_SCALE;
     protected static boolean HIDE_HUD;
     protected static int SUPER_SECRET_SETTINGS;
     protected static boolean SUPER_SECRET_SETTINGS_MODE;
@@ -33,6 +36,8 @@ public class PerspectiveConfig {
     protected static boolean FORCE_PRIDE_TYPE;
     protected static int FORCE_PRIDE_TYPE_INDEX;
     protected static boolean VERSION_OVERLAY;
+    protected static boolean HIDE_ARMOR;
+    protected static boolean HIDE_NAMETAGS;
     protected static boolean SHOW_DEVELOPMENT_WARNING;
     protected static int CONFIG_VERSION;
     protected static void init() {
@@ -47,6 +52,9 @@ public class PerspectiveConfig {
     }
     protected static void create() {
         CONFIG_PROVIDER.add(new Pair<>("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL));
+        CONFIG_PROVIDER.add(new Pair<>("change_zoom_multiplier", PerspectiveConfigDataLoader.CHANGE_ZOOM_MULTIPLIER));
+        CONFIG_PROVIDER.add(new Pair<>("smooth_zoom", PerspectiveConfigDataLoader.SMOOTH_ZOOM));
+        CONFIG_PROVIDER.add(new Pair<>("smooth_zoom_scale", PerspectiveConfigDataLoader.SMOOTH_ZOOM_SCALE));
         CONFIG_PROVIDER.add(new Pair<>("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
@@ -61,12 +69,17 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE));
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
         CONFIG_PROVIDER.add(new Pair<>("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY));
+        CONFIG_PROVIDER.add(new Pair<>("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR));
+        CONFIG_PROVIDER.add(new Pair<>("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS));
         CONFIG_PROVIDER.add(new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
         ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
+        CHANGE_ZOOM_MULTIPLIER = CONFIG.getOrDefault("change_zoom_multiplier", PerspectiveConfigDataLoader.CHANGE_ZOOM_MULTIPLIER);
         HIDE_HUD = CONFIG.getOrDefault("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
+        SMOOTH_ZOOM = CONFIG.getOrDefault("smooth_zoom", PerspectiveConfigDataLoader.SMOOTH_ZOOM);
+        SMOOTH_ZOOM_SCALE = CONFIG.getOrDefault("smooth_zoom_scale", PerspectiveConfigDataLoader.SMOOTH_ZOOM_SCALE);
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
         SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
         SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
@@ -80,11 +93,16 @@ public class PerspectiveConfig {
         FORCE_PRIDE_TYPE = CONFIG.getOrDefault("force_pride_type", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE);
         FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
         VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
+        HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
+        HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
         SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
         CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
+        CONFIG_PROVIDER.setConfig("change_zoom_multiplier", CHANGE_ZOOM_MULTIPLIER);
+        CONFIG_PROVIDER.setConfig("smooth_zoom", SMOOTH_ZOOM);
+        CONFIG_PROVIDER.setConfig("smooth_zoom_scale", SMOOTH_ZOOM_SCALE);
         CONFIG_PROVIDER.setConfig("hide_hud", HIDE_HUD);
         CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
         CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
@@ -99,6 +117,8 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("force_pride_type", FORCE_PRIDE_TYPE);
         CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
         CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
+        CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
+        CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
         CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }

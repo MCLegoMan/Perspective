@@ -26,6 +26,9 @@ import java.util.Map;
 public class PerspectiveConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static boolean INIT;
     public static int ZOOM_LEVEL;
+    public static int CHANGE_ZOOM_MULTIPLIER;
+    public static boolean SMOOTH_ZOOM;
+    public static int SMOOTH_ZOOM_SCALE;
     public static boolean HIDE_HUD;
     public static int SUPER_SECRET_SETTINGS;
     public static boolean SUPER_SECRET_SETTINGS_MODE;
@@ -43,9 +46,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean SHOW_DEVELOPMENT_WARNING;
     public static boolean HIDE_ARMOR;
     public static boolean HIDE_NAMETAGS;
-    public static boolean SMOOTH_ZOOM;
-    public static int SMOOTH_ZOOM_SCALE;
-    public static int CHANGE_ZOOM_MULTIPLIER;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
         super(new Gson(), ID);
@@ -56,6 +56,9 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
         try {
             for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
                 ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level", 80);
+                CHANGE_ZOOM_MULTIPLIER = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "change_zoom_multiplier", 1);
+                SMOOTH_ZOOM = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "smooth_zoom", false);
+                SMOOTH_ZOOM_SCALE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "smooth_zoom_scale", 6);
                 HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_hud", true);
                 SUPER_SECRET_SETTINGS = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "super_secret_settings", 0);
                 SUPER_SECRET_SETTINGS_MODE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_mode", false);
@@ -73,9 +76,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 SHOW_DEVELOPMENT_WARNING = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_development_warning", true);
                 HIDE_ARMOR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
                 HIDE_NAMETAGS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
-                SMOOTH_ZOOM = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "smooth_zoom", false);
-                SMOOTH_ZOOM_SCALE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "smooth_zoom_scale", 6);
-                CHANGE_ZOOM_MULTIPLIER = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "change_zoom_multiplier", 1);
             }
             if (!INIT) {
                 PerspectiveConfig.init();

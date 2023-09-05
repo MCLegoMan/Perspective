@@ -11,7 +11,6 @@ import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
-import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -43,7 +42,7 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
             GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, true), true, "experimental"));
-            GRID_ADDER.add(createExperiments());
+            GRID_ADDER.add(createEmpty());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -79,40 +78,6 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation("experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), PerspectiveClientData.CLIENT.textRenderer).setCentered(true), 2);
         GRID_ADDER.add(new EmptyWidget(4, 4), 2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
-            this.REFRESH = true;
-        }).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}, true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.hide_nametags", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_nametags"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("hide_nametags", !(boolean)PerspectiveConfigHelper.getConfig("hide_nametags"));
-            this.REFRESH = true;
-        }).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental.hide_nametags", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_nametags"), PerspectiveTranslationType.ONFF)}, true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.smooth_zoom", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("smooth_zoom", !(boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"));
-            this.REFRESH = true;
-        }).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental.smooth_zoom", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), PerspectiveTranslationType.ONFF)}, true)));
-        double SMOOTH_ZOOM_SCALE_VALUE = (double) ((int)PerspectiveConfigHelper.getConfig("smooth_zoom_scale") - 1) / 9;
-        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, PerspectiveTranslation.getConfigTranslation("experimental.smooth_zoom.scale", new Object[]{Text.literal(String.valueOf((int)PerspectiveConfigHelper.getConfig("smooth_zoom_scale")))}, false), SMOOTH_ZOOM_SCALE_VALUE) {
-            @Override
-            protected void updateMessage() {
-                setMessage(PerspectiveTranslation.getConfigTranslation("experimental.smooth_zoom.scale", new Object[]{Text.literal(String.valueOf((int) PerspectiveConfigHelper.getConfig("smooth_zoom_scale")))}, false));
-            }
-            @Override
-            protected void applyValue() {
-                PerspectiveConfigHelper.setConfig("smooth_zoom_scale", (int) ((value) * 9) + 1);
-            }
-        }).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental.smooth_zoom.scale", true)));
-        double CHANGE_ZOOM_MULTIPLIER_VALUE = (double) ((int)PerspectiveConfigHelper.getConfig("change_zoom_multiplier") - 1) / 9;
-        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 304, 20, PerspectiveTranslation.getConfigTranslation("experimental.change_zoom_multiplier", new Object[]{Text.literal(String.valueOf((int)PerspectiveConfigHelper.getConfig("change_zoom_multiplier")))}, false), CHANGE_ZOOM_MULTIPLIER_VALUE) {
-            @Override
-            protected void updateMessage() {
-                setMessage(PerspectiveTranslation.getConfigTranslation("experimental.change_zoom_multiplier", new Object[]{Text.literal(String.valueOf((int) PerspectiveConfigHelper.getConfig("change_zoom_multiplier")))}, false));
-            }
-            @Override
-            protected void applyValue() {
-                PerspectiveConfigHelper.setConfig("change_zoom_multiplier", (int) ((value) * 9) + 1);
-            }
-        }, 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("experimental.change_zoom_multiplier", true)));
         return GRID;
     }
     private GridWidget createFooter() {
