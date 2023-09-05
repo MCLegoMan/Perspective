@@ -10,9 +10,11 @@ package com.mclegoman.perspective.client.screen.config.information;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -90,7 +92,7 @@ public class PerspectiveInformationScreen extends Screen {
     }
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE) this.SHOULD_CLOSE = true;
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

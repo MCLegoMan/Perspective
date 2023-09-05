@@ -11,6 +11,7 @@ import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreen;
 import com.mclegoman.perspective.client.screen.developmentwarning.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.client.screen.downgradewarning.PerspectiveDowngradeWarningScreen;
+import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -100,9 +101,9 @@ public class PerspectiveConfigHelper {
     }
     public static void resetConfig() {
         try {
-            setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
+            setConfig("zoom_level", Math.min(Math.max(PerspectiveConfigDataLoader.ZOOM_LEVEL, 0), 100));
             setConfig("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
-            setConfig("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
+            setConfig("super_secret_settings", Math.max(Math.min(PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS, PerspectiveShaderDataLoader.getShaderAmount()), 0));
             setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
             setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
             setConfig("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
@@ -113,13 +114,14 @@ public class PerspectiveConfigHelper {
             setConfig("force_april_fools", PerspectiveConfigDataLoader.FORCE_APRIL_FOOLS);
             setConfig("force_pride", PerspectiveConfigDataLoader.FORCE_PRIDE);
             setConfig("force_pride_type", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE);
-            setConfig("force_pride_type_index", PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
+            setConfig("force_pride_type_index", Math.max(Math.min(PerspectiveConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0), PerspectiveClientData.PRIDE_LOGOS.length - 1));
             setConfig("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
             setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
             setConfig("smooth_zoom", PerspectiveConfigDataLoader.SMOOTH_ZOOM);
-            setConfig("smooth_zoom_scale", PerspectiveConfigDataLoader.SMOOTH_ZOOM_SCALE);
+            setConfig("smooth_zoom_scale", Math.max(Math.min(PerspectiveConfigDataLoader.SMOOTH_ZOOM_SCALE, 10), 1));
+            setConfig("change_zoom_multiplier", Math.max(Math.min(PerspectiveConfigDataLoader.CHANGE_ZOOM_MULTIPLIER, 10), 1));
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
         }
@@ -128,9 +130,9 @@ public class PerspectiveConfigHelper {
     public static void setConfig(String ID, Object VALUE) {
         try {
             switch (ID) {
-                case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = (int)VALUE;
+                case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, 0), 100);
                 case "hide_hud" -> PerspectiveConfig.HIDE_HUD = (boolean)VALUE;
-                case "super_secret_settings" -> PerspectiveConfig.SUPER_SECRET_SETTINGS = (int)VALUE;
+                case "super_secret_settings" -> PerspectiveConfig.SUPER_SECRET_SETTINGS = Math.max(Math.min((int)VALUE, PerspectiveShaderDataLoader.getShaderAmount()), 0);
                 case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (boolean)VALUE;
                 case "super_secret_settings_enabled" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
                 case "super_secret_settings_sound" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND = (boolean)VALUE;
@@ -141,14 +143,15 @@ public class PerspectiveConfigHelper {
                 case "force_april_fools" -> PerspectiveConfig.FORCE_APRIL_FOOLS = (boolean)VALUE;
                 case "force_pride" -> PerspectiveConfig.FORCE_PRIDE = (boolean)VALUE;
                 case "force_pride_type" -> PerspectiveConfig.FORCE_PRIDE_TYPE = (boolean)VALUE;
-                case "force_pride_type_index" -> PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX = (int)VALUE;
+                case "force_pride_type_index" -> PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX = Math.max(Math.min((int)VALUE, 0), PerspectiveClientData.PRIDE_LOGOS.length - 1);
                 case "version_overlay" -> PerspectiveConfig.VERSION_OVERLAY = (boolean)VALUE;
                 case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
                 case "hide_armor" -> PerspectiveExperimentalConfig.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> PerspectiveExperimentalConfig.HIDE_NAMETAGS = (boolean)VALUE;
                 case "smooth_zoom" -> PerspectiveExperimentalConfig.SMOOTH_ZOOM = (boolean)VALUE;
-                case "smooth_zoom_scale" -> PerspectiveExperimentalConfig.SMOOTH_ZOOM_SCALE = (int)VALUE;
+                case "smooth_zoom_scale" -> PerspectiveExperimentalConfig.SMOOTH_ZOOM_SCALE = Math.max(Math.min((int)VALUE, 10), 1);
+                case "change_zoom_multiplier" -> PerspectiveExperimentalConfig.CHANGE_ZOOM_MULTIPLIER = Math.max(Math.min((int)VALUE, 10), 1);
             }
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set {} config value: {}", ID, error);
@@ -156,9 +159,9 @@ public class PerspectiveConfigHelper {
     }
     public static Object getConfig(String ID) {
         switch (ID) {
-            case "zoom_level" -> {return PerspectiveConfig.ZOOM_LEVEL;}
+            case "zoom_level" -> {return Math.min(Math.max(PerspectiveConfig.ZOOM_LEVEL, 0), 100);}
             case "hide_hud" -> {return PerspectiveConfig.HIDE_HUD;}
-            case "super_secret_settings" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS;}
+            case "super_secret_settings" -> {return Math.max(Math.min(PerspectiveConfig.SUPER_SECRET_SETTINGS, PerspectiveShaderDataLoader.getShaderAmount()), 0);}
             case "super_secret_settings_mode" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}
             case "super_secret_settings_enabled" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}
             case "super_secret_settings_sound" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND;}
@@ -169,14 +172,15 @@ public class PerspectiveConfigHelper {
             case "force_april_fools" -> {return PerspectiveConfig.FORCE_APRIL_FOOLS;}
             case "force_pride" -> {return PerspectiveConfig.FORCE_PRIDE;}
             case "force_pride_type" -> {return PerspectiveConfig.FORCE_PRIDE_TYPE;}
-            case "force_pride_type_index" -> {return PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX;}
+            case "force_pride_type_index" -> {return Math.max(Math.min(PerspectiveConfig.FORCE_PRIDE_TYPE_INDEX, 0), PerspectiveClientData.PRIDE_LOGOS.length - 1);}
             case "version_overlay" -> {return PerspectiveConfig.VERSION_OVERLAY;}
             case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             case "hide_armor" -> {return PerspectiveExperimentalConfig.HIDE_ARMOR;}
             case "hide_nametags" -> {return PerspectiveExperimentalConfig.HIDE_NAMETAGS;}
             case "smooth_zoom" -> {return PerspectiveExperimentalConfig.SMOOTH_ZOOM;}
-            case "smooth_zoom_scale" -> {return PerspectiveExperimentalConfig.SMOOTH_ZOOM_SCALE;}
+            case "smooth_zoom_scale" -> {return Math.max(Math.min(PerspectiveExperimentalConfig.SMOOTH_ZOOM_SCALE, 10), 1);}
+            case "change_zoom_multiplier" -> {return Math.max(Math.min(PerspectiveExperimentalConfig.CHANGE_ZOOM_MULTIPLIER, 10), 1);}
             default -> {
                 PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get {} config value: Invalid Key", ID);
                 return new Object();

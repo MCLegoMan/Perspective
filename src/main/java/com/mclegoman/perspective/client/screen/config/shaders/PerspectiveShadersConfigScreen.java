@@ -15,6 +15,7 @@ import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
+import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -131,7 +132,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
     }
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE) this.SHOULD_CLOSE = true;
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
         if (keyCode == KeyBindingHelper.getBoundKeyOf(PerspectiveClientData.CLIENT.options.sneakKey).getCode()) this.CYCLE_DIRECTION = false;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }

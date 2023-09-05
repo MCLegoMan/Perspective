@@ -62,6 +62,8 @@
     "gui.perspective.config.experimental.smooth_zoom.hover": "Toggles smoothness of toggling zoom. (Note: The speed of this feature is tied to your fps.)",
     "gui.perspective.config.experimental.smooth_zoom.scale": "Smooth Zoom Scale: %s",
     "gui.perspective.config.experimental.smooth_zoom.scale.hover": "Sets how fast smooth zoom is. (Note: The speed of this feature is tied to your fps.)",
+    "gui.perspective.config.experimental.change_zoom_multiplier": "Zoom Multiplier: %s",
+    "gui.perspective.config.experimental.change_zoom_multiplier.hover": "Sets how fast you change the zoom level.",
     "gui.perspective.config.experimental.none": "There are no experiments currently available.",
     "gui.perspective.config.reset": "Reset to Default",
     "gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",

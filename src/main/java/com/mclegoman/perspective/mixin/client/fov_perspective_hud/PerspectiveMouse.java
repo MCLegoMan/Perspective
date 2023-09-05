@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.fov_perspective_hud;
 
+import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import net.fabricmc.api.EnvType;
@@ -24,8 +25,8 @@ public abstract class PerspectiveMouse {
     private void perspective$onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (PerspectiveZoom.isZooming()) {
             double scroll = (PerspectiveClientData.CLIENT.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * PerspectiveClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
-            if (scroll > 0) PerspectiveZoom.zoom(true);
-            else if (scroll < 0) PerspectiveZoom.zoom(false);
+            if (scroll > 0) PerspectiveZoom.zoom(true, (int)PerspectiveConfigHelper.getConfig("change_zoom_multiplier"));
+            else if (scroll < 0) PerspectiveZoom.zoom(false, (int)PerspectiveConfigHelper.getConfig("change_zoom_multiplier"));
             ci.cancel();
         }
     }
