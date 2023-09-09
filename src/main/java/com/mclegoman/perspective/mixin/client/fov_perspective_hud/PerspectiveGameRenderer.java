@@ -15,6 +15,7 @@ import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.hud.InGameOverlayRenderer;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -99,41 +100,20 @@ public abstract class PerspectiveGameRenderer {
             PerspectiveData.LOGGER.error(e.getLocalizedMessage());
         }
     }
-    @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
     private void perspective$getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
         try {
-            if (this.renderingPanorama) {
-                cir.setReturnValue(90.0);
-            } else {
-                double d = 70.0;
-                if (changingFov) {
-                    d = (double) PerspectiveClientData.CLIENT.options.getFov().getValue();
-                    d *= MathHelper.lerp(tickDelta, this.lastFovMultiplier, this.fovMultiplier);
-                }
-
-                if (camera.getFocusedEntity() instanceof LivingEntity && ((LivingEntity)camera.getFocusedEntity()).isDead()) {
-                    float f = Math.min((float)((LivingEntity)camera.getFocusedEntity()).deathTime + tickDelta, 20.0F);
-                    d /= (1.0F - 500.0F / (f + 500.0F)) * 2.0F + 1.0F;
-                }
-
-                CameraSubmersionType cameraSubmersionType = camera.getSubmersionType();
-                if (cameraSubmersionType == CameraSubmersionType.LAVA || cameraSubmersionType == CameraSubmersionType.WATER) {
-                    d *= MathHelper.lerp(PerspectiveClientData.CLIENT.options.getFovEffectScale().getValue(), 1.0, 0.8571428656578064);
-                }
-
-                if (PerspectiveClientData.CLIENT.player != null) {
-                    if (!PerspectiveClientData.CLIENT.player.isUsingSpyglass()) {
-                        if (PerspectiveZoom.isZooming()) {
-                            d = PerspectiveZoom.getZoom(true, (boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), d);
-                        }
-                        if (!PerspectiveZoom.isZooming() && PerspectiveZoom.CURRENT_FOV != d) {
-                            d = PerspectiveZoom.getZoom(false, (boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), d);
-                        }
-                    } else {
-                        PerspectiveZoom.stopZoom(d);
+            if (PerspectiveClientData.CLIENT.player != null) {
+                if (!(PerspectiveClientData.CLIENT.player.isUsingSpyglass() && PerspectiveClientData.CLIENT.options.getPerspective() == Perspective.FIRST_PERSON)) {
+                    if (PerspectiveZoom.isZooming()) {
+                        cir.setReturnValue(PerspectiveZoom.getZoom(true, (boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), cir.getReturnValue()));
                     }
+                    if (!PerspectiveZoom.isZooming() && PerspectiveZoom.CURRENT_FOV != cir.getReturnValue()) {
+                        cir.setReturnValue(PerspectiveZoom.getZoom(false, (boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), cir.getReturnValue()));
+                    }
+                } else {
+                    PerspectiveZoom.stopZoom(cir.getReturnValue());
                 }
-                cir.setReturnValue(d);
             }
         } catch (Exception e) {
             PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to GameRenderer$getFov.");

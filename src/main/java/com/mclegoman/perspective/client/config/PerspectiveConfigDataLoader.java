@@ -56,8 +56,8 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
             for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
                 ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level", 80);
                 CHANGE_ZOOM_MULTIPLIER = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "change_zoom_multiplier", 1);
-                SMOOTH_ZOOM = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "smooth_zoom", false);
-                HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_hud", true);
+                SMOOTH_ZOOM = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "smooth_zoom", true);
+                HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_hud", false);
                 SUPER_SECRET_SETTINGS = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "super_secret_settings", 0);
                 SUPER_SECRET_SETTINGS_MODE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_mode", false);
                 SUPER_SECRET_SETTINGS_ENABLED = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_enabled", false);

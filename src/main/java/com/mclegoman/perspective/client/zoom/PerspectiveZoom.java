@@ -16,6 +16,7 @@ import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
@@ -49,7 +50,7 @@ public class PerspectiveZoom {
     public static boolean SET_ZOOM;
     public static boolean isZooming() {
         try {
-            if (PerspectiveClientData.CLIENT.player != null) return (PerspectiveKeybindings.HOLD_ZOOM.isPressed() || SET_ZOOM) && !PerspectiveClientData.CLIENT.player.isUsingSpyglass();
+            if (PerspectiveClientData.CLIENT.player != null) return (PerspectiveKeybindings.HOLD_ZOOM.isPressed() || SET_ZOOM) && !(PerspectiveClientData.CLIENT.player.isUsingSpyglass() && PerspectiveClientData.CLIENT.options.getPerspective() == Perspective.FIRST_PERSON);
         } catch (Exception ignored) {
         }
         return false;
