@@ -18,29 +18,34 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
-    public static double smoothZoom = PerspectiveClientData.CLIENT.options.getFov().getValue();
-    public static double zoomFOV(MinecraftClient client) {
-        return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100), Math.min(client.options.getFov().getValue(), (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * client.options.getFov().getValue() / 100));
+    public static double zoomFOV(double fov) {
+        return Math.max(Math.max(1, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * fov / 100), Math.min(fov, (100 - (int)PerspectiveConfigHelper.getConfig("zoom_level")) * fov / 100));
     }
-    public static double getZoomFOV(MinecraftClient client, boolean direction, boolean smooth_zoom) {
-        if (smooth_zoom) {
-            if (direction) {
-                return Math.max(smoothZoom, zoomFOV(client));
+    public static double CURRENT_FOV = PerspectiveClientData.CLIENT.options.getFov().getValue();
+    public static double getZoom(boolean in, boolean smooth, double fov) {
+        if (in) {
+            if (smooth) {
+                CURRENT_FOV = MathHelper.lerp(PerspectiveClientData.CLIENT.getLastFrameDuration() / 2, CURRENT_FOV, PerspectiveZoom.zoomFOV(fov));
+            } else {
+                CURRENT_FOV = zoomFOV(fov);
             }
-            else {
-                return Math.min(smoothZoom, PerspectiveClientData.CLIENT.options.getFov().getValue());
+        } else {
+            if (smooth) {
+                CURRENT_FOV = MathHelper.lerp(PerspectiveClientData.CLIENT.getLastFrameDuration() / 2, CURRENT_FOV, fov);
+            } else {
+                CURRENT_FOV = PerspectiveClientData.CLIENT.options.getFov().getValue();
             }
-        } else return zoomFOV(client);
-    }
-    public static void setSmoothZoom(MinecraftClient client, int amount, boolean direction) {
-        for (int i = 0; i < amount; i++) {
-            if (direction) smoothZoom = Math.max(smoothZoom - 1, zoomFOV(client));
-            else smoothZoom = Math.min(smoothZoom + 1, PerspectiveClientData.CLIENT.options.getFov().getValue());
         }
+        return CURRENT_FOV;
     }
+    public static void stopZoom(double fov) {
+        CURRENT_FOV = fov;
+    }
+
     public static boolean SET_ZOOM;
     public static boolean isZooming() {
         try {

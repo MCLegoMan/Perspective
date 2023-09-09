@@ -95,18 +95,7 @@ public class PerspectiveZoomConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("zoom.smooth_zoom", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("smooth_zoom", !(boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"));
             this.REFRESH = true;
-        }).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("zoom.smooth_zoom", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), PerspectiveTranslationType.ONFF)}, true)));
-        double SMOOTH_ZOOM_SCALE_VALUE = (double) ((int)PerspectiveConfigHelper.getConfig("smooth_zoom_scale") - 1) / 9;
-        GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, PerspectiveTranslation.getConfigTranslation("zoom.smooth_zoom.scale", new Object[]{Text.literal(String.valueOf((int)PerspectiveConfigHelper.getConfig("smooth_zoom_scale")))}, false), SMOOTH_ZOOM_SCALE_VALUE) {
-            @Override
-            protected void updateMessage() {
-                setMessage(PerspectiveTranslation.getConfigTranslation("zoom.smooth_zoom.scale", new Object[]{Text.literal(String.valueOf((int) PerspectiveConfigHelper.getConfig("smooth_zoom_scale")))}, false));
-            }
-            @Override
-            protected void applyValue() {
-                PerspectiveConfigHelper.setConfig("smooth_zoom_scale", (int) ((value) * 9) + 1);
-            }
-        }).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("zoom.smooth_zoom.scale", true)));
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("zoom.smooth_zoom", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), PerspectiveTranslationType.ONFF)}, true)));
         return GRID;
     }
     private GridWidget createFooter() {
