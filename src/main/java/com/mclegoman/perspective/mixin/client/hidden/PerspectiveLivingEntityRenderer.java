@@ -5,7 +5,7 @@
     License: CC-BY 4.0
 */
 
-package com.mclegoman.perspective.mixin.client.experimental;
+package com.mclegoman.perspective.mixin.client.hidden;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;

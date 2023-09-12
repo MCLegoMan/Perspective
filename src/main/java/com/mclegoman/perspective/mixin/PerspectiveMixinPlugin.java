@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.mixin;
 
+import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -18,7 +19,7 @@ import java.util.Set;
 public class PerspectiveMixinPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
-
+        MixinExtrasBootstrap.init();
     }
 
     @Override

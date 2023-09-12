@@ -34,6 +34,15 @@ public class PerspectiveConfigHelper {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config: {}", (Object)error);
         }
     }
+    protected static void loadConfig() {
+        try {
+            PerspectiveConfig.init();
+            PerspectiveExperimentalConfig.init();
+            PerspectiveConfigHelper.updateConfig();
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load configs: {}", (Object)error);
+        }
+    }
     public static void tick(MinecraftClient client) {
         try {
             if (DEV_WARN) {
@@ -63,15 +72,24 @@ public class PerspectiveConfigHelper {
     }
     protected static void updateConfig() {
         try {
-            if ((int)getConfig("config_version") != DEFAULT_CONFIG_VERSION) {
-                if ((int)getConfig("config_version") < DEFAULT_CONFIG_VERSION) {
+            if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
+                if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < DEFAULT_CONFIG_VERSION) {
                     PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Attempting to update config to the latest version.");
-                    if ((int)getConfig("config_version") < 3) {
+                    if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 3) {
                         setConfig("zoom_level", 100 - (int)getConfig("zoom_level"));
+                    }
+                    if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 7) {
+                        String SUPER_SECRET_SETTINGS_MODE = PerspectiveConfig.CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+                        if (SUPER_SECRET_SETTINGS_MODE.equals("false")) setConfig("super_secret_settings_mode", "game");
+                        else if (SUPER_SECRET_SETTINGS_MODE.equals("true")) setConfig("super_secret_settings_mode", "screen");
+                        else setConfig("super_secret_settings_mode", "game");
+                        Boolean HIDE_HUD = PerspectiveConfig.CONFIG.getOrDefault("hide_hud", true);
+                        setConfig("zoom_hide_hud", HIDE_HUD);
+                        setConfig("hold_perspective_hide_hud", HIDE_HUD);
                     }
                     setConfig("config_version", DEFAULT_CONFIG_VERSION);
                     PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Successfully updated config to the latest version.");
-                } else if ((int)getConfig("config_version") > DEFAULT_CONFIG_VERSION) {
+                } else if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) > DEFAULT_CONFIG_VERSION) {
                     PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Downgrading Perspective is not supported. You may experience some unexpected bugs and/or issues.");
                     DG_WARN = true;
                 }
@@ -103,9 +121,11 @@ public class PerspectiveConfigHelper {
     public static void resetConfig() {
         try {
             setConfig("zoom_level", Math.min(Math.max(PerspectiveConfigDataLoader.ZOOM_LEVEL, 0), 100));
-            setConfig("change_zoom_multiplier", Math.max(Math.min(PerspectiveConfigDataLoader.CHANGE_ZOOM_MULTIPLIER, 10), 1));
-            setConfig("smooth_zoom", PerspectiveConfigDataLoader.SMOOTH_ZOOM);
-            setConfig("hide_hud", PerspectiveConfigDataLoader.HIDE_HUD);
+            setConfig("zoom_increment_size", Math.max(Math.min(PerspectiveConfigDataLoader.ZOOM_INCREMENT_SIZE, 10), 1));
+            setConfig("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
+            setConfig("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE);
+            setConfig("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD);
+            setConfig("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
             setConfig("super_secret_settings", Math.max(Math.min(PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS, PerspectiveShaderDataLoader.getShaderAmount()), 0));
             setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
             setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
@@ -131,11 +151,13 @@ public class PerspectiveConfigHelper {
         try {
             switch (ID) {
                 case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, 0), 100);
-                case "change_zoom_multiplier" -> PerspectiveConfig.CHANGE_ZOOM_MULTIPLIER = Math.max(Math.min((int)VALUE, 10), 1);
-                case "smooth_zoom" -> PerspectiveConfig.SMOOTH_ZOOM = (boolean)VALUE;
-                case "hide_hud" -> PerspectiveConfig.HIDE_HUD = (boolean)VALUE;
+                case "zoom_increment_size" -> PerspectiveConfig.ZOOM_INCREMENT_SIZE = Math.max(Math.min((int)VALUE, 10), 1);
+                case "zoom_mode" -> PerspectiveConfig.ZOOM_MODE = (String)VALUE;
+                case "zoom_smooth_scale" -> PerspectiveConfig.ZOOM_SMOOTH_SCALE = Math.max((float)VALUE, 0.0F);
+                case "zoom_hide_hud" -> PerspectiveConfig.ZOOM_HIDE_HUD = (boolean)VALUE;
+                case "hold_perspective_hide_hud" -> PerspectiveConfig.HOLD_PERSPECTIVE_HIDE_HUD = (boolean)VALUE;
                 case "super_secret_settings" -> PerspectiveConfig.SUPER_SECRET_SETTINGS = Math.max(Math.min((int)VALUE, PerspectiveShaderDataLoader.getShaderAmount()), 0);
-                case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (boolean)VALUE;
+                case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (String)VALUE;
                 case "super_secret_settings_enabled" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
                 case "super_secret_settings_sound" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND = (boolean)VALUE;
                 case "super_secret_settings_options_screen" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean)VALUE;
@@ -159,9 +181,11 @@ public class PerspectiveConfigHelper {
     public static Object getConfig(String ID) {
         switch (ID) {
             case "zoom_level" -> {return Math.min(Math.max(PerspectiveConfig.ZOOM_LEVEL, 0), 100);}
-            case "change_zoom_multiplier" -> {return Math.max(Math.min(PerspectiveConfig.CHANGE_ZOOM_MULTIPLIER, 10), 1);}
-            case "smooth_zoom" -> {return PerspectiveConfig.SMOOTH_ZOOM;}
-            case "hide_hud" -> {return PerspectiveConfig.HIDE_HUD;}
+            case "zoom_increment_size" -> {return Math.max(Math.min(PerspectiveConfig.ZOOM_INCREMENT_SIZE, 10), 1);}
+            case "zoom_mode" -> {return PerspectiveConfig.ZOOM_MODE;}
+            case "zoom_smooth_scale" -> {return Math.max(PerspectiveConfig.ZOOM_SMOOTH_SCALE, 0.0F);}
+            case "zoom_hide_hud" -> {return PerspectiveConfig.ZOOM_HIDE_HUD;}
+            case "hold_perspective_hide_hud" -> {return PerspectiveConfig.HOLD_PERSPECTIVE_HIDE_HUD;}
             case "super_secret_settings" -> {return Math.max(Math.min(PerspectiveConfig.SUPER_SECRET_SETTINGS, PerspectiveShaderDataLoader.getShaderAmount()), 0);}
             case "super_secret_settings_mode" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}
             case "super_secret_settings_enabled" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}

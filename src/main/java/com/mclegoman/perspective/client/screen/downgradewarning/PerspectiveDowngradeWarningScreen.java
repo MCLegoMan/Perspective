@@ -9,12 +9,11 @@ package com.mclegoman.perspective.client.screen.downgradewarning;
 
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
+import com.mclegoman.perspective.client.util.PerspectiveLogoWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.IconWidget;
 import net.minecraft.client.gui.widget.MultilineTextWidget;
 import net.minecraft.client.gui.widget.SimplePositioningWidget;
 import net.minecraft.text.Text;
@@ -60,7 +59,7 @@ public class PerspectiveDowngradeWarningScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new IconWidget(256, 48, PerspectiveClientData.getLogo()));
+        GRID_ADDER.add(new PerspectiveLogoWidget());
         return GRID;
     }
     private GridWidget createWarning() {
@@ -81,9 +80,5 @@ public class PerspectiveDowngradeWarningScreen extends Screen {
     }
     protected void initTabNavigation() {
         SimplePositioningWidget.setPos(GRID, this.getNavigationFocus());
-    }
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
-        super.render(context, mouseX, mouseY, delta);
     }
 }
