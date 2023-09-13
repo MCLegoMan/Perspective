@@ -21,6 +21,7 @@ import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
+	public static double fov;
 	private static boolean zoomUpdated;
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
@@ -32,9 +33,6 @@ public class PerspectiveZoom {
 
 	public static float getZoomMultiplier() {
 		return isZooming() ? 1 - ((float) getZoomLevel() / 100) : 1;
-	}
-	public static double zoomFov(double fov) {
-		return ((100 - getZoomLevel()) * fov / 100);
 	}
 	public static double limitFov(double fov) {
 		return Math.max(Math.max(0.1, fov), Math.min(fov, 110));
@@ -50,6 +48,7 @@ public class PerspectiveZoom {
 	}
 	public static void tick(MinecraftClient client) {
 		try {
+			updateZoomMultiplier();
 			if (PerspectiveKeybindings.TOGGLE_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
 			if (!isZooming() && zoomUpdated) {
 				PerspectiveConfigHelper.saveConfig(true);
