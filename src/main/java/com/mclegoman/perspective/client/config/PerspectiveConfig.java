@@ -21,7 +21,6 @@ public class PerspectiveConfig {
     protected static int ZOOM_LEVEL;
     protected static int ZOOM_INCREMENT_SIZE;
     protected static String ZOOM_MODE;
-    protected static float ZOOM_SMOOTH_SCALE;
     protected static boolean ZOOM_HIDE_HUD;
     protected static boolean ZOOM_OVERLAY_MESSAGE;
     protected static boolean HOLD_PERSPECTIVE_HIDE_HUD;
@@ -57,7 +56,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL));
         CONFIG_PROVIDER.add(new Pair<>("zoom_increment_size", PerspectiveConfigDataLoader.ZOOM_INCREMENT_SIZE));
         CONFIG_PROVIDER.add(new Pair<>("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE));
-        CONFIG_PROVIDER.add(new Pair<>("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE));
         CONFIG_PROVIDER.add(new Pair<>("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD));
         CONFIG_PROVIDER.add(new Pair<>("zoom_overlay_message", PerspectiveConfigDataLoader.ZOOM_OVERLAY_MESSAGE));
         CONFIG_PROVIDER.add(new Pair<>("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
@@ -84,7 +82,6 @@ public class PerspectiveConfig {
         ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
         ZOOM_INCREMENT_SIZE = CONFIG.getOrDefault("zoom_increment_size", PerspectiveConfigDataLoader.ZOOM_INCREMENT_SIZE);
         ZOOM_MODE = CONFIG.getOrDefault("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
-        ZOOM_SMOOTH_SCALE = (float)CONFIG.getOrDefault("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE);
         ZOOM_HIDE_HUD = CONFIG.getOrDefault("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD);
         ZOOM_OVERLAY_MESSAGE = CONFIG.getOrDefault("zoom_overlay_message", PerspectiveConfigDataLoader.ZOOM_OVERLAY_MESSAGE);
         HOLD_PERSPECTIVE_HIDE_HUD = CONFIG.getOrDefault("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
@@ -111,7 +108,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
         CONFIG_PROVIDER.setConfig("zoom_increment_size", ZOOM_INCREMENT_SIZE);
         CONFIG_PROVIDER.setConfig("zoom_mode", ZOOM_MODE);
-        CONFIG_PROVIDER.setConfig("zoom_smooth_scale", ZOOM_SMOOTH_SCALE);
         CONFIG_PROVIDER.setConfig("zoom_hide_hud", ZOOM_HIDE_HUD);
         CONFIG_PROVIDER.setConfig("zoom_overlay_message", ZOOM_OVERLAY_MESSAGE);
         CONFIG_PROVIDER.setConfig("hold_perspective_hide_hud", HOLD_PERSPECTIVE_HIDE_HUD);

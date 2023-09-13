@@ -123,7 +123,6 @@ public class PerspectiveConfigHelper {
             setConfig("zoom_level", Math.min(Math.max(PerspectiveConfigDataLoader.ZOOM_LEVEL, -50), 100));
             setConfig("zoom_increment_size", Math.max(Math.min(PerspectiveConfigDataLoader.ZOOM_INCREMENT_SIZE, 10), 1));
             setConfig("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
-            setConfig("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE);
             setConfig("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD);
             setConfig("zoom_overlay_message", PerspectiveConfigDataLoader.ZOOM_OVERLAY_MESSAGE);
             setConfig("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
@@ -155,7 +154,6 @@ public class PerspectiveConfigHelper {
                 case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, -50), 100);
                 case "zoom_increment_size" -> PerspectiveConfig.ZOOM_INCREMENT_SIZE = Math.max(Math.min((int)VALUE, 10), 1);
                 case "zoom_mode" -> PerspectiveConfig.ZOOM_MODE = (String)VALUE;
-                case "zoom_smooth_scale" -> PerspectiveConfig.ZOOM_SMOOTH_SCALE = Math.max((float)VALUE, 0.0F);
                 case "zoom_hide_hud" -> PerspectiveConfig.ZOOM_HIDE_HUD = (boolean)VALUE;
                 case "zoom_overlay_message" -> PerspectiveConfig.ZOOM_OVERLAY_MESSAGE = (boolean)VALUE;
                 case "hold_perspective_hide_hud" -> PerspectiveConfig.HOLD_PERSPECTIVE_HIDE_HUD = (boolean)VALUE;
@@ -187,7 +185,6 @@ public class PerspectiveConfigHelper {
             case "zoom_level" -> {return Math.min(Math.max(PerspectiveConfig.ZOOM_LEVEL, -50), 100);}
             case "zoom_increment_size" -> {return Math.max(Math.min(PerspectiveConfig.ZOOM_INCREMENT_SIZE, 10), 1);}
             case "zoom_mode" -> {return PerspectiveConfig.ZOOM_MODE;}
-            case "zoom_smooth_scale" -> {return Math.max(PerspectiveConfig.ZOOM_SMOOTH_SCALE, 0.0F);}
             case "zoom_hide_hud" -> {return PerspectiveConfig.ZOOM_HIDE_HUD;}
             case "zoom_overlay_message" -> {return PerspectiveConfig.ZOOM_OVERLAY_MESSAGE;}
             case "hold_perspective_hide_hud" -> {return PerspectiveConfig.HOLD_PERSPECTIVE_HIDE_HUD;}

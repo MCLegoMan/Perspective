@@ -28,7 +28,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static int ZOOM_LEVEL;
     public static int ZOOM_INCREMENT_SIZE;
     public static String ZOOM_MODE;
-    public static float ZOOM_SMOOTH_SCALE;
     public static boolean ZOOM_HIDE_HUD;
     public static boolean ZOOM_OVERLAY_MESSAGE;
     public static boolean HOLD_PERSPECTIVE_HIDE_HUD;
@@ -61,7 +60,6 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level", 80);
                 ZOOM_INCREMENT_SIZE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_increment_size", 1);
                 ZOOM_MODE = JsonHelper.getString(JsonHelper.deserialize(resource.getReader()), "zoom_mode", "smooth");
-                ZOOM_SMOOTH_SCALE = JsonHelper.getFloat(JsonHelper.deserialize(resource.getReader()), "zoom_smooth_scale", 2.5F);
                 ZOOM_HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "zoom_hide_hud", false);
                 ZOOM_OVERLAY_MESSAGE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "zoom_overlay_message", false);
                 HOLD_PERSPECTIVE_HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hold_perspective_hide_hud", true);
