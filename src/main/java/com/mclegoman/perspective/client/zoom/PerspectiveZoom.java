@@ -59,25 +59,28 @@ public class PerspectiveZoom {
 	}
 	public static void zoom(boolean in, int amount) {
 		try {
+			int returnValue = getZoomLevel();
 			for (int i = 0; i < amount; i++){
 				if (in) {
-					if (getZoomLevel() >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);
-					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
+					if (getZoomLevel() >= 100) returnValue = 100;
+					else returnValue = getZoomLevel() + 1;
 				}
 				else {
-					if (getZoomLevel() <= -50) PerspectiveConfigHelper.setConfig("zoom_level", -50);
-					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
+					if (getZoomLevel() <= -50) returnValue = -50;
+					else returnValue = getZoomLevel() - 1;
 				}
 			}
-			setOverlay();
-			PerspectiveConfigHelper.saveConfig(true);
+			if (getZoomLevel() != returnValue) {
+				setOverlay();
+				PerspectiveConfigHelper.saveConfig(true);
+			}
 		} catch (Exception error) {
 			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set zoom level: {}", (Object)error);
 		}
 	}
 	public static void reset(MinecraftClient client) {
 		try {
-			if ((int)PerspectiveConfigHelper.getConfig("zoom_level") != PerspectiveConfigDataLoader.ZOOM_LEVEL) {
+			if (getZoomLevel() != PerspectiveConfigDataLoader.ZOOM_LEVEL) {
 				PerspectiveConfigHelper.setConfig("zoom_level", PerspectiveConfigDataLoader.ZOOM_LEVEL);
 				setOverlay();
 				PerspectiveConfigHelper.saveConfig(true);
