@@ -49,9 +49,7 @@ public class PerspectiveConfigScreen extends Screen {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
             GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveConfigScreen(PARENT_SCREEN, true), false, ""));
-            GRID_ADDER.add(createZoom());
-            GRID_ADDER.add(createSuperSecretSettingsAndTexturedEntity());
-            GRID_ADDER.add(createAprilFoolsAndMoreOptions());
+            GRID_ADDER.add(createConfig());
             GRID_ADDER.add(createInformationAndExperiments());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
@@ -76,26 +74,14 @@ public class PerspectiveConfigScreen extends Screen {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config screen: {}", (Object)error);
         }
     }
-    private GridWidget createZoom() {
+    private GridWidget createConfig() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("zoom"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveZoomConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hold_perspective"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveHoldPerspectiveConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
-        return GRID;
-    }
-    private GridWidget createSuperSecretSettingsAndTexturedEntity() {
-        GridWidget GRID = new GridWidget();
-        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false, false))).build());
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hold_perspective"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveHoldPerspectiveConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build());
-        return GRID;
-    }
-    private GridWidget createAprilFoolsAndMoreOptions() {
-        GridWidget GRID = new GridWidget();
-        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-        GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
         return GRID;
