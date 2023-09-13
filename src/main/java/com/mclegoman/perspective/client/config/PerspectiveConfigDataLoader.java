@@ -62,7 +62,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 ZOOM_MODE = JsonHelper.getString(JsonHelper.deserialize(resource.getReader()), "zoom_mode", "smooth");
                 ZOOM_SMOOTH_SCALE = JsonHelper.getFloat(JsonHelper.deserialize(resource.getReader()), "zoom_smooth_scale", 2.5F);
                 ZOOM_HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "zoom_hide_hud", false);
-                ZOOM_OVERLAY_MESSAGE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "zoom_overlay_message", true);
+                ZOOM_OVERLAY_MESSAGE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "zoom_overlay_message", false);
                 HOLD_PERSPECTIVE_HIDE_HUD = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hold_perspective_hide_hud", true);
                 SUPER_SECRET_SETTINGS = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "super_secret_settings", 0);
                 SUPER_SECRET_SETTINGS_MODE = PerspectiveJsonHelper.getShaderMode(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_mode", "game");
