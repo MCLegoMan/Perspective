@@ -69,8 +69,10 @@ public class PerspectiveZoom {
 					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
 				}
 			}
-			setOverlay();
-			PerspectiveConfigHelper.saveConfig(true);
+			if ((int)PerspectiveConfigHelper.getConfig("zoom_level") != PerspectiveConfigDataLoader.ZOOM_LEVEL) {
+				setOverlay();
+				PerspectiveConfigHelper.saveConfig(true);
+			}
 		} catch (Exception error) {
 			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set zoom level: {}", (Object)error);
 		}
