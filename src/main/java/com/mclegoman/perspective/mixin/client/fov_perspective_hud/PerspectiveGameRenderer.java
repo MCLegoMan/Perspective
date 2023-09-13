@@ -48,7 +48,7 @@ public abstract class PerspectiveGameRenderer {
         if (!this.isRenderingPanorama()) {
             if (PerspectiveZoom.isZooming()) {
                 if (PerspectiveConfigHelper.getConfig("zoom_mode").equals("instant")) {
-                    newFOV *= PerspectiveZoom.zoomMultiplier;
+                    newFOV *= PerspectiveZoom.getZoomMultiplier();
                 }
             }
             if (PerspectiveConfigHelper.getConfig("zoom_mode").equals("smooth")) {
