@@ -13,6 +13,7 @@ import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.widget.PerspectiveLogoWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -105,6 +106,9 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         GRID_ADDER.add(this.checkbox, 2);
         return GRID;
     }
+    protected void initTabNavigation() {
+        SimplePositioningWidget.setPos(GRID, this.getNavigationFocus());
+    }
     public boolean shouldCloseOnEsc() {
         return false;
     }
@@ -113,7 +117,8 @@ public class PerspectiveDevelopmentWarningScreen extends Screen {
         this.SHOULD_CLOSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
-    protected void initTabNavigation() {
-        SimplePositioningWidget.setPos(GRID, this.getNavigationFocus());
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        super.render(context, mouseX, mouseY, delta);
     }
 }

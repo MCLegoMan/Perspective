@@ -12,6 +12,7 @@ import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.widget.PerspectiveLogoWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.MultilineTextWidget;
@@ -70,6 +71,9 @@ public class PerspectiveDowngradeWarningScreen extends Screen {
         GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getTranslation("warning.timer", new Object[]{ticksToSeconds(TIMER_TICKS) + 1, PerspectiveTranslation.getPlural(ticksToSeconds(TIMER_TICKS) + 1, "time.seconds")}, new Formatting[]{Formatting.GOLD}), textRenderer));
         return GRID;
     }
+    protected void initTabNavigation() {
+        SimplePositioningWidget.setPos(GRID, this.getNavigationFocus());
+    }
     public boolean shouldCloseOnEsc() {
         return false;
     }
@@ -78,7 +82,8 @@ public class PerspectiveDowngradeWarningScreen extends Screen {
         this.SHOULD_CLOSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
-    protected void initTabNavigation() {
-        SimplePositioningWidget.setPos(GRID, this.getNavigationFocus());
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        super.render(context, mouseX, mouseY, delta);
     }
 }

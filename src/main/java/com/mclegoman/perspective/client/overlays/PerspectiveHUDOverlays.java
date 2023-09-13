@@ -22,7 +22,7 @@ public class PerspectiveHUDOverlays {
     public static void init() {
         HudRenderCallback.EVENT.register((context, tickDelta) -> {
             if (!PerspectiveHideHUD.shouldHideHUD()) {
-                if (!PerspectiveClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
+                if (!PerspectiveClientData.CLIENT.options.debugEnabled) {
                     if ((boolean)PerspectiveConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(PerspectiveClientData.CLIENT.textRenderer, PerspectiveTranslation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
                 }
             }

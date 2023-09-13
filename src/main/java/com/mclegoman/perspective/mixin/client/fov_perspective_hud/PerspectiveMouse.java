@@ -23,7 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(priority = 10000, value = Mouse.class)
 public abstract class PerspectiveMouse {
-    @Shadow private double eventDeltaVerticalWheel;
+
+    @Shadow private double eventDeltaWheel;
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void perspective$onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
@@ -31,15 +32,15 @@ public abstract class PerspectiveMouse {
             if (PerspectiveClientData.CLIENT.currentScreen == null) {
                 if (PerspectiveZoom.isZooming()) {
                     double d = (PerspectiveClientData.CLIENT.options.getDiscreteMouseScroll().getValue() ? Math.signum(vertical) : vertical) * PerspectiveClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
-                    if (this.eventDeltaVerticalWheel != 0.0 && Math.signum(d) != Math.signum(this.eventDeltaVerticalWheel)) {
-                        this.eventDeltaVerticalWheel = 0.0;
+                    if (this.eventDeltaWheel != 0.0 && Math.signum(d) != Math.signum(this.eventDeltaWheel)) {
+                        this.eventDeltaWheel = 0.0;
                     }
-                    this.eventDeltaVerticalWheel += d;
-                    int i = (int)this.eventDeltaVerticalWheel;
+                    this.eventDeltaWheel += d;
+                    int i = (int)this.eventDeltaWheel;
                     if (i == 0) {
                         return;
                     }
-                    this.eventDeltaVerticalWheel -= i;
+                    this.eventDeltaWheel -= i;
                     PerspectiveZoom.zoom(i > 0, (int)PerspectiveConfigHelper.getConfig("zoom_increment_size"));
                     ci.cancel();
                 }
