@@ -132,6 +132,7 @@ public class PerspectiveConfigHelper {
             setConfig("super_secret_settings_enabled", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
             setConfig("super_secret_settings_sound", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
             setConfig("super_secret_settings_options_screen", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
+            setConfig("super_secret_settings_overlay_message", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE);
             setConfig("named_textured_entity", PerspectiveConfigDataLoader.NAMED_TEXTURED_ENTITY);
             setConfig("random_textured_entity", PerspectiveConfigDataLoader.RANDOM_TEXTURED_ENTITY);
             setConfig("allow_april_fools", PerspectiveConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -163,6 +164,7 @@ public class PerspectiveConfigHelper {
                 case "super_secret_settings_enabled" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
                 case "super_secret_settings_sound" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND = (boolean)VALUE;
                 case "super_secret_settings_options_screen" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean)VALUE;
+                case "super_secret_settings_overlay_message" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE = (boolean)VALUE;
                 case "named_textured_entity" -> PerspectiveConfig.NAMED_TEXTURED_ENTITY = (boolean)VALUE;
                 case "random_textured_entity" -> PerspectiveConfig.RANDOM_TEXTURED_ENTITY = (boolean)VALUE;
                 case "allow_april_fools" -> PerspectiveConfig.ALLOW_APRIL_FOOLS = (boolean)VALUE;
@@ -194,6 +196,7 @@ public class PerspectiveConfigHelper {
             case "super_secret_settings_enabled" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_ENABLED;}
             case "super_secret_settings_sound" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_SOUND;}
             case "super_secret_settings_options_screen" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;}
+            case "super_secret_settings_overlay_message" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE;}
             case "named_textured_entity" -> {return PerspectiveConfig.NAMED_TEXTURED_ENTITY;}
             case "random_textured_entity" -> {return PerspectiveConfig.RANDOM_TEXTURED_ENTITY;}
             case "allow_april_fools" -> {return PerspectiveConfig.ALLOW_APRIL_FOOLS;}

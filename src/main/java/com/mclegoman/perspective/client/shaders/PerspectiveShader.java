@@ -137,7 +137,7 @@ public class PerspectiveShader {
         }
     }
     private static void setOverlay(Text message) {
-        PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_overlay_message")) PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
     }
     public static Formatting getRandomColor() {
         Random random = new Random();

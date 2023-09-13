@@ -102,6 +102,10 @@ public class PerspectiveShadersConfigScreen extends Screen {
             PerspectiveShader.toggle(PerspectiveClientData.CLIENT, true, false);
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.toggle", true)));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.overlay_message", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_overlay_message"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("super_secret_settings_overlay_message", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_overlay_message"));
+            this.REFRESH = true;
+        }).width(304).build(), 2);
         return GRID;
     }
     private GridWidget createFooter() {

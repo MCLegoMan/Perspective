@@ -37,6 +37,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean SUPER_SECRET_SETTINGS_ENABLED;
     public static boolean SUPER_SECRET_SETTINGS_SOUND;
     public static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
+    public static boolean SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE;
     public static boolean NAMED_TEXTURED_ENTITY;
     public static boolean RANDOM_TEXTURED_ENTITY;
     public static boolean ALLOW_APRIL_FOOLS;
@@ -69,6 +70,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 SUPER_SECRET_SETTINGS_ENABLED = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_enabled", false);
                 SUPER_SECRET_SETTINGS_SOUND = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_sound", true);
                 SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_options_screen", false);
+                SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "super_secret_settings_overlay_message", true);
                 NAMED_TEXTURED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "named_textured_entity", true);
                 RANDOM_TEXTURED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "random_textured_entity", false);
                 ALLOW_APRIL_FOOLS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);

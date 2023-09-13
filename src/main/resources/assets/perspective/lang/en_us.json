@@ -31,6 +31,7 @@
 	"gui.perspective.config.shaders.mode.game": "Game",
 	"gui.perspective.config.shaders.toggle": "%s",
 	"gui.perspective.config.shaders.toggle.hover": "Toggle functionality of Perspective's Super Secret Settings.",
+	"gui.perspective.config.shaders.overlay_message": "Overlay Message: %s",
 	"gui.perspective.config.textured_entity": "Textured Entity",
 	"gui.perspective.config.textured_entity.hover": "Open Perspective's Textured Entity config screen.",
 	"gui.perspective.config.textured_entity.named": "Named Entity: %s",
