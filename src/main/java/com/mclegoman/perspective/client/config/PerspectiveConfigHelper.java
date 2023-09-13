@@ -125,6 +125,7 @@ public class PerspectiveConfigHelper {
             setConfig("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
             setConfig("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE);
             setConfig("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD);
+            setConfig("zoom_overlay_message", PerspectiveConfigDataLoader.ZOOM_OVERLAY_MESSAGE);
             setConfig("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
             setConfig("super_secret_settings", Math.max(Math.min(PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS, PerspectiveShaderDataLoader.getShaderAmount()), 0));
             setConfig("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
@@ -155,6 +156,7 @@ public class PerspectiveConfigHelper {
                 case "zoom_mode" -> PerspectiveConfig.ZOOM_MODE = (String)VALUE;
                 case "zoom_smooth_scale" -> PerspectiveConfig.ZOOM_SMOOTH_SCALE = Math.max((float)VALUE, 0.0F);
                 case "zoom_hide_hud" -> PerspectiveConfig.ZOOM_HIDE_HUD = (boolean)VALUE;
+                case "zoom_overlay_message" -> PerspectiveConfig.ZOOM_OVERLAY_MESSAGE = (boolean)VALUE;
                 case "hold_perspective_hide_hud" -> PerspectiveConfig.HOLD_PERSPECTIVE_HIDE_HUD = (boolean)VALUE;
                 case "super_secret_settings" -> PerspectiveConfig.SUPER_SECRET_SETTINGS = Math.max(Math.min((int)VALUE, PerspectiveShaderDataLoader.getShaderAmount()), 0);
                 case "super_secret_settings_mode" -> PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE = (String)VALUE;
@@ -185,6 +187,7 @@ public class PerspectiveConfigHelper {
             case "zoom_mode" -> {return PerspectiveConfig.ZOOM_MODE;}
             case "zoom_smooth_scale" -> {return Math.max(PerspectiveConfig.ZOOM_SMOOTH_SCALE, 0.0F);}
             case "zoom_hide_hud" -> {return PerspectiveConfig.ZOOM_HIDE_HUD;}
+            case "zoom_overlay_message" -> {return PerspectiveConfig.ZOOM_OVERLAY_MESSAGE;}
             case "hold_perspective_hide_hud" -> {return PerspectiveConfig.HOLD_PERSPECTIVE_HIDE_HUD;}
             case "super_secret_settings" -> {return Math.max(Math.min(PerspectiveConfig.SUPER_SECRET_SETTINGS, PerspectiveShaderDataLoader.getShaderAmount()), 0);}
             case "super_secret_settings_mode" -> {return PerspectiveConfig.SUPER_SECRET_SETTINGS_MODE;}

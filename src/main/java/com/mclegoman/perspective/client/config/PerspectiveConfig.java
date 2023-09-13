@@ -23,6 +23,7 @@ public class PerspectiveConfig {
     protected static String ZOOM_MODE;
     protected static float ZOOM_SMOOTH_SCALE;
     protected static boolean ZOOM_HIDE_HUD;
+    protected static boolean ZOOM_OVERLAY_MESSAGE;
     protected static boolean HOLD_PERSPECTIVE_HIDE_HUD;
     protected static int SUPER_SECRET_SETTINGS;
     protected static String SUPER_SECRET_SETTINGS_MODE;
@@ -57,6 +58,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE));
         CONFIG_PROVIDER.add(new Pair<>("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE));
         CONFIG_PROVIDER.add(new Pair<>("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_overlay_message", PerspectiveConfigDataLoader.ZOOM_OVERLAY_MESSAGE));
         CONFIG_PROVIDER.add(new Pair<>("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
@@ -82,6 +84,7 @@ public class PerspectiveConfig {
         ZOOM_MODE = CONFIG.getOrDefault("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
         ZOOM_SMOOTH_SCALE = (float)CONFIG.getOrDefault("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE);
         ZOOM_HIDE_HUD = CONFIG.getOrDefault("zoom_hide_hud", PerspectiveConfigDataLoader.ZOOM_HIDE_HUD);
+        ZOOM_OVERLAY_MESSAGE = CONFIG.getOrDefault("zoom_overlay_message", PerspectiveConfigDataLoader.ZOOM_OVERLAY_MESSAGE);
         HOLD_PERSPECTIVE_HIDE_HUD = CONFIG.getOrDefault("hold_perspective_hide_hud", PerspectiveConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS);
         SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", PerspectiveConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
@@ -107,6 +110,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("zoom_mode", ZOOM_MODE);
         CONFIG_PROVIDER.setConfig("zoom_smooth_scale", ZOOM_SMOOTH_SCALE);
         CONFIG_PROVIDER.setConfig("zoom_hide_hud", ZOOM_HIDE_HUD);
+        CONFIG_PROVIDER.setConfig("zoom_overlay_message", ZOOM_OVERLAY_MESSAGE);
         CONFIG_PROVIDER.setConfig("hold_perspective_hide_hud", HOLD_PERSPECTIVE_HIDE_HUD);
         CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
         CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);

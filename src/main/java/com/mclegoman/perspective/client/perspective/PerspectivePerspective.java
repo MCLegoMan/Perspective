@@ -30,30 +30,43 @@ public class PerspectivePerspective {
         if (PerspectiveKeybindings.SET_PERSPECTIVE_FIRST_PERSON.wasPressed()) client.options.setPerspective(Perspective.FIRST_PERSON);
         if (PerspectiveKeybindings.SET_PERSPECTIVE_THIRD_PERSON_BACK.wasPressed()) client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
         if (PerspectiveKeybindings.SET_PERSPECTIVE_THIRD_PERSON_FRONT.wasPressed()) client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
+        getHoldAll(client);
+    }
+    private static void setThirdPersonFront(MinecraftClient client, Perspective perspective) {
         if (!PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed() && !HOLD_THIRD_PERSON_BACK_LOCK) {
-            if (PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed()) {
-                if (!HOLD_THIRD_PERSON_FRONT_LOCK) {
-                    HOLD_THIRD_PERSON_FRONT_PREV = client.options.getPerspective();
-                    if (client.options.getPerspective().equals(Perspective.THIRD_PERSON_FRONT)) client.options.setPerspective(Perspective.FIRST_PERSON);
-                    else client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
-                }
-                HOLD_THIRD_PERSON_FRONT_LOCK = true;
+            if (!HOLD_THIRD_PERSON_FRONT_LOCK) {
+                HOLD_THIRD_PERSON_FRONT_PREV = perspective;
+                if (client.options.getPerspective().equals(Perspective.THIRD_PERSON_FRONT)) client.options.setPerspective(Perspective.FIRST_PERSON);
+                else client.options.setPerspective(Perspective.THIRD_PERSON_FRONT);
             }
+            HOLD_THIRD_PERSON_FRONT_LOCK = true;
         }
+    }
+    private static void setThirdPersonBack(MinecraftClient client, Perspective perspective) {
+        if (!PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed() && !HOLD_THIRD_PERSON_FRONT_LOCK) {
+            if (!HOLD_THIRD_PERSON_BACK_LOCK) {
+                HOLD_THIRD_PERSON_BACK_PREV = perspective;
+                if (client.options.getPerspective().equals(Perspective.THIRD_PERSON_BACK)) client.options.setPerspective(Perspective.FIRST_PERSON);
+                else client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
+            }
+            HOLD_THIRD_PERSON_BACK_LOCK = true;
+        }
+    }
+    private static void getHoldAll(MinecraftClient client) {
+        for (int i = 0; i < 2; i++) {
+            if (PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed()) setThirdPersonFront(client, client.options.getPerspective());
+            clearHoldFront(client);
+            if (PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed()) setThirdPersonBack(client, client.options.getPerspective());
+            clearHoldBack(client);
+        }
+    }
+    private static void clearHoldFront(MinecraftClient client) {
         if (!PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed() && HOLD_THIRD_PERSON_FRONT_LOCK) {
             HOLD_THIRD_PERSON_FRONT_LOCK = false;
             client.options.setPerspective(HOLD_THIRD_PERSON_FRONT_PREV);
         }
-        if (!PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed() && !HOLD_THIRD_PERSON_FRONT_LOCK) {
-            if (PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed()) {
-                if (!HOLD_THIRD_PERSON_BACK_LOCK) {
-                    HOLD_THIRD_PERSON_BACK_PREV = client.options.getPerspective();
-                    if (client.options.getPerspective().equals(Perspective.THIRD_PERSON_BACK)) client.options.setPerspective(Perspective.FIRST_PERSON);
-                    else client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
-                }
-                HOLD_THIRD_PERSON_BACK_LOCK = true;
-            }
-        }
+    }
+    private static void clearHoldBack(MinecraftClient client) {
         if (!PerspectiveKeybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed() && HOLD_THIRD_PERSON_BACK_LOCK) {
             HOLD_THIRD_PERSON_BACK_LOCK = false;
             client.options.setPerspective(HOLD_THIRD_PERSON_BACK_PREV);

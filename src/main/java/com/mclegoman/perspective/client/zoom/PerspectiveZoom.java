@@ -91,7 +91,7 @@ public class PerspectiveZoom {
 		}
 	}
 	private static void setOverlay(){
-		PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
+		if ((boolean)PerspectiveConfigHelper.getConfig("zoom_overlay_message")) PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
 	public static void cycleZoomModes() {
 		if (PerspectiveConfigHelper.getConfig("zoom_mode").equals("smooth")) PerspectiveConfigHelper.setConfig("zoom_mode", "instant");

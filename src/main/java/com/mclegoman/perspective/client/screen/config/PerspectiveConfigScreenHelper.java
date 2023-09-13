@@ -12,7 +12,7 @@ import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.developmentwarning.PerspectiveDevelopmentWarningScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
-import com.mclegoman.perspective.client.util.PerspectiveLogoWidget;
+import com.mclegoman.perspective.client.widget.PerspectiveLogoWidget;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

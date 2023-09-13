@@ -16,6 +16,7 @@
 	"gui.perspective.config.zoom.mode.smooth": "Smooth",
 	"gui.perspective.config.zoom.mode.instant": "Instant",
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
+	"gui.perspective.config.zoom.overlay_message": "Overlay Message: %s",
 	"gui.perspective.config.hold_perspective": "Hold Perspective",
 	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",
 	"gui.perspective.config.shaders": "Super Secret Settings",

@@ -1,4 +1,4 @@
-package com.mclegoman.perspective.client.util;
+package com.mclegoman.perspective.client.widget;
 
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import net.fabricmc.api.EnvType;

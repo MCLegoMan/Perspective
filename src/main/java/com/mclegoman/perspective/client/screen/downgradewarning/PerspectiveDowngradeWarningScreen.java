@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.screen.downgradewarning;
 
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
-import com.mclegoman.perspective.client.util.PerspectiveLogoWidget;
+import com.mclegoman.perspective.client.widget.PerspectiveLogoWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;

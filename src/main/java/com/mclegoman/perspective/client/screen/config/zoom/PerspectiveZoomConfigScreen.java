@@ -99,6 +99,10 @@ public class PerspectiveZoomConfigScreen extends Screen {
             PerspectiveConfigHelper.setConfig("zoom_hide_hud", !(boolean)PerspectiveConfigHelper.getConfig("zoom_hide_hud"));
             this.REFRESH = true;
         }).build());
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("zoom.overlay_message", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("zoom_overlay_message"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("zoom_overlay_message", !(boolean)PerspectiveConfigHelper.getConfig("zoom_overlay_message"));
+            this.REFRESH = true;
+        }).width(304).build(), 2);
         return GRID;
     }
     private GridWidget createFooter() {
