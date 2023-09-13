@@ -8,7 +8,6 @@
 		"client.april_fools_prank.PerspectiveAprilFoolsPrankReplaceCape",
 		"client.april_fools_prank.PerspectiveAprilFoolsPrankReplaceSkin",
 		"client.compat.PerspectiveOptionsScreen",
-		"client.fov_perspective_hud.PerspectiveAbstractClientPlayerEntity",
 		"client.fov_perspective_hud.PerspectiveChatHUD",
 		"client.fov_perspective_hud.PerspectiveGameRenderer",
 		"client.fov_perspective_hud.PerspectiveInGameHUD",

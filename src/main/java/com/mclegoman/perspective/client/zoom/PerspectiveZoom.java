@@ -21,11 +21,22 @@ import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
-	public static double zoomFov(double fov) {
-		return (100 - getZoomLevel()) * fov / 100;
+	public static double prevZoomMultiplier;
+	public static double zoomMultiplier;
+	public static void updateZoomMultiplier() {
+		float f = getZoomMultiplier();
+		prevZoomMultiplier = zoomMultiplier;
+		zoomMultiplier += (f - zoomMultiplier) * 0.5F;
 	}
-	public static double limitedZoomFov(double fov) {
-		return Math.max(Math.max(0.1, zoomFov(fov)), Math.min(fov, zoomFov(fov)));
+
+	public static float getZoomMultiplier() {
+		return isZooming() ? 1 - ((float) getZoomLevel() / 100) : 1;
+	}
+	public static double zoomFov(double fov) {
+		return ((100 - getZoomLevel()) * fov / 100);
+	}
+	public static double limitFov(double fov) {
+		return Math.max(Math.max(0.1, fov), Math.min(fov, 179.9));
 	}
 
 	public static boolean SET_ZOOM;
@@ -44,33 +55,18 @@ public class PerspectiveZoom {
 		}
 	}
 	public static int getZoomLevel() {
-		int zoomLevel = (int)PerspectiveConfigHelper.getConfig("zoom_level");
-		if (PerspectiveConfigHelper.getConfig("zoom_mode").equals("smooth")) {
-			if (zoomLevel > 90) PerspectiveConfigHelper.setConfig("zoom_level", 90);
-			return Math.min(zoomLevel, 90);
-		} else return zoomLevel;
+		return (int)PerspectiveConfigHelper.getConfig("zoom_level");
 	}
 	public static void zoom(boolean in, int amount) {
 		try {
 			for (int i = 0; i < amount; i++){
-				if (PerspectiveConfigHelper.getConfig("zoom_mode").equals("smooth")) {
-					if (in) {
-						if (getZoomLevel() >= 90) PerspectiveConfigHelper.setConfig("zoom_level", 90);
-						else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
-					}
-					else {
-						if (getZoomLevel() <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
-						else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
-					}
-				} else {
-					if (in) {
-						if (getZoomLevel() >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);
-						else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
-					}
-					else {
-						if (getZoomLevel() <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
-						else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
-					}
+				if (in) {
+					if (getZoomLevel() >= 100) PerspectiveConfigHelper.setConfig("zoom_level", 100);
+					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
+				}
+				else {
+					if (getZoomLevel() <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
+					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
 				}
 			}
 			setOverlay();
