@@ -21,6 +21,7 @@ import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveZoom {
+	private static boolean zoomUpdated;
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
 	public static void updateZoomMultiplier() {
@@ -50,6 +51,10 @@ public class PerspectiveZoom {
 	public static void tick(MinecraftClient client) {
 		try {
 			if (PerspectiveKeybindings.TOGGLE_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
+			if (!isZooming() && zoomUpdated) {
+				PerspectiveConfigHelper.saveConfig(true);
+				zoomUpdated = false;
+			}
 		} catch (Exception error) {
 			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick zoom: {}", (Object)error);
 		}
@@ -59,24 +64,26 @@ public class PerspectiveZoom {
 	}
 	public static void zoom(boolean in, int amount) {
 		try {
-			boolean zoomUpdated = false;
+			boolean updated = false;
 			for (int i = 0; i < amount; i++){
 				if (in) {
 					if (!(getZoomLevel() >= 100)) {
 						PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
+						updated = true;
 						zoomUpdated = true;
 					}
 				}
 				else {
 					if (!(getZoomLevel() <= -50)) {
 						PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
+						updated = true;
 						zoomUpdated = true;
 					}
 				}
 			}
-			if (zoomUpdated) {
+			if (updated) {
 				setOverlay();
-				PerspectiveConfigHelper.saveConfig(true);
+				updated = false;
 			}
 		} catch (Exception error) {
 			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set zoom level: {}", (Object)error);
