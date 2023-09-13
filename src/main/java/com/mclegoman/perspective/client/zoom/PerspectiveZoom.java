@@ -36,7 +36,7 @@ public class PerspectiveZoom {
 		return ((100 - getZoomLevel()) * fov / 100);
 	}
 	public static double limitFov(double fov) {
-		return Math.max(Math.max(0.1, fov), Math.min(fov, 179.9));
+		return Math.max(Math.max(0.1, fov), Math.min(fov, 110));
 	}
 
 	public static boolean SET_ZOOM;
@@ -65,7 +65,7 @@ public class PerspectiveZoom {
 					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
 				}
 				else {
-					if (getZoomLevel() <= 0) PerspectiveConfigHelper.setConfig("zoom_level", 0);
+					if (getZoomLevel() <= -50) PerspectiveConfigHelper.setConfig("zoom_level", -50);
 					else PerspectiveConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
 				}
 			}

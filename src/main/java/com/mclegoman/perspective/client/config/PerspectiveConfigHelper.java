@@ -120,7 +120,7 @@ public class PerspectiveConfigHelper {
     }
     public static void resetConfig() {
         try {
-            setConfig("zoom_level", Math.min(Math.max(PerspectiveConfigDataLoader.ZOOM_LEVEL, 0), 100));
+            setConfig("zoom_level", Math.min(Math.max(PerspectiveConfigDataLoader.ZOOM_LEVEL, -50), 100));
             setConfig("zoom_increment_size", Math.max(Math.min(PerspectiveConfigDataLoader.ZOOM_INCREMENT_SIZE, 10), 1));
             setConfig("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
             setConfig("zoom_smooth_scale", PerspectiveConfigDataLoader.ZOOM_SMOOTH_SCALE);
@@ -151,7 +151,7 @@ public class PerspectiveConfigHelper {
     public static void setConfig(String ID, Object VALUE) {
         try {
             switch (ID) {
-                case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, 0), 100);
+                case "zoom_level" -> PerspectiveConfig.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, -50), 100);
                 case "zoom_increment_size" -> PerspectiveConfig.ZOOM_INCREMENT_SIZE = Math.max(Math.min((int)VALUE, 10), 1);
                 case "zoom_mode" -> PerspectiveConfig.ZOOM_MODE = (String)VALUE;
                 case "zoom_smooth_scale" -> PerspectiveConfig.ZOOM_SMOOTH_SCALE = Math.max((float)VALUE, 0.0F);
@@ -182,7 +182,7 @@ public class PerspectiveConfigHelper {
     }
     public static Object getConfig(String ID) {
         switch (ID) {
-            case "zoom_level" -> {return Math.min(Math.max(PerspectiveConfig.ZOOM_LEVEL, 0), 100);}
+            case "zoom_level" -> {return Math.min(Math.max(PerspectiveConfig.ZOOM_LEVEL, -50), 100);}
             case "zoom_increment_size" -> {return Math.max(Math.min(PerspectiveConfig.ZOOM_INCREMENT_SIZE, 10), 1);}
             case "zoom_mode" -> {return PerspectiveConfig.ZOOM_MODE;}
             case "zoom_smooth_scale" -> {return Math.max(PerspectiveConfig.ZOOM_SMOOTH_SCALE, 0.0F);}
