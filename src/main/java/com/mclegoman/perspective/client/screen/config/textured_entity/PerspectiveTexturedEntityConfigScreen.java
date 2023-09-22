@@ -18,7 +18,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -69,11 +68,11 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity.named", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("named_textured_entity"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("named_textured_entity", !(boolean)PerspectiveConfigHelper.getConfig("named_textured_entity"));
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
-        }).width(304).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity.named", true)));
+        }).width(304).build(), 1);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity.random", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("random_textured_entity"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("random_textured_entity", !(boolean)PerspectiveConfigHelper.getConfig("random_textured_entity"));
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
-        }).width(304).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity.random", true)));
+        }).width(304).build(), 1);
         return GRID;
     }
     private GridWidget createFooter() {

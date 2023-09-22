@@ -1,9 +1,12 @@
-# Perspective 1.2.0-alpha.2 for 1.20.2 Pre Releases
-
-This version requires a minecraft **1.20.2 Pre Release** version, This release will **NOT** work on previous versions.
+# Perspective 1.1.4  
 
 ## Changelog  
-- Instant Zoom now uses getZoomMultiplier()
+- Updated to 1.20.2
+- Zoom now has a limit from -50% to 100%.  
+- Zoom now uses a zoomMultiplier.  
 
-## Found a bug?
+## Experimental  
+- Backported Smooth Zoom from 1.2.0-alpha.2  
+
+## Found a bug?  
 Report it on the [GitHub Issues Page](https://github.com/MCLegoMan/Perspective/issues).  

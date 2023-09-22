@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.mixin.client.fov_perspective_hud;
 
-import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.zoom.PerspectiveZoom;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -23,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(priority = 10000, value = Mouse.class)
 public abstract class PerspectiveMouse {
+
     @Shadow private double eventDeltaVerticalWheel;
 
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
@@ -40,7 +40,7 @@ public abstract class PerspectiveMouse {
                         return;
                     }
                     this.eventDeltaVerticalWheel -= i;
-                    PerspectiveZoom.zoom(i > 0, (int)PerspectiveConfigHelper.getConfig("zoom_increment_size"));
+                    PerspectiveZoom.zoom(i > 0);
                     ci.cancel();
                 }
             }

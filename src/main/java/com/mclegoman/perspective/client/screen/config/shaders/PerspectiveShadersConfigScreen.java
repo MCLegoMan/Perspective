@@ -21,7 +21,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -80,32 +79,32 @@ public class PerspectiveShadersConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.shader", new Object[]{PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)}, new Formatting[]{PerspectiveShader.getRandomColor()}), (button) -> {
             PerspectiveShader.cycle(PerspectiveClientData.CLIENT, CYCLE_DIRECTION, true, false);
             this.REFRESH = true;
-        }).width(280).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.shader", true)));
+        }).width(280).build());
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.random"), (button) -> {
             PerspectiveShader.random(true, false);
             this.REFRESH = true;
-        }).width(20).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.random", true)));
+        }).width(20).build());
         return GRID;
     }
     private GridWidget createShaderOptions() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.mode", new Object[]{PerspectiveTranslation.getShaderModeTranslation((String)PerspectiveConfigHelper.getConfig("super_secret_settings_mode")), PerspectiveTranslation.getVariableTranslation(PerspectiveShader.shouldDisableScreenMode(), PerspectiveTranslationType.DISABLE_SCREEN_MODE)}), (button) -> {
-            PerspectiveShader.cycleShaderModes();
+
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.mode", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean) PerspectiveConfigHelper.getConfig("super_secret_settings_mode"), PerspectiveTranslationType.SHADER_MODE), PerspectiveTranslation.getVariableTranslation(PerspectiveShader.shouldDisableScreenMode(), PerspectiveTranslationType.DISABLE_SCREEN_MODE)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("super_secret_settings_mode", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode"));
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.mode", true)));
+        }).build());
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.toggle", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean) PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE)}), (button) -> {
             PerspectiveShader.toggle(PerspectiveClientData.CLIENT, true, false);
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.toggle", true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.overlay_message", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_overlay_message"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("super_secret_settings_overlay_message", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_overlay_message"));
-            this.REFRESH = true;
-        }).width(304).build(), 2);
+        }).build());
         return GRID;
     }
     private GridWidget createFooter() {

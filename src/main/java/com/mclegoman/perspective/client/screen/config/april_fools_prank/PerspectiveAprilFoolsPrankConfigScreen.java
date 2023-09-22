@@ -18,7 +18,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -69,11 +68,11 @@ public class PerspectiveAprilFoolsPrankConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank.allow", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("allow_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("allow_april_fools"));
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
-        }).width(304).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("april_fools_prank.allow", true)));
+        }).width(304).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank.force", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_april_fools"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("force_april_fools", !(boolean)PerspectiveConfigHelper.getConfig("force_april_fools"));
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(PARENT_SCREEN));
-        }).width(304).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("april_fools_prank.force", true)));
+        }).width(304).build());
         return GRID;
     }
     private GridWidget createFooter() {

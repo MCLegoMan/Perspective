@@ -24,22 +24,22 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		try {
-			PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing {}", PerspectiveData.ID);
-			CrowdinTranslate.downloadTranslations(PerspectiveData.ID);
-			PerspectiveConfigHelper.init();
-			PerspectiveResourcePacks.init();
-			PerspectiveKeybindings.init();
-			PerspectiveShader.init();
-			PerspectivePanorama.init();
-			PerspectiveTexturedEntity.init();
-			PerspectiveAprilFoolsPrank.init();
-			PerspectiveHUDOverlays.init();
-			PerspectiveTick.init();
-		} catch (Exception error) {
-			PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to initialize {}: {}", PerspectiveData.ID, error);
-		}
-	}
+    @Override
+    public void onInitializeClient() {
+        try {
+            PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing {}", PerspectiveData.ID);
+            CrowdinTranslate.downloadTranslations(PerspectiveData.ID);
+            PerspectiveConfigHelper.init();
+            PerspectiveResourcePacks.init();
+            PerspectiveKeybindings.init();
+            PerspectiveShader.init();
+            PerspectivePanorama.init();
+            PerspectiveTexturedEntity.init();
+            PerspectiveAprilFoolsPrank.init();
+            PerspectiveHUDOverlays.init();
+            PerspectiveTick.init();
+        } catch (Exception error) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to initialize {}: {}", PerspectiveData.ID, error);
+        }
+    }
 }

@@ -80,17 +80,4 @@ public class PerspectiveTranslation {
     public static String getKeybindingTranslation(String key) {
         return PerspectiveTranslation.getString("gui.perspective.keybindings.keybinding.{}", key);
     }
-    public static Text getShaderModeTranslation(String key) {
-        if (key.equalsIgnoreCase("game")) return getConfigTranslation("shaders.mode.game");
-        else if (key.equalsIgnoreCase("screen")) return getConfigTranslation("shaders.mode.screen");
-        else return getErrorTranslation();
-    }
-    public static Text getZoomModeTranslation(String key) {
-        if (key.equalsIgnoreCase("instant")) return getConfigTranslation("zoom.mode.instant");
-        else if (key.equalsIgnoreCase("smooth")) return getConfigTranslation("zoom.mode.smooth");
-        else return getErrorTranslation();
-    }
-    public static Text getErrorTranslation() {
-        return getConfigTranslation("error", new Formatting[]{Formatting.RED, Formatting.BOLD});
-    }
 }

@@ -21,11 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PerspectiveShaderRenderer {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
     private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-        if (PerspectiveShader.shouldRenderShader() && String.valueOf(PerspectiveConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("game") || PerspectiveShader.shouldDisableScreenMode()) PerspectiveShader.render(tickDelta);
+        if (PerspectiveShader.shouldRenderShader() && (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") || PerspectiveShader.shouldDisableScreenMode())) PerspectiveShader.render(tickDelta);
     }
     @Inject(method = "render", at = @At(value = "TAIL"))
     private void perspective$render_overlay(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-        if (PerspectiveShader.shouldRenderShader() && String.valueOf(PerspectiveConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("screen") && !PerspectiveShader.shouldDisableScreenMode()) PerspectiveShader.render(tickDelta);
+        if (PerspectiveShader.shouldRenderShader() && ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_mode") && !PerspectiveShader.shouldDisableScreenMode())) PerspectiveShader.render(tickDelta);
     }
     @Inject(method = "onResized", at = @At(value = "TAIL"))
     private void perspective$onResized(int width, int height, CallbackInfo ci) {
