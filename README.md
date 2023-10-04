@@ -9,10 +9,7 @@
 Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to zoom, change and hold perspectives, have custom textures on named/random entities, take panoramic screenshots, and use super secret settings!
 
 ## Mod Requirements
-### FabricMC
-[Fabric API](https://modrinth.com/mod/fabric-api)
-### QuiltMC
-[Quilted Fabric API (QFAPI)](https://modrinth.com/mod/qsl)
+- [Fabric API](https://modrinth.com/mod/fabric-api) **OR** [Quilted Fabric API (QFAPI)](https://modrinth.com/mod/qsl) 
 
 ## FAQ
 Q: Will this mod work on Forge?  
