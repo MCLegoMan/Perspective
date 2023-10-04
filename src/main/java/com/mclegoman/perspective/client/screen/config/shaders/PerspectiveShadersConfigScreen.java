@@ -132,7 +132,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
-        if (keyCode == KeyBindingHelper.getBoundKeyOf(PerspectiveClientData.CLIENT.options.sneakKey).getCode()) this.CYCLE_DIRECTION = false;
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) this.CYCLE_DIRECTION = false;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
