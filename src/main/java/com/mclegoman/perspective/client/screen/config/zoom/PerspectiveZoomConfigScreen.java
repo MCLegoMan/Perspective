@@ -72,22 +72,22 @@ public class PerspectiveZoomConfigScreen extends Screen {
         double ZOOM_LEVEL = (double) ((int) PerspectiveConfigHelper.getConfig("zoom_level") + 50) / 150;
         GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, PerspectiveTranslation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")}, false), ZOOM_LEVEL) {
             @Override
-            private void updateMessage() {
+            protected void updateMessage() {
                 setMessage(PerspectiveTranslation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int)PerspectiveConfigHelper.getConfig("zoom_level") + "%")}, false));
             }
             @Override
-            private void applyValue() {
+            protected void applyValue() {
                 PerspectiveConfigHelper.setConfig("zoom_level", (int) ((value) * 150) - 50);
             }
         }, 1);
         double ZOOM_INCREMENT_SIZE = (double) ((int)PerspectiveConfigHelper.getConfig("zoom_increment_size") - 1) / 9;
         GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, PerspectiveTranslation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int)PerspectiveConfigHelper.getConfig("zoom_increment_size")))}, false), ZOOM_INCREMENT_SIZE) {
             @Override
-            private void updateMessage() {
+            protected void updateMessage() {
                 setMessage(PerspectiveTranslation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) PerspectiveConfigHelper.getConfig("zoom_increment_size")))}, false));
             }
             @Override
-            private void applyValue() {
+            protected void applyValue() {
                 PerspectiveConfigHelper.setConfig("zoom_increment_size", (int) ((value) * 9) + 1);
             }
         }, 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("zoom.increment_size", true)));
