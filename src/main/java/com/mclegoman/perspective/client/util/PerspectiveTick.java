@@ -22,13 +22,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 public class PerspectiveTick {
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            PerspectivePerspective.tick(client);
-            PerspectiveShader.tick(client);
-            PerspectiveZoom.tick(client);
-            PerspectiveConfigHelper.tick(client);
-            PerspectivePanorama.tick(client);
-            PerspectiveExperimental.tick(client);
-            PerspectiveHUDOverlays.tick(client);
+            if (client.isFinishedLoading()) {
+                PerspectiveConfigHelper.tick(client);
+                PerspectiveKeybindings.tick(client);
+                PerspectivePerspective.tick(client);
+                PerspectiveZoom.tick(client);
+                PerspectiveShader.tick(client);
+                PerspectivePanorama.tick(client);
+                PerspectiveHUDOverlays.tick(client);
+                PerspectiveExperimental.tick(client);
+            }
         });
     }
 }

@@ -9,15 +9,15 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreen;
-import com.mclegoman.perspective.client.screen.developmentwarning.PerspectiveDevelopmentWarningScreen;
-import com.mclegoman.perspective.client.screen.downgradewarning.PerspectiveDowngradeWarningScreen;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
+import com.mclegoman.perspective.client.toasts.PerspectiveWarningToast;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.text.Text;
 
 public class PerspectiveConfigHelper {
     protected static boolean SAVE_VIA_TICK;
@@ -47,13 +47,13 @@ public class PerspectiveConfigHelper {
         try {
             if (DEV_WARN) {
                 if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
-                    PerspectiveClientData.CLIENT.setScreen(new PerspectiveDevelopmentWarningScreen(PerspectiveClientData.CLIENT.currentScreen, 200, true));
+                    client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
                     DEV_WARN = false;
                 }
             }
             if (DG_WARN) {
                 if (PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
-                    PerspectiveClientData.CLIENT.setScreen(new PerspectiveDowngradeWarningScreen(PerspectiveClientData.CLIENT.currentScreen, 200));
+                    client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
                     DG_WARN = false;
                 }
             }

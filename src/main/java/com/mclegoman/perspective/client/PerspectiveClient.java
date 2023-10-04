@@ -39,7 +39,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			PerspectiveHUDOverlays.init();
 			PerspectiveTick.init();
 		} catch (Exception error) {
-			PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to initialize {}: {}", PerspectiveData.ID, error);
+			PerspectiveData.LOGGER.error("{} Failed to run onInitializeClient: {}", PerspectiveData.PREFIX, error);
 		}
 	}
 }

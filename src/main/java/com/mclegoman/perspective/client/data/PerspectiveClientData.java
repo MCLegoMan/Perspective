@@ -31,7 +31,7 @@ public class PerspectiveClientData {
         return ((boolean)PerspectiveConfigHelper.getConfig("force_pride_type")) ? PRIDE_LOGOS[(int)PerspectiveConfigHelper.getConfig("force_pride_type_index")] : PRIDE_LOGOS[PRIDE_LOGO];
     }
     public static String getLogoPath(boolean pride) {
-        return pride ? "textures/logo/pride/" + getPrideLogoType() + "/" : "textures/logo/normal/";
+        return pride ? "textures/gui/logo/pride/" + getPrideLogoType() + "/" : "textures/gui/logo/normal/";
     }
     public static boolean isPride() {
         if ((boolean) PerspectiveConfigHelper.getConfig("force_pride")) return true;
