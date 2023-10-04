@@ -24,8 +24,9 @@ public class PerspectiveConfigHelper {
     protected static int SAVE_VIA_TICK_TICKS;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
     protected static final int DEFAULT_CONFIG_VERSION = 7;
-    private static boolean DEV_WARN;
-    private static boolean DG_WARN;
+    private static boolean SEEN_DEVELOPMENT_WARNING;
+    private static boolean SHOW_DOWNGRADE_WARNING;
+    private static boolean SEEN_DOWNGRADE_WARNING;
     public static boolean EXPERIMENTS_AVAILABLE = false;
     public static void init() {
         try {
@@ -45,16 +46,17 @@ public class PerspectiveConfigHelper {
     }
     public static void tick(MinecraftClient client) {
         try {
-            if (DEV_WARN) {
+            if (PerspectiveData.IS_DEVELOPMENT && !SEEN_DEVELOPMENT_WARNING) {
                 if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
                     client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
-                    DEV_WARN = false;
+                    SEEN_DEVELOPMENT_WARNING = true;
                 }
             }
-            if (DG_WARN) {
+            if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
                 if (PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
                     client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
-                    DG_WARN = false;
+                    SHOW_DOWNGRADE_WARNING = false;
+                    SEEN_DOWNGRADE_WARNING = true;
                 }
             }
             if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen, false));
@@ -90,13 +92,11 @@ public class PerspectiveConfigHelper {
                     setConfig("config_version", DEFAULT_CONFIG_VERSION);
                     PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Successfully updated config to the latest version.");
                 } else if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) > DEFAULT_CONFIG_VERSION) {
-                    PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Downgrading Perspective is not supported. You may experience some unexpected bugs and/or issues.");
-                    DG_WARN = true;
+                    if (!SEEN_DOWNGRADE_WARNING) {
+                        PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Downgrading is not supported. You may experience configuration related issues.");
+                        SHOW_DOWNGRADE_WARNING = true;
+                    }
                 }
-            }
-            if (PerspectiveData.IS_DEVELOPMENT) {
-                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "You are running a development build of Perspective. You may experience some unexpected bugs and/or issues.");
-                DEV_WARN = true;
             }
             saveConfig(false);
         } catch (Exception error) {
