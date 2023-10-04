@@ -23,7 +23,7 @@ public class PerspectiveConfigHelper {
     protected static boolean SAVE_VIA_TICK;
     protected static int SAVE_VIA_TICK_TICKS;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-    protected static final int DEFAULT_CONFIG_VERSION = 7;
+    protected static final int DEFAULT_CONFIG_VERSION = 8;
     private static boolean SEEN_DEVELOPMENT_WARNING;
     private static boolean SHOW_DOWNGRADE_WARNING;
     private static boolean SEEN_DOWNGRADE_WARNING;
@@ -142,7 +142,6 @@ public class PerspectiveConfigHelper {
             setConfig("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
-            setConfig("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         } catch (Exception error) {
             PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
         }
@@ -173,7 +172,6 @@ public class PerspectiveConfigHelper {
                 case "version_overlay" -> PerspectiveConfig.VERSION_OVERLAY = (boolean)VALUE;
                 case "hide_armor" -> PerspectiveConfig.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> PerspectiveConfig.HIDE_NAMETAGS = (boolean)VALUE;
-                case "show_development_warning" -> PerspectiveConfig.SHOW_DEVELOPMENT_WARNING = (boolean)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
             }
         } catch (Exception error) {
@@ -204,7 +202,6 @@ public class PerspectiveConfigHelper {
             case "version_overlay" -> {return PerspectiveConfig.VERSION_OVERLAY;}
             case "hide_armor" -> {return PerspectiveConfig.HIDE_ARMOR;}
             case "hide_nametags" -> {return PerspectiveConfig.HIDE_NAMETAGS;}
-            case "show_development_warning" -> {return PerspectiveConfig.SHOW_DEVELOPMENT_WARNING;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             default -> {
                 PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get {} config value: Invalid Key", ID);

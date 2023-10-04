@@ -40,7 +40,6 @@ public class PerspectiveConfig {
     protected static boolean VERSION_OVERLAY;
     protected static boolean HIDE_ARMOR;
     protected static boolean HIDE_NAMETAGS;
-    protected static boolean SHOW_DEVELOPMENT_WARNING;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -75,7 +74,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY));
         CONFIG_PROVIDER.add(new Pair<>("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR));
         CONFIG_PROVIDER.add(new Pair<>("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS));
-        CONFIG_PROVIDER.add(new Pair<>("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -101,7 +99,6 @@ public class PerspectiveConfig {
         VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
         HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
         HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
-        SHOW_DEVELOPMENT_WARNING = CONFIG.getOrDefault("show_development_warning", PerspectiveConfigDataLoader.SHOW_DEVELOPMENT_WARNING);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -127,7 +124,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
         CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
         CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
-        CONFIG_PROVIDER.setConfig("show_development_warning", SHOW_DEVELOPMENT_WARNING);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
 }
