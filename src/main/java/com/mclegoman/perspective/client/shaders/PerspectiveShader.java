@@ -137,7 +137,7 @@ public class PerspectiveShader {
         }
     }
     private static void setOverlay(Text message) {
-        PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_overlay_message")) PerspectiveHUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
     }
     public static Formatting getRandomColor() {
         Random random = new Random();
@@ -154,5 +154,10 @@ public class PerspectiveShader {
     }
     public static void render(float tickDelta) {
         if (postProcessor != null) postProcessor.render(tickDelta);
+    }
+    public static void cycleShaderModes() {
+        if (PerspectiveConfigHelper.getConfig("super_secret_settings_mode").equals("game")) PerspectiveConfigHelper.setConfig("super_secret_settings_mode", "screen");
+        else if (PerspectiveConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) PerspectiveConfigHelper.setConfig("super_secret_settings_mode", "game");
+        else PerspectiveConfigHelper.setConfig("super_secret_settings_mode", "game");
     }
 }

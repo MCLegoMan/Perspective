@@ -11,7 +11,6 @@ import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
-import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -41,7 +40,7 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
             GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveExperimentalConfigScreen(PARENT_SCREEN, true), true, "experimental"));
-            GRID_ADDER.add(createExperiments());
+            GRID_ADDER.add(createEmpty());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -77,18 +76,6 @@ public class PerspectiveExperimentalConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(new MultilineTextWidget(PerspectiveTranslation.getConfigTranslation("experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), PerspectiveClientData.CLIENT.textRenderer).setCentered(true), 2);
         GRID_ADDER.add(new EmptyWidget(4, 4), 2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
-            this.REFRESH = true;
-        }).width(304).build(), 2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.hide_nametags", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_nametags"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("hide_nametags", !(boolean)PerspectiveConfigHelper.getConfig("hide_nametags"));
-            this.REFRESH = true;
-        }).width(304).build(), 2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental.smooth_zoom", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("smooth_zoom", !(boolean)PerspectiveConfigHelper.getConfig("smooth_zoom"));
-            this.REFRESH = true;
-        }).width(304).build(), 2);
         return GRID;
     }
     private GridWidget createFooter() {

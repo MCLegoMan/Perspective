@@ -26,28 +26,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin(priority = 10000, value = PlayerEntityRenderer.class)
 public class PerspectiveAprilFoolsPrankReplaceSkin {
-	private boolean isSLIM;
-	@Inject(at = @At("RETURN"), method = "<init>")
-	private void perspective$init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci){
-		isSLIM = slim;
-	}
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getSkin(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		try {
-			if (entity instanceof PlayerEntity) {
-				if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) {
-					if (PerspectiveAprilFoolsPrankDataLoader.REGISTRY.size() > 0) {
-						int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), PerspectiveAprilFoolsPrankDataLoader.REGISTRY.size());
-						String type;
-						if (isSLIM) type = "slim";
-						else type = "wide";
-						cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools_prank/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
-					}
-				}
-			}
-		} catch (Exception e) {
-			PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set April Fools getSkin.");
-			PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
-		}
-	}
+    private boolean isSLIM;
+    @Inject(at = @At("RETURN"), method = "<init>")
+    private void perspective$init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci){
+        isSLIM = slim;
+    }
+    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+    private void perspective$getSkin(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+        try {
+            if (entity instanceof PlayerEntity) {
+                if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) {
+                    if (PerspectiveAprilFoolsPrankDataLoader.REGISTRY.size() > 0) {
+                        int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), PerspectiveAprilFoolsPrankDataLoader.REGISTRY.size());
+                        String type;
+                        if (isSLIM) type = "slim";
+                        else type = "wide";
+                        cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools_prank/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set April Fools getSkin.");
+            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        }
+    }
 }
