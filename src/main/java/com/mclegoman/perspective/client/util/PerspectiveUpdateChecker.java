@@ -46,46 +46,56 @@ public class PerspectiveUpdateChecker {
 				if (apiDataVersion != null) {
 					for (JsonElement version : apiDataVersion) {
 						JsonObject version_obj = (JsonObject) version;
-						String versionNumber = JsonHelper.getString(version_obj, "version_number");
-						int indexOfPlus = versionNumber.indexOf("+");
-						if (indexOfPlus != -1) versionNumber = versionNumber.substring(0, indexOfPlus);
-						if (!versionNumber.contains("-")) versionNumber = versionNumber + "-release.1";
-						int major = Integer.parseInt(versionNumber.substring(0, 1));
-						int minor = Integer.parseInt(versionNumber.substring(2, 3));
-						int patch = Integer.parseInt(versionNumber.substring(4, 5));
-						RTUReleaseTypes type = PerspectiveVersionHelper.stringToType(versionNumber.substring(6, versionNumber.lastIndexOf(".")));
-						int build = Integer.parseInt(versionNumber.substring((versionNumber.lastIndexOf(".") + 1)));
-						PerspectiveVersion API_VERSION = new PerspectiveVersion("Perspective", "perspective", major, minor, patch, type, build);
-						if (API_VERSION.compareTo(PerspectiveData.PERSPECTIVE_VERSION) > 0) {
-							if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
-								if (API_VERSION.getType().equals(RTUReleaseTypes.ALPHA) || API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
-									PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
-									NEWER_VERSION_FOUND = true;
-									String version_id = JsonHelper.getString(version_obj, "version_number");
-									if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
-									LATEST_VERSION_FOUND = version_id;
-									DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
-									break;
-								}
-							} else if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("beta")) {
-								if (API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
-									PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
-									NEWER_VERSION_FOUND = true;
-									String version_id = JsonHelper.getString(version_obj, "version_number");
-									if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
-									LATEST_VERSION_FOUND = version_id;
-									DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
-									break;
-								}
-							} else {
-								if (API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
-									PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
-									NEWER_VERSION_FOUND = true;
-									String version_id = JsonHelper.getString(version_obj, "version_number");
-									if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
-									LATEST_VERSION_FOUND = version_id;
-									DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
-									break;
+						JsonArray game_versions = JsonHelper.getArray(version_obj, "game_versions");
+						boolean compatible_version = false;
+						for (JsonElement game_version : game_versions) {
+							if (game_version.getAsString().equalsIgnoreCase(PerspectiveClientData.CLIENT.getGameVersion())) {
+								compatible_version = true;
+								break;
+							}
+						}
+						if (compatible_version) {
+							String version_number = JsonHelper.getString(version_obj, "version_number");
+							int indexOfPlus = version_number.indexOf("+");
+							if (indexOfPlus != -1) version_number = version_number.substring(0, indexOfPlus);
+							if (!version_number.contains("-")) version_number = version_number + "-release.1";
+							int major = Integer.parseInt(version_number.substring(0, 1));
+							int minor = Integer.parseInt(version_number.substring(2, 3));
+							int patch = Integer.parseInt(version_number.substring(4, 5));
+							RTUReleaseTypes type = PerspectiveVersionHelper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
+							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
+							PerspectiveVersion API_VERSION = new PerspectiveVersion("Perspective", "perspective", major, minor, patch, type, build);
+							if (API_VERSION.compareTo(PerspectiveData.PERSPECTIVE_VERSION) > 0) {
+								if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
+									if (API_VERSION.getType().equals(RTUReleaseTypes.ALPHA) || API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
+										PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
+										NEWER_VERSION_FOUND = true;
+										String version_id = JsonHelper.getString(version_obj, "version_number");
+										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
+										LATEST_VERSION_FOUND = version_id;
+										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
+										break;
+									}
+								} else if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("beta")) {
+									if (API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
+										PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
+										NEWER_VERSION_FOUND = true;
+										String version_id = JsonHelper.getString(version_obj, "version_number");
+										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
+										LATEST_VERSION_FOUND = version_id;
+										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
+										break;
+									}
+								} else {
+									if (API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
+										PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
+										NEWER_VERSION_FOUND = true;
+										String version_id = JsonHelper.getString(version_obj, "version_number");
+										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
+										LATEST_VERSION_FOUND = version_id;
+										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
+										break;
+									}
 								}
 							}
 						}
