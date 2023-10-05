@@ -16,7 +16,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.JsonHelper;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -107,7 +106,7 @@ public class PerspectiveUpdateChecker {
 		}
 	}
 
-	private static JsonElement getModrinthData(String project_id, String request) throws IOException {
+	private static JsonElement getModrinthData(String project_id, String request) {
 		try {
 			URL url = Objects.equals(request, "") ? new URL("https://api.modrinth.com/v2/project/" + project_id) : new URL("https://api.modrinth.com/v2/project/" + project_id + "/" + request);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
