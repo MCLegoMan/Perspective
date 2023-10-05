@@ -27,8 +27,8 @@ public class PerspectiveClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		try {
-			PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Initializing {}", PerspectiveData.ID);
-			CrowdinTranslate.downloadTranslations(PerspectiveData.ID);
+			PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), PerspectiveData.PERSPECTIVE_VERSION.getID());
+			CrowdinTranslate.downloadTranslations(PerspectiveData.PERSPECTIVE_VERSION.getID());
 			PerspectiveConfigHelper.init();
 			PerspectiveResourcePacks.init();
 			PerspectiveKeybindings.init();
@@ -39,7 +39,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			PerspectiveHUDOverlays.init();
 			PerspectiveTick.init();
 		} catch (Exception error) {
-			PerspectiveData.LOGGER.error("{} Failed to run onInitializeClient: {}", PerspectiveData.PREFIX, error);
+			PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 }

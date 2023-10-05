@@ -30,18 +30,20 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public class PerspectiveTexturedEntityConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
+    private boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveTexturedEntityConfigScreen(Screen PARENT) {
+    public PerspectiveTexturedEntityConfigScreen(Screen PARENT, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
+        this.REFRESH = REFRESH;
     }
     public void init() {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN), true, "textured_entity"));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN, true), true, "textured_entity"));
             GRID_ADDER.add(createTexturedEntity());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
@@ -49,17 +51,20 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config>textured entity screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>textured entity screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
     public void tick() {
         try {
+            if (this.REFRESH) {
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN, false));
+            }
             if (this.SHOULD_CLOSE) {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$textured_entity screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$textured_entity screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private GridWidget createTexturedEntity() {
@@ -68,11 +73,11 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity.named", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("named_textured_entity"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("named_textured_entity", !(boolean)PerspectiveConfigHelper.getConfig("named_textured_entity"));
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
+            REFRESH = true;
         }).width(304).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity.named", true)));
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity.random", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("random_textured_entity"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("random_textured_entity", !(boolean)PerspectiveConfigHelper.getConfig("random_textured_entity"));
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
+            REFRESH = true;
         }).width(304).build(), 1).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("textured_entity.random", true)));
         return GRID;
     }
@@ -82,7 +87,7 @@ public class PerspectiveTexturedEntityConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("reset"), (button) -> {
             PerspectiveConfigHelper.resetConfig();
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(PARENT_SCREEN));
+            REFRESH = true;
         }).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
         return GRID;

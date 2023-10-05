@@ -41,7 +41,7 @@ public class PerspectiveZoomConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveZoomConfigScreen(PARENT_SCREEN, false), true, "zoom"));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveZoomConfigScreen(PARENT_SCREEN, true), true, "zoom"));
             GRID_ADDER.add(createZoom());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
@@ -49,7 +49,7 @@ public class PerspectiveZoomConfigScreen extends Screen {
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config$zoom screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$zoom screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
@@ -62,7 +62,7 @@ public class PerspectiveZoomConfigScreen extends Screen {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config$zoom screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$zoom screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private GridWidget createZoom() {
@@ -120,7 +120,7 @@ public class PerspectiveZoomConfigScreen extends Screen {
         try {
             SimplePositioningWidget.setPos(GRID, getNavigationFocus());
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config$zoom screen TabNavigation: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$zoom screen TabNavigation: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public Text getNarratedTitle() {

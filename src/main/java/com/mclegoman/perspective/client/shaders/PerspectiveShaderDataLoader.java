@@ -67,7 +67,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
                 if (!ALREADY_REGISTERED) REGISTRY.add(SHADER_MAP);
             } else REGISTRY.remove(REGISTRY_MAP);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add shader to registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add shader to registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private void reset() {
@@ -75,7 +75,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             REGISTRY.clear();
             add$default();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset shaders registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private void add$default() {
@@ -106,7 +106,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             add("minecraft", "spider",false, false, true, true);
             add("minecraft", "wobble",false, false, false, true);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default shaders to registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public static final String ID = "shaders/shaders";
@@ -122,17 +122,17 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
             if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) PerspectiveShader.set(MinecraftClient.getInstance(), true, true, true);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply shaders dataloader: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     @Override
     public Identifier getFabricId() {
-        return new Identifier(PerspectiveData.ID, ID);
+        return new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), ID);
     }
     private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
         try {
             JsonObject READER = jsonElement.getAsJsonObject();
-            String NAMESPACE = JsonHelper.getString(READER, "namespace", PerspectiveData.ID);
+            String NAMESPACE = JsonHelper.getString(READER, "namespace", PerspectiveData.PERSPECTIVE_VERSION.getID());
             String SHADER = JsonHelper.getString(READER, "shader");
             Boolean HIDE_ARMOR = JsonHelper.getBoolean(READER, "hide_armor", false);
             Boolean HIDE_NAMETAGS = JsonHelper.getBoolean(READER, "hide_nametags", false);
@@ -140,7 +140,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
             add(NAMESPACE, SHADER, HIDE_ARMOR, HIDE_NAMETAGS, DISABLE_SCREEN_MODE, ENABLED);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load perspective shader: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective shader: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private void layout$souper_secret_settings(ResourceManager manager) {
@@ -150,7 +150,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
                 JsonObject READER = JsonHelper.deserialize(resource.getReader());
                 for (JsonElement namespaces : READER.getAsJsonArray("namespaces")) {
                     JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
-                    String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.ID);
+                    String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.PERSPECTIVE_VERSION.getID());
                     JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders", new JsonArray());
                     JsonArray HIDE_ARMOR = JsonHelper.getArray(namespacelist, "hide_armor", new JsonArray());
                     JsonArray HIDE_NAMETAGS = JsonHelper.getArray(namespacelist, "hide_nametags", new JsonArray());
@@ -165,7 +165,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
                     for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), HIDE_ARMOR_SHADERS.contains(SHADER.getAsString()), HIDE_NAMETAGS_SHADERS.contains(SHADER.getAsString()), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), ENABLED);
                 }
             } catch (Exception error) {
-                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load souper secret settings shader list: {}", (Object)error);
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
             }
         }
     }

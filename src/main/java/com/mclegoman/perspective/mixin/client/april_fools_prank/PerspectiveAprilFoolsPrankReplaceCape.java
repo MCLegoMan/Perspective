@@ -24,10 +24,9 @@ public class PerspectiveAprilFoolsPrankReplaceCape {
     @Inject(at = @At("RETURN"), method = "capeTexture", cancellable = true)
     private void perspective$getCape(CallbackInfoReturnable<Identifier> cir) {
         try {
-            if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools_prank/cape.png"));
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set April Fools getCape.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+            if (PerspectiveAprilFoolsPrank.isPrankEnabled() && PerspectiveAprilFoolsPrank.isAprilFools()) cir.setReturnValue(new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "textures/april_fools_prank/cape.png"));
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set April Fools getCape.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
 }

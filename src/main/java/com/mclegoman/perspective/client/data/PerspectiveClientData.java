@@ -22,7 +22,7 @@ public class PerspectiveClientData {
     public static final String[] PRIDE_LOGOS = new String[]{"pride", "trans", "bi", "pan"};
     public static final int PRIDE_LOGO = new Random().nextInt(PRIDE_LOGOS.length);
     public static Identifier getLogo() {
-        return PerspectiveData.IS_DEVELOPMENT ? getLogoType(PerspectiveData.ID, true, isPride()) : getLogoType(PerspectiveData.ID, false, isPride());
+        return PerspectiveData.PERSPECTIVE_VERSION.isDevelopmentBuild() ? getLogoType(PerspectiveData.PERSPECTIVE_VERSION.getID(), true, isPride()) : getLogoType(PerspectiveData.PERSPECTIVE_VERSION.getID(), false, isPride());
     }
     public static Identifier getLogoType(String namespace, boolean development, boolean pride) {
         return development ? new Identifier(namespace, (getLogoPath(pride) + "development.png")) : new Identifier(namespace, (getLogoPath(pride) + "release.png"));

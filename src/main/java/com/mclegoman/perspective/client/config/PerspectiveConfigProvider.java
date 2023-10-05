@@ -28,7 +28,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
         try {
             CONFIG_LIST.add(keyValuePair);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to add {} config value: {}", keyValuePair, error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add {} config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), keyValuePair, error);
         }
     }
     @Override
@@ -54,7 +54,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
             }
             CONFIG_LIST = NEW_CONFIG_LIST;
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set {} config value: {}", KEY_NAME, error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), KEY_NAME, error);
         }
     }
     public void saveConfig(String ID) {
@@ -64,7 +64,7 @@ public class PerspectiveConfigProvider implements SimpleConfig.DefaultConfig {
             writer.write(CONTENTS);
             writer.close();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to save {} config: {}", ID, error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save {} config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
     }
 }

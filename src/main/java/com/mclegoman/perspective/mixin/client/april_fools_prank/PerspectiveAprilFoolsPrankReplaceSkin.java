@@ -41,13 +41,12 @@ public class PerspectiveAprilFoolsPrankReplaceSkin {
                         String type;
                         if (isSLIM) type = "slim";
                         else type = "wide";
-                        cir.setReturnValue(new Identifier(PerspectiveData.ID, "textures/april_fools_prank/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
+                        cir.setReturnValue(new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "textures/april_fools_prank/" + type + "/" + PerspectiveAprilFoolsPrankDataLoader.REGISTRY.get(index).toLowerCase() + ".png"));
                     }
                 }
             }
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set April Fools getSkin.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set April Fools getSkin.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
 }

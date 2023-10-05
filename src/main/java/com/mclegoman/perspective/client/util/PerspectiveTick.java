@@ -31,6 +31,7 @@ public class PerspectiveTick {
                 PerspectivePanorama.tick(client);
                 PerspectiveHUDOverlays.tick(client);
                 PerspectiveExperimental.tick(client);
+                PerspectiveUpdateChecker.tick(client);
             }
         });
     }

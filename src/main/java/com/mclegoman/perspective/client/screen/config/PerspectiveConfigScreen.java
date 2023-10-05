@@ -57,7 +57,7 @@ public class PerspectiveConfigScreen extends Screen {
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
@@ -71,7 +71,7 @@ public class PerspectiveConfigScreen extends Screen {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private GridWidget createConfig() {
@@ -81,8 +81,8 @@ public class PerspectiveConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("zoom"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveZoomConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveShadersConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false, false))).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hold_perspective"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveHoldPerspectiveConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build());
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build());
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("textured_entity"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveTexturedEntityConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("april_fools_prank"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveAprilFoolsPrankConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
         return GRID;
     }
@@ -90,7 +90,7 @@ public class PerspectiveConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveInformationScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true)))).build());
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("information"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveInformationScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build());
         ButtonWidget EXPERIMENTAL = ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("experimental"), (button) -> PerspectiveClientData.CLIENT.setScreen(new PerspectiveExperimentalConfigScreen(new PerspectiveConfigScreen(PARENT_SCREEN, true), false))).build();
         EXPERIMENTAL.active = PerspectiveConfigHelper.EXPERIMENTS_AVAILABLE;
         GRID_ADDER.add(EXPERIMENTAL);

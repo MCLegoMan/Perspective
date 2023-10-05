@@ -42,7 +42,7 @@ public class PerspectiveHoldPerspectiveConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveHoldPerspectiveConfigScreen(PARENT_SCREEN, false), true, "hold_perspective"));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveHoldPerspectiveConfigScreen(PARENT_SCREEN, true), true, "hold_perspective"));
             GRID_ADDER.add(createHoldPerspective());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
@@ -50,7 +50,7 @@ public class PerspectiveHoldPerspectiveConfigScreen extends Screen {
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config$hold_perspective screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$hold_perspective screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
@@ -63,7 +63,7 @@ public class PerspectiveHoldPerspectiveConfigScreen extends Screen {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config$hold_perspective screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$hold_perspective screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private GridWidget createHoldPerspective() {
@@ -91,7 +91,7 @@ public class PerspectiveHoldPerspectiveConfigScreen extends Screen {
         try {
             SimplePositioningWidget.setPos(GRID, getNavigationFocus());
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config$hold_perspective screen TabNavigation: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$hold_perspective screen TabNavigation: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public Text getNarratedTitle() {

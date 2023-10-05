@@ -15,7 +15,6 @@ import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 
@@ -32,7 +31,7 @@ public class PerspectiveConfigHelper {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveConfigDataLoader());
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize config: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     protected static void loadConfig() {
@@ -41,23 +40,19 @@ public class PerspectiveConfigHelper {
             PerspectiveExperimentalConfig.init();
             PerspectiveConfigHelper.updateConfig();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load configs: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void tick(MinecraftClient client) {
         try {
-            if (PerspectiveData.IS_DEVELOPMENT && !SEEN_DEVELOPMENT_WARNING) {
-                if ((boolean)PerspectiveConfigHelper.getConfig("show_development_warning") && PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
-                    client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
-                    SEEN_DEVELOPMENT_WARNING = true;
-                }
+            if (PerspectiveData.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
+                client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
+                SEEN_DEVELOPMENT_WARNING = true;
             }
             if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
-                if (PerspectiveClientData.CLIENT.currentScreen instanceof TitleScreen) {
-                    client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
-                    SHOW_DOWNGRADE_WARNING = false;
-                    SEEN_DOWNGRADE_WARNING = true;
-                }
+                client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
+                SHOW_DOWNGRADE_WARNING = false;
+                SEEN_DOWNGRADE_WARNING = true;
             }
             if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen, false));
             if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
@@ -69,14 +64,14 @@ public class PerspectiveConfigHelper {
                 SAVE_VIA_TICK_TICKS = 0;
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick config: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     protected static void updateConfig() {
         try {
             if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
                 if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < DEFAULT_CONFIG_VERSION) {
-                    PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Attempting to update config to the latest version.");
+                    PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Attempting to update config to the latest version.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                     if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 3) {
                         setConfig("zoom_level", 100 - (int)getConfig("zoom_level"));
                     }
@@ -90,17 +85,17 @@ public class PerspectiveConfigHelper {
                         setConfig("hold_perspective_hide_hud", HIDE_HUD);
                     }
                     setConfig("config_version", DEFAULT_CONFIG_VERSION);
-                    PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Successfully updated config to the latest version.");
+                    PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Successfully updated config to the latest version.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                 } else if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) > DEFAULT_CONFIG_VERSION) {
                     if (!SEEN_DOWNGRADE_WARNING) {
-                        PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Downgrading is not supported. You may experience configuration related issues.");
+                        PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Downgrading is not supported. You may experience configuration related issues.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                         SHOW_DOWNGRADE_WARNING = true;
                     }
                 }
             }
             saveConfig(false);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to update config: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to update config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void saveConfig(boolean onTick) {
@@ -108,14 +103,14 @@ public class PerspectiveConfigHelper {
             if (onTick) {
                 SAVE_VIA_TICK = true;
             } else {
-                PerspectiveData.LOGGER.info(PerspectiveData.PREFIX + "Writing config to file.");
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                 PerspectiveConfig.save();
                 PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
                 PerspectiveExperimentalConfig.save();
                 PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to save config: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void resetConfig() {
@@ -142,10 +137,10 @@ public class PerspectiveConfigHelper {
             setConfig("version_overlay", PerspectiveConfigDataLoader.VERSION_OVERLAY);
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
+            setConfig("detect_update_channel", PerspectiveConfigDataLoader.DETECT_UPDATE_CHANNEL);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset config: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
-
     }
     public static void setConfig(String ID, Object VALUE) {
         try {
@@ -172,10 +167,11 @@ public class PerspectiveConfigHelper {
                 case "version_overlay" -> PerspectiveConfig.VERSION_OVERLAY = (boolean)VALUE;
                 case "hide_armor" -> PerspectiveConfig.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> PerspectiveConfig.HIDE_NAMETAGS = (boolean)VALUE;
+                case "detect_update_channel" -> PerspectiveConfig.DETECT_UPDATE_CHANNEL = (String)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set {} config value: {}", ID, error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
     }
     public static Object getConfig(String ID) {
@@ -202,9 +198,10 @@ public class PerspectiveConfigHelper {
             case "version_overlay" -> {return PerspectiveConfig.VERSION_OVERLAY;}
             case "hide_armor" -> {return PerspectiveConfig.HIDE_ARMOR;}
             case "hide_nametags" -> {return PerspectiveConfig.HIDE_NAMETAGS;}
+            case "detect_update_channel" -> {return PerspectiveConfig.DETECT_UPDATE_CHANNEL;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             default -> {
-                PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get {} config value: Invalid Key", ID);
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
                 return new Object();
             }
         }

@@ -106,11 +106,11 @@ public class PerspectivePanorama {
                         PerspectiveClientData.CLIENT.getFramebuffer().beginWrite(true);
                     }
                 } else {
-                    PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to take a panorama: Incompatible Mods: " + INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
+                    PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mods: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
                     PerspectiveClientData.CLIENT.player.sendMessage(PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.failure", new Object[]{PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.failure.incompatible_mods", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")})}));
                 }
             } catch (Exception error) {
-                PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to take a panorama: " + error);
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
                 PerspectiveClientData.CLIENT.player.sendMessage(PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.failure", new Object[]{error}));
             }
         }

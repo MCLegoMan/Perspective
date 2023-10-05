@@ -14,7 +14,7 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveExperimentalConfig {
-    protected static final String ID = PerspectiveData.ID + "-experimental";
+    protected static final String ID = PerspectiveData.PERSPECTIVE_VERSION.getID() + "-experimental";
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
     protected static void init() {
@@ -24,7 +24,7 @@ public class PerspectiveExperimentalConfig {
             CONFIG = SimpleConfig.of(ID).provider(CONFIG_PROVIDER).request();
             assign();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize {} config: {}", ID, error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize {} config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
     }
     protected static void create() {

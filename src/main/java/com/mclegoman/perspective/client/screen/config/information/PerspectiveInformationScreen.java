@@ -29,18 +29,20 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public class PerspectiveInformationScreen extends Screen {
     private final Screen PARENT_SCREEN;
+    private final boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveInformationScreen(Screen PARENT) {
+    public PerspectiveInformationScreen(Screen PARENT, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
+        this.REFRESH = REFRESH;
     }
     public void init() {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveInformationScreen(PARENT_SCREEN), true, "information"));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(client, new PerspectiveInformationScreen(PARENT_SCREEN, true), true, "information"));
             GRID_ADDER.add(createInformation());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
@@ -48,17 +50,20 @@ public class PerspectiveInformationScreen extends Screen {
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize information screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize information screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
     public void tick() {
         try {
+            if (this.REFRESH) {
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveInformationScreen(PARENT_SCREEN, false));
+            }
             if (this.SHOULD_CLOSE) {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick perspective$config$info screen: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$info screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private GridWidget createInformation() {

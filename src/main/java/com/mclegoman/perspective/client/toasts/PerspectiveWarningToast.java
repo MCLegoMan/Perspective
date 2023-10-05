@@ -15,24 +15,29 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveWarningToast implements Toast {
-	private static final Identifier TEXTURE = new Identifier(PerspectiveData.ID, "toast/warning");
+	private static final Identifier TEXTURE = new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning");
 	private final Text title;
 	private final List<OrderedText> lines;
 	private long startTime;
 	private boolean justUpdated;
 	private final int width;
-	private PerspectiveWarningToast(Text title, List<OrderedText> lines, int width) {
+	private final long display_time;
+	public PerspectiveWarningToast(Text title, Text description, int width) {
+		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, 4000L);
+	}
+	public PerspectiveWarningToast(Text title, Text description, int width, long display_time) {
+		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, display_time);
+	}
+
+	private PerspectiveWarningToast(Text title, List<OrderedText> lines, int width, long display_time) {
 		this.title = title;
 		this.lines = lines;
 		this.width = width;
-	}
-
-	public PerspectiveWarningToast(Text title, Text description, int max_width) {
-		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, max_width - 26), max_width);
+		this.display_time = display_time;
 	}
 
 	public int getWidth() {
-		return this.width;
+		return PerspectiveClientData.CLIENT.textRenderer.getWidth(this.title) > this.width ? PerspectiveClientData.CLIENT.textRenderer.getWidth(this.title) + 32 : this.width;
 	}
 	public int getHeight() {
 		return 20 + Math.max(this.lines.size(), 1) * 12;
@@ -69,7 +74,7 @@ public class PerspectiveWarningToast implements Toast {
 			}
 		}
 
-		return (double)(startTime - this.startTime) < (double)10000L * manager.getNotificationDisplayTimeMultiplier() ? Visibility.SHOW : Visibility.HIDE;
+		return (double)(startTime - this.startTime) < (double)this.display_time * manager.getNotificationDisplayTimeMultiplier() ? Visibility.SHOW : Visibility.HIDE;
 	}
 	private void drawPart(DrawContext context, int i, int j, int k, int l) {
 		int m = j == 0 ? 20 : 5;

@@ -20,7 +20,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -33,7 +35,7 @@ public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implemen
             if (ENABLED) REGISTRY.add(VALUES);
             else REGISTRY.remove(VALUES);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add textured entity to registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add textured entity to registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private void reset() {
@@ -41,7 +43,7 @@ public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implemen
             REGISTRY.clear();
             add$default();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset textured entity registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset textured entity registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     private void add$default() {
@@ -154,7 +156,7 @@ public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implemen
                 add(ENTITY, "default", true);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add default textured entity values to registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default textured entity values to registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public static final String ID = "textured_entity";
@@ -167,12 +169,12 @@ public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implemen
             reset();
             prepared.forEach(this::layout$perspective);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply textured entity dataloader: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply textured entity dataloader: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     @Override
     public Identifier getFabricId() {
-        return new Identifier(PerspectiveData.ID, ID);
+        return new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), ID);
     }
     private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
         try {
@@ -182,7 +184,7 @@ public class PerspectiveTexturedEntityDataLoader extends JsonDataLoader implemen
             Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
             add(ENTITY, NAME, ENABLED);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load perspective textured entity: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective textured entity: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 }

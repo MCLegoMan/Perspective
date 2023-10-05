@@ -30,4 +30,13 @@ public class PerspectiveJsonHelper extends JsonHelper {
         if (BOOLEAN) return "screen";
         return "game";
     }
+    public static String getDetectUpdateChannel(JsonObject object, String element, String defaultObj) {
+        return object.has(element) ? asDetectUpdateChannel(object.get(element).getAsString()) : asDetectUpdateChannel(defaultObj);
+    }
+    private static String asDetectUpdateChannel(String STRING) {
+        if (STRING.equalsIgnoreCase("none")) return "none";
+        else if (STRING.equalsIgnoreCase("alpha")) return "alpha";
+        else if (STRING.equalsIgnoreCase("beta")) return "beta";
+        return "release";
+    }
 }

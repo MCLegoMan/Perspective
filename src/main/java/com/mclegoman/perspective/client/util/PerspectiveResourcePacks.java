@@ -31,6 +31,6 @@ public class PerspectiveResourcePacks {
             Github: https://github.com/MCLegoMan
             License: CC-BY 4.0
         */
-        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), PerspectiveData.MOD_CONTAINER, PerspectiveTranslation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), PerspectiveData.PERSPECTIVE_VERSION.getModContainer(), PerspectiveTranslation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
     }
 }

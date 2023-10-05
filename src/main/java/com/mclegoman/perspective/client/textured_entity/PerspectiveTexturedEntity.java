@@ -26,7 +26,7 @@ public class PerspectiveTexturedEntity {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PerspectiveTexturedEntityDataLoader());
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to initialize textured entity texture: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize textured entity texture: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public static Identifier getTexture(Entity entity, String entity_type, String suffix, Identifier default_identifier) {
@@ -45,7 +45,7 @@ public class PerspectiveTexturedEntity {
                 }
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set textured entity texture: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set textured entity texture: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
         return default_identifier;
     }
@@ -59,7 +59,7 @@ public class PerspectiveTexturedEntity {
                 if (type.equalsIgnoreCase(entity_type)) entity_registry.add(name);
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get textured entity string registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get textured entity string registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
         return entity_registry;
     }
@@ -72,7 +72,7 @@ public class PerspectiveTexturedEntity {
                 if (type.equalsIgnoreCase(entity_type)) entity_registry.add(Text.literal(name));
             }
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to get textured entity text registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get textured entity text registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
         return entity_registry;
     }

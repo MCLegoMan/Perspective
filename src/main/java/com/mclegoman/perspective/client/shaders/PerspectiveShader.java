@@ -51,9 +51,8 @@ public class PerspectiveShader {
                     SOUND_EVENTS.add(id);
                 }
             }
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Caught an error whilst initializing Super Secret Settings");
-            PerspectiveData.LOGGER.error(e.getLocalizedMessage());
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void tick(MinecraftClient client) {
@@ -86,9 +85,8 @@ public class PerspectiveShader {
                 else PerspectiveConfigHelper.setConfig("super_secret_settings", PerspectiveShaderDataLoader.getShaderAmount());
             }
             set(client, FORWARDS, SILENT, SAVE_CONFIG);
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to cycle Super Secret Settings.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void random(boolean SILENT, boolean SAVE_CONFIG) {
@@ -98,8 +96,7 @@ public class PerspectiveShader {
             PerspectiveConfigHelper.setConfig("super_secret_settings", SHADER);
             PerspectiveShader.set(PerspectiveClientData.CLIENT, true, SILENT, SAVE_CONFIG);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to randomize Super Secret Settings.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + error.getLocalizedMessage());
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void set(MinecraftClient client, Boolean forwards, boolean SILENT, boolean SAVE_CONFIG) {
@@ -111,19 +108,17 @@ public class PerspectiveShader {
             if (!SILENT) setOverlay(Text.literal((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
             try {
                 if (!SILENT && client.world != null && client.player != null && (boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_sound")) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
-            } catch (Exception e) {
-                PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to play random Super Secret Settings sound.");
-                PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+            } catch (Exception error) {
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
             }
             DEPTH_FIX = false;
             if (!(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
             if (SAVE_CONFIG) PerspectiveConfigHelper.saveConfig(true);
-        } catch (Exception e) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "An error occurred whilst trying to set Super Secret Settings.");
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + e.getLocalizedMessage());
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
             try {
                 cycle(client, forwards, false, SAVE_CONFIG);
-            } catch (Exception error) {
+            } catch (Exception ignored) {
                 PerspectiveConfigHelper.setConfig("super_secret_settings", 0);
                 try {
                     if (postProcessor != null) postProcessor.close();
@@ -131,7 +126,7 @@ public class PerspectiveShader {
                     postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
                     if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
                     PerspectiveConfigHelper.saveConfig(true);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored2) {}
             }
             if (SAVE_CONFIG) PerspectiveConfigHelper.saveConfig(true);
         }

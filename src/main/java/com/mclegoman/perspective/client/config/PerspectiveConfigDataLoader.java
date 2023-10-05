@@ -47,6 +47,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean VERSION_OVERLAY;
     public static boolean HIDE_ARMOR;
     public static boolean HIDE_NAMETAGS;
+    public static String DETECT_UPDATE_CHANNEL;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
         super(new Gson(), ID);
@@ -55,7 +56,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     @Override
     public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
         try {
-            for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.ID, ID + ".json"))) {
+            for (Resource resource : manager.getAllResources(new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), ID + ".json"))) {
                 ZOOM_LEVEL = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_level", 80);
                 ZOOM_INCREMENT_SIZE = JsonHelper.getInt(JsonHelper.deserialize(resource.getReader()), "zoom_increment_size", 1);
                 ZOOM_MODE = JsonHelper.getString(JsonHelper.deserialize(resource.getReader()), "zoom_mode", "smooth");
@@ -78,15 +79,16 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 VERSION_OVERLAY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
                 HIDE_ARMOR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
                 HIDE_NAMETAGS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
+                DETECT_UPDATE_CHANNEL = PerspectiveJsonHelper.getDetectUpdateChannel(JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
             }
             PerspectiveConfigHelper.loadConfig();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to load default config values: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load default config values: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier(PerspectiveData.ID, ID);
+        return new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), ID);
     }
 }

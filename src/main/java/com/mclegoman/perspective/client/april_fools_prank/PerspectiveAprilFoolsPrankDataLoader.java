@@ -32,14 +32,14 @@ public class PerspectiveAprilFoolsPrankDataLoader extends JsonDataLoader impleme
             if (ENABLED) REGISTRY.add(NAME);
             else REGISTRY.remove(NAME);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to add april fools prank to registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().error("{} Failed to add april fools prank to registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     private void reset() {
         try {
             REGISTRY.clear();
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to reset april fools prank registry: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().error("{} Failed to reset april fools prank registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static final String ID = "april_fools_prank";
@@ -52,12 +52,12 @@ public class PerspectiveAprilFoolsPrankDataLoader extends JsonDataLoader impleme
             reset();
             prepared.forEach(this::layout$perspective);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.error(PerspectiveData.PREFIX + "Failed to apply april fools prank dataloader: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().error("{} Failed to apply april fools prank dataloader: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     @Override
     public Identifier getFabricId() {
-        return new Identifier(PerspectiveData.ID, ID);
+        return new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), ID);
     }
     private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
         try {
@@ -66,7 +66,7 @@ public class PerspectiveAprilFoolsPrankDataLoader extends JsonDataLoader impleme
             Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
             add(SKIN, ENABLED);
         } catch (Exception error) {
-            PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to load april fools prank: {}", (Object)error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().error("{} Failed to load april fools prank: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
 }

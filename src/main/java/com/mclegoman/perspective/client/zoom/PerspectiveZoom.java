@@ -55,7 +55,7 @@ public class PerspectiveZoom {
 				zoomUpdated = false;
 			}
 		} catch (Exception error) {
-			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to tick zoom: {}", (Object)error);
+			PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick zoom: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static int getZoomLevel() {
@@ -85,7 +85,7 @@ public class PerspectiveZoom {
 				updated = false;
 			}
 		} catch (Exception error) {
-			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to set zoom level: {}", (Object)error);
+			PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set zoom level: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void reset(MinecraftClient client) {
@@ -96,7 +96,7 @@ public class PerspectiveZoom {
 				PerspectiveConfigHelper.saveConfig(true);
 			}
 		} catch (Exception error) {
-			PerspectiveData.LOGGER.warn(PerspectiveData.PREFIX + "Failed to reset zoom level: {}", (Object)error);
+			PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset zoom level: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 	private static void setOverlay(){

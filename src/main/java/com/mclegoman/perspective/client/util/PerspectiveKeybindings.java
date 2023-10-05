@@ -38,7 +38,7 @@ public class PerspectiveKeybindings {
     private static final KeyBinding[] ALL_KEYBINDINGS;
     public static boolean SEEN_CONFLICTING_KEYBINDING_TOASTS;
     public static void init() {
-        PerspectiveData.LOGGER.info("Initializing keybindings");
+        PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Initializing keybindings", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
     }
     public static void tick(MinecraftClient client) {
         if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
@@ -65,20 +65,20 @@ public class PerspectiveKeybindings {
     }
     static {
         ALL_KEYBINDINGS = new KeyBinding[]{
-                CYCLE_SHADERS = getKeybinding(PerspectiveData.ID, "cycle_shaders", GLFW.GLFW_KEY_F7),
-                HOLD_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(PerspectiveData.ID, "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
-                HOLD_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(PerspectiveData.ID, "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
-                HOLD_ZOOM = getKeybinding(PerspectiveData.ID, "hold_zoom", GLFW.GLFW_KEY_C),
-                OPEN_CONFIG = getKeybinding(PerspectiveData.ID, "open_config", GLFW.GLFW_KEY_END),
-                RANDOM_SHADER = getKeybinding(PerspectiveData.ID, "random_shader", GLFW.GLFW_KEY_UNKNOWN),
-                SET_PERSPECTIVE_FIRST_PERSON = getKeybinding(PerspectiveData.ID, "set_perspective_first_person", GLFW.GLFW_KEY_KP_1),
-                SET_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(PerspectiveData.ID, "set_perspective_third_person_back", GLFW.GLFW_KEY_KP_2),
-                SET_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(PerspectiveData.ID, "set_perspective_third_person_front", GLFW.GLFW_KEY_KP_3),
-                TAKE_PANORAMA_SCREENSHOT = getKeybinding(PerspectiveData.ID, "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
-                TOGGLE_ZOOM = getKeybinding(PerspectiveData.ID, "toggle_zoom", GLFW.GLFW_KEY_B),
-                TOGGLE_SHADERS = getKeybinding(PerspectiveData.ID, "toggle_shaders", GLFW.GLFW_KEY_F8),
-                TOGGLE_NAMETAGS = getKeybinding(PerspectiveData.ID + "_experimental", "toggle_nametags", GLFW.GLFW_KEY_F10),
-                TOGGLE_ARMOR = getKeybinding(PerspectiveData.ID + "_experimental", "toggle_armor", GLFW.GLFW_KEY_F9)
+                CYCLE_SHADERS = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
+                HOLD_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
+                HOLD_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
+                HOLD_ZOOM = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "hold_zoom", GLFW.GLFW_KEY_C),
+                OPEN_CONFIG = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "open_config", GLFW.GLFW_KEY_END),
+                RANDOM_SHADER = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
+                SET_PERSPECTIVE_FIRST_PERSON = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "set_perspective_first_person", GLFW.GLFW_KEY_KP_1),
+                SET_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_KP_2),
+                SET_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_KP_3),
+                TAKE_PANORAMA_SCREENSHOT = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
+                TOGGLE_ZOOM = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toggle_zoom", GLFW.GLFW_KEY_B),
+                TOGGLE_SHADERS = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
+                TOGGLE_NAMETAGS = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID() + "_experimental", "toggle_nametags", GLFW.GLFW_KEY_F10),
+                TOGGLE_ARMOR = getKeybinding(PerspectiveData.PERSPECTIVE_VERSION.getID() + "_experimental", "toggle_armor", GLFW.GLFW_KEY_F9)
         };
     }
 }
