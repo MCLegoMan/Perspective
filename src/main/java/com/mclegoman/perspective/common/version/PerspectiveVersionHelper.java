@@ -16,13 +16,4 @@ public class PerspectiveVersionHelper {
 			return RTUReleaseTypes.RELEASE;
 		}
 	}
-	public static boolean isTypeNewer(RTUReleaseTypes type1, RTUReleaseTypes type2) {
-		if (type2.equals(RTUReleaseTypes.ALPHA)) {
-			return type1.equals(RTUReleaseTypes.BETA) || type1.equals(RTUReleaseTypes.RELEASE_CANDIDATE) || type1.equals(RTUReleaseTypes.RELEASE);
-		} else if (type2.equals(RTUReleaseTypes.BETA)) {
-			return type1.equals(RTUReleaseTypes.RELEASE_CANDIDATE) || type1.equals(RTUReleaseTypes.RELEASE);
-		} else if (type2.equals(RTUReleaseTypes.RELEASE_CANDIDATE)) {
-			return type1.equals(RTUReleaseTypes.RELEASE);
-		} else return false;
-	}
 }
