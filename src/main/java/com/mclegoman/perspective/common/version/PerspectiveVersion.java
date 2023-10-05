@@ -1,3 +1,10 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: CC-BY 4.0
+*/
+
 package com.mclegoman.perspective.common.version;
 
 import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseTranslationTypes;
