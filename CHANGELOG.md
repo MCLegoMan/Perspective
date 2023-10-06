@@ -1,7 +1,7 @@
 # Perspective 1.2.0-alpha.3 for 1.20.2
 
 ## Changelog:  
-- **License Change: Transitioned from `CC-BY 4.0` to `LGPL-3.0`.**  
+- **License Change: Transitioned from `CC-BY 4.0` to `LGPL-3.0-or-later`.**  
   - `LGPL-3.0` allows for more flexibility in how the project can be used, while still ensuring that any modifications to the code are shared back with the community.  
   - Please note that versions older than `1.2.0-alpha.3` of Perspective continue to be licensed under `CC-BY-4.0`.
 - **Updated to Config Version `8`.**
