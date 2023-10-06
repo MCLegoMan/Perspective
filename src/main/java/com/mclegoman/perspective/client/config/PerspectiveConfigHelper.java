@@ -19,13 +19,15 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 
 public class PerspectiveConfigHelper {
-    protected static boolean SAVE_VIA_TICK;
-    protected static int SAVE_VIA_TICK_TICKS;
+    protected static boolean SAVE_VIA_TICK = false;
+    protected static int SAVE_VIA_TICK_TICKS = 0;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
     protected static final int DEFAULT_CONFIG_VERSION = 8;
-    private static boolean SEEN_DEVELOPMENT_WARNING;
-    private static boolean SHOW_DOWNGRADE_WARNING;
-    private static boolean SEEN_DOWNGRADE_WARNING;
+    private static boolean SEEN_DEVELOPMENT_WARNING = false;
+    private static boolean SHOW_DOWNGRADE_WARNING = false;
+    private static boolean SEEN_DOWNGRADE_WARNING = false;
+    private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
+    private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
     public static boolean EXPERIMENTS_AVAILABLE = false;
     public static void init() {
         try {
@@ -45,15 +47,6 @@ public class PerspectiveConfigHelper {
     }
     public static void tick(MinecraftClient client) {
         try {
-            if (PerspectiveData.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
-                client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
-                SEEN_DEVELOPMENT_WARNING = true;
-            }
-            if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
-                client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
-                SHOW_DOWNGRADE_WARNING = false;
-                SEEN_DOWNGRADE_WARNING = true;
-            }
             if (PerspectiveKeybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new PerspectiveConfigScreen(client.currentScreen, false));
             if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
             else {
@@ -63,8 +56,26 @@ public class PerspectiveConfigHelper {
                 }
                 SAVE_VIA_TICK_TICKS = 0;
             }
+            showToasts(client);
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+        }
+    }
+    private static void showToasts(MinecraftClient client) {
+        if (PerspectiveData.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", PerspectiveData.PERSPECTIVE_VERSION.getName());
+            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
+            SEEN_DEVELOPMENT_WARNING = true;
+        }
+        if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", PerspectiveData.PERSPECTIVE_VERSION.getName());
+            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
+            SEEN_DOWNGRADE_WARNING = true;
+        }
+        if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", PerspectiveData.PERSPECTIVE_VERSION.getName());
+            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.license.title")), Text.translatable("gui.perspective.toasts.license.description"), 320));
+            SEEN_LICENSE_UPDATE_NOTICE = true;
         }
     }
     protected static void updateConfig() {
@@ -83,6 +94,9 @@ public class PerspectiveConfigHelper {
                         Boolean HIDE_HUD = PerspectiveConfig.CONFIG.getOrDefault("hide_hud", true);
                         setConfig("zoom_hide_hud", HIDE_HUD);
                         setConfig("hold_perspective_hide_hud", HIDE_HUD);
+                    }
+                    if (PerspectiveConfig.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 8) {
+                        SHOW_LICENSE_UPDATE_NOTICE = true;
                     }
                     setConfig("config_version", DEFAULT_CONFIG_VERSION);
                     PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Successfully updated config to the latest version.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());

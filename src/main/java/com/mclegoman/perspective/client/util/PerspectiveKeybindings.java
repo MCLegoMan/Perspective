@@ -43,6 +43,7 @@ public class PerspectiveKeybindings {
     public static void tick(MinecraftClient client) {
         if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
             if (hasKeybindingConflicts(client)) {
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", PerspectiveData.PERSPECTIVE_VERSION.getName());
                 client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.keybinding_conflicts.title")), Text.translatable("gui.perspective.toasts.keybinding_conflicts.description"), 320));
             }
             SEEN_CONFLICTING_KEYBINDING_TOASTS = true;

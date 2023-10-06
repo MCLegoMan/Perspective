@@ -106,6 +106,9 @@ public class PerspectiveUpdateChecker {
 							}
 						}
 					}
+					if (!NEWER_VERSION_FOUND) {
+						PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("You are already running the latest version of {}", PerspectiveData.PERSPECTIVE_VERSION.getName());
+					}
 				}
 			}
 		} catch (Exception error) {
