@@ -13,13 +13,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
-import com.mclegoman.perspective.client.toasts.PerspectiveWarningToast;
+import com.mclegoman.perspective.client.toasts.PerspectiveToast;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.perspective.common.version.PerspectiveVersion;
 import com.mclegoman.perspective.common.version.PerspectiveVersionHelper;
 import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseTypes;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 import net.minecraft.util.JsonHelper;
 
 import java.io.BufferedReader;
@@ -37,7 +37,7 @@ public class PerspectiveUpdateChecker {
 		if (!UPDATE_CHECKER_COMPLETE) {
 			checkForUpdates();
 			if (NEWER_VERSION_FOUND) {
-				PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.update.title")), Text.translatable("gui.perspective.toasts.update.description", PerspectiveUpdateChecker.LATEST_VERSION_FOUND), 280));
+				PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.update.title")}), PerspectiveTranslation.getTranslation("toasts.update.description", new Object[]{PerspectiveUpdateChecker.LATEST_VERSION_FOUND}), 280, PerspectiveToast.Type.INFO));
 			}
 			UPDATE_CHECKER_COMPLETE = true;
 		}

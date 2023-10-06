@@ -21,7 +21,7 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveWarningToast implements Toast {
+public class PerspectiveToast implements Toast {
 	private static final Identifier TEXTURE = new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning");
 	private final Text title;
 	private final List<OrderedText> lines;
@@ -29,14 +29,11 @@ public class PerspectiveWarningToast implements Toast {
 	private boolean justUpdated;
 	private final int width;
 	private final long display_time;
-	public PerspectiveWarningToast(Text title, Text description, int width) {
-		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, 4000L);
-	}
-	public PerspectiveWarningToast(Text title, Text description, int width, long display_time) {
-		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, display_time);
+	public PerspectiveToast(Text title, Text description, int width, Type type) {
+		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, type.display_time);
 	}
 
-	private PerspectiveWarningToast(Text title, List<OrderedText> lines, int width, long display_time) {
+	private PerspectiveToast(Text title, List<OrderedText> lines, int width, long display_time) {
 		this.title = title;
 		this.lines = lines;
 		this.width = width;
@@ -93,5 +90,17 @@ public class PerspectiveWarningToast implements Toast {
 		}
 
 		context.drawGuiTexture(TEXTURE, 160, 32, 160 - n, j, i - n, k, n, l);
+	}
+
+	public enum Type {
+		INFO(4000L),
+		WARNING(6000L),
+		TUTORIAL(8000L);
+
+		final long display_time;
+
+		Type(long display_time) {
+			this.display_time = display_time;
+		}
 	}
 }

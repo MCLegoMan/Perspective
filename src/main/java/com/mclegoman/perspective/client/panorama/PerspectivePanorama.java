@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.panorama;
 
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
-import com.mclegoman.perspective.client.toasts.PerspectiveWarningToast;
+import com.mclegoman.perspective.client.toasts.PerspectiveToast;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
@@ -96,7 +96,7 @@ public class PerspectivePanorama {
                             pack_writer.write("{\"pack\": {\"pack_format\": 9, \"supported_formats\": {\"min_inclusive\": 9, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
                             pack_writer.close();
                         }
-                        PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveWarningToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.success.title")}), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.success.description", new Object[]{Text.literal(panoramaName)}), 320));
+                        PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.success.title")}), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.success.description", new Object[]{Text.literal(panoramaName)}), 320, PerspectiveToast.Type.INFO));
                         PerspectiveClientData.CLIENT.player.sendMessage(PerspectiveTranslation.getTranslation("message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, new File(rpDirLoc).getAbsolutePath())))}));
                         PerspectiveClientData.CLIENT.player.setPitch(pitch);
                         PerspectiveClientData.CLIENT.player.setYaw(yaw);
@@ -109,11 +109,11 @@ public class PerspectivePanorama {
                     }
                 } else {
                     PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mods: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
-                    PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveWarningToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.failure.description", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}), 320));
+                    PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.failure.description", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}), 320, PerspectiveToast.Type.WARNING));
                 }
             } catch (Exception error) {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-                PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveWarningToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), 320));
+                PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), 320, PerspectiveToast.Type.WARNING));
             }
         }
     }

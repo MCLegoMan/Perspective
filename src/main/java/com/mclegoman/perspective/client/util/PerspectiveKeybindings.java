@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.client.util;
 
-import com.mclegoman.perspective.client.toasts.PerspectiveWarningToast;
+import com.mclegoman.perspective.client.toasts.PerspectiveToast;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -16,7 +16,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
@@ -44,7 +43,7 @@ public class PerspectiveKeybindings {
         if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
             if (hasKeybindingConflicts(client)) {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", PerspectiveData.PERSPECTIVE_VERSION.getName());
-                client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.keybinding_conflicts.title")), Text.translatable("gui.perspective.toasts.keybinding_conflicts.description"), 320));
+                client.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.keybinding_conflicts.title")}), PerspectiveTranslation.getTranslation("toasts.keybinding_conflicts.description"), 320, PerspectiveToast.Type.WARNING));
             }
             SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
         }

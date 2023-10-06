@@ -10,13 +10,13 @@ package com.mclegoman.perspective.client.config;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreen;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
-import com.mclegoman.perspective.client.toasts.PerspectiveWarningToast;
+import com.mclegoman.perspective.client.toasts.PerspectiveToast;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.text.Text;
 
 public class PerspectiveConfigHelper {
     protected static boolean SAVE_VIA_TICK = false;
@@ -39,7 +39,7 @@ public class PerspectiveConfigHelper {
     protected static void loadConfig() {
         try {
             PerspectiveConfig.init();
-            if (EXPERIMENTS_AVAILABLE) PerspectiveExperimentalConfig.init();
+            PerspectiveExperimentalConfig.init();
             PerspectiveTutorialConfig.init();
             PerspectiveConfigHelper.updateConfig();
         } catch (Exception error) {
@@ -65,17 +65,17 @@ public class PerspectiveConfigHelper {
     private static void showToasts(MinecraftClient client) {
         if (PerspectiveData.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", PerspectiveData.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.development_warning.title")), Text.translatable("gui.perspective.toasts.development_warning.description"), 320));
+            client.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.development_warning.title")}), PerspectiveTranslation.getTranslation("toasts.development_warning.description"), 320, PerspectiveToast.Type.WARNING));
             SEEN_DEVELOPMENT_WARNING = true;
         }
         if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", PerspectiveData.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320, 6000L));
+            client.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.downgrade_warning.title")}), PerspectiveTranslation.getTranslation("toasts.downgrade_warning.description"), 320, PerspectiveToast.Type.WARNING));
             SEEN_DOWNGRADE_WARNING = true;
         }
         if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", PerspectiveData.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.license.title")), Text.translatable("gui.perspective.toasts.license.description"), 320, 6000L));
+            client.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.license_update.title")}), PerspectiveTranslation.getTranslation("toasts.license_update.description"), 320, PerspectiveToast.Type.INFO));
             SEEN_LICENSE_UPDATE_NOTICE = true;
         }
     }
@@ -121,10 +121,8 @@ public class PerspectiveConfigHelper {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                 PerspectiveConfig.save();
                 PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
-                if (EXPERIMENTS_AVAILABLE) {
-                    PerspectiveExperimentalConfig.save();
-                    PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
-                }
+                PerspectiveExperimentalConfig.save();
+                PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
                 PerspectiveTutorialConfig.save();
                 PerspectiveTutorialConfig.CONFIG_PROVIDER.saveConfig(PerspectiveTutorialConfig.ID);
             }
@@ -209,8 +207,11 @@ public class PerspectiveConfigHelper {
     }
     public static void setTutorialConfig(String ID, Object VALUE) {
         try {
-            // There is currently no tutorials available.
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+            if (ID.equals("super_secret_settings")) {
+                PerspectiveTutorialConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
+            } else {
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+            }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
@@ -253,8 +254,11 @@ public class PerspectiveConfigHelper {
         return new Object();
     }
     public static Object getTutorialConfig(String ID) {
-        // There is currently no experiments available.
-        PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        if (ID.equals("super_secret_settings")) {
+            return PerspectiveTutorialConfig.SUPER_SECRET_SETTINGS;
+        } else {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        }
         return new Object();
     }
 }

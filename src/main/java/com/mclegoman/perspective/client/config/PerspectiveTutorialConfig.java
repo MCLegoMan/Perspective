@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -17,6 +18,7 @@ public class PerspectiveTutorialConfig {
     protected static final String ID = PerspectiveData.PERSPECTIVE_VERSION.getID() + "-tutorials";
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
+    protected static boolean SUPER_SECRET_SETTINGS;
     protected static void init() {
         try {
             CONFIG_PROVIDER = new PerspectiveConfigProvider();
@@ -28,12 +30,12 @@ public class PerspectiveTutorialConfig {
         }
     }
     protected static void create() {
-        // There is currently no tutorials available.
+        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", false));
     }
     protected static void assign() {
-        // There is currently no tutorials available.
+        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", false);
     }
     protected static void save() {
-        // There is currently no tutorials available.
+        CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
     }
 }

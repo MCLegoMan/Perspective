@@ -1,8 +1,8 @@
 {
 	"gui.perspective.name": "Perspective",
 	"gui.perspective.toasts.title": "%s: %s",
-	"gui.perspective.toasts.license.title": "License Update",
-	"gui.perspective.toasts.license.description": "Perspective is now licensed under LGPL-3.0-or-later.",
+	"gui.perspective.toasts.license_update.title": "License Update",
+	"gui.perspective.toasts.license_update.description": "Perspective is now licensed under LGPL-3.0-or-later.",
 	"gui.perspective.toasts.keybinding_conflicts.title": "Conflicting Keybinding",
 	"gui.perspective.toasts.keybinding_conflicts.description": "Keybinding conflicts have been detected that could affect Perspective.\nPlease take a moment to review and adjust your keybindings as needed.",
 	"gui.perspective.toasts.update.title": "Update Available",
@@ -15,6 +15,10 @@
 	"gui.perspective.toasts.take_panorama_screenshot.success.description": "You can enable the panorama in your resource pack menu by enabling the %s resource pack.",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.title": "Failed to take panorama!",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.description": "Incompatible Mods: %s",
+
+	"gui.perspective.toasts.tutorial.super_secret_settings.title": "Tutorial: Super Secret Settings",
+	"gui.perspective.toasts.tutorial.super_secret_settings.description": "You can cycle shaders with [%s] and disable them with [%s]. For more settings check out the Perspective config using [%s].",
+
 	"gui.perspective.config.update.title": "Update Available",
 	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
 	"gui.perspective.config.zoom": "Zoom",

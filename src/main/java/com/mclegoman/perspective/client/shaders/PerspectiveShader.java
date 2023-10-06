@@ -10,12 +10,14 @@ package com.mclegoman.perspective.client.shaders;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
+import com.mclegoman.perspective.client.toasts.PerspectiveToast;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
@@ -61,6 +63,12 @@ public class PerspectiveShader {
         if (PerspectiveKeybindings.RANDOM_SHADER.wasPressed()) random(false, true);
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
+        if (!(Boolean) PerspectiveConfigHelper.getTutorialConfig("super_secret_settings")) {
+            PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
+            PerspectiveConfigHelper.setTutorialConfig("super_secret_settings", true);
+        }
+
+
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
         if (!SILENT) {
             if (SHOW_SHADER_NAME) setOverlay(Text.literal(PerspectiveShaderDataLoader.getShaderName((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));
