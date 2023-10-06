@@ -16,7 +16,7 @@
     "issues": "https://github.com/mclegoman/perspective/issues"
   },
   "license": [
-    "LGPL-3.0"
+    "LGPL-3.0-or-later"
   ],
   "icon": "assets/perspective/icon.png",
   "environment": "client",
