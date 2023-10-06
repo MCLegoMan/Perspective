@@ -1,6 +1,9 @@
 # Perspective 1.2.0-alpha.3 for 1.20.2
 
 ## Changelog:  
+- **License Change: Transitioned from `CC-BY 4.0` to `LGPL-3.0`.**  
+  - `LGPL-3.0` allows for more flexibility in how the project can be used, while still ensuring that any modifications to the code are shared back with the community.  
+  - Please note that versions older than `1.2.0-alpha.3` of Perspective continue to be licensed under `CC-BY-4.0`.
 - **Updated to Config Version `8`.**
   - Removed `show_development_warning` config option.  
   - Added `detect_update_channel` config option with values `none`, `alpha`, `beta`, and `release`.  
