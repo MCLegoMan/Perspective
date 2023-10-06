@@ -18,18 +18,16 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class PerspectiveResourcePacks {
     /**
-        When including resource packs with Perspective, register it here along with a comment with the following details:
-        Resource Pack: ___________________
-        Author: _________
-        Github: github.com/_________
-        Licence: _________
-     **/
+     To add a resource pack to this project, please follow these guidelines:
+     1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
+     - Resource Pack Name
+     - Contributor(s): _________
+     2. Your resource pack must use the GNU LGPLv3 license.
+    **/
     public static void init() {
         /*
-            Resource Pack: Perspective Default
-            Author: MCLegoMan
-            Github: https://github.com/MCLegoMan
-            License: CC-BY 4.0
+            Perspective: Default
+            Contributor(s): MCLegoMan
         */
         ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), PerspectiveData.PERSPECTIVE_VERSION.getModContainer(), PerspectiveTranslation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
     }
