@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/MCLegoMan/Perspective/docs/img/logo/release.png)
+![](https://raw.githubusercontent.com/MCLegoMan/Perspective/docs/docs/img/logo/release.png)  
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png)](https://modrinth.com/mod/mclegoman-perspective)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/curseforge_64h.png)](https://www.curseforge.com/minecraft/mc-mods/perspective)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/github_64h.png)](https://github.com/MCLegoMan/perspective)  
@@ -9,7 +9,7 @@
 Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to zoom, change and hold perspectives, have custom textures on named/random entities, take panoramic screenshots, and use super secret settings!
 
 ## Mod Requirements
-- [Fabric API](https://modrinth.com/mod/fabric-api) **OR** [Quilted Fabric API (QFAPI)](https://modrinth.com/mod/qsl) 
+- [Fabric API](https://modrinth.com/mod/fabric-api) or [Quilted Fabric API (QFAPI)](https://modrinth.com/mod/qsl)
 
 ## FAQ
 Q: Will this mod work on Forge?  
