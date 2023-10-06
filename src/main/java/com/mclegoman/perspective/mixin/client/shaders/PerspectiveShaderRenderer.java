@@ -1,8 +1,8 @@
 /*
     Perspective
-    Author: MCLegoMan
+    Contributor(s): MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: CC-BY 4.0
+    License: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.mixin.client.shaders;
@@ -32,15 +32,6 @@ public class PerspectiveShaderRenderer {
         if (PerspectiveShader.postProcessor != null) {
             PerspectiveShader.postProcessor.setupDimensions(width, height);
         }
-        /*
-            Perspective
-            Author: MCLegoMan
-            Github: https://github.com/MCLegoMan/Perspective
-
-            The following code was forked from Souper Secret Settings by Nettakrim.
-            Licensed under GNU Lesser General Public License v3.0
-            https://github.com/Nettakrim/Souper-Secret-Settings
-        */
         if (PerspectiveShader.DEPTH_FRAME_BUFFER == null) {
             PerspectiveShader.DEPTH_FRAME_BUFFER = new SimpleFramebuffer(width, height, true, MinecraftClient.IS_SYSTEM_MAC);
         } else {

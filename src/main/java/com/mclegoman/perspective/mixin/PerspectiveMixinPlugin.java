@@ -2,7 +2,7 @@
     Perspective
     Author: MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: CC-BY 4.0
+    License: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.mixin;
