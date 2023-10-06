@@ -39,7 +39,8 @@ public class PerspectiveConfigHelper {
     protected static void loadConfig() {
         try {
             PerspectiveConfig.init();
-            PerspectiveExperimentalConfig.init();
+            if (EXPERIMENTS_AVAILABLE) PerspectiveExperimentalConfig.init();
+            PerspectiveTutorialConfig.init();
             PerspectiveConfigHelper.updateConfig();
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -120,8 +121,12 @@ public class PerspectiveConfigHelper {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                 PerspectiveConfig.save();
                 PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
-                PerspectiveExperimentalConfig.save();
-                PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
+                if (EXPERIMENTS_AVAILABLE) {
+                    PerspectiveExperimentalConfig.save();
+                    PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
+                }
+                PerspectiveTutorialConfig.save();
+                PerspectiveTutorialConfig.CONFIG_PROVIDER.saveConfig(PerspectiveTutorialConfig.ID);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -129,6 +134,7 @@ public class PerspectiveConfigHelper {
     }
     public static void resetConfig() {
         try {
+            // Main Config
             setConfig("zoom_level", Math.min(Math.max(PerspectiveConfigDataLoader.ZOOM_LEVEL, -50), 100));
             setConfig("zoom_increment_size", Math.max(Math.min(PerspectiveConfigDataLoader.ZOOM_INCREMENT_SIZE, 10), 1));
             setConfig("zoom_mode", PerspectiveConfigDataLoader.ZOOM_MODE);
@@ -152,8 +158,12 @@ public class PerspectiveConfigHelper {
             setConfig("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
             setConfig("detect_update_channel", PerspectiveConfigDataLoader.DETECT_UPDATE_CHANNEL);
+            // Experimental Config
+            if (EXPERIMENTS_AVAILABLE) {
+                // There is currently no experiments available.
+            }
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     public static void setConfig(String ID, Object VALUE) {
@@ -183,9 +193,26 @@ public class PerspectiveConfigHelper {
                 case "hide_nametags" -> PerspectiveConfig.HIDE_NAMETAGS = (boolean)VALUE;
                 case "detect_update_channel" -> PerspectiveConfig.DETECT_UPDATE_CHANNEL = (String)VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
+                default -> PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+        }
+    }
+    public static void setExperimentalConfig(String ID, Object VALUE) {
+        try {
+            // There is currently no experiments available.
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+        }
+    }
+    public static void setTutorialConfig(String ID, Object VALUE) {
+        try {
+            // There is currently no tutorials available.
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
     }
     public static Object getConfig(String ID) {
@@ -219,5 +246,15 @@ public class PerspectiveConfigHelper {
                 return new Object();
             }
         }
+    }
+    public static Object getExperimentalConfig(String ID) {
+        // There is currently no experiments available.
+        PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        return new Object();
+    }
+    public static Object getTutorialConfig(String ID) {
+        // There is currently no experiments available.
+        PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        return new Object();
     }
 }
