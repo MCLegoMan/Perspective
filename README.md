@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/MCLegoMan/Perspective/1.20.x/docs/img/logo/release.png)
+![](https://raw.githubusercontent.com/MCLegoMan/Perspective/docs/img/logo/release.png)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png)](https://modrinth.com/mod/mclegoman-perspective)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/curseforge_64h.png)](https://www.curseforge.com/minecraft/mc-mods/perspective)
 [![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/github_64h.png)](https://github.com/MCLegoMan/perspective)  
