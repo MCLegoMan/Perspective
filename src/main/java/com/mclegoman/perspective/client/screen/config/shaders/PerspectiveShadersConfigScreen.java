@@ -12,7 +12,6 @@ import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
-import com.mclegoman.perspective.client.shaders.PerspectiveShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
@@ -80,7 +79,7 @@ public class PerspectiveShadersConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.shader", new Object[]{PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)}, new Formatting[]{PerspectiveShader.getRandomColor()}), (button) -> {
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("shaders.shader", new Object[]{PerspectiveShaderDataLoader.getShaderName((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))}, new Formatting[]{PerspectiveShader.getRandomColor()}), (button) -> {
             PerspectiveShader.cycle(PerspectiveClientData.CLIENT, CYCLE_DIRECTION, true, false);
             this.REFRESH = true;
         }).width(280).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("shaders.shader", true)));

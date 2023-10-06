@@ -63,7 +63,7 @@ public class PerspectiveShader {
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
         if (!SILENT) {
-            if (SHOW_SHADER_NAME) setOverlay(Text.literal((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
+            if (SHOW_SHADER_NAME) setOverlay(Text.literal(PerspectiveShaderDataLoader.getShaderName((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));
             else setOverlay(PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"), PerspectiveTranslationType.ENDISABLE));
         }
         if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true, true);
@@ -105,7 +105,7 @@ public class PerspectiveShader {
             if (postProcessor != null) postProcessor.close();
             postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.ID)));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-            if (!SILENT) setOverlay(Text.literal((String)PerspectiveShaderDataLoader.get((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.NAME)));
+            if (!SILENT) setOverlay(Text.literal(PerspectiveShaderDataLoader.getShaderName((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));
             try {
                 if (!SILENT && client.world != null && client.player != null && (boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_sound")) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
             } catch (Exception error) {

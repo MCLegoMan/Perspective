@@ -9,7 +9,8 @@ package com.mclegoman.perspective.client.shaders;
 
 public enum PerspectiveShaderRegistryValue {
     ID,
-    NAME,
+    NAMESPACE,
+    SHADER_NAME,
     HIDE_ARMOR,
     HIDE_NAMETAGS,
     DISABLE_SCREEN_MODE

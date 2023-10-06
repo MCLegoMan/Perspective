@@ -31,26 +31,36 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class PerspectiveShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final List<List<Object>> REGISTRY = new ArrayList<>();
+    public static final List<String> DUPLICATED_NAMES = new ArrayList<>();
     public static int getShaderAmount() {
         return REGISTRY.size() - 1;
+    }
+    public static String getShaderName(int SHADER) {
+        String NAMESPACE = (String) PerspectiveShaderDataLoader.get(SHADER, PerspectiveShaderRegistryValue.NAMESPACE);
+        String SHADER_NAME = (String) PerspectiveShaderDataLoader.get(SHADER, PerspectiveShaderRegistryValue.SHADER_NAME);
+        return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
+    }
+    private static boolean isDuplicatedShaderName(String name) {
+        return DUPLICATED_NAMES.contains(name);
     }
     public static Object get(int SHADER, PerspectiveShaderRegistryValue VALUE) {
         List<Object> SHADER_MAP = REGISTRY.get(SHADER);
         if (VALUE.equals(PerspectiveShaderRegistryValue.ID)) return SHADER_MAP.get(0);
-        if (VALUE.equals(PerspectiveShaderRegistryValue.NAME)) return SHADER_MAP.get(1);
-        if (VALUE.equals(PerspectiveShaderRegistryValue.HIDE_ARMOR)) return SHADER_MAP.get(2);
-        if (VALUE.equals(PerspectiveShaderRegistryValue.HIDE_NAMETAGS)) return SHADER_MAP.get(3);
-        if (VALUE.equals(PerspectiveShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(4);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.HIDE_ARMOR)) return SHADER_MAP.get(3);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.HIDE_NAMETAGS)) return SHADER_MAP.get(4);
+        if (VALUE.equals(PerspectiveShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(5);
         return null;
     }
-    private void add(String NAMESPACE, String SHADER, Boolean HIDE_ARMOR, Boolean HIDE_NAMETAGS, Boolean DISABLE_SCREEN_MODE, Boolean ENABLED) {
+    private void add(String NAMESPACE, String SHADER_NAME, Boolean HIDE_ARMOR, Boolean HIDE_NAMETAGS, Boolean DISABLE_SCREEN_MODE, Boolean ENABLED) {
         try {
-            SHADER = SHADER.replace("\"", "");
-            Identifier ID = new Identifier(NAMESPACE, ("shaders/post/" + SHADER + ".json"));
-            String NAME = NAMESPACE + ":" + SHADER;
+            SHADER_NAME = SHADER_NAME.replace("\"", "").toLowerCase();
+            Identifier ID = new Identifier(NAMESPACE.toLowerCase(), ("shaders/post/" + SHADER_NAME + ".json"));
             List<Object> SHADER_MAP = new ArrayList<>();
             SHADER_MAP.add(ID);
-            SHADER_MAP.add(NAME);
+            SHADER_MAP.add(NAMESPACE.toLowerCase());
+            SHADER_MAP.add(SHADER_NAME);
             SHADER_MAP.add(HIDE_ARMOR);
             SHADER_MAP.add(HIDE_NAMETAGS);
             SHADER_MAP.add(DISABLE_SCREEN_MODE);
@@ -73,6 +83,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
     private void reset() {
         try {
             REGISTRY.clear();
+            DUPLICATED_NAMES.clear();
             add$default();
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
@@ -121,6 +132,15 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             layout$souper_secret_settings(manager);
             PerspectiveConfigHelper.setConfig("super_secret_settings", Math.min((int)PerspectiveConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
             if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) PerspectiveShader.set(MinecraftClient.getInstance(), true, true, true);
+
+
+            List<String> ALL_NAMES = new ArrayList<>();
+            for (List<Object> registry : REGISTRY) {
+                if (!ALL_NAMES.contains((String) registry.get(1))) ALL_NAMES.add((String) registry.get(1));
+                else {
+                    if (!DUPLICATED_NAMES.contains((String) registry.get(1))) DUPLICATED_NAMES.add((String) registry.get(1));
+                }
+            }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
