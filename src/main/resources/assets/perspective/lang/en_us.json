@@ -15,10 +15,9 @@
 	"gui.perspective.toasts.take_panorama_screenshot.success.description": "You can enable the panorama in your resource pack menu by enabling the %s resource pack.",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.title": "Failed to take panorama!",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.description": "Incompatible Mods: %s",
-
-	"gui.perspective.toasts.tutorial.super_secret_settings.title": "Tutorial: Super Secret Settings",
+	"gui.perspective.toasts.tutorial.title": "%s Tutorial: %s",
+	"gui.perspective.toasts.tutorial.super_secret_settings.title": "Super Secret Settings",
 	"gui.perspective.toasts.tutorial.super_secret_settings.description": "You can cycle shaders with [%s] and disable them with [%s]. For more settings check out the Perspective config using [%s].",
-
 	"gui.perspective.config.update.title": "Update Available",
 	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
 	"gui.perspective.config.zoom": "Zoom",
@@ -73,6 +72,8 @@
 	"gui.perspective.config.more_options.detect_update_channel.alpha": "Alpha",
 	"gui.perspective.config.more_options.detect_update_channel.beta": "Beta/RC",
 	"gui.perspective.config.more_options.detect_update_channel.release": "Release",
+	"gui.perspective.config.more_options.tutorials": "Tutorials: %s",
+	"gui.perspective.config.more_options.tutorials.hover": "Toggles Perspective's Tutorial Toasts.",
 	"gui.perspective.config.information": "Information",
 	"gui.perspective.config.information.hover": "Open Perspective's Information screen.",
 	"gui.perspective.config.information.documentation": "Documentation",

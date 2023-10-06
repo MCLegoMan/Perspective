@@ -92,7 +92,11 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.detect_update_channel", new Object[]{PerspectiveTranslation.getDetectUpdateChannelTranslation((String)PerspectiveConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
             PerspectiveUpdateChecker.cycleDetectUpdateChannels();
             this.REFRESH = true;
-        }).width(304).build(), 2);
+        }).build());
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.tutorials", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("tutorials"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("tutorials", !(boolean)PerspectiveConfigHelper.getConfig("tutorials"));
+            this.REFRESH = true;
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.tutorials", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("tutorials"), PerspectiveTranslationType.ONFF)}, true)));
         return GRID;
     }
     private GridWidget createFooter() {

@@ -61,14 +61,17 @@ public class PerspectiveShader {
         if (PerspectiveKeybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false, true);
         if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
         if (PerspectiveKeybindings.RANDOM_SHADER.wasPressed()) random(false, true);
+
+        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) {
+            if ((boolean) PerspectiveConfigHelper.getConfig("tutorials")) {
+                if (!(boolean) PerspectiveConfigHelper.getTutorialConfig("super_secret_settings")) {
+                    PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.tutorial.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
+                    PerspectiveConfigHelper.setTutorialConfig("super_secret_settings", true);
+                }
+            }
+        }
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
-        if (!(Boolean) PerspectiveConfigHelper.getTutorialConfig("super_secret_settings")) {
-            PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
-            PerspectiveConfigHelper.setTutorialConfig("super_secret_settings", true);
-        }
-
-
         PerspectiveConfigHelper.setConfig("super_secret_settings_enabled", !(boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled"));
         if (!SILENT) {
             if (SHOW_SHADER_NAME) setOverlay(Text.literal(PerspectiveShaderDataLoader.getShaderName((int)PerspectiveConfigHelper.getConfig("super_secret_settings"))));

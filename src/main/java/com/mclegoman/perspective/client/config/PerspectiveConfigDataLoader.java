@@ -48,6 +48,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean HIDE_ARMOR;
     public static boolean HIDE_NAMETAGS;
     public static String DETECT_UPDATE_CHANNEL;
+    public static boolean TUTORIALS;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
         super(new Gson(), ID);
@@ -80,6 +81,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 HIDE_ARMOR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
                 HIDE_NAMETAGS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
                 DETECT_UPDATE_CHANNEL = PerspectiveJsonHelper.getDetectUpdateChannel(JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
+                TUTORIALS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "tutorials", true);
             }
             PerspectiveConfigHelper.loadConfig();
         } catch (Exception error) {

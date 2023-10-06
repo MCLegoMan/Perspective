@@ -41,6 +41,7 @@ public class PerspectiveConfig {
     protected static boolean HIDE_ARMOR;
     protected static boolean HIDE_NAMETAGS;
     protected static String DETECT_UPDATE_CHANNEL;
+    protected static boolean TUTORIALS;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -76,6 +77,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR));
         CONFIG_PROVIDER.add(new Pair<>("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS));
         CONFIG_PROVIDER.add(new Pair<>("detect_update_channel", PerspectiveConfigDataLoader.DETECT_UPDATE_CHANNEL));
+        CONFIG_PROVIDER.add(new Pair<>("tutorials", PerspectiveConfigDataLoader.TUTORIALS));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -102,6 +104,7 @@ public class PerspectiveConfig {
         HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", PerspectiveConfigDataLoader.HIDE_ARMOR);
         HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
         DETECT_UPDATE_CHANNEL = CONFIG.getOrDefault("detect_update_channel", PerspectiveConfigDataLoader.DETECT_UPDATE_CHANNEL);
+        TUTORIALS = CONFIG.getOrDefault("tutorials", PerspectiveConfigDataLoader.TUTORIALS);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -128,6 +131,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
         CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
         CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
+        CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
 }
