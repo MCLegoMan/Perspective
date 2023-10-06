@@ -69,12 +69,12 @@ public class PerspectiveConfigHelper {
         }
         if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", PerspectiveData.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320));
+            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.downgrade_warning.title")), Text.translatable("gui.perspective.toasts.downgrade_warning.description"), 320, 6000L));
             SEEN_DOWNGRADE_WARNING = true;
         }
         if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", PerspectiveData.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.license.title")), Text.translatable("gui.perspective.toasts.license.description"), 320));
+            client.getToastManager().add(new PerspectiveWarningToast(Text.translatable("gui.perspective.toasts.title", Text.translatable("gui.perspective.name"), Text.translatable("gui.perspective.toasts.license.title")), Text.translatable("gui.perspective.toasts.license.description"), 320, 6000L));
             SEEN_LICENSE_UPDATE_NOTICE = true;
         }
     }
