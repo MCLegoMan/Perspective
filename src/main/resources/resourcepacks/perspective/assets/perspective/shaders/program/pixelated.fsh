@@ -1,11 +1,10 @@
 #version 150
 
 uniform sampler2D DiffuseSampler;
-uniform vec4 ColorModulate;
-
 in vec2 texCoord;
 out vec4 fragColor;
 
 void main() {
-    fragColor = texture(DiffuseSampler, floor(texCoord / 0.0125) * 0.0125) * ColorModulate;
+    vec2 pixelCenter = floor(texCoord / (8.0 / textureSize(DiffuseSampler, 0)) + 0.5) * (8.0 / textureSize(DiffuseSampler, 0));
+    fragColor = texture(DiffuseSampler, pixelCenter);
 }
