@@ -6,12 +6,19 @@ uniform sampler2D TranslucentSampler;
 uniform sampler2D TranslucentDepthSampler;
 uniform sampler2D ItemEntitySampler;
 uniform sampler2D ItemEntityDepthSampler;
+uniform sampler2D ParticlesSampler;
+uniform sampler2D ParticlesDepthSampler;
+uniform sampler2D WeatherSampler;
+uniform sampler2D WeatherDepthSampler;
+uniform sampler2D CloudsSampler;
+uniform sampler2D CloudsDepthSampler;
+
 
 uniform vec2 OutSize;
 
 in vec2 texCoord;
 
-#define NUM_LAYERS 6
+#define NUM_LAYERS 12
 
 out vec4 fragColor;
 
@@ -53,6 +60,30 @@ void main() {
     if (itemEntityColor.a > 0.0) {
         colorLayers[activeLayers] = itemEntityColor;
         depthLayers[activeLayers] = itemEntityDepth;
+        activeLayers++;
+    }
+
+    vec4 particleColor = texture(ParticlesSampler, texCoord);
+    float particleDepth = texture(ParticlesDepthSampler, texCoord).r;
+    if (particleColor.a > 0.0) {
+        colorLayers[activeLayers] = particleColor;
+        depthLayers[activeLayers] = particleDepth;
+        activeLayers++;
+    }
+
+    vec4 weatherColor = texture(WeatherSampler, texCoord);
+    float weatherDepth = texture(WeatherDepthSampler, texCoord).r;
+    if (weatherColor.a > 0.0) {
+        colorLayers[activeLayers] = weatherColor;
+        depthLayers[activeLayers] = weatherDepth;
+        activeLayers++;
+    }
+
+    vec4 cloudsColor = texture(CloudsSampler, texCoord);
+    float cloudsDepth = texture(CloudsDepthSampler, texCoord).r;
+    if (cloudsColor.a > 0.0) {
+        colorLayers[activeLayers] = cloudsColor;
+        depthLayers[activeLayers] = cloudsDepth;
         activeLayers++;
     }
 

@@ -2,6 +2,9 @@
   "targets": [
     "translucent",
     "itemEntity",
+    "particles",
+    "clouds",
+    "weather",
     "final"
   ],
   "passes": [
@@ -29,6 +32,30 @@
         {
           "name": "ItemEntityDepthSampler",
           "id": "itemEntity:depth"
+        },
+        {
+          "name": "ParticlesSampler",
+          "id": "particles"
+        },
+        {
+          "name": "ParticlesDepthSampler",
+          "id": "particles:depth"
+        },
+        {
+          "name": "CloudsSampler",
+          "id": "clouds"
+        },
+        {
+          "name": "CloudsDepthSampler",
+          "id": "clouds:depth"
+        },
+        {
+          "name": "WeatherSampler",
+          "id": "weather"
+        },
+        {
+          "name": "WeatherDepthSampler",
+          "id": "weather:depth"
         }
       ]
     },
