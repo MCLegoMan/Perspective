@@ -3,6 +3,6 @@
   "shader": "outlined",
   "hide_armor": false,
   "hide_nametags": false,
-  "disable_screen_mode": false,
+  "disable_screen_mode": true,
   "enabled": true
 }
