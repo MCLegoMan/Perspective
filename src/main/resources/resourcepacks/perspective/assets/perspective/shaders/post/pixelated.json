@@ -1,11 +1,17 @@
 {
     "targets": [
+        "0",
         "swap"
     ],
     "passes": [
         {
-            "name": "perspective:pixelated",
+            "name": "perspective:sixteen_colors",
             "intarget": "minecraft:main",
+            "outtarget": "0"
+        },
+        {
+            "name": "perspective:pixelated",
+            "intarget": "0",
             "outtarget": "swap"
         },
         {

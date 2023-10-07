@@ -7,5 +7,5 @@ in vec2 texCoord;
 out vec4 fragColor;
 
 void main() {
-    fragColor = texture(DiffuseSampler, floor(texCoord / 0.0125) * 0.0125) * ColorModulate * vec4(0.85, 0.85, 0.85, 1.0);
+    fragColor = texture(DiffuseSampler, floor(texCoord / 0.0125) * 0.0125) * ColorModulate * vec4(1.85, 1.85, 1.85, 1.0);
 }
