@@ -69,6 +69,10 @@ public class PerspectiveShader {
                     PerspectiveConfigHelper.setTutorialConfig("super_secret_settings", true);
                 }
             }
+            if (!(boolean) PerspectiveConfigHelper.getWarningConfig("super_secret_settings")) {
+                PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.warning.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.warning.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.warning.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
+                PerspectiveConfigHelper.setWarningConfig("super_secret_settings", true);
+            }
         }
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {

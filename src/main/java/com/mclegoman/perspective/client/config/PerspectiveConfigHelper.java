@@ -41,6 +41,7 @@ public class PerspectiveConfigHelper {
             PerspectiveConfig.init();
             PerspectiveExperimentalConfig.init();
             PerspectiveTutorialConfig.init();
+            PerspectiveWarningConfig.init();
             PerspectiveConfigHelper.updateConfig();
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -125,6 +126,8 @@ public class PerspectiveConfigHelper {
                 PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
                 PerspectiveTutorialConfig.save();
                 PerspectiveTutorialConfig.CONFIG_PROVIDER.saveConfig(PerspectiveTutorialConfig.ID);
+                PerspectiveWarningConfig.save();
+                PerspectiveTutorialConfig.CONFIG_PROVIDER.saveConfig(PerspectiveWarningConfig.ID);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -215,7 +218,18 @@ public class PerspectiveConfigHelper {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+        }
+    }
+    public static void setWarningConfig(String ID, Object VALUE) {
+        try {
+            if (ID.equals("super_secret_settings")) {
+                PerspectiveWarningConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
+            } else {
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+            }
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
     }
     public static Object getConfig(String ID) {
@@ -261,6 +275,14 @@ public class PerspectiveConfigHelper {
             return PerspectiveTutorialConfig.SUPER_SECRET_SETTINGS;
         } else {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        }
+        return new Object();
+    }
+    public static Object getWarningConfig(String ID) {
+        if (ID.equals("super_secret_settings")) {
+            return PerspectiveWarningConfig.SUPER_SECRET_SETTINGS;
+        } else {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
         }
         return new Object();
     }

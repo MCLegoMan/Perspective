@@ -22,22 +22,27 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class PerspectiveToast implements Toast {
-	private static final Identifier TEXTURE = new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning");
 	private final Text title;
 	private final List<OrderedText> lines;
 	private long startTime;
 	private boolean justUpdated;
 	private final int width;
 	private final long display_time;
+	private final int title_color;
+	private final int description_color;
+	private final Identifier texture;
 	public PerspectiveToast(Text title, Text description, int width, Type type) {
-		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, type.display_time);
+		this(title, PerspectiveClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, type);
 	}
 
-	private PerspectiveToast(Text title, List<OrderedText> lines, int width, long display_time) {
+	private PerspectiveToast(Text title, List<OrderedText> lines, int width, Type type) {
 		this.title = title;
 		this.lines = lines;
 		this.width = width;
-		this.display_time = display_time;
+		this.display_time = type.display_time;
+		this.title_color = type.title_color;
+		this.description_color = type.description_color;
+		this.texture = type.texture;
 	}
 
 	public int getWidth() {
@@ -55,7 +60,7 @@ public class PerspectiveToast implements Toast {
 		int i = this.getWidth();
 		int j;
 		if (i == 160 && this.lines.size() <= 1) {
-			context.drawGuiTexture(TEXTURE, 0, 0, i, this.getHeight());
+			context.drawGuiTexture(this.texture, 0, 0, i, this.getHeight());
 		} else {
 			j = this.getHeight();
 			int l = Math.min(4, j - 28);
@@ -69,12 +74,12 @@ public class PerspectiveToast implements Toast {
 		}
 
 		if (this.lines == null) {
-			context.drawText(manager.getClient().textRenderer, this.title, 26, 12, 0xFFA239, false);
+			context.drawText(manager.getClient().textRenderer, this.title, 26, 12, this.title_color, false);
 		} else {
-			context.drawText(manager.getClient().textRenderer, this.title, 26, 7, 0xFFA239, false);
+			context.drawText(manager.getClient().textRenderer, this.title, 26, 7, this.title_color, false);
 
 			for(j = 0; j < this.lines.size(); ++j) {
-				context.drawText(manager.getClient().textRenderer, this.lines.get(j), 26, 18 + j * 12, 0xFFCC00, false);
+				context.drawText(manager.getClient().textRenderer, this.lines.get(j), 26, 18 + j * 12, this.description_color, false);
 			}
 		}
 
@@ -83,24 +88,30 @@ public class PerspectiveToast implements Toast {
 	private void drawPart(DrawContext context, int i, int j, int k, int l) {
 		int m = j == 0 ? 20 : 5;
 		int n = Math.min(60, i - m);
-		context.drawGuiTexture(TEXTURE, 160, 32, 0, j, 0, k, m, l);
+		context.drawGuiTexture(this.texture, 160, 32, 0, j, 0, k, m, l);
 
 		for(int o = m; o < i - n; o += 64) {
-			context.drawGuiTexture(TEXTURE, 160, 32, 32, j, o, k, Math.min(64, i - o - n), l);
+			context.drawGuiTexture(this.texture, 160, 32, 32, j, o, k, Math.min(64, i - o - n), l);
 		}
 
-		context.drawGuiTexture(TEXTURE, 160, 32, 160 - n, j, i - n, k, n, l);
+		context.drawGuiTexture(this.texture, 160, 32, 160 - n, j, i - n, k, n, l);
 	}
 
 	public enum Type {
-		INFO(4000L),
-		WARNING(6000L),
-		TUTORIAL(8000L);
+		INFO(0xFFAA00, 0x00AAAA, 4000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning")),
+		WARNING(0xFFAA00, 0x00AAAA, 6000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning")),
+		TUTORIAL(0xFFAA00, 0x00AAAA, 8000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning"));
 
+		final int title_color;
+		final int description_color;
 		final long display_time;
+		final Identifier texture;
 
-		Type(long display_time) {
+		Type(int title_color, int description_color, long display_time, Identifier texture) {
+			this.title_color = title_color;
+			this.description_color = description_color;
 			this.display_time = display_time;
+			this.texture = texture;
 		}
 	}
 }

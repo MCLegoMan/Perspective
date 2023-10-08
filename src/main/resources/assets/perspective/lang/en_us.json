@@ -1,5 +1,6 @@
 {
 	"gui.perspective.name": "Perspective",
+
 	"gui.perspective.toasts.title": "%s: %s",
 	"gui.perspective.toasts.license_update.title": "License Update",
 	"gui.perspective.toasts.license_update.description": "Perspective is now licensed under LGPL-3.0-or-later.",
@@ -15,11 +16,18 @@
 	"gui.perspective.toasts.take_panorama_screenshot.success.description": "You can enable the panorama in your resource pack menu by enabling the %s resource pack.",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.title": "Failed to take panorama!",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.description": "Incompatible Mods: %s",
+
 	"gui.perspective.toasts.tutorial.title": "%s Tutorial: %s",
 	"gui.perspective.toasts.tutorial.super_secret_settings.title": "Super Secret Settings",
 	"gui.perspective.toasts.tutorial.super_secret_settings.description": "You can cycle shaders with [%s] and disable them with [%s]. For more settings check out the Perspective config using [%s].",
+
+	"gui.perspective.toasts.warning.title": "%s Warning: %s",
+	"gui.perspective.toasts.warning.super_secret_settings.title": "Super Secret Settings",
+	"gui.perspective.toasts.warning.super_secret_settings.description": "Some shaders may include effects that could be unsafe for individuals with epilepsy or photosensitivity. Please exercise caution.",
+
 	"gui.perspective.config.update.title": "Update Available",
 	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
+
 	"gui.perspective.config.zoom": "Zoom",
 	"gui.perspective.config.zoom.hover": "Open Perspective's Zoom config screen.",
 	"gui.perspective.config.zoom.level": "Zoom: %s",
@@ -30,8 +38,10 @@
 	"gui.perspective.config.zoom.mode.instant": "Instant",
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
 	"gui.perspective.config.zoom.overlay_message": "Overlay Message: %s",
+
 	"gui.perspective.config.hold_perspective": "Hold Perspective",
 	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",
+
 	"gui.perspective.config.shaders": "Super Secret Settings",
 	"gui.perspective.config.shaders.hover": "Open Perspective's Super Secret Settings config screen.",
 	"gui.perspective.config.shaders.shader": "Shader: %s",
@@ -45,18 +55,21 @@
 	"gui.perspective.config.shaders.toggle": "%s",
 	"gui.perspective.config.shaders.toggle.hover": "Toggle functionality of Perspective's Super Secret Settings.",
 	"gui.perspective.config.shaders.overlay_message": "Overlay Message: %s",
+
 	"gui.perspective.config.textured_entity": "Textured Entity",
 	"gui.perspective.config.textured_entity.hover": "Open Perspective's Textured Entity config screen.",
 	"gui.perspective.config.textured_entity.named": "Named Entity: %s",
 	"gui.perspective.config.textured_entity.named.hover": "Toggles functionality of Named Textured Entities.",
 	"gui.perspective.config.textured_entity.random": "Random Entity: %s",
 	"gui.perspective.config.textured_entity.random.hover": "Toggle functionality of Random Textured Entities.",
+
 	"gui.perspective.config.april_fools_prank": "April Fools' Prank",
 	"gui.perspective.config.april_fools_prank.hover": "Open Perspective's April Fools' Prank config screen.",
 	"gui.perspective.config.april_fools_prank.allow": "Allow Prank: %s",
 	"gui.perspective.config.april_fools_prank.allow.hover": "Toggle if Perspective can run the April Fools' Prank.",
 	"gui.perspective.config.april_fools_prank.force": "Force Prank: %s",
 	"gui.perspective.config.april_fools_prank.force.hover": "Toggle if Perspective is forced into thinking it is currently April 1st. (Requires: Allow Prank)",
+
 	"gui.perspective.config.more_options": "More Options",
 	"gui.perspective.config.more_options.hover": "Open Perspective's More Options config screen.",
 	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
@@ -74,6 +87,7 @@
 	"gui.perspective.config.more_options.detect_update_channel.release": "Release",
 	"gui.perspective.config.more_options.tutorials": "Tutorials: %s",
 	"gui.perspective.config.more_options.tutorials.hover": "Toggles Perspective's Tutorial Toasts.",
+
 	"gui.perspective.config.information": "Information",
 	"gui.perspective.config.information.hover": "Open Perspective's Information screen.",
 	"gui.perspective.config.information.documentation": "Documentation",
@@ -86,17 +100,24 @@
 	"gui.perspective.config.information.contribute.hover": "Open Perspective's GitHub Repository in your web browser.",
 	"gui.perspective.config.information.report": "Report a bug",
 	"gui.perspective.config.information.report.hover": "Open Perspective's Issues page in your web browser.",
+
 	"gui.perspective.config.experimental": "Experimental",
 	"gui.perspective.config.experimental.hover": "Open Perspective's experimental config screen.",
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
+
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",
+
 	"gui.perspective.config.back": "Back",
 	"gui.perspective.config.back.hover": "Return to the previous screen.",
+
 	"gui.perspective.message.zoom_level": "Zoom: %s",
+
 	"gui.perspective.message.shader": "Super Secret Settings: %s",
+
 	"gui.perspective.message.take_panorama_screenshot.success": "Saved panorama as %s",
+
 	"gui.perspective.keybindings.category.perspective": "Perspective",
 	"gui.perspective.keybindings.keybinding.cycle_shaders": "Cycle Super Secret Settings",
 	"gui.perspective.keybindings.keybinding.hold_perspective_third_person_back": "Hold Third Person Back",
@@ -113,16 +134,18 @@
 	"gui.perspective.keybindings.category.perspective_experimental": "Perspective: Experimental",
 	"gui.perspective.keybindings.keybinding.toggle_armor": "Toggle Armor",
 	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
+
 	"gui.perspective.resource_pack.perspective_default": "Perspective Default",
 	"gui.perspective.resource_pack.perspective_default.description": "Adds new custom resources to Perspective's features.",
+
 	"gui.perspective.variable.endisable.on": "Enabled",
 	"gui.perspective.variable.endisable.off": "Disabled",
 	"gui.perspective.variable.onff.on": "ON",
 	"gui.perspective.variable.onff.off": "OFF",
 	"gui.perspective.variable.disable_screen_mode.on": "*",
 	"gui.perspective.variable.disable_screen_mode.off": "",
-	"gui.perspective.time.seconds.single": "second",
-	"gui.perspective.time.seconds.plural": "seconds",
+
 	"gui.perspective.config.error": "ERROR",
+
 	"gui.perspective.version_overlay": "Minecraft %s"
 }

@@ -59,21 +59,6 @@ public class PerspectiveTranslation {
         for (Object variable : variables) RETURN = StringUtils.replaceOnce(RETURN, "{}", (String)variable);
         return RETURN;
     }
-    public static Text getPlural(int amount, String key, Object[] variables, Formatting[] formattings) {
-        return getTranslation(setPluralKey(amount, key), variables, formattings);
-    }
-    public static Text getPlural(int amount, String key, Object[] variables) {
-        return getTranslation(setPluralKey(amount, key), variables);
-    }
-    public static Text getPlural(int amount, String key, Formatting[] formattings) {
-        return getTranslation(setPluralKey(amount, key), formattings);
-    }
-    public static Text getPlural(int amount, String key) {
-        return getTranslation(setPluralKey(amount, key));
-    }
-    private static String setPluralKey(int amount, String key) {
-        return amount == 1 ? key + ".single" : key + ".plural";
-    }
     public static String getKeybindingTranslation(String key, boolean category) {
         return category ? PerspectiveTranslation.getString("gui.perspective.keybindings.category.{}", key) : PerspectiveTranslation.getString("gui.perspective.keybindings.keybinding.{}", key);
     }
