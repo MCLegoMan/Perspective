@@ -99,7 +99,7 @@ public class PerspectiveToast implements Toast {
 
 	public enum Type {
 		INFO(0xFFAA00, 0x00AAAA, 4000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning")),
-		WARNING(0xFFAA00, 0x00AAAA, 6000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning")),
+		WARNING(0xFFAA00, 0x00AAAA, 8000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning")),
 		TUTORIAL(0xFFAA00, 0x00AAAA, 8000L, new Identifier(PerspectiveData.PERSPECTIVE_VERSION.getID(), "toast/warning"));
 
 		final int title_color;
