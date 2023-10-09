@@ -134,5 +134,6 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
         CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
+        CONFIG_PROVIDER.saveConfig(ID);
     }
 }

@@ -120,13 +120,9 @@ public class PerspectiveConfigHelper {
                 SAVE_VIA_TICK = true;
             } else {
                 PerspectiveConfig.save();
-                PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
                 PerspectiveExperimentalConfig.save();
-                PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
                 PerspectiveTutorialsConfig.save();
-                PerspectiveTutorialsConfig.CONFIG_PROVIDER.saveConfig(PerspectiveTutorialsConfig.ID);
                 PerspectiveWarningsConfig.save();
-                PerspectiveWarningsConfig.CONFIG_PROVIDER.saveConfig(PerspectiveWarningsConfig.ID);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);

@@ -38,5 +38,6 @@ public class PerspectiveWarningsConfig {
     protected static void save() {
         PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing warning config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
         CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);
+        CONFIG_PROVIDER.saveConfig(ID);
     }
 }

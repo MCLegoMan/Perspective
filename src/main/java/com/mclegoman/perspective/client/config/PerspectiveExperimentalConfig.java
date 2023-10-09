@@ -33,5 +33,6 @@ public class PerspectiveExperimentalConfig {
     }
     protected static void save() {
         PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing experimental config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
+        CONFIG_PROVIDER.saveConfig(ID);
     }
 }

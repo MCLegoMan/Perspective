@@ -38,5 +38,6 @@ public class PerspectiveTutorialsConfig {
     protected static void save() {
         PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing tutorial config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
         CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
+        CONFIG_PROVIDER.saveConfig(ID);
     }
 }
