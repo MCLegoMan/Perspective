@@ -62,17 +62,25 @@ public class PerspectiveShader {
         if (PerspectiveKeybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
         if (PerspectiveKeybindings.RANDOM_SHADER.wasPressed()) random(false, true);
 
-        if ((boolean)PerspectiveConfigHelper.getConfig("super_secret_settings_enabled")) {
-            if ((boolean) PerspectiveConfigHelper.getConfig("tutorials")) {
-                if (!(boolean) PerspectiveConfigHelper.getTutorialConfig("super_secret_settings")) {
-                    PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.tutorial.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
-                    PerspectiveConfigHelper.setTutorialConfig("super_secret_settings", true);
-                }
+        if (shouldRenderShader()) {
+            if (PerspectiveConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
+            else {
+                if (client.world != null) showToasts();
             }
-            if (!(boolean) PerspectiveConfigHelper.getWarningConfig("super_secret_settings")) {
-                PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.warning.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.warning.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.warning.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
-                PerspectiveConfigHelper.setWarningConfig("super_secret_settings", true);
+        }
+    }
+    private static void showToasts() {
+        if ((boolean) PerspectiveConfigHelper.getConfig("tutorials")) {
+            if (!(boolean) PerspectiveConfigHelper.getTutorialConfig("super_secret_settings")) {
+                PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.tutorial.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.title")}), PerspectiveTranslation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(PerspectiveKeybindings.OPEN_CONFIG).getLocalizedText()}), 280, PerspectiveToast.Type.TUTORIAL));
+                PerspectiveConfigHelper.setTutorialConfig("super_secret_settings", true);
+                PerspectiveConfigHelper.saveConfig(true);
             }
+        }
+        if (!(boolean) PerspectiveConfigHelper.getWarningConfig("photosensitivity")) {
+            PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.warning.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.warning.photosensitivity.title")}), PerspectiveTranslation.getTranslation("toasts.warning.photosensitivity.description"), 280, PerspectiveToast.Type.TUTORIAL));
+            PerspectiveConfigHelper.setWarningConfig("photosensitivity", true);
+            PerspectiveConfigHelper.saveConfig(true);
         }
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {

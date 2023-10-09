@@ -22,8 +22,8 @@
 	"gui.perspective.toasts.tutorial.super_secret_settings.description": "You can cycle shaders with [%s] and disable them with [%s]. For more settings check out the Perspective config using [%s].",
 
 	"gui.perspective.toasts.warning.title": "%s Warning: %s",
-	"gui.perspective.toasts.warning.super_secret_settings.title": "Super Secret Settings",
-	"gui.perspective.toasts.warning.super_secret_settings.description": "Some shaders may include effects that could be unsafe for individuals with epilepsy or photosensitivity. Please exercise caution.",
+	"gui.perspective.toasts.warning.photosensitivity.title": "Super Secret Settings",
+	"gui.perspective.toasts.warning.photosensitivity.description": "Some shaders may include effects that could be unsafe for individuals with epilepsy or photosensitivity. Please exercise caution.",
 
 	"gui.perspective.config.update.title": "Update Available",
 	"gui.perspective.config.update.description": "%s is now available on Modrinth!",

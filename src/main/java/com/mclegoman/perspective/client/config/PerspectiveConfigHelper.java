@@ -223,7 +223,7 @@ public class PerspectiveConfigHelper {
     }
     public static void setWarningConfig(String ID, Object VALUE) {
         try {
-            if (ID.equals("super_secret_settings")) {
+            if (ID.equals("photosensitivity")) {
                 PerspectiveWarningConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
             } else {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
@@ -279,7 +279,7 @@ public class PerspectiveConfigHelper {
         return new Object();
     }
     public static Object getWarningConfig(String ID) {
-        if (ID.equals("super_secret_settings")) {
+        if (ID.equals("photosensitivity")) {
             return PerspectiveWarningConfig.SUPER_SECRET_SETTINGS;
         } else {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);

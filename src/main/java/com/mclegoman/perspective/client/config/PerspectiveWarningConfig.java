@@ -30,12 +30,12 @@ public class PerspectiveWarningConfig {
         }
     }
     protected static void create() {
-        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", false));
+        CONFIG_PROVIDER.add(new Pair<>("photosensitivity", false));
     }
     protected static void assign() {
-        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", false);
+        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("photosensitivity", false);
     }
     protected static void save() {
-        CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
+        CONFIG_PROVIDER.setConfig("photosensitivity", SUPER_SECRET_SETTINGS);
     }
 }
