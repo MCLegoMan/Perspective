@@ -12,14 +12,8 @@ uniform sampler2D WeatherSampler;
 uniform sampler2D WeatherDepthSampler;
 uniform sampler2D CloudsSampler;
 uniform sampler2D CloudsDepthSampler;
-
-
 uniform vec2 OutSize;
-
 in vec2 texCoord;
-
-#define NUM_LAYERS 12
-
 out vec4 fragColor;
 
 void main() {

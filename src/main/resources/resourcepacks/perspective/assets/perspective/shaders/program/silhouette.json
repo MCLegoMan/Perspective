@@ -2,9 +2,9 @@
 	"blend": {
 		"func": "add",
 		"srcrgb": "one",
-		"dstrgb": "1-srcalpha"
+		"dstrgb": "zero"
 	},
-	"vertex": "sobel",
+	"vertex": "screenquad",
 	"fragment": "perspective:silhouette",
 	"attributes": [ "Position" ],
 	"samplers": [
