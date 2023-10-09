@@ -14,11 +14,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveWarningConfig {
+public class PerspectiveWarningsConfig {
     protected static final String ID = PerspectiveData.PERSPECTIVE_VERSION.getID() + "-warnings";
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
-    protected static boolean SUPER_SECRET_SETTINGS;
+    protected static boolean PHOTOSENSITIVITY;
     protected static void init() {
         try {
             CONFIG_PROVIDER = new PerspectiveConfigProvider();
@@ -33,9 +33,10 @@ public class PerspectiveWarningConfig {
         CONFIG_PROVIDER.add(new Pair<>("photosensitivity", false));
     }
     protected static void assign() {
-        SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("photosensitivity", false);
+        PHOTOSENSITIVITY = CONFIG.getOrDefault("photosensitivity", false);
     }
     protected static void save() {
-        CONFIG_PROVIDER.setConfig("photosensitivity", SUPER_SECRET_SETTINGS);
+        PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing warning config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
+        CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);
     }
 }

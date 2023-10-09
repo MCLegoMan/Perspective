@@ -40,8 +40,8 @@ public class PerspectiveConfigHelper {
         try {
             PerspectiveConfig.init();
             PerspectiveExperimentalConfig.init();
-            PerspectiveTutorialConfig.init();
-            PerspectiveWarningConfig.init();
+            PerspectiveTutorialsConfig.init();
+            PerspectiveWarningsConfig.init();
             PerspectiveConfigHelper.updateConfig();
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -119,15 +119,14 @@ public class PerspectiveConfigHelper {
             if (onTick) {
                 SAVE_VIA_TICK = true;
             } else {
-                PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
                 PerspectiveConfig.save();
                 PerspectiveConfig.CONFIG_PROVIDER.saveConfig(PerspectiveConfig.ID);
                 PerspectiveExperimentalConfig.save();
                 PerspectiveExperimentalConfig.CONFIG_PROVIDER.saveConfig(PerspectiveExperimentalConfig.ID);
-                PerspectiveTutorialConfig.save();
-                PerspectiveTutorialConfig.CONFIG_PROVIDER.saveConfig(PerspectiveTutorialConfig.ID);
-                PerspectiveWarningConfig.save();
-                PerspectiveTutorialConfig.CONFIG_PROVIDER.saveConfig(PerspectiveWarningConfig.ID);
+                PerspectiveTutorialsConfig.save();
+                PerspectiveTutorialsConfig.CONFIG_PROVIDER.saveConfig(PerspectiveTutorialsConfig.ID);
+                PerspectiveWarningsConfig.save();
+                PerspectiveWarningsConfig.CONFIG_PROVIDER.saveConfig(PerspectiveWarningsConfig.ID);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -213,7 +212,7 @@ public class PerspectiveConfigHelper {
     public static void setTutorialConfig(String ID, Object VALUE) {
         try {
             if (ID.equals("super_secret_settings")) {
-                PerspectiveTutorialConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
+                PerspectiveTutorialsConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
             } else {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
@@ -224,7 +223,7 @@ public class PerspectiveConfigHelper {
     public static void setWarningConfig(String ID, Object VALUE) {
         try {
             if (ID.equals("photosensitivity")) {
-                PerspectiveWarningConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
+                PerspectiveWarningsConfig.PHOTOSENSITIVITY = (Boolean) VALUE;
             } else {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
@@ -272,7 +271,7 @@ public class PerspectiveConfigHelper {
     }
     public static Object getTutorialConfig(String ID) {
         if (ID.equals("super_secret_settings")) {
-            return PerspectiveTutorialConfig.SUPER_SECRET_SETTINGS;
+            return PerspectiveTutorialsConfig.SUPER_SECRET_SETTINGS;
         } else {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
         }
@@ -280,7 +279,7 @@ public class PerspectiveConfigHelper {
     }
     public static Object getWarningConfig(String ID) {
         if (ID.equals("photosensitivity")) {
-            return PerspectiveWarningConfig.SUPER_SECRET_SETTINGS;
+            return PerspectiveWarningsConfig.PHOTOSENSITIVITY;
         } else {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
         }

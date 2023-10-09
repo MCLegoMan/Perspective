@@ -108,6 +108,7 @@ public class PerspectiveConfig {
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
+        PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
         CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
         CONFIG_PROVIDER.setConfig("zoom_increment_size", ZOOM_INCREMENT_SIZE);
         CONFIG_PROVIDER.setConfig("zoom_mode", ZOOM_MODE);

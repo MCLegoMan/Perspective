@@ -14,7 +14,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveTutorialConfig {
+public class PerspectiveTutorialsConfig {
     protected static final String ID = PerspectiveData.PERSPECTIVE_VERSION.getID() + "-tutorials";
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
@@ -36,6 +36,7 @@ public class PerspectiveTutorialConfig {
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", false);
     }
     protected static void save() {
+        PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing tutorial config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
         CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
     }
 }
