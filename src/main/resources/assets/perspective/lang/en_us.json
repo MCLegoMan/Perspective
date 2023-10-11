@@ -34,6 +34,8 @@
 	"gui.perspective.config.update.title": "Update Available",
 	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
 
+	"gui.perspective.config.update.checking": "Checking for updates...",
+
 	"gui.perspective.config.zoom": "Zoom",
 	"gui.perspective.config.zoom.hover": "Open Perspective's Zoom config screen.",
 

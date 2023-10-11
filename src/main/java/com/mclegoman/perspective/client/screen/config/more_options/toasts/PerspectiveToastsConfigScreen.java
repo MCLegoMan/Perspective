@@ -35,17 +35,18 @@ public class PerspectiveToastsConfigScreen extends Screen {
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
     private boolean CHECK_FOR_UPDATES;
-    public PerspectiveToastsConfigScreen(Screen PARENT, boolean REFRESH) {
+    public PerspectiveToastsConfigScreen(Screen PARENT, boolean REFRESH, boolean CHECK_FOR_UPDATES) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
         this.REFRESH = REFRESH;
+        this.CHECK_FOR_UPDATES = CHECK_FOR_UPDATES;
     }
     public void init() {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveToastsConfigScreen(PARENT_SCREEN, true), true, "toasts"));
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveToastsConfigScreen(PARENT_SCREEN, true, CHECK_FOR_UPDATES), true, "toasts"));
             GRID_ADDER.add(createToasts());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
@@ -60,11 +61,11 @@ public class PerspectiveToastsConfigScreen extends Screen {
     public void tick() {
         try {
             if (this.REFRESH) {
-                PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(PARENT_SCREEN, false));
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(PARENT_SCREEN, false, CHECK_FOR_UPDATES));
             }
             if (this.SHOULD_CLOSE) {
-                if (this.CHECK_FOR_UPDATES) PerspectiveUpdateChecker.checkForUpdates();
-                PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
+                if (this.CHECK_FOR_UPDATES) PerspectiveClientData.CLIENT.setScreen(new PerspectiveUpdateCheckerScreen(PARENT_SCREEN));
+                else PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$toasts screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);

@@ -37,4 +37,12 @@ public class PerspectiveConfigScreenHelper {
 
         return GRID;
     }
+    public static GridWidget createTitle() {
+        GridWidget GRID = new GridWidget();
+        GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+        GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+        GRID_ADDER.add(new PerspectiveLogoWidget());
+        GRID_ADDER.add(new EmptyWidget(4, 4));
+        return GRID;
+    }
 }

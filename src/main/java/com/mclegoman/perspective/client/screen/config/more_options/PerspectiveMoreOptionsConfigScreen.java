@@ -90,7 +90,7 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide", true)));
 
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("toasts"), (button) -> {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false));
+            PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false, false));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("toasts", true)));
 
         return GRID;
