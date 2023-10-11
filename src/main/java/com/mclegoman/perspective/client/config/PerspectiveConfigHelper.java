@@ -155,6 +155,7 @@ public class PerspectiveConfigHelper {
             setConfig("hide_nametags", PerspectiveConfigDataLoader.HIDE_NAMETAGS);
             setConfig("detect_update_channel", PerspectiveConfigDataLoader.DETECT_UPDATE_CHANNEL);
             setConfig("tutorials", PerspectiveConfigDataLoader.TUTORIALS);
+            setConfig("hide_block_outline", PerspectiveConfigDataLoader.HIDE_BLOCK_OUTLINE);
             // Experimental Config
             if (EXPERIMENTS_AVAILABLE) {
                 // There is currently no experiments available.
@@ -190,6 +191,7 @@ public class PerspectiveConfigHelper {
                 case "hide_nametags" -> PerspectiveConfig.HIDE_NAMETAGS = (boolean)VALUE;
                 case "detect_update_channel" -> PerspectiveConfig.DETECT_UPDATE_CHANNEL = (String)VALUE;
                 case "tutorials" -> PerspectiveConfig.TUTORIALS = (boolean) VALUE;
+                case "hide_block_outline" -> PerspectiveConfig.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
                 case "config_version" -> PerspectiveConfig.CONFIG_VERSION = (int)VALUE;
                 default -> PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
@@ -253,6 +255,7 @@ public class PerspectiveConfigHelper {
             case "hide_nametags" -> {return PerspectiveConfig.HIDE_NAMETAGS;}
             case "detect_update_channel" -> {return PerspectiveConfig.DETECT_UPDATE_CHANNEL;}
             case "tutorials" -> {return PerspectiveConfig.TUTORIALS;}
+            case "hide_block_outline" -> {return PerspectiveConfig.HIDE_BLOCK_OUTLINE;}
             case "config_version" -> {return PerspectiveConfig.CONFIG_VERSION;}
             default -> {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);

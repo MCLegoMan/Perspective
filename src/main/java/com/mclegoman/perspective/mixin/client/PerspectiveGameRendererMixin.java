@@ -31,7 +31,7 @@ public abstract class PerspectiveGameRendererMixin {
     @Inject(at = @At("HEAD"), method = "shouldRenderBlockOutline", cancellable = true)
     private void perspective$renderBlockOutline(CallbackInfoReturnable<Boolean> cir) {
         try {
-            if (PerspectiveHideHUD.shouldHideHUD()) cir.setReturnValue(false);
+            if (PerspectiveHideHUD.shouldHideHUD() || (boolean)PerspectiveConfigHelper.getConfig("hide_block_outline")) cir.setReturnValue(false);
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to GameRenderer$renderCrosshair.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }

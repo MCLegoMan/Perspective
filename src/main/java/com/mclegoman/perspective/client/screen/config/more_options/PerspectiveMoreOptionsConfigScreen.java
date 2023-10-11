@@ -72,31 +72,42 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("force_pride", !(boolean)PerspectiveConfigHelper.getConfig("force_pride"));
-            this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", true)));
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("version_overlay"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("version_overlay", !(boolean)PerspectiveConfigHelper.getConfig("version_overlay"));
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", true)));
 
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.hide_block_outline", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_block_outline"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_block_outline", !(boolean)PerspectiveConfigHelper.getConfig("hide_block_outline"));
+            this.REFRESH = true;
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.hide_block_outline", true)));
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}, true)));
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.hide_nametags", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_nametags"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("hide_nametags", !(boolean)PerspectiveConfigHelper.getConfig("hide_nametags"));
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.hide_nametags", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_nametags"), PerspectiveTranslationType.ONFF)}, true)));
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.detect_update_channel", new Object[]{PerspectiveTranslation.getDetectUpdateChannelTranslation((String)PerspectiveConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
-            PerspectiveUpdateChecker.cycleDetectUpdateChannels();
-            this.REFRESH = true;
-        }).build());
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.hide_nametags", true)));
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.tutorials", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("tutorials"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("tutorials", !(boolean)PerspectiveConfigHelper.getConfig("tutorials"));
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.tutorials", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("tutorials"), PerspectiveTranslationType.ONFF)}, true)));
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.tutorials", true)));
+
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("force_pride", !(boolean)PerspectiveConfigHelper.getConfig("force_pride"));
+            this.REFRESH = true;
+        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", true)));
+
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.detect_update_channel", new Object[]{PerspectiveTranslation.getDetectUpdateChannelTranslation((String)PerspectiveConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
+            PerspectiveUpdateChecker.cycleDetectUpdateChannels();
+            this.REFRESH = true;
+        }).width(304).build(), 2);
+
         return GRID;
     }
     private GridWidget createFooter() {
