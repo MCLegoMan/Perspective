@@ -96,27 +96,29 @@
 	"gui.perspective.config.more_options.version_overlay": "Version Overlay: %s",
 	"gui.perspective.config.more_options.version_overlay.hover": "Toggle visibility of the Minecraft version overlay.",
 
-	"gui.perspective.config.more_options.hide_block_outline": "Hide Block Outline: %s",
-	"gui.perspective.config.more_options.hide_block_outline.hover": "Toggles visibility of the block outline.",
-
-	"gui.perspective.config.more_options.hide_armor": "Global Hide Armor: %s",
-	"gui.perspective.config.more_options.hide_armor.hover": "Toggles the rendering of armor.",
-
-	"gui.perspective.config.more_options.hide_nametags": "Global Hide Nametags: %s",
-	"gui.perspective.config.more_options.hide_nametags.hover": "Toggles the rendering of nametags.",
-
 	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
 	"gui.perspective.config.more_options.force_pride.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
 
-	"gui.perspective.config.more_options.tutorials": "Tutorials: %s",
-	"gui.perspective.config.more_options.tutorials.hover": "Toggles Perspective's Tutorial Toasts.",
+	"gui.perspective.config.hide": "Hide",
+	"gui.perspective.config.hide.hover": "Open Perspective's Hide config screen.",
 
-	"gui.perspective.config.more_options.detect_update_channel": "Update Channel: %s",
-	"gui.perspective.config.more_options.detect_update_channel.none": "None",
-	"gui.perspective.config.more_options.detect_update_channel.alpha": "Alpha",
-	"gui.perspective.config.more_options.detect_update_channel.beta": "Beta/RC",
-	"gui.perspective.config.more_options.detect_update_channel.release": "Release",
-	"gui.perspective.config.more_options.detect_update_channel.hover": "Sets the release channel for in-game update notifications.",
+	"gui.perspective.config.hide.hide_block_outline": "Hide Block Outline: %s",
+	"gui.perspective.config.hide.hide_block_outline.hover": "Toggles visibility of the block outline.",
+
+	"gui.perspective.config.hide.hide_armor": "Global Hide Armor: %s",
+	"gui.perspective.config.hide.hide_armor.hover": "Toggles the rendering of armor.",
+
+	"gui.perspective.config.hide.hide_nametags": "Global Hide Nametags: %s",
+	"gui.perspective.config.hide.hide_nametags.hover": "Toggles the rendering of nametags.",
+
+	"gui.perspective.config.toasts": "Toasts",
+	"gui.perspective.config.toasts.hover": "Open Perspective's Toasts config screen.",
+
+	"gui.perspective.config.toasts.tutorials": "Tutorials: %s",
+	"gui.perspective.config.toasts.tutorials.hover": "Toggles Perspective's Tutorial Toasts.",
+
+	"gui.perspective.config.toasts.detect_update_channel": "Update Channel: %s",
+	"gui.perspective.config.toasts.detect_update_channel.hover": "Sets the release channel for in-game update notifications.",
 
 	"gui.perspective.config.information": "Information",
 	"gui.perspective.config.information.hover": "Open Perspective's Information screen.",
@@ -199,6 +201,11 @@
 	"gui.perspective.variable.disable_screen_mode.off": "",
 
 	"gui.perspective.config.error": "ERROR",
+
+	"gui.perspective.config.detect_update_channel.none": "None",
+	"gui.perspective.config.detect_update_channel.alpha": "Alpha",
+	"gui.perspective.config.detect_update_channel.beta": "Beta/RC",
+	"gui.perspective.config.detect_update_channel.release": "Release",
 
 	"gui.perspective.version_overlay": "Minecraft %s"
 }

@@ -5,17 +5,14 @@
     License: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.screen.config.more_options;
+package com.mclegoman.perspective.client.screen.config.more_options.hide;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
-import com.mclegoman.perspective.client.screen.config.more_options.hide.PerspectiveHideConfigScreen;
-import com.mclegoman.perspective.client.screen.config.more_options.toasts.PerspectiveToastsConfigScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
-import com.mclegoman.perspective.client.util.PerspectiveUpdateChecker;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,12 +28,12 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveMoreOptionsConfigScreen extends Screen {
+public class PerspectiveHideConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveMoreOptionsConfigScreen(Screen PARENT, boolean REFRESH) {
+    public PerspectiveHideConfigScreen(Screen PARENT, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
@@ -46,53 +43,49 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, true), true, "more_options"));
-            GRID_ADDER.add(createMoreOptions());
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveHideConfigScreen(PARENT_SCREEN, true), true, "hide"));
+            GRID_ADDER.add(createHide());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$more_options screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$hide screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
     public void tick() {
         try {
             if (this.REFRESH) {
-                PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false));
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveHideConfigScreen(PARENT_SCREEN, false));
             }
             if (this.SHOULD_CLOSE) {
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$more_options screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
-    private GridWidget createMoreOptions() {
+    private GridWidget createHide() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("version_overlay"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("version_overlay", !(boolean)PerspectiveConfigHelper.getConfig("version_overlay"));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide.hide_block_outline", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_block_outline"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_block_outline", !(boolean)PerspectiveConfigHelper.getConfig("hide_block_outline"));
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", true)));
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide.hide_block_outline", true)));
 
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("force_pride", !(boolean)PerspectiveConfigHelper.getConfig("force_pride"));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", true)));
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}, true)));
 
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide"), (button) -> {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveHideConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false));
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide", true)));
-
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("toasts"), (button) -> {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false));
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("toasts", true)));
-
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide.hide_nametags", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_nametags"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_nametags", !(boolean)PerspectiveConfigHelper.getConfig("hide_nametags"));
+            this.REFRESH = true;
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide.hide_nametags", true)));
         return GRID;
     }
     private GridWidget createFooter() {

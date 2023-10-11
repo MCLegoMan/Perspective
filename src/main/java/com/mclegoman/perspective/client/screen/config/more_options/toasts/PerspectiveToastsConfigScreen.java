@@ -5,13 +5,11 @@
     License: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.screen.config.more_options;
+package com.mclegoman.perspective.client.screen.config.more_options.toasts;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.screen.config.PerspectiveConfigScreenHelper;
-import com.mclegoman.perspective.client.screen.config.more_options.hide.PerspectiveHideConfigScreen;
-import com.mclegoman.perspective.client.screen.config.more_options.toasts.PerspectiveToastsConfigScreen;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.translation.PerspectiveTranslationType;
 import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
@@ -31,12 +29,13 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
-public class PerspectiveMoreOptionsConfigScreen extends Screen {
+public class PerspectiveToastsConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    public PerspectiveMoreOptionsConfigScreen(Screen PARENT, boolean REFRESH) {
+    private boolean CHECK_FOR_UPDATES;
+    public PerspectiveToastsConfigScreen(Screen PARENT, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
@@ -46,52 +45,46 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, true), true, "more_options"));
-            GRID_ADDER.add(createMoreOptions());
+            GRID_ADDER.add(PerspectiveConfigScreenHelper.createTitle(PerspectiveClientData.CLIENT, new PerspectiveToastsConfigScreen(PARENT_SCREEN, true), true, "toasts"));
+            GRID_ADDER.add(createToasts());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$more_options screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$toasts screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
     public void tick() {
         try {
             if (this.REFRESH) {
-                PerspectiveClientData.CLIENT.setScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false));
+                PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(PARENT_SCREEN, false));
             }
             if (this.SHOULD_CLOSE) {
+                if (this.CHECK_FOR_UPDATES) PerspectiveUpdateChecker.checkForUpdates();
                 PerspectiveClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$more_options screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$toasts screen: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
-    private GridWidget createMoreOptions() {
+    private GridWidget createToasts() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("version_overlay"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("version_overlay", !(boolean)PerspectiveConfigHelper.getConfig("version_overlay"));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("toasts.tutorials", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("tutorials"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("tutorials", !(boolean)PerspectiveConfigHelper.getConfig("tutorials"));
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.version_overlay", true)));
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("toasts.tutorials", true)));
 
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("force_pride"), PerspectiveTranslationType.ONFF)}), (button) -> {
-            PerspectiveConfigHelper.setConfig("force_pride", !(boolean)PerspectiveConfigHelper.getConfig("force_pride"));
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("toasts.detect_update_channel", new Object[]{PerspectiveTranslation.getDetectUpdateChannelTranslation((String)PerspectiveConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
+            PerspectiveUpdateChecker.cycleDetectUpdateChannels();
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", true)));
-
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide"), (button) -> {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveHideConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false));
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide", true)));
-
-        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("toasts"), (button) -> {
-            PerspectiveClientData.CLIENT.setScreen(new PerspectiveToastsConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false));
-        }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("toasts", true)));
+            this.CHECK_FOR_UPDATES = true;
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("toasts.detect_update_channel", true)));
 
         return GRID;
     }
@@ -110,7 +103,7 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
         try {
             SimplePositioningWidget.setPos(GRID, getNavigationFocus());
         } catch (Exception error) {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>more options screen TabNavigation: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>toasts screen TabNavigation: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public Text getNarratedTitle() {

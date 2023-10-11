@@ -77,10 +77,10 @@ public class PerspectiveTranslation {
     }
 
     public static Text getDetectUpdateChannelTranslation(String key) {
-        if (key.equalsIgnoreCase("none")) return getConfigTranslation("more_options.detect_update_channel.none");
-        else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation("more_options.detect_update_channel.alpha");
-        else if (key.equalsIgnoreCase("beta")) return getConfigTranslation("more_options.detect_update_channel.beta");
-        else if (key.equalsIgnoreCase("release")) return getConfigTranslation("more_options.detect_update_channel.release");
+        if (key.equalsIgnoreCase("none")) return getConfigTranslation("detect_update_channel.none");
+        else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation("detect_update_channel.alpha");
+        else if (key.equalsIgnoreCase("beta")) return getConfigTranslation("detect_update_channel.beta");
+        else if (key.equalsIgnoreCase("release")) return getConfigTranslation("detect_update_channel.release");
         else return getErrorTranslation();
     }
 
