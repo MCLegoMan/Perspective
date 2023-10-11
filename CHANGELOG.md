@@ -1,22 +1,10 @@
-# Perspective 1.2.0-alpha.4 for 1.20.2
-Hold on to your pixels 'cause we're about to shine some 'pixelated' light onto this update. We've 'outlined' some fresh new perspectives, from the brightest and most colorful to the deepest and darkest of them all.  
+# Perspective 1.2.0-alpha.5 for 1.20.2
+Donec sed eros ut ligula tristique sodales. Nulla facilisi. Aliquam eleifend diam nunc. Nullam posuere dictum nisl, quis imperdiet metus ultricies at. Proin rutrum fringilla neque id placerat. Fusce nec tristique risus, et ullamcorper justo. Vivamus ligula ex, rutrum tincidunt egestas nec, lacinia ac erat. Nam vehicula sit amet ligula et maximus. Duis consectetur urna ac sem mattis dignissim. Aenean luctus justo sed ligula.
 
 ## Changelog  
-- **Updated Config Version to `9`.**
-  - Added `perspective-warnings` config.  
-    - Added `photosensitivity` warning.  
-      - This warning will be triggered when Super Secret Settings has been enabled for the first time.
-- **Updated `Perspective: Default` Resource Pack.**  
-  - Revamped `outlined` shader.  
-    - This shader was completely remade from the ground up.
-  - Added `silhouette` shader.  
-    - This shader overlays 'outlined' on a black background.  
-  - Added `crt` shader.  
-    - This shader emulates a CRT effect with red/blue shift, screen motion, and scanlines.
-  - Added `rainbow` shader.  
-    - This shader overlays rainbow stripes from top to bottom.  
-  - Added `pixelated` shader.  
-    - This shader pixelates the screen.  
+- **Updated Config Version to `10`.**
+  - Added `hide_block_outline` config option.  
+    - This option toggles the visibility of the block outline.
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

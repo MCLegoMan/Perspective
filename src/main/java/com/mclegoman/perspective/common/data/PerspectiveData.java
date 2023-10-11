@@ -14,7 +14,7 @@ import net.fabricmc.loader.api.Version;
 import org.apache.commons.lang3.StringUtils;
 
 public class PerspectiveData {
-    public static final PerspectiveVersion PERSPECTIVE_VERSION = new PerspectiveVersion("Perspective", "perspective", 1, 2, 0, RTUReleaseTypes.ALPHA, 4);
+    public static final PerspectiveVersion PERSPECTIVE_VERSION = new PerspectiveVersion("Perspective", "perspective", 1, 2, 0, RTUReleaseTypes.ALPHA, 5);
     public static boolean isModInstalled(String MOD_ID) {
         return FabricLoader.getInstance().isModLoaded(MOD_ID);
     }

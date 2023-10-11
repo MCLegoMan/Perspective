@@ -105,12 +105,11 @@
 	"gui.perspective.config.more_options.hide_nametags": "Global Hide Nametags: %s",
 	"gui.perspective.config.more_options.hide_nametags.hover": "Toggles the rendering of nametags.",
 
+	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
+	"gui.perspective.config.more_options.force_pride.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
 
 	"gui.perspective.config.more_options.tutorials": "Tutorials: %s",
 	"gui.perspective.config.more_options.tutorials.hover": "Toggles Perspective's Tutorial Toasts.",
-
-	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
-	"gui.perspective.config.more_options.force_pride.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
 
 	"gui.perspective.config.more_options.detect_update_channel": "Update Channel: %s",
 	"gui.perspective.config.more_options.detect_update_channel.none": "None",
