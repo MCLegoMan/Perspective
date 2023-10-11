@@ -76,8 +76,10 @@ public class PerspectiveVersion implements Comparable<PerspectiveVersion> {
 			return Integer.compare(minor, other.minor);
 		} else if (patch != other.patch) {
 			return Integer.compare(patch, other.patch);
-		} else {
+		} else if (type != other.type) {
 			return type.compareTo(other.type);
+		} else {
+			return Integer.compare(build, other.build);
 		}
 	}
 }

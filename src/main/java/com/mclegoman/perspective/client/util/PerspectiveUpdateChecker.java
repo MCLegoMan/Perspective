@@ -19,6 +19,7 @@ import com.mclegoman.perspective.common.data.PerspectiveData;
 import com.mclegoman.perspective.common.version.PerspectiveVersion;
 import com.mclegoman.perspective.common.version.PerspectiveVersionHelper;
 import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseTypes;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.JsonHelper;
 
@@ -29,6 +30,8 @@ import java.net.URL;
 import java.util.Objects;
 
 public class PerspectiveUpdateChecker {
+	public static PerspectiveVersion API_VERSION;
+	public static boolean SEEN_UPDATE_TOAST;
 	public static boolean UPDATE_CHECKER_COMPLETE;
 	public static boolean NEWER_VERSION_FOUND;
 	public static String LATEST_VERSION_FOUND = PerspectiveData.PERSPECTIVE_VERSION.getFriendlyString();
@@ -37,25 +40,31 @@ public class PerspectiveUpdateChecker {
 		if (!UPDATE_CHECKER_COMPLETE) {
 			checkForUpdates();
 			if (NEWER_VERSION_FOUND) {
-				PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.update.title")}), PerspectiveTranslation.getTranslation("toasts.update.description", new Object[]{PerspectiveUpdateChecker.LATEST_VERSION_FOUND}), 280, PerspectiveToast.Type.INFO));
+				if (!SEEN_UPDATE_TOAST) {
+					PerspectiveClientData.CLIENT.getToastManager().add(new PerspectiveToast(PerspectiveTranslation.getTranslation("toasts.title", new Object[]{PerspectiveTranslation.getTranslation("name"), PerspectiveTranslation.getTranslation("toasts.update.title")}), PerspectiveTranslation.getTranslation("toasts.update.description", new Object[]{PerspectiveUpdateChecker.LATEST_VERSION_FOUND}), 280, PerspectiveToast.Type.INFO));
+					SEEN_UPDATE_TOAST = true;
+				}
 			}
 			UPDATE_CHECKER_COMPLETE = true;
 		}
 	}
 	public static void checkForUpdates() {
+		UPDATE_CHECKER_COMPLETE = false;
 		NEWER_VERSION_FOUND = false;
 		try {
 			if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("none")) {
 				PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Checking for updates...");
 				PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Current Version: " + PerspectiveData.PERSPECTIVE_VERSION.getFriendlyString());
+				PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Update Channel: " + PerspectiveConfigHelper.getConfig("detect_update_channel"));
+				PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Minecraft Version: " + SharedConstants.getGameVersion().getName());
 				JsonArray apiDataVersion = (JsonArray) getModrinthData("6CTGnrNg", "version");
 				if (apiDataVersion != null) {
+					boolean compatible_version = false;
 					for (JsonElement version : apiDataVersion) {
 						JsonObject version_obj = (JsonObject) version;
 						JsonArray game_versions = JsonHelper.getArray(version_obj, "game_versions");
-						boolean compatible_version = false;
 						for (JsonElement game_version : game_versions) {
-							if (game_version.getAsString().equalsIgnoreCase(PerspectiveClientData.CLIENT.getGameVersion())) {
+							if (game_version.getAsString().equalsIgnoreCase(SharedConstants.getGameVersion().getName())) {
 								compatible_version = true;
 								break;
 							}
@@ -70,11 +79,10 @@ public class PerspectiveUpdateChecker {
 							int patch = Integer.parseInt(version_number.substring(4, 5));
 							RTUReleaseTypes type = PerspectiveVersionHelper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
 							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
-							PerspectiveVersion API_VERSION = new PerspectiveVersion("Perspective", "perspective", major, minor, patch, type, build);
+							API_VERSION = new PerspectiveVersion("Perspective", "perspective", major, minor, patch, type, build);
 							if (API_VERSION.compareTo(PerspectiveData.PERSPECTIVE_VERSION) > 0) {
-								if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
+								if (PerspectiveConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
 									if (API_VERSION.getType().equals(RTUReleaseTypes.ALPHA) || API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
-										PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
@@ -82,9 +90,8 @@ public class PerspectiveUpdateChecker {
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										break;
 									}
-								} else if (!PerspectiveConfigHelper.getConfig("detect_update_channel").equals("beta")) {
+								} else if (PerspectiveConfigHelper.getConfig("detect_update_channel").equals("beta")) {
 									if (API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
-										PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
@@ -94,7 +101,6 @@ public class PerspectiveUpdateChecker {
 									}
 								} else {
 									if (API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
-										PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
@@ -106,8 +112,13 @@ public class PerspectiveUpdateChecker {
 							}
 						}
 					}
-					if (!NEWER_VERSION_FOUND) {
-						PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("You are already running the latest version of {}", PerspectiveData.PERSPECTIVE_VERSION.getName());
+					if (!compatible_version) {
+						PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("No compatible version found.");
+					} else {
+						if (NEWER_VERSION_FOUND) {
+							PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
+						} else
+							PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("You are already running the latest version of {}", PerspectiveData.PERSPECTIVE_VERSION.getName());
 					}
 				}
 			}
