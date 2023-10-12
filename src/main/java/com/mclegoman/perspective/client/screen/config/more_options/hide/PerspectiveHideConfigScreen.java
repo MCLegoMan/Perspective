@@ -77,6 +77,11 @@ public class PerspectiveHideConfigScreen extends Screen {
             this.REFRESH = true;
         }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide.hide_block_outline", true)));
 
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide.hide_crosshair", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_crosshair"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("hide_crosshair", !(boolean)PerspectiveConfigHelper.getConfig("hide_crosshair"));
+            this.REFRESH = true;
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide.hide_crosshair", true)));
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide.hide_armor", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("hide_armor"), PerspectiveTranslationType.ONFF)}), (button) -> {
             PerspectiveConfigHelper.setConfig("hide_armor", !(boolean)PerspectiveConfigHelper.getConfig("hide_armor"));
             this.REFRESH = true;

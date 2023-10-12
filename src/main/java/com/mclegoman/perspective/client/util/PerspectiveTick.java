@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.experimental.PerspectiveExperimental;
+import com.mclegoman.perspective.client.hide.PerspectiveHide;
 import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
 import com.mclegoman.perspective.client.perspective.PerspectivePerspective;
@@ -30,7 +30,7 @@ public class PerspectiveTick {
                 PerspectiveShader.tick(client);
                 PerspectivePanorama.tick(client);
                 PerspectiveHUDOverlays.tick(client);
-                PerspectiveExperimental.tick(client);
+                PerspectiveHide.tick(client);
                 PerspectiveUpdateChecker.tick(client);
             }
         });

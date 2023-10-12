@@ -107,6 +107,9 @@
 	"gui.perspective.config.hide.hide_block_outline": "Hide Block Outline: %s",
 	"gui.perspective.config.hide.hide_block_outline.hover": "Toggles visibility of the block outline.",
 
+	"gui.perspective.config.hide.hide_crosshair": "Hide Crosshair: %s",
+	"gui.perspective.config.hide.hide_crosshair.hover": "Toggles visibility of the crosshair.",
+
 	"gui.perspective.config.hide.hide_armor": "Global Hide Armor: %s",
 	"gui.perspective.config.hide.hide_armor.hover": "Toggles the rendering of armor.",
 
@@ -180,15 +183,15 @@
 
 	"gui.perspective.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
 
+	"gui.perspective.keybindings.keybinding.toggle_armor": "Toggle Armor",
+
+	"gui.perspective.keybindings.keybinding.toggle_block_outline": "Toggle Block Outline",
+
+	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
+
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
-
-	"gui.perspective.keybindings.category.perspective_experimental": "Perspective: Experimental",
-
-	"gui.perspective.keybindings.keybinding.toggle_armor": "Toggle Armor",
-
-	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
 
 	"gui.perspective.resource_pack.perspective_default": "Perspective Default",
 	"gui.perspective.resource_pack.perspective_default.description": "Adds new custom resources to Perspective's features.",
