@@ -32,6 +32,6 @@ import java.util.Objects;
 public class PerspectiveArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void perspective$hide_armor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
-        if (entity instanceof PlayerEntity && (boolean)PerspectiveConfigHelper.getConfig("hide_armor") || (PerspectiveShader.shouldRenderShader() && (Boolean) Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.HIDE_ARMOR)))) ci.cancel();
+        if (entity instanceof PlayerEntity && (boolean)PerspectiveConfigHelper.getConfig("hide_armor") || PerspectiveShader.shouldRenderShader() && (boolean) Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.HIDE_ARMOR))) ci.cancel();
     }
 }

@@ -10,6 +10,9 @@ package com.mclegoman.perspective.mixin.client;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.data.PerspectiveClientData;
 import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
+import com.mclegoman.perspective.client.shaders.PerspectiveShader;
+import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
+import com.mclegoman.perspective.client.shaders.PerspectiveShaderRegistryValue;
 import com.mclegoman.perspective.client.util.PerspectiveHideHUD;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
@@ -25,6 +28,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 @Mixin(priority = 10000, value = InGameHud.class)
@@ -52,7 +57,7 @@ public abstract class PerspectiveInGameHUDMixin {
     @Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
     private void perspective$renderCrosshair(DrawContext context, CallbackInfo ci) {
         try {
-            if ((boolean) PerspectiveConfigHelper.getConfig("hide_crosshair")) {
+            if (((boolean) PerspectiveConfigHelper.getConfig("hide_crosshair")) || (PerspectiveShader.shouldRenderShader() && (boolean) Objects.requireNonNull(PerspectiveShaderDataLoader.get((int) PerspectiveConfigHelper.getConfig("super_secret_settings"), PerspectiveShaderRegistryValue.HIDE_CROSSHAIR)))) {
                 if (PerspectiveClientData.CLIENT.player != null) {
                     if (PerspectiveClientData.CLIENT.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
                         float cooldownProgress = PerspectiveClientData.CLIENT.player.getAttackCooldownProgress(0.0F);
