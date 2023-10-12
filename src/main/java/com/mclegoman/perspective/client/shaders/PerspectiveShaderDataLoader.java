@@ -173,28 +173,19 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
         List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"));
         for (Resource resource : SHADER_LISTS) {
             try {
-                JsonObject READER = JsonHelper.deserialize(resource.getReader());
-                for (JsonElement namespaces : READER.getAsJsonArray("namespaces")) {
-                    JsonObject namespacelist = JsonHelper.asObject(namespaces, "namespacelist");
-                    String NAMESPACE = JsonHelper.getString(namespacelist, "namespace", PerspectiveData.PERSPECTIVE_VERSION.getID());
-                    JsonArray SHADERS = JsonHelper.getArray(namespacelist, "shaders", new JsonArray());
-                    JsonArray HIDE_ARMOR = JsonHelper.getArray(namespacelist, "hide_armor", new JsonArray());
-                    JsonArray HIDE_BLOCK_OUTLINE = JsonHelper.getArray(namespacelist, "hide_block_outline", new JsonArray());
-                    JsonArray HIDE_CROSSHAIR = JsonHelper.getArray(namespacelist, "hide_crosshair", new JsonArray());
-                    JsonArray HIDE_NAMETAGS = JsonHelper.getArray(namespacelist, "hide_nametags", new JsonArray());
-                    JsonArray DISABLE_SCREEN_MODE = JsonHelper.getArray(namespacelist, "disable_screen_mode", new JsonArray());
-                    boolean ENABLED = JsonHelper.getBoolean(namespacelist, "enabled", true);
+                for (JsonElement namespaces : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("namespaces")) {
+                    JsonObject NAMESPACES = JsonHelper.asObject(namespaces, "namespacelist");
                     List<String> HIDE_ARMOR_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : HIDE_ARMOR) HIDE_ARMOR_SHADERS.add(SHADER.getAsString());
                     List<String> HIDE_CROSSHAIR_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : HIDE_CROSSHAIR) HIDE_CROSSHAIR_SHADERS.add(SHADER.getAsString());
                     List<String> HIDE_BLOCK_OUTLINE_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : HIDE_BLOCK_OUTLINE) HIDE_BLOCK_OUTLINE_SHADERS.add(SHADER.getAsString());
                     List<String> HIDE_NAMETAGS_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : HIDE_NAMETAGS) HIDE_NAMETAGS_SHADERS.add(SHADER.getAsString());
                     List<String> DISABLE_SCREEN_MODE_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : DISABLE_SCREEN_MODE) DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
-                    for (JsonElement SHADER : SHADERS) add(NAMESPACE, SHADER.getAsString(), HIDE_ARMOR_SHADERS.contains(SHADER.getAsString()), HIDE_BLOCK_OUTLINE_SHADERS.contains(SHADER.getAsString()), HIDE_CROSSHAIR_SHADERS.contains(SHADER.getAsString()), HIDE_NAMETAGS_SHADERS.contains(SHADER.getAsString()), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), ENABLED);
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_armor", new JsonArray())) HIDE_ARMOR_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_crosshair", new JsonArray())) HIDE_CROSSHAIR_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_block_outline", new JsonArray())) HIDE_BLOCK_OUTLINE_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_nametags", new JsonArray())) HIDE_NAMETAGS_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "disable_screen_mode", new JsonArray())) DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "shaders", new JsonArray())) add(JsonHelper.getString(NAMESPACES, "namespace", PerspectiveData.PERSPECTIVE_VERSION.getID()), SHADER.getAsString(), HIDE_ARMOR_SHADERS.contains(SHADER.getAsString()), HIDE_BLOCK_OUTLINE_SHADERS.contains(SHADER.getAsString()), HIDE_CROSSHAIR_SHADERS.contains(SHADER.getAsString()), HIDE_NAMETAGS_SHADERS.contains(SHADER.getAsString()), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true));
                 }
             } catch (Exception error) {
                 PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", PerspectiveData.PERSPECTIVE_VERSION.getID(), error);
