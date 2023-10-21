@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.util;
 
+import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
 import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
 import com.mclegoman.perspective.client.hide.PerspectiveHide;
 import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
@@ -24,6 +25,7 @@ public class PerspectiveTick {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.isFinishedLoading()) {
                 PerspectiveConfigHelper.tick(client);
+                PerspectiveAprilFoolsPrank.tick(client);
                 PerspectiveKeybindings.tick(client);
                 PerspectivePerspective.tick(client);
                 PerspectiveZoom.tick(client);

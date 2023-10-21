@@ -36,7 +36,6 @@ public class PerspectiveClient implements ClientModInitializer {
 			PerspectivePanorama.init();
 			PerspectiveTexturedEntity.init();
 			PerspectiveAprilFoolsPrank.init();
-			PerspectiveHUDOverlays.init();
 			PerspectiveTick.init();
 		} catch (Exception error) {
 			PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);

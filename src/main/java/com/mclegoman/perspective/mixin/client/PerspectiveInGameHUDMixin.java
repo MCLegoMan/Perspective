@@ -13,10 +13,12 @@ import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
 import com.mclegoman.perspective.client.shaders.PerspectiveShader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.PerspectiveShaderRegistryValue;
+import com.mclegoman.perspective.client.translation.PerspectiveTranslation;
 import com.mclegoman.perspective.client.util.PerspectiveHideHUD;
 import com.mclegoman.perspective.common.data.PerspectiveData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
@@ -37,6 +39,7 @@ public abstract class PerspectiveInGameHUDMixin {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
         try {
+            if (PerspectiveHideHUD.shouldHideHUD()) ci.cancel();
             float h = PerspectiveHUDOverlays.REMAINING - tickDelta;
             int l = (int)(h * 255.0F / 20.0F);
             if (l > 255) l = 255;
@@ -49,9 +52,20 @@ public abstract class PerspectiveInGameHUDMixin {
                 context.drawTextWithShadow(PerspectiveClientData.CLIENT.textRenderer, PerspectiveHUDOverlays.MESSAGE, -n / 2, -4, k | m);
                 context.getMatrices().pop();
             }
-            if (PerspectiveHideHUD.shouldHideHUD()) ci.cancel();
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to InGameHUD$render.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+        }
+    }
+    @Inject(at = @At("RETURN"), method = "render", cancellable = true)
+    private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
+        try {
+            if (!PerspectiveHideHUD.shouldHideHUD()) {
+                if (!PerspectiveClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
+                    if ((boolean)PerspectiveConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(PerspectiveClientData.CLIENT.textRenderer, PerspectiveTranslation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+                }
+            }
+        } catch (Exception error) {
+            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to InGameHUD$renderOverlays.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
     @Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)

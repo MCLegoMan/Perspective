@@ -19,6 +19,7 @@ public class PerspectiveWarningsConfig {
     protected static SimpleConfig CONFIG;
     protected static PerspectiveConfigProvider CONFIG_PROVIDER;
     protected static boolean PHOTOSENSITIVITY;
+    protected static boolean PRANK;
     protected static void init() {
         try {
             CONFIG_PROVIDER = new PerspectiveConfigProvider();
@@ -31,13 +32,16 @@ public class PerspectiveWarningsConfig {
     }
     protected static void create() {
         CONFIG_PROVIDER.add(new Pair<>("photosensitivity", false));
+        CONFIG_PROVIDER.add(new Pair<>("prank", false));
     }
     protected static void assign() {
         PHOTOSENSITIVITY = CONFIG.getOrDefault("photosensitivity", false);
+        PRANK = CONFIG.getOrDefault("prank", false);
     }
     protected static void save() {
         PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Writing warning config to file.", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix());
         CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);
+        CONFIG_PROVIDER.setConfig("prank", PRANK);
         CONFIG_PROVIDER.saveConfig(ID);
     }
 }

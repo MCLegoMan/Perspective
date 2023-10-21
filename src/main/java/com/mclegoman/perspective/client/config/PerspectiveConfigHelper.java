@@ -222,10 +222,10 @@ public class PerspectiveConfigHelper {
     }
     public static void setWarningConfig(String ID, Object VALUE) {
         try {
-            if (ID.equals("photosensitivity")) {
-                PerspectiveWarningsConfig.PHOTOSENSITIVITY = (Boolean) VALUE;
-            } else {
-                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+            switch (ID) {
+                case "photosensitivity" -> PerspectiveWarningsConfig.PHOTOSENSITIVITY = (boolean) VALUE;
+                case "prank" -> PerspectiveWarningsConfig.PRANK = (boolean) VALUE;
+                default -> PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
         } catch (Exception error) {
             PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
@@ -280,11 +280,13 @@ public class PerspectiveConfigHelper {
         return new Object();
     }
     public static Object getWarningConfig(String ID) {
-        if (ID.equals("photosensitivity")) {
-            return PerspectiveWarningsConfig.PHOTOSENSITIVITY;
-        } else {
-            PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+        switch (ID) {
+            case "photosensitivity" -> {return PerspectiveWarningsConfig.PHOTOSENSITIVITY;}
+            case "prank" -> {return PerspectiveWarningsConfig.PRANK;}
+            default -> {
+                PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+                return new Object();
+            }
         }
-        return new Object();
     }
 }

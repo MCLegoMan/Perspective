@@ -1,0 +1,12 @@
+{
+	"skins": [
+		"mclegoman_normal",
+		"mclegoman_pride",
+		"mclegoman_trans",
+		"mclegoblock_normal",
+		"mclegoblock_pride",
+		"mclegoblock_trans"
+	],
+	"shouldFlipUpsideDown": true,
+	"shouldDisplayCape": true
+}
