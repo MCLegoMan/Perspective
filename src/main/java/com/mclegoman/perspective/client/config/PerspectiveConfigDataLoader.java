@@ -51,6 +51,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
     public static boolean TUTORIALS;
     public static boolean HIDE_BLOCK_OUTLINE;
     public static boolean HIDE_CROSSHAIR;
+    public static boolean SHOW_DEATH_COORDINATES;
     public static final String ID = "config";
     public PerspectiveConfigDataLoader() {
         super(new Gson(), ID);
@@ -86,6 +87,7 @@ public class PerspectiveConfigDataLoader extends JsonDataLoader implements Ident
                 TUTORIALS = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "tutorials", true);
                 HIDE_BLOCK_OUTLINE = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_block_outline", false);
                 HIDE_CROSSHAIR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "hide_crosshair", false);
+                SHOW_DEATH_COORDINATES = JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "show_death_coordinates", false);
             }
             PerspectiveConfigHelper.loadConfig();
         } catch (Exception error) {

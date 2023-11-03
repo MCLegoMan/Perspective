@@ -44,6 +44,7 @@ public class PerspectiveConfig {
     protected static boolean TUTORIALS;
     protected static boolean HIDE_BLOCK_OUTLINE;
     protected static boolean HIDE_CROSSHAIR;
+    protected static boolean SHOW_DEATH_COORDINATES;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -82,6 +83,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.add(new Pair<>("tutorials", PerspectiveConfigDataLoader.TUTORIALS));
         CONFIG_PROVIDER.add(new Pair<>("hide_block_outline", PerspectiveConfigDataLoader.HIDE_BLOCK_OUTLINE));
         CONFIG_PROVIDER.add(new Pair<>("hide_crosshair", PerspectiveConfigDataLoader.HIDE_CROSSHAIR));
+        CONFIG_PROVIDER.add(new Pair<>("show_death_coordinates", PerspectiveConfigDataLoader.SHOW_DEATH_COORDINATES));
         CONFIG_PROVIDER.add(new Pair<>("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -111,6 +113,7 @@ public class PerspectiveConfig {
         TUTORIALS = CONFIG.getOrDefault("tutorials", PerspectiveConfigDataLoader.TUTORIALS);
         HIDE_BLOCK_OUTLINE = CONFIG.getOrDefault("hide_block_outline", PerspectiveConfigDataLoader.HIDE_BLOCK_OUTLINE);
         HIDE_CROSSHAIR = CONFIG.getOrDefault("hide_crosshair", PerspectiveConfigDataLoader.HIDE_CROSSHAIR);
+        SHOW_DEATH_COORDINATES = CONFIG.getOrDefault("show_death_coordinates", PerspectiveConfigDataLoader.SHOW_DEATH_COORDINATES);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -141,6 +144,7 @@ public class PerspectiveConfig {
         CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
         CONFIG_PROVIDER.setConfig("hide_block_outline", HIDE_BLOCK_OUTLINE);
         CONFIG_PROVIDER.setConfig("hide_crosshair", HIDE_CROSSHAIR);
+        CONFIG_PROVIDER.setConfig("show_death_coordinates", SHOW_DEATH_COORDINATES);
         CONFIG_PROVIDER.setConfig("config_version", PerspectiveConfigHelper.DEFAULT_CONFIG_VERSION);
         CONFIG_PROVIDER.saveConfig(ID);
     }

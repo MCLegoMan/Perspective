@@ -106,6 +106,9 @@
 	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
 	"gui.perspective.config.more_options.force_pride.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
 
+	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
+	"gui.perspective.config.more_options.show_death_coordinates.hover": "Toggle whether death coordinates are shown on the death screen.",
+
 	"gui.perspective.config.hide": "Hide",
 	"gui.perspective.config.hide.hover": "Open Perspective's Hide config screen.",
 
@@ -217,5 +220,7 @@
 	"gui.perspective.config.detect_update_channel.beta": "Beta/RC",
 	"gui.perspective.config.detect_update_channel.release": "Release",
 
-	"gui.perspective.version_overlay": "Minecraft %s"
+	"gui.perspective.version_overlay": "Minecraft %s",
+
+	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s"
 }

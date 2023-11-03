@@ -85,6 +85,11 @@ public class PerspectiveMoreOptionsConfigScreen extends Screen {
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.force_pride", true)));
 
+        GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("more_options.show_death_coordinates", new Object[]{PerspectiveTranslation.getVariableTranslation((boolean)PerspectiveConfigHelper.getConfig("show_death_coordinates"), PerspectiveTranslationType.ONFF)}), (button) -> {
+            PerspectiveConfigHelper.setConfig("show_death_coordinates", !(boolean)PerspectiveConfigHelper.getConfig("show_death_coordinates"));
+            this.REFRESH = true;
+        }).width(304).build(), 2).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("more_options.show_death_coordinates", true)));
+
         GRID_ADDER.add(ButtonWidget.builder(PerspectiveTranslation.getConfigTranslation("hide"), (button) -> {
             PerspectiveClientData.CLIENT.setScreen(new PerspectiveHideConfigScreen(new PerspectiveMoreOptionsConfigScreen(PARENT_SCREEN, false), false));
         }).build()).setTooltip(Tooltip.of(PerspectiveTranslation.getConfigTranslation("hide", true)));
