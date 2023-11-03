@@ -1,0 +1,10 @@
+{
+  "namespace": "minecraft",
+  "shader": "love",
+  "hide_armor": false,
+  "hide_block_outline": false,
+  "hide_crosshair": false,
+  "hide_nametags": false,
+  "disable_screen_mode": false,
+  "enabled": true
+}
