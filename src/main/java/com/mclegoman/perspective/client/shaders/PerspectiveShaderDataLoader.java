@@ -111,6 +111,7 @@ public class PerspectiveShaderDataLoader extends JsonDataLoader implements Ident
             add("minecraft", "fxaa", false, false, false, false, false, true);
             add("minecraft", "green", false, false, false, false, true, true);
             add("minecraft", "invert", false, false, false, false, false, true);
+            add("minecraft", "love", false, false, false, false, false, true);
             add("minecraft", "notch", false, false, false, false, false, true);
             add("minecraft", "ntsc", false, false, false, false, true, true);
             add("minecraft", "outline", false, false, false, false, false, true);
