@@ -1,11 +1,9 @@
-# Perspective 1.2.0-alpha.5 for 1.20.2 and 1.20.3 snapshots.
+![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 
-What's up with the _breeze_ today?
-We've gone and trapped 17 of these cunning Breeze in our dungeon,
-allowing us to harness their wind, so we can inject it into Perspective's code itself!
+What's up with the _breeze_ today? We've gone and trapped 17 of these cunning Breeze in our dungeon, allowing us to harness their wind, so we can inject it into Perspective's code itself!
 
-**Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge. [Learn more here](https://mclegoman.com/Perspective/Moving_Away_from_Curseforge).*
-
+### Perspective 1.2.0-alpha.5 for 1.20.2 and 1.20.3 snapshots.  
+**Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge. [Learn more here](https://mclegoman.com/Perspective/Moving_Away_from_Curseforge).*  
 ## Changelog  
 - **Updated Config Version to `11`.**  
   - Added `show_death_coordinates` config option.  
