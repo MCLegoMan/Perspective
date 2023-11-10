@@ -195,6 +195,8 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_block_outline": "Toggle Block Outline",
 
+	"gui.perspective.keybindings.keybinding.toggle_crosshair": "Toggle Crosshair",
+
 	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
 
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
