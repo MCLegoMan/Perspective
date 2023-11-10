@@ -5,11 +5,8 @@
             "min_inclusive": 9,
             "max_inclusive": 2147483647
         },
-        "description": [
-            {
-                "translate": "gui.perspective.resource_pack.perspective_default.description",
-                "color": "light_gray"
-            }
-        ]
+        "description": {
+            "translate": "gui.perspective.resource_pack.perspective_default.description"
+        }
     }
 }

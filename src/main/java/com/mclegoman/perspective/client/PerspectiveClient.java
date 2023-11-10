@@ -7,38 +7,34 @@
 
 package com.mclegoman.perspective.client;
 
-import com.mclegoman.perspective.client.april_fools_prank.PerspectiveAprilFoolsPrank;
-import com.mclegoman.perspective.client.config.PerspectiveConfigHelper;
-import com.mclegoman.perspective.client.overlays.PerspectiveHUDOverlays;
-import com.mclegoman.perspective.client.panorama.PerspectivePanorama;
-import com.mclegoman.perspective.client.shaders.PerspectiveShader;
-import com.mclegoman.perspective.client.textured_entity.PerspectiveTexturedEntity;
-import com.mclegoman.perspective.client.util.PerspectiveKeybindings;
-import com.mclegoman.perspective.client.util.PerspectiveResourcePacks;
-import com.mclegoman.perspective.client.util.PerspectiveTick;
-import com.mclegoman.perspective.common.data.PerspectiveData;
+import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
+import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.panorama.Panorama;
+import com.mclegoman.perspective.client.shaders.Shader;
+import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.util.ResourcePacks;
+import com.mclegoman.perspective.client.util.Tick;
+import com.mclegoman.perspective.common.data.Data;
 import de.guntram.mcmod.crowdintranslate.CrowdinTranslate;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
 public class PerspectiveClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		try {
-			PerspectiveData.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), PerspectiveData.PERSPECTIVE_VERSION.getID());
-			CrowdinTranslate.downloadTranslations(PerspectiveData.PERSPECTIVE_VERSION.getID());
-			PerspectiveConfigHelper.init();
-			PerspectiveResourcePacks.init();
-			PerspectiveKeybindings.init();
-			PerspectiveShader.init();
-			PerspectivePanorama.init();
-			PerspectiveTexturedEntity.init();
-			PerspectiveAprilFoolsPrank.init();
-			PerspectiveTick.init();
+			Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), Data.PERSPECTIVE_VERSION.getID());
+			CrowdinTranslate.downloadTranslations(Data.PERSPECTIVE_VERSION.getID());
+			ConfigHelper.init();
+			ResourcePacks.init();
+			Keybindings.init();
+			Shader.init();
+			Panorama.init();
+			TexturedEntity.init();
+			AprilFoolsPrank.init();
+			Tick.init();
 		} catch (Exception error) {
-			PerspectiveData.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", PerspectiveData.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 }
