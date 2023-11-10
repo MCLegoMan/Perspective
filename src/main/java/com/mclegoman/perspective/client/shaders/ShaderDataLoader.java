@@ -101,7 +101,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             add("minecraft", "blur", false, false, false, false, true, true);
             add("minecraft", "bumpy", false, false, false, false, false, true);
             add("minecraft", "color_convolve", false, false, false, false, false, true);
-            add("minecraft", "creeper", false, false, false, false, false, true);
+            add("minecraft", "creeper", false, false, false, false, true, true);
             add("minecraft", "deconverge", false, false, false, false, false, true);
             add("minecraft", "desaturate", false, false, false, false, false, true);
             add("minecraft", "flip", false, false, false, false, true, true);
