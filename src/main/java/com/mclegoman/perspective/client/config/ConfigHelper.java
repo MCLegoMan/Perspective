@@ -22,7 +22,7 @@ public class ConfigHelper {
     protected static boolean SAVE_VIA_TICK = false;
     protected static int SAVE_VIA_TICK_TICKS = 0;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-    protected static final int DEFAULT_CONFIG_VERSION = 10;
+    protected static final int DEFAULT_CONFIG_VERSION = 11;
     private static boolean SEEN_DEVELOPMENT_WARNING = false;
     private static boolean SHOW_DOWNGRADE_WARNING = false;
     private static boolean SEEN_DOWNGRADE_WARNING = false;

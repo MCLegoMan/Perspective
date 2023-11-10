@@ -1,16 +1,44 @@
 # Perspective 1.2.0-alpha.5 for 1.20.2
-Donec sed eros ut ligula tristique sodales. Nulla facilisi. Aliquam eleifend diam nunc. Nullam posuere dictum nisl, quis imperdiet metus ultricies at. Proin rutrum fringilla neque id placerat. Fusce nec tristique risus, et ullamcorper justo. Vivamus ligula ex, rutrum tincidunt egestas nec, lacinia ac erat. Nam vehicula sit amet ligula et maximus. Duis consectetur urna ac sem mattis dignissim. Aenean luctus justo sed ligula.  
+
+What's up with the _breeze_ today?
+We've gone and trapped 17 of these cunning Breeze in our dungeon,
+allowing us to harness their wind, so we can inject it into Perspective's code itself!
+
+**Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge. [Learn more here](https://mclegoman.com/Perspective/Moving_Away_from_Curseforge).*
 
 ## Changelog  
-- **Updated Config Version to `10`.**  
-  - Added `hide_block_outline` config option.  
-    - This option toggles the visibility of the block outline.  
-    - This option has also been added to the shader dataloader.  
-  - Added `hide_crosshair` config option.  
-    - This option toggles the visibility of the block outline.  
-    - This option has also been added to the shader dataloader.  
-- **Fixed Update Checker.**  
-  - Several bugs in the previous versions were found that stopped the update checker from working.  
+- **Updated Config Version to `11`.**  
+  - Added `show_death_coordinates` config option.  
+    - This option toggles the visibility of your coordinates on the death screen. 
+- **Updated Textured Entity.**  
+  - Added `minecraft:breeze`.
+    - Main Texture Location: `perspective:textures/textured_entity/breeze/<name>.png`  
+    - Wind Texture Location: `perspective:textures/textured_entity/breeze/<name>_wind.png`
+    - This entity will only be enabled for Minecraft 22w45a and later.
+      - Note: You will need to have the `update_1_21` experiment enabled to spawn the Breeze.
+  - Added `minecraft:wind_charge`.
+    - Texture Location: `perspective:textures/textured_entity/wind_charge/<name>.png`
+      - Note: You will need to have the `update_1_21` experiment enabled to spawn the Wind Charge.
+  - Updated Pig Overlay/Outer Layer.
+    - Added `minecraft:pig#outer` model layer.
+    - Replaced `PIG_SADDLE` model with `PIG_OUTER` model.
+      - This makes the `outer_layer` get rendered under the saddle.
+    - Renamed `pig_overlay.png` to `pig_outer_layer.png`.
+      - Resource Packs will need to be updated to display the outer layer.
+      - This naming scheme also applies to Textured Entity.
+  - **Updated Vanilla Super Secret Settings Shaders.**
+    - Added `minecraft:love` from the `15w14a` April Fools' snapshot.
+      - This shader was only available in the above-mentioned snapshot.
+    - Updated `minecraft:creeper` to not use Screen Mode.
+      - Due to the difficulty to read the text on some resolutions.
+  - Updated **Perspective: Default** Resource Pack.
+    - Turned down the strength of the `perspective:outlined` shader outline.
+    - Added `Cheeze` Breeze Textured Entity.
+    - Added `Mossy` Skeleton Textured Entity.
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
+
+### Want to support my work?  
+If you'd like to donate, visit [BuyMeACoffee](https://www.buymeacoffee.com/mclegoman).
+Your support is appreciated, please be aware that donations are non-refundable.
