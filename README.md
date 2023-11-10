@@ -1,10 +1,4 @@
 ![](https://raw.githubusercontent.com/MCLegoMan/Perspective/docs/docs/img/logo/release.png)  
-[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png)](https://modrinth.com/mod/mclegoman-perspective)
-[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/curseforge_64h.png)](https://www.curseforge.com/minecraft/mc-mods/perspective)
-[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/github_64h.png)](https://github.com/MCLegoMan/perspective)  
-[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/fabric_64h.png)](https://fabricmc.net)
-[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/quilt_64h.png)](https://quiltmc.org)
-
 ## About
 Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to zoom, change and hold perspectives, have custom textures on named/random entities, take panoramic screenshots, and use super secret settings!
 
