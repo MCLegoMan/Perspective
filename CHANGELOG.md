@@ -1,4 +1,4 @@
-# Perspective 1.2.0-alpha.5 for 1.20.2
+# Perspective 1.2.0-alpha.5 for 1.20.2 and 1.20.3 snapshots.
 
 What's up with the _breeze_ today?
 We've gone and trapped 17 of these cunning Breeze in our dungeon,
