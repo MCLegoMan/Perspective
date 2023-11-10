@@ -21,6 +21,7 @@ import java.util.List;
 public class TexturedEntity {
     public static void init() {
         try {
+            TexturedEntityModels.init();
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TexturedEntityDataLoader());
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize textured entity texture: {}", Data.PERSPECTIVE_VERSION.getID(), error);
