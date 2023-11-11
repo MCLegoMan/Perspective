@@ -39,6 +39,7 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
   - Updated `minecraft:creeper` to not use Screen Mode.
     - Due to the difficulty to read the text on some resolutions.
 - **Updated `Perspective: Default` Resource Pack.**
+  - Added `perspective:mirror` shader.
   - Turned down the strength of the `perspective:outlined` shader outline.
   - Added `Cheeze` Breeze Textured Entity.
   - Added `Mossy` Skeleton Textured Entity.
