@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.hud;
 
+import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
@@ -14,19 +15,22 @@ import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.HideHUD;
+import com.mclegoman.perspective.client.util.HUD;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Mixin(priority = 10000, value = InGameHud.class)
@@ -34,7 +38,7 @@ public abstract class InGameHudMixin {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
         try {
-            if (HideHUD.shouldHideHUD()) ci.cancel();
+            if (HUD.shouldHideHUD()) ci.cancel();
             float h = HUDOverlays.REMAINING - tickDelta;
             int l = (int)(h * 255.0F / 20.0F);
             if (l > 255) l = 255;
@@ -54,9 +58,28 @@ public abstract class InGameHudMixin {
     @Inject(at = @At("RETURN"), method = "render")
     private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
         try {
-            if (!HideHUD.shouldHideHUD()) {
+            if (!HUD.shouldHideHUD()) {
                 if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
-                    if ((boolean) ConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+                    if (HUD.DEBUG) {
+                        context.fill(1, 1, ClientData.CLIENT.getWindow().getScaledWidth() - 1, ClientData.CLIENT.getWindow().getScaledHeight() - 32, -1873784752);
+                        int y = 2;
+                        int x = 2;
+                        List<Text> debugText = new ArrayList<>();
+                        debugText.add(Text.literal(Data.PERSPECTIVE_VERSION.getName() + " " + Data.PERSPECTIVE_VERSION.getFriendlyString()));
+                        debugText.add(Text.literal(""));
+                        debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));
+                        debugText.addAll(ConfigHelper.getDebugConfigText());
+                        for (Text text : debugText) {
+                            if (y > ClientData.CLIENT.getWindow().getScaledHeight() - 2 - 32 - 9) {
+                                y = 2;
+                                x += 256;
+                            }
+                            context.drawTextWithShadow(ClientData.CLIENT.textRenderer, text, x, y, 0xffffff);
+                            y = HUD.addY(y);
+                        }
+                    } else {
+                        if ((boolean) ConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+                    }
                 }
             }
         } catch (Exception error) {

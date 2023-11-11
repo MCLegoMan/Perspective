@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.april_fools_prank;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
+import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -28,7 +29,7 @@ public abstract class PlayerEntityRendererMixin {
 
     @Inject(at = @At("HEAD"), method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
     private void perspective$getTexture(AbstractClientPlayerEntity player, CallbackInfoReturnable<Identifier> cir) {
-        if (player != null && AprilFoolsPrank.isPrankEnabled() && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.REGISTRY.size() > 0) cir.setReturnValue(new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/prank/" + player.getSkinTextures().model().getName().toLowerCase() + "/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(player.getUuid().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png"));
+        if (player != null && (boolean)ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.REGISTRY.size() > 0) cir.setReturnValue(new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/prank/" + player.getSkinTextures().model().getName().toLowerCase() + "/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(player.getUuid().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png"));
     }
     @ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntitySolid(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;", ordinal = 0), method = "renderArm")
     private RenderLayer perspective$renderArm_renderSolid(RenderLayer renderLayer) {

@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
-import com.mclegoman.perspective.client.util.HideHUD;
+import com.mclegoman.perspective.client.util.HUD;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,7 +26,7 @@ public abstract class GameRendererMixin {
     @Inject(at = @At("HEAD"), method = "shouldRenderBlockOutline", cancellable = true)
     private void perspective$renderBlockOutline(CallbackInfoReturnable<Boolean> cir) {
         try {
-            if ((HideHUD.shouldHideHUD()) || ((boolean) ConfigHelper.getConfig("hide_block_outline")) || (Shader.shouldRenderShader() && (boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_BLOCK_OUTLINE)))) cir.setReturnValue(false);
+            if ((HUD.shouldHideHUD()) || ((boolean) ConfigHelper.getConfig("hide_block_outline")) || (Shader.shouldRenderShader() && (boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_BLOCK_OUTLINE)))) cir.setReturnValue(false);
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to GameRenderer$renderCrosshair.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }

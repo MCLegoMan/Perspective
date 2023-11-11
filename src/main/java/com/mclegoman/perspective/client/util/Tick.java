@@ -22,6 +22,7 @@ public class Tick {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.isFinishedLoading()) {
                 ConfigHelper.tick(client);
+                HUD.tick();
                 AprilFoolsPrank.tick(client);
                 Keybindings.tick(client);
                 Perspective.tick(client);

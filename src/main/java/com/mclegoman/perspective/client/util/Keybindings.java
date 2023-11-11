@@ -18,6 +18,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class Keybindings {
     public static final KeyBinding CYCLE_SHADERS;
+    public static final KeyBinding DEBUG;
     public static final KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_BACK;
     public static final KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_FRONT;
     public static final KeyBinding HOLD_ZOOM;
@@ -65,6 +66,7 @@ public class Keybindings {
     static {
         ALL_KEYBINDINGS = new KeyBinding[]{
                 CYCLE_SHADERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
+                DEBUG = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "debug", GLFW.GLFW_KEY_F4),
                 HOLD_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
                 HOLD_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
                 HOLD_ZOOM = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_zoom", GLFW.GLFW_KEY_C),

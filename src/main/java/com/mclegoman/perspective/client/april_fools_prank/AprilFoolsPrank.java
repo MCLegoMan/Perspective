@@ -32,19 +32,24 @@ public class AprilFoolsPrank {
         }
     }
     public static void tick(MinecraftClient client) {
-        boolean save = false;
-        if ((boolean) ConfigHelper.getWarningConfig("prank") && !(isPrankEnabled() && isAprilFools())) {
-            ConfigHelper.setWarningConfig("prank", false);
-            save = true;
-        } else {
-            if (!SEEN_WARNING && client.world != null) {
+        boolean shouldSave = false;
+        if (!SEEN_WARNING && client.world != null) {
+            if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
                 ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
-                ConfigHelper.setWarningConfig("prank", true);
+                if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
+                    ConfigHelper.setWarningConfig("prank", true);
+                    shouldSave = true;
+                }
                 SEEN_WARNING = true;
-                save = true;
+            }
+            else {
+                if ((boolean) ConfigHelper.getWarningConfig("prank")) {
+                    ConfigHelper.setWarningConfig("prank", false);
+                    shouldSave = true;
+                }
             }
         }
-        if (save) ConfigHelper.saveConfig(false);
+        if (shouldSave) ConfigHelper.saveConfig(false);
     }
     public static boolean isAprilFools() {
         if ((boolean) ConfigHelper.getConfig("force_april_fools")) return true;
@@ -52,8 +57,5 @@ public class AprilFoolsPrank {
             LocalDate date = LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId());
             return date.getMonth() == Month.APRIL && date.getDayOfMonth() <= 2;
         }
-    }
-    public static boolean isPrankEnabled() {
-        return (boolean) ConfigHelper.getConfig("allow_april_fools");
     }
 }

@@ -12,6 +12,7 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.util.HUD;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
