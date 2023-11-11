@@ -109,6 +109,7 @@ public class ConfigHelper {
                     if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 11) {
                         setConfig("zoom_transition", Config.CONFIG.getOrDefault("zoom_mode", ConfigDataLoader.ZOOM_TRANSITION));
                         setConfig("zoom_show_percentage", Config.CONFIG.getOrDefault("zoom_overlay_message", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
+                        setConfig("super_secret_settings_show_name", Config.CONFIG.getOrDefault("super_secret_settings_overlay_message", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
                     }
                     setConfig("config_version", DEFAULT_CONFIG_VERSION);
                     Data.PERSPECTIVE_VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
@@ -153,7 +154,7 @@ public class ConfigHelper {
             setConfig("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
             setConfig("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
             setConfig("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
-            setConfig("super_secret_settings_overlay_message", ConfigDataLoader.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE);
+            setConfig("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
             setConfig("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
             setConfig("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
             setConfig("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -192,7 +193,7 @@ public class ConfigHelper {
                 case "super_secret_settings_enabled" -> Config.SUPER_SECRET_SETTINGS_ENABLED = (boolean)VALUE;
                 case "super_secret_settings_sound" -> Config.SUPER_SECRET_SETTINGS_SOUND = (boolean)VALUE;
                 case "super_secret_settings_options_screen" -> Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean)VALUE;
-                case "super_secret_settings_overlay_message" -> Config.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE = (boolean)VALUE;
+                case "super_secret_settings_show_name" -> Config.SUPER_SECRET_SETTINGS_SHOW_NAME = (boolean)VALUE;
                 case "textured_named_entity" -> Config.TEXTURED_NAMED_ENTITY = (boolean)VALUE;
                 case "textured_random_entity" -> Config.TEXTURED_RANDOM_ENTITY = (boolean)VALUE;
                 case "allow_april_fools" -> Config.ALLOW_APRIL_FOOLS = (boolean)VALUE;
@@ -259,7 +260,7 @@ public class ConfigHelper {
             case "super_secret_settings_enabled" -> {return Config.SUPER_SECRET_SETTINGS_ENABLED;}
             case "super_secret_settings_sound" -> {return Config.SUPER_SECRET_SETTINGS_SOUND;}
             case "super_secret_settings_options_screen" -> {return Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;}
-            case "super_secret_settings_overlay_message" -> {return Config.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE;}
+            case "super_secret_settings_show_name" -> {return Config.SUPER_SECRET_SETTINGS_SHOW_NAME;}
             case "textured_named_entity" -> {return Config.TEXTURED_NAMED_ENTITY;}
             case "textured_random_entity" -> {return Config.TEXTURED_RANDOM_ENTITY;}
             case "allow_april_fools" -> {return Config.ALLOW_APRIL_FOOLS;}

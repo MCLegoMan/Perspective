@@ -166,11 +166,12 @@ public class Shader {
     public static boolean shouldRenderShader() {
         return postProcessor != null && (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
     }
-    public static boolean shouldDisableScreenMode() {
-        return (Boolean)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.DISABLE_SCREEN_MODE));
-    }
     public static void render(float tickDelta) {
         if (postProcessor != null) postProcessor.render(tickDelta);
+    }
+
+    public static Object getShaderData(ShaderRegistryValue key) {
+        return ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), key);
     }
     public static void cycleShaderModes() {
         if (ConfigHelper.getConfig("super_secret_settings_mode").equals("game")) ConfigHelper.setConfig("super_secret_settings_mode", "screen");

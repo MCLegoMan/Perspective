@@ -27,7 +27,7 @@ public class Config {
     protected static boolean SUPER_SECRET_SETTINGS_ENABLED;
     protected static boolean SUPER_SECRET_SETTINGS_SOUND;
     protected static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
-    protected static boolean SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE;
+    protected static boolean SUPER_SECRET_SETTINGS_SHOW_NAME;
     protected static boolean TEXTURED_NAMED_ENTITY;
     protected static boolean TEXTURED_RANDOM_ENTITY;
     protected static boolean ALLOW_APRIL_FOOLS;
@@ -67,7 +67,7 @@ public class Config {
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN));
-        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_overlay_message", ConfigDataLoader.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE));
+        CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
         CONFIG_PROVIDER.add(new Pair<>("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS));
@@ -98,7 +98,7 @@ public class Config {
         SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
         SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
         SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = CONFIG.getOrDefault("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
-        SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE = CONFIG.getOrDefault("super_secret_settings_overlay_message", ConfigDataLoader.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE);
+        SUPER_SECRET_SETTINGS_SHOW_NAME = CONFIG.getOrDefault("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
         TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
         TEXTURED_RANDOM_ENTITY = CONFIG.getOrDefault("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -130,7 +130,7 @@ public class Config {
         CONFIG_PROVIDER.setConfig("super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
         CONFIG_PROVIDER.setConfig("super_secret_settings_sound", SUPER_SECRET_SETTINGS_SOUND);
         CONFIG_PROVIDER.setConfig("super_secret_settings_options_screen", SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
-        CONFIG_PROVIDER.setConfig("super_secret_settings_overlay_message", SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE);
+        CONFIG_PROVIDER.setConfig("super_secret_settings_show_name", SUPER_SECRET_SETTINGS_SHOW_NAME);
         CONFIG_PROVIDER.setConfig("textured_named_entity", TEXTURED_NAMED_ENTITY);
         CONFIG_PROVIDER.setConfig("textured_random_entity", TEXTURED_RANDOM_ENTITY);
         CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);

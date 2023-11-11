@@ -33,7 +33,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
     public static boolean SUPER_SECRET_SETTINGS_ENABLED;
     public static boolean SUPER_SECRET_SETTINGS_SOUND;
     public static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
-    public static boolean SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE;
+    public static boolean SUPER_SECRET_SETTINGS_SHOW_NAME;
     public static boolean TEXTURED_NAMED_ENTITY;
     public static boolean TEXTURED_RANDOM_ENTITY;
     public static boolean ALLOW_APRIL_FOOLS;
@@ -70,7 +70,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
                 SUPER_SECRET_SETTINGS_ENABLED = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_enabled", false);
                 SUPER_SECRET_SETTINGS_SOUND = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_sound", true);
                 SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_options_screen", false);
-                SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_overlay_message", true);
+                SUPER_SECRET_SETTINGS_SHOW_NAME = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_show_name", true);
                 TEXTURED_NAMED_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "textured_named_entity", true);
                 TEXTURED_RANDOM_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "textured_random_entity", false);
                 ALLOW_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);

@@ -12,6 +12,7 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
+import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -90,7 +91,7 @@ public class ShadersConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.mode", new Object[]{Translation.getShaderModeTranslation((String) ConfigHelper.getConfig("super_secret_settings_mode")), Translation.getVariableTranslation(Shader.shouldDisableScreenMode(), TranslationType.DISABLE_SCREEN_MODE)}), (button) -> {
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.mode", new Object[]{Translation.getShaderModeTranslation((String) ConfigHelper.getConfig("super_secret_settings_mode")), Translation.getVariableTranslation((boolean)Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE)}), (button) -> {
             Shader.cycleShaderModes();
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.mode", true)));

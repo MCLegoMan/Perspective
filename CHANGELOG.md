@@ -8,7 +8,7 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
 - **Updated Config Version to `11`.**  
   - Added `show_death_coordinates` config option.  
     - This option toggles the visibility of your coordinates on the death screen.
-  - Renamed `zoom_mode` to `zoom_transition`, and `zoom_overlay_message` to `zoom_show_percentage`.
+  - Renamed `zoom_mode` to `zoom_transition`, `zoom_overlay_message` to `zoom_show_percentage`, and `super_secret_settings_overlay_message` to `super_secret_settings_show_name`.
     - Resource packs that change the default values of these options will need to be updated to the new names.
   - Added `zoom_camera_mode`.
     - The values are `default` and `spyglass`.
