@@ -185,6 +185,8 @@
 
 	"gui.perspective.keybindings.keybinding.open_config": "Open Config",
 
+	"gui.perspective.keybindings.keybinding.debug": "Open Debug Screen",
+
 	"gui.perspective.keybindings.keybinding.random_shader": "Random Super Secret Setting",
 
 	"gui.perspective.keybindings.keybinding.set_perspective_first_person": "Set First Person",

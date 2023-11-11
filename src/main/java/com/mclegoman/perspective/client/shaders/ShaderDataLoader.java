@@ -37,6 +37,11 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
         String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
         return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
     }
+    public static String getFullShaderName(int SHADER) {
+        String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
+        String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
+        return NAMESPACE + ":" + SHADER_NAME;
+    }
     private static boolean isDuplicatedShaderName(String name) {
         return DUPLICATED_NAMES.contains(name);
     }

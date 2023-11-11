@@ -305,27 +305,21 @@ public class ConfigHelper {
             }
         }
     }
-    public static List<Text> getDebugConfigText() {
-        List<Text> text = new ArrayList<>();
-
-        text.add(Text.literal(""));
+    public static List<Object> getDebugConfigText() {
+        List<Object> text = new ArrayList<>();
         text.add(Text.literal(Config.ID).formatted(Formatting.BOLD));
         for (Pair<String, ?> pair : Config.CONFIG_PROVIDER.getConfigList()) text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
-
         if (EXPERIMENTS_AVAILABLE) {
-            text.add(Text.literal(""));
+            text.add("\n");
             text.add(Text.literal(ExperimentalConfig.ID).formatted(Formatting.BOLD));
             for (Pair<String, ?> pair : ExperimentalConfig.CONFIG_PROVIDER.getConfigList()) text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
         }
-
-        text.add(Text.literal(""));
+        text.add("\n");
         text.add(Text.literal(TutorialsConfig.ID).formatted(Formatting.BOLD));
         for (Pair<String, ?> pair : TutorialsConfig.CONFIG_PROVIDER.getConfigList()) text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
-
-        text.add(Text.literal(""));
+        text.add("\n");
         text.add(Text.literal(WarningsConfig.ID).formatted(Formatting.BOLD));
         for (Pair<String, ?> pair : WarningsConfig.CONFIG_PROVIDER.getConfigList()) text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
-
         return text;
     }
 }
