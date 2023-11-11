@@ -154,7 +154,7 @@ public class Shader {
         }
     }
     private static void setOverlay(Text message) {
-        if ((boolean) ConfigHelper.getConfig("super_secret_settings_overlay_message")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+        if ((boolean) ConfigHelper.getConfig("super_secret_settings_show_name")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
     }
     public static Formatting getRandomColor() {
         Random random = new Random();
