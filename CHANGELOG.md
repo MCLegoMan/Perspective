@@ -7,7 +7,9 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
 ## Changelog  
 - **Updated Config Version to `11`.**  
   - Added `show_death_coordinates` config option.  
-    - This option toggles the visibility of your coordinates on the death screen. 
+    - This option toggles the visibility of your coordinates on the death screen.
+  - Fixed Textured Entity config options.
+    - There was an inconsistency of config option naming that prevented the feature from working as intended.
 - **Updated Textured Entity.**  
   - Added `minecraft:breeze`.
     - Main Texture Location: `perspective:textures/textured_entity/breeze/<name>.png`  
@@ -24,15 +26,17 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
     - Renamed `pig_overlay.png` to `pig_outer_layer.png`.
       - Resource Packs will need to be updated to display the outer layer.
       - This naming scheme also applies to Textured Entity.
-  - **Updated Vanilla Super Secret Settings Shaders.**
-    - Added `minecraft:love` from the `15w14a` April Fools' snapshot.
-      - This shader was only available in the above-mentioned snapshot.
-    - Updated `minecraft:creeper` to not use Screen Mode.
-      - Due to the difficulty to read the text on some resolutions.
-  - Updated **Perspective: Default** Resource Pack.
-    - Turned down the strength of the `perspective:outlined` shader outline.
-    - Added `Cheeze` Breeze Textured Entity.
-    - Added `Mossy` Skeleton Textured Entity.
+  - Removed `minecraft:ender_dragon`.
+    - This entity did not work in named or random mode, even after attempting to fix.
+- **Updated Vanilla Super Secret Settings Shaders.**
+  - Added `minecraft:love` from the `15w14a` April Fools' snapshot.
+    - This shader was only available in the above-mentioned snapshot.
+  - Updated `minecraft:creeper` to not use Screen Mode.
+    - Due to the difficulty to read the text on some resolutions.
+- **Updated `Perspective: Default` Resource Pack.**
+  - Turned down the strength of the `perspective:outlined` shader outline.
+  - Added `Cheeze` Breeze Textured Entity.
+  - Added `Mossy` Skeleton Textured Entity.
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

@@ -44,7 +44,6 @@
 		"client.textured_entity.minecraft.drowned.DrownedOverlayFeatureRendererMixin",
 		"client.textured_entity.minecraft.elder_guardian.ElderGuardianEntityRendererMixin",
 		"client.textured_entity.minecraft.end_crystal.EndCrystalEntityRendererMixin",
-		"client.textured_entity.minecraft.ender_dragon.EnderDragonEntityRendererMixin",
 		"client.textured_entity.minecraft.enderman.EndermanEntityRendererMixin",
 		"client.textured_entity.minecraft.endermite.EndermiteEntityRendererMixin",
 		"client.textured_entity.minecraft.evoker.EvokerEntityRendererMixin",

@@ -143,8 +143,8 @@ public class ConfigHelper {
             setConfig("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
             setConfig("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
             setConfig("super_secret_settings_overlay_message", ConfigDataLoader.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE);
-            setConfig("named_textured_entity", ConfigDataLoader.NAMED_TEXTURED_ENTITY);
-            setConfig("random_textured_entity", ConfigDataLoader.RANDOM_TEXTURED_ENTITY);
+            setConfig("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
+            setConfig("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
             setConfig("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
             setConfig("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
             setConfig("force_pride", ConfigDataLoader.FORCE_PRIDE);
@@ -181,8 +181,8 @@ public class ConfigHelper {
                 case "super_secret_settings_sound" -> Config.SUPER_SECRET_SETTINGS_SOUND = (boolean)VALUE;
                 case "super_secret_settings_options_screen" -> Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean)VALUE;
                 case "super_secret_settings_overlay_message" -> Config.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE = (boolean)VALUE;
-                case "named_textured_entity" -> Config.NAMED_TEXTURED_ENTITY = (boolean)VALUE;
-                case "random_textured_entity" -> Config.RANDOM_TEXTURED_ENTITY = (boolean)VALUE;
+                case "textured_named_entity" -> Config.TEXTURED_NAMED_ENTITY = (boolean)VALUE;
+                case "textured_random_entity" -> Config.TEXTURED_RANDOM_ENTITY = (boolean)VALUE;
                 case "allow_april_fools" -> Config.ALLOW_APRIL_FOOLS = (boolean)VALUE;
                 case "force_april_fools" -> Config.FORCE_APRIL_FOOLS = (boolean)VALUE;
                 case "force_pride" -> Config.FORCE_PRIDE = (boolean)VALUE;
@@ -247,8 +247,8 @@ public class ConfigHelper {
             case "super_secret_settings_sound" -> {return Config.SUPER_SECRET_SETTINGS_SOUND;}
             case "super_secret_settings_options_screen" -> {return Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;}
             case "super_secret_settings_overlay_message" -> {return Config.SUPER_SECRET_SETTINGS_OVERLAY_MESSAGE;}
-            case "named_textured_entity" -> {return Config.NAMED_TEXTURED_ENTITY;}
-            case "random_textured_entity" -> {return Config.RANDOM_TEXTURED_ENTITY;}
+            case "textured_named_entity" -> {return Config.TEXTURED_NAMED_ENTITY;}
+            case "textured_random_entity" -> {return Config.TEXTURED_RANDOM_ENTITY;}
             case "allow_april_fools" -> {return Config.ALLOW_APRIL_FOOLS;}
             case "force_april_fools" -> {return Config.FORCE_APRIL_FOOLS;}
             case "force_pride" -> {return Config.FORCE_PRIDE;}
