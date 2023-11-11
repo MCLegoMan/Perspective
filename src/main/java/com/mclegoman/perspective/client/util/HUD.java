@@ -41,8 +41,8 @@ public class HUD {
         List<Object> debugText = new ArrayList<>();
         debugText.add(Text.literal(Data.PERSPECTIVE_VERSION.getName() + " " + Data.PERSPECTIVE_VERSION.getFriendlyString()));
         debugText.add("\n");
-        debugText.add(Text.literal("Is April Fools: " + AprilFoolsPrank.isAprilFools()));
-        debugText.add(Text.literal("Is Zooming: " + Zoom.isZooming()));
+        debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));
+        debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));
         debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.NEWER_VERSION_FOUND));
         debugText.add("\n");
         debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD));
