@@ -28,6 +28,7 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
       - This naming scheme also applies to Textured Entity.
   - Removed `minecraft:ender_dragon`.
     - This entity did not work in named or random mode, even after attempting to fix.
+  - Fixed `minecraft:end_crystal`.
 - **Updated Vanilla Super Secret Settings Shaders.**
   - Added `minecraft:love` from the `15w14a` April Fools' snapshot.
     - This shader was only available in the above-mentioned snapshot.
