@@ -28,7 +28,7 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
     - Replaced `PIG_SADDLE` model with `PIG_OUTER` model.
       - This makes the `outer_layer` get rendered under the saddle.
     - Renamed `pig_overlay.png` to `pig_outer_layer.png`.
-      - Resource Packs will need to be updated to display the outer layer.
+      - Resource Packs that use this will need to be updated to display the outer layer.
       - This naming scheme also applies to Textured Entity.
   - Removed `minecraft:ender_dragon`.
     - This entity did not work in named or random mode, even after attempting to fix.
