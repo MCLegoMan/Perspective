@@ -34,20 +34,20 @@ public class AprilFoolsPrank {
     public static void tick(MinecraftClient client) {
         boolean shouldSave = false;
         if (!SEEN_WARNING && client.world != null) {
-            if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
-                ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
-                if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
-                    ConfigHelper.setWarningConfig("prank", true);
-                    shouldSave = true;
+                if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
+                    if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
+                        ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+                        ConfigHelper.setWarningConfig("prank", true);
+                        shouldSave = true;
+                        SEEN_WARNING = true;
+                    }
                 }
-                SEEN_WARNING = true;
-            }
-            else {
-                if ((boolean) ConfigHelper.getWarningConfig("prank")) {
-                    ConfigHelper.setWarningConfig("prank", false);
-                    shouldSave = true;
+                else {
+                    if ((boolean) ConfigHelper.getWarningConfig("prank")) {
+                        ConfigHelper.setWarningConfig("prank", false);
+                        shouldSave = true;
+                    }
                 }
-            }
         }
         if (shouldSave) ConfigHelper.saveConfig(false);
     }
