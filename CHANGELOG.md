@@ -40,6 +40,10 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
     - Due to the difficulty to read the text on some resolutions.
 - **Added Debug Screen.**
   - This screen shows the current version, the current super secret settings shader information, the latest saved config values, and any other perspective debug information.
+- **Fixed April Fools' Prank Warning Toast.**
+  - The toast will now only show when Perspective detects the date being April Fools'.
+    - Perspective uses the local system time and checks if the date is April 1st or 2nd, in GMT+12.
+  - The warning config will only be saved if the current value is not the same as the new value.
 - **Updated `Perspective: Default` Resource Pack.**
   - Added `perspective:mirror` shader.
   - Adjusted the strength of the `perspective:outlined` shader outline.
