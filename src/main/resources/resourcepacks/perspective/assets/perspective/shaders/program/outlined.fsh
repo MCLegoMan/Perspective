@@ -21,7 +21,7 @@ void main() {
     float diffuseDepth = texture(DiffuseDepthSampler, texCoord).r;
 
     float worldDepth = 2.0 * 0.025 * 1000.0 / (1000.0 + 0.025 - (diffuseDepth * 2.0 - 1.0) * (1000.0 - 0.025));
-    float depthOffset = max(0.0032 * max((24.0 - worldDepth) / 24.0, 0.0), 1.0 / OutSize.y);
+    float depthOffset = max(0.0048 * max((24.0 - worldDepth) / 24.0, 0.0), 1.0 / OutSize.y);
     float depth00 = texture(DiffuseDepthSampler, texCoord + vec2(-depthOffset * OutSize.y / OutSize.x, -depthOffset)).r;
     float depth01 = texture(DiffuseDepthSampler, texCoord + vec2(-depthOffset * OutSize.y / OutSize.x, +depthOffset)).r;
     float depth11 = texture(DiffuseDepthSampler, texCoord + vec2(+depthOffset * OutSize.y / OutSize.x, +depthOffset)).r;
