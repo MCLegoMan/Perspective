@@ -149,8 +149,8 @@
 	"gui.perspective.config.information.licenses": "Licenses",
 	"gui.perspective.config.information.licenses.hover": "Opens Perspective's Licenses page in your web browser.",
 
-	"gui.perspective.config.information.contribute": "Contribute",
-	"gui.perspective.config.information.contribute.hover": "Open Perspective's GitHub Repository in your web browser.",
+	"gui.perspective.config.information.source_code": "Source Code",
+	"gui.perspective.config.information.source_code.hover": "Open Perspective's GitHub Repository in your web browser.",
 
 	"gui.perspective.config.information.report": "Report a bug",
 	"gui.perspective.config.information.report.hover": "Open Perspective's Issues page in your web browser.",
