@@ -100,6 +100,10 @@ public class ConfigHelper {
                     if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 8) {
                         SHOW_LICENSE_UPDATE_NOTICE = true;
                     }
+                    if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 11) {
+                        setConfig("zoom_transition", Config.CONFIG.getOrDefault("zoom_mode", ConfigDataLoader.ZOOM_TRANSITION));
+                        setConfig("zoom_show_percentage", Config.CONFIG.getOrDefault("zoom_overlay_message", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
+                    }
                     setConfig("config_version", DEFAULT_CONFIG_VERSION);
                     Data.PERSPECTIVE_VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
                 } else if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) > DEFAULT_CONFIG_VERSION) {
@@ -133,9 +137,10 @@ public class ConfigHelper {
             // Main Config
             setConfig("zoom_level", Math.min(Math.max(ConfigDataLoader.ZOOM_LEVEL, -50), 100));
             setConfig("zoom_increment_size", Math.max(Math.min(ConfigDataLoader.ZOOM_INCREMENT_SIZE, 10), 1));
-            setConfig("zoom_mode", ConfigDataLoader.ZOOM_MODE);
+            setConfig("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+            setConfig("zoom_camera_mode", ConfigDataLoader.ZOOM_CAMERA_MODE);
             setConfig("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
-            setConfig("zoom_overlay_message", ConfigDataLoader.ZOOM_OVERLAY_MESSAGE);
+            setConfig("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
             setConfig("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
             setConfig("super_secret_settings", Math.max(Math.min(ConfigDataLoader.SUPER_SECRET_SETTINGS, ShaderDataLoader.getShaderAmount()), 0));
             setConfig("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
@@ -171,9 +176,10 @@ public class ConfigHelper {
             switch (ID) {
                 case "zoom_level" -> Config.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, -50), 100);
                 case "zoom_increment_size" -> Config.ZOOM_INCREMENT_SIZE = Math.max(Math.min((int)VALUE, 10), 1);
-                case "zoom_mode" -> Config.ZOOM_MODE = (String)VALUE;
+                case "zoom_transition" -> Config.ZOOM_TRANSITION = (String)VALUE;
+                case "zoom_camera_mode" -> Config.ZOOM_CAMERA_MODE = (String)VALUE;
                 case "zoom_hide_hud" -> Config.ZOOM_HIDE_HUD = (boolean)VALUE;
-                case "zoom_overlay_message" -> Config.ZOOM_OVERLAY_MESSAGE = (boolean)VALUE;
+                case "zoom_show_percentage" -> Config.ZOOM_SHOW_PERCENTAGE = (boolean)VALUE;
                 case "hold_perspective_hide_hud" -> Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean)VALUE;
                 case "super_secret_settings" -> Config.SUPER_SECRET_SETTINGS = Math.max(Math.min((int)VALUE, ShaderDataLoader.getShaderAmount()), 0);
                 case "super_secret_settings_mode" -> Config.SUPER_SECRET_SETTINGS_MODE = (String)VALUE;
@@ -237,9 +243,10 @@ public class ConfigHelper {
         switch (ID) {
             case "zoom_level" -> {return Math.min(Math.max(Config.ZOOM_LEVEL, -50), 100);}
             case "zoom_increment_size" -> {return Math.max(Math.min(Config.ZOOM_INCREMENT_SIZE, 10), 1);}
-            case "zoom_mode" -> {return Config.ZOOM_MODE;}
+            case "zoom_transition" -> {return Config.ZOOM_TRANSITION;}
+            case "zoom_camera_mode" -> {return Config.ZOOM_CAMERA_MODE;}
             case "zoom_hide_hud" -> {return Config.ZOOM_HIDE_HUD;}
-            case "zoom_overlay_message" -> {return Config.ZOOM_OVERLAY_MESSAGE;}
+            case "zoom_show_percentage" -> {return Config.ZOOM_SHOW_PERCENTAGE;}
             case "hold_perspective_hide_hud" -> {return Config.HOLD_PERSPECTIVE_HIDE_HUD;}
             case "super_secret_settings" -> {return Math.max(Math.min(Config.SUPER_SECRET_SETTINGS, ShaderDataLoader.getShaderAmount()), 0);}
             case "super_secret_settings_mode" -> {return Config.SUPER_SECRET_SETTINGS_MODE;}

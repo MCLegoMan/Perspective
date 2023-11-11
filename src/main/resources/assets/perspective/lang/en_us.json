@@ -49,13 +49,17 @@
 	"gui.perspective.config.zoom.increment_size": "Increment Size: %s",
 	"gui.perspective.config.zoom.increment_size.hover": "Sets the size of the increments used when changing the zoom level.",
 
-	"gui.perspective.config.zoom.mode": "Zoom Mode: %s",
-	"gui.perspective.config.zoom.mode.smooth": "Smooth",
-	"gui.perspective.config.zoom.mode.instant": "Instant",
+	"gui.perspective.config.zoom.transition": "Transition: %s",
+	"gui.perspective.config.zoom.transition.smooth": "Smooth",
+	"gui.perspective.config.zoom.transition.instant": "Instant",
+
+	"gui.perspective.config.zoom.camera_mode": "Camera Mode: %s",
+	"gui.perspective.config.zoom.camera_mode.default": "Default",
+	"gui.perspective.config.zoom.camera_mode.spyglass": "Spyglass",
 
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
 
-	"gui.perspective.config.zoom.overlay_message": "Overlay Message: %s",
+	"gui.perspective.config.zoom.show_percentage": "Show Percentage: %s",
 
 	"gui.perspective.config.hold_perspective": "Hold Perspective",
 	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",

@@ -37,11 +37,7 @@ public class Zoom {
 
 	public static boolean SET_ZOOM;
 	public static boolean isZooming() {
-		try {
-			if (ClientData.CLIENT.player != null) return Keybindings.HOLD_ZOOM.isPressed() || SET_ZOOM;
-		} catch (Exception ignored) {
-		}
-		return false;
+		return ClientData.CLIENT.player != null && (Keybindings.HOLD_ZOOM.isPressed() || SET_ZOOM);
 	}
 	public static void tick(MinecraftClient client) {
 		try {
@@ -77,10 +73,7 @@ public class Zoom {
 					}
 				}
 			}
-			if (updated) {
-				setOverlay();
-				updated = false;
-			}
+			if (updated) setOverlay();
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
@@ -97,11 +90,16 @@ public class Zoom {
 		}
 	}
 	private static void setOverlay(){
-		if ((boolean) ConfigHelper.getConfig("zoom_overlay_message")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
+		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
-	public static void cycleZoomModes() {
-		if (ConfigHelper.getConfig("zoom_mode").equals("smooth")) ConfigHelper.setConfig("zoom_mode", "instant");
-		else if (ConfigHelper.getConfig("zoom_mode").equals("instant")) ConfigHelper.setConfig("zoom_mode", "smooth");
-		else ConfigHelper.setConfig("zoom_mode", "smooth");
+	public static void cycleZoomTransitions() {
+		if (ConfigHelper.getConfig("zoom_transition").equals("smooth")) ConfigHelper.setConfig("zoom_transition", "instant");
+		else if (ConfigHelper.getConfig("zoom_transition").equals("instant")) ConfigHelper.setConfig("zoom_transition", "smooth");
+		else ConfigHelper.setConfig("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+	}
+	public static void cycleZoomCameraModes() {
+		if (ConfigHelper.getConfig("zoom_camera_mode").equals("default")) ConfigHelper.setConfig("zoom_camera_mode", "spyglass");
+		else if (ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass")) ConfigHelper.setConfig("zoom_camera_mode", "default");
+		else ConfigHelper.setConfig("zoom_camera_mode", ConfigDataLoader.ZOOM_CAMERA_MODE);
 	}
 }

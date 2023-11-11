@@ -88,18 +88,22 @@ public class ZoomConfigScreen extends Screen {
                 ConfigHelper.setConfig("zoom_increment_size", (int) ((value) * 9) + 1);
             }
         }, 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("zoom.increment_size", true)));
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.mode", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig("zoom_mode"))}), (button) -> {
-            Zoom.cycleZoomModes();
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig("zoom_transition"))}), (button) -> {
+            Zoom.cycleZoomTransitions();
+            this.REFRESH = true;
+        }).build(), 1);
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.camera_mode", new Object[]{Translation.getZoomCameraModeTranslation((String) ConfigHelper.getConfig("zoom_camera_mode"))}), (button) -> {
+            Zoom.cycleZoomCameraModes();
             this.REFRESH = true;
         }).build(), 1);
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("zoom_hide_hud", !(boolean) ConfigHelper.getConfig("zoom_hide_hud"));
             this.REFRESH = true;
-        }).build());
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.overlay_message", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("zoom_overlay_message"), TranslationType.ONFF)}), (button) -> {
-            ConfigHelper.setConfig("zoom_overlay_message", !(boolean) ConfigHelper.getConfig("zoom_overlay_message"));
+        }).build(), 1);
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.show_percentage", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("zoom_show_percentage"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("zoom_show_percentage", !(boolean) ConfigHelper.getConfig("zoom_show_percentage"));
             this.REFRESH = true;
-        }).width(304).build(), 2);
+        }).build(), 1);
         return GRID;
     }
     private GridWidget createFooter() {

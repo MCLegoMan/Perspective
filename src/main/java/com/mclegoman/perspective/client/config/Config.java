@@ -17,9 +17,10 @@ public class Config {
     protected static ConfigProvider CONFIG_PROVIDER;
     protected static int ZOOM_LEVEL;
     protected static int ZOOM_INCREMENT_SIZE;
-    protected static String ZOOM_MODE;
+    protected static String ZOOM_TRANSITION;
+    protected static String ZOOM_CAMERA_MODE;
     protected static boolean ZOOM_HIDE_HUD;
-    protected static boolean ZOOM_OVERLAY_MESSAGE;
+    protected static boolean ZOOM_SHOW_PERCENTAGE;
     protected static boolean HOLD_PERSPECTIVE_HIDE_HUD;
     protected static int SUPER_SECRET_SETTINGS;
     protected static String SUPER_SECRET_SETTINGS_MODE;
@@ -56,9 +57,10 @@ public class Config {
     protected static void create() {
         CONFIG_PROVIDER.add(new Pair<>("zoom_level", ConfigDataLoader.ZOOM_LEVEL));
         CONFIG_PROVIDER.add(new Pair<>("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE));
-        CONFIG_PROVIDER.add(new Pair<>("zoom_mode", ConfigDataLoader.ZOOM_MODE));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_camera_mode", ConfigDataLoader.ZOOM_CAMERA_MODE));
         CONFIG_PROVIDER.add(new Pair<>("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD));
-        CONFIG_PROVIDER.add(new Pair<>("zoom_overlay_message", ConfigDataLoader.ZOOM_OVERLAY_MESSAGE));
+        CONFIG_PROVIDER.add(new Pair<>("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
         CONFIG_PROVIDER.add(new Pair<>("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", ConfigDataLoader.SUPER_SECRET_SETTINGS));
         CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
@@ -86,9 +88,10 @@ public class Config {
     protected static void assign() {
         ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", ConfigDataLoader.ZOOM_LEVEL);
         ZOOM_INCREMENT_SIZE = CONFIG.getOrDefault("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE);
-        ZOOM_MODE = CONFIG.getOrDefault("zoom_mode", ConfigDataLoader.ZOOM_MODE);
+        ZOOM_TRANSITION = CONFIG.getOrDefault("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+        ZOOM_CAMERA_MODE = CONFIG.getOrDefault("zoom_camera_mode", ConfigDataLoader.ZOOM_CAMERA_MODE);
         ZOOM_HIDE_HUD = CONFIG.getOrDefault("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
-        ZOOM_OVERLAY_MESSAGE = CONFIG.getOrDefault("zoom_overlay_message", ConfigDataLoader.ZOOM_OVERLAY_MESSAGE);
+        ZOOM_SHOW_PERCENTAGE = CONFIG.getOrDefault("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
         HOLD_PERSPECTIVE_HIDE_HUD = CONFIG.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
         SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", ConfigDataLoader.SUPER_SECRET_SETTINGS);
         SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
@@ -117,9 +120,10 @@ public class Config {
         Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
         CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
         CONFIG_PROVIDER.setConfig("zoom_increment_size", ZOOM_INCREMENT_SIZE);
-        CONFIG_PROVIDER.setConfig("zoom_mode", ZOOM_MODE);
+        CONFIG_PROVIDER.setConfig("zoom_transition", ZOOM_TRANSITION);
+        CONFIG_PROVIDER.setConfig("zoom_camera_mode", ZOOM_CAMERA_MODE);
         CONFIG_PROVIDER.setConfig("zoom_hide_hud", ZOOM_HIDE_HUD);
-        CONFIG_PROVIDER.setConfig("zoom_overlay_message", ZOOM_OVERLAY_MESSAGE);
+        CONFIG_PROVIDER.setConfig("zoom_show_percentage", ZOOM_SHOW_PERCENTAGE);
         CONFIG_PROVIDER.setConfig("hold_perspective_hide_hud", HOLD_PERSPECTIVE_HIDE_HUD);
         CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
         CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);

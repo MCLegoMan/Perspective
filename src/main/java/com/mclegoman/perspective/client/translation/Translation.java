@@ -68,11 +68,15 @@ public class Translation {
         else return getErrorTranslation();
     }
     public static Text getZoomModeTranslation(String key) {
-        if (key.equalsIgnoreCase("instant")) return getConfigTranslation("zoom.mode.instant");
-        else if (key.equalsIgnoreCase("smooth")) return getConfigTranslation("zoom.mode.smooth");
+        if (key.equalsIgnoreCase("instant")) return getConfigTranslation("zoom.transition.instant");
+        else if (key.equalsIgnoreCase("smooth")) return getConfigTranslation("zoom.transition.smooth");
         else return getErrorTranslation();
     }
-
+    public static Text getZoomCameraModeTranslation(String key) {
+        if (key.equalsIgnoreCase("default")) return getConfigTranslation("zoom.camera_mode.default");
+        else if (key.equalsIgnoreCase("spyglass")) return getConfigTranslation("zoom.camera_mode.spyglass");
+        else return getErrorTranslation();
+    }
     public static Text getDetectUpdateChannelTranslation(String key) {
         if (key.equalsIgnoreCase("none")) return getConfigTranslation("detect_update_channel.none");
         else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation("detect_update_channel.alpha");

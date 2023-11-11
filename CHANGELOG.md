@@ -8,6 +8,10 @@ What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breez
 - **Updated Config Version to `11`.**  
   - Added `show_death_coordinates` config option.  
     - This option toggles the visibility of your coordinates on the death screen.
+  - Renamed `zoom_mode` to `zoom_transition`, and `zoom_overlay_message` to `zoom_show_percentage`.
+    - Resource packs that change the default values of these options will need to be updated to the new names.
+  - Added `zoom_camera_mode`.
+    - The values are `default` and `spyglass`.
   - Fixed Textured Entity config options.
     - There was an inconsistency of config option naming that prevented the feature from working as intended.
 - **Updated Textured Entity.**  

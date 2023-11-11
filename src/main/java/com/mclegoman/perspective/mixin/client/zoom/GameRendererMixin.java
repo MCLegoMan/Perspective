@@ -31,11 +31,11 @@ public abstract class GameRendererMixin {
         double newFOV = fov;
         if (!this.isRenderingPanorama()) {
             if (Zoom.isZooming()) {
-                if (ConfigHelper.getConfig("zoom_mode").equals("instant")) {
+                if (ConfigHelper.getConfig("zoom_transition").equals("instant")) {
                     newFOV *= Zoom.getZoomMultiplier();
                 }
             }
-            if (ConfigHelper.getConfig("zoom_mode").equals("smooth")) {
+            if (ConfigHelper.getConfig("zoom_transition").equals("smooth")) {
                 newFOV *= MathHelper.lerp(tickDelta, Zoom.prevZoomMultiplier, Zoom.zoomMultiplier);
             }
         }
