@@ -2,12 +2,12 @@
     Perspective
     Contributor(s): MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: GNU LGPLv3
+    Licence: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.mixin.client.hud;
 
-import com.mclegoman.perspective.client.util.HUD;
+import com.mclegoman.perspective.client.hud.HUD;
 import net.minecraft.client.gui.hud.ChatHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

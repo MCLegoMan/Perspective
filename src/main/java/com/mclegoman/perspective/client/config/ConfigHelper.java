@@ -2,7 +2,7 @@
     Perspective
     Contributor(s): MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: GNU LGPLv3
+    Licence: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.client.config;
@@ -35,6 +35,10 @@ public class ConfigHelper {
     private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
     private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
     public static boolean EXPERIMENTS_AVAILABLE = false;
+    private static boolean SAVING = false;
+    public static boolean isSaving() {
+        return SAVING;
+    }
     public static void init() {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ConfigDataLoader());
@@ -61,6 +65,7 @@ public class ConfigHelper {
                 if (SAVE_VIA_TICK) {
                     saveConfig(false);
                     SAVE_VIA_TICK = false;
+                    SAVING = false;
                 }
                 SAVE_VIA_TICK_TICKS = 0;
             }
@@ -128,12 +133,15 @@ public class ConfigHelper {
     public static void saveConfig(boolean onTick) {
         try {
             if (onTick) {
+                SAVING = true;
                 SAVE_VIA_TICK = true;
             } else {
+                SAVING = true;
                 Config.save();
                 ExperimentalConfig.save();
                 TutorialsConfig.save();
                 WarningsConfig.save();
+                SAVING = false;
             }
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);

@@ -2,7 +2,7 @@
     Perspective
     Contributor(s): MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: GNU LGPLv3
+    Licence: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.mixin.client.hide;
@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
-import com.mclegoman.perspective.client.util.HUD;
+import com.mclegoman.perspective.client.hud.HUD;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;

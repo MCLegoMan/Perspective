@@ -2,19 +2,20 @@
     Perspective
     Contributor(s): MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: GNU LGPLv3
+    Licence: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.mixin.client.hud;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hud.DebugHUD;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.HUD;
+import com.mclegoman.perspective.client.hud.HUD;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
@@ -56,11 +57,10 @@ public abstract class InGameHudMixin {
         try {
             if (!HUD.shouldHideHUD()) {
                 if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
-                    if (HUD.DEBUG) {
-                        HUD.renderDebugHUD(context);
-                    } else {
-                        if ((boolean) ConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+                    if (!DebugHUD.debugType.equals(DebugHUD.Type.NONE)) {
+                        DebugHUD.renderDebugHUD(context);
                     }
+                    if ((boolean) ConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
                 }
             }
         } catch (Exception error) {

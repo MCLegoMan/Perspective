@@ -2,7 +2,7 @@
     Perspective
     Contributor(s): MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
-    License: GNU LGPLv3
+    Licence: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.client.util;
@@ -19,7 +19,7 @@ public class ResourcePacks {
      1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
      - Resource Pack Name
      - Contributor(s): _________
-     2. Your resource pack must use the GNU LGPLv3 license.
+     2. Your resource pack must use the GNU LGPLv3 licence.
      - This only applies to resource packs that are included with Perspective.
     **/
     public static void init() {
