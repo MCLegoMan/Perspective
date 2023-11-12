@@ -78,9 +78,6 @@ public class DebugHUD {
 		MISC,
 		CONFIG;
 		private static final Type[] VALUES = values();
-		public Type prev() {
-			return VALUES[(this.ordinal() - 1) % VALUES.length];
-		}
 		public Type next() {
 			return VALUES[(this.ordinal() + 1) % VALUES.length];
 		}

@@ -79,7 +79,7 @@ public class ToastsConfigScreen extends Screen {
         }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("toasts.tutorials", true)));
 
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("toasts.detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation((String) ConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
-            UpdateChecker.cycleDetectUpdateChannels();
+            ConfigHelper.setConfig("detect_update_channel", UpdateChecker.nextUpdateChannel());
             this.REFRESH = true;
             this.CHECK_FOR_UPDATES = true;
         }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("toasts.detect_update_channel", true)));

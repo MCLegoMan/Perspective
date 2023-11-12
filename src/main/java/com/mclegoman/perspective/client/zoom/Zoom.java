@@ -10,12 +10,16 @@ package com.mclegoman.perspective.client.zoom;
 import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hud.DebugHUD;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Zoom {
 	public static double fov;
@@ -92,14 +96,14 @@ public class Zoom {
 	private static void setOverlay(){
 		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
-	public static void cycleZoomTransitions() {
-		if (ConfigHelper.getConfig("zoom_transition").equals("smooth")) ConfigHelper.setConfig("zoom_transition", "instant");
-		else if (ConfigHelper.getConfig("zoom_transition").equals("instant")) ConfigHelper.setConfig("zoom_transition", "smooth");
-		else ConfigHelper.setConfig("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+	private static final String[] ZoomTransitions = new String[]{"smooth", "instant"};
+	public static String nextTransition() {
+		List<String> transitions = Arrays.stream(ZoomTransitions).toList();
+		return transitions.contains((String) ConfigHelper.getConfig("zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig("zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
 	}
-	public static void cycleZoomCameraModes() {
-		if (ConfigHelper.getConfig("zoom_camera_mode").equals("default")) ConfigHelper.setConfig("zoom_camera_mode", "spyglass");
-		else if (ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass")) ConfigHelper.setConfig("zoom_camera_mode", "default");
-		else ConfigHelper.setConfig("zoom_camera_mode", ConfigDataLoader.ZOOM_CAMERA_MODE);
+	private static final String[] ZoomCameraModes = new String[]{"default", "spyglass"};
+	public static String nextCameraMode() {
+		List<String> cameraModes = Arrays.stream(ZoomCameraModes).toList();
+		return cameraModes.contains((String) ConfigHelper.getConfig("zoom_camera_mode")) ? ZoomCameraModes[(cameraModes.indexOf((String) ConfigHelper.getConfig("zoom_camera_mode")) + 1) % ZoomCameraModes.length] : ZoomCameraModes[0];
 	}
 }

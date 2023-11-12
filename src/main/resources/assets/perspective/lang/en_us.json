@@ -223,10 +223,10 @@
 
 	"gui.perspective.config.error": "ERROR",
 
-	"gui.perspective.config.detect_update_channel.none": "None",
-	"gui.perspective.config.detect_update_channel.alpha": "Alpha",
-	"gui.perspective.config.detect_update_channel.beta": "Beta/RC",
 	"gui.perspective.config.detect_update_channel.release": "Release",
+	"gui.perspective.config.detect_update_channel.beta": "Beta",
+	"gui.perspective.config.detect_update_channel.alpha": "Alpha",
+	"gui.perspective.config.detect_update_channel.none": "None",
 
 	"gui.perspective.version_overlay": "Minecraft %s",
 

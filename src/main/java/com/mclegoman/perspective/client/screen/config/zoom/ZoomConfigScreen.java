@@ -89,11 +89,11 @@ public class ZoomConfigScreen extends Screen {
             }
         }, 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("zoom.increment_size", true)));
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig("zoom_transition"))}), (button) -> {
-            Zoom.cycleZoomTransitions();
+            ConfigHelper.setConfig("zoom_transition", Zoom.nextTransition());
             this.REFRESH = true;
         }).build(), 1);
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.camera_mode", new Object[]{Translation.getZoomCameraModeTranslation((String) ConfigHelper.getConfig("zoom_camera_mode"))}), (button) -> {
-            Zoom.cycleZoomCameraModes();
+            ConfigHelper.setConfig("zoom_camera_mode", Zoom.nextCameraMode());
             this.REFRESH = true;
         }).build(), 1);
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {

@@ -27,6 +27,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class UpdateChecker {
@@ -146,10 +148,9 @@ public class UpdateChecker {
 		}
 		return null;
 	}
-	public static void cycleDetectUpdateChannels() {
-		if (ConfigHelper.getConfig("detect_update_channel").toString().equalsIgnoreCase("none")) ConfigHelper.setConfig("detect_update_channel", "alpha");
-		else if (ConfigHelper.getConfig("detect_update_channel").toString().equalsIgnoreCase("alpha")) ConfigHelper.setConfig("detect_update_channel", "beta");
-		else if (ConfigHelper.getConfig("detect_update_channel").toString().equalsIgnoreCase("beta")) ConfigHelper.setConfig("detect_update_channel", "release");
-		else ConfigHelper.setConfig("detect_update_channel", "none");
+	private static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
+	public static String nextUpdateChannel() {
+		List<String> updateChannels = Arrays.stream(detectUpdateChannels).toList();
+		return updateChannels.contains((String) ConfigHelper.getConfig("detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig("detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];
 	}
 }
