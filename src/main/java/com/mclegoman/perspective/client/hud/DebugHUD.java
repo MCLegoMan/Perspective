@@ -59,7 +59,7 @@ public class DebugHUD {
 			if (item instanceof Text text) {
 				TextRenderer textRenderer = ClientData.CLIENT.textRenderer;
 				int width = textRenderer.getWidth(text);
-				if (y > ClientData.CLIENT.getWindow().getScaledHeight() - 2 - 32 - 9) {
+				if (y > ClientData.CLIENT.getWindow().getScaledHeight() - 2 - 9) {
 					y = 2;
 					x += 256;
 				}
