@@ -18,5 +18,4 @@ public class Version extends com.mclegoman.releasetypeutils.common.version.Versi
 	public ModContainer getModContainer() {
 		return FabricLoader.getInstance().getModContainer(getID()).get();
 	}
-
 }
