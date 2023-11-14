@@ -8,12 +8,12 @@
 package com.mclegoman.perspective.common.data;
 
 import com.mclegoman.perspective.common.version.Version;
-import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseTypes;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.lang3.StringUtils;
 
 public class Data {
-    public static final Version PERSPECTIVE_VERSION = new Version("Perspective", "perspective", 1, 2, 0, RTUReleaseTypes.ALPHA, 5);
+    public static final Version PERSPECTIVE_VERSION = new Version("Perspective", "perspective", 1, 2, 0, Helper.ReleaseType.ALPHA, 5);
     public static boolean isModInstalled(String MOD_ID) {
         return FabricLoader.getInstance().isModLoaded(MOD_ID);
     }

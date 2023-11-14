@@ -17,8 +17,7 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.version.Version;
-import com.mclegoman.perspective.common.version.VersionHelper;
-import com.mclegoman.releasetypeutils.common.releasetype.RTUReleaseTypes;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.JsonHelper;
@@ -79,12 +78,12 @@ public class UpdateChecker {
 							int major = Integer.parseInt(version_number.substring(0, 1));
 							int minor = Integer.parseInt(version_number.substring(2, 3));
 							int patch = Integer.parseInt(version_number.substring(4, 5));
-							RTUReleaseTypes type = VersionHelper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
+							Helper.ReleaseType type = Helper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
 							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
 							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build);
 							if (API_VERSION.compareTo(Data.PERSPECTIVE_VERSION) > 0) {
 								if (ConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
-									if (API_VERSION.getType().equals(RTUReleaseTypes.ALPHA) || API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
+									if (API_VERSION.getType().equals(Helper.ReleaseType.ALPHA) || API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
@@ -93,7 +92,7 @@ public class UpdateChecker {
 										break;
 									}
 								} else if (ConfigHelper.getConfig("detect_update_channel").equals("beta")) {
-									if (API_VERSION.getType().equals(RTUReleaseTypes.BETA) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE_CANDIDATE) || API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
+									if (API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
@@ -102,7 +101,7 @@ public class UpdateChecker {
 										break;
 									}
 								} else {
-									if (API_VERSION.getType().equals(RTUReleaseTypes.RELEASE)) {
+									if (API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
