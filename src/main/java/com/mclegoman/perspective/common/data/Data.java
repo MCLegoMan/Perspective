@@ -19,7 +19,7 @@ public class Data {
     }
     public static boolean isModInstalledVersionOrHigher(String MOD_ID, String REQUIRED_VERSION, boolean SUBSTRING) {
         try {
-            if (FabricLoader.getInstance().isModLoaded(MOD_ID)) {
+            if (isModInstalled(MOD_ID)) {
                 return checkModVersion(FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString(), REQUIRED_VERSION, SUBSTRING);
             }
         } catch (Exception error) {
