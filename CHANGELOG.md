@@ -2,7 +2,7 @@
 
 What's with the _breeze_ today? We've gone and trapped 17 of these cunning Breeze into our dungeon, allowing us to harness their wind, so we can inject it right into Perspective's code!  
 
-### Perspective 1.2.0-alpha.5 for 1.20.2 and 1.20.3 snapshots.  
+### Perspective 1.2.0-alpha.5 for 1.20.2 and 1.20.3.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge. [Learn more here](https://mclegoman.com/Perspective/Moving_Away_from_Curseforge).*  
 ## Changelog  
 - **Updated Config Version to `11`.**  
