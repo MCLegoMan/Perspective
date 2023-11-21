@@ -116,12 +116,10 @@
 		"client.textured_entity.minecraft.zombie_horse.ZombieHorseEntityRendererMixin",
 		"client.textured_entity.minecraft.zombie_villager.ZombieVillagerEntityRendererMixin",
 		"client.zoom.GameRendererMixin",
-		"client.zoom.MouseMixin"
+		"client.zoom.MouseMixin",
+		"client.zoom.PlayerInventoryMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
-	},
-	"mixins": [
-		"client.zoom.PlayerInventoryMixin"
-	]
+	}
 }
