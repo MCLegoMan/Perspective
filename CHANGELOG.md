@@ -46,6 +46,10 @@ More information on this change will be posted as we get closer to 1.2.0-release
   - The toast will now only show when Perspective detects the date being April Fools'.
     - Perspective uses the local system time and checks if the date is April 1st or 2nd, in GMT+12.
   - The warning config will only be saved if the current value is not the same as the new value.
+- **Updated April Fools' Prank.**  
+  - Instead of changing the textures of the skin and cape in two separate mixins, they are now changed in AbstractClientPlayerEntity.  
+    - This also fixes the bug where the april fools skin wouldn't be rendered, on the first-person hand.  
+      - The workaround has been removed as it is no longer required.  
 - **Updated `Perspective: Default` Resource Pack.**
   - Added `perspective:mirror` shader.
   - Adjusted the strength of the `perspective:outlined` shader outline.
