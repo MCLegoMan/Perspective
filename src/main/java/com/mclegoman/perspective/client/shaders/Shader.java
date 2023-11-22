@@ -56,7 +56,7 @@ public class Shader {
     }
     public static void tick(MinecraftClient client) {
         if (Keybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false, true);
-        if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false);
+        if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false, true);
         if (Keybindings.RANDOM_SHADER.wasPressed()) random(false, true);
 
         if (shouldRenderShader()) {
@@ -82,7 +82,7 @@ public class Shader {
         }
         if (save) ConfigHelper.saveConfig(true);
     }
-    public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME) {
+    public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME, boolean SAVE_CONFIG) {
         ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
         if (!SILENT) {
             if (SHOW_SHADER_NAME) setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
@@ -95,7 +95,7 @@ public class Shader {
                 postProcessor = null;
             }
         }
-        ConfigHelper.saveConfig(true);
+        if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
     }
     public static void cycle(MinecraftClient client, boolean FORWARDS, boolean SILENT, boolean SAVE_CONFIG) {
         try {
@@ -134,7 +134,7 @@ public class Shader {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
             }
             DEPTH_FIX = false;
-            if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
+            if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
             if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -146,8 +146,7 @@ public class Shader {
                     if (postProcessor != null) postProcessor.close();
                     postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
                     postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-                    if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false);
-                    ConfigHelper.saveConfig(true);
+                    if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
                 } catch (Exception ignored2) {}
             }
             if (SAVE_CONFIG) ConfigHelper.saveConfig(true);

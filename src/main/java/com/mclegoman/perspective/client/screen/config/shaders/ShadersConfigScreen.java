@@ -96,7 +96,7 @@ public class ShadersConfigScreen extends Screen {
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.mode", true)));
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.toggle", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE)}), (button) -> {
-            Shader.toggle(ClientData.CLIENT, true, false);
+            Shader.toggle(ClientData.CLIENT, true, false, false);
             this.REFRESH = true;
         }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.toggle", true)));
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.show_name", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_show_name"), TranslationType.ONFF)}), (button) -> {
