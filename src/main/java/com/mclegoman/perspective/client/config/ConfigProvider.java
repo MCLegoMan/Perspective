@@ -21,9 +21,11 @@ import java.util.List;
 public class ConfigProvider implements SimpleConfig.DefaultConfig {
     private String CONTENTS = "";
     private List<Pair<String, ?>> CONFIG_LIST = new ArrayList<>();
+
     public List<Pair<String, ?>> getConfigList() {
         return CONFIG_LIST;
-    };
+    }
+
     public void add(Pair<String, ?> keyValuePair) {
         try {
             CONFIG_LIST.add(keyValuePair);
@@ -31,6 +33,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), keyValuePair, error);
         }
     }
+
     @Override
     public String get(String namespace) {
         return CONTENTS;

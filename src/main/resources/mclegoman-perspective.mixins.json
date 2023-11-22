@@ -5,8 +5,7 @@
 	"plugin": "com.mclegoman.perspective.mixin.MixinPlugin",
 	"client": [
 		"client.april_fools_prank.LivingEntityRendererMixin",
-		"client.april_fools_prank.PlayerEntityRendererMixin",
-		"client.april_fools_prank.SkinTexturesMixin",
+		"client.april_fools_prank.AbstractClientPlayerEntityMixin",
 		"client.hide.ArmorFeatureRendererMixin",
 		"client.hide.GameRendererMixin",
 		"client.hide.LivingEntityRendererMixin",
