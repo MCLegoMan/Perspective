@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.util.Keybindings;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;

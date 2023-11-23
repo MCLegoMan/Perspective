@@ -27,6 +27,6 @@ import java.util.Objects;
 public abstract class LivingEntityRendererMixin {
     @Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
     private void perspective$hide_nametag(LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
-        if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || ((boolean) ConfigHelper.getConfig("hide_nametags") || (Shader.shouldRenderShader() && (Boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_NAMETAGS)))) || (livingEntity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) livingEntity).getGameProfile().getId()))))) cir.setReturnValue(false);
+        if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig("hide_nametags") || (livingEntity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) livingEntity).getGameProfile().getId()))))) cir.setReturnValue(false);
     }
 }

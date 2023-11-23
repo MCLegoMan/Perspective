@@ -50,14 +50,10 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
         if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
         if (VALUE.equals(ShaderRegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
         if (VALUE.equals(ShaderRegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
-        if (VALUE.equals(ShaderRegistryValue.HIDE_ARMOR)) return SHADER_MAP.get(3);
-        if (VALUE.equals(ShaderRegistryValue.HIDE_BLOCK_OUTLINE)) return SHADER_MAP.get(4);
-        if (VALUE.equals(ShaderRegistryValue.HIDE_CROSSHAIR)) return SHADER_MAP.get(5);
-        if (VALUE.equals(ShaderRegistryValue.HIDE_NAMETAGS)) return SHADER_MAP.get(6);
-        if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(7);
+        if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
         return null;
     }
-    private void add(String NAMESPACE, String SHADER_NAME, boolean HIDE_ARMOR, boolean HIDE_BLOCK_OUTLINE, boolean HIDE_CROSSHAIR, boolean HIDE_NAMETAGS, boolean DISABLE_SCREEN_MODE, boolean ENABLED) {
+    private void add(String NAMESPACE, String SHADER_NAME, boolean DISABLE_SCREEN_MODE, boolean ENABLED) {
         try {
             SHADER_NAME = SHADER_NAME.replace("\"", "").toLowerCase();
             Identifier ID = new Identifier(NAMESPACE.toLowerCase(), ("shaders/post/" + SHADER_NAME + ".json"));
@@ -65,10 +61,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             SHADER_MAP.add(ID);
             SHADER_MAP.add(NAMESPACE.toLowerCase());
             SHADER_MAP.add(SHADER_NAME);
-            SHADER_MAP.add(HIDE_ARMOR);
-            SHADER_MAP.add(HIDE_BLOCK_OUTLINE);
-            SHADER_MAP.add(HIDE_CROSSHAIR);
-            SHADER_MAP.add(HIDE_NAMETAGS);
             SHADER_MAP.add(DISABLE_SCREEN_MODE);
             boolean ALREADY_REGISTERED = false;
             List<Object> REGISTRY_MAP = SHADER_MAP;
@@ -97,32 +89,32 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
     }
     private void add$default() {
         try {
-            add("minecraft", "none", false, false, false, false, false, true);
-            add("minecraft", "antialias", false, false, false, false, false, true);
-            add("minecraft", "art", false, false, false, false, true, true);
-            add("minecraft", "bits", false, false, false, false, true, true);
-            add("minecraft", "blobs", false, false, false, false, false, true);
-            add("minecraft", "blobs2", false, false, false, false, true, true);
-            add("minecraft", "blur", false, false, false, false, true, true);
-            add("minecraft", "bumpy", false, false, false, false, false, true);
-            add("minecraft", "color_convolve", false, false, false, false, false, true);
-            add("minecraft", "creeper", false, false, false, false, true, true);
-            add("minecraft", "deconverge", false, false, false, false, false, true);
-            add("minecraft", "desaturate", false, false, false, false, false, true);
-            add("minecraft", "flip", false, false, false, false, true, true);
-            add("minecraft", "fxaa", false, false, false, false, false, true);
-            add("minecraft", "green", false, false, false, false, true, true);
-            add("minecraft", "invert", false, false, false, false, false, true);
-            add("minecraft", "love", false, false, false, false, false, true);
-            add("minecraft", "notch", false, false, false, false, false, true);
-            add("minecraft", "ntsc", false, false, false, false, true, true);
-            add("minecraft", "outline", false, false, false, false, false, true);
-            add("minecraft", "pencil", false, false, false, false, false, true);
-            add("minecraft", "phosphor", false, false, false, false, false, true);
-            add("minecraft", "scan_pincushion", false, false, false, false, false, true);
-            add("minecraft", "sobel", false, false, false, false, false, true);
-            add("minecraft", "spider", false, false, false, false, true, true);
-            add("minecraft", "wobble", false, false, false, false, false, true);
+            add("minecraft", "none", false, true);
+            add("minecraft", "antialias", false, true);
+            add("minecraft", "art", true, true);
+            add("minecraft", "bits", true, true);
+            add("minecraft", "blobs", false, true);
+            add("minecraft", "blobs2", true, true);
+            add("minecraft", "blur", true, true);
+            add("minecraft", "bumpy", false, true);
+            add("minecraft", "color_convolve", false, true);
+            add("minecraft", "creeper", true, true);
+            add("minecraft", "deconverge", false, true);
+            add("minecraft", "desaturate", false, true);
+            add("minecraft", "flip", true, true);
+            add("minecraft", "fxaa", false, true);
+            add("minecraft", "green", true, true);
+            add("minecraft", "invert", false, true);
+            add("minecraft", "love", false, true);
+            add("minecraft", "notch", false, true);
+            add("minecraft", "ntsc", true, true);
+            add("minecraft", "outline", false, true);
+            add("minecraft", "pencil", false, true);
+            add("minecraft", "phosphor", false, true);
+            add("minecraft", "scan_pincushion", false, true);
+            add("minecraft", "sobel", false, true);
+            add("minecraft", "spider", true, true);
+            add("minecraft", "wobble", false, true);
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
@@ -161,13 +153,9 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             JsonObject READER = jsonElement.getAsJsonObject();
             String NAMESPACE = JsonHelper.getString(READER, "namespace", Data.PERSPECTIVE_VERSION.getID());
             String SHADER = JsonHelper.getString(READER, "shader");
-            boolean HIDE_ARMOR = JsonHelper.getBoolean(READER, "hide_armor", false);
-            boolean HIDE_BLOCK_OUTLINE = JsonHelper.getBoolean(READER, "hide_block_outline", false);
-            boolean HIDE_CROSSHAIR = JsonHelper.getBoolean(READER, "hide_crosshair", false);
-            boolean HIDE_NAMETAGS = JsonHelper.getBoolean(READER, "hide_nametags", false);
             boolean DISABLE_SCREEN_MODE = JsonHelper.getBoolean(READER, "disable_screen_mode", false);
             boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
-            add(NAMESPACE, SHADER, HIDE_ARMOR, HIDE_BLOCK_OUTLINE, HIDE_CROSSHAIR, HIDE_NAMETAGS, DISABLE_SCREEN_MODE, ENABLED);
+            add(NAMESPACE, SHADER, DISABLE_SCREEN_MODE, ENABLED);
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
@@ -178,17 +166,9 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             try {
                 for (JsonElement namespaces : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("namespaces")) {
                     JsonObject NAMESPACES = JsonHelper.asObject(namespaces, "namespacelist");
-                    List<String> HIDE_ARMOR_SHADERS = new ArrayList<>();
-                    List<String> HIDE_CROSSHAIR_SHADERS = new ArrayList<>();
-                    List<String> HIDE_BLOCK_OUTLINE_SHADERS = new ArrayList<>();
-                    List<String> HIDE_NAMETAGS_SHADERS = new ArrayList<>();
                     List<String> DISABLE_SCREEN_MODE_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_armor", new JsonArray())) HIDE_ARMOR_SHADERS.add(SHADER.getAsString());
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_crosshair", new JsonArray())) HIDE_CROSSHAIR_SHADERS.add(SHADER.getAsString());
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_block_outline", new JsonArray())) HIDE_BLOCK_OUTLINE_SHADERS.add(SHADER.getAsString());
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "hide_nametags", new JsonArray())) HIDE_NAMETAGS_SHADERS.add(SHADER.getAsString());
                     for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "disable_screen_mode", new JsonArray())) DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "shaders", new JsonArray())) add(JsonHelper.getString(NAMESPACES, "namespace", Data.PERSPECTIVE_VERSION.getID()), SHADER.getAsString(), HIDE_ARMOR_SHADERS.contains(SHADER.getAsString()), HIDE_BLOCK_OUTLINE_SHADERS.contains(SHADER.getAsString()), HIDE_CROSSHAIR_SHADERS.contains(SHADER.getAsString()), HIDE_NAMETAGS_SHADERS.contains(SHADER.getAsString()), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true));
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "shaders", new JsonArray())) add(JsonHelper.getString(NAMESPACES, "namespace", Data.PERSPECTIVE_VERSION.getID()), SHADER.getAsString(), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true));
                 }
             } catch (Exception error) {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.PERSPECTIVE_VERSION.getID(), error);

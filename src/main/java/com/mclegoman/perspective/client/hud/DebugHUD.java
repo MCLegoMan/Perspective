@@ -43,10 +43,6 @@ public class DebugHUD {
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD));
 			debugText.add(Text.literal("shader: " + ShaderDataLoader.getFullShaderName((int)ConfigHelper.getConfig("super_secret_settings"))));
-			debugText.add(Text.literal("hide_armor: " + Shader.getShaderData(ShaderRegistryValue.HIDE_ARMOR)));
-			debugText.add(Text.literal("hide_block_outline: " + Shader.getShaderData(ShaderRegistryValue.HIDE_BLOCK_OUTLINE)));
-			debugText.add(Text.literal("hide_crosshair: " + Shader.getShaderData(ShaderRegistryValue.HIDE_CROSSHAIR)));
-			debugText.add(Text.literal("hide_nametags: " + Shader.getShaderData(ShaderRegistryValue.HIDE_NAMETAGS)));
 			debugText.add(Text.literal("disable_screen_mode: " + Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE)));
 			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
 		}

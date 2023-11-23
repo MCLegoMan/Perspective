@@ -32,7 +32,7 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void perspective$hide_armor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
         if (entity instanceof PlayerEntity) {
-            if ((boolean) ConfigHelper.getConfig("hide_armor") || Shader.shouldRenderShader() && (boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_ARMOR)) || HideArmorDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))) ci.cancel();
+            if ((boolean) ConfigHelper.getConfig("hide_armor") || HideArmorDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))) ci.cancel();
         }
     }
 }
