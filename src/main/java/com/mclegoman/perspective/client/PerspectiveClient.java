@@ -17,7 +17,6 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
 import com.mclegoman.perspective.common.data.Data;
-import de.guntram.mcmod.crowdintranslate.CrowdinTranslate;
 import net.fabricmc.api.ClientModInitializer;
 
 public class PerspectiveClient implements ClientModInitializer {
@@ -25,7 +24,6 @@ public class PerspectiveClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		try {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), Data.PERSPECTIVE_VERSION.getID());
-			CrowdinTranslate.downloadTranslations(Data.PERSPECTIVE_VERSION.getID());
 			ConfigHelper.init();
 			ResourcePacks.init();
 			Hide.init();
