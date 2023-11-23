@@ -29,11 +29,11 @@ public abstract class InGameHudMixin {
         try {
             if (HUD.shouldHideHUD()) ci.cancel();
             float h = HUDOverlays.REMAINING - tickDelta;
-            int l = (int)(h * 255.0F / 20.0F);
+            int l = (int) (h * 255.0F / 20.0F);
             if (l > 255) l = 255;
             if (l > 10) {
                 context.getMatrices().push();
-                context.getMatrices().translate((float)(ClientData.CLIENT.getWindow().getScaledWidth() / 2), 27, 0.0F);
+                context.getMatrices().translate((float) (ClientData.CLIENT.getWindow().getScaledWidth() / 2), 27, 0.0F);
                 int k = 16777215;
                 int m = l << 24 & -16777216;
                 int n = ClientData.CLIENT.textRenderer.getWidth(HUDOverlays.MESSAGE);
@@ -44,6 +44,7 @@ public abstract class InGameHudMixin {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to InGameHUD$render.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
         }
     }
+
     @Inject(at = @At("RETURN"), method = "render")
     private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
         try {
@@ -52,7 +53,8 @@ public abstract class InGameHudMixin {
                     if (!DebugHUD.debugType.equals(DebugHUD.Type.NONE)) {
                         DebugHUD.renderDebugHUD(context);
                     }
-                    if ((boolean) ConfigHelper.getConfig("version_overlay")) context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+                    if ((boolean) ConfigHelper.getConfig("version_overlay"))
+                        context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
                 }
             }
         } catch (Exception error) {

@@ -29,22 +29,32 @@ import java.util.Map;
 public class ShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static final List<List<Object>> REGISTRY = new ArrayList<>();
     public static final List<String> DUPLICATED_NAMES = new ArrayList<>();
+    public static final String ID = "shaders/shaders";
+
+    public ShaderDataLoader() {
+        super(new Gson(), ID);
+    }
+
     public static int getShaderAmount() {
         return REGISTRY.size() - 1;
     }
+
     public static String getShaderName(int SHADER) {
         String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
         String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
         return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
     }
+
     public static String getFullShaderName(int SHADER) {
         String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
         String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
         return NAMESPACE + ":" + SHADER_NAME;
     }
+
     private static boolean isDuplicatedShaderName(String name) {
         return DUPLICATED_NAMES.contains(name);
     }
+
     public static Object get(int SHADER, ShaderRegistryValue VALUE) {
         List<Object> SHADER_MAP = REGISTRY.get(SHADER);
         if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
@@ -53,6 +63,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
         if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
         return null;
     }
+
     private void add(String NAMESPACE, String SHADER_NAME, boolean DISABLE_SCREEN_MODE, boolean ENABLED) {
         try {
             SHADER_NAME = SHADER_NAME.replace("\"", "").toLowerCase();
@@ -78,6 +89,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add shader to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
+
     private void reset() {
         try {
             REGISTRY.clear();
@@ -87,6 +99,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
+
     private void add$default() {
         try {
             add("minecraft", "none", false, true);
@@ -119,10 +132,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
-    public static final String ID = "shaders/shaders";
-    public ShaderDataLoader() {
-        super(new Gson(), ID);
-    }
+
     @Override
     public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
         try {
@@ -130,24 +140,28 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             prepared.forEach(this::layout$perspective);
             layout$souper_secret_settings(manager);
             ConfigHelper.setConfig("super_secret_settings", Math.min((int) ConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
-            if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) Shader.set(MinecraftClient.getInstance(), true, true, true);
+            if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
+                Shader.set(MinecraftClient.getInstance(), true, true, true);
 
 
             List<String> ALL_NAMES = new ArrayList<>();
             for (List<Object> registry : REGISTRY) {
                 if (!ALL_NAMES.contains((String) registry.get(1))) ALL_NAMES.add((String) registry.get(1));
                 else {
-                    if (!DUPLICATED_NAMES.contains((String) registry.get(1))) DUPLICATED_NAMES.add((String) registry.get(1));
+                    if (!DUPLICATED_NAMES.contains((String) registry.get(1)))
+                        DUPLICATED_NAMES.add((String) registry.get(1));
                 }
             }
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
+
     @Override
     public Identifier getFabricId() {
         return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
     }
+
     private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
         try {
             JsonObject READER = jsonElement.getAsJsonObject();
@@ -160,6 +174,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
+
     private void layout$souper_secret_settings(ResourceManager manager) {
         List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"));
         for (Resource resource : SHADER_LISTS) {
@@ -167,8 +182,10 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
                 for (JsonElement namespaces : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("namespaces")) {
                     JsonObject NAMESPACES = JsonHelper.asObject(namespaces, "namespacelist");
                     List<String> DISABLE_SCREEN_MODE_SHADERS = new ArrayList<>();
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "disable_screen_mode", new JsonArray())) DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
-                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "shaders", new JsonArray())) add(JsonHelper.getString(NAMESPACES, "namespace", Data.PERSPECTIVE_VERSION.getID()), SHADER.getAsString(), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true));
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "disable_screen_mode", new JsonArray()))
+                        DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
+                    for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "shaders", new JsonArray()))
+                        add(JsonHelper.getString(NAMESPACES, "namespace", Data.PERSPECTIVE_VERSION.getID()), SHADER.getAsString(), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true));
                 }
             } catch (Exception error) {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.PERSPECTIVE_VERSION.getID(), error);

@@ -161,6 +161,12 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
+	"gui.perspective.config.experimental.allow_hide_players": "Allow Hide Players: %s",
+	"gui.perspective.config.experimental.allow_hide_players.hover": "Toggles the Hide Players experiment.",
+
+	"gui.perspective.config.experimental.hide_players": "Global Hide Players: %s",
+	"gui.perspective.config.experimental.hide_players.hover": "Toggles rendering of other players.",
+
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",
 
@@ -208,6 +214,10 @@
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
+
+	"gui.perspective.keybindings.category.perspective-experimental": "Perspective: Experimental",
+
+	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
 
 	"gui.perspective.resource_pack.perspective_default": "Perspective Default",
 	"gui.perspective.resource_pack.perspective_default.description": "Adds new custom resources to Perspective's features.",

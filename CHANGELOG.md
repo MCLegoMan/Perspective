@@ -1,34 +1,25 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 
-Wait, where did that go?!
-This update introduces hide armour and hide nametag dataloaders!
-That means you can now hide armour or nametags of specific players using resource packs!
-This update also fixes the issue in the previous update where the super secret settings config screen wouldn't render.  
 
-We should be moving into beta soon, as this update is now feature-complete.
-During beta and release candidate, expect bug fixes,
-if any new features are added, they will be listed under the experimental options.
 
-### Perspective 1.2.0-alpha.6 for 1.20.2 and 1.20.3.  
+### Perspective 1.2.0-beta.1 for 1.20.2 and 1.20.3.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*
 More information on this change will be posted as we get closer to 1.2.0-release.1.  
 
 ## Changelog  
-- **Fixed Super Secret Settings Config Screen.**  
-  - The show name option wasn't updated in the previous version.
-- **Added Hide Armor and Hide Nametags dataloaders.**  
-  - This allows the user to hide nametags or armour of specific users.  
-  - This can be configured within resource packs at the following files: `/assets/perspective/hide_armor.json` and `/assets/perspective/hide_nametags.json`.  
-    - The list uses the players UUID.
-    - > **Hide Armor/Nametag dataloader layout example.**
-      > ```
-      > {
-      >     "values": [
-      >         "772eb47b-a24e-4d43-a685-6ca9e9e132f7"
-      >     ]
-      > }
-      > ```
-      > This would hide the nametag or armour of MCLegoMan.
+- **Removed 'hide' related options for Super Secret Settings.**    
+  - This was removed to help simplify registering shaders.  
+    - The player still can toggle these using the config screen or their keybindings.  
+
+**Experimental Changelog**  
+- Added Hide Players Experiment.  
+  - This includes two config options and a resource pack dataloader.  
+    - Experimental Config Option: `allow_hide_players`  
+      - Enables the experiment, allows the dataloader and the `hide_players` options to work.  
+    - Experimental Config Option: `hide_players`  
+      - Hides all players expect for the user. Requires `allow_hide_players` to also be enabled.
+    - Dataloader: `/assets/perspective/hide_players.json`
+      - Uses the same format as the other hide dataloaders.  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

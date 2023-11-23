@@ -7,6 +7,7 @@
 		"client.april_fools_prank.AbstractClientPlayerEntityMixin",
 		"client.april_fools_prank.LivingEntityRendererMixin",
 		"client.hide.ArmorFeatureRendererMixin",
+		"client.hide.PlayerEntityRendererMixin",
 		"client.hide.GameRendererMixin",
 		"client.hide.InGameHudMixin",
 		"client.hide.LivingEntityRendererMixin",

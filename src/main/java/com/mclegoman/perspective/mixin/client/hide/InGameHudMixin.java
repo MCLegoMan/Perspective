@@ -9,15 +9,7 @@ package com.mclegoman.perspective.mixin.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.hud.DebugHUD;
-import com.mclegoman.perspective.client.hud.HUD;
-import com.mclegoman.perspective.client.overlays.HUDOverlays;
-import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
-import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
-import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
@@ -27,8 +19,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(priority = 10000, value = InGameHud.class)
 public abstract class InGameHudMixin {

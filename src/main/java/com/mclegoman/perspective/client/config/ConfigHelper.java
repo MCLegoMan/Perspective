@@ -34,7 +34,7 @@ public class ConfigHelper {
     private static boolean SEEN_DOWNGRADE_WARNING = false;
     private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
     private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
-    public static boolean EXPERIMENTS_AVAILABLE = false;
+    public static boolean EXPERIMENTS_AVAILABLE = true;
     private static boolean SAVING = false;
     public static boolean isSaving() {
         return SAVING;
@@ -180,7 +180,8 @@ public class ConfigHelper {
             setConfig("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
             // Experimental Config
             if (EXPERIMENTS_AVAILABLE) {
-                // There is currently no experiments available.
+                setExperimentalConfig("allow_hide_players", false);
+                setExperimentalConfig("hide_players", false);
             }
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -226,10 +227,13 @@ public class ConfigHelper {
     }
     public static void setExperimentalConfig(String ID, Object VALUE) {
         try {
-            // There is currently no experiments available.
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+            switch (ID) {
+                case "allow_hide_players" -> ExperimentalConfig.ALLOW_HIDE_PLAYERS = (boolean) VALUE;
+                case "hide_players" -> ExperimentalConfig.HIDE_PLAYERS = (boolean) VALUE;
+                default -> Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+            }
         } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
         }
     }
     public static void setTutorialConfig(String ID, Object VALUE) {
@@ -292,9 +296,14 @@ public class ConfigHelper {
         }
     }
     public static Object getExperimentalConfig(String ID) {
-        // There is currently no experiments available.
-        Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
-        return new Object();
+        switch (ID) {
+            case "allow_hide_players" -> {return ExperimentalConfig.ALLOW_HIDE_PLAYERS;}
+            case "hide_players" -> {return ExperimentalConfig.HIDE_PLAYERS;}
+            default -> {
+                Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+                return new Object();
+            }
+        }
     }
     public static Object getTutorialConfig(String ID) {
         if (ID.equals("super_secret_settings")) {
