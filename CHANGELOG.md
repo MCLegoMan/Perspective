@@ -9,6 +9,19 @@ More information on this change will be posted as we get closer to 1.2.0-release
 ## Changelog  
 - **Fixed Super Secret Settings Config Screen.**  
   - The show name option wasn't updated in the previous version.
+- **Added Hide Armor and Hide Nametags dataloaders.**  
+  - This allows the user to hide nametags or armour of specific users.  
+  - This can be configured within resource packs at the following files: `/assets/perspective/hide_armor.json` and `/assets/perspective/hide_nametags.json`.  
+    - The list uses the players UUID.
+    - > **Hide Armor/Nametag dataloader layout example.**
+      > ```
+      > {
+      >     "values": [
+      >         "772eb47b-a24e-4d43-a685-6ca9e9e132f7"
+      >     ]
+      > }
+      > ```
+      > This would hide the nametag or armour of MCLegoMan.
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
