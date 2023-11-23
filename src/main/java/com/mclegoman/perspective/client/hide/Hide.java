@@ -16,6 +16,7 @@ import net.minecraft.resource.ResourceType;
 
 public class Hide {
     public static void init() {
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideArmorDataLoader());
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
     }
     public static void tick(MinecraftClient client) {

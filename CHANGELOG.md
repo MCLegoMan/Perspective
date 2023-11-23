@@ -1,6 +1,13 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 
-How did these sneak in?  
+Wait, where did that go?!
+This update introduces hide armour and hide nametag dataloaders!
+That means you can now hide armour or nametags of specific players using resource packs!
+This update also fixes the issue in the previous update where the super secret settings config screen wouldn't render.  
+
+We should be moving into beta soon, as this update is now feature-complete.
+During beta and release candidate, expect bug fixes,
+if any new features are added, they will be listed under the experimental options.
 
 ### Perspective 1.2.0-alpha.6 for 1.20.2 and 1.20.3.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*
