@@ -1,15 +1,20 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 
-
+It's bug fixing season! This update fixes bugs related to zoom and depth based shaders.
 
 ### Perspective 1.2.0-beta.1 for 1.20.2 and 1.20.3.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*
 More information on this change will be posted as we get closer to 1.2.0-release.1.  
 
 ## Changelog  
-- **Removed 'hide' related options for Super Secret Settings.**    
+- **Removed 'hide' related options for Super Secret Settings.**  
   - This was removed to help simplify registering shaders.  
     - The player still can toggle these using the config screen or their keybindings.  
+- **Reverted scroll wheel zoom changes.**  
+  - This fixes spectators not being able to zoom in and out.  
+- **Depth Shaders will now automatically disable screen mode.**  
+  - Depth information is only available when the player is in-game. if the player restarted the game with the depth shader enabled on screen mode it would cause the screen to render blank.  
+    - `disable_screen_mode` is still recommended to be set for depth shaders in case of use with older versions.  
 
 **Experimental Changelog**  
 - Added Hide Players Experiment.  

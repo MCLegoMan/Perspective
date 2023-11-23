@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.developer;
+package com.mclegoman.perspective.client.contributor;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DeveloperDataloader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class ContributorDataloader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<List<Object>> REGISTRY = new ArrayList<>();
-	public static final String ID = "developers";
+	public static final String ID = "contributors";
 
-	public DeveloperDataloader() {
+	public ContributorDataloader() {
 		super(new Gson(), ID);
 	}
 
@@ -34,7 +34,7 @@ public class DeveloperDataloader extends JsonDataLoader implements IdentifiableR
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add developer to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add contributor to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class DeveloperDataloader extends JsonDataLoader implements IdentifiableR
 		try {
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset developers registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset contributor registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class DeveloperDataloader extends JsonDataLoader implements IdentifiableR
 			reset();
 			prepared.forEach(this::layout$perspective);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply developers dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply contributor dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
 
@@ -61,12 +61,13 @@ public class DeveloperDataloader extends JsonDataLoader implements IdentifiableR
 			JsonObject READER = jsonElement.getAsJsonObject();
 			List<Object> DEVELOPER = new ArrayList<>();
 			DEVELOPER.add(JsonHelper.getString(READER, "uuid"));
+			DEVELOPER.add(JsonHelper.getString(READER, "type"));
 			DEVELOPER.add(JsonHelper.getBoolean(READER, "shouldFlipUpsideDown", false));
 			DEVELOPER.add(JsonHelper.getBoolean(READER, "shouldDisplayCape", false));
 			DEVELOPER.add(JsonHelper.getString(READER, "capeTexture", "perspective:developer"));
 			add(DEVELOPER);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective developer: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective contributor: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
 

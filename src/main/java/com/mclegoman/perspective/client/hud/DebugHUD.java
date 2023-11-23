@@ -45,6 +45,9 @@ public class DebugHUD {
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD));
 			debugText.add(Text.literal("shader: " + ShaderDataLoader.getFullShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
 			debugText.add(Text.literal("disable_screen_mode: " + Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE)));
+			debugText.add(Text.literal("render_type: " + Shader.RENDER_TYPE));
+			debugText.add(Text.literal("use_depth: " + Shader.USE_DEPTH));
+			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));
 			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
 		}
 		if (debugType.equals(Type.CONFIG)) {

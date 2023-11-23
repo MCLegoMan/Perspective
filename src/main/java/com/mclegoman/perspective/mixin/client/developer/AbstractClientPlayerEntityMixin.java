@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.developer;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.config.ConfigHelper;
-import com.mclegoman.perspective.client.developer.DeveloperDataloader;
+import com.mclegoman.perspective.client.contributor.ContributorDataloader;
 import com.mclegoman.perspective.client.util.Cape;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
@@ -34,11 +34,11 @@ public class AbstractClientPlayerEntityMixin {
 	private void getSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
 		if (!((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 			if (this.playerListEntry != null) {
-				for (List<Object> DEVELOPER : DeveloperDataloader.REGISTRY) {
+				for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
 					if (DEVELOPER.get(0).equals(playerListEntry.getProfile().getId().toString())) {
-						if ((boolean) DEVELOPER.get(2)) {
+						if ((boolean) DEVELOPER.get(3)) {
 							SkinTextures currentSkinTextures = cir.getReturnValue();
-							Identifier capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(3));
+							Identifier capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(4));
 							cir.setReturnValue(new SkinTextures(currentSkinTextures.texture(), currentSkinTextures.textureUrl(), capeTexture, capeTexture, currentSkinTextures.model(), currentSkinTextures.secure()));
 						}
 					}

@@ -35,18 +35,21 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Shader {
-    public static Framebuffer DEPTH_FRAME_BUFFER;
-    public static boolean DEPTH_FIX;
-    @Nullable
-    public static PostEffectProcessor postProcessor;
-    private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
-    private static Formatting LAST_COLOR;
-    private static final List<Identifier> SOUND_EVENTS = new ArrayList<>();
-    public static void init() {
-        try {
-            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
-            for (Identifier id : Registries.SOUND_EVENT.getIds()) {
-                if (!id.toString().contains("music")) {
+	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
+	private static final List<Identifier> SOUND_EVENTS = new ArrayList<>();
+	public static Framebuffer DEPTH_FRAME_BUFFER;
+	public static boolean DEPTH_FIX;
+	public static boolean USE_DEPTH;
+	public static String RENDER_TYPE;
+	@Nullable
+	public static PostEffectProcessor postProcessor;
+	private static Formatting LAST_COLOR;
+
+	public static void init() {
+		try {
+			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
+			for (Identifier id : Registries.SOUND_EVENT.getIds()) {
+				if (!id.toString().contains("music")) {
                     SOUND_EVENTS.add(id);
                 }
             }
@@ -122,19 +125,21 @@ public class Shader {
         }
     }
     public static void set(MinecraftClient client, Boolean forwards, boolean SILENT, boolean SAVE_CONFIG) {
-        try {
-            DEPTH_FIX = true;
-            if (postProcessor != null) postProcessor.close();
-            postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
-            postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-            if (!SILENT) setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
-            try {
-                if (!SILENT && client.world != null && client.player != null && (boolean) ConfigHelper.getConfig("super_secret_settings_sound")) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
-            } catch (Exception error) {
-                Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-            }
-            DEPTH_FIX = false;
-            if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
+	    USE_DEPTH = false;
+	    DEPTH_FIX = true;
+	    try {
+		    if (postProcessor != null) postProcessor.close();
+		    postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+		    postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+		    if (!SILENT)
+			    setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
+		    try {
+			    if (!SILENT && client.world != null && client.player != null && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
+				    client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
+		    } catch (Exception error) {
+			    Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+		    }
+		    if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
             if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -151,30 +156,42 @@ public class Shader {
             }
             if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
         }
+	    DEPTH_FIX = false;
     }
     private static void setOverlay(Text message) {
         if ((boolean) ConfigHelper.getConfig("super_secret_settings_show_name")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
     }
-    public static Formatting getRandomColor() {
-        Random random = new Random();
-        Formatting COLOR = LAST_COLOR;
-        while (COLOR == LAST_COLOR) COLOR = COLORS[(random.nextInt(COLORS.length))];
-        LAST_COLOR = COLOR;
-        return COLOR;
-    }
-    public static boolean shouldRenderShader() {
-        return postProcessor != null && (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
-    }
-    public static void render(float tickDelta) {
-        if (postProcessor != null) postProcessor.render(tickDelta);
-    }
 
-    public static Object getShaderData(ShaderRegistryValue key) {
-        return ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), key);
-    }
-    public static void cycleShaderModes() {
-        if (ConfigHelper.getConfig("super_secret_settings_mode").equals("game")) ConfigHelper.setConfig("super_secret_settings_mode", "screen");
-        else if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) ConfigHelper.setConfig("super_secret_settings_mode", "game");
-        else ConfigHelper.setConfig("super_secret_settings_mode", "game");
-    }
+	public static Formatting getRandomColor() {
+		Random random = new Random();
+		Formatting COLOR = LAST_COLOR;
+		while (COLOR == LAST_COLOR) COLOR = COLORS[(random.nextInt(COLORS.length))];
+		LAST_COLOR = COLOR;
+		return COLOR;
+	}
+
+	public static boolean shouldRenderShader() {
+		return postProcessor != null && (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
+	}
+
+	public static void render(float tickDelta, String renderType) {
+		RENDER_TYPE = renderType;
+		if (postProcessor != null) postProcessor.render(tickDelta);
+	}
+
+	public static boolean shouldDisableScreenMode() {
+		return (boolean) Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
+	}
+
+	public static Object getShaderData(ShaderRegistryValue key) {
+		return ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), key);
+	}
+
+	public static void cycleShaderModes() {
+		if (ConfigHelper.getConfig("super_secret_settings_mode").equals("game"))
+			ConfigHelper.setConfig("super_secret_settings_mode", "screen");
+		else if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen"))
+			ConfigHelper.setConfig("super_secret_settings_mode", "game");
+		else ConfigHelper.setConfig("super_secret_settings_mode", "game");
+	}
 }
