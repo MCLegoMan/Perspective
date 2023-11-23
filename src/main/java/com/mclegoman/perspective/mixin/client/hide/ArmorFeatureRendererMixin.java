@@ -8,6 +8,8 @@
 package com.mclegoman.perspective.mixin.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.hide.HideArmorDataLoader;
+import com.mclegoman.perspective.client.hide.HideNameTagsDataLoader;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
@@ -29,6 +31,8 @@ import java.util.Objects;
 public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void perspective$hide_armor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
-        if (entity instanceof PlayerEntity && (boolean) ConfigHelper.getConfig("hide_armor") || Shader.shouldRenderShader() && (boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_ARMOR))) ci.cancel();
+        if (entity instanceof PlayerEntity) {
+            if ((boolean) ConfigHelper.getConfig("hide_armor") || Shader.shouldRenderShader() && (boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_ARMOR)) || HideArmorDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))) ci.cancel();
+        }
     }
 }

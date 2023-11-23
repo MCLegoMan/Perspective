@@ -9,11 +9,13 @@ package com.mclegoman.perspective.mixin.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hide.HideNameTagsDataLoader;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,6 +27,6 @@ import java.util.Objects;
 public abstract class LivingEntityRendererMixin {
     @Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
     private void perspective$hide_nametag(LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
-        if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig("hide_nametags") || (Shader.shouldRenderShader() && (Boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_NAMETAGS)))) cir.setReturnValue(false);
+        if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || ((boolean) ConfigHelper.getConfig("hide_nametags") || (Shader.shouldRenderShader() && (Boolean) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.HIDE_NAMETAGS)))) || (livingEntity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) livingEntity).getGameProfile().getId()))))) cir.setReturnValue(false);
     }
 }

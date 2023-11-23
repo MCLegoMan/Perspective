@@ -8,10 +8,16 @@
 package com.mclegoman.perspective.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.util.Keybindings;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.resource.ResourceType;
 
 public class Hide {
+    public static void init() {
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
+    }
     public static void tick(MinecraftClient client) {
         if (Keybindings.TOGGLE_ARMOR.wasPressed()) ConfigHelper.setConfig("hide_armor", !(boolean) ConfigHelper.getConfig("hide_armor"));
         if (Keybindings.TOGGLE_BLOCK_OUTLINE.wasPressed()) ConfigHelper.setConfig("hide_block_outline", !(boolean) ConfigHelper.getConfig("hide_block_outline"));
