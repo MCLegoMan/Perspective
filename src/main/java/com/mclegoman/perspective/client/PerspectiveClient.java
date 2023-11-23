@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.developer.Developer;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
@@ -26,6 +27,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), Data.PERSPECTIVE_VERSION.getID());
 			ConfigHelper.init();
 			ResourcePacks.init();
+			Developer.init();
 			Hide.init();
 			Keybindings.init();
 			Shader.init();
