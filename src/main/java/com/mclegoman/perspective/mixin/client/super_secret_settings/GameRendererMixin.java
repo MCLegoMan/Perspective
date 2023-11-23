@@ -12,14 +12,21 @@ import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 10000, value = GameRenderer.class)
-public class GameRendererMixin {
+public abstract class GameRendererMixin {
+    @Shadow protected abstract void renderHand(MatrixStack matrices, Camera camera, float tickDelta);
+
+    @Shadow public abstract Camera getCamera();
+
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
     private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
         if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("game") || (boolean)Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE)) Shader.render(tickDelta);

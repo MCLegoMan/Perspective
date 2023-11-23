@@ -27,6 +27,6 @@ public class ResourcePacks {
             Perspective: Default
             Contributor(s): MCLegoMan
         */
-        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective"), Data.PERSPECTIVE_VERSION.getModContainer(), ResourcePackActivationType.DEFAULT_ENABLED);
     }
 }

@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.april_fools_prank;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
@@ -36,7 +35,6 @@ public class AprilFoolsPrank {
         if (!SEEN_WARNING && client.world != null) {
                 if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
                     if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
-                        ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
                         ConfigHelper.setWarningConfig("prank", true);
                         shouldSave = true;
                         SEEN_WARNING = true;

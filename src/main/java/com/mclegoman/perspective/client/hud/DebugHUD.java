@@ -17,7 +17,8 @@ import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class DebugHUD {
 	public static Type debugType = Type.NONE;
-	public static void renderDebugHUD(DrawContext context) {
+	public static void renderDebugHUD(MatrixStack matrices) {
 		int y = 2;
 		int x = 2;
 		List<Object> debugText = new ArrayList<>();
@@ -63,8 +64,8 @@ public class DebugHUD {
 					y = 2;
 					x += 256;
 				}
-				context.fill(x - 1, y - 1, x + width + 1, y + 9 + 1, -1873784752);
-				context.drawText(ClientData.CLIENT.textRenderer, text, x, y, 0xffffff, false);
+				DrawableHelper.fill(matrices, x - 1, y - 1, x + width + 1, y + 9 + 1, -1873784752);
+				ClientData.CLIENT.textRenderer.draw(matrices, text, x, y, 0xffffff);
 				y = HUD.addY(y);
 			} else {
 				if (item.equals("\n")) {

@@ -10,14 +10,14 @@ package com.mclegoman.perspective.mixin.client.super_secret_settings;
 import com.google.gson.JsonElement;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.client.texture.TextureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = PostEffectProcessor.class)
+@Mixin(priority = 10000, value = ShaderEffect.class)
 public class PostEffectProcessorMixin {
     private boolean useDepth;
     @Inject(at = @At(value = "INVOKE", target = "Ljava/lang/String;substring(II)Ljava/lang/String;"), method = "parsePass")

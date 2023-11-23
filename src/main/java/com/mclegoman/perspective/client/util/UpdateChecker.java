@@ -13,7 +13,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.version.Version;
@@ -42,7 +41,6 @@ public class UpdateChecker {
 			checkForUpdates();
 			if (NEWER_VERSION_FOUND) {
 				if (!SEEN_UPDATE_TOAST) {
-					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.update.title")}), Translation.getTranslation("toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), 280, Toast.Type.INFO));
 					SEEN_UPDATE_TOAST = true;
 				}
 			}

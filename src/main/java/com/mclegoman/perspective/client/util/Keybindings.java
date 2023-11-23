@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.client.util;
 
-import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -43,7 +42,6 @@ public class Keybindings {
         if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
             if (hasKeybindingConflicts(client)) {
                 Data.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.PERSPECTIVE_VERSION.getName());
-                client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
             }
             SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
         }

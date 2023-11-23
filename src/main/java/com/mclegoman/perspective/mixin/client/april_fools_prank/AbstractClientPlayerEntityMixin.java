@@ -13,7 +13,6 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.util.SkinTextures;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,18 +26,22 @@ public class AbstractClientPlayerEntityMixin {
 	@Shadow
 	@Nullable
 	private PlayerListEntry playerListEntry;
-
-	@Inject(method = "getSkinTextures", at = @At("RETURN"), cancellable = true)
-	private void getSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
+	@Inject(method = "getSkinTexture", at = @At("RETURN"), cancellable = true)
+	private void getSkinTexture(CallbackInfoReturnable<Identifier> cir) {
 		if (this.playerListEntry != null) {
-			SkinTextures currentSkinTextures = cir.getReturnValue();
-			Identifier skinTexture = currentSkinTextures.texture();
-			Identifier capeTexture = currentSkinTextures.capeTexture();
+			Identifier skinTexture = cir.getReturnValue();
+			if (((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.REGISTRY.size() > 0))
+				skinTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/prank/" + this.playerListEntry.getModel().toLowerCase() + "/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png");
+			cir.setReturnValue(skinTexture);
+		}
+	}
+	@Inject(method = "getCapeTexture", at = @At("RETURN"), cancellable = true)
+	private void getCapeTexture(CallbackInfoReturnable<Identifier> cir) {
+		if (this.playerListEntry != null) {
+			Identifier capeTexture = cir.getReturnValue();
 			if (this.playerListEntry.getProfile().getId().toString().equals("772eb47b-a24e-4d43-a685-6ca9e9e132f7") || ((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.shouldDisplayCape))
 				capeTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/prank/cape.png");
-			if (((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.REGISTRY.size() > 0))
-				skinTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/prank/" + currentSkinTextures.model().getName().toLowerCase() + "/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png");
-			cir.setReturnValue(new SkinTextures(skinTexture, currentSkinTextures.textureUrl(), capeTexture, capeTexture, currentSkinTextures.model(), currentSkinTextures.secure()));
+			cir.setReturnValue(capeTexture);
 		}
 	}
 }

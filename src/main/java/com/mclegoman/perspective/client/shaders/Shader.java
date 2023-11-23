@@ -10,23 +10,19 @@ package com.mclegoman.perspective.client.shaders;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
-import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.PostEffectProcessor;
-import net.minecraft.registry.Registries;
+import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -38,14 +34,14 @@ public class Shader {
     public static Framebuffer DEPTH_FRAME_BUFFER;
     public static boolean DEPTH_FIX;
     @Nullable
-    public static PostEffectProcessor postProcessor;
+    public static ShaderEffect postProcessor;
     private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
     private static Formatting LAST_COLOR;
     private static final List<Identifier> SOUND_EVENTS = new ArrayList<>();
     public static void init() {
         try {
             ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
-            for (Identifier id : Registries.SOUND_EVENT.getIds()) {
+            for (Identifier id : Registry.SOUND_EVENT.getIds()) {
                 if (!id.toString().contains("music")) {
                     SOUND_EVENTS.add(id);
                 }
@@ -58,29 +54,6 @@ public class Shader {
         if (Keybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false, true);
         if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false, true);
         if (Keybindings.RANDOM_SHADER.wasPressed()) random(false, true);
-
-        if (shouldRenderShader()) {
-            if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
-            else {
-                if (client.world != null) showToasts();
-            }
-        }
-    }
-    private static void showToasts() {
-        boolean save = false;
-        if ((boolean) ConfigHelper.getConfig("tutorials")) {
-            if (!(boolean) ConfigHelper.getTutorialConfig("super_secret_settings")) {
-                ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.tutorial.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
-                ConfigHelper.setTutorialConfig("super_secret_settings", true);
-                save = true;
-            }
-        }
-        if (!(boolean) ConfigHelper.getWarningConfig("photosensitivity")) {
-            ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.warning.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.warning.photosensitivity.title")}), Translation.getTranslation("toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
-            ConfigHelper.setWarningConfig("photosensitivity", true);
-            save = true;
-        }
-        if (save) ConfigHelper.saveConfig(true);
     }
     public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME, boolean SAVE_CONFIG) {
         ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
@@ -125,14 +98,9 @@ public class Shader {
         try {
             DEPTH_FIX = true;
             if (postProcessor != null) postProcessor.close();
-            postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+            postProcessor = new ShaderEffect(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
             postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
             if (!SILENT) setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
-            try {
-                if (!SILENT && client.world != null && client.player != null && (boolean) ConfigHelper.getConfig("super_secret_settings_sound")) client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
-            } catch (Exception error) {
-                Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-            }
             DEPTH_FIX = false;
             if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
             if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
@@ -144,7 +112,7 @@ public class Shader {
                 ConfigHelper.setConfig("super_secret_settings", 0);
                 try {
                     if (postProcessor != null) postProcessor.close();
-                    postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+                    postProcessor = new ShaderEffect(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
                     postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
                     if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
                 } catch (Exception ignored2) {}

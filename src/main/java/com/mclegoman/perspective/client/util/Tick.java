@@ -21,7 +21,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 public class Tick {
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.isFinishedLoading()) {
                 ConfigHelper.tick(client);
                 HUD.tick();
                 AprilFoolsPrank.tick(client);
@@ -33,7 +32,6 @@ public class Tick {
                 HUDOverlays.tick(client);
                 Hide.tick(client);
                 UpdateChecker.tick(client);
-            }
         });
     }
 }

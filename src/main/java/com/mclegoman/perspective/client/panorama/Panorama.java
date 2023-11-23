@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.panorama;
 
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
@@ -93,7 +92,6 @@ public class Panorama {
                             pack_writer.write("{\"pack\": {\"pack_format\": 9, \"supported_formats\": {\"min_inclusive\": 9, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
                             pack_writer.close();
                         }
-                        ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.success.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.success.description", new Object[]{Text.literal(panoramaName)}), 320, Toast.Type.INFO));
                         ClientData.CLIENT.player.sendMessage(Translation.getTranslation("message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, new File(rpDirLoc).getAbsolutePath())))}));
                         ClientData.CLIENT.player.setPitch(pitch);
                         ClientData.CLIENT.player.setYaw(yaw);
@@ -106,11 +104,9 @@ public class Panorama {
                     }
                 } else {
                     Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mods: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
-                    ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.failure.description", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}), 320, Toast.Type.WARNING));
                 }
             } catch (Exception error) {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-                ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), 320, Toast.Type.WARNING));
             }
         }
     }
