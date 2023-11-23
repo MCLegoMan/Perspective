@@ -8,13 +8,9 @@
 package com.mclegoman.perspective.client.hide;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -25,7 +21,6 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class HideNameTagsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<String> REGISTRY = new ArrayList<>();
