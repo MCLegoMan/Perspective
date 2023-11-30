@@ -20,6 +20,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.client.toast.SystemToast;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundCategory;
@@ -73,13 +74,13 @@ public class Shader {
         boolean save = false;
         if ((boolean) ConfigHelper.getConfig("tutorials")) {
             if (!(boolean) ConfigHelper.getTutorialConfig("super_secret_settings")) {
-                ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.tutorial.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+                ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.tutorial.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), SystemToast.Type.TUTORIAL_HINT));
                 ConfigHelper.setTutorialConfig("super_secret_settings", true);
                 save = true;
             }
         }
         if (!(boolean) ConfigHelper.getWarningConfig("photosensitivity")) {
-            ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.warning.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.warning.photosensitivity.title")}), Translation.getTranslation("toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
+            ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.warning.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.warning.photosensitivity.title")}), Translation.getTranslation("toasts.warning.photosensitivity.description"), SystemToast.Type.TUTORIAL_HINT));
             ConfigHelper.setWarningConfig("photosensitivity", true);
             save = true;
         }

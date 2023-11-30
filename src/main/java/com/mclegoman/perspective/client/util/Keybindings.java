@@ -13,6 +13,7 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
@@ -44,7 +45,7 @@ public class Keybindings {
         if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
             if (hasKeybindingConflicts(client)) {
                 Data.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.PERSPECTIVE_VERSION.getName());
-                client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
+                client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), SystemToast.Type.TUTORIAL_HINT));
             }
             SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
         }

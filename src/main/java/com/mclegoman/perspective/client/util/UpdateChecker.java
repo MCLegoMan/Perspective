@@ -20,6 +20,7 @@ import com.mclegoman.perspective.common.version.Version;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.toast.SystemToast;
 import net.minecraft.util.JsonHelper;
 
 import java.io.BufferedReader;
@@ -42,7 +43,7 @@ public class UpdateChecker {
 			checkForUpdates();
 			if (NEWER_VERSION_FOUND) {
 				if (!SEEN_UPDATE_TOAST) {
-					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.update.title")}), Translation.getTranslation("toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), 280, Toast.Type.INFO));
+					ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.update.title")}), Translation.getTranslation("toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), SystemToast.Type.TUTORIAL_HINT));
 					SEEN_UPDATE_TOAST = true;
 				}
 			}

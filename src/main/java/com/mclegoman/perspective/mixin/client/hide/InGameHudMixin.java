@@ -43,10 +43,10 @@ public abstract class InGameHudMixin {
                                 int x = ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 8;
                                 int y = ClientData.CLIENT.getWindow().getScaledHeight() / 2 - 7 + 16;
                                 if (cooldownProgressFull) {
-                                    context.drawGuiTexture(new Identifier("hud/crosshair_attack_indicator_full"), x, y, 16, 16);
+                                    context.drawTexture(new Identifier("hud/crosshair_attack_indicator_full"), x, y, 0, 0, 16, 16);
                                 } else if (cooldownProgress < 1.0F) {
-                                    context.drawGuiTexture(new Identifier("hud/crosshair_attack_indicator_background"), x, y, 16, 4);
-                                    context.drawGuiTexture(new Identifier("hud/crosshair_attack_indicator_progress"), 16, 4, 0, 0, x, y, (int) (cooldownProgress * 17.0F), 4);
+                                    context.drawTexture(new Identifier("hud/crosshair_attack_indicator_background"), x, y, 0, 0, 16, 4);
+                                    context.drawTexture(new Identifier("hud/crosshair_attack_indicator_progress"), 16, 4, 0, 0, x, y, (int) (cooldownProgress * 17.0F), 4);
                                 }
                             }
                             ci.cancel();

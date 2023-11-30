@@ -17,6 +17,7 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.toast.SystemToast;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -77,17 +78,17 @@ public class ConfigHelper {
     private static void showToasts(MinecraftClient client) {
         if (Data.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
             Data.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), 320, Toast.Type.WARNING));
+            client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), SystemToast.Type.TUTORIAL_HINT));
             SEEN_DEVELOPMENT_WARNING = true;
         }
         if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
             Data.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", Data.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
+            client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), SystemToast.Type.TUTORIAL_HINT));
             SEEN_DOWNGRADE_WARNING = true;
         }
         if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
             Data.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", Data.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), 320, Toast.Type.INFO));
+            client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), SystemToast.Type.TUTORIAL_HINT));
             SEEN_LICENSE_UPDATE_NOTICE = true;
         }
     }

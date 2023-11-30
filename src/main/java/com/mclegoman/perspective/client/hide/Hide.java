@@ -32,7 +32,7 @@ public class Hide {
 		if (Keybindings.TOGGLE_BLOCK_OUTLINE.wasPressed())
 			ConfigHelper.setConfig("hide_block_outline", !(boolean) ConfigHelper.getConfig("hide_block_outline"));
 		if (Keybindings.TOGGLE_CROSSHAIR.wasPressed())
-			ConfigHelper.setConfig("hide_crosshair", !(boolean) ConfigHelper.getConfig("hide_crosshair"));
+			ConfigHelper.setConfig("hide_crosshair", nextCrosshairMode());
 		if (Keybindings.TOGGLE_NAMETAGS.wasPressed())
 			ConfigHelper.setConfig("hide_nametags", !(boolean) ConfigHelper.getConfig("hide_nametags"));
 		if (Keybindings.TOGGLE_PLAYERS.wasPressed())

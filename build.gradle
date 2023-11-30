@@ -11,6 +11,10 @@ base {
 	archivesName = project.archives_base_name
 }
 
+runClient.doFirst {
+	args = ['--username', "Perspective${new Random().nextInt(1000)}"]
+}
+
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }

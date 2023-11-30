@@ -16,6 +16,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.client.toast.SystemToast;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -93,7 +94,7 @@ public class Panorama {
                             pack_writer.write("{\"pack\": {\"pack_format\": 9, \"supported_formats\": {\"min_inclusive\": 9, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
                             pack_writer.close();
                         }
-                        ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.success.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.success.description", new Object[]{Text.literal(panoramaName)}), 320, Toast.Type.INFO));
+                        ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.success.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.success.description", new Object[]{Text.literal(panoramaName)}), SystemToast.Type.TUTORIAL_HINT));
                         ClientData.CLIENT.player.sendMessage(Translation.getTranslation("message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, new File(rpDirLoc).getAbsolutePath())))}));
                         ClientData.CLIENT.player.setPitch(pitch);
                         ClientData.CLIENT.player.setYaw(yaw);
@@ -106,11 +107,11 @@ public class Panorama {
                     }
                 } else {
                     Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mods: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
-                    ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.failure.description", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}), 320, Toast.Type.WARNING));
+                    ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.failure.description", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}), SystemToast.Type.TUTORIAL_HINT));
                 }
             } catch (Exception error) {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-                ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), 320, Toast.Type.WARNING));
+                ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), SystemToast.Type.TUTORIAL_HINT));
             }
         }
     }

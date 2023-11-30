@@ -21,8 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 10000, value = Mouse.class)
 public abstract class MouseMixin {
-	@Shadow
-	private double eventDeltaVerticalWheel;
+
+	@Shadow private double eventDeltaWheel;
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
@@ -30,12 +30,12 @@ public abstract class MouseMixin {
 			boolean discreteMouseScroll = ClientData.CLIENT.options.getDiscreteMouseScroll().getValue();
 			double mouseWheelSensitivity = ClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
 			double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
-			if (this.eventDeltaVerticalWheel != 0.0 && Math.signum(calculatedScroll) != Math.signum(this.eventDeltaVerticalWheel)) {
-				this.eventDeltaVerticalWheel = 0.0;
+			if (this.eventDeltaWheel != 0.0 && Math.signum(calculatedScroll) != Math.signum(this.eventDeltaWheel)) {
+				this.eventDeltaWheel = 0.0;
 			}
-			this.eventDeltaVerticalWheel += calculatedScroll;
-			int scrollAmount = (int) this.eventDeltaVerticalWheel;
-			this.eventDeltaVerticalWheel -= scrollAmount;
+			this.eventDeltaWheel += calculatedScroll;
+			int scrollAmount = (int) this.eventDeltaWheel;
+			this.eventDeltaWheel -= scrollAmount;
 			if (scrollAmount != 0) {
 				Zoom.zoom(scrollAmount > 0, (int) ConfigHelper.getConfig("zoom_increment_size"));
 				ci.cancel();

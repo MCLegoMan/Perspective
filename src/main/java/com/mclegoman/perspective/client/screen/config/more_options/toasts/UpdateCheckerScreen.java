@@ -12,6 +12,7 @@ import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.SimplePositioningWidget;
@@ -73,5 +74,10 @@ public class UpdateCheckerScreen extends Screen {
 	}
 	public boolean shouldCloseOnEsc() {
 		return false;
+	}
+	@Override
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		renderBackground(context);
+		super.render(context, mouseX, mouseY, delta);
 	}
 }
