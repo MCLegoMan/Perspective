@@ -2,9 +2,11 @@
 
 It's bug fixing season! This update fixes bugs related to zoom and depth based shaders.
 
-### Perspective 1.2.0-beta.1 for 1.20.2 and 1.20.3.  
+### Perspective 1.2.0-beta.1 for 1.20.3.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*
 More information on this change will be posted as we get closer to 1.2.0-release.1.  
+
+*I am planning to backport to 1.20, 1.20.1, and 1.20.2 for this release cycle.*  
 
 ## Changelog  
 - **Removed 'hide' related options for Super Secret Settings.**  
