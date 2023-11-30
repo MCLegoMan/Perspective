@@ -44,12 +44,13 @@ public class AbstractClientPlayerEntityMixin {
 						if (DEVELOPER.get(0).equals("772eb47b-a24e-4d43-a685-6ca9e9e132f7")) {
 							if ((boolean) DEVELOPER.get(3)) {
 								capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(4));
+								break;
 							}
 						}
 					}
 				if (AprilFoolsPrankDataLoader.REGISTRY.size() > 0)
-					skinTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/prank/" + currentSkinTextures.model().getName().toLowerCase() + "/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png");
-				cir.setReturnValue(new SkinTextures(skinTexture, currentSkinTextures.textureUrl(), capeTexture, capeTexture, currentSkinTextures.model(), currentSkinTextures.secure()));
+					skinTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/entity/player/slim/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png");
+				cir.setReturnValue(new SkinTextures(skinTexture, currentSkinTextures.textureUrl(), capeTexture, capeTexture, SkinTextures.Model.SLIM, currentSkinTextures.secure()));
 			}
 		}
 	}

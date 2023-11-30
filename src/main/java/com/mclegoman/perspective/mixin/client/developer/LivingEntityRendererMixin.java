@@ -7,6 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.developer;
 
+import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
+import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataloader;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.entity.LivingEntity;
@@ -22,13 +24,16 @@ import java.util.List;
 public abstract class LivingEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
 	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
+		if (!((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 		if (entity instanceof PlayerEntity)
 			for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
 				if (DEVELOPER.get(0).equals(((PlayerEntity) entity).getGameProfile().getId().toString())) {
 					if ((boolean) DEVELOPER.get(2)) {
 						cir.setReturnValue(true);
+						break;
 					}
 				}
 			}
+		}
 	}
 }

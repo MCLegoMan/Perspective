@@ -26,39 +26,31 @@ public abstract class MouseMixin {
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-		try {
-			if (Zoom.isZooming()) {
-				boolean discreteMouseScroll = ClientData.CLIENT.options.getDiscreteMouseScroll().getValue();
-				double mouseWheelSensitivity = ClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
-				double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
-				if (this.eventDeltaVerticalWheel != 0.0 && Math.signum(calculatedScroll) != Math.signum(this.eventDeltaVerticalWheel)) {
-					this.eventDeltaVerticalWheel = 0.0;
-				}
-				this.eventDeltaVerticalWheel += calculatedScroll;
-				int scrollAmount = (int) this.eventDeltaVerticalWheel;
-				this.eventDeltaVerticalWheel -= scrollAmount;
-				if (scrollAmount != 0) {
-					Zoom.zoom(scrollAmount > 0, (int) ConfigHelper.getConfig("zoom_increment_size"));
-					ci.cancel();
-				}
+		if (Zoom.isZooming()) {
+			boolean discreteMouseScroll = ClientData.CLIENT.options.getDiscreteMouseScroll().getValue();
+			double mouseWheelSensitivity = ClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
+			double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
+			if (this.eventDeltaVerticalWheel != 0.0 && Math.signum(calculatedScroll) != Math.signum(this.eventDeltaVerticalWheel)) {
+				this.eventDeltaVerticalWheel = 0.0;
 			}
-		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to Mouse$onMouseButton: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			this.eventDeltaVerticalWheel += calculatedScroll;
+			int scrollAmount = (int) this.eventDeltaVerticalWheel;
+			this.eventDeltaVerticalWheel -= scrollAmount;
+			if (scrollAmount != 0) {
+				Zoom.zoom(scrollAmount > 0, (int) ConfigHelper.getConfig("zoom_increment_size"));
+				ci.cancel();
+			}
 		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "onMouseButton", cancellable = true)
 	private void perspective$onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
-		try {
-			if (Zoom.isZooming()) {
-				if (button == 2) {
-					Zoom.reset(ClientData.CLIENT);
-					ci.cancel();
-				}
+		if (Zoom.isZooming()) {
+			if (button == 2) {
+				Zoom.reset(ClientData.CLIENT);
+				ci.cancel();
 			}
-		} catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to Mouse$onMouseButton: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-        }
+		}
     }
     @ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
     private boolean perspective$isFirstPerson(boolean isFirstPerson) {

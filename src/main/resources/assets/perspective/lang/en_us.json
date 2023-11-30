@@ -128,6 +128,9 @@
 	"gui.perspective.config.hide.hide_nametags": "Global Hide Nametags: %s",
 	"gui.perspective.config.hide.hide_nametags.hover": "Toggles the rendering of nametags.",
 
+	"gui.perspective.config.hide.hide_players": "Global Hide Players: %s",
+	"gui.perspective.config.hide.hide_players.hover": "Toggles rendering of other players.",
+
 	"gui.perspective.config.toasts": "Toasts",
 	"gui.perspective.config.toasts.hover": "Open Perspective's Toasts config screen.",
 
@@ -160,12 +163,6 @@
 
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
-
-	"gui.perspective.config.experimental.allow_hide_players": "Allow Hide Players: %s",
-	"gui.perspective.config.experimental.allow_hide_players.hover": "Toggles the Hide Players experiment.",
-
-	"gui.perspective.config.experimental.hide_players": "Global Hide Players: %s",
-	"gui.perspective.config.experimental.hide_players.hover": "Toggles rendering of other players.",
 
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",
@@ -227,6 +224,8 @@
 
 	"gui.perspective.variable.onff.on": "ON",
 	"gui.perspective.variable.onff.off": "OFF",
+
+	"gui.perspective.variable.dynamic": "DYNAMIC",
 
 	"gui.perspective.variable.disable_screen_mode.on": "*",
 	"gui.perspective.variable.disable_screen_mode.off": "",

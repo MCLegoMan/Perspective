@@ -32,9 +32,10 @@
     "mclegoman-perspective.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=1.20.2",
+    "minecraft": [
+      "~1.20.3",
+      "~1.20.3-"
+    ],
     "fabric-api": "*"
-  },
-  "suggests": {
   }
 }

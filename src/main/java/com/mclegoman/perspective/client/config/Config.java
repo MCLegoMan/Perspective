@@ -38,10 +38,11 @@ public class Config {
     protected static boolean VERSION_OVERLAY;
     protected static boolean HIDE_ARMOR;
     protected static boolean HIDE_NAMETAGS;
+    protected static boolean HIDE_PLAYERS;
     protected static String DETECT_UPDATE_CHANNEL;
     protected static boolean TUTORIALS;
     protected static boolean HIDE_BLOCK_OUTLINE;
-    protected static boolean HIDE_CROSSHAIR;
+    protected static String HIDE_CROSSHAIR;
     protected static boolean SHOW_DEATH_COORDINATES;
     protected static int CONFIG_VERSION;
     protected static void init() {
@@ -72,17 +73,18 @@ public class Config {
         CONFIG_PROVIDER.add(new Pair<>("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY));
         CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS));
         CONFIG_PROVIDER.add(new Pair<>("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS));
+        CONFIG_PROVIDER.add(new Pair<>("version_overlay", ConfigDataLoader.VERSION_OVERLAY));
         CONFIG_PROVIDER.add(new Pair<>("force_pride", ConfigDataLoader.FORCE_PRIDE));
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE));
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
-        CONFIG_PROVIDER.add(new Pair<>("version_overlay", ConfigDataLoader.VERSION_OVERLAY));
-        CONFIG_PROVIDER.add(new Pair<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
-        CONFIG_PROVIDER.add(new Pair<>("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS));
-        CONFIG_PROVIDER.add(new Pair<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
-        CONFIG_PROVIDER.add(new Pair<>("tutorials", ConfigDataLoader.TUTORIALS));
+        CONFIG_PROVIDER.add(new Pair<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
         CONFIG_PROVIDER.add(new Pair<>("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE));
         CONFIG_PROVIDER.add(new Pair<>("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR));
-        CONFIG_PROVIDER.add(new Pair<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
+        CONFIG_PROVIDER.add(new Pair<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
+        CONFIG_PROVIDER.add(new Pair<>("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS));
+        CONFIG_PROVIDER.add(new Pair<>("hide_players", ConfigDataLoader.HIDE_PLAYERS));
+        CONFIG_PROVIDER.add(new Pair<>("tutorials", ConfigDataLoader.TUTORIALS));
+        CONFIG_PROVIDER.add(new Pair<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
         CONFIG_PROVIDER.add(new Pair<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -103,17 +105,18 @@ public class Config {
         TEXTURED_RANDOM_ENTITY = CONFIG.getOrDefault("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
         ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
         FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
+        VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", ConfigDataLoader.VERSION_OVERLAY);
         FORCE_PRIDE = CONFIG.getOrDefault("force_pride", ConfigDataLoader.FORCE_PRIDE);
         FORCE_PRIDE_TYPE = CONFIG.getOrDefault("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
         FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
-        VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", ConfigDataLoader.VERSION_OVERLAY);
-        HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", ConfigDataLoader.HIDE_ARMOR);
-        HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
-        DETECT_UPDATE_CHANNEL = CONFIG.getOrDefault("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
-        TUTORIALS = CONFIG.getOrDefault("tutorials", ConfigDataLoader.TUTORIALS);
+        SHOW_DEATH_COORDINATES = CONFIG.getOrDefault("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
         HIDE_BLOCK_OUTLINE = CONFIG.getOrDefault("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
         HIDE_CROSSHAIR = CONFIG.getOrDefault("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
-        SHOW_DEATH_COORDINATES = CONFIG.getOrDefault("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
+        HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", ConfigDataLoader.HIDE_ARMOR);
+        HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
+        HIDE_PLAYERS = CONFIG.getOrDefault("hide_nametags", ConfigDataLoader.HIDE_PLAYERS);
+        TUTORIALS = CONFIG.getOrDefault("tutorials", ConfigDataLoader.TUTORIALS);
+        DETECT_UPDATE_CHANNEL = CONFIG.getOrDefault("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -135,17 +138,18 @@ public class Config {
         CONFIG_PROVIDER.setConfig("textured_random_entity", TEXTURED_RANDOM_ENTITY);
         CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
         CONFIG_PROVIDER.setConfig("force_april_fools", FORCE_APRIL_FOOLS);
+        CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
         CONFIG_PROVIDER.setConfig("force_pride", FORCE_PRIDE);
         CONFIG_PROVIDER.setConfig("force_pride_type", FORCE_PRIDE_TYPE);
         CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
-        CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
-        CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
-        CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
-        CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
-        CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
+        CONFIG_PROVIDER.setConfig("show_death_coordinates", SHOW_DEATH_COORDINATES);
         CONFIG_PROVIDER.setConfig("hide_block_outline", HIDE_BLOCK_OUTLINE);
         CONFIG_PROVIDER.setConfig("hide_crosshair", HIDE_CROSSHAIR);
-        CONFIG_PROVIDER.setConfig("show_death_coordinates", SHOW_DEATH_COORDINATES);
+        CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
+        CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
+        CONFIG_PROVIDER.setConfig("hide_players", HIDE_PLAYERS);
+        CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
+        CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
         CONFIG_PROVIDER.setConfig("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
         CONFIG_PROVIDER.saveConfig(ID);
     }

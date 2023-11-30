@@ -15,8 +15,6 @@ public class ExperimentalConfig {
     protected static final String ID = Data.PERSPECTIVE_VERSION.getID() + "-experimental";
     protected static SimpleConfig CONFIG;
     protected static ConfigProvider CONFIG_PROVIDER;
-    protected static boolean ALLOW_HIDE_PLAYERS;
-    protected static boolean HIDE_PLAYERS;
     protected static void init() {
         try {
             CONFIG_PROVIDER = new ConfigProvider();
@@ -28,17 +26,13 @@ public class ExperimentalConfig {
         }
     }
     protected static void create() {
-        CONFIG_PROVIDER.add(new Pair<>("allow_hide_players", false));
-        CONFIG_PROVIDER.add(new Pair<>("hide_players", false));
     }
     protected static void assign() {
-        ALLOW_HIDE_PLAYERS = CONFIG.getOrDefault("allow_hide_players", false);
-        HIDE_PLAYERS = CONFIG.getOrDefault("hide_players", false);
     }
     protected static void save() {
-        Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing experimental config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
-        CONFIG_PROVIDER.setConfig("allow_hide_players", ALLOW_HIDE_PLAYERS);
-        CONFIG_PROVIDER.setConfig("hide_players", HIDE_PLAYERS);
-        CONFIG_PROVIDER.saveConfig(ID);
+        if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
+            Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing experimental config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+            CONFIG_PROVIDER.saveConfig(ID);
+        }
     }
 }

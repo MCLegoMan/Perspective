@@ -10,20 +10,20 @@ More information on this change will be posted as we get closer to 1.2.0-release
 - **Removed 'hide' related options for Super Secret Settings.**  
   - This was removed to help simplify registering shaders.  
     - The player still can toggle these using the config screen or their keybindings.  
-- **Reverted scroll wheel zoom changes.**  
-  - This fixes spectators not being able to zoom in and out.  
+- **Zoom HideHUD will now also hide the player's hands.**  
+- **Zoom Level Scroll Wheel Adjustment has been reverted as it didn't work in spectator mode.**
 - **Depth Shaders will now automatically disable screen mode.**  
   - Depth information is only available when the player is in-game. if the player restarted the game with the depth shader enabled on screen mode it would cause the screen to render blank.  
     - `disable_screen_mode` is still recommended to be set for depth shaders in case of use with older versions.  
-
-**Experimental Changelog**  
-- Added Hide Players Experiment.  
-  - This includes two config options and a resource pack dataloader.  
-    - Experimental Config Option: `allow_hide_players`  
-      - Enables the experiment, allows the dataloader and the `hide_players` options to work.  
-    - Experimental Config Option: `hide_players`  
-      - Hides all players expect for the user. Requires `allow_hide_players` to also be enabled.
-    - Dataloader: `/assets/perspective/hide_players.json`
+- **Updated Hide Crosshair.**
+  - This option has been changed to use a sting instead of a boolean.  
+    - The valid options that can be used are: `false`, `dynamic`, and `true`.  
+      - `true`/`false` use the same behaviour as previous versions.  
+      - `dynamic` only shows the crosshair when the player is looking at an entity or block.  
+- **Added Hide Players config option and dataloader.**  
+    - Config Option: `hide_players`  
+      - Hides all players expect for the user.  
+    - Dataloader: `/assets/perspective/hide_players.json`  
       - Uses the same format as the other hide dataloaders.  
 
 ### Development Build  

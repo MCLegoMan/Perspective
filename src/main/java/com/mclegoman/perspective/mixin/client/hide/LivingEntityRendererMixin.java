@@ -25,8 +25,6 @@ public abstract class LivingEntityRendererMixin {
     private void perspective$hide_nametag(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig("hide_nametags") || (entity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))))
             cir.setReturnValue(false);
-
-        // Hide Player Experiment
         if (entity instanceof PlayerEntity) {
             if (Hide.shouldHidePlayer((PlayerEntity) entity)) cir.setReturnValue(false);
         }

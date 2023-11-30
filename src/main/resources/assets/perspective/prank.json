@@ -3,9 +3,13 @@
 		"mclegoman_normal",
 		"mclegoman_pride",
 		"mclegoman_trans",
+		"mclegoman_sheep",
+		"mclegoman_orange_sheep",
 		"mclegoblock_normal",
 		"mclegoblock_pride",
-		"mclegoblock_trans"
+		"mclegoblock_trans",
+		"mclegoblock_sheep",
+		"mclegoblock_orange_sheep"
 	],
 	"shouldFlipUpsideDown": true,
 	"shouldDisplayCape": true

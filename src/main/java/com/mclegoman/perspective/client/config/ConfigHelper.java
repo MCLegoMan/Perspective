@@ -28,13 +28,13 @@ public class ConfigHelper {
     protected static boolean SAVE_VIA_TICK = false;
     protected static int SAVE_VIA_TICK_TICKS = 0;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-    protected static final int DEFAULT_CONFIG_VERSION = 11;
+    protected static final int DEFAULT_CONFIG_VERSION = 12;
     private static boolean SEEN_DEVELOPMENT_WARNING = false;
     private static boolean SHOW_DOWNGRADE_WARNING = false;
     private static boolean SEEN_DOWNGRADE_WARNING = false;
     private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
     private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
-    public static boolean EXPERIMENTS_AVAILABLE = true;
+    public static boolean EXPERIMENTS_AVAILABLE = false;
     private static boolean SAVING = false;
     public static boolean isSaving() {
         return SAVING;
@@ -167,21 +167,20 @@ public class ConfigHelper {
             setConfig("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
             setConfig("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
             setConfig("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
+            setConfig("version_overlay", ConfigDataLoader.VERSION_OVERLAY);
             setConfig("force_pride", ConfigDataLoader.FORCE_PRIDE);
             setConfig("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
             setConfig("force_pride_type_index", Math.max(Math.min(ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0), ClientData.PRIDE_LOGOS.length - 1));
-            setConfig("version_overlay", ConfigDataLoader.VERSION_OVERLAY);
-            setConfig("hide_armor", ConfigDataLoader.HIDE_ARMOR);
-            setConfig("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
-            setConfig("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
-            setConfig("tutorials", ConfigDataLoader.TUTORIALS);
+            setConfig("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
             setConfig("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
             setConfig("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
-            setConfig("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
+            setConfig("hide_armor", ConfigDataLoader.HIDE_ARMOR);
+            setConfig("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
+            setConfig("hide_players", ConfigDataLoader.HIDE_PLAYERS);
+            setConfig("tutorials", ConfigDataLoader.TUTORIALS);
+            setConfig("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
             // Experimental Config
             if (EXPERIMENTS_AVAILABLE) {
-                setExperimentalConfig("allow_hide_players", false);
-                setExperimentalConfig("hide_players", false);
             }
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -207,17 +206,18 @@ public class ConfigHelper {
                 case "textured_random_entity" -> Config.TEXTURED_RANDOM_ENTITY = (boolean)VALUE;
                 case "allow_april_fools" -> Config.ALLOW_APRIL_FOOLS = (boolean)VALUE;
                 case "force_april_fools" -> Config.FORCE_APRIL_FOOLS = (boolean)VALUE;
+                case "version_overlay" -> Config.VERSION_OVERLAY = (boolean)VALUE;
                 case "force_pride" -> Config.FORCE_PRIDE = (boolean)VALUE;
                 case "force_pride_type" -> Config.FORCE_PRIDE_TYPE = (boolean)VALUE;
                 case "force_pride_type_index" -> Config.FORCE_PRIDE_TYPE_INDEX = Math.max(Math.min((int)VALUE, 0), ClientData.PRIDE_LOGOS.length - 1);
-                case "version_overlay" -> Config.VERSION_OVERLAY = (boolean)VALUE;
+                case "show_death_coordinates" -> Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
+                case "hide_block_outline" -> Config.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
+                case "hide_crosshair" -> Config.HIDE_CROSSHAIR = (String) VALUE;
                 case "hide_armor" -> Config.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> Config.HIDE_NAMETAGS = (boolean)VALUE;
-                case "detect_update_channel" -> Config.DETECT_UPDATE_CHANNEL = (String)VALUE;
+                case "hide_players" -> Config.HIDE_PLAYERS = (boolean)VALUE;
                 case "tutorials" -> Config.TUTORIALS = (boolean) VALUE;
-                case "hide_block_outline" -> Config.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
-                case "hide_crosshair" -> Config.HIDE_CROSSHAIR = (boolean) VALUE;
-                case "show_death_coordinates" -> Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
+                case "detect_update_channel" -> Config.DETECT_UPDATE_CHANNEL = (String)VALUE;
                 case "config_version" -> Config.CONFIG_VERSION = (int)VALUE;
                 default -> Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
@@ -228,8 +228,6 @@ public class ConfigHelper {
     public static void setExperimentalConfig(String ID, Object VALUE) {
         try {
             switch (ID) {
-                case "allow_hide_players" -> ExperimentalConfig.ALLOW_HIDE_PLAYERS = (boolean) VALUE;
-                case "hide_players" -> ExperimentalConfig.HIDE_PLAYERS = (boolean) VALUE;
                 default -> Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
         } catch (Exception error) {
@@ -277,17 +275,18 @@ public class ConfigHelper {
             case "textured_random_entity" -> {return Config.TEXTURED_RANDOM_ENTITY;}
             case "allow_april_fools" -> {return Config.ALLOW_APRIL_FOOLS;}
             case "force_april_fools" -> {return Config.FORCE_APRIL_FOOLS;}
+            case "version_overlay" -> {return Config.VERSION_OVERLAY;}
             case "force_pride" -> {return Config.FORCE_PRIDE;}
             case "force_pride_type" -> {return Config.FORCE_PRIDE_TYPE;}
             case "force_pride_type_index" -> {return Math.max(Math.min(Config.FORCE_PRIDE_TYPE_INDEX, 0), ClientData.PRIDE_LOGOS.length - 1);}
-            case "version_overlay" -> {return Config.VERSION_OVERLAY;}
-            case "hide_armor" -> {return Config.HIDE_ARMOR;}
-            case "hide_nametags" -> {return Config.HIDE_NAMETAGS;}
-            case "detect_update_channel" -> {return Config.DETECT_UPDATE_CHANNEL;}
-            case "tutorials" -> {return Config.TUTORIALS;}
+            case "show_death_coordinates" -> {return Config.SHOW_DEATH_COORDINATES;}
             case "hide_block_outline" -> {return Config.HIDE_BLOCK_OUTLINE;}
             case "hide_crosshair" -> {return Config.HIDE_CROSSHAIR;}
-            case "show_death_coordinates" -> {return Config.SHOW_DEATH_COORDINATES;}
+            case "hide_armor" -> {return Config.HIDE_ARMOR;}
+            case "hide_nametags" -> {return Config.HIDE_NAMETAGS;}
+            case "hide_players" -> {return Config.HIDE_PLAYERS;}
+            case "tutorials" -> {return Config.TUTORIALS;}
+            case "detect_update_channel" -> {return Config.DETECT_UPDATE_CHANNEL;}
             case "config_version" -> {return Config.CONFIG_VERSION;}
             default -> {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
@@ -297,8 +296,6 @@ public class ConfigHelper {
     }
     public static Object getExperimentalConfig(String ID) {
         switch (ID) {
-            case "allow_hide_players" -> {return ExperimentalConfig.ALLOW_HIDE_PLAYERS;}
-            case "hide_players" -> {return ExperimentalConfig.HIDE_PLAYERS;}
             default -> {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
                 return new Object();

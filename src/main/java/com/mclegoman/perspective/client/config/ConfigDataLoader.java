@@ -38,17 +38,18 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
     public static boolean TEXTURED_RANDOM_ENTITY;
     public static boolean ALLOW_APRIL_FOOLS;
     public static boolean FORCE_APRIL_FOOLS;
+    public static boolean VERSION_OVERLAY;
     public static boolean FORCE_PRIDE;
     public static boolean FORCE_PRIDE_TYPE;
     public static int FORCE_PRIDE_TYPE_INDEX;
-    public static boolean VERSION_OVERLAY;
+    public static boolean SHOW_DEATH_COORDINATES;
+    public static boolean HIDE_BLOCK_OUTLINE;
+    public static String HIDE_CROSSHAIR;
     public static boolean HIDE_ARMOR;
     public static boolean HIDE_NAMETAGS;
-    public static String DETECT_UPDATE_CHANNEL;
+    public static boolean HIDE_PLAYERS;
     public static boolean TUTORIALS;
-    public static boolean HIDE_BLOCK_OUTLINE;
-    public static boolean HIDE_CROSSHAIR;
-    public static boolean SHOW_DEATH_COORDINATES;
+    public static String DETECT_UPDATE_CHANNEL;
     public static final String ID = "config";
     public ConfigDataLoader() {
         super(new Gson(), ID);
@@ -75,17 +76,18 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
                 TEXTURED_RANDOM_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "textured_random_entity", false);
                 ALLOW_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);
                 FORCE_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
+                VERSION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
                 FORCE_PRIDE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride", false);
                 FORCE_PRIDE_TYPE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type", false);
                 FORCE_PRIDE_TYPE_INDEX = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type_index", 0);
-                VERSION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
+                SHOW_DEATH_COORDINATES = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "show_death_coordinates", false);
+                HIDE_BLOCK_OUTLINE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_block_outline", false);
+                HIDE_CROSSHAIR = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_crosshair", "false");
                 HIDE_ARMOR = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
                 HIDE_NAMETAGS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
-                DETECT_UPDATE_CHANNEL = JsonHelper.getDetectUpdateChannel(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
+                HIDE_PLAYERS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_players", false);
                 TUTORIALS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "tutorials", true);
-                HIDE_BLOCK_OUTLINE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_block_outline", false);
-                HIDE_CROSSHAIR = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_crosshair", false);
-                SHOW_DEATH_COORDINATES = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "show_death_coordinates", false);
+                DETECT_UPDATE_CHANNEL = JsonHelper.getDetectUpdateChannel(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
             }
             ConfigHelper.loadConfig();
         } catch (Exception error) {

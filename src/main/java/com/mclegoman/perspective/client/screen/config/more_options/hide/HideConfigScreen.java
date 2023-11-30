@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.screen.config.more_options.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
@@ -72,22 +73,26 @@ public class HideConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_block_outline", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_block_outline"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("hide_block_outline", !(boolean) ConfigHelper.getConfig("hide_block_outline"));
             this.REFRESH = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_block_outline", true)));
+        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_block_outline", true)));
 
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_crosshair", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_crosshair"), TranslationType.ONFF)}), (button) -> {
-            ConfigHelper.setConfig("hide_crosshair", !(boolean) ConfigHelper.getConfig("hide_crosshair"));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_crosshair", new Object[]{Translation.getHideCrosshairModeTranslation((String) ConfigHelper.getConfig("hide_crosshair"))}), (button) -> {
+            ConfigHelper.setConfig("hide_crosshair", Hide.nextCrosshairMode());
             this.REFRESH = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_crosshair", true)));
+        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_crosshair", true)));
 
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_armor", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_armor"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("hide_armor", !(boolean) ConfigHelper.getConfig("hide_armor"));
             this.REFRESH = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_armor", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_armor"), TranslationType.ONFF)}, true)));
+        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_armor", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_armor"), TranslationType.ONFF)}, true)));
 
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_nametags", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("hide_nametags", !(boolean) ConfigHelper.getConfig("hide_nametags"));
             this.REFRESH = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_nametags", true)));
+        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_nametags", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_players", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_players"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_players", !(boolean) ConfigHelper.getConfig("hide_players"));
+            this.REFRESH = true;
+        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_players", true)));
         return GRID;
     }
     private GridWidget createFooter() {

@@ -77,6 +77,12 @@ public class Translation {
         else if (key.equalsIgnoreCase("spyglass")) return getConfigTranslation("zoom.camera_mode.spyglass");
         else return getErrorTranslation();
     }
+    public static Text getHideCrosshairModeTranslation(String key) {
+        if (key.equalsIgnoreCase("false")) return getTranslation("variable.onff.off");
+        else if (key.equalsIgnoreCase("dynamic")) return getTranslation("variable.dynamic");
+        else if (key.equalsIgnoreCase("true")) return getTranslation("variable.onff.on");
+        else return getErrorTranslation();
+    }
     public static Text getDetectUpdateChannelTranslation(String key) {
         if (key.equalsIgnoreCase("none")) return getConfigTranslation("detect_update_channel.none");
         else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation("detect_update_channel.alpha");

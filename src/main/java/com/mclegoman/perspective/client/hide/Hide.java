@@ -15,6 +15,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resource.ResourceType;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class Hide {
@@ -39,12 +41,15 @@ public class Hide {
 
 	public static boolean shouldHidePlayer(PlayerEntity player) {
 		if (ClientData.CLIENT.player != null) {
-			if ((boolean) ConfigHelper.getExperimentalConfig("allow_hide_players")) {
-				UUID uuid = player.getGameProfile().getId();
-				if (!uuid.equals(ClientData.CLIENT.player.getGameProfile().getId()))
-					return (boolean) ConfigHelper.getExperimentalConfig("hide_players") || HidePlayerDataLoader.REGISTRY.contains(String.valueOf(player.getGameProfile().getId()));
-			}
+			UUID uuid = player.getGameProfile().getId();
+			if (!uuid.equals(ClientData.CLIENT.player.getGameProfile().getId()))
+				return (boolean) ConfigHelper.getConfig("hide_players") || HidePlayerDataLoader.REGISTRY.contains(String.valueOf(player.getGameProfile().getId()));
 		}
 		return false;
+	}
+	private static final String[] hideCrosshairModes = new String[]{"false", "dynamic", "true"};
+	public static String nextCrosshairMode() {
+		List<String> crosshairModes = Arrays.stream(hideCrosshairModes).toList();
+		return crosshairModes.contains((String) ConfigHelper.getConfig("hide_crosshair")) ? hideCrosshairModes[(crosshairModes.indexOf((String) ConfigHelper.getConfig("hide_crosshair")) + 1) % hideCrosshairModes.length] : hideCrosshairModes[0];
 	}
 }
