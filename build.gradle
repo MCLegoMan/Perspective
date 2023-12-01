@@ -18,6 +18,7 @@ runClient.doFirst {
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url 'https://api.modrinth.com/maven' }
 }
 
 dependencies {
@@ -33,6 +34,8 @@ dependencies {
 	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+	//modImplementation "maven.modrinth:sodium:${project.sodium}"
+	//modImplementation "maven.modrinth:iris:${project.iris}"
 	modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
 }
 

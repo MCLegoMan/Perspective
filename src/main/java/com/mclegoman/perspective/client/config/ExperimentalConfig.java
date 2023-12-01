@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
-import com.mojang.datafixers.util.Pair;
 
 public class ExperimentalConfig {
     protected static final String ID = Data.PERSPECTIVE_VERSION.getID() + "-experimental";

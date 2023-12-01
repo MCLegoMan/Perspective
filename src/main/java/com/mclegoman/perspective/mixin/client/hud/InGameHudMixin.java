@@ -13,7 +13,6 @@ import com.mclegoman.perspective.client.hud.DebugHUD;
 import com.mclegoman.perspective.client.hud.HUD;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;

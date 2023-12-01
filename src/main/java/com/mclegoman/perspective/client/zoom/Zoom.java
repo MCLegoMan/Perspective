@@ -10,7 +10,6 @@ package com.mclegoman.perspective.client.zoom;
 import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.hud.DebugHUD;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;

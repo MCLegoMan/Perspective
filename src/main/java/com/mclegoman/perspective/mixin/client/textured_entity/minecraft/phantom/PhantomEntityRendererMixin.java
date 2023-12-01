@@ -8,8 +8,6 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.phantom;
 
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.PhantomEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.PhantomEntity;

@@ -172,7 +172,7 @@ public class Shader {
 	}
 
 	public static boolean shouldRenderShader() {
-		return postProcessor != null && (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
+		return (postProcessor != null && (boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) || ClientData.CLIENT.gameRenderer.isRenderingPanorama();
 	}
 
 	public static void render(float tickDelta, String renderType) {

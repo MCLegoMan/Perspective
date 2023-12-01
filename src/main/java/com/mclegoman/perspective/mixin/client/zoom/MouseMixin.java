@@ -11,7 +11,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.zoom.Zoom;
-import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.hud.HUD;
-import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

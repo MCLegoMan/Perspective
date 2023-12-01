@@ -7,7 +7,11 @@
 
 package com.mclegoman.perspective.client.panorama;
 
+import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.shaders.Shader;
+import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
+import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -15,31 +19,42 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
+import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Panorama {
+    @Nullable
+    private static PostEffectProcessor panoramaPostProcessor;
     private static final String[] INCOMPATIBLE = new String[]{"sodium"};
     private static final List<String> INCOMPATIBLE_MODS_FOUND = new ArrayList<>();
+
     public static void init() {
-        for (String mod : INCOMPATIBLE) if (FabricLoader.getInstance().isModLoaded(mod)) INCOMPATIBLE_MODS_FOUND.add(mod);
+        for (String mod : INCOMPATIBLE)
+            if (FabricLoader.getInstance().isModLoaded(mod)) INCOMPATIBLE_MODS_FOUND.add(mod);
     }
+
     public static void tick(MinecraftClient client) {
         if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024);
     }
+
     private static String getTime() {
         return String.valueOf(LocalDateTime.now()).replace(":", "");
     }
     private static void takePanorama(int resolution) {
+        boolean shouldRenderShader = (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
         if (ClientData.CLIENT.player != null) {
             try {
                 if (INCOMPATIBLE_MODS_FOUND.size() == 0) {
@@ -85,7 +100,16 @@ public class Panorama {
                             }
                             framebuffer.beginWrite(true);
                             ClientData.CLIENT.gameRenderer.render(ClientData.CLIENT.getTickDelta(), Util.getMeasuringTimeNano(), true);
+                            Shader.render(ClientData.CLIENT.getTickDelta(), "panorama");
+
+                            if (shouldRenderShader) {
+                                panoramaPostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+                                panoramaPostProcessor.setupDimensions(resolution, resolution);
+                                panoramaPostProcessor.render(ClientData.CLIENT.getTickDelta());
+                            }
+
                             ScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
+                            if (panoramaPostProcessor != null) panoramaPostProcessor.close();
                         }
                         File pack_file = new File(rpDirLoc + "/pack.mcmeta");
                         if (pack_file.createNewFile()) {
