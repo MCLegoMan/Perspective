@@ -1,32 +1,41 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 
-It's bug fixing season! This update fixes bugs related to zoom and depth based shaders.
+Continuing the bug fixes!
 
-### Perspective 1.2.0-beta.1 for 1.20.2.  
+### Perspective 1.2.0-beta.2 for 1.20.2.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*
 More information on this change will be posted as we get closer to 1.2.0-release.1.  
 
 *I am planning to backport to 1.20, 1.20.1 for this release cycle.*  
 
 ## Changelog  
-- **Removed 'hide' related options for Super Secret Settings.**  
-  - This was removed to help simplify registering shaders.  
-    - The player still can toggle these using the config screen or their keybindings.  
-- **Zoom HideHUD will now also hide the player's hands.**  
-- **Zoom Level Scroll Wheel Adjustment has been reverted as it didn't work in spectator mode.**
-- **Depth Shaders will now automatically disable screen mode.**  
-  - Depth information is only available when the player is in-game. if the player restarted the game with the depth shader enabled on screen mode it would cause the screen to render blank.  
-    - `disable_screen_mode` is still recommended to be set for depth shaders in case of use with older versions.  
-- **Updated Hide Crosshair.**
-  - This option has been changed to use a sting instead of a boolean.  
-    - The valid options that can be used are: `false`, `dynamic`, and `true`.  
-      - `true`/`false` use the same behaviour as previous versions.  
-      - `dynamic` only shows the crosshair when the player is looking at an entity or block.  
-- **Added Hide Players config option and dataloader.**  
-    - Config Option: `hide_players`  
-      - Hides all players expect for the user.  
-    - Dataloader: `/assets/perspective/hide_players.json`  
-      - Uses the same format as the other hide dataloaders.  
+- **Updated Config Version to `13`.**  
+  - Added config option `hide_show_message`.  
+    - This will toggle whether the overlay message is shown when toggling/cycling hide options using keybindings.  
+  - The config version was updated to `12` in `1.2.0-beta.1`.  
+- **Depth Shaders will now render properly when an entity with glowing is rendered.**  
+  - If you experience any issues relating to this, try cycling your graphics options and report the issue.  
+- **Updated Take Panorama Screenshot**  
+  - The name format has been updated to match vanilla screenshots.  
+  - Super Secret Settings will now be rendered on the panorama screenshots.  
+- **Resetting Zoom will now update `zoomUpdated` instead of directly saving.**  
+  - `zoomUpdated` will save the config after the player stops zooming.  
+- **Textured Entity Bees now have all varients of their textures.**
+  - These textures are stored in the same location as previous versions.
+  ```
+    - assets/
+      - minecraft/
+        - textures/
+          - textured_entity/
+            - bee/
+              - `<name>.png`
+              - `<name>_nectar.png`
+              - `<name>_angry.png`
+              - `<name>_angry_nectar.png`
+  ```
+- **Updated Perspective: Default Resource Pack**  
+  - Added `Tee` Textured Entity Bee.  
+  - Updated `perspective:silhouette` shader to be more visible.  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
