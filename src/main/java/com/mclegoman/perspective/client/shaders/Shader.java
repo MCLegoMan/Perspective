@@ -20,6 +20,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
@@ -194,5 +195,18 @@ public class Shader {
 		else if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen"))
 			ConfigHelper.setConfig("super_secret_settings_mode", "game");
 		else ConfigHelper.setConfig("super_secret_settings_mode", "game");
+	}
+	public static void saveDepth(boolean renderFastFancy, boolean renderFabulous, boolean beginWrite) {
+		boolean currentGraphics = ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
+		boolean shouldSaveDepth = false;
+		if (!currentGraphics && renderFastFancy) shouldSaveDepth = true;
+		else if (currentGraphics && renderFabulous) shouldSaveDepth = true;
+
+		if (shouldSaveDepth) {
+			if (Shader.USE_DEPTH) {
+				Shader.DEPTH_FRAME_BUFFER.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+				if (beginWrite) ClientData.CLIENT.getFramebuffer().beginWrite(false);
+			}
+		}
 	}
 }
