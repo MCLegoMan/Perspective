@@ -86,7 +86,7 @@ public class Zoom {
 			if ((int) ConfigHelper.getConfig("zoom_level") != ConfigDataLoader.ZOOM_LEVEL) {
 				ConfigHelper.setConfig("zoom_level", ConfigDataLoader.ZOOM_LEVEL);
 				setOverlay();
-				ConfigHelper.saveConfig(true);
+				zoomUpdated = true;
 			}
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
