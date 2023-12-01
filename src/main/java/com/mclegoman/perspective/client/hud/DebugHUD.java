@@ -26,6 +26,7 @@ import java.util.List;
 
 public class DebugHUD {
 	public static Type debugType = Type.NONE;
+	public static Formatting shaderColor;
 
 	public static void renderDebugHUD(DrawContext context) {
 		int y = 2;
@@ -42,7 +43,7 @@ public class DebugHUD {
 			debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));
 			debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.NEWER_VERSION_FOUND));
 			debugText.add("\n");
-			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD));
+			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
 			debugText.add(Text.literal("shader: " + ShaderDataLoader.getFullShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
 			debugText.add(Text.literal("disable_screen_mode: " + Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE)));
 			debugText.add(Text.literal("render_type: " + Shader.RENDER_TYPE));
