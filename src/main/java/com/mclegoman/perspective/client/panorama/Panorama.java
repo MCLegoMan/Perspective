@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.panorama;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.toasts.Toast;
@@ -21,6 +20,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -30,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,27 +37,42 @@ import java.util.Objects;
 public class Panorama {
     @Nullable
     private static PostEffectProcessor panoramaPostProcessor;
-    private static final String[] INCOMPATIBLE = new String[]{"sodium"};
+    private static final String[] INCOMPATIBLE = new String[]{"sodium", "iris"};
     private static final List<String> INCOMPATIBLE_MODS_FOUND = new ArrayList<>();
 
     public static void init() {
         for (String mod : INCOMPATIBLE)
-            if (FabricLoader.getInstance().isModLoaded(mod)) INCOMPATIBLE_MODS_FOUND.add(mod);
+            if (Data.isModInstalled(mod))
+                INCOMPATIBLE_MODS_FOUND.add(FabricLoader.getInstance().getModContainer(mod).get().getMetadata().getName());
     }
 
     public static void tick(MinecraftClient client) {
         if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024);
     }
 
-    private static String getTime() {
-        return String.valueOf(LocalDateTime.now()).replace(":", "");
+    private static String getFilename() {
+        String currentTime = Util.getFormattedCurrentTime();
+        String filename = currentTime;
+        int i = 1;
+        boolean shouldReturn = false;
+        while (!shouldReturn) {
+            String filename1 = currentTime + (i == 1 ? "" : "_" + i);
+            File file = new File(ClientData.CLIENT.runDirectory.getPath() + "/resourcepacks/", filename1);
+            if (!file.exists()) {
+                filename = filename1;
+                shouldReturn = true;
+            }
+            i++;
+        }
+        return filename;
     }
+
     private static void takePanorama(int resolution) {
         boolean shouldRenderShader = (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
         if (ClientData.CLIENT.player != null) {
             try {
                 if (INCOMPATIBLE_MODS_FOUND.size() == 0) {
-                    String panoramaName = getTime();
+                    String panoramaName = getFilename();
                     String rpDirLoc = ClientData.CLIENT.runDirectory.getPath() + "/resourcepacks/" + panoramaName;
                     String assetsDirLoc = rpDirLoc + "/assets/minecraft/textures/gui/title/background";
                     if (new File(assetsDirLoc).mkdirs()) {
@@ -99,15 +113,12 @@ public class Panorama {
                                 }
                             }
                             framebuffer.beginWrite(true);
-                            ClientData.CLIENT.gameRenderer.render(ClientData.CLIENT.getTickDelta(), Util.getMeasuringTimeNano(), true);
-                            Shader.render(ClientData.CLIENT.getTickDelta(), "panorama");
-
+                            ClientData.CLIENT.gameRenderer.renderWorld(1.0F, 0L, new MatrixStack());
                             if (shouldRenderShader) {
                                 panoramaPostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
                                 panoramaPostProcessor.setupDimensions(resolution, resolution);
                                 panoramaPostProcessor.render(ClientData.CLIENT.getTickDelta());
                             }
-
                             ScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
                             if (panoramaPostProcessor != null) panoramaPostProcessor.close();
                         }
@@ -129,8 +140,10 @@ public class Panorama {
                         ClientData.CLIENT.getFramebuffer().beginWrite(true);
                     }
                 } else {
-                    Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mods: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
-                    ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.failure.description", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}), 320, Toast.Type.WARNING));
+                    Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mod(s): {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", ""));
+                    Text title = Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")});
+                    Text description = (INCOMPATIBLE_MODS_FOUND.size() == 1) ? Translation.getTranslation("toasts.take_panorama_screenshot.failure.description.incompatible_mod", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")}) : Translation.getTranslation("toasts.take_panorama_screenshot.failure.description.incompatible_mods", new Object[]{INCOMPATIBLE_MODS_FOUND.toString().replace("[", "").replace("]", "")});
+                    ClientData.CLIENT.getToastManager().add(new Toast(title, description, 320, Toast.Type.WARNING));
                 }
             } catch (Exception error) {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);

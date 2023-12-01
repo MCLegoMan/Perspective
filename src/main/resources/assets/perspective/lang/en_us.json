@@ -21,7 +21,8 @@
 	"gui.perspective.toasts.take_panorama_screenshot.success.title": "Saved panorama!",
 	"gui.perspective.toasts.take_panorama_screenshot.success.description": "You can enable the panorama in your resource pack menu by enabling the %s resource pack.",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.title": "Failed to take panorama!",
-	"gui.perspective.toasts.take_panorama_screenshot.failure.description": "Incompatible Mods: %s",
+	"gui.perspective.toasts.take_panorama_screenshot.failure.description.incompatible_mod": "Incompatible Mod: %s",
+	"gui.perspective.toasts.take_panorama_screenshot.failure.description.incompatible_mods": "Incompatible Mods: %s",
 
 	"gui.perspective.toasts.tutorial.title": "%s Tutorial: %s",
 
