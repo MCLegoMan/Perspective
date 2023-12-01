@@ -42,7 +42,7 @@ public abstract class InGameHudMixin {
                     if (hide_crosshair) {
                         if (ClientData.CLIENT.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
                             if (ClientData.CLIENT.player != null) {
-                                if (ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+                                if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
                                     float cooldownProgress = ClientData.CLIENT.player.getAttackCooldownProgress(0.0F);
                                     boolean cooldownProgressFull = false;
                                     if (ClientData.CLIENT.targetedEntity instanceof LivingEntity && cooldownProgress >= 1.0F) {

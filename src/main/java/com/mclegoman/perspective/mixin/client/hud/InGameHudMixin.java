@@ -26,7 +26,7 @@ public abstract class InGameHudMixin {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (HUD.shouldHideHUD()) ci.cancel();
-        if (ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+        if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
             float h = HUDOverlays.REMAINING - tickDelta;
             int l = (int) (h * 255.0F / 20.0F);
             if (l > 255) l = 255;
