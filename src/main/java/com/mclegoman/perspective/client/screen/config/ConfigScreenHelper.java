@@ -27,7 +27,7 @@ public class ConfigScreenHelper {
         if (UpdateChecker.NEWER_VERSION_FOUND) {
             GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation("update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
             Text NEW_VERSION_TEXT = Translation.getConfigTranslation("update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}, new Formatting[]{Formatting.YELLOW});
-            GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(UpdateChecker.DOWNLOAD_LINK, PARENT_SCREEN, true)), client.textRenderer));
+            GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(PARENT_SCREEN, UpdateChecker.DOWNLOAD_LINK)), client.textRenderer));
         }
         if (showPageName) {
             GRID_ADDER.add(new EmptyWidget(2, 2));

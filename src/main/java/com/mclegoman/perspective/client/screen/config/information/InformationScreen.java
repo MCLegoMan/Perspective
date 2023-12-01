@@ -68,11 +68,11 @@ public class InformationScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.documentation"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective", this,true)).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.documentation", true)));
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.source_code"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this,true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.source_code", true)));
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this,true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.report", true)));
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.credits_attribution"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective/Credits_and_Attribution", this,true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.credits_attribution", true)));
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.licenses"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective/Licenses", this,true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.licenses", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.documentation", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.source_code"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective")).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.source_code", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.report"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective/issues")).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.report", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.credits_attribution"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective/Credits_and_Attribution")).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.credits_attribution", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.licenses"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective/Licenses")).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.licenses", true)));
         return GRID;
     }
     private GridWidget createFooter() {
