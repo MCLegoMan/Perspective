@@ -15,7 +15,7 @@
       "outtarget": "swap"
     },
     {
-      "name": "perspective:outlined",
+      "name": "perspective:silhouette_outline",
       "intarget": "swap",
       "outtarget": "final",
       "auxtargets": [

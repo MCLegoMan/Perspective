@@ -5,7 +5,7 @@
 		"dstrgb": "zero"
 	},
 	"vertex": "sobel",
-	"fragment": "perspective:outlined",
+	"fragment": "perspective:silhouette_outline",
 	"attributes": [ "Position" ],
 	"samplers": [
 		{ "name": "DiffuseSampler" },
