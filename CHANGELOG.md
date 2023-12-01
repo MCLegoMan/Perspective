@@ -17,7 +17,7 @@ More information on this change will be posted as we get closer to 1.2.0-release
   - If you experience any issues relating to this, try cycling your graphics options and report the issue.  
 - **Updated Take Panorama Screenshot**  
   - The name format has been updated to match vanilla screenshots.  
-  - Super Secret Settings will now be rendered on the panorama screenshots.  
+  - Perspective Super Secret Settings will now be rendered on the panorama screenshots.  
 - **Resetting Zoom will now update `zoomUpdated` instead of directly saving.**  
   - `zoomUpdated` will save the config after the player stops zooming.  
 - **Textured Entity Bees now have all variants of their textures.**
@@ -33,6 +33,7 @@ More information on this change will be posted as we get closer to 1.2.0-release
               - <name>_angry.png
               - <name>_angry_nectar.png
   ```
+- **Toggle Zoom has been updated to invert the output of Hold Zoom.**  
 - **Updated Perspective: Default Resource Pack**  
   - Added `Tee` Textured Entity Bee.  
   - Updated `perspective:silhouette` shader to be more visible.  

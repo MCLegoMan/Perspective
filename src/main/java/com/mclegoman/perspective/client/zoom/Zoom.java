@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Zoom {
+	public static boolean zoomInverted;
 	public static double fov;
 	private static boolean zoomUpdated;
 	public static double prevZoomMultiplier;
@@ -37,15 +38,13 @@ public class Zoom {
 	public static double limitFov(double fov) {
 		return Math.max(Math.max(0.1, fov), Math.min(fov, 110));
 	}
-
-	public static boolean SET_ZOOM;
 	public static boolean isZooming() {
-		return ClientData.CLIENT.player != null && (Keybindings.HOLD_ZOOM.isPressed() || SET_ZOOM);
+		return ClientData.CLIENT.player != null && (zoomInverted != Keybindings.HOLD_ZOOM.isPressed());
 	}
 	public static void tick(MinecraftClient client) {
 		try {
 			updateZoomMultiplier();
-			if (Keybindings.TOGGLE_ZOOM.wasPressed()) SET_ZOOM = !SET_ZOOM;
+			if (Keybindings.TOGGLE_ZOOM.wasPressed()) zoomInverted = !zoomInverted;
 			if (!isZooming() && zoomUpdated) {
 				ConfigHelper.saveConfig(true);
 				zoomUpdated = false;
