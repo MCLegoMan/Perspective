@@ -28,10 +28,10 @@ More information on this change will be posted as we get closer to 1.2.0-release
         - textures/
           - textured_entity/
             - bee/
-              - `<name>.png`
-              - `<name>_nectar.png`
-              - `<name>_angry.png`
-              - `<name>_angry_nectar.png`
+              - <name>.png
+              - <name>_nectar.png
+              - <name>_angry.png
+              - <name>_angry_nectar.png
   ```
 - **Updated Perspective: Default Resource Pack**  
   - Added `Tee` Textured Entity Bee.  
