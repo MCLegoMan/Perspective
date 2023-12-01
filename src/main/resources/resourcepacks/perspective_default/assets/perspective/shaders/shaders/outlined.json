@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "outlined",
+  "disable_screen_mode": true,
+  "enabled": true
+}

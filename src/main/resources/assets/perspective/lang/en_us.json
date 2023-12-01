@@ -229,8 +229,11 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
 
-	"gui.perspective.resource_pack.perspective_default": "Perspective Default",
+	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
 	"gui.perspective.resource_pack.perspective_default.description": "Adds new custom resources to Perspective's features.",
+
+	"gui.perspective.resource_pack.perspective_experimental": "Perspective: Experimental",
+	"gui.perspective.resource_pack.perspective_experimental.description": "Adds new experimental custom resources to Perspective's features.",
 
 	"gui.perspective.variable.endisable.on": "Enabled",
 	"gui.perspective.variable.endisable.off": "Disabled",
