@@ -36,7 +36,6 @@ public class PerspectiveClient implements ClientModInitializer {
 			TexturedEntity.init();
 			AprilFoolsPrank.init();
 			Tick.init();
-			ClientData.isFinishedLoading = true;
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}

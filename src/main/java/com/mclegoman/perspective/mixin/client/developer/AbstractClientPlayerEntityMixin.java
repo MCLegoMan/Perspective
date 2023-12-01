@@ -8,13 +8,12 @@
 package com.mclegoman.perspective.mixin.client.developer;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
-import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataloader;
 import com.mclegoman.perspective.client.util.Cape;
-import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,13 +29,18 @@ public class AbstractClientPlayerEntityMixin {
 	@Shadow
 	@Nullable
 	private PlayerListEntry playerListEntry;
-	@Inject(method = "getCapeTexture", at = @At("RETURN"), cancellable = true)
-	private void getCapeTexture(CallbackInfoReturnable<Identifier> cir) {
-		if (this.playerListEntry != null) {
-			for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
-				if (DEVELOPER.get(0).equals(playerListEntry.getProfile().getId().toString())) {
-					if ((boolean) DEVELOPER.get(3)) {
-						cir.setReturnValue(Cape.getCapeTexture((String) DEVELOPER.get(4)));
+
+	@Inject(method = "getSkinTextures", at = @At("RETURN"), cancellable = true)
+	private void getSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
+		if (!((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
+			if (this.playerListEntry != null) {
+				for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
+					if (DEVELOPER.get(0).equals(playerListEntry.getProfile().getId().toString())) {
+						if ((boolean) DEVELOPER.get(3)) {
+							SkinTextures currentSkinTextures = cir.getReturnValue();
+							Identifier capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(4));
+							cir.setReturnValue(new SkinTextures(currentSkinTextures.texture(), currentSkinTextures.textureUrl(), capeTexture, capeTexture, currentSkinTextures.model(), currentSkinTextures.secure()));
+						}
 					}
 				}
 			}

@@ -17,7 +17,6 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.toast.SystemToast;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -29,7 +28,7 @@ public class ConfigHelper {
     protected static boolean SAVE_VIA_TICK = false;
     protected static int SAVE_VIA_TICK_TICKS = 0;
     protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-    protected static final int DEFAULT_CONFIG_VERSION = 12;
+    protected static final int DEFAULT_CONFIG_VERSION = 13;
     private static boolean SEEN_DEVELOPMENT_WARNING = false;
     private static boolean SHOW_DOWNGRADE_WARNING = false;
     private static boolean SEEN_DOWNGRADE_WARNING = false;
@@ -78,17 +77,17 @@ public class ConfigHelper {
     private static void showToasts(MinecraftClient client) {
         if (Data.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
             Data.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), SystemToast.Type.TUTORIAL_HINT));
+            client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), 320, Toast.Type.WARNING));
             SEEN_DEVELOPMENT_WARNING = true;
         }
         if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
             Data.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", Data.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), SystemToast.Type.TUTORIAL_HINT));
+            client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
             SEEN_DOWNGRADE_WARNING = true;
         }
         if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
             Data.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", Data.PERSPECTIVE_VERSION.getName());
-            client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), SystemToast.Type.TUTORIAL_HINT));
+            client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), 320, Toast.Type.INFO));
             SEEN_LICENSE_UPDATE_NOTICE = true;
         }
     }
@@ -178,6 +177,7 @@ public class ConfigHelper {
             setConfig("hide_armor", ConfigDataLoader.HIDE_ARMOR);
             setConfig("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
             setConfig("hide_players", ConfigDataLoader.HIDE_PLAYERS);
+            setConfig("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE);
             setConfig("tutorials", ConfigDataLoader.TUTORIALS);
             setConfig("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
             // Experimental Config
@@ -217,6 +217,7 @@ public class ConfigHelper {
                 case "hide_armor" -> Config.HIDE_ARMOR = (boolean)VALUE;
                 case "hide_nametags" -> Config.HIDE_NAMETAGS = (boolean)VALUE;
                 case "hide_players" -> Config.HIDE_PLAYERS = (boolean)VALUE;
+                case "hide_show_message" -> Config.HIDE_SHOW_MESSAGE = (boolean)VALUE;
                 case "tutorials" -> Config.TUTORIALS = (boolean) VALUE;
                 case "detect_update_channel" -> Config.DETECT_UPDATE_CHANNEL = (String)VALUE;
                 case "config_version" -> Config.CONFIG_VERSION = (int)VALUE;
@@ -286,6 +287,7 @@ public class ConfigHelper {
             case "hide_armor" -> {return Config.HIDE_ARMOR;}
             case "hide_nametags" -> {return Config.HIDE_NAMETAGS;}
             case "hide_players" -> {return Config.HIDE_PLAYERS;}
+            case "hide_show_message" -> {return Config.HIDE_SHOW_MESSAGE;}
             case "tutorials" -> {return Config.TUTORIALS;}
             case "detect_update_channel" -> {return Config.DETECT_UPDATE_CHANNEL;}
             case "config_version" -> {return Config.CONFIG_VERSION;}

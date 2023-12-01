@@ -39,6 +39,7 @@ public class Config {
     protected static boolean HIDE_ARMOR;
     protected static boolean HIDE_NAMETAGS;
     protected static boolean HIDE_PLAYERS;
+    protected static boolean HIDE_SHOW_MESSAGE;
     protected static String DETECT_UPDATE_CHANNEL;
     protected static boolean TUTORIALS;
     protected static boolean HIDE_BLOCK_OUTLINE;
@@ -83,6 +84,7 @@ public class Config {
         CONFIG_PROVIDER.add(new Pair<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
         CONFIG_PROVIDER.add(new Pair<>("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS));
         CONFIG_PROVIDER.add(new Pair<>("hide_players", ConfigDataLoader.HIDE_PLAYERS));
+        CONFIG_PROVIDER.add(new Pair<>("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE));
         CONFIG_PROVIDER.add(new Pair<>("tutorials", ConfigDataLoader.TUTORIALS));
         CONFIG_PROVIDER.add(new Pair<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
         CONFIG_PROVIDER.add(new Pair<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
@@ -115,6 +117,7 @@ public class Config {
         HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", ConfigDataLoader.HIDE_ARMOR);
         HIDE_NAMETAGS = CONFIG.getOrDefault("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
         HIDE_PLAYERS = CONFIG.getOrDefault("hide_nametags", ConfigDataLoader.HIDE_PLAYERS);
+        HIDE_SHOW_MESSAGE = CONFIG.getOrDefault("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE);
         TUTORIALS = CONFIG.getOrDefault("tutorials", ConfigDataLoader.TUTORIALS);
         DETECT_UPDATE_CHANNEL = CONFIG.getOrDefault("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
@@ -148,6 +151,7 @@ public class Config {
         CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
         CONFIG_PROVIDER.setConfig("hide_nametags", HIDE_NAMETAGS);
         CONFIG_PROVIDER.setConfig("hide_players", HIDE_PLAYERS);
+        CONFIG_PROVIDER.setConfig("hide_show_message", HIDE_SHOW_MESSAGE);
         CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
         CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
         CONFIG_PROVIDER.setConfig("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);

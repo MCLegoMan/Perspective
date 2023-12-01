@@ -13,11 +13,11 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class Keybindings {
+    public static final KeyBinding CYCLE_CROSSHAIR;
     public static final KeyBinding CYCLE_SHADERS;
     public static final KeyBinding DEBUG;
     public static final KeyBinding HOLD_PERSPECTIVE_THIRD_PERSON_BACK;
@@ -31,7 +31,6 @@ public class Keybindings {
     public static final KeyBinding TAKE_PANORAMA_SCREENSHOT;
     public static final KeyBinding TOGGLE_ARMOR;
     public static final KeyBinding TOGGLE_BLOCK_OUTLINE;
-    public static final KeyBinding TOGGLE_CROSSHAIR;
     public static final KeyBinding TOGGLE_NAMETAGS;
     public static final KeyBinding TOGGLE_PLAYERS;
     public static final KeyBinding TOGGLE_SHADERS;
@@ -45,7 +44,7 @@ public class Keybindings {
         if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
             if (hasKeybindingConflicts(client)) {
                 Data.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.PERSPECTIVE_VERSION.getName());
-                client.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), SystemToast.Type.TUTORIAL_HINT));
+                client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
             }
             SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
         }
@@ -67,6 +66,7 @@ public class Keybindings {
     }
     static {
         ALL_KEYBINDINGS = new KeyBinding[]{
+                CYCLE_CROSSHAIR = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
                 CYCLE_SHADERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
                 DEBUG = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN),
                 HOLD_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
@@ -80,7 +80,6 @@ public class Keybindings {
                 TAKE_PANORAMA_SCREENSHOT = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
                 TOGGLE_ARMOR = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_armor", GLFW.GLFW_KEY_UNKNOWN),
                 TOGGLE_BLOCK_OUTLINE = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_block_outline", GLFW.GLFW_KEY_UNKNOWN),
-                TOGGLE_CROSSHAIR = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
                 TOGGLE_NAMETAGS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_nametags", GLFW.GLFW_KEY_UNKNOWN),
                 TOGGLE_PLAYERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID() + "-experimental", "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
                 TOGGLE_SHADERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),

@@ -93,7 +93,11 @@ public class HideConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_players", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_players"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("hide_players", !(boolean) ConfigHelper.getConfig("hide_players"));
             this.REFRESH = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_players", true)));
+        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide.hide_players", true)));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.show_message", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_show_message"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_show_message", !(boolean) ConfigHelper.getConfig("hide_show_message"));
+            this.REFRESH = true;
+        }).build());
         return GRID;
     }
     private GridWidget createFooter() {
@@ -127,7 +131,6 @@ public class HideConfigScreen extends Screen {
     }
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
     }
 }

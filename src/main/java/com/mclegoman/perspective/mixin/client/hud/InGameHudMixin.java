@@ -44,7 +44,7 @@ public abstract class InGameHudMixin {
     @Inject(at = @At("RETURN"), method = "render")
     private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (!HUD.shouldHideHUD()) {
-            if (!ClientData.CLIENT.options.debugEnabled) {
+            if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
                 if (!DebugHUD.debugType.equals(DebugHUD.Type.NONE)) {
                     DebugHUD.renderDebugHUD(context);
                 }

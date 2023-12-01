@@ -25,7 +25,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 10000, value = InGameHud.class)
 public abstract class InGameHudMixin {
-    @Shadow @Final private static Identifier ICONS;
+    @Shadow @Final private static Identifier CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE;
+
+    @Shadow @Final private static Identifier CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE;
+
+    @Shadow @Final private static Identifier CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE;
 
     @Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
     private void perspective$renderCrosshair(DrawContext context, CallbackInfo ci) {
@@ -38,21 +42,20 @@ public abstract class InGameHudMixin {
                     if (hide_crosshair) {
                         if (ClientData.CLIENT.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
                             if (ClientData.CLIENT.player != null) {
-                                float attackCooldownProgress = ClientData.CLIENT.player.getAttackCooldownProgress(0.0F);
-                                boolean bl = false;
-                                if (ClientData.CLIENT.targetedEntity instanceof LivingEntity && attackCooldownProgress >= 1.0F) {
-                                    bl = ClientData.CLIENT.player.getAttackCooldownProgressPerTick() > 5.0F;
-                                    bl &= ClientData.CLIENT.targetedEntity.isAlive();
+                                float cooldownProgress = ClientData.CLIENT.player.getAttackCooldownProgress(0.0F);
+                                boolean cooldownProgressFull = false;
+                                if (ClientData.CLIENT.targetedEntity instanceof LivingEntity && cooldownProgress >= 1.0F) {
+                                    cooldownProgressFull = ClientData.CLIENT.player.getAttackCooldownProgressPerTick() > 5.0F;
+                                    cooldownProgressFull &= ClientData.CLIENT.targetedEntity.isAlive();
                                 }
-
-                                int x = ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 8;
-                                int y = ClientData.CLIENT.getWindow().getScaledHeight() / 2 - 7 + 16;
-                                if (bl) {
-                                    context.drawTexture(ICONS, x, y, 68, 94, 16, 16);
-                                } else if (attackCooldownProgress < 1.0F) {
-                                    int progressWidth = (int)(attackCooldownProgress * 17.0F);
-                                    context.drawTexture(ICONS, x, y, 36, 94, 16, 4);
-                                    context.drawTexture(ICONS, x, y, 52, 94, progressWidth, 4);
+                                int j = ClientData.CLIENT.getWindow().getScaledHeight() / 2 - 7 + 16;
+                                int k = ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 8;
+                                if (cooldownProgressFull) {
+                                    context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
+                                } else if (cooldownProgress < 1.0F) {
+                                    int l = (int)(cooldownProgress * 17.0F);
+                                    context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE, k, j, 16, 4);
+                                    context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE, 16, 4, 0, 0, k, j, l, 4);
                                 }
                             }
                         }

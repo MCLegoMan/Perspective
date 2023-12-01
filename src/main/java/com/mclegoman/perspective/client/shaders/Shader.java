@@ -21,7 +21,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
-import net.minecraft.client.toast.SystemToast;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundCategory;
@@ -52,117 +51,117 @@ public class Shader {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
 			for (Identifier id : Registries.SOUND_EVENT.getIds()) {
 				if (!id.toString().contains("music")) {
-                    SOUND_EVENTS.add(id);
-                }
-            }
-        } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-        }
-    }
-    public static void tick(MinecraftClient client) {
-        if (Keybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false, true);
-        if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false, true);
-        if (Keybindings.RANDOM_SHADER.wasPressed()) random(false, true);
+					SOUND_EVENTS.add(id);
+				}
+			}
+		} catch (Exception error) {
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+		}
+	}
+	public static void tick(MinecraftClient client) {
+		if (Keybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), false, true);
+		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, false, false, true);
+		if (Keybindings.RANDOM_SHADER.wasPressed()) random(false, true);
 
-        if (shouldRenderShader()) {
-            if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
-            else {
-                if (client.world != null) showToasts();
-            }
-        }
-    }
-    private static void showToasts() {
-        boolean save = false;
-        if ((boolean) ConfigHelper.getConfig("tutorials")) {
-            if (!(boolean) ConfigHelper.getTutorialConfig("super_secret_settings")) {
-                ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.tutorial.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), SystemToast.Type.TUTORIAL_HINT));
-                ConfigHelper.setTutorialConfig("super_secret_settings", true);
-                save = true;
-            }
-        }
-        if (!(boolean) ConfigHelper.getWarningConfig("photosensitivity")) {
-            ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.warning.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.warning.photosensitivity.title")}), Translation.getTranslation("toasts.warning.photosensitivity.description"), SystemToast.Type.TUTORIAL_HINT));
-            ConfigHelper.setWarningConfig("photosensitivity", true);
-            save = true;
-        }
-        if (save) ConfigHelper.saveConfig(true);
-    }
-    public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME, boolean SAVE_CONFIG) {
-        ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
-        if (!SILENT) {
-            if (SHOW_SHADER_NAME) setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
-            else setOverlay(Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE));
-        }
-        if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true, true);
-        else {
-            if (postProcessor != null) {
-                postProcessor.close();
-                postProcessor = null;
-            }
-        }
-        if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
-    }
-    public static void cycle(MinecraftClient client, boolean FORWARDS, boolean SILENT, boolean SAVE_CONFIG) {
-        try {
-            if (FORWARDS) {
-                if ((int) ConfigHelper.getConfig("super_secret_settings") < ShaderDataLoader.getShaderAmount()) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") + 1);
-                else ConfigHelper.setConfig("super_secret_settings", 0);
-            } else {
-                if ((int) ConfigHelper.getConfig("super_secret_settings") > 0) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") - 1);
-                else ConfigHelper.setConfig("super_secret_settings", ShaderDataLoader.getShaderAmount());
-            }
-            set(client, FORWARDS, SILENT, SAVE_CONFIG);
-        } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-        }
-    }
-    public static void random(boolean SILENT, boolean SAVE_CONFIG) {
-        try {
-            int SHADER = (int) ConfigHelper.getConfig("super_secret_settings");
-            while (SHADER == (int) ConfigHelper.getConfig("super_secret_settings")) SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
-            ConfigHelper.setConfig("super_secret_settings", SHADER);
-            Shader.set(ClientData.CLIENT, true, SILENT, SAVE_CONFIG);
-        } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-        }
-    }
-    public static void set(MinecraftClient client, Boolean forwards, boolean SILENT, boolean SAVE_CONFIG) {
-	    USE_DEPTH = false;
-	    DEPTH_FIX = true;
-	    try {
-		    if (postProcessor != null) postProcessor.close();
-		    postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
-		    postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-		    if (!SILENT)
-			    setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
-		    try {
-			    if (!SILENT && client.world != null && client.player != null && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
-				    client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
-		    } catch (Exception error) {
-			    Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-		    }
-		    if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
-            if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
-        } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
-            try {
-                cycle(client, forwards, false, SAVE_CONFIG);
-            } catch (Exception ignored) {
-                ConfigHelper.setConfig("super_secret_settings", 0);
-                try {
-                    if (postProcessor != null) postProcessor.close();
-                    postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
-                    postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
-                    if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
-                } catch (Exception ignored2) {}
-            }
-            if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
-        }
-	    DEPTH_FIX = false;
-    }
-    private static void setOverlay(Text message) {
-        if ((boolean) ConfigHelper.getConfig("super_secret_settings_show_name")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
-    }
+		if (shouldRenderShader()) {
+			if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
+			else {
+				if (client.world != null) showToasts();
+			}
+		}
+	}
+	private static void showToasts() {
+		boolean save = false;
+		if ((boolean) ConfigHelper.getConfig("tutorials")) {
+			if (!(boolean) ConfigHelper.getTutorialConfig("super_secret_settings")) {
+				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.tutorial.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation("toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+				ConfigHelper.setTutorialConfig("super_secret_settings", true);
+				save = true;
+			}
+		}
+		if (!(boolean) ConfigHelper.getWarningConfig("photosensitivity")) {
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.warning.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.warning.photosensitivity.title")}), Translation.getTranslation("toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
+			ConfigHelper.setWarningConfig("photosensitivity", true);
+			save = true;
+		}
+		if (save) ConfigHelper.saveConfig(true);
+	}
+	public static void toggle(MinecraftClient client, boolean SILENT, boolean SHOW_SHADER_NAME, boolean SAVE_CONFIG) {
+		ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
+		if (!SILENT) {
+			if (SHOW_SHADER_NAME) setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
+			else setOverlay(Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE));
+		}
+		if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, true, true);
+		else {
+			if (postProcessor != null) {
+				postProcessor.close();
+				postProcessor = null;
+			}
+		}
+		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
+	}
+	public static void cycle(MinecraftClient client, boolean FORWARDS, boolean SILENT, boolean SAVE_CONFIG) {
+		try {
+			if (FORWARDS) {
+				if ((int) ConfigHelper.getConfig("super_secret_settings") < ShaderDataLoader.getShaderAmount()) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") + 1);
+				else ConfigHelper.setConfig("super_secret_settings", 0);
+			} else {
+				if ((int) ConfigHelper.getConfig("super_secret_settings") > 0) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") - 1);
+				else ConfigHelper.setConfig("super_secret_settings", ShaderDataLoader.getShaderAmount());
+			}
+			set(client, FORWARDS, SILENT, SAVE_CONFIG);
+		} catch (Exception error) {
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+		}
+	}
+	public static void random(boolean SILENT, boolean SAVE_CONFIG) {
+		try {
+			int SHADER = (int) ConfigHelper.getConfig("super_secret_settings");
+			while (SHADER == (int) ConfigHelper.getConfig("super_secret_settings")) SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
+			ConfigHelper.setConfig("super_secret_settings", SHADER);
+			Shader.set(ClientData.CLIENT, true, SILENT, SAVE_CONFIG);
+		} catch (Exception error) {
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+		}
+	}
+	public static void set(MinecraftClient client, Boolean forwards, boolean SILENT, boolean SAVE_CONFIG) {
+		USE_DEPTH = false;
+		DEPTH_FIX = true;
+		try {
+			if (postProcessor != null) postProcessor.close();
+			postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+			postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+			if (!SILENT)
+				setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
+			try {
+				if (!SILENT && client.world != null && client.player != null && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
+					client.world.playSound(client.player, client.player.getBlockPos(), SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), SoundCategory.MASTER);
+			} catch (Exception error) {
+				Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			}
+			if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
+			if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
+		} catch (Exception error) {
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			try {
+				cycle(client, forwards, false, SAVE_CONFIG);
+			} catch (Exception ignored) {
+				ConfigHelper.setConfig("super_secret_settings", 0);
+				try {
+					if (postProcessor != null) postProcessor.close();
+					postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier)Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+					postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+					if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) toggle(client, true, false, false);
+				} catch (Exception ignored2) {}
+			}
+			if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
+		}
+		DEPTH_FIX = false;
+	}
+	private static void setOverlay(Text message) {
+		if ((boolean) ConfigHelper.getConfig("super_secret_settings_show_name")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+	}
 
 	public static Formatting getRandomColor() {
 		Random random = new Random();

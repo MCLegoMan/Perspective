@@ -16,7 +16,6 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.toast.SystemToast;
 import net.minecraft.resource.ResourceType;
 
 import java.time.LocalDate;
@@ -35,20 +34,20 @@ public class AprilFoolsPrank {
     public static void tick(MinecraftClient client) {
         boolean shouldSave = false;
         if (!SEEN_WARNING && client.world != null) {
-                if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
-                    if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
-                        ClientData.CLIENT.getToastManager().add(Toast.create(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), SystemToast.Type.TUTORIAL_HINT));
-                        ConfigHelper.setWarningConfig("prank", true);
-                        shouldSave = true;
-                        SEEN_WARNING = true;
-                    }
+            if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
+                if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
+                    ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+                    ConfigHelper.setWarningConfig("prank", true);
+                    shouldSave = true;
+                    SEEN_WARNING = true;
                 }
-                else {
-                    if ((boolean) ConfigHelper.getWarningConfig("prank")) {
-                        ConfigHelper.setWarningConfig("prank", false);
-                        shouldSave = true;
-                    }
+            }
+            else {
+                if ((boolean) ConfigHelper.getWarningConfig("prank")) {
+                    ConfigHelper.setWarningConfig("prank", false);
+                    shouldSave = true;
                 }
+            }
         }
         if (shouldSave) ConfigHelper.saveConfig(false);
     }

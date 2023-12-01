@@ -18,12 +18,11 @@ import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.gui.screen.SplashOverlay;
 
 public class Tick {
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
-            if (ClientData.isFinishedLoading && !(client.getOverlay() instanceof SplashOverlay)) {
+            if (ClientData.CLIENT.isFinishedLoading()) {
                 ConfigHelper.tick(client);
                 HUD.tick();
                 AprilFoolsPrank.tick(client);
