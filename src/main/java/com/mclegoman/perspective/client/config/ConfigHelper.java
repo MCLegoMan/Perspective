@@ -150,7 +150,7 @@ public class ConfigHelper {
     public static void resetConfig() {
         try {
             // Main Config
-            setConfig("zoom_level", Math.min(Math.max(ConfigDataLoader.ZOOM_LEVEL, -50), 100));
+            setConfig("zoom_level", Math.min(Math.max(ConfigDataLoader.ZOOM_LEVEL, 0), 100));
             setConfig("zoom_increment_size", Math.max(Math.min(ConfigDataLoader.ZOOM_INCREMENT_SIZE, 10), 1));
             setConfig("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
             setConfig("zoom_camera_mode", ConfigDataLoader.ZOOM_CAMERA_MODE);
@@ -172,6 +172,7 @@ public class ConfigHelper {
             setConfig("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
             setConfig("force_pride_type_index", Math.max(Math.min(ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0), ClientData.PRIDE_LOGOS.length - 1));
             setConfig("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
+            setConfig("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
             setConfig("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
             setConfig("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
             setConfig("hide_armor", ConfigDataLoader.HIDE_ARMOR);
@@ -190,7 +191,7 @@ public class ConfigHelper {
     public static void setConfig(String ID, Object VALUE) {
         try {
             switch (ID) {
-                case "zoom_level" -> Config.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, -50), 100);
+                case "zoom_level" -> Config.ZOOM_LEVEL = Math.min(Math.max((int)VALUE, 0), 100);
                 case "zoom_increment_size" -> Config.ZOOM_INCREMENT_SIZE = Math.max(Math.min((int)VALUE, 10), 1);
                 case "zoom_transition" -> Config.ZOOM_TRANSITION = (String)VALUE;
                 case "zoom_camera_mode" -> Config.ZOOM_CAMERA_MODE = (String)VALUE;
@@ -212,6 +213,7 @@ public class ConfigHelper {
                 case "force_pride_type" -> Config.FORCE_PRIDE_TYPE = (boolean)VALUE;
                 case "force_pride_type_index" -> Config.FORCE_PRIDE_TYPE_INDEX = Math.max(Math.min((int)VALUE, 0), ClientData.PRIDE_LOGOS.length - 1);
                 case "show_death_coordinates" -> Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
+                case "dirt_title_screen" -> Config.DIRT_TITLE_SCREEN = (boolean)VALUE;
                 case "hide_block_outline" -> Config.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
                 case "hide_crosshair" -> Config.HIDE_CROSSHAIR = (String) VALUE;
                 case "hide_armor" -> Config.HIDE_ARMOR = (boolean)VALUE;
@@ -260,7 +262,7 @@ public class ConfigHelper {
     }
     public static Object getConfig(String ID) {
         switch (ID) {
-            case "zoom_level" -> {return Math.min(Math.max(Config.ZOOM_LEVEL, -50), 100);}
+            case "zoom_level" -> {return Math.min(Math.max(Config.ZOOM_LEVEL, 0), 100);}
             case "zoom_increment_size" -> {return Math.max(Math.min(Config.ZOOM_INCREMENT_SIZE, 10), 1);}
             case "zoom_transition" -> {return Config.ZOOM_TRANSITION;}
             case "zoom_camera_mode" -> {return Config.ZOOM_CAMERA_MODE;}
@@ -282,6 +284,7 @@ public class ConfigHelper {
             case "force_pride_type" -> {return Config.FORCE_PRIDE_TYPE;}
             case "force_pride_type_index" -> {return Math.max(Math.min(Config.FORCE_PRIDE_TYPE_INDEX, 0), ClientData.PRIDE_LOGOS.length - 1);}
             case "show_death_coordinates" -> {return Config.SHOW_DEATH_COORDINATES;}
+            case "dirt_title_screen" -> {return Config.DIRT_TITLE_SCREEN;}
             case "hide_block_outline" -> {return Config.HIDE_BLOCK_OUTLINE;}
             case "hide_crosshair" -> {return Config.HIDE_CROSSHAIR;}
             case "hide_armor" -> {return Config.HIDE_ARMOR;}

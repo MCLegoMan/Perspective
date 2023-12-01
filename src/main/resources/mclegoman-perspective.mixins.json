@@ -15,6 +15,7 @@
 		"client.hide.PlayerEntityRendererMixin",
 		"client.hud.ChatHudMixin",
 		"client.hud.InGameHudMixin",
+		"client.hud.TitleScreenMixin",
 		"client.show_death_coordinates.DeathScreenMixin",
 		"client.super_secret_settings.GameRendererMixin",
 		"client.super_secret_settings.OptionsScreenMixin",

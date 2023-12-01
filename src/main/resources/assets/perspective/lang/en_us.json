@@ -115,6 +115,9 @@
 	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
 	"gui.perspective.config.more_options.show_death_coordinates.hover": "Toggle whether death coordinates are shown on the death screen.",
 
+	"gui.perspective.config.more_options.dirt_title_screen": "Dirt Title Screen: %s",
+	"gui.perspective.config.more_options.dirt_title_screen.hover": "Toggle whether the title screen background uses the options dirt background.",
+
 	"gui.perspective.config.hide": "Hide",
 	"gui.perspective.config.hide.hover": "Open Perspective's Hide config screen.",
 

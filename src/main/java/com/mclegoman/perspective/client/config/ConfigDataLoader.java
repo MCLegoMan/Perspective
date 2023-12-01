@@ -43,6 +43,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
     public static boolean FORCE_PRIDE_TYPE;
     public static int FORCE_PRIDE_TYPE_INDEX;
     public static boolean SHOW_DEATH_COORDINATES;
+    public static boolean DIRT_TITLE_SCREEN;
     public static boolean HIDE_BLOCK_OUTLINE;
     public static String HIDE_CROSSHAIR;
     public static boolean HIDE_ARMOR;
@@ -82,6 +83,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
                 FORCE_PRIDE_TYPE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type", false);
                 FORCE_PRIDE_TYPE_INDEX = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type_index", 0);
                 SHOW_DEATH_COORDINATES = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "show_death_coordinates", false);
+                DIRT_TITLE_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "dirt_title_screen", false);
                 HIDE_BLOCK_OUTLINE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_block_outline", false);
                 HIDE_CROSSHAIR = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_crosshair", "false");
                 HIDE_ARMOR = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_armor", false);

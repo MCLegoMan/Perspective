@@ -87,6 +87,11 @@ public class MoreOptionsConfigScreen extends Screen {
             this.REFRESH = true;
         }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("more_options.show_death_coordinates", true)));
 
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("more_options.dirt_title_screen", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("dirt_title_screen"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("dirt_title_screen", !(boolean) ConfigHelper.getConfig("dirt_title_screen"));
+            this.REFRESH = true;
+        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("more_options.dirt_title_screen", true)));
+
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide"), (button) -> {
             ClientData.CLIENT.setScreen(new HideConfigScreen(new MoreOptionsConfigScreen(PARENT_SCREEN, false), false));
         }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("hide", true)));

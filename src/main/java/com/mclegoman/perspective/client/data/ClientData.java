@@ -40,4 +40,11 @@ public class ClientData {
             return date.getMonth() == Month.JUNE || date.getMonth() == Month.JULY && date.getDayOfMonth() <= 2;
         }
     }
+    private static boolean finishedInitializing = false;
+    public static void finishedInitializing() {
+        finishedInitializing = true;
+    }
+    public static boolean isFinishedInitializing() {
+        return finishedInitializing;
+    }
 }

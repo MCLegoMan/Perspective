@@ -23,6 +23,7 @@ import java.util.List;
 public class Zoom {
 	public static boolean zoomInverted;
 	public static double fov;
+	public static String zoomFOV;
 	private static boolean zoomUpdated;
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;

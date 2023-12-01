@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.zoom;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.HUD;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.minecraft.client.render.Camera;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 10000, value = GameRenderer.class)
 public abstract class GameRendererMixin {
     @Shadow public abstract boolean isRenderingPanorama();
+
     @ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"), method = "renderHand")
     private double perspective$renderHand(double fov) {
         return Zoom.fov;

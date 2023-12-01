@@ -67,7 +67,7 @@ public class ZoomConfigScreen extends Screen {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-        double ZOOM_LEVEL = (double) ((int) ConfigHelper.getConfig("zoom_level") + 50) / 150;
+        double ZOOM_LEVEL = (double) ((int) ConfigHelper.getConfig("zoom_level")) / 100;
         GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")}, false), ZOOM_LEVEL) {
             @Override
             protected void updateMessage() {
@@ -75,7 +75,7 @@ public class ZoomConfigScreen extends Screen {
             }
             @Override
             protected void applyValue() {
-                ConfigHelper.setConfig("zoom_level", (int) ((value) * 150) - 50);
+                ConfigHelper.setConfig("zoom_level", (int) ((value) * 100));
             }
         }, 1);
         double ZOOM_INCREMENT_SIZE = (double) ((int) ConfigHelper.getConfig("zoom_increment_size") - 1) / 9;

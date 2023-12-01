@@ -32,19 +32,20 @@ public class Config {
     protected static boolean TEXTURED_RANDOM_ENTITY;
     protected static boolean ALLOW_APRIL_FOOLS;
     protected static boolean FORCE_APRIL_FOOLS;
+    protected static boolean VERSION_OVERLAY;
     protected static boolean FORCE_PRIDE;
     protected static boolean FORCE_PRIDE_TYPE;
     protected static int FORCE_PRIDE_TYPE_INDEX;
-    protected static boolean VERSION_OVERLAY;
+    protected static boolean SHOW_DEATH_COORDINATES;
+    protected static boolean DIRT_TITLE_SCREEN;
+    protected static String HIDE_CROSSHAIR;
+    protected static boolean HIDE_BLOCK_OUTLINE;
     protected static boolean HIDE_ARMOR;
     protected static boolean HIDE_NAMETAGS;
     protected static boolean HIDE_PLAYERS;
     protected static boolean HIDE_SHOW_MESSAGE;
     protected static String DETECT_UPDATE_CHANNEL;
     protected static boolean TUTORIALS;
-    protected static boolean HIDE_BLOCK_OUTLINE;
-    protected static String HIDE_CROSSHAIR;
-    protected static boolean SHOW_DEATH_COORDINATES;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -79,6 +80,7 @@ public class Config {
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE));
         CONFIG_PROVIDER.add(new Pair<>("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
         CONFIG_PROVIDER.add(new Pair<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
+        CONFIG_PROVIDER.add(new Pair<>("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN));
         CONFIG_PROVIDER.add(new Pair<>("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE));
         CONFIG_PROVIDER.add(new Pair<>("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR));
         CONFIG_PROVIDER.add(new Pair<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
@@ -112,6 +114,7 @@ public class Config {
         FORCE_PRIDE_TYPE = CONFIG.getOrDefault("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
         FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
         SHOW_DEATH_COORDINATES = CONFIG.getOrDefault("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
+        DIRT_TITLE_SCREEN = CONFIG.getOrDefault("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
         HIDE_BLOCK_OUTLINE = CONFIG.getOrDefault("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
         HIDE_CROSSHAIR = CONFIG.getOrDefault("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
         HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", ConfigDataLoader.HIDE_ARMOR);
@@ -146,6 +149,7 @@ public class Config {
         CONFIG_PROVIDER.setConfig("force_pride_type", FORCE_PRIDE_TYPE);
         CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
         CONFIG_PROVIDER.setConfig("show_death_coordinates", SHOW_DEATH_COORDINATES);
+        CONFIG_PROVIDER.setConfig("dirt_title_screen", DIRT_TITLE_SCREEN);
         CONFIG_PROVIDER.setConfig("hide_block_outline", HIDE_BLOCK_OUTLINE);
         CONFIG_PROVIDER.setConfig("hide_crosshair", HIDE_CROSSHAIR);
         CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);
