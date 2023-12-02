@@ -15,6 +15,7 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
@@ -26,7 +27,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,8 +35,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Panorama {
-    @Nullable
-    private static PostEffectProcessor panoramaPostProcessor;
     private static final List<String> incompatibleMods = new ArrayList<>();
 
     public static void addIncompatibleMod(String modID) {
@@ -83,7 +81,6 @@ public class Panorama {
             try {
                 if (getIncompatibleMods().size() == 0) {
                     if (!ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
-                        boolean shouldRenderShader = (boolean) ConfigHelper.getConfig("super_secret_settings_enabled");
                         String panoramaName = getFilename();
                         String rpDirLoc = ClientData.CLIENT.runDirectory.getPath() + "/resourcepacks/" + panoramaName;
                         String assetsDirLoc = rpDirLoc + "/assets/minecraft/textures/gui/title/background";
@@ -98,10 +95,6 @@ public class Panorama {
                             ClientData.CLIENT.getWindow().setFramebufferWidth(resolution);
                             ClientData.CLIENT.getWindow().setFramebufferHeight(resolution);
                             ClientData.CLIENT.getFramebuffer().beginWrite(true);
-                            if (shouldRenderShader) {
-                                panoramaPostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
-                                panoramaPostProcessor.setupDimensions(resolution, resolution);
-                            }
                             for (int l = 0; l < 6; ++l) {
                                 switch (l) {
                                     case 0 -> {
@@ -131,8 +124,14 @@ public class Panorama {
                                 }
                                 framebuffer.beginWrite(true);
                                 ClientData.CLIENT.gameRenderer.render(1.0F, 0L, true);
-                                if (shouldRenderShader && panoramaPostProcessor != null) {
-                                    panoramaPostProcessor.render(ClientData.CLIENT.getTickDelta());
+                                try {
+                                    if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) {
+                                        PostEffectProcessor panoramaPerspectivePostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+                                        panoramaPerspectivePostProcessor.setupDimensions(resolution, resolution);
+                                        panoramaPerspectivePostProcessor.render(ClientData.CLIENT.getTickDelta());
+                                    }
+                                } catch (Exception error) {
+                                    Data.PERSPECTIVE_VERSION.sendToLog(Helper.LogType.ERROR, "Failed to add Super Secret Settings to Panorama.");
                                 }
                                 ScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
                             }
