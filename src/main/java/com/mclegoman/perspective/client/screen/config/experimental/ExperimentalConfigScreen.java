@@ -41,7 +41,7 @@ public class ExperimentalConfigScreen extends Screen {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
             GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), false, "", true));
-            GRID_ADDER.add(createEmpty());
+            GRID_ADDER.add(createExperiments());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -77,6 +77,12 @@ public class ExperimentalConfigScreen extends Screen {
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation("experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true), 2);
         GRID_ADDER.add(new EmptyWidget(4, 4), 2);
+
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("experimental.super_secret_settings_list", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setExperimentalConfig("super_secret_settings_list", !(boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"));
+            REFRESH = true;
+        }).width(304).build(), 2);
+
         return GRID;
     }
     private GridWidget createFooter() {

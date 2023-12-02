@@ -106,7 +106,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             add("minecraft", "antialias", false, true);
             add("minecraft", "art", true, true);
             add("minecraft", "bits", true, true);
-            add("minecraft", "blobs", false, true);
+            add("minecraft", "blobs", true, true);
             add("minecraft", "blobs2", true, true);
             add("minecraft", "blur", true, true);
             add("minecraft", "bumpy", false, true);
@@ -122,7 +122,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             add("minecraft", "notch", false, true);
             add("minecraft", "ntsc", true, true);
             add("minecraft", "outline", false, true);
-            add("minecraft", "pencil", false, true);
+            add("minecraft", "pencil", true, true);
             add("minecraft", "phosphor", false, true);
             add("minecraft", "scan_pincushion", false, true);
             add("minecraft", "sobel", false, true);
@@ -141,7 +141,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
             layout$souper_secret_settings(manager);
             ConfigHelper.setConfig("super_secret_settings", Math.min((int) ConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
             if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
-                Shader.set(MinecraftClient.getInstance(), true, true, true);
+                Shader.set(MinecraftClient.getInstance(), true, false, false, true);
 
 
             List<String> ALL_NAMES = new ArrayList<>();

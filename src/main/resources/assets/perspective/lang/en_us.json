@@ -67,6 +67,8 @@
 	"gui.perspective.config.shaders": "Super Secret Settings",
 
 	"gui.perspective.config.shaders.shader": "Shader: %s",
+	"gui.perspective.config.shaders.shader.select": "Select Super Secret Setting",
+	"gui.perspective.config.shaders.shader.list": "%s%s",
 
 	"gui.perspective.config.shaders.random": "\uD83D\uDD00",
 
@@ -135,6 +137,8 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
+	"gui.perspective.config.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen: %s",
+
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.back": "Back",
 	"gui.perspective.config.next": "Next",
@@ -196,10 +200,10 @@
 	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
 
 	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
-	"gui.perspective.resource_pack.perspective_default.description": "Adds new custom resources to Perspective.",
+	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
 
 	"gui.perspective.resource_pack.perspective_experimental": "Perspective: Experimental",
-	"gui.perspective.resource_pack.perspective_experimental.description": "Adds new experimental custom resources to Perspective.",
+	"gui.perspective.resource_pack.perspective_experimental.description": "The experimental look of Perspective",
 
 	"gui.perspective.variable.endisable.on": "Enabled",
 	"gui.perspective.variable.endisable.off": "Disabled",

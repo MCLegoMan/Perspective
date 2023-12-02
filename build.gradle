@@ -15,6 +15,10 @@ runClient.doFirst {
 	args = ['--username', "Perspective${new Random().nextInt(1000)}"]
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/perspective.accesswidener")
+}
+
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }

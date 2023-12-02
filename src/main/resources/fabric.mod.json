@@ -36,5 +36,6 @@
       "~1.20.1"
     ],
     "fabric-api": "*"
-  }
+  },
+  "accessWidener" : "perspective.accesswidener"
 }

@@ -34,7 +34,7 @@ public class ConfigHelper {
     private static boolean SEEN_DOWNGRADE_WARNING = false;
     private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
     private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
-    public static boolean EXPERIMENTS_AVAILABLE = false;
+    public static boolean EXPERIMENTS_AVAILABLE = true;
     private static boolean SAVING = false;
     public static boolean isSaving() {
         return SAVING;
@@ -183,6 +183,7 @@ public class ConfigHelper {
             setConfig("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
             // Experimental Config
             if (EXPERIMENTS_AVAILABLE) {
+                setExperimentalConfig("super_secret_settings_list", false);
             }
         } catch (Exception error) {
             Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -232,6 +233,7 @@ public class ConfigHelper {
     public static void setExperimentalConfig(String ID, Object VALUE) {
         try {
             switch (ID) {
+                case "super_secret_settings_list" -> ExperimentalConfig.SUPER_SECRET_SETTINGS_LIST = (boolean) VALUE;
                 default -> Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
         } catch (Exception error) {
@@ -302,6 +304,7 @@ public class ConfigHelper {
     }
     public static Object getExperimentalConfig(String ID) {
         switch (ID) {
+            case "super_secret_settings_list" -> {return ExperimentalConfig.SUPER_SECRET_SETTINGS_LIST;}
             default -> {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
                 return new Object();

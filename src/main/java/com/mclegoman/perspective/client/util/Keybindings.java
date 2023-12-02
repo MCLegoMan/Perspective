@@ -35,7 +35,7 @@ public class Keybindings {
     public static final KeyBinding TOGGLE_PLAYERS;
     public static final KeyBinding TOGGLE_SHADERS;
     public static final KeyBinding TOGGLE_ZOOM;
-    private static final KeyBinding[] ALL_KEYBINDINGS;
+    public static final KeyBinding[] ALL_KEYBINDINGS;
     public static boolean SEEN_CONFLICTING_KEYBINDING_TOASTS;
     public static void init() {
         Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing keybindings", Data.PERSPECTIVE_VERSION.getLoggerPrefix());

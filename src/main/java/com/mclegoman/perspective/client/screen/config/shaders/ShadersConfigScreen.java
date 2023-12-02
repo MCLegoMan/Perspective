@@ -21,7 +21,6 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -37,7 +36,7 @@ public class ShadersConfigScreen extends Screen {
     private boolean SHOULD_CLOSE;
     private final boolean SAVE_ON_CLOSE;
     private boolean REFRESH;
-    private boolean CYCLE_DIRECTION = true;
+    private boolean REVERSE;
     public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
@@ -80,11 +79,14 @@ public class ShadersConfigScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.shader", new Object[]{ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
-            Shader.cycle(ClientData.CLIENT, CYCLE_DIRECTION, true, false);
-            this.REFRESH = true;
+            if ((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list")) ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false)));
+            else {
+                Shader.cycle(ClientData.CLIENT, !REVERSE, true, false, false);
+                REFRESH = true;
+            }
         }).width(280).build());
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.random"), (button) -> {
-            Shader.random(true, false);
+            Shader.random(true, false, false);
             this.REFRESH = true;
         }).width(20).build());
         return GRID;
@@ -131,16 +133,16 @@ public class ShadersConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
-        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) this.CYCLE_DIRECTION = false;
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) REVERSE = true;
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) this.CYCLE_DIRECTION = true;
         if (keyCode == GLFW.GLFW_KEY_F5) {
             ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
-            this.REFRESH = true;
+            this.REFRESH = false;
         }
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) REVERSE = false;
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
     @Override
