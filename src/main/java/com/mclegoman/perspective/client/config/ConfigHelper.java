@@ -59,7 +59,7 @@ public class ConfigHelper {
     }
     public static void tick(MinecraftClient client) {
         try {
-            if (Keybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new ConfigScreen(client.currentScreen, false));
+            if (Keybindings.OPEN_CONFIG.wasPressed()) client.setScreen(new ConfigScreen(client.currentScreen, false, 1));
             if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
             else {
                 if (SAVE_VIA_TICK) {

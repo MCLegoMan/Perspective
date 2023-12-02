@@ -44,12 +44,10 @@
 	"gui.perspective.config.update.checking": "Checking for updates...",
 
 	"gui.perspective.config.zoom": "Zoom",
-	"gui.perspective.config.zoom.hover": "Open Perspective's Zoom config screen.",
 
 	"gui.perspective.config.zoom.level": "Zoom: %s",
 
 	"gui.perspective.config.zoom.increment_size": "Increment Size: %s",
-	"gui.perspective.config.zoom.increment_size.hover": "Sets the size of the increments used when changing the zoom level.",
 
 	"gui.perspective.config.zoom.transition": "Transition: %s",
 	"gui.perspective.config.zoom.transition.smooth": "Smooth",
@@ -67,115 +65,79 @@
 	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",
 
 	"gui.perspective.config.shaders": "Super Secret Settings",
-	"gui.perspective.config.shaders.hover": "Open Perspective's Super Secret Settings config screen.",
 
 	"gui.perspective.config.shaders.shader": "Shader: %s",
-	"gui.perspective.config.shaders.shader.hover": "Cycles through Perspective's Super Secret Settings.",
 
 	"gui.perspective.config.shaders.random": "\uD83D\uDD00",
-	"gui.perspective.config.shaders.random.hover": "Sets a random Super Secret Setting.",
 
 	"gui.perspective.config.shaders.mode": "Shader Mode: %s%s",
-	"gui.perspective.config.shaders.mode.hover": "Cycles through Perspective's shader modes.",
 	"gui.perspective.config.shaders.mode.screen": "Screen",
 	"gui.perspective.config.shaders.mode.game": "Game",
 
 	"gui.perspective.config.shaders.toggle": "%s",
-	"gui.perspective.config.shaders.toggle.hover": "Toggle functionality of Perspective's Super Secret Settings.",
 
 	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
 
 	"gui.perspective.config.textured_entity": "Textured Entity",
-	"gui.perspective.config.textured_entity.hover": "Open Perspective's Textured Entity config screen.",
 
 	"gui.perspective.config.textured_entity.named": "Named Entity: %s",
-	"gui.perspective.config.textured_entity.named.hover": "Toggles functionality of Named Textured Entities.",
 
 	"gui.perspective.config.textured_entity.random": "Random Entity: %s",
-	"gui.perspective.config.textured_entity.random.hover": "Toggle functionality of Random Textured Entities.",
 
 	"gui.perspective.config.april_fools_prank": "April Fools' Prank",
-	"gui.perspective.config.april_fools_prank.hover": "Open Perspective's April Fools' Prank config screen.",
 
 	"gui.perspective.config.april_fools_prank.allow": "Allow Prank: %s",
-	"gui.perspective.config.april_fools_prank.allow.hover": "Toggle if Perspective can run the April Fools' Prank.",
 
 	"gui.perspective.config.april_fools_prank.force": "Force Prank: %s",
-	"gui.perspective.config.april_fools_prank.force.hover": "Toggle if Perspective is forced into thinking it is currently April 1st. (Requires: Allow Prank)",
-
-	"gui.perspective.config.more_options": "More Options",
-	"gui.perspective.config.more_options.hover": "Open Perspective's More Options config screen.",
 
 	"gui.perspective.config.more_options.version_overlay": "Version Overlay: %s",
-	"gui.perspective.config.more_options.version_overlay.hover": "Toggle visibility of the Minecraft version overlay.",
 
 	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
-	"gui.perspective.config.more_options.force_pride.hover": "Toggle if Perspective is forced into thinking it is currently Pride Month.",
 
 	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
-	"gui.perspective.config.more_options.show_death_coordinates.hover": "Toggle whether death coordinates are shown on the death screen.",
 
 	"gui.perspective.config.more_options.dirt_title_screen": "Dirt Title Screen: %s",
-	"gui.perspective.config.more_options.dirt_title_screen.hover": "Toggle whether the title screen background uses the options dirt background.",
 
 	"gui.perspective.config.hide": "Hide",
-	"gui.perspective.config.hide.hover": "Open Perspective's Hide config screen.",
 
 	"gui.perspective.config.hide.hide_block_outline": "Hide Block Outline: %s",
-	"gui.perspective.config.hide.hide_block_outline.hover": "Toggles visibility of the block outline.",
 
 	"gui.perspective.config.hide.hide_crosshair": "Hide Crosshair: %s",
-	"gui.perspective.config.hide.hide_crosshair.hover": "Toggles visibility of the crosshair.",
 
 	"gui.perspective.config.hide.hide_armor": "Global Hide Armor: %s",
-	"gui.perspective.config.hide.hide_armor.hover": "Toggles the rendering of armor.",
 
 	"gui.perspective.config.hide.hide_nametags": "Global Hide Nametags: %s",
-	"gui.perspective.config.hide.hide_nametags.hover": "Toggles the rendering of nametags.",
 
 	"gui.perspective.config.hide.hide_players": "Global Hide Players: %s",
-	"gui.perspective.config.hide.hide_players.hover": "Toggles rendering of other players.",
 
 	"gui.perspective.config.hide.show_message": "Overlay Message: %s",
 
 	"gui.perspective.config.toasts": "Toasts",
-	"gui.perspective.config.toasts.hover": "Open Perspective's Toasts config screen.",
 
 	"gui.perspective.config.toasts.tutorials": "Tutorials: %s",
-	"gui.perspective.config.toasts.tutorials.hover": "Toggles Perspective's Tutorial Toasts.",
 
-	"gui.perspective.config.toasts.detect_update_channel": "Update Channel: %s",
-	"gui.perspective.config.toasts.detect_update_channel.hover": "Sets the release channel for in-game update notifications.",
+	"gui.perspective.config.toasts.detect_update_channel": "Update Notification Channel: %s",
 
 	"gui.perspective.config.information": "Information",
-	"gui.perspective.config.information.hover": "Open Perspective's Information screen.",
 
 	"gui.perspective.config.information.documentation": "Documentation",
-	"gui.perspective.config.information.documentation.hover": "Open Perspective's Documentation website in your web browser.",
 
 	"gui.perspective.config.information.credits_attribution": "Credits and Attribution",
-	"gui.perspective.config.information.credits_attribution.hover": "Opens Perspective's Credits and Attribution page in your web browser.",
 
 	"gui.perspective.config.information.licenses": "Licenses",
-	"gui.perspective.config.information.licenses.hover": "Opens Perspective's Licenses page in your web browser.",
 
 	"gui.perspective.config.information.source_code": "Source Code",
-	"gui.perspective.config.information.source_code.hover": "Open Perspective's GitHub Repository in your web browser.",
 
 	"gui.perspective.config.information.report": "Report a bug",
-	"gui.perspective.config.information.report.hover": "Open Perspective's Issues page in your web browser.",
 
 	"gui.perspective.config.experimental": "Experimental",
-	"gui.perspective.config.experimental.hover": "Open Perspective's experimental config screen.",
 
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
 	"gui.perspective.config.reset": "Reset to Default",
-	"gui.perspective.config.reset.hover": "Reset Perspective's config values to default.",
-
 	"gui.perspective.config.back": "Back",
-	"gui.perspective.config.back.hover": "Return to the previous screen.",
+	"gui.perspective.config.next": "Next",
 
 	"gui.perspective.message.zoom_level": "Zoom: %s",
 

@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.screen.config.shaders;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
@@ -81,11 +82,11 @@ public class ShadersConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.shader", new Object[]{ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
             Shader.cycle(ClientData.CLIENT, CYCLE_DIRECTION, true, false);
             this.REFRESH = true;
-        }).width(280).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.shader", true)));
+        }).width(280).build());
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.random"), (button) -> {
             Shader.random(true, false);
             this.REFRESH = true;
-        }).width(20).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.random", true)));
+        }).width(20).build());
         return GRID;
     }
     private GridWidget createShaderOptions() {
@@ -95,11 +96,11 @@ public class ShadersConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.mode", new Object[]{Translation.getShaderModeTranslation((String) ConfigHelper.getConfig("super_secret_settings_mode")), Translation.getVariableTranslation((boolean)Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE)}), (button) -> {
             Shader.cycleShaderModes();
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.mode", true)));
+        }).build());
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.toggle", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE)}), (button) -> {
             Shader.toggle(ClientData.CLIENT, true, false, false);
             this.REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("shaders.toggle", true)));
+        }).build());
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.show_name", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_show_name"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("super_secret_settings_show_name", !(boolean) ConfigHelper.getConfig("super_secret_settings_show_name"));
             this.REFRESH = true;
@@ -136,6 +137,10 @@ public class ShadersConfigScreen extends Screen {
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) this.CYCLE_DIRECTION = true;
+        if (keyCode == GLFW.GLFW_KEY_F5) {
+            ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+            this.REFRESH = true;
+        }
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
     @Override

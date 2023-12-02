@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.screen.config.textured_entity;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -72,11 +73,11 @@ public class TexturedEntityConfigScreen extends Screen {
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity.named", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("textured_named_entity"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("textured_named_entity", !(boolean) ConfigHelper.getConfig("textured_named_entity"));
             REFRESH = true;
-        }).width(304).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("textured_entity.named", true)));
+        }).width(304).build(), 1);
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity.random", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("textured_random_entity"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setConfig("textured_random_entity", !(boolean) ConfigHelper.getConfig("textured_random_entity"));
             REFRESH = true;
-        }).width(304).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("textured_entity.random", true)));
+        }).width(304).build(), 1);
         return GRID;
     }
     private GridWidget createFooter() {
@@ -102,6 +103,10 @@ public class TexturedEntityConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
+        if (keyCode == GLFW.GLFW_KEY_F5) {
+            ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+            this.REFRESH = true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override

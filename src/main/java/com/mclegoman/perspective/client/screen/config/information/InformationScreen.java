@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.screen.config.information;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
@@ -27,7 +28,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class InformationScreen extends Screen {
     private final Screen PARENT_SCREEN;
-    private final boolean REFRESH;
+    private boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
     public InformationScreen(Screen PARENT, boolean REFRESH) {
@@ -68,11 +69,11 @@ public class InformationScreen extends Screen {
 	    GridWidget GRID = new GridWidget();
 	    GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 	    GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.documentation"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective", this, true)).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.documentation", true)));
-	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.source_code"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.source_code", true)));
-	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.report", true)));
-	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.credits_attribution"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective/Credits_and_Attribution", this, true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.credits_attribution", true)));
-	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.licenses"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective/Licenses", this, true)).build(), 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("information.licenses", true)));
+	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.documentation"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective", this, true)).width(304).build(), 2);
+	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.source_code"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective", this, true)).build(), 1);
+	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.report"), ConfirmLinkScreen.opening("https://github.com/MCLegoMan/Perspective/issues", this, true)).build(), 1);
+	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.credits_attribution"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective/Credits_and_Attribution", this, true)).build(), 1);
+	    GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.licenses"), ConfirmLinkScreen.opening("https://mclegoman.com/Perspective/Licenses", this, true)).build(), 1);
 	    return GRID;
     }
     private GridWidget createFooter() {
@@ -95,6 +96,10 @@ public class InformationScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
+        if (keyCode == GLFW.GLFW_KEY_F5) {
+            ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+            this.REFRESH = true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override

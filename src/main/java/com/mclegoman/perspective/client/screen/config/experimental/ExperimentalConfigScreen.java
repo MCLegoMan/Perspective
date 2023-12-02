@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.screen.config.experimental;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -40,7 +41,7 @@ public class ExperimentalConfigScreen extends Screen {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
             GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), true, "experimental"));
-            GRID_ADDER.add(createExperiments());
+            GRID_ADDER.add(createEmpty());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
@@ -75,14 +76,6 @@ public class ExperimentalConfigScreen extends Screen {
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
         GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation("experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true), 2);
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("experimental.allow_hide_players", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getExperimentalConfig("allow_hide_players"), TranslationType.ONFF)}), (button) -> {
-            ConfigHelper.setExperimentalConfig("allow_hide_players", !(boolean) ConfigHelper.getExperimentalConfig("allow_hide_players"));
-            REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("experimental.allow_hide_players", true)));
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("experimental.hide_players", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getExperimentalConfig("hide_players"), TranslationType.ONFF)}), (button) -> {
-            ConfigHelper.setExperimentalConfig("hide_players", !(boolean) ConfigHelper.getExperimentalConfig("hide_players"));
-            REFRESH = true;
-        }).build()).setTooltip(Tooltip.of(Translation.getConfigTranslation("experimental.hide_players", true)));
         GRID_ADDER.add(new EmptyWidget(4, 4), 2);
         return GRID;
     }
@@ -110,6 +103,10 @@ public class ExperimentalConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
+        if (keyCode == GLFW.GLFW_KEY_F5) {
+            ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+            this.REFRESH = true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override

@@ -5,15 +5,16 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.screen.config.more_options.toasts;
+package com.mclegoman.perspective.client.screen.config.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
-import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -27,64 +28,77 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
-public class ToastsConfigScreen extends Screen {
+public class HideConfigScreen extends Screen {
     private final Screen PARENT_SCREEN;
     private boolean REFRESH;
     private final GridWidget GRID;
     private boolean SHOULD_CLOSE;
-    private boolean CHECK_FOR_UPDATES;
-    public ToastsConfigScreen(Screen PARENT, boolean REFRESH, boolean CHECK_FOR_UPDATES) {
+    public HideConfigScreen(Screen PARENT, boolean REFRESH) {
         super(Text.literal(""));
         this.GRID = new GridWidget();
         this.PARENT_SCREEN = PARENT;
         this.REFRESH = REFRESH;
-        this.CHECK_FOR_UPDATES = CHECK_FOR_UPDATES;
     }
     public void init() {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new ToastsConfigScreen(PARENT_SCREEN, true, CHECK_FOR_UPDATES), true, "toasts"));
-            GRID_ADDER.add(createToasts());
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new HideConfigScreen(PARENT_SCREEN, true), true, "hide"));
+            GRID_ADDER.add(createHide());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());
             GRID.refreshPositions();
             GRID.forEachChild(this::addDrawableChild);
             initTabNavigation();
         } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$toasts screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
 
     public void tick() {
         try {
             if (this.REFRESH) {
-                ClientData.CLIENT.setScreen(new ToastsConfigScreen(PARENT_SCREEN, false, CHECK_FOR_UPDATES));
+                ClientData.CLIENT.setScreen(new HideConfigScreen(PARENT_SCREEN, false));
             }
             if (this.SHOULD_CLOSE) {
-                if (this.CHECK_FOR_UPDATES) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(PARENT_SCREEN));
-                else ClientData.CLIENT.setScreen(PARENT_SCREEN);
+                ClientData.CLIENT.setScreen(PARENT_SCREEN);
             }
         } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$toasts screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
-    private GridWidget createToasts() {
+    private GridWidget createHide() {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("toasts.tutorials", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("tutorials"), TranslationType.ONFF)}), (button) -> {
-            ConfigHelper.setConfig("tutorials", !(boolean) ConfigHelper.getConfig("tutorials"));
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_block_outline", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_block_outline"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_block_outline", !(boolean) ConfigHelper.getConfig("hide_block_outline"));
             this.REFRESH = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("toasts.tutorials", true)));
+        }).build());
 
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("toasts.detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation((String) ConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
-            ConfigHelper.setConfig("detect_update_channel", UpdateChecker.nextUpdateChannel());
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_crosshair", new Object[]{Translation.getHideCrosshairModeTranslation((String) ConfigHelper.getConfig("hide_crosshair"))}), (button) -> {
+            ConfigHelper.setConfig("hide_crosshair", Hide.nextCrosshairMode());
             this.REFRESH = true;
-            this.CHECK_FOR_UPDATES = true;
-        }).width(304).build(), 2).setTooltip(Tooltip.of(Translation.getConfigTranslation("toasts.detect_update_channel", true)));
+        }).build());
 
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_armor", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_armor"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_armor", !(boolean) ConfigHelper.getConfig("hide_armor"));
+            this.REFRESH = true;
+        }).build());
+
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_nametags", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_nametags", !(boolean) ConfigHelper.getConfig("hide_nametags"));
+            this.REFRESH = true;
+        }).build());
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.hide_players", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_players"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_players", !(boolean) ConfigHelper.getConfig("hide_players"));
+            this.REFRESH = true;
+        }).build());
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide.show_message", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_show_message"), TranslationType.ONFF)}), (button) -> {
+            ConfigHelper.setConfig("hide_show_message", !(boolean) ConfigHelper.getConfig("hide_show_message"));
+            this.REFRESH = true;
+        }).build());
         return GRID;
     }
     private GridWidget createFooter() {
@@ -102,7 +116,7 @@ public class ToastsConfigScreen extends Screen {
         try {
             SimplePositioningWidget.setPos(GRID, getNavigationFocus());
         } catch (Exception error) {
-            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>toasts screen TabNavigation: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+            Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>more options screen TabNavigation: {}", Data.PERSPECTIVE_VERSION.getID(), error);
         }
     }
     public Text getNarratedTitle() {
@@ -114,6 +128,10 @@ public class ToastsConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
+        if (keyCode == GLFW.GLFW_KEY_F5) {
+            ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+            this.REFRESH = true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override

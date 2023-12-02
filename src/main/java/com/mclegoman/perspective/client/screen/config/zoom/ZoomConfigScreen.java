@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.screen.config.zoom;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -18,7 +19,6 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -88,7 +88,7 @@ public class ZoomConfigScreen extends Screen {
             protected void applyValue() {
                 ConfigHelper.setConfig("zoom_increment_size", (int) ((value) * 9) + 1);
             }
-        }, 1).setTooltip(Tooltip.of(Translation.getConfigTranslation("zoom.increment_size", true)));
+        }, 1);
         GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig("zoom_transition"))}), (button) -> {
             ConfigHelper.setConfig("zoom_transition", Zoom.nextTransition());
             this.REFRESH = true;
@@ -134,6 +134,11 @@ public class ZoomConfigScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode()) this.SHOULD_CLOSE = true;
+
+        if (keyCode == GLFW.GLFW_KEY_F5) {
+            ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+            this.REFRESH = true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
