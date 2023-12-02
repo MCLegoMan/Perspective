@@ -19,7 +19,7 @@ import java.util.TimeZone;
 
 public class ClientData {
     public static final MinecraftClient CLIENT = MinecraftClient.getInstance();
-    public static final String[] PRIDE_LOGOS = new String[]{"pride", "trans", "bi", "pan"};
+    public static final String[] PRIDE_LOGOS = new String[]{"pride", "trans", "bi", "pan", "ace"};
     public static final int PRIDE_LOGO = new Random().nextInt(PRIDE_LOGOS.length);
     public static Identifier getLogo() {
         return Data.PERSPECTIVE_VERSION.isDevelopmentBuild() ? getLogoType(Data.PERSPECTIVE_VERSION.getID(), true, isPride()) : getLogoType(Data.PERSPECTIVE_VERSION.getID(), false, isPride());
