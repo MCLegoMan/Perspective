@@ -41,7 +41,7 @@ public class InformationScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), true, "information"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), true, "information", false));
             GRID_ADDER.add(createInformation());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

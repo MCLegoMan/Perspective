@@ -41,7 +41,7 @@ public class HoldPerspectiveConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new HoldPerspectiveConfigScreen(PARENT_SCREEN, true), true, "hold_perspective"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new HoldPerspectiveConfigScreen(PARENT_SCREEN, true), true, "hold_perspective", false));
             GRID_ADDER.add(createHoldPerspective());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

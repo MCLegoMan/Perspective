@@ -49,7 +49,7 @@ public class ShadersConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, true), true, "shaders"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, true), true, "shaders", false));
             GRID_ADDER.add(createShaders());
             GRID_ADDER.add(createShaderOptions());
             GRID_ADDER.add(new EmptyWidget(4, 4));

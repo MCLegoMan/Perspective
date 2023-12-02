@@ -19,11 +19,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class ConfigScreenHelper {
-    public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, boolean showPageName, String pageName) {
+    public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, boolean showPageName, String pageName, boolean experimental) {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new LogoWidget());
+        GRID_ADDER.add(new LogoWidget(experimental));
         if (UpdateChecker.NEWER_VERSION_FOUND) {
             GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation("update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
             Text NEW_VERSION_TEXT = Translation.getConfigTranslation("update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}, new Formatting[]{Formatting.YELLOW});
@@ -37,11 +37,11 @@ public class ConfigScreenHelper {
 
         return GRID;
     }
-    public static GridWidget createTitle() {
+    public static GridWidget createTitle(boolean experimental) {
         GridWidget GRID = new GridWidget();
         GRID.getMainPositioner().alignHorizontalCenter().margin(2);
         GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-        GRID_ADDER.add(new LogoWidget());
+        GRID_ADDER.add(new LogoWidget(experimental));
         GRID_ADDER.add(new EmptyWidget(4, 4));
         return GRID;
     }

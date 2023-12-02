@@ -39,7 +39,7 @@ public class ZoomConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new ZoomConfigScreen(PARENT_SCREEN, true), true, "zoom"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new ZoomConfigScreen(PARENT_SCREEN, true), true, "zoom", false));
             GRID_ADDER.add(createZoom());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

@@ -42,7 +42,7 @@ public class TexturedEntityConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new TexturedEntityConfigScreen(PARENT_SCREEN, true), true, "textured_entity"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new TexturedEntityConfigScreen(PARENT_SCREEN, true), true, "textured_entity", false));
             GRID_ADDER.add(createTexturedEntity());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

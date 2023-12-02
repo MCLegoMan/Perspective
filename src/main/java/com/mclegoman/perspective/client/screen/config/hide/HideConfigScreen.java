@@ -43,7 +43,7 @@ public class HideConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new HideConfigScreen(PARENT_SCREEN, true), true, "hide"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new HideConfigScreen(PARENT_SCREEN, true), true, "hide", false));
             GRID_ADDER.add(createHide());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

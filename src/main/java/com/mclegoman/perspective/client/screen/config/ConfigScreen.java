@@ -53,7 +53,7 @@ public class ConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE), false, ""));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE), false, "", false));
 
             if (PAGE == 1) GRID_ADDER.add(createPageOne());
             else if (PAGE == 2) GRID_ADDER.add(createPageTwo());

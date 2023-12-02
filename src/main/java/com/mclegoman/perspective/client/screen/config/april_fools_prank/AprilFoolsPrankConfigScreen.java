@@ -42,7 +42,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new AprilFoolsPrankConfigScreen(PARENT_SCREEN, true), true, "april_fools_prank"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new AprilFoolsPrankConfigScreen(PARENT_SCREEN, true), true, "april_fools_prank", false));
             GRID_ADDER.add(createAprilFools());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

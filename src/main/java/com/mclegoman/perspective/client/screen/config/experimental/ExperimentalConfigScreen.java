@@ -40,7 +40,7 @@ public class ExperimentalConfigScreen extends Screen {
         try {
             GRID.getMainPositioner().alignHorizontalCenter().margin(0);
             GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-            GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), true, "experimental"));
+            GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), false, "", true));
             GRID_ADDER.add(createEmpty());
             GRID_ADDER.add(new EmptyWidget(4, 4));
             GRID_ADDER.add(createFooter());

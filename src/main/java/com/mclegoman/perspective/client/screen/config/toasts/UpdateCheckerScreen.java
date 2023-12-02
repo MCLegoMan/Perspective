@@ -33,7 +33,7 @@ public class UpdateCheckerScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle());
+			GRID_ADDER.add(ConfigScreenHelper.createTitle(false));
 			GRID_ADDER.add(createUpdateChecker());
 			GRID.refreshPositions();
 			GRID.forEachChild(this::addDrawableChild);
