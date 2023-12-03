@@ -17,10 +17,10 @@ More information on this change will be posted as we get closer to 1.2.0-release
   - The config version was updated to `12` in `1.2.0-beta.1`.  
 - **Depth Shaders will now render properly when an entity with glowing is rendered.**  
   - If you experience any issues relating to this, try cycling your graphics options and report the issue.  
-- **Updated Take Panorama Screenshot**  
+- **Updated Take Panorama Screenshot.**  
   - The name format has been updated to match vanilla screenshots.  
   - Perspective Super Secret Settings will now be rendered on the panorama screenshots.  
-  - Updated Panorama Incompatibility List  
+  - Updated Panorama Incompatibility List.  
     - Sodium has been fixed and removed from the list.  
     - Iris and Canvas Renderer have been added to the incompatibility list.  
     - Fabulous Graphics Option has been added to the incompatibility list.  
@@ -42,7 +42,7 @@ More information on this change will be posted as we get closer to 1.2.0-release
               - <name>_angry_nectar.png
   ```
 - **Toggle Zoom has been updated to invert the output of Hold Zoom.**  
-- **Updated Perspective: Default Resource Pack**  
+- **Updated Perspective: Default Resource Pack.**  
   - Added `Tee` Textured Entity Bee.  
   - Updated `perspective:silhouette` shader to be more visible.  
 
