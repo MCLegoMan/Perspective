@@ -22,6 +22,7 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.option.GraphicsMode;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -99,6 +100,11 @@ public class Panorama {
                         ClientData.CLIENT.getWindow().setFramebufferWidth(resolution);
                         ClientData.CLIENT.getWindow().setFramebufferHeight(resolution);
                         ClientData.CLIENT.getFramebuffer().beginWrite(true);
+
+                        Perspective CURRENT_PERSPECTIVE = ClientData.CLIENT.options.getPerspective();
+
+                        if (!CURRENT_PERSPECTIVE.isFirstPerson()) ClientData.CLIENT.options.setPerspective(Perspective.FIRST_PERSON);
+
                         for (int l = 0; l < 6; ++l) {
                             switch (l) {
                                 case 0 -> {
@@ -139,6 +145,9 @@ public class Panorama {
                             }
                             ScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
                         }
+
+                        if (!CURRENT_PERSPECTIVE.isFirstPerson()) ClientData.CLIENT.options.setPerspective(CURRENT_PERSPECTIVE);
+
                         File pack_file = new File(rpDirLoc + "/pack.mcmeta");
                         if (pack_file.createNewFile()) {
                             FileWriter pack_writer = new FileWriter(pack_file);

@@ -25,6 +25,7 @@ More information on this change will be posted as we get closer to 1.2.0-release
     - Iris and Canvas Renderer have been added to the incompatibility list.  
     - Fabulous Graphics Option has been added to the incompatibility list.  
     - Config Option `debug` will now bypass panorama incompatibilities.  
+  - Set Perspective to First Person whilst rendering Panorama.  
 - **Resetting Zoom will now update `zoomUpdated` instead of directly saving.**  
   - `zoomUpdated` will save the config after the player stops zooming.  
 - **Textured Entity Bees now have all variants of their textures.**
