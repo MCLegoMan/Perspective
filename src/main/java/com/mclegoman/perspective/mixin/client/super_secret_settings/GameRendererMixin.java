@@ -44,11 +44,8 @@ public abstract class GameRendererMixin {
     @Shadow @Final private LightmapTextureManager lightmapTextureManager;
     @Shadow @Final public HeldItemRenderer firstPersonRenderer;
     @Shadow @Final private BufferBuilderStorage buffers;
-
     @Shadow protected abstract double getFov(Camera camera, float tickDelta, boolean changingFov);
-
     @Shadow public abstract void tick();
-
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V", ordinal = 0))
     private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
         if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
@@ -61,7 +58,7 @@ public abstract class GameRendererMixin {
         if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
             Shader.render(tickDelta, "screen");
 
-        if (ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) {
+        if (Shader.shouldRenderShader() && ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) {
             if (Shader.USE_DEPTH && renderHand) {
                 this.perspective$renderHand(ClientData.CLIENT.gameRenderer.getCamera(), tickDelta);
             }
@@ -70,7 +67,7 @@ public abstract class GameRendererMixin {
 
     @Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
     private void perspective$renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
-        if (Shader.USE_DEPTH && renderHand) ci.cancel();
+        if (Shader.shouldRenderShader() && Shader.USE_DEPTH && renderHand) ci.cancel();
     }
 
     @Inject(method = "onResized", at = @At(value = "TAIL"))
