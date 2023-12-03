@@ -15,7 +15,7 @@ import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import org.jetbrains.annotations.Nullable;
 
 public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>> extends AlwaysSelectedEntryListWidget<ShaderListEntry> {
-	protected ShadersListWidget(int width, int height, int top, int bottom, int itemHeight) {
+	protected ShadersListWidget(int width, int height, int top, int bottom, int itemHeight, int scrollAmount) {
 		super(ClientData.CLIENT, width, height, top, bottom, itemHeight);
 		this.setRenderBackground(false);
 		for (int i = 0; i <= ShaderDataLoader.getShaderAmount(); i++) {
@@ -23,13 +23,13 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 		}
 		this.setSelected(getEntry((int) ConfigHelper.getConfig("super_secret_settings")));
 		this.setFocused(true);
-		this.setScrollAmount((int) ConfigHelper.getConfig("super_secret_settings") * 27);
+		this.setScrollAmount(scrollAmount >= 0 ? scrollAmount : (int) ConfigHelper.getConfig("super_secret_settings") * 27);
 	}
 
 	@Override
 	public void setSelected(@Nullable ShaderListEntry entry) {
 		super.setSelected(entry);
-		if (entry != null) {
+		if (entry != null && (int) ConfigHelper.getConfig("super_secret_settings") != entry.shader) {
 			ConfigHelper.setConfig("super_secret_settings", entry.shader);
 			Shader.set(ClientData.CLIENT, true, true, false, false);
 		}

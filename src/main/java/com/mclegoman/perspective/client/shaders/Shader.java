@@ -20,14 +20,19 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.option.GraphicsMode;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.GameMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -89,14 +94,14 @@ public class Shader {
 	public static void toggle(MinecraftClient client, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) set(client, true, playSound, showShaderName, true);
-		if (showShaderName) {
-			setOverlay(Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE));
-		}
 		else {
 			if (postProcessor != null) {
 				postProcessor.close();
 				postProcessor = null;
 			}
+		}
+		if (showShaderName) {
+			setOverlay(Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE));
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 	}

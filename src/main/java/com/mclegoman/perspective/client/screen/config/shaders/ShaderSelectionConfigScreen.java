@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
+import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
@@ -29,17 +29,24 @@ public class ShaderSelectionConfigScreen extends Screen {
 	public Text title;
 	public Screen parent;
 	private final Formatting randomColor;
+	private final int scrollAmount;
 	ShadersListWidget<ShaderListEntry> widget;
 	private boolean SHOULD_CLOSE;
-	public ShaderSelectionConfigScreen(Screen PARENT) {
+	public ShaderSelectionConfigScreen(Screen PARENT, int scrollAmount) {
 		super(Text.literal(""));
 		this.parent = PARENT;
-		randomColor = Shader.getRandomColor();
+		this.randomColor = Shader.getRandomColor();
+		this.scrollAmount = scrollAmount;
 	}
 	protected void init() {
-		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, ClientData.CLIENT.getWindow().getScaledHeight() - 32, 27);
+		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, ClientData.CLIENT.getWindow().getScaledHeight() - 32, 27, scrollAmount);
 		addDrawableChild(widget);
 		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).dimensions(ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 75, ClientData.CLIENT.getWindow().getScaledHeight() - 26, 150, 20).build());
+
+		if (!(boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_notice")) {
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.experimental.title", new Object[]{Translation.getTranslation("name")}), Translation.getTranslation("toasts.experimental.description", new Object[]{Translation.getTranslation("experimental.super_secret_settings_list")}), 280, Toast.Type.WARNING));
+			ConfigHelper.setExperimentalConfig("super_secret_settings_notice", true);
+		}
 	}
 
 	public void tick() {

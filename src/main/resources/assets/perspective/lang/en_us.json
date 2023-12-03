@@ -40,6 +40,9 @@
 	"gui.perspective.toasts.warning.photosensitivity.title": "Super Secret Settings",
 	"gui.perspective.toasts.warning.photosensitivity.description": "Some shader effects may not be suitable for individuals with epilepsy or photosensitivity. Please exercise caution.",
 
+	"gui.perspective.toasts.experimental.title": "Experimental Feature",
+	"gui.perspective.toasts.experimental.description": "%s is currently experimental. You may experience bugs and/or issues.",
+
 	"gui.perspective.config.update.title": "Update Available",
 	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
 
@@ -139,7 +142,7 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
-	"gui.perspective.config.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen: %s",
+	"gui.perspective.config.experimental.option": "%s: %s",
 
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.back": "Back",
@@ -227,5 +230,7 @@
 
 	"gui.perspective.version_overlay": "Minecraft %s",
 
-	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s"
+	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s",
+
+	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen"
 }

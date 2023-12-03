@@ -28,7 +28,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 	private final int description_color;
 	private final Identifier texture;
 	public Toast(Text title, Text description, int width, Type type) {
-		this(title, ClientData.CLIENT.textRenderer.wrapLines(description, width - 26), width, type);
+		this(title, ClientData.CLIENT.textRenderer.wrapLines(description, width - 32), width, type);
 	}
 
 	private Toast(Text title, List<OrderedText> lines, int width, Type type) {

@@ -236,6 +236,7 @@ public class ConfigHelper {
         try {
             switch (ID) {
                 case "super_secret_settings_list" -> ExperimentalConfig.SUPER_SECRET_SETTINGS_LIST = (boolean) VALUE;
+                case "super_secret_settings_notice" -> ExperimentalConfig.SUPER_SECRET_SETTINGS_NOTICE = (boolean) VALUE;
                 default -> Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
         } catch (Exception error) {
@@ -308,6 +309,7 @@ public class ConfigHelper {
     public static Object getExperimentalConfig(String ID) {
         switch (ID) {
             case "super_secret_settings_list" -> {return ExperimentalConfig.SUPER_SECRET_SETTINGS_LIST;}
+            case "super_secret_settings_notice" -> {return ExperimentalConfig.SUPER_SECRET_SETTINGS_NOTICE;}
             default -> {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
                 return new Object();

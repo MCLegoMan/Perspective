@@ -78,7 +78,7 @@ public class ExperimentalConfigScreen extends Screen {
         GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation("experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true), 2);
         GRID_ADDER.add(new EmptyWidget(4, 4), 2);
 
-        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("experimental.super_secret_settings_list", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"), TranslationType.ONFF)}), (button) -> {
+        GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("experimental.option", new Object[]{Translation.getTranslation("experimental.super_secret_settings_list"), Translation.getVariableTranslation((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"), TranslationType.ONFF)}), (button) -> {
             ConfigHelper.setExperimentalConfig("super_secret_settings_list", !(boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"));
             REFRESH = true;
         }).width(304).build(), 2);
