@@ -51,18 +51,17 @@ public abstract class GameRendererMixin {
         if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
             Shader.render(tickDelta, Shader.USE_DEPTH ? "game:depth" : "game");
         }
+        if (Shader.shouldRenderShader() && ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) {
+            if (Shader.USE_DEPTH && renderHand) {
+                this.perspective$renderHand(ClientData.CLIENT.gameRenderer.getCamera(), tickDelta);
+            }
+        }
     }
 
     @Inject(method = "render", at = @At(value = "TAIL"))
     private void perspective$render_overlay(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
         if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
             Shader.render(tickDelta, "screen");
-
-        if (Shader.shouldRenderShader() && ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) {
-            if (Shader.USE_DEPTH && renderHand) {
-                this.perspective$renderHand(ClientData.CLIENT.gameRenderer.getCamera(), tickDelta);
-            }
-        }
     }
 
     @Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
