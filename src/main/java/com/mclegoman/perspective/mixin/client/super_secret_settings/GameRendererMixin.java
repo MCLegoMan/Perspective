@@ -50,8 +50,6 @@ public abstract class GameRendererMixin {
     private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
         if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
             Shader.render(tickDelta, Shader.USE_DEPTH ? "game:depth" : "game");
-        }
-        if (Shader.shouldRenderShader() && ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) {
             if (Shader.USE_DEPTH && renderHand) {
                 this.perspective$renderHand(ClientData.CLIENT.gameRenderer.getCamera(), tickDelta);
             }
