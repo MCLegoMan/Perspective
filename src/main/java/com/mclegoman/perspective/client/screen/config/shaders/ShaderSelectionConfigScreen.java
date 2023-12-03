@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config.shaders;
 
+import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
@@ -37,10 +38,6 @@ public class ShaderSelectionConfigScreen extends Screen {
 	}
 	protected void init() {
 		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, ClientData.CLIENT.getWindow().getScaledHeight() - 32, 27);
-		for (int i = 0; i <= ShaderDataLoader.getShaderAmount(); i++) {
-			this.widget.addEntry(new ShaderListEntry(i, widget));
-		}
-		widget.setFocused(true);
 		addDrawableChild(widget);
 		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).dimensions(ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 75, ClientData.CLIENT.getWindow().getScaledHeight() - 26, 150, 20).build());
 	}

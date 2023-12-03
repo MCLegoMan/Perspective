@@ -14,15 +14,12 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.text.Text;
 
 public class ShaderListEntry extends AlwaysSelectedEntryListWidget.Entry<ShaderListEntry> {
 	public final int shader;
-	public EntryListWidget<ShaderListEntry> parentList;
-	public ShaderListEntry(int shader, ShadersListWidget<ShaderListEntry> widget) {
+	public ShaderListEntry(int shader) {
 		this.shader = shader;
-		this.parentList = widget;
 	}
 	@Override
 	public void render(DrawContext context, int index, int y, int x, int rowWidth, int rowHeight, int mouseX, int mouseY, boolean hovered, float delta) {
