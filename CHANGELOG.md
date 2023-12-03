@@ -9,15 +9,22 @@ More information on this change will be posted as we get closer to 1.2.0-release
 *I am planning to backport to 1.20, 1.20.1 for this release cycle.*  
 
 ## Changelog  
-- **Updated Config Version to `13`.**  
-  - Added config option `hide_show_message`.  
-    - This will toggle whether the overlay message is shown when toggling/cycling hide options using keybindings.  
+- **Updated Config Version to `13`.**
+  - Added config option `hide_show_message`.
+    - This will toggle whether the overlay message is shown when toggling/cycling hide options using keybindings.
+  - Added config option `debug`.
+    - This option bypasses the panorama incompatibility list.  
   - The config version was updated to `12` in `1.2.0-beta.1`.  
 - **Depth Shaders will now render properly when an entity with glowing is rendered.**  
   - If you experience any issues relating to this, try cycling your graphics options and report the issue.  
 - **Updated Take Panorama Screenshot**  
   - The name format has been updated to match vanilla screenshots.  
   - Perspective Super Secret Settings will now be rendered on the panorama screenshots.  
+  - Updated Panorama Incompatibility List  
+    - Sodium has been fixed and removed from the list.  
+    - Iris and Canvas Renderer have been added to the incompatibility list.  
+    - Fabulous Graphics Option has been added to the incompatibility list.  
+    - Config Option `debug` will now bypass panorama incompatibilities.  
 - **Resetting Zoom will now update `zoomUpdated` instead of directly saving.**  
   - `zoomUpdated` will save the config after the player stops zooming.  
 - **Textured Entity Bees now have all variants of their textures.**
