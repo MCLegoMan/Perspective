@@ -24,6 +24,8 @@
 	"gui.perspective.toasts.take_panorama_screenshot.failure.description.incompatible_mod": "Incompatible Mod: %s",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.description.incompatible_mods": "Incompatible Mods: %s",
 	"gui.perspective.toasts.take_panorama_screenshot.failure.description.fabulous": "Incompatible with Fabulous graphics.",
+	"gui.perspective.toasts.take_panorama_screenshot.debug.title": "Debug is enabled",
+	"gui.perspective.toasts.take_panorama_screenshot.debug.description": "The panorama screenshot might not have rendered as expected.",
 
 	"gui.perspective.toasts.tutorial.title": "%s Tutorial: %s",
 

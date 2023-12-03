@@ -46,6 +46,7 @@ public class Config {
     protected static boolean HIDE_SHOW_MESSAGE;
     protected static String DETECT_UPDATE_CHANNEL;
     protected static boolean TUTORIALS;
+    protected static boolean DEBUG;
     protected static int CONFIG_VERSION;
     protected static void init() {
         try {
@@ -89,6 +90,7 @@ public class Config {
         CONFIG_PROVIDER.add(new Pair<>("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE));
         CONFIG_PROVIDER.add(new Pair<>("tutorials", ConfigDataLoader.TUTORIALS));
         CONFIG_PROVIDER.add(new Pair<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
+        CONFIG_PROVIDER.add(new Pair<>("debug", ConfigDataLoader.DEBUG));
         CONFIG_PROVIDER.add(new Pair<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
     }
     protected static void assign() {
@@ -123,6 +125,7 @@ public class Config {
         HIDE_SHOW_MESSAGE = CONFIG.getOrDefault("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE);
         TUTORIALS = CONFIG.getOrDefault("tutorials", ConfigDataLoader.TUTORIALS);
         DETECT_UPDATE_CHANNEL = CONFIG.getOrDefault("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
+        DEBUG = CONFIG.getOrDefault("debug", ConfigDataLoader.DEBUG);
         CONFIG_VERSION = CONFIG.getOrDefault("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
     }
     protected static void save() {
@@ -158,6 +161,7 @@ public class Config {
         CONFIG_PROVIDER.setConfig("hide_show_message", HIDE_SHOW_MESSAGE);
         CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
         CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
+        CONFIG_PROVIDER.setConfig("debug", DEBUG);
         CONFIG_PROVIDER.setConfig("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
         CONFIG_PROVIDER.saveConfig(ID);
     }

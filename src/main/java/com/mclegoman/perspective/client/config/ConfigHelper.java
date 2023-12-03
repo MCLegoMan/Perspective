@@ -181,6 +181,7 @@ public class ConfigHelper {
             setConfig("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE);
             setConfig("tutorials", ConfigDataLoader.TUTORIALS);
             setConfig("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
+            setConfig("debug", ConfigDataLoader.DEBUG);
             // Experimental Config
             if (EXPERIMENTS_AVAILABLE) {
                 setExperimentalConfig("super_secret_settings_list", false);
@@ -223,6 +224,7 @@ public class ConfigHelper {
                 case "hide_show_message" -> Config.HIDE_SHOW_MESSAGE = (boolean)VALUE;
                 case "tutorials" -> Config.TUTORIALS = (boolean) VALUE;
                 case "detect_update_channel" -> Config.DETECT_UPDATE_CHANNEL = (String)VALUE;
+                case "debug" -> Config.DEBUG = (boolean)VALUE;
                 case "config_version" -> Config.CONFIG_VERSION = (int)VALUE;
                 default -> Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
             }
@@ -295,6 +297,7 @@ public class ConfigHelper {
             case "hide_show_message" -> {return Config.HIDE_SHOW_MESSAGE;}
             case "tutorials" -> {return Config.TUTORIALS;}
             case "detect_update_channel" -> {return Config.DETECT_UPDATE_CHANNEL;}
+            case "debug" -> {return Config.DEBUG;}
             case "config_version" -> {return Config.CONFIG_VERSION;}
             default -> {
                 Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);

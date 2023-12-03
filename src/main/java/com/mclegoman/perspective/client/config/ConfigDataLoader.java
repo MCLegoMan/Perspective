@@ -52,6 +52,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
     public static boolean HIDE_SHOW_MESSAGE;
     public static boolean TUTORIALS;
     public static String DETECT_UPDATE_CHANNEL;
+    public static boolean DEBUG;
     public static final String ID = "config";
     public ConfigDataLoader() {
         super(new Gson(), ID);
@@ -92,6 +93,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
                 HIDE_SHOW_MESSAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_show_message", true);
                 TUTORIALS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "tutorials", true);
                 DETECT_UPDATE_CHANNEL = JsonHelper.getDetectUpdateChannel(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
+                DEBUG = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "debug", false);
             }
             ConfigHelper.loadConfig();
         } catch (Exception error) {
