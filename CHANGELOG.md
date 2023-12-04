@@ -15,8 +15,10 @@ More information on this change will be posted as we get closer to 1.2.0-release
   - Added config option `debug`.
     - This option bypasses the panorama incompatibility list.  
   - The config version was updated to `12` in `1.2.0-beta.1`.  
+
 - **Depth Shaders will now render properly when an entity with glowing is rendered.**  
   - If you experience any issues relating to this, try cycling your graphics options and report the issue.
+
 - **Updated Take Panorama Screenshot.**  
   - The name format has been updated to match vanilla screenshots.  
   - Perspective Super Secret Settings will now be rendered on the panorama screenshots.  
@@ -26,10 +28,12 @@ More information on this change will be posted as we get closer to 1.2.0-release
     - Fabulous Graphics Option has been added to the incompatibility list.  
     - Config Option `debug` will now bypass panorama incompatibilities.  
   - Set Perspective to First Person whilst rendering Panorama.  
+
 - **Resetting Zoom will now update `zoomUpdated` instead of directly saving.**  
   - `zoomUpdated` will save the config after the player stops zooming.  
+
 - **Textured Entity Bees now have all variants of their textures.**
-  - These textures are stored in the same location as previous versions.
+  - These assets are stored in the same location as previous versions.
   ```
     - assets/
       - minecraft/
@@ -40,8 +44,14 @@ More information on this change will be posted as we get closer to 1.2.0-release
               - <name>_nectar.png
               - <name>_angry.png
               - <name>_angry_nectar.png
+      - perspective/
+        - textured_entity/
+          - <bee_name>.json
   ```
+  `*<bee_name>.json can be named anything, but it is recommended to follow the <bee_name> formatting in case of name conflicts with other resource packs.*`
+
 - **Toggle Zoom has been updated to invert the output of Hold Zoom.**  
+
 - **Updated Perspective: Default Resource Pack.**  
   - Added `Tee` Textured Entity Bee.  
   - Updated `perspective:silhouette` shader to be more visible.  
@@ -52,6 +62,7 @@ Experiments are potential new features. You may experience bugs and/or issues.
   - **Super Secret Settings Shader Selection Screen.**  
     - This experiment replaces the functionality of the shader button on the shader screen.  
       - Instead of cycling shaders, it will now open a new Shader Selection Screen.  
+
 - Added `Perspective: Experimental` resource pack.  
   - This resource pack will contain experimental resources such as shaders and textured entities that are expected to be in `Perspective: Default` in the next version.  
   - Added `perspective:foggy` shader.
