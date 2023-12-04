@@ -17,7 +17,6 @@ More information on this change will be posted as we get closer to 1.2.0-release
   - The config version was updated to `12` in `1.2.0-beta.1`.  
 - **Depth Shaders will now render properly when an entity with glowing is rendered.**  
   - If you experience any issues relating to this, try cycling your graphics options and report the issue.
-- The player's hand will now render over Depth Shaders.  
 - **Updated Take Panorama Screenshot.**  
   - The name format has been updated to match vanilla screenshots.  
   - Perspective Super Secret Settings will now be rendered on the panorama screenshots.  
@@ -46,6 +45,18 @@ More information on this change will be posted as we get closer to 1.2.0-release
 - **Updated Perspective: Default Resource Pack.**  
   - Added `Tee` Textured Entity Bee.  
   - Updated `perspective:silhouette` shader to be more visible.  
+
+## Experimental  
+Experiments are potential new features. You may experience bugs and/or issues.  
+- Added new experiment:  
+  - **Super Secret Settings Shader Selection Screen.**  
+    - This experiment replaces the functionality of the shader button on the shader screen.  
+      - Instead of cycling shaders, it will now open a new Shader Selection Screen.  
+- Added `Perspective: Experimental` resource pack.  
+  - This resource pack will contain experimental resources such as shaders and textured entities that are expected to be in `Perspective: Default` in the next version.  
+  - Added `perspective:foggy` shader.
+
+Let us know your feedback on these experimental features on [GitHub](https://github.com/MCLegoMan/Perspective/issues) or [Discord](https://discord.gg/vjbvjpFFPm) [`#modding-help\Perspective (Feedback)`](https://discord.com/channels/814560286664949811/1181316009592881182).  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
