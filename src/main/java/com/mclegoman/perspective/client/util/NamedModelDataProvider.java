@@ -10,9 +10,9 @@ package com.mclegoman.perspective.client.util;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.util.Identifier;
 
-public class CustomNamedIntItemModel {
+public class NamedModelDataProvider {
 	public static void init() {
-		ModelPredicateProviderRegistry.GLOBAL.put(new Identifier("named_int_model_data"), (stack, world, entity, seed) -> stack.hasCustomName() ? getSeedFloat(stack.getName().getString()) : 0.0F);
+		ModelPredicateProviderRegistry.GLOBAL.put(new Identifier("named_model_data"), (stack, world, entity, seed) -> stack.hasCustomName() ? getSeedFloat(stack.getName().getString()) : 0.0F);
 	}
 	private static float getSeedFloat(String seed) {
 		seed = seed.trim();
