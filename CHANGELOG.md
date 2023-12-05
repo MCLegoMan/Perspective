@@ -2,7 +2,7 @@
 
 Continuing the bug fixes!
 
-### Perspective 1.2.0-beta.2 for 1.20.2.  
+### Perspective 1.2.0-beta.3 for 1.20.2.  
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*
 More information on this change will be posted as we get closer to 1.2.0-release.1.  
 

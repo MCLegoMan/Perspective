@@ -15,11 +15,17 @@ import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.util.CustomNamedIntItemModel;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.OptionalLong;
 
 public class PerspectiveClient implements ClientModInitializer {
 	@Override
@@ -34,6 +40,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Shader.init();
 			Panorama.init();
 			TexturedEntity.init();
+			CustomNamedIntItemModel.init();
 			AprilFoolsPrank.init();
 			Tick.init();
 			ClientData.finishedInitializing();
