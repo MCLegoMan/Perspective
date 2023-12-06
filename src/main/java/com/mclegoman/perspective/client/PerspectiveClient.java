@@ -15,7 +15,6 @@ import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.client.util.NamedModelDataProvider;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
@@ -35,7 +34,6 @@ public class PerspectiveClient implements ClientModInitializer {
 			Shader.init();
 			Panorama.init();
 			TexturedEntity.init();
-			NamedModelDataProvider.init();
 			AprilFoolsPrank.init();
 			Tick.init();
 			ClientData.finishedInitializing();
