@@ -29,6 +29,13 @@ public class UpdateCheckerScreen extends Screen {
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 	}
+	private static GridWidget createUpdateChecker() {
+		GridWidget GRID = new GridWidget();
+		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+		GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation("update.checking"), ClientData.CLIENT.textRenderer));
+		return GRID;
+	}
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -55,19 +62,8 @@ public class UpdateCheckerScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$update checker screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-	private static GridWidget createUpdateChecker() {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation("update.checking"), ClientData.CLIENT.textRenderer));
-		return GRID;
-	}
 	public void initTabNavigation() {
-		try {
-			SimplePositioningWidget.setPos(GRID, getNavigationFocus());
-		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>update checker screen TabNavigation: {}", Data.PERSPECTIVE_VERSION.getID(), error);
-		}
+		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();

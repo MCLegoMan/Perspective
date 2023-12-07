@@ -16,7 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class LogoWidget extends ClickableWidget {
-	private boolean experimental;
+	private final boolean experimental;
 	public LogoWidget(boolean experimental) {
 		super(0, 0, 256, 48, Text.empty());
 		this.experimental = experimental;

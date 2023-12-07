@@ -21,10 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = PiglinEntityRenderer.class)
 public class PiglinEntityRendererMixin {
-    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof PiglinEntity) cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:piglin", "", cir.getReturnValue()));
-        else if (entity instanceof ZombifiedPiglinEntity) cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:zombified_piglin", "", cir.getReturnValue()));
-        else if (entity instanceof PiglinBruteEntity) cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:piglin_brute", "", cir.getReturnValue()));
-    }
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+		if (entity instanceof PiglinEntity)
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:piglin", "", cir.getReturnValue()));
+		else if (entity instanceof ZombifiedPiglinEntity)
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:zombified_piglin", "", cir.getReturnValue()));
+		else if (entity instanceof PiglinBruteEntity)
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:piglin_brute", "", cir.getReturnValue()));
+	}
 }

@@ -21,7 +21,6 @@ import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.JsonHelper;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -31,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class UpdateChecker {
+	private static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
 	public static Version API_VERSION;
 	public static boolean SEEN_UPDATE_TOAST;
 	public static boolean UPDATE_CHECKER_COMPLETE;
@@ -86,7 +86,8 @@ public class UpdateChecker {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.ALPHA) || API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
-										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
+										if (!version_id.contains("-"))
+											version_id = version_id.replace("+", "-release.1+");
 										LATEST_VERSION_FOUND = version_id;
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										break;
@@ -95,7 +96,8 @@ public class UpdateChecker {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
-										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
+										if (!version_id.contains("-"))
+											version_id = version_id.replace("+", "-release.1+");
 										LATEST_VERSION_FOUND = version_id;
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										break;
@@ -104,7 +106,8 @@ public class UpdateChecker {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
-										if (!version_id.contains("-")) version_id = version_id.replace("+", "-release.1+");
+										if (!version_id.contains("-"))
+											version_id = version_id.replace("+", "-release.1+");
 										LATEST_VERSION_FOUND = version_id;
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										break;
@@ -127,13 +130,11 @@ public class UpdateChecker {
 			Data.PERSPECTIVE_VERSION.getLogger().error("{} {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	private static JsonElement getModrinthData(String project_id, String request) {
 		try {
 			URL url = Objects.equals(request, "") ? new URL("https://api.modrinth.com/v2/project/" + project_id) : new URL("https://api.modrinth.com/v2/project/" + project_id + "/" + request);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
-
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
 				StringBuilder jsonContent = new StringBuilder();
 				String line;
@@ -147,7 +148,6 @@ public class UpdateChecker {
 		}
 		return null;
 	}
-	private static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
 	public static String nextUpdateChannel() {
 		List<String> updateChannels = Arrays.stream(detectUpdateChannels).toList();
 		return updateChannels.contains((String) ConfigHelper.getConfig("detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig("detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];

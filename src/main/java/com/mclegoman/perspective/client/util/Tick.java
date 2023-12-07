@@ -20,21 +20,21 @@ import com.mclegoman.perspective.client.zoom.Zoom;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class Tick {
-    public static void init() {
-        ClientTickEvents.END_CLIENT_TICK.register((client) -> {
-            if (ClientData.CLIENT.isFinishedLoading()) {
-                ConfigHelper.tick(client);
-                HUD.tick();
-                AprilFoolsPrank.tick(client);
-                Keybindings.tick(client);
-                Perspective.tick(client);
-                Zoom.tick(client);
-                Shader.tick(client);
-                Panorama.tick(client);
-                HUDOverlays.tick(client);
-                Hide.tick(client);
-                UpdateChecker.tick(client);
-            }
-        });
-    }
+	public static void init() {
+		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
+			if (ClientData.isFinishedInitializing()) {
+				ConfigHelper.tick(client);
+				HUD.tick();
+				AprilFoolsPrank.tick(client);
+				Keybindings.tick(client);
+				Perspective.tick(client);
+				Zoom.tick(client);
+				Shader.tick(client);
+				Panorama.tick(client);
+				HUDOverlays.tick(client);
+				Hide.tick(client);
+				UpdateChecker.tick(client);
+			}
+		});
+	}
 }

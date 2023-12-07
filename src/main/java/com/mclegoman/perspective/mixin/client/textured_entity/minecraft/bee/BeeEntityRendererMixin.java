@@ -20,32 +20,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = net.minecraft.client.render.entity.BeeEntityRenderer.class)
 public class BeeEntityRendererMixin {
-    @Shadow @Final private static Identifier ANGRY_NECTAR_TEXTURE;
+	@Shadow
+	@Final
+	private static Identifier ANGRY_NECTAR_TEXTURE;
 
-    @Shadow @Final private static Identifier ANGRY_TEXTURE;
+	@Shadow
+	@Final
+	private static Identifier ANGRY_TEXTURE;
 
-    @Shadow @Final private static Identifier PASSIVE_TEXTURE;
+	@Shadow
+	@Final
+	private static Identifier PASSIVE_TEXTURE;
 
-    @Shadow @Final private static Identifier NECTAR_TEXTURE;
+	@Shadow
+	@Final
+	private static Identifier NECTAR_TEXTURE;
 
-    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof BeeEntity) {
-            if (((BeeEntity)entity).hasAngerTime()) {
-                if (((BeeEntity)entity).hasNectar()) {
-                    cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_angry_nectar", ANGRY_NECTAR_TEXTURE));
-                }
-                else {
-                    cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_angry", ANGRY_TEXTURE));
-                }
-            } else {
-                if (((BeeEntity)entity).hasNectar()) {
-                    cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_nectar", NECTAR_TEXTURE));
-                }
-                else {
-                    cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "", PASSIVE_TEXTURE));
-                }
-            }
-        }
-    }
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+		if (entity instanceof BeeEntity) {
+			if (((BeeEntity) entity).hasAngerTime()) {
+				if (((BeeEntity) entity).hasNectar()) {
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_angry_nectar", ANGRY_NECTAR_TEXTURE));
+				} else {
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_angry", ANGRY_TEXTURE));
+				}
+			} else {
+				if (((BeeEntity) entity).hasNectar()) {
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_nectar", NECTAR_TEXTURE));
+				} else {
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "", PASSIVE_TEXTURE));
+				}
+			}
+		}
+	}
 }

@@ -20,9 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = LlamaEntityRenderer.class)
 public class LlamaEntityRendererMixin {
-    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof TraderLlamaEntity) cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:trader_llama", "", cir.getReturnValue()));
-        else if (entity instanceof LlamaEntity) cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:llama", "", cir.getReturnValue()));
-    }
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+		if (entity instanceof TraderLlamaEntity)
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:trader_llama", "", cir.getReturnValue()));
+		else if (entity instanceof LlamaEntity)
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:llama", "", cir.getReturnValue()));
+	}
 }

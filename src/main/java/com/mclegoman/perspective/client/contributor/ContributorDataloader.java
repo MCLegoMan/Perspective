@@ -17,7 +17,6 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +24,9 @@ import java.util.Map;
 public class ContributorDataloader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<List<Object>> REGISTRY = new ArrayList<>();
 	public static final String ID = "contributors";
-
 	public ContributorDataloader() {
 		super(new Gson(), ID);
 	}
-
 	private void add(List<Object> value) {
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
@@ -37,7 +34,6 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add contributor to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-
 	private void reset() {
 		try {
 			REGISTRY.clear();
@@ -45,7 +41,6 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset contributor registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
@@ -55,7 +50,6 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply contributor dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
 		try {
 			JsonObject READER = jsonElement.getAsJsonObject();
@@ -70,7 +64,6 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective contributor: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-
 	@Override
 	public Identifier getFabricId() {
 		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);

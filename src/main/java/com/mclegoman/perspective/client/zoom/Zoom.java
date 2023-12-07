@@ -21,18 +21,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Zoom {
+	private static final String[] ZoomTransitions = new String[]{"smooth", "instant"};
+	private static final String[] ZoomCameraModes = new String[]{"default", "spyglass"};
 	public static boolean zoomInverted;
 	public static double fov;
-	public static String zoomFOV;
-	private static boolean zoomUpdated;
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
+	private static boolean zoomUpdated;
 	public static void updateZoomMultiplier() {
 		float f = getZoomMultiplier();
 		prevZoomMultiplier = zoomMultiplier;
 		zoomMultiplier += (f - zoomMultiplier) * 0.5F;
 	}
-
 	public static float getZoomMultiplier() {
 		return isZooming() ? 1 - ((float) getZoomLevel() / 100) : 1;
 	}
@@ -60,15 +60,14 @@ public class Zoom {
 	public static void zoom(boolean in, int amount) {
 		try {
 			boolean updated = false;
-			for (int i = 0; i < amount; i++){
+			for (int i = 0; i < amount; i++) {
 				if (in) {
 					if (!(getZoomLevel() >= 100)) {
 						ConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
 						updated = true;
 						zoomUpdated = true;
 					}
-				}
-				else {
+				} else {
 					if (!(getZoomLevel() <= -50)) {
 						ConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
 						updated = true;
@@ -92,15 +91,14 @@ public class Zoom {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	private static void setOverlay(){
-		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage")) HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
+	private static void setOverlay() {
+		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage"))
+			HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
-	private static final String[] ZoomTransitions = new String[]{"smooth", "instant"};
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(ZoomTransitions).toList();
 		return transitions.contains((String) ConfigHelper.getConfig("zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig("zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
 	}
-	private static final String[] ZoomCameraModes = new String[]{"default", "spyglass"};
 	public static String nextCameraMode() {
 		List<String> cameraModes = Arrays.stream(ZoomCameraModes).toList();
 		return cameraModes.contains((String) ConfigHelper.getConfig("zoom_camera_mode")) ? ZoomCameraModes[(cameraModes.indexOf((String) ConfigHelper.getConfig("zoom_camera_mode")) + 1) % ZoomCameraModes.length] : ZoomCameraModes[0];

@@ -20,14 +20,12 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class DebugHUD {
 	public static Type debugType = Type.NONE;
 	public static Formatting shaderColor;
-
 	public static void renderDebugHUD(DrawContext context) {
 		int y = 2;
 		int x = 2;
@@ -35,12 +33,13 @@ public class DebugHUD {
 		if ((boolean) ConfigHelper.getConfig("version_overlay")) {
 			debugText.add("\n");
 		}
-		debugText.add(Text.literal(Data.PERSPECTIVE_VERSION.getName() + " " + Data.PERSPECTIVE_VERSION.getFriendlyString()));
+		debugText.add(Text.literal(Data.PERSPECTIVE_VERSION.getName() + " " + Data.PERSPECTIVE_VERSION.getFriendlyString(false)));
 		if (debugType.equals(Type.MISC)) {
 			debugText.add("\n");
 			debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));
 			debugText.add(Text.literal("isSaving(): " + ConfigHelper.isSaving()));
 			debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));
+			debugText.add(Text.literal("getZoomLevel(): " + Zoom.getZoomLevel()));
 			debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.NEWER_VERSION_FOUND));
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
@@ -74,13 +73,11 @@ public class DebugHUD {
 			}
 		}
 	}
-
 	public enum Type {
 		NONE,
 		MISC,
 		CONFIG;
 		private static final Type[] VALUES = values();
-
 		public Type next() {
 			return VALUES[(this.ordinal() + 1) % VALUES.length];
 		}

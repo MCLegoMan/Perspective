@@ -25,7 +25,6 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 		this.setFocused(true);
 		this.setScrollAmount(scrollAmount >= 0 ? scrollAmount : (int) ConfigHelper.getConfig("super_secret_settings") * 27);
 	}
-
 	@Override
 	public void setSelected(@Nullable ShaderListEntry entry) {
 		super.setSelected(entry);

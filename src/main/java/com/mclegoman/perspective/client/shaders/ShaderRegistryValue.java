@@ -8,8 +8,8 @@
 package com.mclegoman.perspective.client.shaders;
 
 public enum ShaderRegistryValue {
-    ID,
-    NAMESPACE,
-    SHADER_NAME,
-    DISABLE_SCREEN_MODE
+	ID,
+	NAMESPACE,
+	SHADER_NAME,
+	DISABLE_SCREEN_MODE
 }

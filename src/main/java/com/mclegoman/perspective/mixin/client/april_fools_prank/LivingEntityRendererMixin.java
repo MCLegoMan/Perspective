@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
-    @Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
-    private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-        if (entity instanceof PlayerEntity && (boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.shouldFlipUpsideDown)
-            cir.setReturnValue(true);
-    }
+	@Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
+	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
+		if (entity instanceof PlayerEntity && (boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools() && AprilFoolsPrankDataLoader.shouldFlipUpsideDown)
+			cir.setReturnValue(true);
+	}
 }

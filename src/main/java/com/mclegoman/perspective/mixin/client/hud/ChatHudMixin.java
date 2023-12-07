@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = ChatHud.class)
 public abstract class ChatHudMixin {
-    @Inject(at = @At("RETURN"), method = "isChatHidden", cancellable = true)
-    private void perspective$isChatHidden(CallbackInfoReturnable<Boolean> cir) {
-        if (HUD.shouldHideHUD()) cir.setReturnValue(true);
-    }
+	@Inject(at = @At("RETURN"), method = "isChatHidden", cancellable = true)
+	private void perspective$isChatHidden(CallbackInfoReturnable<Boolean> cir) {
+		if (HUD.shouldHideHUD()) cir.setReturnValue(true);
+	}
 }

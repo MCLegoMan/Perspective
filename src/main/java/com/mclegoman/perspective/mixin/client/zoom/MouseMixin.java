@@ -21,7 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 10000, value = Mouse.class)
 public abstract class MouseMixin {
 
-	@Shadow private double eventDeltaVerticalWheel;
+	@Shadow
+	private double eventDeltaVerticalWheel;
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
@@ -50,13 +51,15 @@ public abstract class MouseMixin {
 				ci.cancel();
 			}
 		}
-    }
-    @ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
-    private boolean perspective$isFirstPerson(boolean isFirstPerson) {
-        return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;
-    }
-    @ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingSpyglass()Z"))
-    private boolean perspective$isUsingSpyglass(boolean isUsingSpyglass) {
-        return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isUsingSpyglass || Zoom.isZooming()) : isUsingSpyglass;
-    }
+	}
+
+	@ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
+	private boolean perspective$isFirstPerson(boolean isFirstPerson) {
+		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;
+	}
+
+	@ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingSpyglass()Z"))
+	private boolean perspective$isUsingSpyglass(boolean isUsingSpyglass) {
+		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isUsingSpyglass || Zoom.isZooming()) : isUsingSpyglass;
+	}
 }

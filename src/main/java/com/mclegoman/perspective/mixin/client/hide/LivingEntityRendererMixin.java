@@ -21,12 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
-    @Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
-    private void perspective$hide_nametag(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-        if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig("hide_nametags") || (entity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))))
-            cir.setReturnValue(false);
-        if (entity instanceof PlayerEntity) {
-            if (Hide.shouldHidePlayer((PlayerEntity) entity)) cir.setReturnValue(false);
-        }
-    }
+	@Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
+	private void perspective$hide_nametag(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
+		if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig("hide_nametags") || (entity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))))
+			cir.setReturnValue(false);
+		if (entity instanceof PlayerEntity) {
+			if (Hide.shouldHidePlayer((PlayerEntity) entity)) cir.setReturnValue(false);
+		}
+	}
 }

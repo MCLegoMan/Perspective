@@ -14,20 +14,20 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.minecraft.util.Identifier;
 
 public class ResourcePacks {
-    /**
-     To add a resource pack to this project, please follow these guidelines:
-     1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
-     - Resource Pack Name
-     - Contributor(s): _________
-     2. Your resource pack must use the GNU LGPLv3 licence.
-     - This only applies to resource packs that are included with Perspective.
-    **/
-    public static void init() {
+	/**
+	 * To add a resource pack to this project, please follow these guidelines:
+	 * 1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
+	 * - Resource Pack Name
+	 * - Contributor(s): _________
+	 * 2. Your resource pack must use the GNU LGPLv3 licence.
+	 * - This only applies to resource packs that are included with Perspective.
+	 **/
+	public static void init() {
         /*
             Perspective: Default
             Contributor(s): MCLegoMan
         */
-        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
-        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_experimental"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_experimental"), ResourcePackActivationType.NORMAL);
-    }
+		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_experimental"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_experimental"), ResourcePackActivationType.NORMAL);
+	}
 }

@@ -19,12 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = StriderEntityRenderer.class)
 public class StriderEntityRendererMixin {
-    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        cir.setReturnValue(isCold((StriderEntity) entity) ? TexturedEntity.getTexture(entity, "minecraft:strider", "_cold", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:strider", "", cir.getReturnValue()));
-    }
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(isCold((StriderEntity) entity) ? TexturedEntity.getTexture(entity, "minecraft:strider", "_cold", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:strider", "", cir.getReturnValue()));
+	}
 
-    private boolean isCold(StriderEntity striderEntity) {
-        return striderEntity.isCold();
-    }
+	private boolean isCold(StriderEntity striderEntity) {
+		return striderEntity.isCold();
+	}
 }

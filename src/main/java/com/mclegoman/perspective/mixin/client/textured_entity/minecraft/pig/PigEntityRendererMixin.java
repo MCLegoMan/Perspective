@@ -26,15 +26,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 10000, value = PigEntityRenderer.class)
 public abstract class PigEntityRendererMixin extends LivingEntityRenderer {
-    public PigEntityRendererMixin(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius) {
-        super(ctx, model, shadowRadius);
-    }
-    @Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
-    private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-        this.addFeature(new PigOverlayFeatureRenderer(this, new PigEntityModel(context.getPart(TexturedEntityModels.PIG_OVERLAY)), "minecraft:pig", new Identifier("textures/entity/pig/pig_outer_layer.png")));
-    }
-    @Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-    private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity instanceof PigEntity) cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:pig", "", cir.getReturnValue()));
-    }
+	public PigEntityRendererMixin(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius) {
+		super(ctx, model, shadowRadius);
+	}
+
+	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
+	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
+		this.addFeature(new PigOverlayFeatureRenderer(this, new PigEntityModel(context.getPart(TexturedEntityModels.PIG_OVERLAY)), "minecraft:pig", new Identifier("textures/entity/pig/pig_outer_layer.png")));
+	}
+
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
+		if (entity instanceof PigEntity)
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:pig", "", cir.getReturnValue()));
+	}
 }

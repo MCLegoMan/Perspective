@@ -17,13 +17,16 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class HideNameTagsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<String> REGISTRY = new ArrayList<>();
+	public static final String ID = "hide/nametags";
+	public HideNameTagsDataLoader() {
+		super(new Gson(), ID);
+	}
 	private void add(String value) {
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
@@ -37,10 +40,6 @@ public class HideNameTagsDataLoader extends JsonDataLoader implements Identifiab
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset hide nametags registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
-	}
-	public static final String ID = "hide/nametags";
-	public HideNameTagsDataLoader() {
-		super(new Gson(), ID);
 	}
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
