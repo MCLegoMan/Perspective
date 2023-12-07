@@ -9,6 +9,8 @@ More information on this change will be posted as we get closer to 1.2.0-release
 ### Changelog  
 - Added `skipDisableScreenModeWhenWorldNull` check to shader cycling/toggling.  
   - This doesn't currently affect functionality as keybindings don't get checked when you are not in a world.  
+- Added Version.getFriendlyString(boolean full) function.  
+  - If full is set to false, and the current build is not a development build, the return string will not include "-release.x".  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
