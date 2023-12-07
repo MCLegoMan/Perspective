@@ -2,9 +2,15 @@
 *The following is not listed in any particular order.*  
  - [ ] Documentation on the [Perspective Wiki](https://mclegoman.com/Perspective)  
    - Work on this has started but is very incomplete.  
- - [ ] Test all Textured Entities.  
+ - [ ] Test all Textured Entities. (Planned for 1.3.0)  
    - If any are found not to work, attempt to fix, and if not fixable, remove.
      - `minecraft:ender_dragon` failed to work in 22w45a, attempted fix did not solve this issue, may reattempt in a later version, removed for now.  
+
+## 1.3.0 Plans  
+- Super Secret Settings Shader Selection Screen.  
+  - Can be enabled via experiments in 1.2.0.  
+- Test/Fix all Textured Entity entities.  
+
 
 ## Related Projects  
 *These projects are either in early development or still in the planning stages.*
