@@ -20,19 +20,14 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
-import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.option.GraphicsMode;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.GameMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -64,16 +59,18 @@ public class Shader {
 		}
 	}
 	public static void tick(MinecraftClient client) {
-		if (Keybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), true, true, true);
-		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, true, true, true);
-		if (Keybindings.RANDOM_SHADER.wasPressed()) random(true, true, true);
-
 		if (shouldRenderShader()) {
 			if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
 			else {
 				if (client.world != null) showToasts();
 			}
 		}
+		checkKeybindings(client);
+	}
+	public static void checkKeybindings(MinecraftClient client) {
+		if (Keybindings.CYCLE_SHADERS.wasPressed()) cycle(client, !client.options.sneakKey.isPressed(), true, true, true, true);
+		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, true, true, true);
+		if (Keybindings.RANDOM_SHADER.wasPressed()) random(true, true, true);
 	}
 	private static void showToasts() {
 		boolean save = false;
@@ -105,16 +102,30 @@ public class Shader {
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 	}
-	public static void cycle(MinecraftClient client, boolean FORWARDS, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
+	public static void cycle(MinecraftClient client, boolean FORWARDS, boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		try {
-			if (FORWARDS) {
-				if ((int) ConfigHelper.getConfig("super_secret_settings") < ShaderDataLoader.getShaderAmount()) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") + 1);
-				else ConfigHelper.setConfig("super_secret_settings", 0);
-			} else {
-				if ((int) ConfigHelper.getConfig("super_secret_settings") > 0) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") - 1);
-				else ConfigHelper.setConfig("super_secret_settings", ShaderDataLoader.getShaderAmount());
+			boolean shouldLoop = true;
+			while (shouldLoop) {
+				if (FORWARDS) {
+					if ((int) ConfigHelper.getConfig("super_secret_settings") < ShaderDataLoader.getShaderAmount()) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") + 1);
+					else ConfigHelper.setConfig("super_secret_settings", 0);
+				} else {
+					if ((int) ConfigHelper.getConfig("super_secret_settings") > 0) ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") - 1);
+					else ConfigHelper.setConfig("super_secret_settings", ShaderDataLoader.getShaderAmount());
+				}
+				set(client, FORWARDS, playSound, showShaderName, SAVE_CONFIG);
+				if (skipDisableScreenModeWhenWorldNull) {
+					if (client.world == null || USE_DEPTH) {
+						if (!shouldDisableScreenMode()) {
+							shouldLoop = false;
+						}
+					} else {
+						shouldLoop = false;
+					}
+				} else {
+					shouldLoop = false;
+				}
 			}
-			set(client, FORWARDS, playSound, showShaderName, SAVE_CONFIG);
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
@@ -150,7 +161,7 @@ public class Shader {
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 			try {
-				cycle(client, forwards, false, true, SAVE_CONFIG);
+				cycle(client, forwards, false, true, true, SAVE_CONFIG);
 			} catch (Exception ignored) {
 				ConfigHelper.setConfig("super_secret_settings", 0);
 				try {
