@@ -4,7 +4,7 @@
 Perspective 1.2.0 will be released some time next week if no bugs are found.  
 
 **Hosting Update:** *1.2.0-release.1 will be the final version to be released on Curseforge.*  
-More information on this change will be posted as we get closer to 1.2.0-release.1.  
+More information about this change can be found [here](https://mclegoman.com/Perspective/Moving_Away_from_Curseforge).  
 
 ### Changelog  
 - Added `skipDisableScreenModeWhenWorldNull` check to shader cycling/toggling.  
