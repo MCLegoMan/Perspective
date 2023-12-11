@@ -14,7 +14,6 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
@@ -30,7 +29,7 @@ public class Hide {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HidePlayerDataLoader());
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		if (Keybindings.TOGGLE_ARMOR.wasPressed()) {
 			ConfigHelper.setConfig("hide_armor", !(boolean) ConfigHelper.getConfig("hide_armor"));
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))

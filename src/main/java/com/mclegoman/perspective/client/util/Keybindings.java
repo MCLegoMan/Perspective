@@ -7,11 +7,11 @@
 
 package com.mclegoman.perspective.client.util;
 
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
@@ -62,18 +62,18 @@ public class Keybindings {
 	public static void init() {
 		Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing keybindings", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
-			if (hasKeybindingConflicts(client)) {
+			if (hasKeybindingConflicts()) {
 				Data.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.PERSPECTIVE_VERSION.getName());
-				client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
+				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
 			}
 			SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
 		}
 	}
-	public static boolean hasKeybindingConflicts(MinecraftClient client) {
+	public static boolean hasKeybindingConflicts() {
 		for (KeyBinding currentKey1 : ALL_KEYBINDINGS) {
-			for (KeyBinding currentKey2 : client.options.allKeys) {
+			for (KeyBinding currentKey2 : ClientData.CLIENT.options.allKeys) {
 				if (!currentKey1.isUnbound() && !currentKey2.isUnbound()) {
 					if (currentKey1 != currentKey2) {
 						if (KeyBindingHelper.getBoundKeyOf(currentKey1) == KeyBindingHelper.getBoundKeyOf(currentKey2))

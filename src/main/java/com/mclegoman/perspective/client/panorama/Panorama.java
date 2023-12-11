@@ -52,7 +52,7 @@ public class Panorama {
 		addIncompatibleMod("canvas");
 		addIncompatibleMod("iris");
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024);
 	}
 	private static String getFilename() {

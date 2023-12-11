@@ -22,12 +22,9 @@ public class LogoWidget extends ClickableWidget {
 		this.experimental = experimental;
 	}
 	public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
-		renderPerspectiveLogo(context, mouseX, mouseY, delta);
+		renderPerspectiveLogo(context);
 	}
-	protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-		renderPerspectiveLogo(context, mouseX, mouseY, delta);
-	}
-	private void renderPerspectiveLogo(DrawContext context, int mouseX, int mouseY, float delta) {
+	private void renderPerspectiveLogo(DrawContext context) {
 		Identifier logoIdentifier = this.experimental ? new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/gui/logo/normal/experimental.png") : ClientData.getLogo();
 		context.drawTexture(logoIdentifier, this.getX(), this.getY(), 0.0F, 0.0F, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 	}

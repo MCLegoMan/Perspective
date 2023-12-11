@@ -19,7 +19,6 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.version.Version;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.JsonHelper;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -37,7 +36,7 @@ public class UpdateChecker {
 	public static boolean NEWER_VERSION_FOUND;
 	public static String LATEST_VERSION_FOUND = Data.PERSPECTIVE_VERSION.getFriendlyString();
 	public static String DOWNLOAD_LINK;
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		if (!UPDATE_CHECKER_COMPLETE) {
 			checkForUpdates();
 			if (NEWER_VERSION_FOUND) {

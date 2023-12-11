@@ -28,8 +28,7 @@ import org.lwjgl.glfw.GLFW;
 public class ShaderSelectionConfigScreen extends Screen {
 	private final Formatting randomColor;
 	private final int scrollAmount;
-	public Text title;
-	public Screen parent;
+	public final Screen parent;
 	ShadersListWidget<ShaderListEntry> widget;
 	private boolean SHOULD_CLOSE;
 	public ShaderSelectionConfigScreen(Screen PARENT, int scrollAmount) {

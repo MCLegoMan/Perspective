@@ -130,7 +130,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			layout$souper_secret_settings(manager);
 			ConfigHelper.setConfig("super_secret_settings", Math.min((int) ConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
 			if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
-				Shader.set(MinecraftClient.getInstance(), true, false, false, true);
+				Shader.set(true, false, false, true);
 			List<String> ALL_NAMES = new ArrayList<>();
 			for (List<Object> registry : REGISTRY) {
 				if (!ALL_NAMES.contains((String) registry.get(1))) ALL_NAMES.add((String) registry.get(1));

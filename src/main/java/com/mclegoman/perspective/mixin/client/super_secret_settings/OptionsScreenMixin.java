@@ -26,14 +26,11 @@ public class OptionsScreenMixin extends Screen {
 	protected OptionsScreenMixin(Text title) {
 		super(title);
 	}
-
 	@Inject(method = "init", at = @At("TAIL"))
 	private void perspective$renderOptions(CallbackInfo ci) {
 		try {
 			if ((boolean) ConfigHelper.getConfig("super_secret_settings_options_screen")) {
-				this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders"), (button) -> {
-					ClientData.CLIENT.setScreen(new ShadersConfigScreen(ClientData.CLIENT.currentScreen, true, false));
-				}).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
+				this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders"), (button) -> ClientData.CLIENT.setScreen(new ShadersConfigScreen(ClientData.CLIENT.currentScreen, true, false))).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
 			}
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to add super secret settings to the options screen.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);

@@ -15,7 +15,6 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourceType;
 import java.time.LocalDate;
 import java.time.Month;
@@ -30,9 +29,9 @@ public class AprilFoolsPrank {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize april fools prank: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		boolean shouldSave = false;
-		if (!SEEN_WARNING && client.world != null) {
+		if (!SEEN_WARNING && ClientData.CLIENT.world != null) {
 			if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
 				if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
 					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));

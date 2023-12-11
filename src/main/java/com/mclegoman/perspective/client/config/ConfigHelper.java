@@ -16,7 +16,6 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -26,7 +25,7 @@ import java.util.List;
 public class ConfigHelper {
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
 	protected static final int DEFAULT_CONFIG_VERSION = 13;
-	public static boolean EXPERIMENTS_AVAILABLE = true;
+	public static final boolean EXPERIMENTS_AVAILABLE = true;
 	protected static boolean SAVE_VIA_TICK = false;
 	protected static int SAVE_VIA_TICK_TICKS = 0;
 	private static boolean SEEN_DEVELOPMENT_WARNING = false;
@@ -56,10 +55,10 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		try {
 			if (Keybindings.OPEN_CONFIG.wasPressed())
-				client.setScreen(new ConfigScreen(client.currentScreen, false, 1));
+				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
 			else {
 				if (SAVE_VIA_TICK) {
@@ -69,25 +68,25 @@ public class ConfigHelper {
 				}
 				SAVE_VIA_TICK_TICKS = 0;
 			}
-			showToasts(client);
+			showToasts();
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	private static void showToasts(MinecraftClient client) {
+	private static void showToasts() {
 		if (Data.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.PERSPECTIVE_VERSION.getName());
-			client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), 320, Toast.Type.WARNING));
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DEVELOPMENT_WARNING = true;
 		}
 		if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", Data.PERSPECTIVE_VERSION.getName());
-			client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DOWNGRADE_WARNING = true;
 		}
 		if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", Data.PERSPECTIVE_VERSION.getName());
-			client.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), 320, Toast.Type.INFO));
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), 320, Toast.Type.INFO));
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
 	}

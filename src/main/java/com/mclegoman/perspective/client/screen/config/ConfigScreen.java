@@ -85,12 +85,8 @@ public class ConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders"), (button) -> ClientData.CLIENT.setScreen(new ShadersConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false, false))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity"), (button) -> ClientData.CLIENT.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("april_fools_prank"), (button) -> ClientData.CLIENT.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide"), (button) -> {
-			ClientData.CLIENT.setScreen(new HideConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false));
-		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("toasts"), (button) -> {
-			ClientData.CLIENT.setScreen(new ToastsConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false, false));
-		}).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hide"), (button) -> ClientData.CLIENT.setScreen(new HideConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("toasts"), (button) -> ClientData.CLIENT.setScreen(new ToastsConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false, false))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information"), (button) -> ClientData.CLIENT.setScreen(new InformationScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
 		ButtonWidget EXPERIMENTAL = ButtonWidget.builder(Translation.getConfigTranslation("experimental"), (button) -> ClientData.CLIENT.setScreen(new ExperimentalConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build();
 		EXPERIMENTAL.active = ConfigHelper.EXPERIMENTS_AVAILABLE;

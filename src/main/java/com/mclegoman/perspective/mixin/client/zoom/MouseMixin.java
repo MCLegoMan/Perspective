@@ -47,7 +47,7 @@ public abstract class MouseMixin {
 	private void perspective$onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
 		if (Zoom.isZooming()) {
 			if (button == 2) {
-				Zoom.reset(ClientData.CLIENT);
+				Zoom.reset();
 				ci.cancel();
 			}
 		}

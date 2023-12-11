@@ -13,7 +13,6 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.overlays.HUDOverlays;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -42,7 +41,7 @@ public class Zoom {
 	public static boolean isZooming() {
 		return ClientData.CLIENT.player != null && (zoomInverted != Keybindings.HOLD_ZOOM.isPressed());
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		try {
 			updateZoomMultiplier();
 			if (Keybindings.TOGGLE_ZOOM.wasPressed()) zoomInverted = !zoomInverted;
@@ -80,7 +79,7 @@ public class Zoom {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	public static void reset(MinecraftClient client) {
+	public static void reset() {
 		try {
 			if ((int) ConfigHelper.getConfig("zoom_level") != ConfigDataLoader.ZOOM_LEVEL) {
 				ConfigHelper.setConfig("zoom_level", ConfigDataLoader.ZOOM_LEVEL);

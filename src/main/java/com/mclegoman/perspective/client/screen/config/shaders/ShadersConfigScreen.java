@@ -81,7 +81,7 @@ public class ShadersConfigScreen extends Screen {
 			if ((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"))
 				ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1));
 			else {
-				Shader.cycle(ClientData.CLIENT, true, !REVERSE, true, false, false, false);
+				Shader.cycle(true, !REVERSE, true, false, false, false);
 				REFRESH = true;
 			}
 		}).width(280).build());
@@ -100,7 +100,7 @@ public class ShadersConfigScreen extends Screen {
 			this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.toggle", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE)}), (button) -> {
-			Shader.toggle(ClientData.CLIENT, true, false, false, false);
+			Shader.toggle(true, false, false, false);
 			this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.show_name", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_show_name"), TranslationType.ONFF)}), (button) -> {

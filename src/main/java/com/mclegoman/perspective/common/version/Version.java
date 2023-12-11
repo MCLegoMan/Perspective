@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.common.version;
 
-import com.mclegoman.releasetypeutils.common.util.Translation;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;

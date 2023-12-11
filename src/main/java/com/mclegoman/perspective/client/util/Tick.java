@@ -23,17 +23,17 @@ public class Tick {
 	public static void init() {
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			if (ClientData.isFinishedInitializing()) {
-				ConfigHelper.tick(client);
+				ConfigHelper.tick();
 				HUD.tick();
-				AprilFoolsPrank.tick(client);
-				Keybindings.tick(client);
-				Perspective.tick(client);
-				Zoom.tick(client);
-				Shader.tick(client);
-				Panorama.tick(client);
-				HUDOverlays.tick(client);
-				Hide.tick(client);
-				UpdateChecker.tick(client);
+				AprilFoolsPrank.tick();
+				Keybindings.tick();
+				Perspective.tick();
+				Zoom.tick();
+				Shader.tick();
+				Panorama.tick();
+				HUDOverlays.tick();
+				Hide.tick();
+				UpdateChecker.tick();
 			}
 		});
 	}

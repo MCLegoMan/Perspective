@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.super_secret_settings;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -20,6 +21,7 @@ public class ShaderTextureFix {
 		return perspective$get(id);
 	}
 
+	@Unique
 	private static Identifier perspective$get(String id) {
 		if (id.contains(":")) {
 			String[] shader = id.substring(16).split(":");

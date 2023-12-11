@@ -17,7 +17,6 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
@@ -56,19 +55,19 @@ public class Shader {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		if (shouldRenderShader()) {
 			if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
 			else {
-				if (client.world != null) showToasts();
+				if (ClientData.CLIENT.world != null) showToasts();
 			}
 		}
-		checkKeybindings(client);
+		checkKeybindings();
 	}
-	public static void checkKeybindings(MinecraftClient client) {
+	public static void checkKeybindings() {
 		if (Keybindings.CYCLE_SHADERS.wasPressed())
-			cycle(client, true, !client.options.sneakKey.isPressed(), true, true, true, true);
-		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(client, true, true, true, true);
+			cycle(true, !ClientData.CLIENT.options.sneakKey.isPressed(), true, true, true, true);
+		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(true, true, true, true);
 		if (Keybindings.RANDOM_SHADER.wasPressed()) random(true, true, true);
 	}
 	private static void showToasts() {
@@ -87,12 +86,12 @@ public class Shader {
 		}
 		if (save) ConfigHelper.saveConfig(true);
 	}
-	public static void toggle(MinecraftClient client, boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
+	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) {
-			set(client, true, playSound, showShaderName, true);
-			if (skipDisableScreenModeWhenWorldNull && (client.world == null && (USE_DEPTH || !shouldDisableScreenMode())))
-				cycle(client, true, true, false, true, true, SAVE_CONFIG);
+			set(true, playSound, showShaderName, true);
+			if (skipDisableScreenModeWhenWorldNull && (ClientData.CLIENT.world == null && (USE_DEPTH || !shouldDisableScreenMode())))
+				cycle(true, true, false, true, true, SAVE_CONFIG);
 		} else {
 			if (postProcessor != null) {
 				postProcessor.close();
@@ -104,7 +103,7 @@ public class Shader {
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 	}
-	public static void cycle(MinecraftClient client, boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
+	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		try {
 			boolean shouldLoop = true;
 			while (shouldLoop) {
@@ -119,9 +118,9 @@ public class Shader {
 						else ConfigHelper.setConfig("super_secret_settings", ShaderDataLoader.getShaderAmount());
 					}
 				}
-				set(client, forwards, playSound, showShaderName, SAVE_CONFIG);
+				set(forwards, playSound, showShaderName, SAVE_CONFIG);
 				if (skipDisableScreenModeWhenWorldNull) {
-					if (client.world == null && (USE_DEPTH || !shouldDisableScreenMode())) shouldLoop = false;
+					if (ClientData.CLIENT.world == null && (USE_DEPTH || !shouldDisableScreenMode())) shouldLoop = false;
 					else shouldLoop = false;
 				} else {
 					shouldLoop = false;
@@ -137,42 +136,42 @@ public class Shader {
 			while (SHADER == (int) ConfigHelper.getConfig("super_secret_settings"))
 				SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
 			ConfigHelper.setConfig("super_secret_settings", SHADER);
-			Shader.set(ClientData.CLIENT, true, playSound, showShaderName, SAVE_CONFIG);
+			Shader.set(true, playSound, showShaderName, SAVE_CONFIG);
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-	public static void set(MinecraftClient client, Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
+	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		USE_DEPTH = false;
 		DEPTH_FIX = true;
 		try {
 			if (postProcessor != null) postProcessor.close();
-			postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
-			postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 			if (showShaderName)
 				setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
-					client.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
+					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
 
 			} catch (Exception error) {
 				Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 			}
 			if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
-				toggle(client, true, false, true, false);
+				toggle(true, false, true, false);
 			if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 			try {
-				cycle(client, true, forwards, false, true, true, SAVE_CONFIG);
+				cycle(true, forwards, false, true, true, SAVE_CONFIG);
 			} catch (Exception ignored) {
 				ConfigHelper.setConfig("super_secret_settings", 0);
 				try {
 					if (postProcessor != null) postProcessor.close();
-					postProcessor = new PostEffectProcessor(client.getTextureManager(), client.getResourceManager(), client.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
-					postProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+					postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
-						toggle(client, false, true, true, false);
+						toggle(false, true, true, false);
 				} catch (Exception ignored2) {
 				}
 			}

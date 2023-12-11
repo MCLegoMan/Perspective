@@ -7,13 +7,12 @@
 
 package com.mclegoman.perspective.client.overlays;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 public class HUDOverlays {
 	public static Text MESSAGE;
 	public static float REMAINING;
-	public static void tick(MinecraftClient client) {
+	public static void tick() {
 		if (REMAINING > 0) REMAINING -= 1;
 	}
 	public static void setOverlay(Text text) {

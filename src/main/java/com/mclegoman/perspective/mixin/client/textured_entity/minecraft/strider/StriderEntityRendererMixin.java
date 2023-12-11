@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -24,6 +25,7 @@ public class StriderEntityRendererMixin {
 		cir.setReturnValue(isCold((StriderEntity) entity) ? TexturedEntity.getTexture(entity, "minecraft:strider", "_cold", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:strider", "", cir.getReturnValue()));
 	}
 
+	@Unique
 	private boolean isCold(StriderEntity striderEntity) {
 		return striderEntity.isCold();
 	}
