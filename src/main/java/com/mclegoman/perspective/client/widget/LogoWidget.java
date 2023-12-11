@@ -21,7 +21,7 @@ public class LogoWidget extends ClickableWidget {
 		super(0, 0, 256, 48, Text.empty());
 		this.experimental = experimental;
 	}
-	public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+	public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
 		renderPerspectiveLogo(context);
 	}
 	private void renderPerspectiveLogo(DrawContext context) {

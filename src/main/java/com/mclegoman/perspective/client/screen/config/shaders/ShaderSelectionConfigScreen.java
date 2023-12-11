@@ -38,7 +38,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 		this.scrollAmount = scrollAmount;
 	}
 	protected void init() {
-		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, ClientData.CLIENT.getWindow().getScaledHeight() - 32, 27, scrollAmount);
+		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32, 27, scrollAmount);
 		addDrawableChild(widget);
 		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).dimensions(ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 75, ClientData.CLIENT.getWindow().getScaledHeight() - 26, 150, 20).build());
 		if (!(boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_notice")) {

@@ -1,3 +1,2 @@
 accessWidener v2 named
 accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;
-accessible field net/minecraft/client/item/ModelPredicateProviderRegistry GLOBAL Ljava/util/Map;
