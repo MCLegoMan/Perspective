@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "silhouette",
+  "disable_screen_mode": true,
+  "enabled": true
+}

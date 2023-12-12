@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "rainbow",
+  "disable_screen_mode": false,
+  "enabled": true
+}

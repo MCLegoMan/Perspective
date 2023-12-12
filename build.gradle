@@ -1,0 +1,107 @@
+plugins {
+	id 'fabric-loom' version '1.4-SNAPSHOT'
+	id "me.shedaniel.unified-publishing" version "0.1.+"
+	id 'maven-publish'
+}
+
+version = project.mod_version + project.mc_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+runClient.doFirst {
+	args = ['--username', "Perspective${new Random().nextInt(1000)}"]
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/perspective.accesswidener")
+}
+
+repositories {
+	maven { url 'https://jitpack.io' }
+	maven { url 'https://maven.terraformersmc.com/releases/' }
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft}"
+	mappings "net.fabricmc:yarn:${project.mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
+
+	include(implementation"com.github.LlamaLad7:MixinExtras:0.1.1")
+	annotationProcessor("com.github.LlamaLad7:MixinExtras:0.1.1")
+
+	include(modImplementation "com.github.MCLegoMan:fabric-simplelibs:${project.fabricsimplelibs}")
+	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
+
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+	modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
+}
+
+processResources {
+	inputs.property "version", project.mod_version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.mod_version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+	repositories {
+	}
+}
+
+unifiedPublishing {
+	project {
+		displayName = "${project.title}"
+		version = "${project.mod_version}${project.mc_version}"
+		changelog = rootProject.file("CHANGELOG.md").text
+		releaseType = "${project.version_type}"
+		gameVersions = ['1.20.2']
+		gameLoaders = ["fabric", "quilt"]
+
+		mainPublication tasks.remapJar
+
+		curseforge {
+			token = rootProject.file(".env").text.readLines().get(1).replace("CURSEFORGE=", "").replace("\"", "")
+			id = "${project.curseforge_id}"
+			relations {
+				depends "fabric-api"
+				depends "qsl"
+			}
+		}
+
+		modrinth {
+			token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
+			id = "${project.modrinth_id}"
+			relations {
+				depends "fabric-api"
+				depends "qsl"
+			}
+		}
+	}
+}

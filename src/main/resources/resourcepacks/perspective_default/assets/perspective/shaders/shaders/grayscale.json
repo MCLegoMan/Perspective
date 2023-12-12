@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "grayscale",
+  "disable_screen_mode": false,
+  "enabled": true
+}

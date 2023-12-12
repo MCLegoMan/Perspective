@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "saturated",
+  "disable_screen_mode": false,
+  "enabled": true
+}

@@ -1,0 +1,236 @@
+{
+	"gui.perspective.name": "Perspective",
+
+	"gui.perspective.toasts.title": "%s: %s",
+
+	"gui.perspective.toasts.license_update.title": "License Update",
+	"gui.perspective.toasts.license_update.description": "Perspective is now licensed under LGPL-3.0-or-later.",
+
+	"gui.perspective.toasts.keybinding_conflicts.title": "Conflicting Keybinding",
+	"gui.perspective.toasts.keybinding_conflicts.description": "Keybinding conflicts have been detected that could affect Perspective.\nPlease take a moment to review and adjust your keybindings as needed.",
+
+	"gui.perspective.toasts.update.title": "Update Available",
+	"gui.perspective.toasts.update.description": "%s is now available on Modrinth!",
+
+	"gui.perspective.toasts.development_warning.title": "Development Build",
+	"gui.perspective.toasts.development_warning.description": "Please help us improve by submitting bug reports if you encounter any issues.",
+
+	"gui.perspective.toasts.downgrade_warning.title": "Downgrading is not supported",
+	"gui.perspective.toasts.downgrade_warning.description": "You may experience configuration related issues.",
+
+	"gui.perspective.toasts.take_panorama_screenshot.success.title": "Saved panorama!",
+	"gui.perspective.toasts.take_panorama_screenshot.success.description": "You can enable the panorama in your resource pack menu by enabling the %s resource pack.",
+	"gui.perspective.toasts.take_panorama_screenshot.failure.title": "Failed to take panorama!",
+	"gui.perspective.toasts.take_panorama_screenshot.failure.description.incompatible_mod": "Incompatible Mod: %s",
+	"gui.perspective.toasts.take_panorama_screenshot.failure.description.incompatible_mods": "Incompatible Mods: %s",
+	"gui.perspective.toasts.take_panorama_screenshot.failure.description.fabulous": "Incompatible with Fabulous graphics.",
+	"gui.perspective.toasts.take_panorama_screenshot.debug.title": "Debug is enabled",
+	"gui.perspective.toasts.take_panorama_screenshot.debug.description": "The panorama screenshot might not have rendered as expected.",
+
+	"gui.perspective.toasts.tutorial.title": "%s Tutorial: %s",
+
+	"gui.perspective.toasts.tutorial.super_secret_settings.title": "Super Secret Settings",
+	"gui.perspective.toasts.tutorial.super_secret_settings.description": "You can cycle shaders with [%s] and disable them with [%s]. For more settings check out the Perspective config using [%s].",
+
+	"gui.perspective.toasts.tutorial.prank.title": "April Fools!",
+	"gui.perspective.toasts.tutorial.prank.description": "This prank is only visible to users with Perspective installed. You can disable it in the Perspective config using [%s].",
+
+	"gui.perspective.toasts.warning.title": "%s Warning: %s",
+
+	"gui.perspective.toasts.warning.photosensitivity.title": "Super Secret Settings",
+	"gui.perspective.toasts.warning.photosensitivity.description": "Some shader effects may not be suitable for individuals with epilepsy or photosensitivity. Please exercise caution.",
+
+	"gui.perspective.toasts.experimental.title": "Experimental Feature",
+	"gui.perspective.toasts.experimental.description": "%s is currently experimental. You may experience bugs and/or issues.",
+
+	"gui.perspective.config.update.title": "Update Available",
+	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
+
+	"gui.perspective.config.update.checking": "Checking for updates...",
+
+	"gui.perspective.config.zoom": "Zoom",
+
+	"gui.perspective.config.zoom.level": "Zoom: %s",
+
+	"gui.perspective.config.zoom.increment_size": "Increment Size: %s",
+
+	"gui.perspective.config.zoom.transition": "Transition: %s",
+	"gui.perspective.config.zoom.transition.smooth": "Smooth",
+	"gui.perspective.config.zoom.transition.instant": "Instant",
+
+	"gui.perspective.config.zoom.camera_mode": "Camera Mode: %s",
+	"gui.perspective.config.zoom.camera_mode.default": "Default",
+	"gui.perspective.config.zoom.camera_mode.spyglass": "Spyglass",
+
+	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
+
+	"gui.perspective.config.zoom.show_percentage": "Show Percentage: %s",
+
+	"gui.perspective.config.hold_perspective": "Hold Perspective",
+	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",
+
+	"gui.perspective.config.shaders": "Super Secret Settings",
+
+	"gui.perspective.config.shaders.shader": "Shader: %s",
+	"gui.perspective.config.shaders.shader.select": "Select Super Secret Setting",
+	"gui.perspective.config.shaders.shader.list": "%s%s",
+
+	"gui.perspective.config.shaders.random": "\uD83D\uDD00",
+
+	"gui.perspective.config.shaders.mode": "Shader Mode: %s%s",
+	"gui.perspective.config.shaders.mode.screen": "Screen",
+	"gui.perspective.config.shaders.mode.game": "Game",
+
+	"gui.perspective.config.shaders.toggle": "%s",
+
+	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
+
+	"gui.perspective.config.textured_entity": "Textured Entity",
+
+	"gui.perspective.config.textured_entity.named": "Named Entity: %s",
+
+	"gui.perspective.config.textured_entity.random": "Random Entity: %s",
+
+	"gui.perspective.config.april_fools_prank": "April Fools' Prank",
+
+	"gui.perspective.config.april_fools_prank.allow": "Allow Prank: %s",
+
+	"gui.perspective.config.april_fools_prank.force": "Force Prank: %s",
+
+	"gui.perspective.config.more_options.version_overlay": "Version Overlay: %s",
+
+	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
+
+	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
+
+	"gui.perspective.config.more_options.dirt_title_screen": "Dirt Title Screen: %s",
+
+	"gui.perspective.config.hide": "Hide",
+
+	"gui.perspective.config.hide.hide_block_outline": "Hide Block Outline: %s",
+
+	"gui.perspective.config.hide.hide_crosshair": "Hide Crosshair: %s",
+
+	"gui.perspective.config.hide.hide_armor": "Global Hide Armor: %s",
+
+	"gui.perspective.config.hide.hide_nametags": "Global Hide Nametags: %s",
+
+	"gui.perspective.config.hide.hide_players": "Global Hide Players: %s",
+
+	"gui.perspective.config.hide.show_message": "Overlay Message: %s",
+
+	"gui.perspective.config.toasts": "Toasts",
+
+	"gui.perspective.config.toasts.tutorials": "Tutorials: %s",
+
+	"gui.perspective.config.toasts.detect_update_channel": "Update Notification Channel: %s",
+
+	"gui.perspective.config.information": "Information",
+
+	"gui.perspective.config.information.documentation": "Documentation",
+
+	"gui.perspective.config.information.credits_attribution": "Credits and Attribution",
+
+	"gui.perspective.config.information.licenses": "Licenses",
+
+	"gui.perspective.config.information.source_code": "Source Code",
+
+	"gui.perspective.config.information.report": "Report a bug",
+
+	"gui.perspective.config.experimental": "Experimental",
+
+	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
+	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
+
+	"gui.perspective.config.experimental.option": "%s: %s",
+
+	"gui.perspective.config.reset": "Reset to Default",
+	"gui.perspective.config.back": "Back",
+	"gui.perspective.config.next": "Next",
+
+	"gui.perspective.message.zoom_level": "Zoom: %s",
+
+	"gui.perspective.message.shader": "Super Secret Settings: %s",
+
+	"gui.perspective.message.take_panorama_screenshot.success": "Saved panorama as %s",
+
+	"gui.perspective.message.hide.armor": "Hide Armor: %s",
+
+	"gui.perspective.message.hide.block_outline": "Hide Block Outline: %s",
+
+	"gui.perspective.message.hide.crosshair": "Hide Crosshair: %s",
+
+	"gui.perspective.message.hide.nametags": "Hide Nametags: %s",
+
+	"gui.perspective.message.hide.players": "Hide Players: %s",
+
+	"gui.perspective.keybindings.category.perspective": "Perspective",
+
+	"gui.perspective.keybindings.keybinding.cycle_crosshair": "Cycle Crosshair Mode",
+
+	"gui.perspective.keybindings.keybinding.cycle_shaders": "Cycle Super Secret Settings",
+
+	"gui.perspective.keybindings.keybinding.hold_perspective_third_person_back": "Hold Third Person Back",
+
+	"gui.perspective.keybindings.keybinding.hold_perspective_third_person_front": "Hold Third Person Front",
+
+	"gui.perspective.keybindings.keybinding.hold_zoom": "Hold Zoom",
+
+	"gui.perspective.keybindings.keybinding.open_config": "Open Config",
+
+	"gui.perspective.keybindings.keybinding.debug": "Open Debug Screen",
+
+	"gui.perspective.keybindings.keybinding.random_shader": "Random Super Secret Setting",
+
+	"gui.perspective.keybindings.keybinding.set_perspective_first_person": "Set First Person",
+
+	"gui.perspective.keybindings.keybinding.set_perspective_third_person_back": "Set Third Person Back",
+
+	"gui.perspective.keybindings.keybinding.set_perspective_third_person_front": "Set Third Person Front",
+
+	"gui.perspective.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
+
+	"gui.perspective.keybindings.keybinding.toggle_armor": "Toggle Armor",
+
+	"gui.perspective.keybindings.keybinding.toggle_block_outline": "Toggle Block Outline",
+
+	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
+
+	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
+
+	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
+
+	"gui.perspective.keybindings.category.perspective-experimental": "Perspective: Experimental",
+
+	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
+
+	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
+	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
+
+	"gui.perspective.resource_pack.perspective_experimental": "Perspective: Experimental",
+	"gui.perspective.resource_pack.perspective_experimental.description": "The experimental look of Perspective",
+
+	"gui.perspective.variable.endisable.on": "Enabled",
+	"gui.perspective.variable.endisable.off": "Disabled",
+
+	"gui.perspective.variable.onff.on": "ON",
+	"gui.perspective.variable.onff.off": "OFF",
+
+	"gui.perspective.variable.dynamic": "DYNAMIC",
+
+	"gui.perspective.variable.disable_screen_mode.on": "*",
+	"gui.perspective.variable.disable_screen_mode.off": "",
+
+	"gui.perspective.config.error": "ERROR",
+
+	"gui.perspective.config.detect_update_channel.release": "Release",
+	"gui.perspective.config.detect_update_channel.beta": "Beta",
+	"gui.perspective.config.detect_update_channel.alpha": "Alpha",
+	"gui.perspective.config.detect_update_channel.none": "None",
+
+	"gui.perspective.version_overlay": "Minecraft %s",
+
+	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s",
+
+	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen"
+}

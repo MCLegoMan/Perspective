@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "foggy",
+  "disable_screen_mode": true,
+  "enabled": true
+}

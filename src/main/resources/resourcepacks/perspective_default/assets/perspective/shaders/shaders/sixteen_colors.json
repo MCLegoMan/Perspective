@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "sixteen_colors",
+  "disable_screen_mode": false,
+  "enabled": true
+}

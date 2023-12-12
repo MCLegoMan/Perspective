@@ -1,0 +1,38 @@
+{
+    "targets": [
+        "0",
+        "1",
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "downscale",
+            "intarget": "minecraft:main",
+            "outtarget": "0"
+        },
+        {
+            "name": "notch",
+            "intarget": "0",
+            "outtarget": "1",
+            "auxtargets": [
+                {
+                    "name": "DitherSampler",
+                    "id": "dither",
+                    "width": 64,
+                    "height": 64,
+                    "bilinear": true
+                }
+            ]
+        },
+        {
+            "name": "downscale",
+            "intarget": "1",
+            "outtarget": "swap"
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}
