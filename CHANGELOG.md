@@ -22,6 +22,7 @@ More information about this change can be found [here](https://mclegoman.com/Per
   - Any resource packs that use this will need to be updated.  
 - Fixed End Crystal Textured Entity.  
 - Bee Textured Entity now has nectar, angry, and angry nectar textures.  
+- Added Breeze and Wind Charge Textured Entities.  
 - Added `hide_armor`, `hide_nametags` and `hide_players` dataloaders.  
   - This feature allows players to hide armour/nametags of specific players using resource packs.  
 - Removed Ender Dragon Textured Entity.  
