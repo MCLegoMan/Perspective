@@ -55,8 +55,9 @@ More information about this change can be found [here](https://mclegoman.com/Per
   - Added `pixelated` shader.  
   - Added `mirror` shader.  
   - Added `Cheeze` Breeze Textured Entity.  
-  - Added `Mossy` Skeleton Textured Entity.  
-  - Added `Tee` Bee Textured Entity.  
+  - Added `Mossy` Skeleton Textured Entity.
+  - Added `Tee` Bee Textured Entity.
+  - Added `Strawberry` Fox Textured Entity.  
 
 #### Experimental  
 - Added Super Secret Settings Shader Selection Screen.  
