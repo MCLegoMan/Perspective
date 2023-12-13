@@ -49,6 +49,7 @@
 		"client.textured_entity.minecraft.elder_guardian.ElderGuardianEntityRendererMixin",
 		"client.textured_entity.minecraft.end_crystal.EndCrystalEntityRendererMixin",
 		"client.textured_entity.minecraft.enderman.EndermanEntityRendererMixin",
+		"client.textured_entity.minecraft.enderman.EyesFeatureRendererMixin",
 		"client.textured_entity.minecraft.endermite.EndermiteEntityRendererMixin",
 		"client.textured_entity.minecraft.evoker.EvokerEntityRendererMixin",
 		"client.textured_entity.minecraft.evoker_fangs.EvokerFangsEntityRendererMixin",
