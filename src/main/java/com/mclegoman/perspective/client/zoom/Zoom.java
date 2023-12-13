@@ -15,6 +15,7 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +37,7 @@ public class Zoom {
 		return isZooming() ? 1 - ((float) getZoomLevel() / 100) : 1;
 	}
 	public static double limitFov(double fov) {
-		return Math.max(Math.max(0.1, fov), Math.min(fov, 110));
+		return MathHelper.clamp(fov, 0.1, 110);
 	}
 	public static boolean isZooming() {
 		return ClientData.CLIENT.player != null && (zoomInverted != Keybindings.HOLD_ZOOM.isPressed());
