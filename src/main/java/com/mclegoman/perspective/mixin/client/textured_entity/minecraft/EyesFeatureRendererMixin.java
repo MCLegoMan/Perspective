@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.enderman;
+package com.mclegoman.perspective.mixin.client.textured_entity.minecraft;
 
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import net.minecraft.client.render.OverlayTexture;

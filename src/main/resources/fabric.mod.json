@@ -38,5 +38,10 @@
     ],
     "fabric-api": "*"
   },
-  "accessWidener" : "perspective.accesswidener"
+  "accessWidener" : "perspective.accesswidener",
+  "custom": {
+    "catalogue": {
+      "configFactory": "com.mclegoman.perspective.compat.CatalogueCompat"
+    }
+  }
 }
