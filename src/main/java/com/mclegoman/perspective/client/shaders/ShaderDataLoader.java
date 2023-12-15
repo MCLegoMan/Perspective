@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
@@ -40,13 +41,13 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		String NAMESPACE = (String) get(SHADER, ShaderRegistryValue.NAMESPACE);
 		String SHADER_NAME = (String) get(SHADER, ShaderRegistryValue.SHADER_NAME);
 		if (NAMESPACE != null && SHADER_NAME != null) return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
-		return "null";
+		return null;
 	}
 	public static String getFullShaderName(int SHADER) {
 		String NAMESPACE = (String) get(SHADER, ShaderRegistryValue.NAMESPACE);
 		String SHADER_NAME = (String) get(SHADER, ShaderRegistryValue.SHADER_NAME);
 		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
-		return "null";
+		return null;
 	}
 	public static boolean isShaderAvailable(String id) {
 		for (int shader = 0; shader < REGISTRY.size(); shader++) {
@@ -146,6 +147,11 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			prepared.forEach(this::layout$perspective);
 			layout$souper_secret_settings(manager);
 			boolean saveConfig;
+			if (Shader.updateLegacyConfig) {
+				if (getFullShaderName(Shader.legacyIndex) != null) {
+					ConfigHelper.setConfig("super_secret_settings_shader", getFullShaderName(Shader.legacyIndex));
+				}
+			}
 			if (isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_shader"))) {
 				Shader.superSecretSettingsIndex = getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_shader"));
 				saveConfig = false;

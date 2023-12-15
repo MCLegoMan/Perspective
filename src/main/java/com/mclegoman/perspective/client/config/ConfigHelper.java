@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
+import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -117,6 +117,10 @@ public class ConfigHelper {
 						setConfig("zoom_transition", Config.CONFIG.getOrDefault("zoom_mode", ConfigDataLoader.ZOOM_TRANSITION));
 						setConfig("zoom_show_percentage", Config.CONFIG.getOrDefault("zoom_overlay_message", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
 						setConfig("super_secret_settings_show_name", Config.CONFIG.getOrDefault("super_secret_settings_overlay_message", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
+					}
+					if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 14) {
+						Shader.updateLegacyConfig = true;
+						Shader.legacyIndex = Config.CONFIG.getOrDefault("super_secret_settings", 0);
 					}
 					setConfig("config_version", DEFAULT_CONFIG_VERSION);
 					Data.PERSPECTIVE_VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());

@@ -44,6 +44,8 @@ public class Shader {
 	@Nullable
 	public static PostEffectProcessor postProcessor;
 	private static Formatting LAST_COLOR;
+	public static boolean updateLegacyConfig;
+	public static int legacyIndex;
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
