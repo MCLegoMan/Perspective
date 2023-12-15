@@ -141,7 +141,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			reset();
 			prepared.forEach(this::layout$perspective);
 			layout$souper_secret_settings(manager);
-			Data.PERSPECTIVE_VERSION.sendToLog(Helper.LogType.INFO, String.valueOf(REGISTRY.size()));
 			if (isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_id"))) {
 				ConfigHelper.setConfig("super_secret_settings", getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_id")));
 			} else {
