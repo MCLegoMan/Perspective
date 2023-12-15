@@ -34,6 +34,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Shader {
+	public static int superSecretSettingsIndex;
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	private static final List<Identifier> SOUND_EVENTS = new ArrayList<>();
 	public static Framebuffer DEPTH_FRAME_BUFFER;
@@ -109,13 +110,13 @@ public class Shader {
 			while (shouldLoop) {
 				if (shouldCycle) {
 					if (forwards) {
-						if ((int) ConfigHelper.getConfig("super_secret_settings") < ShaderDataLoader.getShaderAmount())
-							ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") + 1);
-						else ConfigHelper.setConfig("super_secret_settings", 0);
+						if (superSecretSettingsIndex < ShaderDataLoader.getShaderAmount())
+							superSecretSettingsIndex++;
+						else superSecretSettingsIndex = 0;
 					} else {
-						if ((int) ConfigHelper.getConfig("super_secret_settings") > 0)
-							ConfigHelper.setConfig("super_secret_settings", (int) ConfigHelper.getConfig("super_secret_settings") - 1);
-						else ConfigHelper.setConfig("super_secret_settings", ShaderDataLoader.getShaderAmount());
+						if (superSecretSettingsIndex > 0)
+							superSecretSettingsIndex--;
+						else superSecretSettingsIndex = ShaderDataLoader.getShaderAmount();
 					}
 				}
 				set(forwards, playSound, showShaderName, SAVE_CONFIG);
@@ -132,10 +133,10 @@ public class Shader {
 	}
 	public static void random(boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		try {
-			int SHADER = (int) ConfigHelper.getConfig("super_secret_settings");
-			while (SHADER == (int) ConfigHelper.getConfig("super_secret_settings"))
+			int SHADER = superSecretSettingsIndex;
+			while (SHADER == superSecretSettingsIndex)
 				SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
-			ConfigHelper.setConfig("super_secret_settings", SHADER);
+			superSecretSettingsIndex = SHADER;
 			Shader.set(true, playSound, showShaderName, SAVE_CONFIG);
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -146,11 +147,11 @@ public class Shader {
 		DEPTH_FIX = true;
 		try {
 			if (postProcessor != null) postProcessor.close();
-			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get(superSecretSettingsIndex, ShaderRegistryValue.ID)));
 			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
-			ConfigHelper.setConfig("super_secret_settings_id", ShaderDataLoader.getFullShaderName((int) ConfigHelper.getConfig("super_secret_settings")));
+			ConfigHelper.setConfig("super_secret_settings_shader", ShaderDataLoader.getFullShaderName(superSecretSettingsIndex));
 			if (showShaderName)
-				setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
+				setOverlay(Text.literal(ShaderDataLoader.getShaderName(superSecretSettingsIndex)));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
 					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
@@ -166,10 +167,10 @@ public class Shader {
 			try {
 				cycle(true, forwards, false, true, true, SAVE_CONFIG);
 			} catch (Exception ignored) {
-				ConfigHelper.setConfig("super_secret_settings", 0);
+				superSecretSettingsIndex = 0;
 				try {
 					if (postProcessor != null) postProcessor.close();
-					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get(superSecretSettingsIndex, ShaderRegistryValue.ID)));
 					postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
 						toggle(false, true, true, false);
@@ -202,7 +203,7 @@ public class Shader {
 		return (boolean) Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
 	}
 	public static Object getShaderData(ShaderRegistryValue key) {
-		return ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), key);
+		return ShaderDataLoader.get(superSecretSettingsIndex, key);
 	}
 	public static void cycleShaderModes() {
 		if (ConfigHelper.getConfig("super_secret_settings_mode").equals("game"))

@@ -92,7 +92,7 @@ public class ConfigHelper {
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
 	}
-	protected static void updateConfig() {
+	public static void updateConfig() {
 		try {
 			if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
 				if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < DEFAULT_CONFIG_VERSION) {
@@ -126,8 +126,8 @@ public class ConfigHelper {
 						SHOW_DOWNGRADE_WARNING = true;
 					}
 				}
+				saveConfig(false);
 			}
-			saveConfig(false);
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to update config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
@@ -159,8 +159,7 @@ public class ConfigHelper {
 			setConfig("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
 			setConfig("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
 			setConfig("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
-			setConfig("super_secret_settings", Math.max(Math.min(ConfigDataLoader.SUPER_SECRET_SETTINGS, ShaderDataLoader.getShaderAmount()), 0));
-			setConfig("super_secret_settings_id", ConfigDataLoader.SUPER_SECRET_SETTINGS_ID);
+			setConfig("super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
 			setConfig("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
 			setConfig("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
 			setConfig("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
@@ -203,10 +202,8 @@ public class ConfigHelper {
 				case "zoom_hide_hud" -> Config.ZOOM_HIDE_HUD = (boolean) VALUE;
 				case "zoom_show_percentage" -> Config.ZOOM_SHOW_PERCENTAGE = (boolean) VALUE;
 				case "hold_perspective_hide_hud" -> Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean) VALUE;
-				case "super_secret_settings" ->
-						Config.SUPER_SECRET_SETTINGS = Math.max(Math.min((int) VALUE, ShaderDataLoader.getShaderAmount()), 0);
-				case "super_secret_settings_id" ->
-						Config.SUPER_SECRET_SETTINGS_ID = (String) VALUE;
+				case "super_secret_settings_shader" ->
+						Config.SUPER_SECRET_SETTINGS_SHADER = (String) VALUE;
 				case "super_secret_settings_mode" -> Config.SUPER_SECRET_SETTINGS_MODE = (String) VALUE;
 				case "super_secret_settings_enabled" -> Config.SUPER_SECRET_SETTINGS_ENABLED = (boolean) VALUE;
 				case "super_secret_settings_sound" -> Config.SUPER_SECRET_SETTINGS_SOUND = (boolean) VALUE;
@@ -300,11 +297,8 @@ public class ConfigHelper {
 			case "hold_perspective_hide_hud" -> {
 				return Config.HOLD_PERSPECTIVE_HIDE_HUD;
 			}
-			case "super_secret_settings" -> {
-				return MathHelper.clamp(Config.SUPER_SECRET_SETTINGS, 0, ShaderDataLoader.getShaderAmount());
-			}
-			case "super_secret_settings_id" -> {
-				return Config.SUPER_SECRET_SETTINGS_ID;
+			case "super_secret_settings_shader" -> {
+				return Config.SUPER_SECRET_SETTINGS_SHADER;
 			}
 			case "super_secret_settings_mode" -> {
 				return Config.SUPER_SECRET_SETTINGS_MODE;

@@ -37,24 +37,28 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		return REGISTRY.size() - 1;
 	}
 	public static String getShaderName(int SHADER) {
-		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
-		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
-		return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
+		String NAMESPACE = (String) get(SHADER, ShaderRegistryValue.NAMESPACE);
+		String SHADER_NAME = (String) get(SHADER, ShaderRegistryValue.SHADER_NAME);
+		if (NAMESPACE != null && SHADER_NAME != null) return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
+		return "null";
 	}
 	public static String getFullShaderName(int SHADER) {
-		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
-		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
-		return NAMESPACE + ":" + SHADER_NAME;
+		String NAMESPACE = (String) get(SHADER, ShaderRegistryValue.NAMESPACE);
+		String SHADER_NAME = (String) get(SHADER, ShaderRegistryValue.SHADER_NAME);
+		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
+		return "null";
 	}
 	public static boolean isShaderAvailable(String id) {
 		for (int shader = 0; shader < REGISTRY.size(); shader++) {
-			if (id.equals(getFullShaderName(shader))) return true;
+			if (id.contains(":") && id.equals(getFullShaderName(shader))) return true;
+			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return true;
 		}
 		return false;
 	}
 	public static int getShaderValue(String id) {
 		for (int shader = 0; shader < REGISTRY.size(); shader++) {
-			if (id.equals(getFullShaderName(shader))) return shader;
+			if (id.contains(":") && id.equals(getFullShaderName(shader))) return shader;
+			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return shader;
 		}
 		return 0;
 	}
@@ -141,13 +145,16 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			reset();
 			prepared.forEach(this::layout$perspective);
 			layout$souper_secret_settings(manager);
-			if (isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_id"))) {
-				ConfigHelper.setConfig("super_secret_settings", getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_id")));
+			boolean saveConfig;
+			if (isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_shader"))) {
+				Shader.superSecretSettingsIndex = getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_shader"));
+				saveConfig = false;
 			} else {
-				ConfigHelper.setConfig("super_secret_settings", Math.min((int) ConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
+				Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, REGISTRY.size() - 1);
+				saveConfig = true;
 			}
 			if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
-				Shader.set(true, false, false, true);
+				Shader.set(true, false, false, saveConfig);
 			List<String> ALL_NAMES = new ArrayList<>();
 			for (List<Object> registry : REGISTRY) {
 				if (!ALL_NAMES.contains((String) registry.get(1))) ALL_NAMES.add((String) registry.get(1));

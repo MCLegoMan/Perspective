@@ -28,13 +28,13 @@ public class PerspectiveClient implements ClientModInitializer {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), Data.PERSPECTIVE_VERSION.getID());
 			ConfigHelper.init();
 			ResourcePacks.init();
+			AprilFoolsPrank.init();
 			Contributor.init();
 			Hide.init();
-			Keybindings.init();
 			Shader.init();
-			Panorama.init();
 			TexturedEntity.init();
-			AprilFoolsPrank.init();
+			Keybindings.init();
+			Panorama.init();
 			Tick.init();
 			ClientData.finishedInitializing();
 		} catch (Exception error) {
