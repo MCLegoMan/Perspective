@@ -29,6 +29,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean ZOOM_SHOW_PERCENTAGE;
 	public static boolean HOLD_PERSPECTIVE_HIDE_HUD;
 	public static int SUPER_SECRET_SETTINGS;
+	public static String SUPER_SECRET_SETTINGS_ID;
 	public static String SUPER_SECRET_SETTINGS_MODE;
 	public static boolean SUPER_SECRET_SETTINGS_ENABLED;
 	public static boolean SUPER_SECRET_SETTINGS_SOUND;
@@ -68,6 +69,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				ZOOM_SHOW_PERCENTAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_show_percentage", false);
 				HOLD_PERSPECTIVE_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hold_perspective_hide_hud", true);
 				SUPER_SECRET_SETTINGS = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings", 0);
+				SUPER_SECRET_SETTINGS_ID = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_id", "minecraft:none");
 				SUPER_SECRET_SETTINGS_MODE = JsonHelper.getShaderMode(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_mode", "game");
 				SUPER_SECRET_SETTINGS_ENABLED = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_enabled", false);
 				SUPER_SECRET_SETTINGS_SOUND = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_sound", true);

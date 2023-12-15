@@ -13,14 +13,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,18 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
 		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
 		return NAMESPACE + ":" + SHADER_NAME;
+	}
+	public static boolean isShaderAvailable(String id) {
+		for (int shader = 0; shader < REGISTRY.size(); shader++) {
+			if (id.equals(getFullShaderName(shader))) return true;
+		}
+		return false;
+	}
+	public static int getShaderValue(String id) {
+		for (int shader = 0; shader < REGISTRY.size(); shader++) {
+			if (id.equals(getFullShaderName(shader))) return shader;
+		}
+		return 0;
 	}
 	private static boolean isDuplicatedShaderName(String name) {
 		return DUPLICATED_NAMES.contains(name);
@@ -128,7 +141,12 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			reset();
 			prepared.forEach(this::layout$perspective);
 			layout$souper_secret_settings(manager);
-			ConfigHelper.setConfig("super_secret_settings", Math.min((int) ConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
+			Data.PERSPECTIVE_VERSION.sendToLog(Helper.LogType.INFO, String.valueOf(REGISTRY.size()));
+			if (isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_id"))) {
+				ConfigHelper.setConfig("super_secret_settings", getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_id")));
+			} else {
+				ConfigHelper.setConfig("super_secret_settings", Math.min((int) ConfigHelper.getConfig("super_secret_settings"), REGISTRY.size() - 1));
+			}
 			if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
 				Shader.set(true, false, false, true);
 			List<String> ALL_NAMES = new ArrayList<>();

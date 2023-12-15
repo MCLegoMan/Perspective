@@ -23,6 +23,7 @@ public class Config {
 	protected static boolean ZOOM_SHOW_PERCENTAGE;
 	protected static boolean HOLD_PERSPECTIVE_HIDE_HUD;
 	protected static int SUPER_SECRET_SETTINGS;
+	protected static String SUPER_SECRET_SETTINGS_ID;
 	protected static String SUPER_SECRET_SETTINGS_MODE;
 	protected static boolean SUPER_SECRET_SETTINGS_ENABLED;
 	protected static boolean SUPER_SECRET_SETTINGS_SOUND;
@@ -67,6 +68,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Pair<>("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
 		CONFIG_PROVIDER.add(new Pair<>("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", ConfigDataLoader.SUPER_SECRET_SETTINGS));
+		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_id", ConfigDataLoader.SUPER_SECRET_SETTINGS_ID));
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
@@ -102,6 +104,7 @@ public class Config {
 		ZOOM_SHOW_PERCENTAGE = CONFIG.getOrDefault("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
 		HOLD_PERSPECTIVE_HIDE_HUD = CONFIG.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
 		SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", ConfigDataLoader.SUPER_SECRET_SETTINGS);
+		SUPER_SECRET_SETTINGS_ID = CONFIG.getOrDefault("super_secret_settings_id", ConfigDataLoader.SUPER_SECRET_SETTINGS_ID);
 		SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
 		SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
 		SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
@@ -138,6 +141,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("zoom_show_percentage", ZOOM_SHOW_PERCENTAGE);
 		CONFIG_PROVIDER.setConfig("hold_perspective_hide_hud", HOLD_PERSPECTIVE_HIDE_HUD);
 		CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
+		CONFIG_PROVIDER.setConfig("super_secret_settings_id", SUPER_SECRET_SETTINGS_ID);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_sound", SUPER_SECRET_SETTINGS_SOUND);

@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ConfigHelper {
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-	protected static final int DEFAULT_CONFIG_VERSION = 13;
+	protected static final int DEFAULT_CONFIG_VERSION = 14;
 	public static final boolean EXPERIMENTS_AVAILABLE = true;
 	protected static boolean SAVE_VIA_TICK = false;
 	protected static int SAVE_VIA_TICK_TICKS = 0;
@@ -160,6 +160,7 @@ public class ConfigHelper {
 			setConfig("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
 			setConfig("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
 			setConfig("super_secret_settings", Math.max(Math.min(ConfigDataLoader.SUPER_SECRET_SETTINGS, ShaderDataLoader.getShaderAmount()), 0));
+			setConfig("super_secret_settings_id", ConfigDataLoader.SUPER_SECRET_SETTINGS_ID);
 			setConfig("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
 			setConfig("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
 			setConfig("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
@@ -204,6 +205,8 @@ public class ConfigHelper {
 				case "hold_perspective_hide_hud" -> Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean) VALUE;
 				case "super_secret_settings" ->
 						Config.SUPER_SECRET_SETTINGS = Math.max(Math.min((int) VALUE, ShaderDataLoader.getShaderAmount()), 0);
+				case "super_secret_settings_id" ->
+						Config.SUPER_SECRET_SETTINGS_ID = (String) VALUE;
 				case "super_secret_settings_mode" -> Config.SUPER_SECRET_SETTINGS_MODE = (String) VALUE;
 				case "super_secret_settings_enabled" -> Config.SUPER_SECRET_SETTINGS_ENABLED = (boolean) VALUE;
 				case "super_secret_settings_sound" -> Config.SUPER_SECRET_SETTINGS_SOUND = (boolean) VALUE;
@@ -299,6 +302,9 @@ public class ConfigHelper {
 			}
 			case "super_secret_settings" -> {
 				return MathHelper.clamp(Config.SUPER_SECRET_SETTINGS, 0, ShaderDataLoader.getShaderAmount());
+			}
+			case "super_secret_settings_id" -> {
+				return Config.SUPER_SECRET_SETTINGS_ID;
 			}
 			case "super_secret_settings_mode" -> {
 				return Config.SUPER_SECRET_SETTINGS_MODE;

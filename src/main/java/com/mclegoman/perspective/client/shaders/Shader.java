@@ -148,6 +148,7 @@ public class Shader {
 			if (postProcessor != null) postProcessor.close();
 			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
 			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+			ConfigHelper.setConfig("super_secret_settings_id", ShaderDataLoader.getFullShaderName((int) ConfigHelper.getConfig("super_secret_settings")));
 			if (showShaderName)
 				setOverlay(Text.literal(ShaderDataLoader.getShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
 			try {
