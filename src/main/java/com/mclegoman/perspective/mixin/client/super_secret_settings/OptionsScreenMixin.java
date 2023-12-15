@@ -17,7 +17,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,13 +28,6 @@ public class OptionsScreenMixin extends Screen {
 	}
 	@Inject(method = "init", at = @At("TAIL"))
 	private void perspective$renderOptions(CallbackInfo ci) {
-		if ((boolean) ConfigHelper.getConfig("super_secret_settings_options_screen") && ClientData.CLIENT.world != null) this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> Shader.cycle(true, !shouldReverse, true, false, false)).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
-	}
-	@Unique
-	private boolean shouldReverse;
-	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		shouldReverse = ClientData.CLIENT.options.sneakKey.isPressed();
-		return super.keyPressed(keyCode, scanCode, modifiers);
+		if ((boolean) ConfigHelper.getConfig("super_secret_settings_options_screen") && ClientData.CLIENT.world != null) this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> Shader.cycle(true, true, true, false, false)).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
 	}
 }
