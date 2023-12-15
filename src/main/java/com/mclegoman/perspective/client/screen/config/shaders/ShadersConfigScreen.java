@@ -81,7 +81,7 @@ public class ShadersConfigScreen extends Screen {
 			if ((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"))
 				ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1));
 			else {
-				Shader.cycle(true, !REVERSE, true, false, false, false);
+				Shader.cycle(true, !REVERSE, true, false, false);
 				REFRESH = true;
 			}
 		}).width(280).build());

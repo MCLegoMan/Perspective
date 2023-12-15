@@ -69,7 +69,7 @@ public class Shader {
 	}
 	public static void checkKeybindings() {
 		if (Keybindings.CYCLE_SHADERS.wasPressed())
-			cycle(true, !ClientData.CLIENT.options.sneakKey.isPressed(), true, true, true, true);
+			cycle(true, !ClientData.CLIENT.options.sneakKey.isPressed(), true, true, true);
 		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(true, true, true, true);
 		if (Keybindings.RANDOM_SHADER.wasPressed()) random(true, true, true);
 	}
@@ -94,7 +94,7 @@ public class Shader {
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) {
 			set(true, playSound, showShaderName, true);
 			if (skipDisableScreenModeWhenWorldNull && (ClientData.CLIENT.world == null && (USE_DEPTH || !shouldDisableScreenMode())))
-				cycle(true, true, false, true, true, SAVE_CONFIG);
+				cycle(true, true, false, true, SAVE_CONFIG);
 		} else {
 			if (postProcessor != null) {
 				postProcessor.close();
@@ -106,28 +106,26 @@ public class Shader {
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 	}
-	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
+	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		try {
-			boolean shouldLoop = true;
-			while (shouldLoop) {
-				if (shouldCycle) {
-					if (forwards) {
-						if (superSecretSettingsIndex < ShaderDataLoader.getShaderAmount())
-							superSecretSettingsIndex++;
-						else superSecretSettingsIndex = 0;
-					} else {
-						if (superSecretSettingsIndex > 0)
-							superSecretSettingsIndex--;
-						else superSecretSettingsIndex = ShaderDataLoader.getShaderAmount();
-					}
-				}
-				set(forwards, playSound, showShaderName, SAVE_CONFIG);
-				if (skipDisableScreenModeWhenWorldNull) {
-					if (ClientData.CLIENT.world == null && (USE_DEPTH || !shouldDisableScreenMode())) shouldLoop = false;
-					else shouldLoop = false;
+			if (shouldCycle) {
+				if (forwards) {
+					if (superSecretSettingsIndex < ShaderDataLoader.getShaderAmount())
+						superSecretSettingsIndex++;
+					else superSecretSettingsIndex = 0;
 				} else {
-					shouldLoop = false;
+					if (superSecretSettingsIndex > 0)
+						superSecretSettingsIndex--;
+					else superSecretSettingsIndex = ShaderDataLoader.getShaderAmount();
 				}
+			}
+			set(forwards, false, showShaderName, SAVE_CONFIG);
+			try {
+				if (playSound && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
+					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
+
+			} catch (Exception error) {
+				Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 			}
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
@@ -153,7 +151,7 @@ public class Shader {
 			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 			ConfigHelper.setConfig("super_secret_settings_shader", ShaderDataLoader.getFullShaderName(superSecretSettingsIndex));
 			if (showShaderName)
-				setOverlay(Text.literal(ShaderDataLoader.getShaderName(superSecretSettingsIndex)));
+				setOverlay(Text.literal(Objects.requireNonNull(ShaderDataLoader.getShaderName(superSecretSettingsIndex))));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
 					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
@@ -167,7 +165,7 @@ public class Shader {
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 			try {
-				cycle(true, forwards, false, true, true, SAVE_CONFIG);
+				cycle(true, forwards, false, true, SAVE_CONFIG);
 			} catch (Exception ignored) {
 				superSecretSettingsIndex = 0;
 				try {
