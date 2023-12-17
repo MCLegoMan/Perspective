@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.hud;
 
-import com.mclegoman.perspective.client.hud.HUD;
+import com.mclegoman.perspective.client.hud.HUDHelper;
 import net.minecraft.client.gui.hud.ChatHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ChatHudMixin {
 	@Inject(at = @At("RETURN"), method = "isChatHidden", cancellable = true)
 	private void perspective$isChatHidden(CallbackInfoReturnable<Boolean> cir) {
-		if (HUD.shouldHideHUD()) cir.setReturnValue(true);
+		if (HUDHelper.shouldHideHUD()) cir.setReturnValue(true);
 	}
 }

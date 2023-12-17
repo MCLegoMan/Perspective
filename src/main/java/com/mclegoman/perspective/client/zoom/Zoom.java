@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.zoom;
 import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.overlays.HUDOverlays;
+import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.text.Text;
@@ -93,7 +93,7 @@ public class Zoom {
 	}
 	private static void setOverlay() {
 		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage"))
-			HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
+			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(ZoomTransitions).toList();

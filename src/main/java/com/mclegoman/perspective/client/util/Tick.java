@@ -11,8 +11,8 @@ import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
-import com.mclegoman.perspective.client.hud.HUD;
-import com.mclegoman.perspective.client.overlays.HUDOverlays;
+import com.mclegoman.perspective.client.hud.HUDHelper;
+import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.shaders.Shader;
@@ -24,14 +24,14 @@ public class Tick {
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			if (ClientData.isFinishedInitializing()) {
 				ConfigHelper.tick();
-				HUD.tick();
+				HUDHelper.tick();
 				AprilFoolsPrank.tick();
 				Keybindings.tick();
 				Perspective.tick();
 				Zoom.tick();
 				Shader.tick();
 				Panorama.tick();
-				HUDOverlays.tick();
+				MessageOverlay.tick();
 				Hide.tick();
 				UpdateChecker.tick();
 			}

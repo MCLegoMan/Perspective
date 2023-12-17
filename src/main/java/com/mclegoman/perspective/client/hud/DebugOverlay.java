@@ -11,7 +11,6 @@ import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -23,7 +22,7 @@ import net.minecraft.util.Formatting;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DebugHUD {
+public class DebugOverlay {
 	public static Type debugType = Type.NONE;
 	public static Formatting shaderColor;
 	public static void renderDebugHUD(DrawContext context) {
@@ -43,7 +42,7 @@ public class DebugHUD {
 			debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.NEWER_VERSION_FOUND));
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
-			debugText.add(Text.literal("shader: " + ShaderDataLoader.getFullShaderName((int) ConfigHelper.getConfig("super_secret_settings"))));
+			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig("super_secret_settings_shader")));
 			debugText.add(Text.literal("disable_screen_mode: " + Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE)));
 			debugText.add(Text.literal("render_type: " + Shader.RENDER_TYPE));
 			debugText.add(Text.literal("use_depth: " + Shader.USE_DEPTH));
@@ -63,12 +62,12 @@ public class DebugHUD {
 					y = 2;
 					x += 256;
 				}
-				context.fill(x - 1, y - 1, x + width + 1, y + 9 + 1, -1873784752);
+				context.fill(x - 1, y - 1, x + width + 1, y + 9, -1873784752);
 				context.drawText(ClientData.CLIENT.textRenderer, text, x, y, 0xffffff, false);
-				y = HUD.addY(y);
+				y = HUDHelper.addY(y);
 			} else {
 				if (item.equals("\n")) {
-					y = HUD.addY(y);
+					y = HUDHelper.addY(y);
 				}
 			}
 		}

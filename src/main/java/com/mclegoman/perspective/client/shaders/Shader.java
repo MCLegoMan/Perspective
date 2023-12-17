@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.overlays.HUDOverlays;
+import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
@@ -183,7 +183,7 @@ public class Shader {
 	}
 	private static void setOverlay(Text message) {
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_show_name"))
-			HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
 	}
 	public static Formatting getRandomColor() {
 		Random random = new Random();

@@ -32,6 +32,7 @@ public class Config {
 	protected static boolean TEXTURED_RANDOM_ENTITY;
 	protected static boolean ALLOW_APRIL_FOOLS;
 	protected static boolean FORCE_APRIL_FOOLS;
+	protected static boolean POSITION_OVERLAY;
 	protected static boolean VERSION_OVERLAY;
 	protected static boolean FORCE_PRIDE;
 	protected static boolean FORCE_PRIDE_TYPE;
@@ -76,6 +77,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Pair<>("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY));
 		CONFIG_PROVIDER.add(new Pair<>("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS));
 		CONFIG_PROVIDER.add(new Pair<>("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS));
+		CONFIG_PROVIDER.add(new Pair<>("position_overlay", ConfigDataLoader.POSITION_OVERLAY));
 		CONFIG_PROVIDER.add(new Pair<>("version_overlay", ConfigDataLoader.VERSION_OVERLAY));
 		CONFIG_PROVIDER.add(new Pair<>("force_pride", ConfigDataLoader.FORCE_PRIDE));
 		CONFIG_PROVIDER.add(new Pair<>("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE));
@@ -112,6 +114,7 @@ public class Config {
 		ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
 		FORCE_APRIL_FOOLS = CONFIG.getOrDefault("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
 		VERSION_OVERLAY = CONFIG.getOrDefault("version_overlay", ConfigDataLoader.VERSION_OVERLAY);
+		POSITION_OVERLAY = CONFIG.getOrDefault("position_overlay", ConfigDataLoader.POSITION_OVERLAY);
 		FORCE_PRIDE = CONFIG.getOrDefault("force_pride", ConfigDataLoader.FORCE_PRIDE);
 		FORCE_PRIDE_TYPE = CONFIG.getOrDefault("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
 		FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
@@ -147,6 +150,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("textured_random_entity", TEXTURED_RANDOM_ENTITY);
 		CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
 		CONFIG_PROVIDER.setConfig("force_april_fools", FORCE_APRIL_FOOLS);
+		CONFIG_PROVIDER.setConfig("position_overlay", POSITION_OVERLAY);
 		CONFIG_PROVIDER.setConfig("version_overlay", VERSION_OVERLAY);
 		CONFIG_PROVIDER.setConfig("force_pride", FORCE_PRIDE);
 		CONFIG_PROVIDER.setConfig("force_pride_type", FORCE_PRIDE_TYPE);

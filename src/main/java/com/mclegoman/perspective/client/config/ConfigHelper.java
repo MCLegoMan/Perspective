@@ -173,6 +173,7 @@ public class ConfigHelper {
 			setConfig("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
 			setConfig("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
 			setConfig("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
+			setConfig("position_overlay", ConfigDataLoader.POSITION_OVERLAY);
 			setConfig("version_overlay", ConfigDataLoader.VERSION_OVERLAY);
 			setConfig("force_pride", ConfigDataLoader.FORCE_PRIDE);
 			setConfig("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
@@ -218,6 +219,7 @@ public class ConfigHelper {
 				case "textured_random_entity" -> Config.TEXTURED_RANDOM_ENTITY = (boolean) VALUE;
 				case "allow_april_fools" -> Config.ALLOW_APRIL_FOOLS = (boolean) VALUE;
 				case "force_april_fools" -> Config.FORCE_APRIL_FOOLS = (boolean) VALUE;
+				case "position_overlay" -> Config.POSITION_OVERLAY = (boolean) VALUE;
 				case "version_overlay" -> Config.VERSION_OVERLAY = (boolean) VALUE;
 				case "force_pride" -> Config.FORCE_PRIDE = (boolean) VALUE;
 				case "force_pride_type" -> Config.FORCE_PRIDE_TYPE = (boolean) VALUE;
@@ -330,6 +332,9 @@ public class ConfigHelper {
 			}
 			case "force_april_fools" -> {
 				return Config.FORCE_APRIL_FOOLS;
+			}
+			case "position_overlay" -> {
+				return Config.POSITION_OVERLAY;
 			}
 			case "version_overlay" -> {
 				return Config.VERSION_OVERLAY;

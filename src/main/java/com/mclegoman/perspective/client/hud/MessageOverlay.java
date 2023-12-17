@@ -5,11 +5,11 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.overlays;
+package com.mclegoman.perspective.client.hud;
 
 import net.minecraft.text.Text;
 
-public class HUDOverlays {
+public class MessageOverlay {
 	public static Text MESSAGE;
 	public static float REMAINING;
 	public static void tick() {

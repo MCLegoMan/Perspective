@@ -10,7 +10,7 @@ package com.mclegoman.perspective.mixin.client.zoom;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mclegoman.perspective.client.config.ConfigHelper;
-import com.mclegoman.perspective.client.hud.HUD;
+import com.mclegoman.perspective.client.hud.HUDHelper;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -51,6 +51,6 @@ public abstract class GameRendererMixin {
 
 	@Inject(at = @At("HEAD"), method = "renderHand", cancellable = true)
 	private void perspective$renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
-		if (HUD.shouldHideHUD()) ci.cancel();
+		if (HUDHelper.shouldHideHUD()) ci.cancel();
 	}
 }

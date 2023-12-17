@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.hide;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.overlays.HUDOverlays;
+import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -33,27 +33,27 @@ public class Hide {
 		if (Keybindings.TOGGLE_ARMOR.wasPressed()) {
 			ConfigHelper.setConfig("hide_armor", !(boolean) ConfigHelper.getConfig("hide_armor"));
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))
-				HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.hide.armor", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_armor"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.armor", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_armor"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.TOGGLE_BLOCK_OUTLINE.wasPressed()) {
 			ConfigHelper.setConfig("hide_block_outline", !(boolean) ConfigHelper.getConfig("hide_block_outline"));
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))
-				HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_block_outline"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_block_outline"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.CYCLE_CROSSHAIR.wasPressed()) {
 			ConfigHelper.setConfig("hide_crosshair", nextCrosshairMode());
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))
-				HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.hide.crosshair", Translation.getHideCrosshairModeTranslation((String) ConfigHelper.getConfig("hide_crosshair"))).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.crosshair", Translation.getHideCrosshairModeTranslation((String) ConfigHelper.getConfig("hide_crosshair"))).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.TOGGLE_NAMETAGS.wasPressed()) {
 			ConfigHelper.setConfig("hide_nametags", !(boolean) ConfigHelper.getConfig("hide_nametags"));
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))
-				HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.hide.nametags", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.nametags", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.TOGGLE_PLAYERS.wasPressed()) {
 			ConfigHelper.setExperimentalConfig("hide_players", !(boolean) ConfigHelper.getConfig("hide_players"));
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))
-				HUDOverlays.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 	}
 	public static boolean shouldHidePlayer(PlayerEntity player) {

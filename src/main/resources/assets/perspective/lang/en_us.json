@@ -99,6 +99,8 @@
 
 	"gui.perspective.config.more_options.version_overlay": "Version Overlay: %s",
 
+	"gui.perspective.config.more_options.position_overlay": "Position Overlay: %s",
+
 	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
 
 	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
@@ -196,13 +198,15 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
 
+	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
+
+	"gui.perspective.keybindings.keybinding.toggle_position_overlay": "Toggle Position Overlay",
+
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
 
 	"gui.perspective.keybindings.category.perspective-experimental": "Perspective: Experimental",
-
-	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
 
 	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
 	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
@@ -229,6 +233,7 @@
 	"gui.perspective.config.detect_update_channel.none": "None",
 
 	"gui.perspective.version_overlay": "Minecraft %s",
+	"gui.perspective.position_overlay": "Position: %s, %s, %s",
 
 	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s",
 

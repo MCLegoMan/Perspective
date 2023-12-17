@@ -38,6 +38,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean TEXTURED_RANDOM_ENTITY;
 	public static boolean ALLOW_APRIL_FOOLS;
 	public static boolean FORCE_APRIL_FOOLS;
+	public static boolean POSITION_OVERLAY;
 	public static boolean VERSION_OVERLAY;
 	public static boolean FORCE_PRIDE;
 	public static boolean FORCE_PRIDE_TYPE;
@@ -77,6 +78,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				TEXTURED_RANDOM_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "textured_random_entity", false);
 				ALLOW_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);
 				FORCE_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
+				POSITION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "position_overlay", false);
 				VERSION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
 				FORCE_PRIDE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride", false);
 				FORCE_PRIDE_TYPE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type", false);

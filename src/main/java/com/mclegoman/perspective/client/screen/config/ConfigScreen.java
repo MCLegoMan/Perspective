@@ -101,19 +101,23 @@ public class ConfigScreen extends Screen {
 			ConfigHelper.setConfig("version_overlay", !(boolean) ConfigHelper.getConfig("version_overlay"));
 			this.REFRESH = true;
 		}).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("more_options.position_overlay", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("position_overlay"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig("position_overlay", !(boolean) ConfigHelper.getConfig("position_overlay"));
+			this.REFRESH = true;
+		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("more_options.force_pride", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("force_pride"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("force_pride", !(boolean) ConfigHelper.getConfig("force_pride"));
 			this.REFRESH = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hold_perspective"), (button) -> ClientData.CLIENT.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("more_options.dirt_title_screen", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("dirt_title_screen"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("dirt_title_screen", !(boolean) ConfigHelper.getConfig("dirt_title_screen"));
 			this.REFRESH = true;
 		}).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hold_perspective"), (button) -> ClientData.CLIENT.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("more_options.show_death_coordinates", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("show_death_coordinates"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("show_death_coordinates", !(boolean) ConfigHelper.getConfig("show_death_coordinates"));
 			this.REFRESH = true;
-		}).width(304).build(), 2);
+		}).build());
 		return GRID;
 	}
 	private GridWidget createFooter() {
