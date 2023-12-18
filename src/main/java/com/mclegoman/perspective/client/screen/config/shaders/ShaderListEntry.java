@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.screen.config.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -23,7 +24,7 @@ public class ShaderListEntry extends AlwaysSelectedEntryListWidget.Entry<ShaderL
 	}
 	@Override
 	public void render(DrawContext context, int index, int y, int x, int rowWidth, int rowHeight, int mouseX, int mouseY, boolean hovered, float delta) {
-		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation("shaders.shader.list", new Object[]{ShaderDataLoader.getShaderName(this.shader), Translation.getVariableTranslation((boolean) ShaderDataLoader.get(this.shader, ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE)}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, y + (rowHeight / 2) - (9 / 2), 0xFFFFFF);
+		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation("shaders.shader.list", new Object[]{Shader.getShaderName(this.shader), Translation.getVariableTranslation((boolean) ShaderDataLoader.get(this.shader, ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE)}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, y + (rowHeight / 2) - (9 / 2), 0xFFFFFF);
 	}
 	@Override
 	public Text getNarration() {

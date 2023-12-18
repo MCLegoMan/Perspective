@@ -10,7 +10,6 @@ package com.mclegoman.perspective.client.config;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -194,7 +193,7 @@ public class ConfigHelper {
 			if (EXPERIMENTS_AVAILABLE) {
 				setExperimentalConfig("super_secret_settings_list", false);
 			}
-			Shader.superSecretSettingsIndex = ShaderDataLoader.getShaderValue((String)getConfig("super_secret_settings_shader"));
+			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) getConfig("super_secret_settings_shader"));
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}

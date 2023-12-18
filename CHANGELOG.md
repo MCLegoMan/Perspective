@@ -1,6 +1,8 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)  
 
 ## Perspective 1.2.1 Release Candidate 2 for 1.20.3/4  
+If no major bugs are found, 1.2.1 will release later this week.  
+
 ### Changelog  
 - **The shader will now be reset when the config is reset.**  
 

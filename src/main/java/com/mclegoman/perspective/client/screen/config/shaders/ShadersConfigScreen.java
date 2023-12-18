@@ -12,7 +12,6 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
 import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
@@ -77,7 +76,7 @@ public class ShadersConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.shader", new Object[]{ShaderDataLoader.getShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.shader", new Object[]{Shader.getShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
 			if ((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"))
 				ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1));
 			else {
