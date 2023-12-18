@@ -113,6 +113,6 @@ modrinth {
 }
 
 tasks.register("uploadVersion") {
-	tasks.githubRelease
-	tasks.modrinth
+	dependsOn(tasks.githubRelease)
+	dependsOn(tasks.modrinth)
 }
