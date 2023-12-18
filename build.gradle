@@ -86,12 +86,8 @@ githubRelease {
 	generateReleaseNotes false
 	body rootProject.file("CHANGELOG.md").text
 	draft false
-	if (project.version_type == "release") {
-		prerelease false
-	}
-	else {
-		prerelease true
-	}
+	if (project.version_type == "release") prerelease false
+	else prerelease true
 	releaseAssets tasks.remapJar
 	allowUploadToExisting.set false
 	overwrite false
@@ -103,8 +99,9 @@ githubRelease {
 modrinth {
 	token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
 	projectId = "${project.modrinth_id}"
+	versionName = "${project.title}"
 	versionNumber = "${project.mod_version}${project.mc_version}"
-	versionType = "beta"
+	versionType = "${project.version_type}"
 	uploadFile = tasks.remapJar
 	gameVersions = ["1.20.3", "1.20.4"]
 	loaders = ["fabric", "quilt"]
