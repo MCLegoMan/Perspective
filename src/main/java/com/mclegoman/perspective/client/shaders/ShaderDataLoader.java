@@ -11,10 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
@@ -37,33 +35,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static int getShaderAmount() {
 		return REGISTRY.size() - 1;
 	}
-	public static String getShaderName(int SHADER) {
-		String NAMESPACE = (String) get(SHADER, ShaderRegistryValue.NAMESPACE);
-		String SHADER_NAME = (String) get(SHADER, ShaderRegistryValue.SHADER_NAME);
-		if (NAMESPACE != null && SHADER_NAME != null) return isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
-		return null;
-	}
-	public static String getFullShaderName(int SHADER) {
-		String NAMESPACE = (String) get(SHADER, ShaderRegistryValue.NAMESPACE);
-		String SHADER_NAME = (String) get(SHADER, ShaderRegistryValue.SHADER_NAME);
-		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
-		return null;
-	}
-	public static boolean isShaderAvailable(String id) {
-		for (int shader = 0; shader < REGISTRY.size(); shader++) {
-			if (id.contains(":") && id.equals(getFullShaderName(shader))) return true;
-			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return true;
-		}
-		return false;
-	}
-	public static int getShaderValue(String id) {
-		for (int shader = 0; shader < REGISTRY.size(); shader++) {
-			if (id.contains(":") && id.equals(getFullShaderName(shader))) return shader;
-			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return shader;
-		}
-		return 0;
-	}
-	private static boolean isDuplicatedShaderName(String name) {
+	public static boolean isDuplicatedShaderName(String name) {
 		return DUPLICATED_NAMES.contains(name);
 	}
 	public static Object get(int SHADER, ShaderRegistryValue VALUE) {
@@ -148,12 +120,12 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			layout$souper_secret_settings(manager);
 			boolean saveConfig;
 			if (Shader.updateLegacyConfig) {
-				if (getFullShaderName(Shader.legacyIndex) != null) {
-					ConfigHelper.setConfig("super_secret_settings_shader", getFullShaderName(Shader.legacyIndex));
+				if (Shader.getFullShaderName(Shader.legacyIndex) != null) {
+					ConfigHelper.setConfig("super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
 				}
 			}
-			if (isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_shader"))) {
-				Shader.superSecretSettingsIndex = getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_shader"));
+			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_shader"))) {
+				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_shader"));
 				saveConfig = false;
 			} else {
 				Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, REGISTRY.size() - 1);

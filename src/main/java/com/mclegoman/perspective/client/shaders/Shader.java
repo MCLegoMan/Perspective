@@ -89,6 +89,32 @@ public class Shader {
 		}
 		if (save) ConfigHelper.saveConfig(true);
 	}
+	public static String getShaderName(int SHADER) {
+		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
+		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
+		if (NAMESPACE != null && SHADER_NAME != null) return ShaderDataLoader.isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
+		return null;
+	}
+	public static String getFullShaderName(int SHADER) {
+		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
+		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
+		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
+		return null;
+	}
+	public static boolean isShaderAvailable(String id) {
+		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {
+			if (id.contains(":") && id.equals(getFullShaderName(shader))) return true;
+			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return true;
+		}
+		return false;
+	}
+	public static int getShaderValue(String id) {
+		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {
+			if (id.contains(":") && id.equals(getFullShaderName(shader))) return shader;
+			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return shader;
+		}
+		return 0;
+	}
 	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) {
@@ -149,9 +175,9 @@ public class Shader {
 			if (postProcessor != null) postProcessor.close();
 			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(ShaderDataLoader.get(superSecretSettingsIndex, ShaderRegistryValue.ID)));
 			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
-			ConfigHelper.setConfig("super_secret_settings_shader", ShaderDataLoader.getFullShaderName(superSecretSettingsIndex));
+			ConfigHelper.setConfig("super_secret_settings_shader", getFullShaderName(superSecretSettingsIndex));
 			if (showShaderName)
-				setOverlay(Text.literal(Objects.requireNonNull(ShaderDataLoader.getShaderName(superSecretSettingsIndex))));
+				setOverlay(Text.literal(Objects.requireNonNull(getShaderName(superSecretSettingsIndex))));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig("super_secret_settings_sound"))
 					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
