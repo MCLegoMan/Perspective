@@ -111,3 +111,8 @@ modrinth {
 		required.project "qsl"
 	}
 }
+
+tasks.register("uploadVersion") {
+	tasks.githubRelease
+	tasks.modrinth
+}
