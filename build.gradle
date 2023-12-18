@@ -81,7 +81,7 @@ githubRelease {
 	owner "MCLegoMan"
 	repo "Perspective"
 	tagName "${project.github_tag}"
-	targetCommitish "development-1.20.3-4"
+	targetCommitish "${project.github_branch}"
 	releaseName "${project.title}"
 	generateReleaseNotes false
 	body rootProject.file("CHANGELOG.md").text
