@@ -35,9 +35,6 @@ This minor update fixes some bugs, changes how shaders are saved in the config, 
   - This button can be enabled by setting `super_secret_settings_options_screen` to `true` in `.minecraft/config/perspective.properties`.  
 - **The current super secret setting will remain the same after reloading resource packs if it is still available.**  
 
-### Development Build  
-Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.
-
 ### Want to support my work?  
 If you'd like to donate, visit [BuyMeACoffee](https://www.buymeacoffee.com/mclegoman).  
 Your support is appreciated, please be aware that donations are non-refundable.  
