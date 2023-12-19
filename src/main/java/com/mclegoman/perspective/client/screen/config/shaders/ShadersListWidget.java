@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.client.screen.config.shaders;
 
-import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;

@@ -26,8 +26,10 @@ public class OptionsScreenMixin extends Screen {
 	protected OptionsScreenMixin(Text title) {
 		super(title);
 	}
+
 	@Inject(method = "init", at = @At("TAIL"))
 	private void perspective$renderOptions(CallbackInfo ci) {
-		if ((boolean) ConfigHelper.getConfig("super_secret_settings_options_screen") && ClientData.CLIENT.world != null) this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> Shader.cycle(true, true, true, false, false)).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
+		if ((boolean) ConfigHelper.getConfig("super_secret_settings_options_screen") && ClientData.CLIENT.world != null)
+			this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> Shader.cycle(true, true, true, false, false)).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
 	}
 }
