@@ -1,7 +1,9 @@
 ![](https://mclegoman.com/images/7/70/Perspective_Logo.png)
 
 ## Perspective 1.2.1 for 1.20.3/4  
-This minor update fixes some bugs, changes how shaders are saved in the config, and adds the Position Overlay!
+This minor update fixes some bugs, changes how shaders are saved in the config, and adds the Position Overlay!  
+
+*Re-released due to a critical bug that only occurred outside the development environment.*  
 
 ### Changelog  
 - **Updated Config Version to `14`.**  
@@ -33,7 +35,7 @@ This minor update fixes some bugs, changes how shaders are saved in the config, 
 - **Updated Options Screen Super Secret Settings Button.**  
   - This button will now cycle shaders instead of opening the super secret settings config screen.  
   - This button can be enabled by setting `super_secret_settings_options_screen` to `true` in `.minecraft/config/perspective.properties`.  
-- **The current super secret setting will remain the same after reloading resource packs if it is still available.**  
+- **The current super secret setting will remain the same after reloading resource packs if it is still available.**
 
 ### Want to support my work?  
 If you'd like to donate, visit [BuyMeACoffee](https://www.buymeacoffee.com/mclegoman).  

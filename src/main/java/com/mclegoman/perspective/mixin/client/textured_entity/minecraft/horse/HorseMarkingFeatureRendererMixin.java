@@ -7,6 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.horse;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -24,25 +26,26 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
 @Mixin(priority = 10000, value = HorseMarkingFeatureRenderer.class)
-public class HorseMarkingFeatureRendererMixin extends FeatureRenderer<HorseEntity, HorseEntityModel<HorseEntity>> {
+public class HorseMarkingFeatureRendererMixin {
 	@Shadow @Final private static Map<HorseMarking, Identifier> TEXTURES;
-	public HorseMarkingFeatureRendererMixin(FeatureRendererContext<HorseEntity, HorseEntityModel<HorseEntity>> context) {
-		super(context);
+	@Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "HEAD"))
+	public void perspective$render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, HorseEntity horseEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
+		entity = horseEntity;
 	}
-	@Override
-	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, HorseEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		if (perspective$getHorseMarking(entity.getMarking()) != null) {
-			Identifier identifier = TexturedEntity.getTexture(entity, "minecraft:horse", perspective$getHorseMarking(entity.getMarking()), TEXTURES.get(entity.getMarking()));
-			if (identifier != null && !entity.isInvisible()) {
-				VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(identifier));
-				this.getContextModel().render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
-			}
-		}
+	@ModifyExpressionValue(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntityTranslucent(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
+	private RenderLayer perspective$getEntityTranslucent(RenderLayer renderLayer) {
+		return RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "minecraft:horse", perspective$getHorseMarking(entity.getMarking()), TEXTURES.get(entity.getMarking())));
 	}
+	@Unique
+	private HorseEntity entity;
 	@Unique
 	private String perspective$getHorseMarking(HorseMarking marking) {
 		if (marking.equals(HorseMarking.WHITE)) return "_markings_white";
