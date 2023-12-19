@@ -51,7 +51,7 @@ public class Hide {
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.nametags", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.TOGGLE_PLAYERS.wasPressed()) {
-			ConfigHelper.setExperimentalConfig("hide_players", !(boolean) ConfigHelper.getConfig("hide_players"));
+			ConfigHelper.setConfig("hide_players", !(boolean) ConfigHelper.getConfig("hide_players"));
 			if ((boolean) ConfigHelper.getConfig("hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}

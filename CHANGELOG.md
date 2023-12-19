@@ -11,7 +11,7 @@ This minor update fixes some bugs, changes how shaders are saved in the config, 
 - **Added Position Overlay.**  
   - Added Toggle Position Overlay Keybinding.  
 - **Replaced instances of `Math.max(Math.min(value, min), max);` to `MathHelper.clamp(value, min, max);`.**  
-- **Moved `Hide Player` keybinding to the correct category.**  
+- **Fix `Hide Player` keybinding and move it to the correct category.**  
 - **Added Horse Markings textured entity support.**
   - Horse Textured Entities will now also replace the horse markings.  
     - Horse Textured Entity Resource Pack Layout:

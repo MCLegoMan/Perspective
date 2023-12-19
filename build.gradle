@@ -103,7 +103,7 @@ modrinth {
 	versionNumber = "${project.mod_version}${project.mc_version}"
 	versionType = "${project.version_type}"
 	uploadFile = tasks.remapJar
-	gameVersions = List.of(project.mc_versions.split(", ")) as ListProperty<String>
+	gameVersions = List.of(project.mc_versions.split(", "))
 	loaders = ["fabric", "quilt"]
 	changelog = rootProject.file("CHANGELOG.md").text
 	dependencies {
