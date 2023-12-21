@@ -34,22 +34,6 @@ public class MixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.super_secret_settings.ShaderTextureFix")) {
 			return !Data.isModInstalledVersionOrHigher("souper_secret_settings", "1.0.6", true);
 		}
-		// Textured Entity: Breeze
-		if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.textured_entity.minecraft.breeze.BreezeEntityRendererMixin")) {
-			return Data.isModInstalledVersionOrHigher("minecraft", "1.20.3-alpha.23.45.a", false);
-		}
-		// Textured Entity: Breeze Eyes
-		if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.textured_entity.minecraft.breeze.BreezeEyesFeatureRendererMixin1203")) {
-			return Data.isModInstalledVersionOrHigher("minecraft", "1.20.3-alpha.23.45.a", false);
-		}
-		// Textured Entity: Breeze Wind
-		if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.textured_entity.minecraft.breeze.BreezeWindFeatureRendererMixin")) {
-			return Data.isModInstalledVersionOrHigher("minecraft", "1.20.3-alpha.23.45.a", false);
-		}
-		// Textured Entity: Wind Charge
-		if (mixinClassName.equals("com.mclegoman.perspective.mixin.client.textured_entity.minecraft.wind_charge.WindChargeEntityRendererMixin")) {
-			return Data.isModInstalledVersionOrHigher("minecraft", "1.20.3-alpha.23.45.a", false);
-		}
 		// Everything Else
 		return true;
 	}
