@@ -52,13 +52,12 @@ public abstract class MouseMixin {
 			}
 		}
 	}
-
-	@ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
+	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
 	private boolean perspective$isFirstPerson(boolean isFirstPerson) {
 		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;
 	}
 
-	@ModifyExpressionValue(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingSpyglass()Z"))
+	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingSpyglass()Z"))
 	private boolean perspective$isUsingSpyglass(boolean isUsingSpyglass) {
 		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isUsingSpyglass || Zoom.isZooming()) : isUsingSpyglass;
 	}
