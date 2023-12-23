@@ -27,7 +27,7 @@ import java.util.List;
 public class ConfigHelper {
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
 	protected static final int DEFAULT_CONFIG_VERSION = 14;
-	public static final boolean EXPERIMENTS_AVAILABLE = true;
+	public static final boolean EXPERIMENTS_AVAILABLE = false;
 	protected static boolean SAVE_VIA_TICK = false;
 	protected static int SAVE_VIA_TICK_TICKS = 0;
 	private static boolean SEEN_DEVELOPMENT_WARNING = false;
@@ -248,9 +248,6 @@ public class ConfigHelper {
 	public static void setExperimentalConfig(String ID, Object VALUE) {
 		try {
 			switch (ID) {
-				case "super_secret_settings_list" -> ExperimentalConfig.SUPER_SECRET_SETTINGS_LIST = (boolean) VALUE;
-				case "super_secret_settings_notice" ->
-						ExperimentalConfig.SUPER_SECRET_SETTINGS_NOTICE = (boolean) VALUE;
 				default ->
 						Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
 			}
@@ -393,12 +390,6 @@ public class ConfigHelper {
 	}
 	public static Object getExperimentalConfig(String ID) {
 		switch (ID) {
-			case "super_secret_settings_list" -> {
-				return ExperimentalConfig.SUPER_SECRET_SETTINGS_LIST;
-			}
-			case "super_secret_settings_notice" -> {
-				return ExperimentalConfig.SUPER_SECRET_SETTINGS_NOTICE;
-			}
 			default -> {
 				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
 				return new Object();

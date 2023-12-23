@@ -35,7 +35,6 @@ public class ShadersConfigScreen extends Screen {
 	private final boolean SAVE_ON_CLOSE;
 	private boolean SHOULD_CLOSE;
 	private boolean REFRESH;
-	private boolean REVERSE;
 	public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
@@ -76,14 +75,7 @@ public class ShadersConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.shader", new Object[]{Shader.getShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
-			if ((boolean) ConfigHelper.getExperimentalConfig("super_secret_settings_list"))
-				ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1));
-			else {
-				Shader.cycle(true, !REVERSE, true, false, false);
-				REFRESH = true;
-			}
-		}).width(280).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.shader", new Object[]{Shader.getShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1))).width(280).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.random"), (button) -> {
 			Shader.random(true, false, false);
 			this.REFRESH = true;
@@ -94,7 +86,7 @@ public class ShadersConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.mode", new Object[]{Translation.getShaderModeTranslation((String) ConfigHelper.getConfig("super_secret_settings_mode")), Translation.getVariableTranslation((boolean) Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE)}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.mode", new Object[]{Translation.getShaderModeTranslation((String) ConfigHelper.getConfig("super_secret_settings_mode")), ConfigHelper.getConfig("super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation((boolean) Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE) : ""}), (button) -> {
 			Shader.cycleShaderModes();
 			this.REFRESH = true;
 		}).build());
@@ -132,7 +124,6 @@ public class ShadersConfigScreen extends Screen {
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
-		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) REVERSE = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	@Override
@@ -141,7 +132,6 @@ public class ShadersConfigScreen extends Screen {
 			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
 			this.REFRESH = false;
 		}
-		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) REVERSE = false;
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
 	@Override
