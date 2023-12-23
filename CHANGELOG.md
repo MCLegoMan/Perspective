@@ -1,6 +1,6 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 ## Perspective 1.3.0-alpha.1 for 1.20.5  
-This alpha adds textured entity support for the new Armadillo mob, and 
+Happy Holidays! This alpha adds textured entity support for the new Armadillo mob, and brings the Super Secret Settings Shader Selection Screen out of experimental.  
 
 ### Changelog  
 - **Added Armadillo Textured Entity.**  
