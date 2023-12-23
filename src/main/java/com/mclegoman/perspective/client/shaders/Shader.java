@@ -28,24 +28,26 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
 public class Shader {
-	public static int superSecretSettingsIndex;
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	private static final List<Identifier> SOUND_EVENTS = new ArrayList<>();
+	public static int superSecretSettingsIndex;
 	public static Framebuffer DEPTH_FRAME_BUFFER;
 	public static boolean DEPTH_FIX;
 	public static boolean USE_DEPTH;
 	public static String RENDER_TYPE;
 	@Nullable
 	public static PostEffectProcessor postProcessor;
-	private static Formatting LAST_COLOR;
 	public static boolean updateLegacyConfig;
 	public static int legacyIndex;
+	private static Formatting LAST_COLOR;
+
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
@@ -58,6 +60,7 @@ public class Shader {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void tick() {
 		if (shouldRenderShader()) {
 			if (ConfigHelper.getConfig("super_secret_settings_mode").equals("screen")) showToasts();
@@ -67,12 +70,14 @@ public class Shader {
 		}
 		checkKeybindings();
 	}
+
 	public static void checkKeybindings() {
 		if (Keybindings.CYCLE_SHADERS.wasPressed())
 			cycle(true, !ClientData.CLIENT.options.sneakKey.isPressed(), true, true, true);
 		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(true, true, true, true);
 		if (Keybindings.RANDOM_SHADER.wasPressed()) random(true, true, true);
 	}
+
 	private static void showToasts() {
 		boolean save = false;
 		if ((boolean) ConfigHelper.getConfig("tutorials")) {
@@ -89,18 +94,22 @@ public class Shader {
 		}
 		if (save) ConfigHelper.saveConfig(true);
 	}
+
 	public static String getShaderName(int SHADER) {
 		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
 		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
-		if (NAMESPACE != null && SHADER_NAME != null) return ShaderDataLoader.isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
+		if (NAMESPACE != null && SHADER_NAME != null)
+			return ShaderDataLoader.isDuplicatedShaderName(SHADER_NAME) ? NAMESPACE + ":" + SHADER_NAME : SHADER_NAME;
 		return null;
 	}
+
 	public static String getFullShaderName(int SHADER) {
 		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
 		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
 		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
 		return null;
 	}
+
 	public static boolean isShaderAvailable(String id) {
 		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {
 			if (id.contains(":") && id.equals(getFullShaderName(shader))) return true;
@@ -108,6 +117,7 @@ public class Shader {
 		}
 		return false;
 	}
+
 	public static int getShaderValue(String id) {
 		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {
 			if (id.contains(":") && id.equals(getFullShaderName(shader))) return shader;
@@ -115,6 +125,7 @@ public class Shader {
 		}
 		return 0;
 	}
+
 	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig("super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) {
@@ -132,6 +143,7 @@ public class Shader {
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 	}
+
 	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		try {
 			if (shouldCycle) {
@@ -157,6 +169,7 @@ public class Shader {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void random(boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		try {
 			int SHADER = superSecretSettingsIndex;
@@ -168,6 +181,7 @@ public class Shader {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		USE_DEPTH = false;
 		DEPTH_FIX = true;
@@ -207,10 +221,12 @@ public class Shader {
 		}
 		DEPTH_FIX = false;
 	}
+
 	private static void setOverlay(Text message) {
 		if ((boolean) ConfigHelper.getConfig("super_secret_settings_show_name"))
 			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
 	}
+
 	public static Formatting getRandomColor() {
 		Random random = new Random();
 		Formatting COLOR = LAST_COLOR;
@@ -218,19 +234,24 @@ public class Shader {
 		LAST_COLOR = COLOR;
 		return COLOR;
 	}
+
 	public static boolean shouldRenderShader() {
 		return (postProcessor != null && (boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) || ClientData.CLIENT.gameRenderer.isRenderingPanorama();
 	}
+
 	public static void render(float tickDelta, String renderType) {
 		RENDER_TYPE = renderType;
 		if (postProcessor != null) postProcessor.render(tickDelta);
 	}
+
 	public static boolean shouldDisableScreenMode() {
 		return (boolean) Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
 	}
+
 	public static Object getShaderData(ShaderRegistryValue key) {
 		return ShaderDataLoader.get(superSecretSettingsIndex, key);
 	}
+
 	public static void cycleShaderModes() {
 		if (ConfigHelper.getConfig("super_secret_settings_mode").equals("game"))
 			ConfigHelper.setConfig("super_secret_settings_mode", "screen");
@@ -238,6 +259,7 @@ public class Shader {
 			ConfigHelper.setConfig("super_secret_settings_mode", "game");
 		else ConfigHelper.setConfig("super_secret_settings_mode", "game");
 	}
+
 	public static void saveDepth(boolean renderFastFancy, boolean renderFabulous, boolean beginWrite) {
 		boolean currentGraphics = ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
 		boolean shouldSaveDepth = false;

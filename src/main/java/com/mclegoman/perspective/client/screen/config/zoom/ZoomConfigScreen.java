@@ -29,12 +29,14 @@ public class ZoomConfigScreen extends Screen {
 	private final GridWidget GRID;
 	private boolean REFRESH;
 	private boolean SHOULD_CLOSE;
+
 	public ZoomConfigScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 		this.REFRESH = REFRESH;
 	}
+
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -50,6 +52,7 @@ public class ZoomConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$zoom screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -62,6 +65,7 @@ public class ZoomConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$zoom screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private GridWidget createZoom() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -72,6 +76,7 @@ public class ZoomConfigScreen extends Screen {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")}, false));
 			}
+
 			@Override
 			protected void applyValue() {
 				ConfigHelper.setConfig("zoom_level", (int) ((value) * 100));
@@ -83,6 +88,7 @@ public class ZoomConfigScreen extends Screen {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig("zoom_increment_size")))}, false));
 			}
+
 			@Override
 			protected void applyValue() {
 				ConfigHelper.setConfig("zoom_increment_size", (int) ((value) * 9) + 1);
@@ -106,6 +112,7 @@ public class ZoomConfigScreen extends Screen {
 		}).build(), 1);
 		return GRID;
 	}
+
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -117,15 +124,19 @@ public class ZoomConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
 	}
+
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
+
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
+
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
+
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
@@ -136,6 +147,7 @@ public class ZoomConfigScreen extends Screen {
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
+
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

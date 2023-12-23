@@ -28,6 +28,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -36,25 +37,30 @@ import java.util.Objects;
 
 public class Panorama {
 	private static final List<String> incompatibleMods = new ArrayList<>();
+
 	public static void addIncompatibleMod(String modID) {
 		if (!incompatibleMods.contains(modID)) incompatibleMods.add(modID);
 	}
+
 	public static List<String> getIncompatibleMods() {
 		List<String> incompatibleModsFound = new ArrayList<>();
 		for (String modID : incompatibleMods) {
 			if (Data.isModInstalled(modID)) {
-				incompatibleModsFound.add(FabricLoader.getInstance().getModContainer(modID).get().getMetadata().getName());
+				incompatibleModsFound.add(Data.getModContainer(modID).getMetadata().getName());
 			}
 		}
 		return incompatibleModsFound;
 	}
+
 	public static void init() {
 		addIncompatibleMod("canvas");
 		addIncompatibleMod("iris");
 	}
+
 	public static void tick() {
 		if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024);
 	}
+
 	private static String getFilename() {
 		String currentTime = Util.getFormattedCurrentTime();
 		String filename = currentTime;
@@ -71,9 +77,11 @@ public class Panorama {
 		}
 		return filename;
 	}
+
 	private static boolean shouldTakePanorama() {
 		return (boolean) ConfigHelper.getConfig("debug") || getIncompatibleMods().size() == 0 && !ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
 	}
+
 	private static void takePanorama(int resolution) {
 		if (ClientData.CLIENT.player != null) {
 			try {

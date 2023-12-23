@@ -30,12 +30,14 @@ public class InformationScreen extends Screen {
 	private final GridWidget GRID;
 	private boolean REFRESH;
 	private boolean SHOULD_CLOSE;
+
 	public InformationScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 		this.REFRESH = REFRESH;
 	}
+
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -51,6 +53,7 @@ public class InformationScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize information screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -63,6 +66,7 @@ public class InformationScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$info screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private GridWidget createInformation() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -74,6 +78,7 @@ public class InformationScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("information.licenses"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective/Licenses")).build(), 1);
 		return GRID;
 	}
+
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -81,15 +86,19 @@ public class InformationScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
 	}
+
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
+
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
+
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
+
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
@@ -100,6 +109,7 @@ public class InformationScreen extends Screen {
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
+
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

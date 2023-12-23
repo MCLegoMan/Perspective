@@ -15,6 +15,7 @@ public class ExperimentalConfig {
 	protected static final String ID = Data.PERSPECTIVE_VERSION.getID() + "-experimental";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
+
 	protected static void init() {
 		try {
 			CONFIG_PROVIDER = new ConfigProvider();
@@ -25,12 +26,15 @@ public class ExperimentalConfig {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	protected static void create() {
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_list", false));
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_notice", false));
 	}
+
 	protected static void assign() {
 	}
+
 	protected static void save() {
 		if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing experimental config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());

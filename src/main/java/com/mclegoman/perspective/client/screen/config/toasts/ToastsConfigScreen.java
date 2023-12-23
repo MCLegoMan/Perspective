@@ -32,6 +32,7 @@ public class ToastsConfigScreen extends Screen {
 	private boolean REFRESH;
 	private boolean SHOULD_CLOSE;
 	private boolean CHECK_FOR_UPDATES;
+
 	public ToastsConfigScreen(Screen PARENT, boolean REFRESH, boolean CHECK_FOR_UPDATES) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
@@ -39,6 +40,7 @@ public class ToastsConfigScreen extends Screen {
 		this.REFRESH = REFRESH;
 		this.CHECK_FOR_UPDATES = CHECK_FOR_UPDATES;
 	}
+
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -54,6 +56,7 @@ public class ToastsConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$toasts screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -67,6 +70,7 @@ public class ToastsConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$toasts screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private GridWidget createToasts() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -82,6 +86,7 @@ public class ToastsConfigScreen extends Screen {
 		}).width(304).build(), 2);
 		return GRID;
 	}
+
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -93,15 +98,19 @@ public class ToastsConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
 	}
+
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
+
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
+
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
+
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
@@ -112,6 +121,7 @@ public class ToastsConfigScreen extends Screen {
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
+
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

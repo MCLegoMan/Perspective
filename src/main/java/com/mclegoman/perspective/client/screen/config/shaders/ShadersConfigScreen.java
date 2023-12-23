@@ -35,6 +35,7 @@ public class ShadersConfigScreen extends Screen {
 	private final boolean SAVE_ON_CLOSE;
 	private boolean SHOULD_CLOSE;
 	private boolean REFRESH;
+
 	public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
@@ -42,6 +43,7 @@ public class ShadersConfigScreen extends Screen {
 		this.SAVE_ON_CLOSE = SAVE_ON_CLOSE;
 		this.REFRESH = REFRESH;
 	}
+
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -58,6 +60,7 @@ public class ShadersConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>shaders screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -71,6 +74,7 @@ public class ShadersConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private GridWidget createShaders() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -82,6 +86,7 @@ public class ShadersConfigScreen extends Screen {
 		}).width(20).build());
 		return GRID;
 	}
+
 	private GridWidget createShaderOptions() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -100,6 +105,7 @@ public class ShadersConfigScreen extends Screen {
 		}).width(304).build(), 2);
 		return GRID;
 	}
+
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -111,21 +117,26 @@ public class ShadersConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
 	}
+
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
+
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
+
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
+
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
+
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
@@ -134,6 +145,7 @@ public class ShadersConfigScreen extends Screen {
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
+
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

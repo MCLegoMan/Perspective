@@ -19,6 +19,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,11 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	public static final String ID = "prank";
 	public static boolean shouldFlipUpsideDown;
 	public static boolean shouldDisplayCape;
+
 	public AprilFoolsPrankDataLoader() {
 		super(new Gson(), ID);
 	}
+
 	private void add(String NAME) {
 		try {
 			if (!REGISTRY.contains(NAME)) REGISTRY.add(NAME);
@@ -38,6 +41,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 			Data.PERSPECTIVE_VERSION.getLogger().error("{} Failed to add april fools prank to registry: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	private void reset() {
 		try {
 			REGISTRY.clear();
@@ -45,6 +49,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 			Data.PERSPECTIVE_VERSION.getLogger().error("{} Failed to reset april fools prank registry: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
@@ -60,6 +65,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load prank values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	@Override
 	public Identifier getFabricId() {
 		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);

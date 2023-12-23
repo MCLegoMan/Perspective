@@ -16,12 +16,14 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.TimeZone;
 
 public class AprilFoolsPrank {
 	private static boolean SEEN_WARNING;
+
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new AprilFoolsPrankDataLoader());
@@ -29,6 +31,7 @@ public class AprilFoolsPrank {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize april fools prank: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void tick() {
 		boolean shouldSave = false;
 		if (!SEEN_WARNING && ClientData.CLIENT.world != null) {
@@ -48,6 +51,7 @@ public class AprilFoolsPrank {
 		}
 		if (shouldSave) ConfigHelper.saveConfig(false);
 	}
+
 	public static boolean isAprilFools() {
 		if ((boolean) ConfigHelper.getConfig("force_april_fools")) return true;
 		else {

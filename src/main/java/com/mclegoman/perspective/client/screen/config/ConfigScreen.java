@@ -40,6 +40,7 @@ public class ConfigScreen extends Screen {
 	private boolean REFRESH;
 	private boolean SHOULD_CLOSE;
 	private int PAGE;
+
 	public ConfigScreen(Screen PARENT, boolean REFRESH, int PAGE) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
@@ -47,6 +48,7 @@ public class ConfigScreen extends Screen {
 		this.REFRESH = REFRESH;
 		this.PAGE = PAGE;
 	}
+
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -64,6 +66,7 @@ public class ConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -77,6 +80,7 @@ public class ConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private GridWidget createPageOne() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -93,6 +97,7 @@ public class ConfigScreen extends Screen {
 		GRID_ADDER.add(EXPERIMENTAL);
 		return GRID;
 	}
+
 	private GridWidget createPageTwo() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -120,6 +125,7 @@ public class ConfigScreen extends Screen {
 		}).build());
 		return GRID;
 	}
+
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -145,15 +151,19 @@ public class ConfigScreen extends Screen {
 		GRID_ADDER.add(NEXT);
 		return GRID;
 	}
+
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
+
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
+
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
+
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
@@ -164,6 +174,7 @@ public class ConfigScreen extends Screen {
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
+
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

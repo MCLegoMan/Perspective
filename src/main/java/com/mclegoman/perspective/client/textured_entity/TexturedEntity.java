@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class TexturedEntity {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize textured entity texture: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	public static Identifier getTexture(Entity entity, String entity_type, String suffix, Identifier default_identifier) {
 		try {
 			List<String> stringReg = getStringRegistry(entity_type);
@@ -48,6 +50,7 @@ public class TexturedEntity {
 		}
 		return default_identifier;
 	}
+
 	private static List<String> getStringRegistry(String entity_type) {
 		List<String> entity_registry = new ArrayList<>();
 		try {
@@ -61,6 +64,7 @@ public class TexturedEntity {
 		}
 		return entity_registry;
 	}
+
 	private static List<Text> getTextRegistry(String entity_type) {
 		List<Text> entity_registry = new ArrayList<>();
 		try {

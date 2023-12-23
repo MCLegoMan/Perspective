@@ -28,17 +28,22 @@ import java.util.Map;
 
 @Mixin(priority = 10000, value = HorseMarkingFeatureRenderer.class)
 public class HorseMarkingFeatureRendererMixin {
-	@Shadow @Final private static Map<HorseMarking, Identifier> TEXTURES;
+	@Shadow
+	@Final
+	private static Map<HorseMarking, Identifier> TEXTURES;
+	@Unique
+	private HorseEntity entity;
+
 	@Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "HEAD"))
 	public void perspective$render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, HorseEntity horseEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
 		entity = horseEntity;
 	}
+
 	@ModifyExpressionValue(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntityTranslucent(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
 	private RenderLayer perspective$getEntityTranslucent(RenderLayer renderLayer) {
 		return RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "minecraft:horse", perspective$getHorseMarking(entity.getMarking()), TEXTURES.get(entity.getMarking())));
 	}
-	@Unique
-	private HorseEntity entity;
+
 	@Unique
 	private String perspective$getHorseMarking(HorseMarking marking) {
 		if (marking.equals(HorseMarking.WHITE)) return "_markings_white";

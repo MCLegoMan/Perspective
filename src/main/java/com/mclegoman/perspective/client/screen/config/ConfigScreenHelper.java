@@ -36,6 +36,7 @@ public class ConfigScreenHelper {
 		} else GRID_ADDER.add(new EmptyWidget(4, 4));
 		return GRID;
 	}
+
 	public static GridWidget createTitle(boolean experimental) {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);

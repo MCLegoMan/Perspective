@@ -16,6 +16,7 @@ public class TutorialsConfig {
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
 	protected static boolean SUPER_SECRET_SETTINGS;
+
 	protected static void init() {
 		try {
 			CONFIG_PROVIDER = new ConfigProvider();
@@ -26,12 +27,15 @@ public class TutorialsConfig {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	protected static void create() {
 		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", false));
 	}
+
 	protected static void assign() {
 		SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", false);
 	}
+
 	protected static void save() {
 		Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing tutorial config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
 		CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);

@@ -17,6 +17,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,11 @@ import java.util.Map;
 public class TexturedEntityDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<List<String>> REGISTRY = new ArrayList<>();
 	public static final String ID = "textured_entity";
+
 	public TexturedEntityDataLoader() {
 		super(new Gson(), ID);
 	}
+
 	private void add(String ENTITY, String NAME, Boolean ENABLED) {
 		try {
 			List<String> VALUES = new ArrayList<>();
@@ -38,6 +41,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private void reset() {
 		try {
 			REGISTRY.clear();
@@ -46,6 +50,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset textured entity registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private void add$default() {
 		try {
 			String[] ENTITIES = new String[]{
@@ -160,6 +165,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default textured entity values to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
@@ -169,10 +175,12 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public Identifier getFabricId() {
 		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
 	}
+
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
 		try {
 			JsonObject READER = jsonElement.getAsJsonObject();

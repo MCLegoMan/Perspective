@@ -49,6 +49,7 @@ public class Config {
 	protected static boolean TUTORIALS;
 	protected static boolean DEBUG;
 	protected static int CONFIG_VERSION;
+
 	protected static void init() {
 		try {
 			CONFIG_PROVIDER = new ConfigProvider();
@@ -59,6 +60,7 @@ public class Config {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	protected static void create() {
 		CONFIG_PROVIDER.add(new Pair<>("zoom_level", ConfigDataLoader.ZOOM_LEVEL));
 		CONFIG_PROVIDER.add(new Pair<>("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE));
@@ -95,6 +97,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Pair<>("debug", ConfigDataLoader.DEBUG));
 		CONFIG_PROVIDER.add(new Pair<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
 	}
+
 	protected static void assign() {
 		ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", ConfigDataLoader.ZOOM_LEVEL);
 		ZOOM_INCREMENT_SIZE = CONFIG.getOrDefault("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE);
@@ -131,6 +134,7 @@ public class Config {
 		DEBUG = CONFIG.getOrDefault("debug", ConfigDataLoader.DEBUG);
 		CONFIG_VERSION = CONFIG.getOrDefault("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
 	}
+
 	protected static void save() {
 		Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
 		CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);

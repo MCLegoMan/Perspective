@@ -17,6 +17,7 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
+
 import java.util.Map;
 
 public class ConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -54,9 +55,11 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean TUTORIALS;
 	public static String DETECT_UPDATE_CHANNEL;
 	public static boolean DEBUG;
+
 	public ConfigDataLoader() {
 		super(new Gson(), ID);
 	}
+
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
@@ -100,6 +103,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load default config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	@Override
 	public Identifier getFabricId() {
 		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);

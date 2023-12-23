@@ -17,9 +17,9 @@ public class PositionOverlay {
 		if (ClientData.CLIENT.player != null) {
 			boolean debugEnabled = !DebugOverlay.debugType.equals(DebugOverlay.Type.NONE);
 			Text pos = Translation.getTranslation("position_overlay", new Object[]{
-					(int)ClientData.CLIENT.player.getPos().getX(),
-					(int)ClientData.CLIENT.player.getPos().getY(),
-					(int)ClientData.CLIENT.player.getPos().getZ(),
+					(int) ClientData.CLIENT.player.getPos().getX(),
+					(int) ClientData.CLIENT.player.getPos().getY(),
+					(int) ClientData.CLIENT.player.getPos().getZ(),
 			});
 			int x = debugEnabled ? ClientData.CLIENT.getWindow().getScaledWidth() - 2 : 2;
 			int y = 36;

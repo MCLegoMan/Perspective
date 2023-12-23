@@ -28,20 +28,25 @@ public class Zoom {
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
 	private static boolean zoomUpdated;
+
 	public static void updateZoomMultiplier() {
 		float f = getZoomMultiplier();
 		prevZoomMultiplier = zoomMultiplier;
 		zoomMultiplier += (f - zoomMultiplier) * 0.5F;
 	}
+
 	public static float getZoomMultiplier() {
 		return isZooming() ? 1 - ((float) getZoomLevel() / 100) : 1;
 	}
+
 	public static double limitFov(double fov) {
 		return MathHelper.clamp(fov, 0.1, 110);
 	}
+
 	public static boolean isZooming() {
 		return ClientData.CLIENT.player != null && (zoomInverted != Keybindings.HOLD_ZOOM.isPressed());
 	}
+
 	public static void tick() {
 		try {
 			updateZoomMultiplier();
@@ -54,9 +59,11 @@ public class Zoom {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick zoom: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig("zoom_level");
 	}
+
 	public static void zoom(boolean in, int amount) {
 		try {
 			boolean updated = false;
@@ -80,6 +87,7 @@ public class Zoom {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void reset() {
 		try {
 			if ((int) ConfigHelper.getConfig("zoom_level") != ConfigDataLoader.ZOOM_LEVEL) {
@@ -91,14 +99,17 @@ public class Zoom {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	private static void setOverlay() {
 		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage"))
 			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
+
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(ZoomTransitions).toList();
 		return transitions.contains((String) ConfigHelper.getConfig("zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig("zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
 	}
+
 	public static String nextCameraMode() {
 		List<String> cameraModes = Arrays.stream(ZoomCameraModes).toList();
 		return cameraModes.contains((String) ConfigHelper.getConfig("zoom_camera_mode")) ? ZoomCameraModes[(cameraModes.indexOf((String) ConfigHelper.getConfig("zoom_camera_mode")) + 1) % ZoomCameraModes.length] : ZoomCameraModes[0];

@@ -52,6 +52,7 @@ public abstract class MouseMixin {
 			}
 		}
 	}
+
 	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
 	private boolean perspective$isFirstPerson(boolean isFirstPerson) {
 		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;

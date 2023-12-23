@@ -38,6 +38,7 @@ public class Keybindings {
 	public static final KeyBinding TOGGLE_ZOOM;
 	public static final KeyBinding[] ALL_KEYBINDINGS;
 	public static boolean SEEN_CONFLICTING_KEYBINDING_TOASTS;
+
 	static {
 		ALL_KEYBINDINGS = new KeyBinding[]{
 				CYCLE_CROSSHAIR = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
@@ -61,9 +62,11 @@ public class Keybindings {
 				TOGGLE_ZOOM = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
 		};
 	}
+
 	public static void init() {
 		Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing keybindings", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
 	}
+
 	public static void tick() {
 		if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
 			if (hasKeybindingConflicts()) {
@@ -73,6 +76,7 @@ public class Keybindings {
 			SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
 		}
 	}
+
 	public static boolean hasKeybindingConflicts() {
 		for (KeyBinding currentKey1 : ALL_KEYBINDINGS) {
 			for (KeyBinding currentKey2 : ClientData.CLIENT.options.allKeys) {
@@ -86,6 +90,7 @@ public class Keybindings {
 		}
 		return false;
 	}
+
 	private static KeyBinding getKeybinding(String category, String key, int keyCode) {
 		return KeyBindingHelper.registerKeyBinding(new KeyBinding(Translation.getKeybindingTranslation(key), InputUtil.Type.KEYSYM, keyCode, Translation.getKeybindingTranslation(category, true)));
 	}

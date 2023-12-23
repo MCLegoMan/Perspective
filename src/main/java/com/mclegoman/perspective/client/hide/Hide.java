@@ -18,17 +18,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class Hide {
 	private static final String[] hideCrosshairModes = new String[]{"false", "dynamic", "true"};
+
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideArmorDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HidePlayerDataLoader());
 	}
+
 	public static void tick() {
 		if (Keybindings.TOGGLE_ARMOR.wasPressed()) {
 			ConfigHelper.setConfig("hide_armor", !(boolean) ConfigHelper.getConfig("hide_armor"));
@@ -56,6 +59,7 @@ public class Hide {
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 	}
+
 	public static boolean shouldHidePlayer(PlayerEntity player) {
 		if (ClientData.CLIENT.player != null) {
 			UUID uuid = player.getGameProfile().getId();
@@ -64,6 +68,7 @@ public class Hide {
 		}
 		return false;
 	}
+
 	public static String nextCrosshairMode() {
 		List<String> crosshairModes = Arrays.stream(hideCrosshairModes).toList();
 		return crosshairModes.contains((String) ConfigHelper.getConfig("hide_crosshair")) ? hideCrosshairModes[(crosshairModes.indexOf((String) ConfigHelper.getConfig("hide_crosshair")) + 1) % hideCrosshairModes.length] : hideCrosshairModes[0];

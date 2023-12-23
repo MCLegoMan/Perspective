@@ -24,7 +24,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 10000, value = BreezeWindFeatureRenderer.class)
 public class BreezeWindFeatureRendererMixin {
 	@Mutable
-	@Shadow @Final private static Identifier texture;
+	@Shadow
+	@Final
+	private static Identifier texture;
+
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/mob/BreezeEntity;FFFFFF)V")
 	private void perspective$getTexture(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BreezeEntity breezeEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
 		texture = TexturedEntity.getTexture(breezeEntity, "minecraft:breeze", "_wind", new Identifier("textures/entity/breeze/breeze_wind.png"));

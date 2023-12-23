@@ -17,20 +17,25 @@ import net.minecraft.util.Identifier;
 
 public class LogoWidget extends ClickableWidget {
 	private final boolean experimental;
+
 	public LogoWidget(boolean experimental) {
 		super(0, 0, 256, 48, Text.empty());
 		this.experimental = experimental;
 	}
+
 	public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
 		renderPerspectiveLogo(context);
 	}
+
 	private void renderPerspectiveLogo(DrawContext context) {
 		Identifier logoIdentifier = this.experimental ? new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/gui/logo/normal/experimental.png") : ClientData.getLogo();
 		context.drawTexture(logoIdentifier, this.getX(), this.getY(), 0.0F, 0.0F, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 	}
+
 	@Override
 	protected void appendClickableNarrations(NarrationMessageBuilder builder) {
 	}
+
 	@Override
 	protected boolean isValidClickButton(int button) {
 		return false;

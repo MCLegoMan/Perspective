@@ -12,6 +12,7 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.loader.api.FabricLoader;
+
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -20,9 +21,11 @@ import java.util.List;
 public class ConfigProvider implements SimpleConfig.DefaultConfig {
 	private String CONTENTS = "";
 	private List<Pair<String, ?>> CONFIG_LIST = new ArrayList<>();
+
 	public List<Pair<String, ?>> getConfigList() {
 		return CONFIG_LIST;
 	}
+
 	public void add(Pair<String, ?> keyValuePair) {
 		try {
 			CONFIG_LIST.add(keyValuePair);
@@ -30,10 +33,12 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), keyValuePair, error);
 		}
 	}
+
 	@Override
 	public String get(String namespace) {
 		return CONTENTS;
 	}
+
 	public void setContents(String ID) {
 		StringBuilder contents = new StringBuilder(Translation.getString("#{}.properties file\n", ID));
 		for (Pair<String, ?> option : CONFIG_LIST) {
@@ -41,6 +46,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 		}
 		CONTENTS = contents.toString();
 	}
+
 	public void setConfig(String KEY_NAME, Object KEY_VALUE) {
 		try {
 			List<Pair<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
@@ -56,6 +62,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), KEY_NAME, error);
 		}
 	}
+
 	public void saveConfig(String ID) {
 		try {
 			setContents(ID);

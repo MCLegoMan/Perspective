@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigHelper {
+	public static final boolean EXPERIMENTS_AVAILABLE = false;
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
 	protected static final int DEFAULT_CONFIG_VERSION = 14;
-	public static final boolean EXPERIMENTS_AVAILABLE = false;
 	protected static boolean SAVE_VIA_TICK = false;
 	protected static int SAVE_VIA_TICK_TICKS = 0;
 	private static boolean SEEN_DEVELOPMENT_WARNING = false;
@@ -36,9 +36,11 @@ public class ConfigHelper {
 	private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
 	private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
 	private static boolean SAVING = false;
+
 	public static boolean isSaving() {
 		return SAVING;
 	}
+
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ConfigDataLoader());
@@ -46,6 +48,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	protected static void loadConfig() {
 		try {
 			Config.init();
@@ -57,6 +60,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void tick() {
 		try {
 			if (Keybindings.OPEN_CONFIG.wasPressed())
@@ -75,6 +79,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	private static void showToasts() {
 		if (Data.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.PERSPECTIVE_VERSION.getName());
@@ -92,6 +97,7 @@ public class ConfigHelper {
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
 	}
+
 	public static void updateConfig() {
 		try {
 			if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
@@ -136,6 +142,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to update config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void saveConfig(boolean onTick) {
 		try {
 			if (onTick) {
@@ -153,6 +160,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void resetConfig() {
 		try {
 			// Main Config
@@ -198,18 +206,18 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	public static void setConfig(String ID, Object VALUE) {
 		try {
 			switch (ID) {
-				case "zoom_level" -> Config.ZOOM_LEVEL = MathHelper.clamp((int)VALUE, 0, 100);
-				case "zoom_increment_size" -> Config.ZOOM_INCREMENT_SIZE = MathHelper.clamp((int)VALUE, 1, 10);
+				case "zoom_level" -> Config.ZOOM_LEVEL = MathHelper.clamp((int) VALUE, 0, 100);
+				case "zoom_increment_size" -> Config.ZOOM_INCREMENT_SIZE = MathHelper.clamp((int) VALUE, 1, 10);
 				case "zoom_transition" -> Config.ZOOM_TRANSITION = (String) VALUE;
 				case "zoom_camera_mode" -> Config.ZOOM_CAMERA_MODE = (String) VALUE;
 				case "zoom_hide_hud" -> Config.ZOOM_HIDE_HUD = (boolean) VALUE;
 				case "zoom_show_percentage" -> Config.ZOOM_SHOW_PERCENTAGE = (boolean) VALUE;
 				case "hold_perspective_hide_hud" -> Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean) VALUE;
-				case "super_secret_settings_shader" ->
-						Config.SUPER_SECRET_SETTINGS_SHADER = (String) VALUE;
+				case "super_secret_settings_shader" -> Config.SUPER_SECRET_SETTINGS_SHADER = (String) VALUE;
 				case "super_secret_settings_mode" -> Config.SUPER_SECRET_SETTINGS_MODE = (String) VALUE;
 				case "super_secret_settings_enabled" -> Config.SUPER_SECRET_SETTINGS_ENABLED = (boolean) VALUE;
 				case "super_secret_settings_sound" -> Config.SUPER_SECRET_SETTINGS_SOUND = (boolean) VALUE;
@@ -225,7 +233,7 @@ public class ConfigHelper {
 				case "force_pride" -> Config.FORCE_PRIDE = (boolean) VALUE;
 				case "force_pride_type" -> Config.FORCE_PRIDE_TYPE = (boolean) VALUE;
 				case "force_pride_type_index" ->
-						Config.FORCE_PRIDE_TYPE_INDEX = MathHelper.clamp((int)VALUE, 0, ClientData.PRIDE_LOGOS.length);
+						Config.FORCE_PRIDE_TYPE_INDEX = MathHelper.clamp((int) VALUE, 0, ClientData.PRIDE_LOGOS.length);
 				case "show_death_coordinates" -> Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
 				case "dirt_title_screen" -> Config.DIRT_TITLE_SCREEN = (boolean) VALUE;
 				case "hide_block_outline" -> Config.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
@@ -245,16 +253,15 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	public static void setExperimentalConfig(String ID, Object VALUE) {
 		try {
-			switch (ID) {
-				default ->
-						Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
-			}
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	public static void setTutorialConfig(String ID, Object VALUE) {
 		try {
 			if (ID.equals("super_secret_settings")) {
@@ -266,6 +273,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	public static void setWarningConfig(String ID, Object VALUE) {
 		try {
 			switch (ID) {
@@ -278,6 +286,7 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	public static Object getConfig(String ID) {
 		switch (ID) {
 			case "zoom_level" -> {
@@ -388,14 +397,12 @@ public class ConfigHelper {
 			}
 		}
 	}
+
 	public static Object getExperimentalConfig(String ID) {
-		switch (ID) {
-			default -> {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
-				return new Object();
-			}
-		}
+		Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+		return new Object();
 	}
+
 	public static Object getTutorialConfig(String ID) {
 		if (ID.equals("super_secret_settings")) {
 			return TutorialsConfig.SUPER_SECRET_SETTINGS;
@@ -404,6 +411,7 @@ public class ConfigHelper {
 		}
 		return new Object();
 	}
+
 	public static Object getWarningConfig(String ID) {
 		switch (ID) {
 			case "photosensitivity" -> {
@@ -418,6 +426,7 @@ public class ConfigHelper {
 			}
 		}
 	}
+
 	public static List<Object> getDebugConfigText() {
 		List<Object> text = new ArrayList<>();
 		text.add(Text.literal(Config.ID).formatted(Formatting.BOLD));

@@ -14,6 +14,7 @@ import net.minecraft.client.toast.ToastManager;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
 import java.util.List;
 
 public class Toast implements net.minecraft.client.toast.Toast {
@@ -26,9 +27,11 @@ public class Toast implements net.minecraft.client.toast.Toast {
 	private final Identifier texture;
 	private long startTime;
 	private boolean justUpdated;
+
 	public Toast(Text title, Text description, int width, Type type) {
 		this(title, ClientData.CLIENT.textRenderer.wrapLines(description, width - 32), width, type);
 	}
+
 	private Toast(Text title, List<OrderedText> lines, int width, Type type) {
 		this.title = title;
 		this.lines = lines;
@@ -38,12 +41,15 @@ public class Toast implements net.minecraft.client.toast.Toast {
 		this.description_color = type.description_color;
 		this.texture = type.texture;
 	}
+
 	public int getWidth() {
 		return ClientData.CLIENT.textRenderer.getWidth(this.title) > this.width ? ClientData.CLIENT.textRenderer.getWidth(this.title) + 32 : this.width;
 	}
+
 	public int getHeight() {
 		return 20 + Math.max(this.lines.size(), 1) * 12;
 	}
+
 	public net.minecraft.client.toast.Toast.Visibility draw(DrawContext context, ToastManager manager, long startTime) {
 		if (this.justUpdated) {
 			this.startTime = startTime;
@@ -75,6 +81,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 		}
 		return (double) (startTime - this.startTime) < (double) this.display_time * manager.getNotificationDisplayTimeMultiplier() ? Visibility.SHOW : Visibility.HIDE;
 	}
+
 	private void drawPart(DrawContext context, int i, int j, int k, int l) {
 		int m = j == 0 ? 20 : 5;
 		int n = Math.min(60, i - m);
@@ -84,6 +91,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 		}
 		context.drawGuiTexture(this.texture, 160, 32, 160 - n, j, i - n, k, n, l);
 	}
+
 	public enum Type {
 		INFO(0xFFAA00, 0x00AAAA, 4000L, new Identifier(Data.PERSPECTIVE_VERSION.getID(), "toast/warning")),
 		WARNING(0xFFAA00, 0x00AAAA, 8000L, new Identifier(Data.PERSPECTIVE_VERSION.getID(), "toast/warning")),
@@ -92,6 +100,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 		final int description_color;
 		final long display_time;
 		final Identifier texture;
+
 		Type(int title_color, int description_color, long display_time, Identifier texture) {
 			this.title_color = title_color;
 			this.description_color = description_color;

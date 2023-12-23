@@ -10,7 +10,6 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.armadil
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import net.minecraft.client.render.entity.ArmadilloEntityRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.AllayEntity;
 import net.minecraft.entity.passive.ArmadilloEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;

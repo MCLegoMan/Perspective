@@ -29,15 +29,19 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static final List<List<Object>> REGISTRY = new ArrayList<>();
 	public static final List<String> DUPLICATED_NAMES = new ArrayList<>();
 	public static final String ID = "shaders/shaders";
+
 	public ShaderDataLoader() {
 		super(new Gson(), ID);
 	}
+
 	public static int getShaderAmount() {
 		return REGISTRY.size() - 1;
 	}
+
 	public static boolean isDuplicatedShaderName(String name) {
 		return DUPLICATED_NAMES.contains(name);
 	}
+
 	public static Object get(int SHADER, ShaderRegistryValue VALUE) {
 		List<Object> SHADER_MAP = REGISTRY.get(SHADER);
 		if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
@@ -46,6 +50,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
 		return null;
 	}
+
 	private void add(String NAMESPACE, String SHADER_NAME, boolean DISABLE_SCREEN_MODE, boolean ENABLED) {
 		try {
 			SHADER_NAME = SHADER_NAME.replace("\"", "").toLowerCase();
@@ -71,6 +76,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add shader to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private void reset() {
 		try {
 			REGISTRY.clear();
@@ -80,6 +86,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private void add$default() {
 		try {
 			add("minecraft", "none", false, true);
@@ -112,6 +119,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
@@ -145,10 +153,12 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public Identifier getFabricId() {
 		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
 	}
+
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
 		try {
 			JsonObject READER = jsonElement.getAsJsonObject();
@@ -161,6 +171,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private void layout$souper_secret_settings(ResourceManager manager) {
 		List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier("souper_secret_settings", "shaders.json"));
 		for (Resource resource : SHADER_LISTS) {

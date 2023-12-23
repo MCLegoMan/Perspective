@@ -15,9 +15,11 @@ public enum TranslationType implements StringIdentifiable {
 	SHADER_MODE("shader_mode"),
 	DISABLE_SCREEN_MODE("disable_screen_mode");
 	private final String name;
+
 	TranslationType(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public String asString() {
 		return this.name;

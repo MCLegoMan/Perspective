@@ -23,12 +23,14 @@ public class PigOverlayFeatureRenderer<T extends PigEntity, M extends EntityMode
 	private final M model;
 	private final String entity_type;
 	private final Identifier texture;
+
 	public PigOverlayFeatureRenderer(FeatureRendererContext<T, M> context, M model, String entity_type, Identifier texture) {
 		super(context);
 		this.model = model;
 		this.entity_type = entity_type;
 		this.texture = texture;
 	}
+
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		this.getContextModel().copyStateTo(this.model);
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);

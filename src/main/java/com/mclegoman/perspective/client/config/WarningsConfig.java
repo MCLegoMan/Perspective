@@ -17,6 +17,7 @@ public class WarningsConfig {
 	protected static ConfigProvider CONFIG_PROVIDER;
 	protected static boolean PHOTOSENSITIVITY;
 	protected static boolean PRANK;
+
 	protected static void init() {
 		try {
 			CONFIG_PROVIDER = new ConfigProvider();
@@ -27,14 +28,17 @@ public class WarningsConfig {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
+
 	protected static void create() {
 		CONFIG_PROVIDER.add(new Pair<>("photosensitivity", false));
 		CONFIG_PROVIDER.add(new Pair<>("prank", false));
 	}
+
 	protected static void assign() {
 		PHOTOSENSITIVITY = CONFIG.getOrDefault("photosensitivity", false);
 		PRANK = CONFIG.getOrDefault("prank", false);
 	}
+
 	protected static void save() {
 		Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing warning config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
 		CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);

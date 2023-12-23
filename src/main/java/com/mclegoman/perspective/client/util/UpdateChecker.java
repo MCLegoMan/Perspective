@@ -20,6 +20,7 @@ import com.mclegoman.perspective.common.version.Version;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
 import net.minecraft.util.JsonHelper;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -36,6 +37,7 @@ public class UpdateChecker {
 	public static boolean NEWER_VERSION_FOUND;
 	public static String LATEST_VERSION_FOUND = Data.PERSPECTIVE_VERSION.getFriendlyString();
 	public static String DOWNLOAD_LINK;
+
 	public static void tick() {
 		if (!UPDATE_CHECKER_COMPLETE) {
 			checkForUpdates();
@@ -48,6 +50,7 @@ public class UpdateChecker {
 			UPDATE_CHECKER_COMPLETE = true;
 		}
 	}
+
 	public static void checkForUpdates() {
 		UPDATE_CHECKER_COMPLETE = false;
 		NEWER_VERSION_FOUND = false;
@@ -129,6 +132,7 @@ public class UpdateChecker {
 			Data.PERSPECTIVE_VERSION.getLogger().error("{} {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
+
 	private static JsonElement getModrinthData(String project_id, String request) {
 		try {
 			URL url = Objects.equals(request, "") ? new URL("https://api.modrinth.com/v2/project/" + project_id) : new URL("https://api.modrinth.com/v2/project/" + project_id + "/" + request);
@@ -147,6 +151,7 @@ public class UpdateChecker {
 		}
 		return null;
 	}
+
 	public static String nextUpdateChannel() {
 		List<String> updateChannels = Arrays.stream(detectUpdateChannels).toList();
 		return updateChannels.contains((String) ConfigHelper.getConfig("detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig("detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];

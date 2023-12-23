@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class TexturedEntityModels {
 	public static final EntityModelLayer PIG_OVERLAY = new EntityModelLayer(new Identifier("minecraft", "pig"), "outer");
+
 	public static void init() {
 		EntityModelLayerRegistry.registerModelLayer(PIG_OVERLAY, () -> PigEntityModel.getTexturedModelData(new Dilation(0.499F)));
 	}

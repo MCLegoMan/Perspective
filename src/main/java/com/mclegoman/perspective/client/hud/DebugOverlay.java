@@ -19,12 +19,14 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DebugOverlay {
 	public static Type debugType = Type.NONE;
 	public static Formatting shaderColor;
+
 	public static void renderDebugHUD(DrawContext context) {
 		int y = 2;
 		int x = 2;
@@ -72,11 +74,13 @@ public class DebugOverlay {
 			}
 		}
 	}
+
 	public enum Type {
 		NONE,
 		MISC,
 		CONFIG;
 		private static final Type[] VALUES = values();
+
 		public Type next() {
 			return VALUES[(this.ordinal() + 1) % VALUES.length];
 		}

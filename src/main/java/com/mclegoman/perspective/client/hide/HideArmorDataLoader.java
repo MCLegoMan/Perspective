@@ -17,6 +17,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,11 @@ import java.util.Map;
 public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<String> REGISTRY = new ArrayList<>();
 	public static final String ID = "hide/armor";
+
 	public HideArmorDataLoader() {
 		super(new Gson(), ID);
 	}
+
 	private void add(String value) {
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
@@ -34,6 +37,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add hide armor to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	private void reset() {
 		try {
 			REGISTRY.clear();
@@ -41,6 +45,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset hide armor registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
@@ -50,10 +55,12 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply hide armor dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public Identifier getFabricId() {
 		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
 	}
+
 	private void layout$perspective(ResourceManager manager) {
 		List<Resource> HIDE_LISTS = manager.getAllResources(new Identifier("perspective", "hide_armor.json"));
 		for (Resource resource : HIDE_LISTS) {
