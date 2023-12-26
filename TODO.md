@@ -10,10 +10,10 @@
 - Super Secret Settings Shader Selection Screen.  
   - Can be enabled via experiments in 1.2.0.  
 - Test/Fix all Textured Entity entities.  
-  - [x] Horse Markings
-  - [x] Iron Golem Cracks
-  - [x] Stray Overlay
-  - [x] Shoulder Parrot
+  - [x] Horse Markings (1.2.1-release.2)
+  - [x] Iron Golem Cracks (1.3.0-alpha.2)
+  - [x] Stray Overlay (1.3.0-alpha.2)
+  - [x] Shoulder Parrot (1.3.0-alpha.2)
 
 ## Related Projects  
 *These projects are either in early development or still in the planning stages.*

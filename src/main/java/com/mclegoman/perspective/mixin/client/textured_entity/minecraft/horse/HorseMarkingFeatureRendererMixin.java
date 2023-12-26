@@ -11,7 +11,9 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.feature.HorseMarkingFeatureRenderer;
+import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.HorseMarking;
@@ -28,28 +30,29 @@ import java.util.Map;
 
 @Mixin(priority = 10000, value = HorseMarkingFeatureRenderer.class)
 public class HorseMarkingFeatureRendererMixin {
-	@Shadow
-	@Final
+	@Shadow @Final
 	private static Map<HorseMarking, Identifier> TEXTURES;
 	@Unique
 	private HorseEntity entity;
-
+	@Inject(method = "<init>", at = @At("RETURN"))
+	private void perspective$init(FeatureRendererContext<HorseEntity, HorseEntityModel<HorseEntity>> featureRendererContext, CallbackInfo ci) {
+		TEXTURES.remove(HorseMarking.NONE, null);
+		TEXTURES.putIfAbsent(HorseMarking.NONE, new Identifier("textures/entity/horse/horse_markings_none.png"));
+	}
 	@Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "HEAD"))
 	public void perspective$render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, HorseEntity horseEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
 		entity = horseEntity;
 	}
-
 	@ModifyExpressionValue(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntityTranslucent(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
 	private RenderLayer perspective$getEntityTranslucent(RenderLayer renderLayer) {
 		return RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "minecraft:horse", perspective$getHorseMarking(entity.getMarking()), TEXTURES.get(entity.getMarking())));
 	}
-
 	@Unique
 	private String perspective$getHorseMarking(HorseMarking marking) {
 		if (marking.equals(HorseMarking.WHITE)) return "_markings_white";
 		else if (marking.equals(HorseMarking.WHITE_FIELD)) return "_markings_whitefield";
 		else if (marking.equals(HorseMarking.WHITE_DOTS)) return "_markings_whitedots";
 		else if (marking.equals(HorseMarking.BLACK_DOTS)) return "_markings_blackdots";
-		else return null;
+		else return "_markings_none";
 	}
 }
