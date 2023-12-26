@@ -13,7 +13,7 @@
   - [x] Horse Markings
   - [ ] Iron Golem Cracks
   - [ ] Stray Overlay
-  - [ ] Sholder Parrot
+  - [x] Shoulder Parrot
 
 ## Related Projects  
 *These projects are either in early development or still in the planning stages.*

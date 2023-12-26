@@ -1,5 +1,5 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
-## Perspective 1.3.0-alpha.1 for 23w51a/b  
+## Perspective 1.3.0-alpha.2 for 23w51a/b  
 Happy Holidays! This alpha adds textured entity support for the new Armadillo mob, and brings the Super Secret Settings Shader Selection Screen out of experimental.  
 
 ### Changelog  

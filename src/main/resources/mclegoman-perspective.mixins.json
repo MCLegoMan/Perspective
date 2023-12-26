@@ -78,6 +78,7 @@
 		"client.textured_entity.minecraft.ocelot.OcelotEntityRendererMixin",
 		"client.textured_entity.minecraft.panda.PandaEntityRendererMixin",
 		"client.textured_entity.minecraft.parrot.ParrotEntityRendererMixin",
+		"client.textured_entity.minecraft.parrot.ShoulderParrotFeatureRendererMixin",
 		"client.textured_entity.minecraft.phantom.PhantomEntityRendererMixin",
 		"client.textured_entity.minecraft.pig.PigEntityRendererMixin",
 		"client.textured_entity.minecraft.piglin.PiglinEntityRendererMixin",
