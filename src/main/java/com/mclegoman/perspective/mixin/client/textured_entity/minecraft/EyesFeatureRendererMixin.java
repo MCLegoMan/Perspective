@@ -29,7 +29,6 @@ public class EyesFeatureRendererMixin<T extends Entity, M extends EntityModel<T>
 	public EyesFeatureRendererMixin(FeatureRendererContext<T, M> context) {
 		super(context);
 	}
-
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		if (entity instanceof EndermanEntity) {
