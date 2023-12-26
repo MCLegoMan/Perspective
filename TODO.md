@@ -11,7 +11,7 @@
   - Can be enabled via experiments in 1.2.0.  
 - Test/Fix all Textured Entity entities.  
   - [x] Horse Markings
-  - [ ] Iron Golem Cracks
+  - [x] Iron Golem Cracks
   - [x] Stray Overlay
   - [x] Shoulder Parrot
 

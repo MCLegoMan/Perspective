@@ -68,6 +68,7 @@
 		"client.textured_entity.minecraft.horse.HorseMarkingFeatureRendererMixin",
 		"client.textured_entity.minecraft.husk.HuskEntityRendererMixin",
 		"client.textured_entity.minecraft.illusioner.IllusionerEntityRendererMixin",
+		"client.textured_entity.minecraft.iron_golem.IronGolemCrackFeatureRendererMixin",
 		"client.textured_entity.minecraft.iron_golem.IronGolemEntityRendererMixin",
 		"client.textured_entity.minecraft.leash_knot.LeashKnotEntityRendererMixin",
 		"client.textured_entity.minecraft.llama.LlamaEntityRendererMixin",
