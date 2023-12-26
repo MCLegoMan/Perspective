@@ -12,7 +12,7 @@
 - Test/Fix all Textured Entity entities.  
   - [x] Horse Markings
   - [ ] Iron Golem Cracks
-  - [ ] Stray Overlay
+  - [x] Stray Overlay
   - [x] Shoulder Parrot
 
 ## Related Projects  

@@ -101,6 +101,7 @@
 		"client.textured_entity.minecraft.spider.SpiderEntityRendererMixin",
 		"client.textured_entity.minecraft.squid.SquidEntityRendererMixin",
 		"client.textured_entity.minecraft.stray.StrayEntityRendererMixin",
+		"client.textured_entity.minecraft.stray.StrayOverlayFeatureRendererMixin",
 		"client.textured_entity.minecraft.strider.StriderEntityRendererMixin",
 		"client.textured_entity.minecraft.tadpole.TadpoleEntityRendererMixin",
 		"client.textured_entity.minecraft.tnt.TntEntityRendererMixin",
