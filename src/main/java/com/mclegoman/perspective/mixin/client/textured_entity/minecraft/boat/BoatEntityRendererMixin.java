@@ -7,23 +7,35 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.boat;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 10000, value = net.minecraft.client.render.entity.BoatEntityRenderer.class)
-public class BoatEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof ChestBoatEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:chest_boat", "_" + ((BoatEntity) entity).getVariant().getName().toLowerCase(), cir.getReturnValue()));
-		else if (entity instanceof BoatEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:boat", "_" + ((BoatEntity) entity).getVariant().getName().toLowerCase(), cir.getReturnValue()));
+public abstract class BoatEntityRendererMixin {
+	@Unique
+	private boolean isChest;
+	@Unique
+	private BoatEntity entity;
+	@Inject(at = @At("RETURN"), method = "<init>")
+	private void perspective$init(EntityRendererFactory.Context ctx, boolean chest, CallbackInfo ci) {
+		isChest = chest;
+	}
+	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/entity/vehicle/BoatEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
+	private void perspective$render(BoatEntity boatEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+		entity = boatEntity;
+	}
+	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/util/Pair;getFirst()Ljava/lang/Object;"), method = "render(Lnet/minecraft/entity/vehicle/BoatEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
+	private Object perspective$getTexture(Object texture) {
+		return TexturedEntity.getTexture(entity, isChest ? "minecraft:chest_boat" : "minecraft:boat", "_" + entity.getVariant().getName().toLowerCase(), (Identifier)texture);
 	}
 }
