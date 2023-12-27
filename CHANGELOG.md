@@ -1,15 +1,33 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)
 ## Perspective 1.3.0-alpha.2 for 23w51a/b  
-Happy Holidays! This alpha adds textured entity support for the new Armadillo mob, and brings the Super Secret Settings Shader Selection Screen out of experimental.  
+This alpha fixes some bugs related to Textured Entity, and adds texture support for none horse marking.  
 
 ### Changelog  
-- **Added Armadillo Textured Entity.**  
-- **Added Super Secret Settings Shader Selection Screen.**  
-  - When you press the shader button on the Super Secret Settings Config Screen, you will open the shader selection screen. (This could change in a future update.)  
-
+- **Fixed several bugs relating to Textured Entity.**  
+  - Fixed Shoulder Parrot Textured Entity.  
+  - Added Stray Textured Entity Overlay.  
+  - Added Iron Golem Textured Entity Crackiness.  
+  - Fixed Boat Textured Entity.
+- **Added texture for HorseMarking.NONE.**  
+  - For non-textured entity, the texture can be found at: `assets/minecraft/textures/entity/horse/horse_markings_none.png`.  
+  - For textured entities, the texture is stored alongside the other textured entity textures: `assets/minecraft/textures/textured_entity/horse/<name>_markings_none.png`   
+- **Updated April Fools' Prank.**  
+  - Added `mclegoman_suit`.  
+- **Updated Perspective Toast Texture.**  
+- **Updated `Perspective: Default` Resource Pack.**  
+  - Added `perspective:foggy` shader.  
+  - Added `Russ` Endermite Textured Entity.  
+  - Added `Timmy` and `Jimmy` Enderman Textured Entity.  
 #### Experimental  
 - **Updated Perspective: Experimental Resource Pack.**  
-  - Updated `perspective:foggy` shader.   
+  - Removed `perspective:foggy` shader.  
+  - Added `test` Textured Entities:  
+    - `minecraft:boat`  
+    - `minecraft:chest_boat`  
+    - `minecraft:horse`  
+    - `minecraft:iron_golem`  
+    - `minecraft:parrot`  
+    - `minecraft:stray`  
 
 ### Development Build
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
