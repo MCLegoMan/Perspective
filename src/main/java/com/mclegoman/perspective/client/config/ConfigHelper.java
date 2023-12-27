@@ -28,7 +28,7 @@ import java.util.List;
 public class ConfigHelper {
 	public static final boolean EXPERIMENTS_AVAILABLE = false;
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-	protected static final int DEFAULT_CONFIG_VERSION = 14;
+	protected static final int DEFAULT_CONFIG_VERSION = 15;
 	protected static boolean SAVE_VIA_TICK = false;
 	protected static int SAVE_VIA_TICK_TICKS = 0;
 	private static boolean SEEN_DEVELOPMENT_WARNING = false;
