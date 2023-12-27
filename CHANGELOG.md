@@ -2,7 +2,7 @@
 ## Perspective 1.3.0-alpha.2 for 23w51a/b  
 This alpha fixes some bugs related to Textured Entity, and adds texture support for none horse marking.  
 
-### Changelog  
+### Changelog
 - **Fixed several bugs relating to Textured Entity.**  
   - Fixed Shoulder Parrot Textured Entity.  
   - Added Stray Textured Entity Overlay.  
@@ -17,10 +17,10 @@ This alpha fixes some bugs related to Textured Entity, and adds texture support 
 - **Updated `Perspective: Default` Resource Pack.**  
   - Added `perspective:foggy` shader.  
   - Added `Russ` Endermite Textured Entity.  
-  - Added `Timmy` and `Jimmy` Enderman Textured Entity.  
-#### Experimental  
-- **Updated Perspective: Experimental Resource Pack.**  
-  - Removed `perspective:foggy` shader.  
+  - Added `Timmy` and `Jimmy` Enderman Textured Entity.
+- **Removed `Perspective: Experimental` Resource Pack.**  
+- **Added `Perspective: Test` Resource Pack.**  
+  - This resource pack will only be registered when `test_resource_pack` config option is enabled.
   - Added `test` Textured Entities:  
     - `minecraft:boat`  
     - `minecraft:chest_boat`  
