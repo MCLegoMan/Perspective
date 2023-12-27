@@ -48,6 +48,7 @@ public class Config {
 	protected static String DETECT_UPDATE_CHANNEL;
 	protected static boolean TUTORIALS;
 	protected static boolean DEBUG;
+	protected static boolean TEST_RESOURCE_PACK;
 	protected static int CONFIG_VERSION;
 
 	protected static void init() {
@@ -95,6 +96,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Pair<>("tutorials", ConfigDataLoader.TUTORIALS));
 		CONFIG_PROVIDER.add(new Pair<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
 		CONFIG_PROVIDER.add(new Pair<>("debug", ConfigDataLoader.DEBUG));
+		CONFIG_PROVIDER.add(new Pair<>("test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK));
 		CONFIG_PROVIDER.add(new Pair<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
 	}
 
@@ -132,6 +134,7 @@ public class Config {
 		TUTORIALS = CONFIG.getOrDefault("tutorials", ConfigDataLoader.TUTORIALS);
 		DETECT_UPDATE_CHANNEL = CONFIG.getOrDefault("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
 		DEBUG = CONFIG.getOrDefault("debug", ConfigDataLoader.DEBUG);
+		TEST_RESOURCE_PACK = CONFIG.getOrDefault("test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK);
 		CONFIG_VERSION = CONFIG.getOrDefault("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
 	}
 
@@ -170,6 +173,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("tutorials", TUTORIALS);
 		CONFIG_PROVIDER.setConfig("detect_update_channel", DETECT_UPDATE_CHANNEL);
 		CONFIG_PROVIDER.setConfig("debug", DEBUG);
+		CONFIG_PROVIDER.setConfig("test_resource_pack", TEST_RESOURCE_PACK);
 		CONFIG_PROVIDER.setConfig("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
 		CONFIG_PROVIDER.saveConfig(ID);
 	}

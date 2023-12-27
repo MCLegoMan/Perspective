@@ -13,6 +13,7 @@ import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.common.data.Data;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -56,6 +57,7 @@ public class ConfigHelper {
 			TutorialsConfig.init();
 			WarningsConfig.init();
 			ConfigHelper.updateConfig();
+			ResourcePacks.init_afterConfig();
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
@@ -197,6 +199,7 @@ public class ConfigHelper {
 			setConfig("tutorials", ConfigDataLoader.TUTORIALS);
 			setConfig("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
 			setConfig("debug", ConfigDataLoader.DEBUG);
+			setConfig("test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK);
 			// Experimental Config
 			if (EXPERIMENTS_AVAILABLE) {
 				setExperimentalConfig("super_secret_settings_list", false);
@@ -245,6 +248,7 @@ public class ConfigHelper {
 				case "tutorials" -> Config.TUTORIALS = (boolean) VALUE;
 				case "detect_update_channel" -> Config.DETECT_UPDATE_CHANNEL = (String) VALUE;
 				case "debug" -> Config.DEBUG = (boolean) VALUE;
+				case "test_resource_pack" -> Config.TEST_RESOURCE_PACK = (boolean) VALUE;
 				case "config_version" -> Config.CONFIG_VERSION = (int) VALUE;
 				default ->
 						Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
@@ -387,6 +391,9 @@ public class ConfigHelper {
 			}
 			case "debug" -> {
 				return Config.DEBUG;
+			}
+			case "test_resource_pack" -> {
+				return Config.TEST_RESOURCE_PACK;
 			}
 			case "config_version" -> {
 				return Config.CONFIG_VERSION;

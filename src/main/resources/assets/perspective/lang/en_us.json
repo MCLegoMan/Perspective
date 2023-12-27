@@ -211,8 +211,8 @@
 	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
 	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
 
-	"gui.perspective.resource_pack.perspective_experimental": "Perspective: Experimental",
-	"gui.perspective.resource_pack.perspective_experimental.description": "The experimental look of Perspective",
+	"gui.perspective.resource_pack.perspective_test": "Perspective: Test",
+	"gui.perspective.resource_pack.perspective_test.description": "Test Perspective Features",
 
 	"gui.perspective.variable.endisable.on": "Enabled",
 	"gui.perspective.variable.endisable.off": "Disabled",

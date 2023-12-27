@@ -55,6 +55,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean TUTORIALS;
 	public static String DETECT_UPDATE_CHANNEL;
 	public static boolean DEBUG;
+	public static boolean TEST_RESOURCE_PACK;
 
 	public ConfigDataLoader() {
 		super(new Gson(), ID);
@@ -97,6 +98,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				TUTORIALS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "tutorials", true);
 				DETECT_UPDATE_CHANNEL = JsonHelper.getDetectUpdateChannel(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
 				DEBUG = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "debug", false);
+				TEST_RESOURCE_PACK = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "test_resource_pack", false);
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {

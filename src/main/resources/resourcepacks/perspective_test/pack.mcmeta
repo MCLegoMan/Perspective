@@ -6,7 +6,7 @@
             "max_inclusive": 2147483647
         },
         "description": {
-            "translate": "gui.perspective.resource_pack.perspective_experimental.description"
+            "translate": "gui.perspective.resource_pack.perspective_test.description"
         }
     }
 }

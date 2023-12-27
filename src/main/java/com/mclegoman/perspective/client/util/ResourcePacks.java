@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.util;
 
+import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -28,6 +29,12 @@ public class ResourcePacks {
             Contributor(s): MCLegoMan
         */
 		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
-		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_experimental"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_experimental"), ResourcePackActivationType.NORMAL);
+	}
+	public static void init_afterConfig() {
+        /*
+            Perspective: Test
+            Contributor(s): MCLegoMan
+        */
+		if ((boolean) ConfigHelper.getConfig("test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
 	}
 }
