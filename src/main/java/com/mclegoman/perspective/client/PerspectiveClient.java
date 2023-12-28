@@ -31,18 +31,20 @@ public class PerspectiveClient implements ClientModInitializer {
 			Contributor.init();
 			Hide.init();
 			Keybindings.init();
+			Panorama.init();
+			ResourcePacks.init();
 			Shader.init();
 			TexturedEntity.init();
+			Tick.init();
+			ClientData.finishedInitializing();
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void onInitializeClientAfterConfig() {
 		try {
-			Panorama.init();
-			ResourcePacks.init();
-			Tick.init();
-			ClientData.finishedInitializing();
+			ResourcePacks.initAfterConfig();
+			ClientData.finishedInitializingAfterConfig();
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClientAfterConfig: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}

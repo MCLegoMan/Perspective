@@ -29,10 +29,12 @@ public class ResourcePacks {
             Contributor(s): MCLegoMan
         */
 		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
-        /*
+	}
+	public static void initAfterConfig() {
+		/*
             Perspective: Test
             Contributor(s): MCLegoMan
         */
-		if ((boolean) ConfigHelper.getConfig("test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
+		if ((boolean) ConfigHelper.getConfig("test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_test"), ResourcePackActivationType.DEFAULT_ENABLED);
 	}
 }

@@ -22,6 +22,7 @@ public class ClientData {
 	public static final String[] PRIDE_LOGOS = new String[]{"pride", "trans", "bi", "pan", "ace", "aro", "aroace", "gay", "lesbian"};
 	public static final int PRIDE_LOGO = new Random().nextInt(PRIDE_LOGOS.length);
 	private static boolean finishedInitializing = false;
+	private static boolean finishedInitializingAfterConfig = false;
 
 	public static Identifier getLogo() {
 		return Data.PERSPECTIVE_VERSION.isDevelopmentBuild() ? getLogoType(Data.PERSPECTIVE_VERSION.getID(), true, isPride()) : getLogoType(Data.PERSPECTIVE_VERSION.getID(), false, isPride());
@@ -46,12 +47,13 @@ public class ClientData {
 			return date.getMonth() == Month.JUNE || date.getMonth() == Month.JULY && date.getDayOfMonth() <= 2;
 		}
 	}
-
 	public static void finishedInitializing() {
 		finishedInitializing = true;
 	}
-
+	public static void finishedInitializingAfterConfig() {
+		finishedInitializingAfterConfig = true;
+	}
 	public static boolean isFinishedInitializing() {
-		return CLIENT.isFinishedLoading() && finishedInitializing;
+		return CLIENT.isFinishedLoading() && finishedInitializing && finishedInitializingAfterConfig;
 	}
 }
