@@ -24,13 +24,11 @@ public class ResourcePacks {
 	 * - This only applies to resource packs that are included with Perspective.
 	 **/
 	public static void init() {
-        /*
+		/*
             Perspective: Default
             Contributor(s): MCLegoMan
         */
 		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.PERSPECTIVE_VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
-	}
-	public static void init_afterConfig() {
         /*
             Perspective: Test
             Contributor(s): MCLegoMan

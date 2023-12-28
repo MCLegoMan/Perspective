@@ -7,13 +7,13 @@
 
 package com.mclegoman.perspective.client.config;
 
+import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
-import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.common.data.Data;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -57,10 +57,10 @@ public class ConfigHelper {
 			TutorialsConfig.init();
 			WarningsConfig.init();
 			ConfigHelper.updateConfig();
-			ResourcePacks.init_afterConfig();
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
+		PerspectiveClient.onInitializeClientAfterConfig();
 	}
 
 	public static void tick() {

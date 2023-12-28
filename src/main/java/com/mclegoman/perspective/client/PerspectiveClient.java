@@ -27,18 +27,24 @@ public class PerspectiveClient implements ClientModInitializer {
 		try {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), Data.PERSPECTIVE_VERSION.getID());
 			ConfigHelper.init();
-			ResourcePacks.init();
+		} catch (Exception error) {
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+		}
+	}
+	public static void onInitializeClientAfterConfig() {
+		try {
 			AprilFoolsPrank.init();
 			Contributor.init();
 			Hide.init();
-			Shader.init();
-			TexturedEntity.init();
 			Keybindings.init();
 			Panorama.init();
+			ResourcePacks.init();
+			Shader.init();
+			TexturedEntity.init();
 			Tick.init();
 			ClientData.finishedInitializing();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClientAfterConfig: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
 }
