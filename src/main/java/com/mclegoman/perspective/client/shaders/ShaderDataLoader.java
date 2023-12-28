@@ -89,7 +89,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 
 	private void add$default() {
 		try {
-			add("minecraft", "none", false, true);
 			add("minecraft", "antialias", false, true);
 			add("minecraft", "art", true, true);
 			add("minecraft", "bits", true, true);
@@ -105,7 +104,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			add("minecraft", "fxaa", false, true);
 			add("minecraft", "green", true, true);
 			add("minecraft", "invert", false, true);
-			add("minecraft", "love", false, true);
 			add("minecraft", "notch", false, true);
 			add("minecraft", "ntsc", true, true);
 			add("minecraft", "outline", false, true);

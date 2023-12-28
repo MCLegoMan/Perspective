@@ -1,0 +1,6 @@
+{
+  "namespace": "minecraft",
+  "shader": "love",
+  "disable_screen_mode": false,
+  "enabled": true
+}
