@@ -71,19 +71,24 @@
 
 	"gui.perspective.config.shaders": "Super Secret Settings",
 
-	"gui.perspective.config.shaders.shader": "Shader: %s",
-	"gui.perspective.config.shaders.shader.select": "Select Super Secret Setting",
-	"gui.perspective.config.shaders.shader.list": "%s%s",
+	"gui.perspective.config.shaders.list": "Shader: %s",
+	"gui.perspective.config.shaders.list.hover": "Open Shader Selection Screen",
+	"gui.perspective.config.shaders.list.select": "Select Super Secret Setting",
+	"gui.perspective.config.shaders.list.shader": "%s%s",
 
 	"gui.perspective.config.shaders.random": "\uD83D\uDD00",
+	"gui.perspective.config.shaders.random.hover": "Set Random Shader",
 
 	"gui.perspective.config.shaders.mode": "Shader Mode: %s%s",
+	"gui.perspective.config.shaders.mode.hover": "Cycle Shader Mode",
 	"gui.perspective.config.shaders.mode.screen": "Screen",
 	"gui.perspective.config.shaders.mode.game": "Game",
 
 	"gui.perspective.config.shaders.toggle": "%s",
+	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
 
 	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
+	"gui.perspective.config.shaders.show_name.hover": "Toggle Cycle Shaders Name Overlay",
 
 	"gui.perspective.config.textured_entity": "Textured Entity",
 

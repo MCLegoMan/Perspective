@@ -66,7 +66,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 		context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
 		context.drawTexture(new Identifier("textures/gui/options_background.png"), 0, ClientData.CLIENT.getWindow().getScaledHeight() - 32, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), 32, 32, 32);
 		context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation("shaders.shader.select", new Formatting[]{randomColor}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, 12, 0xFFFFFF);
+		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation("shaders.list.select", new Formatting[]{randomColor}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, 12, 0xFFFFFF);
 		for (Drawable drawable : this.drawables) {
 			drawable.render(context, mouseX, mouseY, delta);
 		}

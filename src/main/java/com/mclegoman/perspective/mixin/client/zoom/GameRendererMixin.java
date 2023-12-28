@@ -26,12 +26,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
-
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"), method = "renderHand")
 	private double perspective$renderHand(double fov) {
 		return Zoom.fov;
 	}
-
+	@Inject(method = "tick", at = @At("TAIL"))
+	private void perspective$tick(CallbackInfo ci) {
+		Zoom.updateZoomMultiplier();
+	}
 	@ModifyReturnValue(method = "getFov", at = @At("RETURN"))
 	private double perspective$getFov(double fov, Camera camera, float tickDelta, boolean changingFov) {
 		Zoom.fov = fov;
@@ -48,7 +50,6 @@ public abstract class GameRendererMixin {
 		}
 		return Zoom.limitFov(newFOV);
 	}
-
 	@Inject(at = @At("HEAD"), method = "renderHand", cancellable = true)
 	private void perspective$renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHUD()) ci.cancel();

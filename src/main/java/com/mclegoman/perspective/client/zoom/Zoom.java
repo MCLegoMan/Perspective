@@ -49,7 +49,6 @@ public class Zoom {
 
 	public static void tick() {
 		try {
-			updateZoomMultiplier();
 			if (Keybindings.TOGGLE_ZOOM.wasPressed()) zoomInverted = !zoomInverted;
 			if (!isZooming() && zoomUpdated) {
 				ConfigHelper.saveConfig(true);
