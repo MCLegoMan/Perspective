@@ -7,9 +7,10 @@
 
 package com.mclegoman.perspective.client.config;
 
+import com.mclegoman.perspective.common.config.ConfigOption;
+import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
-import com.mojang.datafixers.util.Pair;
 
 public class WarningsConfig {
 	protected static final String ID = Data.PERSPECTIVE_VERSION.getID() + "-warnings";
@@ -30,8 +31,8 @@ public class WarningsConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Pair<>("photosensitivity", false));
-		CONFIG_PROVIDER.add(new Pair<>("prank", false));
+		CONFIG_PROVIDER.add(new ConfigOption<>("photosensitivity", false));
+		CONFIG_PROVIDER.add(new ConfigOption<>("prank", false));
 	}
 
 	protected static void assign() {

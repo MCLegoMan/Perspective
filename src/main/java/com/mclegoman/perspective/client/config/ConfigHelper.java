@@ -14,8 +14,8 @@ import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.common.config.ConfigOption;
 import com.mclegoman.perspective.common.data.Data;
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
@@ -37,11 +37,9 @@ public class ConfigHelper {
 	private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
 	private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
 	private static boolean SAVING = false;
-
 	public static boolean isSaving() {
 		return SAVING;
 	}
-
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ConfigDataLoader());
@@ -49,7 +47,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	protected static void loadConfig() {
 		try {
 			Config.init();
@@ -62,7 +59,6 @@ public class ConfigHelper {
 		}
 		PerspectiveClient.onInitializeClientAfterConfig();
 	}
-
 	public static void tick() {
 		try {
 			if (Keybindings.OPEN_CONFIG.wasPressed())
@@ -81,7 +77,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	private static void showToasts() {
 		if (Data.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
 			Data.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.PERSPECTIVE_VERSION.getName());
@@ -99,7 +94,6 @@ public class ConfigHelper {
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
 	}
-
 	public static void updateConfig() {
 		try {
 			if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
@@ -144,7 +138,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to update config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	public static void saveConfig(boolean onTick) {
 		try {
 			if (onTick) {
@@ -162,7 +155,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	public static void resetConfig() {
 		try {
 			// Main Config
@@ -209,7 +201,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	public static void setConfig(String ID, Object VALUE) {
 		try {
 			switch (ID) {
@@ -257,7 +248,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
-
 	public static void setExperimentalConfig(String ID, Object VALUE) {
 		try {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
@@ -265,7 +255,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
-
 	public static void setTutorialConfig(String ID, Object VALUE) {
 		try {
 			if (ID.equals("super_secret_settings")) {
@@ -277,7 +266,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
-
 	public static void setWarningConfig(String ID, Object VALUE) {
 		try {
 			switch (ID) {
@@ -290,7 +278,6 @@ public class ConfigHelper {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
-
 	public static Object getConfig(String ID) {
 		switch (ID) {
 			case "zoom_level" -> {
@@ -404,12 +391,10 @@ public class ConfigHelper {
 			}
 		}
 	}
-
 	public static Object getExperimentalConfig(String ID) {
 		Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
 		return new Object();
 	}
-
 	public static Object getTutorialConfig(String ID) {
 		if (ID.equals("super_secret_settings")) {
 			return TutorialsConfig.SUPER_SECRET_SETTINGS;
@@ -418,7 +403,6 @@ public class ConfigHelper {
 		}
 		return new Object();
 	}
-
 	public static Object getWarningConfig(String ID) {
 		switch (ID) {
 			case "photosensitivity" -> {
@@ -433,26 +417,25 @@ public class ConfigHelper {
 			}
 		}
 	}
-
 	public static List<Object> getDebugConfigText() {
 		List<Object> text = new ArrayList<>();
 		text.add(Text.literal(Config.ID).formatted(Formatting.BOLD));
-		for (Pair<String, ?> pair : Config.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+		for (ConfigOption<String, ?> pair : Config.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(pair.getOption() + ": " + pair.getValue()));
 		if (EXPERIMENTS_AVAILABLE) {
 			text.add("\n");
 			text.add(Text.literal(ExperimentalConfig.ID).formatted(Formatting.BOLD));
-			for (Pair<String, ?> pair : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
-				text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+			for (ConfigOption<String, ?> pair : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
+				text.add(Text.literal(pair.getOption() + ": " + pair.getValue()));
 		}
 		text.add("\n");
 		text.add(Text.literal(TutorialsConfig.ID).formatted(Formatting.BOLD));
-		for (Pair<String, ?> pair : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+		for (ConfigOption<String, ?> pair : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(pair.getOption() + ": " + pair.getValue()));
 		text.add("\n");
 		text.add(Text.literal(WarningsConfig.ID).formatted(Formatting.BOLD));
-		for (Pair<String, ?> pair : WarningsConfig.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+		for (ConfigOption<String, ?> pair : WarningsConfig.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(pair.getOption() + ": " + pair.getValue()));
 		return text;
 	}
 }
