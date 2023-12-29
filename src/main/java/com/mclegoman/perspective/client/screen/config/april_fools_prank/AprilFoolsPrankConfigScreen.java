@@ -31,14 +31,12 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 	private final GridWidget GRID;
 	private boolean REFRESH;
 	private boolean SHOULD_CLOSE;
-
 	public AprilFoolsPrankConfigScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 		this.REFRESH = REFRESH;
 	}
-
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -54,7 +52,6 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>april fools prank screen: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -67,7 +64,6 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$april_fools screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-
 	private GridWidget createAprilFools() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -82,7 +78,6 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 		}).width(304).build());
 		return GRID;
 	}
-
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -94,30 +89,29 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
 	}
-
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
-
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
-
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
-
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
+		return super.keyPressed(keyCode, scanCode, modifiers);
+	}
+	@Override
+	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
 			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
 			this.REFRESH = true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
-
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

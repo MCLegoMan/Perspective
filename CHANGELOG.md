@@ -3,7 +3,7 @@
   
 
 ### Changelog  
-- 
+- Pressing [ESC] on the Config Screen will now go back a page if not on page 1.  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

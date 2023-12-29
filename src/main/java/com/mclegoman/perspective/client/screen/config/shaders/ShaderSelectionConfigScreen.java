@@ -29,20 +29,17 @@ public class ShaderSelectionConfigScreen extends Screen {
 	private final int scrollAmount;
 	ShadersListWidget<ShaderListEntry> widget;
 	private boolean SHOULD_CLOSE;
-
 	public ShaderSelectionConfigScreen(Screen PARENT, int scrollAmount) {
 		super(Text.literal(""));
 		this.parent = PARENT;
 		this.randomColor = Shader.getRandomColor();
 		this.scrollAmount = scrollAmount;
 	}
-
 	protected void init() {
 		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32, 27, scrollAmount);
 		addDrawableChild(widget);
 		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).dimensions(ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 75, ClientData.CLIENT.getWindow().getScaledHeight() - 26, 150, 20).build());
 	}
-
 	public void tick() {
 		try {
 			if (this.SHOULD_CLOSE) {
@@ -52,7 +49,6 @@ public class ShaderSelectionConfigScreen extends Screen {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders$select screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
 		}
 	}
-
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		if (ClientData.CLIENT.world == null) {
@@ -71,24 +67,14 @@ public class ShaderSelectionConfigScreen extends Screen {
 			drawable.render(context, mouseX, mouseY, delta);
 		}
 	}
-
 	@Override
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
-
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
-	}
-
-	@Override
-	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_F5) {
-			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
-		}
-		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
 }

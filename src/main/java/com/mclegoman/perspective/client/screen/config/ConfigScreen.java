@@ -173,11 +173,15 @@ public class ConfigScreen extends Screen {
 				this.REFRESH = true;
 			}
 		}
+		return super.keyPressed(keyCode, scanCode, modifiers);
+	}
+	@Override
+	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
 			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
 			this.REFRESH = true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
 
 	@Override

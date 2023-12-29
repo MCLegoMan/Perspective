@@ -130,23 +130,20 @@ public class ShadersConfigScreen extends Screen {
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
-
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
-
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
 			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
-			this.REFRESH = false;
+			this.REFRESH = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
-
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

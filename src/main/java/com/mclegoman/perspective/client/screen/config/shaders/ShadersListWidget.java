@@ -24,7 +24,6 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 		this.setFocused(true);
 		this.setScrollAmount(scrollAmount >= 0 ? scrollAmount : Shader.superSecretSettingsIndex * 27);
 	}
-
 	@Override
 	public void setSelected(@Nullable ShaderListEntry entry) {
 		super.setSelected(entry);
@@ -33,12 +32,10 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 			Shader.set(true, true, false, false);
 		}
 	}
-
 	@Override
 	protected int addEntry(ShaderListEntry entry) {
 		return super.addEntry(entry);
 	}
-
 	@Override
 	protected int getScrollbarPositionX() {
 		return (ClientData.CLIENT.getWindow().getScaledWidth()) - 6;
