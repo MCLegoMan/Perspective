@@ -14,11 +14,9 @@ public class Version extends com.mclegoman.releasetypeutils.common.version.Versi
 	public Version(String name, String id, int major, int minor, int patch, Helper.ReleaseType type, int build) {
 		super(name, id, major, minor, patch, type, build);
 	}
-
 	public String getFriendlyString(boolean full) {
 		return full ? getFriendlyString() : (getType().equals(Helper.ReleaseType.RELEASE) ? String.format("%s.%s.%s", getMajor(), getMinor(), getPatch()) : getFriendlyString());
 	}
-
 	public ModContainer getModContainer() {
 		return Data.getModContainer(getID());
 	}
