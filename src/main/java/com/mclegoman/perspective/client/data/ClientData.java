@@ -24,12 +24,12 @@ public class ClientData {
 	private static boolean finishedInitializing = false;
 	private static boolean finishedInitializingAfterConfig = false;
 
-	public static Identifier getLogo() {
-		return Data.PERSPECTIVE_VERSION.isDevelopmentBuild() ? getLogoType(Data.PERSPECTIVE_VERSION.getID(), true, isPride()) : getLogoType(Data.PERSPECTIVE_VERSION.getID(), false, isPride());
+	public static Identifier getLogo(boolean isExperimentalLogo) {
+		return Data.PERSPECTIVE_VERSION.isDevelopmentBuild() ? getLogoType(Data.PERSPECTIVE_VERSION.getID(), true, isPride(), isExperimentalLogo) : getLogoType(Data.PERSPECTIVE_VERSION.getID(), false, isPride(), isExperimentalLogo);
 	}
 
-	public static Identifier getLogoType(String namespace, boolean development, boolean pride) {
-		return development ? new Identifier(namespace, (getLogoPath(pride) + "development.png")) : new Identifier(namespace, (getLogoPath(pride) + "release.png"));
+	public static Identifier getLogoType(String namespace, boolean development, boolean pride, boolean isExperimentalLogo) {
+		return isExperimentalLogo ? new Identifier(namespace, (getLogoPath(false) + "experimental.png")) : (development ? new Identifier(namespace, (getLogoPath(pride) + "development.png")) : new Identifier(namespace, (getLogoPath(pride) + "release.png")));
 	}
 
 	public static String getPrideLogoType() {
