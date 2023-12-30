@@ -117,6 +117,9 @@ public class Shader {
 		}
 		return false;
 	}
+	public static boolean isShaderAvailable(int id) {
+		return id <= ShaderDataLoader.getShaderAmount();
+	}
 
 	public static int getShaderValue(String id) {
 		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {

@@ -126,9 +126,10 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			layout$souper_secret_settings(manager);
 			boolean saveConfig;
 			if (Shader.updateLegacyConfig) {
-				if (Shader.getFullShaderName(Shader.legacyIndex) != null) {
+				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
 					ConfigHelper.setConfig("super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
 				}
+				Shader.updateLegacyConfig = false;
 			}
 			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_shader"))) {
 				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_shader"));

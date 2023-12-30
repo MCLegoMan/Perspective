@@ -7,20 +7,16 @@
 
 package com.mclegoman.perspective.common.config;
 
-public class ConfigOption<o, v> {
-	private final o option;
-	private final v value;
+import com.mclegoman.perspective.common.util.Pair;
 
-	public ConfigOption(final o option, final v value) {
-		this.option = option;
-		this.value = value;
+public class ConfigOption<String, Object> extends Pair<String, Object> {
+	public ConfigOption(String option, Object value) {
+		super(option, value);
 	}
-
-	public o getOption() {
-		return option;
+	public String getOption() {
+		return getFirst();
 	}
-
-	public v getValue() {
-		return value;
+	public Object getValue() {
+		return getSecond();
 	}
 }
