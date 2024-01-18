@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.4-SNAPSHOT'
+	id 'fabric-loom' version '1.5-SNAPSHOT'
 	id "com.github.breadmoirai.github-release" version "2.4.1"
 	id "com.modrinth.minotaur" version "2.+"
 	id 'maven-publish'
@@ -29,7 +29,11 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft}"
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
+
+	modImplementation fabricApi.module("fabric-resource-loader-v0", "${project.fabric_api}")
+	modImplementation fabricApi.module("fabric-key-binding-api-v1", "${project.fabric_api}")
+	modImplementation fabricApi.module("fabric-rendering-v1", "${project.fabric_api}")
+	modImplementation fabricApi.module("fabric-lifecycle-events-v1", "${project.fabric_api}")
 
 	include(implementation"com.github.LlamaLad7:MixinExtras:0.1.1")
 	annotationProcessor("com.github.LlamaLad7:MixinExtras:0.1.1")
