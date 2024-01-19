@@ -17,7 +17,6 @@ import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceFactory;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -78,10 +77,10 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 					if (!ALREADY_REGISTERED) REGISTRY.add(SHADER_MAP);
 				} else REGISTRY.remove(REGISTRY_MAP);
 			} catch (FileNotFoundException error) {
-				Data.PERSPECTIVE_VERSION.sendToLog(Helper.LogType.WARN, "Failed to register shader: " + error);
+				Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to register shader: " + error);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.sendToLog(Helper.LogType.WARN, "Failed to add shader to registry: " + error);
+			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to add shader to registry: " + error);
 		}
 	}
 
@@ -91,7 +90,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			DUPLICATED_NAMES.clear();
 			add$default(manager);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -122,7 +121,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			add("minecraft", "spider", true, true, manager);
 			add("minecraft", "wobble", false, true, manager);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -157,25 +156,25 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 				}
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.VERSION.getID(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), ID);
 	}
 
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement, ResourceManager manager) {
 		try {
 			JsonObject READER = jsonElement.getAsJsonObject();
-			String NAMESPACE = JsonHelper.getString(READER, "namespace", Data.PERSPECTIVE_VERSION.getID());
+			String NAMESPACE = JsonHelper.getString(READER, "namespace", Data.VERSION.getID());
 			String SHADER = JsonHelper.getString(READER, "shader");
 			boolean DISABLE_SCREEN_MODE = JsonHelper.getBoolean(READER, "disable_screen_mode", false);
 			boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
 			add(NAMESPACE, SHADER, DISABLE_SCREEN_MODE, ENABLED, manager);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -189,10 +188,10 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 					for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "disable_screen_mode", new JsonArray()))
 						DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
 					for (JsonElement SHADER : JsonHelper.getArray(NAMESPACES, "shaders", new JsonArray()))
-						add(JsonHelper.getString(NAMESPACES, "namespace", Data.PERSPECTIVE_VERSION.getID()), SHADER.getAsString(), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true), manager);
+						add(JsonHelper.getString(NAMESPACES, "namespace", Data.VERSION.getID()), SHADER.getAsString(), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), JsonHelper.getBoolean(NAMESPACES, "enabled", true), manager);
 				}
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+				Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.VERSION.getID(), error);
 			}
 		}
 	}

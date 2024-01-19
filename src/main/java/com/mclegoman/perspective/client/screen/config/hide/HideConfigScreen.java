@@ -52,7 +52,7 @@ public class HideConfigScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class HideConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 

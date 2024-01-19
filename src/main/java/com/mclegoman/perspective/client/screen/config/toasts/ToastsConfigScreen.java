@@ -53,7 +53,7 @@ public class ToastsConfigScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$toasts screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config$toasts screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class ToastsConfigScreen extends Screen {
 				else ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$toasts screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick config$toasts screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 

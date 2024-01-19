@@ -28,7 +28,7 @@ public class AprilFoolsPrank {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new AprilFoolsPrankDataLoader());
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize april fools prank: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize april fools prank: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 

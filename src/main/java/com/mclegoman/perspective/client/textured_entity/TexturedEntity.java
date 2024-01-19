@@ -24,7 +24,7 @@ public class TexturedEntity {
 			TexturedEntityModels.init();
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TexturedEntityDataLoader());
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize textured entity texture: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize textured entity texture: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -46,7 +46,7 @@ public class TexturedEntity {
 				}
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set textured entity texture: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to set textured entity texture: {}", Data.VERSION.getID(), error);
 		}
 		return default_identifier;
 	}
@@ -60,7 +60,7 @@ public class TexturedEntity {
 				if (type.equalsIgnoreCase(entity_type)) entity_registry.add(name);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get textured entity string registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to get textured entity string registry: {}", Data.VERSION.getID(), error);
 		}
 		return entity_registry;
 	}
@@ -74,7 +74,7 @@ public class TexturedEntity {
 				if (type.equalsIgnoreCase(entity_type)) entity_registry.add(Text.literal(name));
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get textured entity text registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to get textured entity text registry: {}", Data.VERSION.getID(), error);
 		}
 		return entity_registry;
 	}

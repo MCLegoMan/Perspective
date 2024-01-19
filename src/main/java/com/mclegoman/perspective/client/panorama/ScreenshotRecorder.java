@@ -29,7 +29,7 @@ public class ScreenshotRecorder {
 			try {
 				nativeImage.writeTo(file2);
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save screenshot: ", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+				Data.VERSION.getLogger().warn("{} Failed to save screenshot: ", Data.VERSION.getLoggerPrefix(), error);
 			}
 			nativeImage.close();
 		});

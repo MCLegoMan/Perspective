@@ -58,7 +58,7 @@ public class ShadersConfigScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>shaders screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config>shaders screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class ShadersConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 

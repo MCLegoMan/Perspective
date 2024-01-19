@@ -49,7 +49,7 @@ public class UpdateCheckerScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config$update checker screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config$update checker screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -63,7 +63,7 @@ public class UpdateCheckerScreen extends Screen {
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config$update checker screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick config$update checker screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 

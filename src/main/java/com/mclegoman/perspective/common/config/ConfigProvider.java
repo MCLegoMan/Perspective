@@ -29,7 +29,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 		try {
 			CONFIG_LIST.add(keyValueSet);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), keyValueSet, error);
+			Data.VERSION.getLogger().warn("{} Failed to add {} config value: {}", Data.VERSION.getLoggerPrefix(), keyValueSet, error);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			}
 			CONFIG_LIST = NEW_CONFIG_LIST;
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), KEY_NAME, error);
+			Data.VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.VERSION.getLoggerPrefix(), KEY_NAME, error);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			writer.write(CONTENTS);
 			writer.close();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save {} config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+			Data.VERSION.getLogger().warn("{} Failed to save {} config: {}", Data.VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
 }

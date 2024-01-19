@@ -64,7 +64,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
-			for (Resource resource : manager.getAllResources(new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID + ".json"))) {
+			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
 				ZOOM_LEVEL = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_level", 80);
 				ZOOM_INCREMENT_SIZE = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_increment_size", 1);
 				ZOOM_TRANSITION = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_transition", "smooth");
@@ -102,12 +102,12 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load default config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to load default config values: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), ID);
 	}
 }

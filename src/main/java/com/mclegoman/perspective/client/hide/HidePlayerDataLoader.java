@@ -34,7 +34,7 @@ public class HidePlayerDataLoader extends JsonDataLoader implements Identifiable
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add hide player to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to add hide player to registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class HidePlayerDataLoader extends JsonDataLoader implements Identifiable
 		try {
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset hide player registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to reset hide player registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -52,13 +52,13 @@ public class HidePlayerDataLoader extends JsonDataLoader implements Identifiable
 			reset();
 			layout$perspective(manager);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply hide player dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to apply hide player dataloader: {}", Data.VERSION.getID(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), ID);
 	}
 
 	private void layout$perspective(ResourceManager manager) {
@@ -69,7 +69,7 @@ public class HidePlayerDataLoader extends JsonDataLoader implements Identifiable
 					add(value.getAsString());
 				}
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective hide player list: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+				Data.VERSION.getLogger().warn("{} Failed to load perspective hide player list: {}", Data.VERSION.getID(), error);
 			}
 		}
 	}

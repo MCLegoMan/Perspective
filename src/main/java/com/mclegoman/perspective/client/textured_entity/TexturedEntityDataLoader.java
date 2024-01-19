@@ -38,7 +38,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			if (ENABLED) REGISTRY.add(VALUES);
 			else REGISTRY.remove(VALUES);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			REGISTRY.clear();
 			add$default();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset textured entity registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to reset textured entity registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 				add(ENTITY, "default", true);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add default textured entity values to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to add default textured entity values to registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -172,13 +172,13 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			reset();
 			prepared.forEach(this::layout$perspective);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.VERSION.getID(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), ID);
 	}
 
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
@@ -189,7 +189,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Boolean ENABLED = JsonHelper.getBoolean(READER, "enabled", true);
 			add(ENTITY, NAME, ENABLED);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective textured entity: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to load perspective textured entity: {}", Data.VERSION.getID(), error);
 		}
 	}
 }

@@ -57,7 +57,7 @@ public class Shader {
 				}
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
@@ -166,10 +166,10 @@ public class Shader {
 					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
 
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.VERSION.getLoggerPrefix(), error);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
@@ -181,7 +181,7 @@ public class Shader {
 			superSecretSettingsIndex = SHADER;
 			Shader.set(true, playSound, showShaderName, SAVE_CONFIG);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
@@ -200,13 +200,13 @@ public class Shader {
 					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(SOUND_EVENTS.get(new Random().nextInt(SOUND_EVENTS.size() - 1))), 1.0F));
 
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.VERSION.getLoggerPrefix(), error);
 			}
 			if (!(boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
 				toggle(true, false, true, false);
 			if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 			try {
 				cycle(true, forwards, false, true, SAVE_CONFIG);
 			} catch (Exception ignored) {

@@ -25,7 +25,7 @@ public class PerspectiveClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		try {
-			Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), Data.PERSPECTIVE_VERSION.getID());
+			Data.VERSION.getLogger().info("{} Initializing {}", Data.VERSION.getLoggerPrefix(), Data.VERSION.getID());
 			AprilFoolsPrank.init();
 			ConfigHelper.init();
 			Contributor.init();
@@ -38,7 +38,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Tick.init();
 			ClientData.finishedInitializing();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void onInitializeClientAfterConfig() {
@@ -46,7 +46,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			ResourcePacks.initAfterConfig();
 			ClientData.finishedInitializingAfterConfig();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to run onInitializeClientAfterConfig: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to run onInitializeClientAfterConfig: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 }

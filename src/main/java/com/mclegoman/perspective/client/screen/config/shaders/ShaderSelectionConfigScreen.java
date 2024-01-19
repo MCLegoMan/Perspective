@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.screen.config.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -46,7 +45,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(parent);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders$select screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders$select screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 	@Override

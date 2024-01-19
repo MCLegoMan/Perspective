@@ -44,7 +44,7 @@ public class ConfigHelper {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ConfigDataLoader());
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	protected static void loadConfig() {
@@ -55,7 +55,7 @@ public class ConfigHelper {
 			WarningsConfig.init();
 			ConfigHelper.updateConfig();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load configs: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to load configs: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 		PerspectiveClient.onInitializeClientAfterConfig();
 	}
@@ -74,22 +74,22 @@ public class ConfigHelper {
 			}
 			showToasts();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick config: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	private static void showToasts() {
-		if (Data.PERSPECTIVE_VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
-			Data.PERSPECTIVE_VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.PERSPECTIVE_VERSION.getName());
+		if (Data.VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
+			Data.VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.VERSION.getName());
 			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DEVELOPMENT_WARNING = true;
 		}
 		if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
-			Data.PERSPECTIVE_VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", Data.PERSPECTIVE_VERSION.getName());
+			Data.VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", Data.VERSION.getName());
 			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DOWNGRADE_WARNING = true;
 		}
 		if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
-			Data.PERSPECTIVE_VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", Data.PERSPECTIVE_VERSION.getName());
+			Data.VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", Data.VERSION.getName());
 			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), 320, Toast.Type.INFO));
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
@@ -98,7 +98,7 @@ public class ConfigHelper {
 		try {
 			if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
 				if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < DEFAULT_CONFIG_VERSION) {
-					Data.PERSPECTIVE_VERSION.getLogger().info("{} Attempting to update config to the latest version.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+					Data.VERSION.getLogger().info("{} Attempting to update config to the latest version.", Data.VERSION.getLoggerPrefix());
 					if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 3) {
 						setConfig("zoom_level", 100 - (int) getConfig("zoom_level"));
 					}
@@ -125,17 +125,17 @@ public class ConfigHelper {
 						Shader.legacyIndex = Config.CONFIG.getOrDefault("super_secret_settings", 0);
 					}
 					setConfig("config_version", DEFAULT_CONFIG_VERSION);
-					Data.PERSPECTIVE_VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+					Data.VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.VERSION.getLoggerPrefix());
 				} else if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) > DEFAULT_CONFIG_VERSION) {
 					if (!SEEN_DOWNGRADE_WARNING) {
-						Data.PERSPECTIVE_VERSION.getLogger().warn("{} Downgrading is not supported. You may experience configuration related issues.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+						Data.VERSION.getLogger().warn("{} Downgrading is not supported. You may experience configuration related issues.", Data.VERSION.getLoggerPrefix());
 						SHOW_DOWNGRADE_WARNING = true;
 					}
 				}
 				saveConfig(false);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to update config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to update config: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void saveConfig(boolean onTick) {
@@ -152,7 +152,7 @@ public class ConfigHelper {
 				SAVING = false;
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to save config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to save config: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void resetConfig() {
@@ -198,7 +198,7 @@ public class ConfigHelper {
 			}
 			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) getConfig("super_secret_settings_shader"));
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to reset main and experimental config values: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void setConfig(String ID, Object VALUE) {
@@ -242,17 +242,17 @@ public class ConfigHelper {
 				case "test_resource_pack" -> Config.TEST_RESOURCE_PACK = (boolean) VALUE;
 				case "config_version" -> Config.CONFIG_VERSION = (int) VALUE;
 				default ->
-						Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+						Data.VERSION.getLogger().warn("{} Failed to set {} config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+			Data.VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
 	public static void setExperimentalConfig(String ID, Object VALUE) {
 		try {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+			Data.VERSION.getLogger().warn("{} Failed to set {} experimental config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+			Data.VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
 	public static void setTutorialConfig(String ID, Object VALUE) {
@@ -260,10 +260,10 @@ public class ConfigHelper {
 			if (ID.equals("super_secret_settings")) {
 				TutorialsConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
 			} else {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+				Data.VERSION.getLogger().warn("{} Failed to set {} tutorial config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} tutorial config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+			Data.VERSION.getLogger().warn("{} Failed to set {} tutorial config value: {}", Data.VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
 	public static void setWarningConfig(String ID, Object VALUE) {
@@ -272,10 +272,10 @@ public class ConfigHelper {
 				case "photosensitivity" -> WarningsConfig.PHOTOSENSITIVITY = (boolean) VALUE;
 				case "prank" -> WarningsConfig.PRANK = (boolean) VALUE;
 				default ->
-						Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+						Data.VERSION.getLogger().warn("{} Failed to set {} warning config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+			Data.VERSION.getLogger().warn("{} Failed to set {} warning config value: {}", Data.VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
 	public static Object getConfig(String ID) {
@@ -386,20 +386,20 @@ public class ConfigHelper {
 				return Config.CONFIG_VERSION;
 			}
 			default -> {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+				Data.VERSION.getLogger().warn("{} Failed to get {} config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 				return new Object();
 			}
 		}
 	}
 	public static Object getExperimentalConfig(String ID) {
-		Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+		Data.VERSION.getLogger().warn("{} Failed to get {} experimental config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 		return new Object();
 	}
 	public static Object getTutorialConfig(String ID) {
 		if (ID.equals("super_secret_settings")) {
 			return TutorialsConfig.SUPER_SECRET_SETTINGS;
 		} else {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+			Data.VERSION.getLogger().warn("{} Failed to get {} tutorial config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 		}
 		return new Object();
 	}
@@ -412,7 +412,7 @@ public class ConfigHelper {
 				return WarningsConfig.PRANK;
 			}
 			default -> {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID);
+				Data.VERSION.getLogger().warn("{} Failed to get {} warning config value: Invalid Key", Data.VERSION.getLoggerPrefix(), ID);
 				return new Object();
 			}
 		}

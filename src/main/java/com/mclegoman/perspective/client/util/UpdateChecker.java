@@ -35,7 +35,7 @@ public class UpdateChecker {
 	public static boolean SEEN_UPDATE_TOAST;
 	public static boolean UPDATE_CHECKER_COMPLETE;
 	public static boolean NEWER_VERSION_FOUND;
-	public static String LATEST_VERSION_FOUND = Data.PERSPECTIVE_VERSION.getFriendlyString();
+	public static String LATEST_VERSION_FOUND = Data.VERSION.getFriendlyString();
 	public static String DOWNLOAD_LINK;
 
 	public static void tick() {
@@ -56,11 +56,11 @@ public class UpdateChecker {
 		NEWER_VERSION_FOUND = false;
 		try {
 			if (!ConfigHelper.getConfig("detect_update_channel").equals("none")) {
-				Data.PERSPECTIVE_VERSION.getLogger().info("Checking for updates...");
-				Data.PERSPECTIVE_VERSION.getLogger().info("Current Version: " + Data.PERSPECTIVE_VERSION.getFriendlyString());
-				Data.PERSPECTIVE_VERSION.getLogger().info("Update Channel: " + ConfigHelper.getConfig("detect_update_channel"));
-				Data.PERSPECTIVE_VERSION.getLogger().info("Minecraft Version: " + SharedConstants.getGameVersion().getName());
-				JsonArray apiDataVersion = (JsonArray) getModrinthData(Data.PERSPECTIVE_VERSION.getModrinthID(), "version");
+				Data.VERSION.getLogger().info("Checking for updates...");
+				Data.VERSION.getLogger().info("Current Version: " + Data.VERSION.getFriendlyString());
+				Data.VERSION.getLogger().info("Update Channel: " + ConfigHelper.getConfig("detect_update_channel"));
+				Data.VERSION.getLogger().info("Minecraft Version: " + SharedConstants.getGameVersion().getName());
+				JsonArray apiDataVersion = (JsonArray) getModrinthData(Data.VERSION.getModrinthID(), "version");
 				if (apiDataVersion != null) {
 					boolean compatible_version = false;
 					for (JsonElement version : apiDataVersion) {
@@ -82,8 +82,8 @@ public class UpdateChecker {
 							int patch = Integer.parseInt(version_number.substring(4, 5));
 							Helper.ReleaseType type = Helper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
 							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
-							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build, Data.PERSPECTIVE_VERSION.getModrinthID());
-							if (API_VERSION.compareTo(Data.PERSPECTIVE_VERSION) > 0) {
+							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build, Data.VERSION.getModrinthID());
+							if (API_VERSION.compareTo(Data.VERSION) > 0) {
 								if (ConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.ALPHA) || API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
@@ -119,17 +119,17 @@ public class UpdateChecker {
 						}
 					}
 					if (!compatible_version) {
-						Data.PERSPECTIVE_VERSION.getLogger().info("No compatible version found.");
+						Data.VERSION.getLogger().info("No compatible version found.");
 					} else {
 						if (NEWER_VERSION_FOUND) {
-							Data.PERSPECTIVE_VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
+							Data.VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
 						} else
-							Data.PERSPECTIVE_VERSION.getLogger().info("You are already running the latest version of {}", Data.PERSPECTIVE_VERSION.getName());
+							Data.VERSION.getLogger().info("You are already running the latest version of {}", Data.VERSION.getName());
 					}
 				}
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().error("{} {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().error("{} {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 

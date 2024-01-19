@@ -40,7 +40,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 		try {
 			if (!REGISTRY.contains(NAME)) REGISTRY.add(NAME);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().error("{} Failed to add april fools prank to registry: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().error("{} Failed to add april fools prank to registry: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 		try {
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().error("{} Failed to reset april fools prank registry: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().error("{} Failed to reset april fools prank registry: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID + ".json"))) {
+			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
 				JsonArray defaultSkins = new JsonArray();
 				defaultSkins.add("mclegoman_normal");
@@ -78,12 +78,12 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 				contributor = JsonHelper.getString(reader, "contributor", "772eb47b-a24e-4d43-a685-6ca9e9e132f7");
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load prank values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to load prank values: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), ID);
 	}
 }

@@ -93,9 +93,9 @@ public class Toast implements net.minecraft.client.toast.Toast {
 	}
 
 	public enum Type {
-		INFO(0xFFAA00, 0x00AAAA, 4000L, new Identifier(Data.PERSPECTIVE_VERSION.getID(), "toast/warning")),
-		WARNING(0xFFAA00, 0x00AAAA, 8000L, new Identifier(Data.PERSPECTIVE_VERSION.getID(), "toast/warning")),
-		TUTORIAL(0xFFAA00, 0x00AAAA, 8000L, new Identifier(Data.PERSPECTIVE_VERSION.getID(), "toast/warning"));
+		INFO(0xFFAA00, 0x00AAAA, 4000L, new Identifier(Data.VERSION.getID(), "toast/warning")),
+		WARNING(0xFFAA00, 0x00AAAA, 8000L, new Identifier(Data.VERSION.getID(), "toast/warning")),
+		TUTORIAL(0xFFAA00, 0x00AAAA, 8000L, new Identifier(Data.VERSION.getID(), "toast/warning"));
 		final int title_color;
 		final int description_color;
 		final long display_time;

@@ -34,7 +34,7 @@ public class HideNameTagsDataLoader extends JsonDataLoader implements Identifiab
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to add hide nametag to registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to add hide nametag to registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class HideNameTagsDataLoader extends JsonDataLoader implements Identifiab
 		try {
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset hide nametags registry: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to reset hide nametags registry: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -52,13 +52,13 @@ public class HideNameTagsDataLoader extends JsonDataLoader implements Identifiab
 			reset();
 			layout$perspective(manager);
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to apply hide name tags dataloader: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to apply hide name tags dataloader: {}", Data.VERSION.getID(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), ID);
 	}
 
 	private void layout$perspective(ResourceManager manager) {
@@ -69,7 +69,7 @@ public class HideNameTagsDataLoader extends JsonDataLoader implements Identifiab
 					add(value.getAsString());
 				}
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load perspective hide name tags list: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+				Data.VERSION.getLogger().warn("{} Failed to load perspective hide name tags list: {}", Data.VERSION.getID(), error);
 			}
 		}
 	}

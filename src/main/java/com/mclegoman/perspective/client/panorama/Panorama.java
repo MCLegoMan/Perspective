@@ -16,7 +16,6 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -139,7 +138,7 @@ public class Panorama {
 									panoramaPerspectivePostProcessor.render(ClientData.CLIENT.getTickDelta());
 								}
 							} catch (Exception error) {
-								Data.PERSPECTIVE_VERSION.sendToLog(Helper.LogType.ERROR, "Failed to add Super Secret Settings to Panorama.");
+								Data.VERSION.sendToLog(Helper.LogType.ERROR, "Failed to add Super Secret Settings to Panorama.");
 							}
 							ScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
 						}
@@ -165,24 +164,24 @@ public class Panorama {
 					}
 					if (getIncompatibleMods().size() != 0 || ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
 						if ((boolean) ConfigHelper.getConfig("debug")) {
-							Data.PERSPECTIVE_VERSION.getLogger().warn("{} Debug is enabled. The panorama screenshot might not have rendered as expected.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+							Data.VERSION.getLogger().warn("{} Debug is enabled. The panorama screenshot might not have rendered as expected.", Data.VERSION.getLoggerPrefix());
 							Text description = Translation.getTranslation("toasts.take_panorama_screenshot.debug.description");
 							ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.debug.title")}), description, 320, Toast.Type.WARNING));
 						}
 					}
 				} else {
 					if (getIncompatibleMods().size() != 0) {
-						Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mod(s): {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), getIncompatibleMods().toString().replace("[", "").replace("]", ""));
+						Data.VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mod(s): {}", Data.VERSION.getLoggerPrefix(), getIncompatibleMods().toString().replace("[", "").replace("]", ""));
 						Text description = (getIncompatibleMods().size() == 1) ? Translation.getTranslation("toasts.take_panorama_screenshot.failure.description.incompatible_mod", new Object[]{getIncompatibleMods().toString().replace("[", "").replace("]", "")}) : Translation.getTranslation("toasts.take_panorama_screenshot.failure.description.incompatible_mods", new Object[]{getIncompatibleMods().toString().replace("[", "").replace("]", "")});
 						ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), description, 320, Toast.Type.WARNING));
 					}
 					if (ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
-						Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Take Panorama Screenshot is not compatible with Fabulous graphics.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+						Data.VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Take Panorama Screenshot is not compatible with Fabulous graphics.", Data.VERSION.getLoggerPrefix());
 						ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Translation.getTranslation("toasts.take_panorama_screenshot.failure.description.fabulous"), 320, Toast.Type.WARNING));
 					}
 				}
 			} catch (Exception error) {
-				Data.PERSPECTIVE_VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", Data.VERSION.getLoggerPrefix(), error);
 				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), 320, Toast.Type.WARNING));
 			}
 		}

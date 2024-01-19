@@ -41,36 +41,36 @@ public class Keybindings {
 
 	static {
 		ALL_KEYBINDINGS = new KeyBinding[]{
-				CYCLE_CROSSHAIR = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
-				CYCLE_DEBUG = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN),
-				CYCLE_SHADERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
-				HOLD_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
-				HOLD_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
-				HOLD_ZOOM = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "hold_zoom", GLFW.GLFW_KEY_C),
-				OPEN_CONFIG = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "open_config", GLFW.GLFW_KEY_END),
-				RANDOM_SHADER = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
-				SET_PERSPECTIVE_FIRST_PERSON = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "set_perspective_first_person", GLFW.GLFW_KEY_UNKNOWN),
-				SET_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_UNKNOWN),
-				SET_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_UNKNOWN),
-				TAKE_PANORAMA_SCREENSHOT = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
-				TOGGLE_ARMOR = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_armor", GLFW.GLFW_KEY_UNKNOWN),
-				TOGGLE_BLOCK_OUTLINE = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_block_outline", GLFW.GLFW_KEY_UNKNOWN),
-				TOGGLE_NAMETAGS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_nametags", GLFW.GLFW_KEY_UNKNOWN),
-				TOGGLE_PLAYERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
-				TOGGLE_POSITION_OVERLAY = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
-				TOGGLE_SHADERS = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
-				TOGGLE_ZOOM = getKeybinding(Data.PERSPECTIVE_VERSION.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
+				CYCLE_CROSSHAIR = getKeybinding(Data.VERSION.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
+				CYCLE_DEBUG = getKeybinding(Data.VERSION.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN),
+				CYCLE_SHADERS = getKeybinding(Data.VERSION.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
+				HOLD_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(Data.VERSION.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
+				HOLD_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(Data.VERSION.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
+				HOLD_ZOOM = getKeybinding(Data.VERSION.getID(), "hold_zoom", GLFW.GLFW_KEY_C),
+				OPEN_CONFIG = getKeybinding(Data.VERSION.getID(), "open_config", GLFW.GLFW_KEY_END),
+				RANDOM_SHADER = getKeybinding(Data.VERSION.getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
+				SET_PERSPECTIVE_FIRST_PERSON = getKeybinding(Data.VERSION.getID(), "set_perspective_first_person", GLFW.GLFW_KEY_UNKNOWN),
+				SET_PERSPECTIVE_THIRD_PERSON_BACK = getKeybinding(Data.VERSION.getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_UNKNOWN),
+				SET_PERSPECTIVE_THIRD_PERSON_FRONT = getKeybinding(Data.VERSION.getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_UNKNOWN),
+				TAKE_PANORAMA_SCREENSHOT = getKeybinding(Data.VERSION.getID(), "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
+				TOGGLE_ARMOR = getKeybinding(Data.VERSION.getID(), "toggle_armor", GLFW.GLFW_KEY_UNKNOWN),
+				TOGGLE_BLOCK_OUTLINE = getKeybinding(Data.VERSION.getID(), "toggle_block_outline", GLFW.GLFW_KEY_UNKNOWN),
+				TOGGLE_NAMETAGS = getKeybinding(Data.VERSION.getID(), "toggle_nametags", GLFW.GLFW_KEY_UNKNOWN),
+				TOGGLE_PLAYERS = getKeybinding(Data.VERSION.getID(), "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
+				TOGGLE_POSITION_OVERLAY = getKeybinding(Data.VERSION.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				TOGGLE_SHADERS = getKeybinding(Data.VERSION.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
+				TOGGLE_ZOOM = getKeybinding(Data.VERSION.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
 		};
 	}
 
 	public static void init() {
-		Data.PERSPECTIVE_VERSION.getLogger().info("{} Initializing keybindings", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+		Data.VERSION.getLogger().info("{} Initializing keybindings", Data.VERSION.getLoggerPrefix());
 	}
 
 	public static void tick() {
 		if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
 			if (hasKeybindingConflicts()) {
-				Data.PERSPECTIVE_VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.PERSPECTIVE_VERSION.getName());
+				Data.VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.VERSION.getName());
 				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
 			}
 			SEEN_CONFLICTING_KEYBINDING_TOASTS = true;

@@ -63,7 +63,7 @@ public class ConfigScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class ConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 

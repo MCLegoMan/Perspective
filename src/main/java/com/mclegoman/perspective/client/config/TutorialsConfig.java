@@ -13,7 +13,7 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
 public class TutorialsConfig {
-	protected static final String ID = Data.PERSPECTIVE_VERSION.getID() + "-tutorials";
+	protected static final String ID = Data.VERSION.getID() + "-tutorials";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
 	protected static boolean SUPER_SECRET_SETTINGS;
@@ -25,7 +25,7 @@ public class TutorialsConfig {
 			CONFIG = SimpleConfig.of(ID).provider(CONFIG_PROVIDER).request();
 			assign();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), ID, error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.VERSION.getLoggerPrefix(), ID, error);
 		}
 	}
 
@@ -38,7 +38,7 @@ public class TutorialsConfig {
 	}
 
 	protected static void save() {
-		Data.PERSPECTIVE_VERSION.getLogger().info("{} Writing tutorial config to file.", Data.PERSPECTIVE_VERSION.getLoggerPrefix());
+		Data.VERSION.getLogger().info("{} Writing tutorial config to file.", Data.VERSION.getLoggerPrefix());
 		CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
 		CONFIG_PROVIDER.saveConfig(ID);
 	}

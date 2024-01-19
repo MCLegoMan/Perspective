@@ -49,7 +49,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>april fools prank screen: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config>april fools prank screen: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public void tick() {
@@ -61,7 +61,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$april_fools screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$april_fools screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 	private GridWidget createAprilFools() {

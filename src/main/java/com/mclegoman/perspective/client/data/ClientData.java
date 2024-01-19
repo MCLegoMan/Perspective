@@ -25,7 +25,7 @@ public class ClientData {
 	private static boolean finishedInitializingAfterConfig = false;
 
 	public static Identifier getLogo(boolean isExperimentalLogo) {
-		return Data.PERSPECTIVE_VERSION.isDevelopmentBuild() ? getLogoType(Data.PERSPECTIVE_VERSION.getID(), true, isPride(), isExperimentalLogo) : getLogoType(Data.PERSPECTIVE_VERSION.getID(), false, isPride(), isExperimentalLogo);
+		return Data.VERSION.isDevelopmentBuild() ? getLogoType(Data.VERSION.getID(), true, isPride(), isExperimentalLogo) : getLogoType(Data.VERSION.getID(), false, isPride(), isExperimentalLogo);
 	}
 
 	public static Identifier getLogoType(String namespace, boolean development, boolean pride, boolean isExperimentalLogo) {

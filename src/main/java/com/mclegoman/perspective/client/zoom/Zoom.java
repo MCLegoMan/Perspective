@@ -53,7 +53,7 @@ public class Zoom {
 				zoomUpdated = false;
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick zoom: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick zoom: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static int getZoomLevel() {
@@ -79,7 +79,7 @@ public class Zoom {
 			}
 			if (updated) setOverlay();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to set zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to set zoom level: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	public static void reset() {
@@ -90,7 +90,7 @@ public class Zoom {
 				zoomUpdated = true;
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to reset zoom level: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
+			Data.VERSION.getLogger().warn("{} Failed to reset zoom level: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
 	private static void setOverlay() {

@@ -34,7 +34,7 @@ public class DebugOverlay {
 		if ((boolean) ConfigHelper.getConfig("version_overlay")) {
 			debugText.add("\n");
 		}
-		debugText.add(Text.literal(Data.PERSPECTIVE_VERSION.getName() + " " + Data.PERSPECTIVE_VERSION.getFriendlyString(false)));
+		debugText.add(Text.literal(Data.VERSION.getName() + " " + Data.VERSION.getFriendlyString(false)));
 		if (debugType.equals(Type.MISC)) {
 			debugText.add("\n");
 			debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));

@@ -51,7 +51,7 @@ public class TexturedEntityConfigScreen extends Screen {
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to initialize config>textured entity screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to initialize config>textured entity screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class TexturedEntityConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
-			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to tick perspective$config$textured_entity screen: {}", Data.PERSPECTIVE_VERSION.getID(), error);
+			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$textured_entity screen: {}", Data.VERSION.getID(), error);
 		}
 	}
 
