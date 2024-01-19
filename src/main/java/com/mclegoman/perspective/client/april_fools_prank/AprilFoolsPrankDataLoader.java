@@ -57,11 +57,25 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 			reset();
 			for (Resource resource : manager.getAllResources(new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
-				JsonArray skins = reader.getAsJsonArray("skins");
+
+				JsonArray defaultSkins = new JsonArray();
+				defaultSkins.add("mclegoman_normal");
+				defaultSkins.add("mclegoman_pride");
+				defaultSkins.add("mclegoman_trans");
+				defaultSkins.add("mclegoman_sheep");
+				defaultSkins.add("mclegoman_orange_sheep");
+				defaultSkins.add("mclegoman_suit");
+				defaultSkins.add("mclegoblock_normal");
+				defaultSkins.add("mclegoblock_pride");
+				defaultSkins.add("mclegoblock_trans");
+				defaultSkins.add("mclegoblock_sheep");
+				defaultSkins.add("mclegoblock_orange_sheep");
+
+				JsonArray skins = JsonHelper.getArray(reader, "skins", defaultSkins);
 				skins.forEach((skin) -> add(skin.getAsString()));
-				shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown");
-				shouldDisplayCape = JsonHelper.getBoolean(reader, "shouldDisplayCape");
-				contributor = JsonHelper.getString(reader, "contributor");
+				shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown", true);
+				shouldDisplayCape = JsonHelper.getBoolean(reader, "shouldDisplayCape", true);
+				contributor = JsonHelper.getString(reader, "contributor", "772eb47b-a24e-4d43-a685-6ca9e9e132f7");
 			}
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load prank values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);

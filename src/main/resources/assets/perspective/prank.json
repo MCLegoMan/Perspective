@@ -1,18 +1,1 @@
-{
-	"skins": [
-		"mclegoman_normal",
-		"mclegoman_pride",
-		"mclegoman_trans",
-		"mclegoman_sheep",
-		"mclegoman_orange_sheep",
-		"mclegoman_suit",
-		"mclegoblock_normal",
-		"mclegoblock_pride",
-		"mclegoblock_trans",
-		"mclegoblock_sheep",
-		"mclegoblock_orange_sheep"
-	],
-	"shouldFlipUpsideDown": true,
-	"shouldDisplayCape": true,
-	"contributor": "772eb47b-a24e-4d43-a685-6ca9e9e132f7"
-}
+{}
