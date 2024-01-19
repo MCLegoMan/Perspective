@@ -1,6 +1,7 @@
 ## **Current Goals for Perspective:**  
-- Test and Fix **_every_** vanilla textured entity.  
-- Shader Selection Screen will now open when selecting shaders using the config screen.  
+- **1.3.0**  
+  - Test and Fix **_every_** vanilla textured entity.  
+  - Shader Selection Screen will now open when selecting shaders using the config screen.
 - Documentation on the [Perspective Wiki](https://mclegoman.com/Perspective)  
 
 #### **Known incompatible textured entities:**  
