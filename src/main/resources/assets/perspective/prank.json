@@ -13,5 +13,6 @@
 		"mclegoblock_orange_sheep"
 	],
 	"shouldFlipUpsideDown": true,
-	"shouldDisplayCape": true
+	"shouldDisplayCape": true,
+	"contributor": "772eb47b-a24e-4d43-a685-6ca9e9e132f7"
 }

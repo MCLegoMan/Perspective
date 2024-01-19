@@ -38,7 +38,7 @@ public class AbstractClientPlayerEntityMixin {
 					if (DEVELOPER.get(0).equals(playerListEntry.getProfile().getId().toString())) {
 						if ((boolean) DEVELOPER.get(3)) {
 							SkinTextures currentSkinTextures = cir.getReturnValue();
-							Identifier capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(4));
+							Identifier capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(4), currentSkinTextures.capeTexture());
 							cir.setReturnValue(new SkinTextures(currentSkinTextures.texture(), currentSkinTextures.textureUrl(), capeTexture, capeTexture, currentSkinTextures.model(), currentSkinTextures.secure()));
 						}
 					}

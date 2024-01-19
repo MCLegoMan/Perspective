@@ -29,6 +29,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	public static final String ID = "prank";
 	public static boolean shouldFlipUpsideDown;
 	public static boolean shouldDisplayCape;
+	public static String contributor;
 
 	public AprilFoolsPrankDataLoader() {
 		super(new Gson(), ID);
@@ -60,6 +61,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 				skins.forEach((skin) -> add(skin.getAsString()));
 				shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown");
 				shouldDisplayCape = JsonHelper.getBoolean(reader, "shouldDisplayCape");
+				contributor = JsonHelper.getString(reader, "contributor");
 			}
 		} catch (Exception error) {
 			Data.PERSPECTIVE_VERSION.getLogger().warn("{} Failed to load prank values: {}", Data.PERSPECTIVE_VERSION.getLoggerPrefix(), error);
