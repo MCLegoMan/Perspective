@@ -60,7 +60,7 @@ public class UpdateChecker {
 				Data.PERSPECTIVE_VERSION.getLogger().info("Current Version: " + Data.PERSPECTIVE_VERSION.getFriendlyString());
 				Data.PERSPECTIVE_VERSION.getLogger().info("Update Channel: " + ConfigHelper.getConfig("detect_update_channel"));
 				Data.PERSPECTIVE_VERSION.getLogger().info("Minecraft Version: " + SharedConstants.getGameVersion().getName());
-				JsonArray apiDataVersion = (JsonArray) getModrinthData("6CTGnrNg", "version");
+				JsonArray apiDataVersion = (JsonArray) getModrinthData(Data.PERSPECTIVE_VERSION.getModrinthID(), "version");
 				if (apiDataVersion != null) {
 					boolean compatible_version = false;
 					for (JsonElement version : apiDataVersion) {
@@ -82,7 +82,7 @@ public class UpdateChecker {
 							int patch = Integer.parseInt(version_number.substring(4, 5));
 							Helper.ReleaseType type = Helper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
 							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
-							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build);
+							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build, Data.PERSPECTIVE_VERSION.getModrinthID());
 							if (API_VERSION.compareTo(Data.PERSPECTIVE_VERSION) > 0) {
 								if (ConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.ALPHA) || API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
