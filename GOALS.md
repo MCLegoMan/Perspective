@@ -3,6 +3,8 @@
   - Test and Fix **_every_** vanilla textured entity.  
   - Shader Selection Screen will now open when selecting shaders using the config screen.
 - Documentation on the [Perspective Wiki](https://mclegoman.com/Perspective)  
+- Fix Depth Shaders rendering over the players hand. (This one may be a hard one to fix - config option for custom hand renderer maybe?)
+- Fix Panorama Screenshot compatibility with iris/canvas/fabulous. (unlikely to be fixed anytime soon, maybe custom screenshotting?)  
 
 #### **Known incompatible textured entities:**  
 - `minecraft:ender_dragon` (attempted to fix without success, also can't be named anyway)  
