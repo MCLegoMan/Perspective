@@ -50,8 +50,8 @@ public class AbstractClientPlayerEntityMixin {
 					}
 				}
 				if (AprilFoolsPrankDataLoader.REGISTRY.size() > 0)
-					skinTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/entity/player/slim/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png");
-				cir.setReturnValue(new SkinTextures(skinTexture, currentSkinTextures.textureUrl(), capeTexture, capeTexture, SkinTextures.Model.SLIM, currentSkinTextures.secure()));
+					skinTexture = new Identifier(Data.PERSPECTIVE_VERSION.getID(), "textures/entity/player/" + (AprilFoolsPrankDataLoader.isSlim ? "slim" : "wide") + "/" + AprilFoolsPrankDataLoader.REGISTRY.get(Math.floorMod(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.REGISTRY.size())).toLowerCase() + ".png");
+				cir.setReturnValue(new SkinTextures(skinTexture, currentSkinTextures.textureUrl(), capeTexture, capeTexture, (AprilFoolsPrankDataLoader.isSlim ? SkinTextures.Model.SLIM : SkinTextures.Model.WIDE), currentSkinTextures.secure()));
 			}
 		}
 	}
