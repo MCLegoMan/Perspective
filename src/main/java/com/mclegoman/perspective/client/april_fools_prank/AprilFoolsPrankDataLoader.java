@@ -57,21 +57,19 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 			reset();
 			for (Resource resource : manager.getAllResources(new Identifier(Data.PERSPECTIVE_VERSION.getID(), ID + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
-
-				JsonArray defaultSkins = new JsonArray();
-				defaultSkins.add("mclegoman_normal");
-				defaultSkins.add("mclegoman_pride");
-				defaultSkins.add("mclegoman_trans");
-				defaultSkins.add("mclegoman_sheep");
-				defaultSkins.add("mclegoman_orange_sheep");
-				defaultSkins.add("mclegoman_suit");
-				defaultSkins.add("mclegoblock_normal");
-				defaultSkins.add("mclegoblock_pride");
-				defaultSkins.add("mclegoblock_trans");
-				defaultSkins.add("mclegoblock_sheep");
-				defaultSkins.add("mclegoblock_orange_sheep");
-
-				JsonArray skins = JsonHelper.getArray(reader, "skins", defaultSkins);
+				JsonArray default_skins = new JsonArray();
+				default_skins.add("mclegoman_normal");
+				default_skins.add("mclegoman_pride");
+				default_skins.add("mclegoman_trans");
+				default_skins.add("mclegoman_sheep");
+				default_skins.add("mclegoman_orange_sheep");
+				default_skins.add("mclegoman_suit");
+				default_skins.add("mclegoblock_normal");
+				default_skins.add("mclegoblock_pride");
+				default_skins.add("mclegoblock_trans");
+				default_skins.add("mclegoblock_sheep");
+				default_skins.add("mclegoblock_orange_sheep");
+				JsonArray skins = JsonHelper.getArray(reader, "skins", default_skins);
 				skins.forEach((skin) -> add(skin.getAsString()));
 				shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown", true);
 				shouldDisplayCape = JsonHelper.getBoolean(reader, "shouldDisplayCape", true);
