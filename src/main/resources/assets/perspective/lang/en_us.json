@@ -87,11 +87,11 @@
 	"gui.perspective.config.shaders.mode.screen": "Screen",
 	"gui.perspective.config.shaders.mode.game": "Game",
 
-	"gui.perspective.config.shaders.toggle": "%s",
-	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
-
 	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
 	"gui.perspective.config.shaders.show_name.hover": "Toggle Cycle Shaders Name Overlay",
+
+	"gui.perspective.config.shaders.toggle": "Super Secret Settings: %s",
+	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
 
 	"gui.perspective.config.textured_entity": "Textured Entity",
 
@@ -113,6 +113,12 @@
 
 	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
 
+	"gui.perspective.config.more_options.detect_update_channel": "Update Channel: %s",
+	"gui.perspective.config.more_options.detect_update_channel.hover": "Cycle Update Notification Channel",
+
+	"gui.perspective.config.more_options.tutorials": "Tutorials: %s",
+	"gui.perspective.config.more_options.tutorials.hover": "Toggle Perspective Tutorial Toasts",
+
 	"gui.perspective.config.more_options.dirt_title_screen": "Dirt Title Screen: %s",
 
 	"gui.perspective.config.hide": "Hide",
@@ -128,12 +134,6 @@
 	"gui.perspective.config.hide.hide_players": "Global Hide Players: %s",
 
 	"gui.perspective.config.hide.show_message": "Overlay Message: %s",
-
-	"gui.perspective.config.toasts": "Toasts",
-
-	"gui.perspective.config.toasts.tutorials": "Tutorials: %s",
-
-	"gui.perspective.config.toasts.detect_update_channel": "Update Notification Channel: %s",
 
 	"gui.perspective.config.information": "Information",
 

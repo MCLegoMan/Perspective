@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.screen.config.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -74,6 +75,9 @@ public class ShaderSelectionConfigScreen extends Screen {
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
+		if (keyCode == GLFW.GLFW_KEY_F5) {
+			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 }

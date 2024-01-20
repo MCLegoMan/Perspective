@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.screen.config.shaders;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
-import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
+import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -101,14 +101,14 @@ public class ShadersConfigScreen extends Screen {
 			Shader.cycleShaderModes();
 			this.REFRESH = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.mode", true))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.toggle", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE)}), (button) -> {
-			Shader.toggle(true, false, false, false);
-			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.toggle", true))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.show_name", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_show_name"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("super_secret_settings_show_name", !(boolean) ConfigHelper.getConfig("super_secret_settings_show_name"));
 			this.REFRESH = true;
-		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.show_name", true))).build(), 2);
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.show_name", true))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.toggle", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"), TranslationType.ENDISABLE)}), (button) -> {
+			Shader.toggle(true, false, false, false);
+			this.REFRESH = true;
+		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.toggle", true))).build(), 2);
 		return GRID;
 	}
 	private GridWidget createFooter() {

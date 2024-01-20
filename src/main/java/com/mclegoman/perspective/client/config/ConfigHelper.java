@@ -62,7 +62,7 @@ public class ConfigHelper {
 	public static void tick() {
 		try {
 			if (Keybindings.OPEN_CONFIG.wasPressed())
-				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1));
+				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1, false));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
 			else {
 				if (SAVE_VIA_TICK) {

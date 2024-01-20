@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.screen.config.information;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
-import com.mclegoman.perspective.client.screen.config.toasts.UpdateCheckerScreen;
+import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;

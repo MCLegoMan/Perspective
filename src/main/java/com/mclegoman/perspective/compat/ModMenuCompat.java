@@ -15,6 +15,6 @@ import net.minecraft.client.MinecraftClient;
 public class ModMenuCompat implements ModMenuApi {
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
-		return parent -> new ConfigScreen(MinecraftClient.getInstance().currentScreen, false, 1);
+		return parent -> new ConfigScreen(MinecraftClient.getInstance().currentScreen, false, 1, false);
 	}
 }
