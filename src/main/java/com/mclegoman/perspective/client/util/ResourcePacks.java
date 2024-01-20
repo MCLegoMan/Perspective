@@ -22,7 +22,7 @@ public class ResourcePacks {
 	 * - Contributor(s): _________
 	 * 2. Your resource pack must use the GNU LGPLv3 licence.
 	 * - This only applies to resource packs that are included with Perspective.
-	 **/
+	 */
 	public static void init() {
 		/*
             Perspective: Default
@@ -30,6 +30,15 @@ public class ResourcePacks {
         */
 		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
 	}
+	/**
+	 * Resource Packs that require the config to be loaded can be registered in the following function.
+	 * Please follow these guidelines when adding a resource pack:
+	 * 1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
+	 * - Resource Pack Name
+	 * - Contributor(s): _________
+	 * 2. Your resource pack must use the GNU LGPLv3 licence.
+	 * - This only applies to resource packs that are included with Perspective.
+	 */
 	public static void initAfterConfig() {
 		/*
             Perspective: Test

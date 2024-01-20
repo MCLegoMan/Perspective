@@ -52,7 +52,7 @@ public class Shader {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
 			for (Identifier id : Registries.SOUND_EVENT.getIds()) {
-				if (!id.toString().contains("music")) {
+				if (!id.toString().contains("music") || !id.toString().contains("ambient")) {
 					SOUND_EVENTS.add(id);
 				}
 			}

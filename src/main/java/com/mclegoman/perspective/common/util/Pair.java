@@ -10,12 +10,10 @@ package com.mclegoman.perspective.common.util;
 public class Pair<f, s> {
 	private final f first;
 	private final s second;
-
 	public Pair(final f first, final s second) {
 		this.first = first;
 		this.second = second;
 	}
-
 	public f getFirst() {
 		return first;
 	}

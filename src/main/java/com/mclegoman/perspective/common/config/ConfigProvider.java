@@ -20,11 +20,9 @@ import java.util.List;
 public class ConfigProvider implements SimpleConfig.DefaultConfig {
 	private String CONTENTS = "";
 	private List<ConfigOption<String, ?>> CONFIG_LIST = new ArrayList<>();
-
 	public List<ConfigOption<String, ?>> getConfigList() {
 		return CONFIG_LIST;
 	}
-
 	public void add(ConfigOption<String, ?> keyValueSet) {
 		try {
 			CONFIG_LIST.add(keyValueSet);
@@ -32,12 +30,10 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			Data.VERSION.getLogger().warn("{} Failed to add {} config value: {}", Data.VERSION.getLoggerPrefix(), keyValueSet, error);
 		}
 	}
-
 	@Override
 	public String get(String namespace) {
 		return CONTENTS;
 	}
-
 	public void setContents(String ID) {
 		StringBuilder contents = new StringBuilder(Translation.getString("#{}.properties file\n", ID));
 		for (ConfigOption<String, ?> option : CONFIG_LIST) {
@@ -45,7 +41,6 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 		}
 		CONTENTS = contents.toString();
 	}
-
 	public void setConfig(String KEY_NAME, Object KEY_VALUE) {
 		try {
 			List<ConfigOption<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
@@ -61,7 +56,6 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			Data.VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.VERSION.getLoggerPrefix(), KEY_NAME, error);
 		}
 	}
-
 	public void saveConfig(String ID) {
 		try {
 			setContents(ID);

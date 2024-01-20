@@ -36,7 +36,7 @@ public class ShadersConfigScreen extends Screen {
 	private final boolean SAVE_ON_CLOSE;
 	private boolean SHOULD_CLOSE;
 	private boolean REFRESH;
-
+	private boolean REVERSE;
 	public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
@@ -44,7 +44,6 @@ public class ShadersConfigScreen extends Screen {
 		this.SAVE_ON_CLOSE = SAVE_ON_CLOSE;
 		this.REFRESH = REFRESH;
 	}
-
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -61,7 +60,6 @@ public class ShadersConfigScreen extends Screen {
 			Data.VERSION.getLogger().warn("{} Failed to initialize config>shaders screen: {}", Data.VERSION.getID(), error);
 		}
 	}
-
 	public void tick() {
 		try {
 			if (this.REFRESH) {
@@ -75,19 +73,26 @@ public class ShadersConfigScreen extends Screen {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders screen: {}", Data.VERSION.getID(), error);
 		}
 	}
-
 	private GridWidget createShaders() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.list", new Object[]{Shader.getShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1))).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.list", true))).width(280).build());
+		GridWidget.Adder GRID_ADDER = GRID.createAdder(3);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.cycle", new Object[]{Shader.getShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
+			Shader.cycle(true, !this.REVERSE, true, false, false);
+			this.REFRESH = true;
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.cycle", true))).width(256).build());
+
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.list"), (button) -> {
+			ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1));
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.list", true))).width(20).build());
+
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("shaders.random"), (button) -> {
 			Shader.random(true, false, false);
 			this.REFRESH = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.random", true))).width(20).build());
+
 		return GRID;
 	}
-
 	private GridWidget createShaderOptions() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -106,7 +111,6 @@ public class ShadersConfigScreen extends Screen {
 		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation("shaders.show_name", true))).build(), 2);
 		return GRID;
 	}
-
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -118,15 +122,12 @@ public class ShadersConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
 	}
-
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
-
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
-
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
@@ -134,6 +135,8 @@ public class ShadersConfigScreen extends Screen {
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
+		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT)
+			this.REVERSE = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	@Override
@@ -142,6 +145,8 @@ public class ShadersConfigScreen extends Screen {
 			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
 			this.REFRESH = true;
 		}
+		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT)
+			this.REVERSE = false;
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
 	@Override

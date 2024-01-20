@@ -71,7 +71,10 @@
 
 	"gui.perspective.config.shaders": "Super Secret Settings",
 
-	"gui.perspective.config.shaders.list": "Shader: %s",
+	"gui.perspective.config.shaders.cycle": "Shader: %s",
+	"gui.perspective.config.shaders.cycle.hover": "Cycle Super Secret Settings",
+
+	"gui.perspective.config.shaders.list": "☰",
 	"gui.perspective.config.shaders.list.hover": "Open Shader Selection Screen",
 	"gui.perspective.config.shaders.list.select": "Select Super Secret Setting",
 	"gui.perspective.config.shaders.list.shader": "%s%s",

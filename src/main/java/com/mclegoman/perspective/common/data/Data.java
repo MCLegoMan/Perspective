@@ -14,11 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Data {
 	public static final Version VERSION = new Version("Perspective", "perspective", 1, 3, 0, Helper.ReleaseType.ALPHA, 3, "6CTGnrNg");
-
 	public static boolean isModInstalled(String MOD_ID) {
 		return FabricLoader.getInstance().isModLoaded(MOD_ID);
 	}
-
 	public static boolean isModInstalledVersionOrHigher(String MOD_ID, String REQUIRED_VERSION, boolean SUBSTRING) {
 		try {
 			if (isModInstalled(MOD_ID)) {
@@ -29,7 +27,6 @@ public class Data {
 		}
 		return false;
 	}
-
 	public static boolean checkModVersion(String CURRENT_VERSION, String REQUIRED_VERSION, boolean SUBSTRING) {
 		try {
 			String modVersion = SUBSTRING ? StringUtils.substringBefore(CURRENT_VERSION, "-") : CURRENT_VERSION;
