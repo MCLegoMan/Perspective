@@ -105,21 +105,21 @@
 
 	"gui.perspective.config.april_fools_prank.force": "Force Prank: %s",
 
-	"gui.perspective.config.more_options.version_overlay": "Version Overlay: %s",
+	"gui.perspective.config.version_overlay": "Version Overlay: %s",
 
-	"gui.perspective.config.more_options.position_overlay": "Position Overlay: %s",
+	"gui.perspective.config.position_overlay": "Position Overlay: %s",
 
-	"gui.perspective.config.more_options.force_pride": "Force Pride: %s",
+	"gui.perspective.config.force_pride": "Force Pride: %s",
 
-	"gui.perspective.config.more_options.show_death_coordinates": "Show Death Coordinates: %s",
+	"gui.perspective.config.show_death_coordinates": "Death Coordinates: %s",
 
-	"gui.perspective.config.more_options.detect_update_channel": "Update Channel: %s",
-	"gui.perspective.config.more_options.detect_update_channel.hover": "Cycle Update Notification Channel",
+	"gui.perspective.config.detect_update_channel": "Update Notification Channel: %s",
+	"gui.perspective.config.detect_update_channel.hover": "Cycle Update Notification Channel",
 
-	"gui.perspective.config.more_options.tutorials": "Tutorials: %s",
-	"gui.perspective.config.more_options.tutorials.hover": "Toggle Perspective Tutorial Toasts",
+	"gui.perspective.config.tutorials": "Tutorials: %s",
+	"gui.perspective.config.tutorials.hover": "Toggle Perspective Tutorial Toasts",
 
-	"gui.perspective.config.more_options.dirt_title_screen": "Dirt Title Screen: %s",
+	"gui.perspective.config.dirt_title_screen": "Dirt Title Screen: %s",
 
 	"gui.perspective.config.hide": "Hide",
 
