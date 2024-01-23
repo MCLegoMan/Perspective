@@ -24,7 +24,6 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class ShaderSoundsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	private static final List<String> SOUNDS = new ArrayList<>();
@@ -56,9 +55,9 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			Optional<Resource> resource = manager.getResource(new Identifier(Data.VERSION.getID(), ID + ".json"));
-			if (resource.isPresent()) {
-				JsonObject reader = JsonHelper.deserialize(resource.get().getReader());
+			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
+				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonArray defaultSounds = new JsonArray();
 				for (Identifier id : Registries.SOUND_EVENT.getIds()) {
 					if (!id.toString().contains("music") && !id.toString().contains("ambient") && !id.toString().contains("music_disc")) defaultSounds.add(id.toString());

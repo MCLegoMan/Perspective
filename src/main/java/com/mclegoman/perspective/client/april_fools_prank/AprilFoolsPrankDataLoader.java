@@ -57,9 +57,9 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			Optional<Resource> resource = manager.getResource(new Identifier(Data.VERSION.getID(), ID + ".json"));
-			if (resource.isPresent()) {
-				JsonObject reader = JsonHelper.deserialize(resource.get().getReader());
+			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
+				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonArray defaultSkins = new JsonArray();
 				defaultSkins.add("mclegoman_normal");
 				defaultSkins.add("mclegoman_pride");
