@@ -126,6 +126,7 @@
 		"client.textured_entity.minecraft.zombie_horse.ZombieHorseEntityRendererMixin",
 		"client.textured_entity.minecraft.zombie_villager.ZombieVillagerEntityRendererMixin",
 		"client.zoom.GameRendererMixin",
+		"client.hud.HeldItemRendererMixin",
 		"client.zoom.MouseMixin"
 	],
 	"injectors": {

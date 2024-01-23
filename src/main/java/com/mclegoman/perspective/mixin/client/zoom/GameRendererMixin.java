@@ -50,8 +50,4 @@ public abstract class GameRendererMixin {
 		}
 		return Zoom.limitFov(newFOV);
 	}
-	@Inject(at = @At("HEAD"), method = "renderHand", cancellable = true)
-	private void perspective$renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
-		if (HUDHelper.shouldHideHUD()) ci.cancel();
-	}
 }

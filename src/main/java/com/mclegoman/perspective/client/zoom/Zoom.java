@@ -70,7 +70,7 @@ public class Zoom {
 						zoomUpdated = true;
 					}
 				} else {
-					if (!(getZoomLevel() <= -50)) {
+					if (!(getZoomLevel() <= 0)) {
 						ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() - 1);
 						updated = true;
 						zoomUpdated = true;
