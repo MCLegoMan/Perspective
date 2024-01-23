@@ -88,7 +88,14 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	}
 	private void clearNamespace(String namespace) {
 		try {
-			REGISTRY.removeIf(SHADER -> SHADER.get(1).equals(namespace));
+			REGISTRY.removeIf((SHADER) -> SHADER.get(1).toString().equalsIgnoreCase(namespace));
+		} catch (Exception error) {
+			Data.VERSION.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.VERSION.getID(), namespace, error);
+		}
+	}
+	private void removeShader(String namespace, String shader) {
+		try {
+			REGISTRY.removeIf((SHADER) -> SHADER.get(1).toString().equalsIgnoreCase(namespace) && SHADER.get(2).toString().equalsIgnoreCase(shader));
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.VERSION.getID(), namespace, error);
 		}
@@ -168,7 +175,9 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			String NAMESPACE = JsonHelper.getString(READER, "namespace", Data.VERSION.getID());
 			String SHADER = JsonHelper.getString(READER, "shader");
 			boolean DISABLE_SCREEN_MODE = JsonHelper.getBoolean(READER, "disable_screen_mode", false);
-			add(NAMESPACE, SHADER, DISABLE_SCREEN_MODE, manager);
+			boolean ENABLED = JsonHelper.getBoolean(READER, "enabled");
+			if (ENABLED) add(NAMESPACE, SHADER, DISABLE_SCREEN_MODE, manager);
+			else removeShader(NAMESPACE, SHADER);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.VERSION.getID(), error);
 		}
