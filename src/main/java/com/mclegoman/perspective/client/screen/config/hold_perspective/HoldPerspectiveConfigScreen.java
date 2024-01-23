@@ -72,8 +72,8 @@ public class HoldPerspectiveConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("hold_perspective_hide_hud"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig("hold_perspective_hide_hud"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"));
 			this.REFRESH = true;
 		}).width(304).build());
 		return GRID;

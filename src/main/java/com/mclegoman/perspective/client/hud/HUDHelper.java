@@ -20,13 +20,13 @@ public class HUDHelper {
 			DebugOverlay.debugType = DebugOverlay.debugType.next();
 		}
 		if (Keybindings.TOGGLE_POSITION_OVERLAY.wasPressed()) {
-			ConfigHelper.setConfig("position_overlay", !(boolean) ConfigHelper.getConfig("position_overlay"));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
 			ConfigHelper.saveConfig(true);
 		}
 	}
 
 	public static boolean shouldHideHUD() {
-		return (Zoom.isZooming() && (boolean) ConfigHelper.getConfig("zoom_hide_hud")) || (Perspective.isHoldingPerspective() && (boolean) ConfigHelper.getConfig("hold_perspective_hide_hud"));
+		return (Zoom.isZooming() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud")) || (Perspective.isHoldingPerspective() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"));
 	}
 
 	public static int addY(int y) {

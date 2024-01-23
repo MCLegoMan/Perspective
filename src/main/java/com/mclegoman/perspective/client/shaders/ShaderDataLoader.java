@@ -126,18 +126,18 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			boolean saveConfig;
 			if (Shader.updateLegacyConfig) {
 				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
-					ConfigHelper.setConfig("super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
 				}
 				Shader.updateLegacyConfig = false;
 			}
-			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig("super_secret_settings_shader"))) {
-				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig("super_secret_settings_shader"));
+			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
+				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 				saveConfig = false;
 			} else {
 				Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, REGISTRY.size() - 1);
 				saveConfig = true;
 			}
-			if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled"))
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				Shader.set(true, false, false, saveConfig);
 			List<String> ALL_NAMES = new ArrayList<>();
 			for (List<Object> registry : REGISTRY) {

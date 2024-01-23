@@ -72,12 +72,12 @@ public class TexturedEntityConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity.named", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("textured_named_entity"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("textured_named_entity", !(boolean) ConfigHelper.getConfig("textured_named_entity"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity.named", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity"));
 			REFRESH = true;
 		}).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity.random", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("textured_random_entity"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("textured_random_entity", !(boolean) ConfigHelper.getConfig("textured_random_entity"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("textured_entity.random", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity"));
 			REFRESH = true;
 		}).width(304).build(), 1);
 		return GRID;

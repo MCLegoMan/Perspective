@@ -47,9 +47,9 @@ public abstract class InGameHudMixin {
 	private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
 		if (!HUDHelper.shouldHideHUD()) {
 			if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
-				if ((boolean) ConfigHelper.getConfig("version_overlay"))
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
 					context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
-				if ((boolean) ConfigHelper.getConfig("position_overlay")) PositionOverlay.render(context);
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
 				if (!DebugOverlay.debugType.equals(DebugOverlay.Type.NONE)) {
 					DebugOverlay.renderDebugHUD(context);
 				}

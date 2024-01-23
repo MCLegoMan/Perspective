@@ -87,10 +87,13 @@
 	"gui.perspective.config.shaders.mode.screen": "Screen",
 	"gui.perspective.config.shaders.mode.game": "Game",
 
+	"gui.perspective.config.shaders.play_sound": "Play Sound: %s",
+	"gui.perspective.config.shaders.play_sound.hover": "Toggle Random Sound on Shader Cycle",
+
 	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
 	"gui.perspective.config.shaders.show_name.hover": "Toggle Cycle Shaders Name Overlay",
 
-	"gui.perspective.config.shaders.toggle": "Super Secret Settings: %s",
+	"gui.perspective.config.shaders.toggle": "Shaders: %s",
 	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
 
 	"gui.perspective.config.textured_entity": "Textured Entity",

@@ -24,7 +24,7 @@ import java.util.List;
 public abstract class LivingEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
 	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-		if (!((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
+		if (!((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 			if (entity instanceof PlayerEntity)
 				for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
 					if (DEVELOPER.get(0).equals(((PlayerEntity) entity).getGameProfile().getId().toString())) {

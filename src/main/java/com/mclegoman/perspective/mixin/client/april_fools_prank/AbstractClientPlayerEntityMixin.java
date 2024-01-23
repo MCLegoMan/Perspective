@@ -34,7 +34,7 @@ public class AbstractClientPlayerEntityMixin {
 
 	@Inject(method = "getSkinTextures", at = @At("RETURN"), cancellable = true)
 	private void getSkinTexture(CallbackInfoReturnable<SkinTextures> cir) {
-		if (((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
+		if (((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 			if (this.playerListEntry != null) {
 				SkinTextures currentSkinTextures = cir.getReturnValue();
 				Identifier skinTexture = currentSkinTextures.texture();

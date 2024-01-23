@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class GameRendererMixin {
 	@Inject(at = @At("HEAD"), method = "shouldRenderBlockOutline", cancellable = true)
 	private void perspective$renderBlockOutline(CallbackInfoReturnable<Boolean> cir) {
-		if ((HUDHelper.shouldHideHUD()) || ((boolean) ConfigHelper.getConfig("hide_block_outline")))
+		if ((HUDHelper.shouldHideHUD()) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline")))
 			cir.setReturnValue(false);
 	}
 }

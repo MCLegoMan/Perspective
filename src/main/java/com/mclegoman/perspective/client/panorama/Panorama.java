@@ -78,7 +78,7 @@ public class Panorama {
 	}
 
 	private static boolean shouldTakePanorama() {
-		return (boolean) ConfigHelper.getConfig("debug") || getIncompatibleMods().size() == 0 && !ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
+		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug") || getIncompatibleMods().size() == 0 && !ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
 	}
 
 	private static void takePanorama(int resolution) {
@@ -132,8 +132,8 @@ public class Panorama {
 							framebuffer.beginWrite(true);
 							ClientData.CLIENT.gameRenderer.render(1.0F, 0L, true);
 							try {
-								if ((boolean) ConfigHelper.getConfig("super_secret_settings_enabled")) {
-									PostEffectProcessor panoramaPerspectivePostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig("super_secret_settings"), ShaderRegistryValue.ID)));
+								if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
+									PostEffectProcessor panoramaPerspectivePostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings"), ShaderRegistryValue.ID)));
 									panoramaPerspectivePostProcessor.setupDimensions(resolution, resolution);
 									panoramaPerspectivePostProcessor.render(ClientData.CLIENT.getTickDelta());
 								}
@@ -163,7 +163,7 @@ public class Panorama {
 						ClientData.CLIENT.getFramebuffer().beginWrite(true);
 					}
 					if (getIncompatibleMods().size() != 0 || ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
-						if ((boolean) ConfigHelper.getConfig("debug")) {
+						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")) {
 							Data.VERSION.getLogger().warn("{} Debug is enabled. The panorama screenshot might not have rendered as expected.", Data.VERSION.getLoggerPrefix());
 							Text description = Translation.getTranslation("toasts.take_panorama_screenshot.debug.description");
 							ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.take_panorama_screenshot.debug.title")}), description, 320, Toast.Type.WARNING));

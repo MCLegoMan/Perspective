@@ -31,7 +31,7 @@ public class DebugOverlay {
 		int y = 2;
 		int x = 2;
 		List<Object> debugText = new ArrayList<>();
-		if ((boolean) ConfigHelper.getConfig("version_overlay")) {
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay")) {
 			debugText.add("\n");
 		}
 		debugText.add(Text.literal(Data.VERSION.getName() + " " + Data.VERSION.getFriendlyString(false)));
@@ -44,7 +44,7 @@ public class DebugOverlay {
 			debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.NEWER_VERSION_FOUND));
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
-			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig("super_secret_settings_shader")));
+			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
 			debugText.add(Text.literal("disable_screen_mode: " + Shader.getShaderData(ShaderRegistryValue.DISABLE_SCREEN_MODE)));
 			debugText.add(Text.literal("render_type: " + Shader.RENDER_TYPE));
 			debugText.add(Text.literal("use_depth: " + Shader.USE_DEPTH));

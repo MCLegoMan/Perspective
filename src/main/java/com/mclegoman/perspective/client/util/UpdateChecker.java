@@ -55,10 +55,10 @@ public class UpdateChecker {
 		UPDATE_CHECKER_COMPLETE = false;
 		NEWER_VERSION_FOUND = false;
 		try {
-			if (!ConfigHelper.getConfig("detect_update_channel").equals("none")) {
+			if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("none")) {
 				Data.VERSION.getLogger().info("Checking for updates...");
 				Data.VERSION.getLogger().info("Current Version: " + Data.VERSION.getFriendlyString());
-				Data.VERSION.getLogger().info("Update Channel: " + ConfigHelper.getConfig("detect_update_channel"));
+				Data.VERSION.getLogger().info("Update Channel: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"));
 				Data.VERSION.getLogger().info("Minecraft Version: " + SharedConstants.getGameVersion().getName());
 				JsonArray apiDataVersion = (JsonArray) getModrinthData(Data.VERSION.getModrinthID(), "version");
 				if (apiDataVersion != null) {
@@ -84,7 +84,7 @@ public class UpdateChecker {
 							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
 							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build, Data.VERSION.getModrinthID());
 							if (API_VERSION.compareTo(Data.VERSION) > 0) {
-								if (ConfigHelper.getConfig("detect_update_channel").equals("alpha")) {
+								if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("alpha")) {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.ALPHA) || API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
@@ -94,7 +94,7 @@ public class UpdateChecker {
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										break;
 									}
-								} else if (ConfigHelper.getConfig("detect_update_channel").equals("beta")) {
+								} else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("beta")) {
 									if (API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
@@ -154,6 +154,6 @@ public class UpdateChecker {
 
 	public static String nextUpdateChannel() {
 		List<String> updateChannels = Arrays.stream(detectUpdateChannels).toList();
-		return updateChannels.contains((String) ConfigHelper.getConfig("detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig("detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];
+		return updateChannels.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];
 	}
 }

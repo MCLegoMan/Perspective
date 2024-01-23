@@ -25,7 +25,7 @@ public class ShaderListEntry extends AlwaysSelectedEntryListWidget.Entry<ShaderL
 	}
 	@Override
 	public void render(DrawContext context, int index, int y, int x, int rowWidth, int rowHeight, int mouseX, int mouseY, boolean hovered, float delta) {
-		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation("shaders.list.shader", new Object[]{Shader.getShaderName(this.shader), ConfigHelper.getConfig("super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation((boolean) ShaderDataLoader.get(this.shader, ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE) : ""}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, y + (rowHeight / 2) - (9 / 2), 0xFFFFFF);
+		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation("shaders.list.shader", new Object[]{Shader.getShaderName(this.shader), ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation((boolean) ShaderDataLoader.get(this.shader, ShaderRegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE) : ""}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, y + (rowHeight / 2) - (9 / 2), 0xFFFFFF);
 	}
 	@Override
 	public Text getNarration() {

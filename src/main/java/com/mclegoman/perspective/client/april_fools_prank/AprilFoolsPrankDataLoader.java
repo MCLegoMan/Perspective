@@ -23,6 +23,7 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class AprilFoolsPrankDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<String> REGISTRY = new ArrayList<>();
@@ -56,8 +57,9 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
-				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+			Optional<Resource> resource = manager.getResource(new Identifier(Data.VERSION.getID(), ID + ".json"));
+			if (resource.isPresent()) {
+				JsonObject reader = JsonHelper.deserialize(resource.get().getReader());
 				JsonArray defaultSkins = new JsonArray();
 				defaultSkins.add("mclegoman_normal");
 				defaultSkins.add("mclegoman_pride");

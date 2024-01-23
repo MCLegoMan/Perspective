@@ -32,7 +32,7 @@ public class AbstractClientPlayerEntityMixin {
 
 	@Inject(method = "getSkinTextures", at = @At("RETURN"), cancellable = true)
 	private void getSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
-		if (!((boolean) ConfigHelper.getConfig("allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
+		if (!((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 			if (this.playerListEntry != null) {
 				for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
 					if (DEVELOPER.get(0).equals(playerListEntry.getProfile().getId().toString())) {

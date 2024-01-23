@@ -57,7 +57,7 @@ public class Zoom {
 		}
 	}
 	public static int getZoomLevel() {
-		return (int) ConfigHelper.getConfig("zoom_level");
+		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
 	}
 	public static void zoom(boolean in, int amount) {
 		try {
@@ -65,13 +65,13 @@ public class Zoom {
 			for (int i = 0; i < amount; i++) {
 				if (in) {
 					if (!(getZoomLevel() >= 100)) {
-						ConfigHelper.setConfig("zoom_level", getZoomLevel() + 1);
+						ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() + 1);
 						updated = true;
 						zoomUpdated = true;
 					}
 				} else {
 					if (!(getZoomLevel() <= -50)) {
-						ConfigHelper.setConfig("zoom_level", getZoomLevel() - 1);
+						ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() - 1);
 						updated = true;
 						zoomUpdated = true;
 					}
@@ -84,8 +84,8 @@ public class Zoom {
 	}
 	public static void reset() {
 		try {
-			if ((int) ConfigHelper.getConfig("zoom_level") != ConfigDataLoader.ZOOM_LEVEL) {
-				ConfigHelper.setConfig("zoom_level", ConfigDataLoader.ZOOM_LEVEL);
+			if ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") != ConfigDataLoader.ZOOM_LEVEL) {
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", ConfigDataLoader.ZOOM_LEVEL);
 				setOverlay();
 				zoomUpdated = true;
 			}
@@ -94,15 +94,15 @@ public class Zoom {
 		}
 	}
 	private static void setOverlay() {
-		if ((boolean) ConfigHelper.getConfig("zoom_show_percentage"))
-			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")).formatted(Formatting.GOLD));
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"))
+			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(ZoomTransitions).toList();
-		return transitions.contains((String) ConfigHelper.getConfig("zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig("zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
+		return transitions.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
 	}
 	public static String nextCameraMode() {
 		List<String> cameraModes = Arrays.stream(ZoomCameraModes).toList();
-		return cameraModes.contains((String) ConfigHelper.getConfig("zoom_camera_mode")) ? ZoomCameraModes[(cameraModes.indexOf((String) ConfigHelper.getConfig("zoom_camera_mode")) + 1) % ZoomCameraModes.length] : ZoomCameraModes[0];
+		return cameraModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode")) ? ZoomCameraModes[(cameraModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode")) + 1) % ZoomCameraModes.length] : ZoomCameraModes[0];
 	}
 }

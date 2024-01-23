@@ -33,7 +33,7 @@ public class ClientData {
 	}
 
 	public static String getPrideLogoType() {
-		return ((boolean) ConfigHelper.getConfig("force_pride_type")) ? PRIDE_LOGOS[(int) ConfigHelper.getConfig("force_pride_type_index")] : PRIDE_LOGOS[PRIDE_LOGO];
+		return ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type")) ? PRIDE_LOGOS[(int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type_index")] : PRIDE_LOGOS[PRIDE_LOGO];
 	}
 
 	public static String getLogoPath(boolean pride) {
@@ -41,7 +41,7 @@ public class ClientData {
 	}
 
 	public static boolean isPride() {
-		if ((boolean) ConfigHelper.getConfig("force_pride")) return true;
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride")) return true;
 		else {
 			LocalDate date = LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId());
 			return date.getMonth() == Month.JUNE || date.getMonth() == Month.JULY && date.getDayOfMonth() <= 2;

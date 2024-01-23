@@ -44,6 +44,6 @@ public class ResourcePacks {
             Perspective: Test
             Contributor(s): MCLegoMan
         */
-		if ((boolean) ConfigHelper.getConfig("test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
 	}
 }

@@ -68,12 +68,12 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("april_fools_prank.allow", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("allow_april_fools"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("allow_april_fools", !(boolean) ConfigHelper.getConfig("allow_april_fools"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("april_fools_prank.allow", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools"));
 			REFRESH = true;
 		}).width(304).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("april_fools_prank.force", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("force_april_fools"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("force_april_fools", !(boolean) ConfigHelper.getConfig("force_april_fools"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("april_fools_prank.force", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools"));
 			REFRESH = true;
 		}).width(304).build());
 		return GRID;

@@ -35,16 +35,16 @@ public class AprilFoolsPrank {
 	public static void tick() {
 		boolean shouldSave = false;
 		if (!SEEN_WARNING && ClientData.CLIENT.world != null) {
-			if ((boolean) ConfigHelper.getConfig("allow_april_fools") && isAprilFools()) {
-				if (!(boolean) ConfigHelper.getWarningConfig("prank")) {
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && isAprilFools()) {
+				if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "prank")) {
 					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.tutorial.prank.title")}), Translation.getTranslation("toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
-					ConfigHelper.setWarningConfig("prank", true);
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "prank", true);
 					shouldSave = true;
 					SEEN_WARNING = true;
 				}
 			} else {
-				if ((boolean) ConfigHelper.getWarningConfig("prank")) {
-					ConfigHelper.setWarningConfig("prank", false);
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "prank")) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "prank", false);
 					shouldSave = true;
 				}
 			}
@@ -53,7 +53,7 @@ public class AprilFoolsPrank {
 	}
 
 	public static boolean isAprilFools() {
-		if ((boolean) ConfigHelper.getConfig("force_april_fools")) return true;
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools")) return true;
 		else {
 			LocalDate date = LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId());
 			return date.getMonth() == Month.APRIL && date.getDayOfMonth() <= 2;

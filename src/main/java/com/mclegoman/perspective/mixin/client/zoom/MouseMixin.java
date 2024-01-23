@@ -35,7 +35,7 @@ public abstract class MouseMixin {
 			int scrollAmount = (int) this.eventDeltaVerticalWheel;
 			this.eventDeltaVerticalWheel -= scrollAmount;
 			if (scrollAmount != 0) {
-				Zoom.zoom(scrollAmount > 0, (int) ConfigHelper.getConfig("zoom_increment_size"));
+				Zoom.zoom(scrollAmount > 0, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size"));
 				ci.cancel();
 			}
 		}
@@ -51,10 +51,10 @@ public abstract class MouseMixin {
 	}
 	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
 	private boolean perspective$isFirstPerson(boolean isFirstPerson) {
-		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;
+		return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;
 	}
 	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingSpyglass()Z"))
 	private boolean perspective$isUsingSpyglass(boolean isUsingSpyglass) {
-		return ConfigHelper.getConfig("zoom_camera_mode").equals("spyglass") ? (isUsingSpyglass || Zoom.isZooming()) : isUsingSpyglass;
+		return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode").equals("spyglass") ? (isUsingSpyglass || Zoom.isZooming()) : isUsingSpyglass;
 	}
 }

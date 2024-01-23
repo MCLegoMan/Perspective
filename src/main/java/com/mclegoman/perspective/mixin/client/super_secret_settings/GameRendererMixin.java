@@ -21,13 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;drawEntityOutlinesFramebuffer()V", shift = At.Shift.AFTER))
 	private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
+		if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
 			Shader.render(tickDelta, Shader.USE_DEPTH ? "game:depth" : "game");
 		}
 	}
 	@Inject(method = "render", at = @At("TAIL"))
 	private void perspective$render_screen(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig("super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
+		if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
 			Shader.render(tickDelta, "screen");
 	}
 	@Inject(method = "onResized", at = @At(value = "TAIL"))

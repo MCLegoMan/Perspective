@@ -70,44 +70,44 @@ public class ZoomConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		double ZOOM_LEVEL = (double) ((int) ConfigHelper.getConfig("zoom_level")) / 100;
-		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")}, false), ZOOM_LEVEL) {
+		double ZOOM_LEVEL = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level")) / 100;
+		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")}, false), ZOOM_LEVEL) {
 			@Override
 			protected void updateMessage() {
-				setMessage(Translation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig("zoom_level") + "%")}, false));
+				setMessage(Translation.getConfigTranslation("zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")}, false));
 			}
 
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig("zoom_level", (int) ((value) * 100));
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", (int) ((value) * 100));
 			}
 		}, 1);
-		double ZOOM_INCREMENT_SIZE = (double) ((int) ConfigHelper.getConfig("zoom_increment_size") - 1) / 9;
-		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig("zoom_increment_size")))}, false), ZOOM_INCREMENT_SIZE) {
+		double ZOOM_INCREMENT_SIZE = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size") - 1) / 9;
+		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size")))}, false), ZOOM_INCREMENT_SIZE) {
 			@Override
 			protected void updateMessage() {
-				setMessage(Translation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig("zoom_increment_size")))}, false));
+				setMessage(Translation.getConfigTranslation("zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size")))}, false));
 			}
 
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig("zoom_increment_size", (int) ((value) * 9) + 1);
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size", (int) ((value) * 9) + 1);
 			}
 		}, 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig("zoom_transition"))}), (button) -> {
-			ConfigHelper.setConfig("zoom_transition", Zoom.nextTransition());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition", Zoom.nextTransition());
 			this.REFRESH = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.camera_mode", new Object[]{Translation.getZoomCameraModeTranslation((String) ConfigHelper.getConfig("zoom_camera_mode"))}), (button) -> {
-			ConfigHelper.setConfig("zoom_camera_mode", Zoom.nextCameraMode());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.camera_mode", new Object[]{Translation.getZoomCameraModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode", Zoom.nextCameraMode());
 			this.REFRESH = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_hide_hud", !(boolean) ConfigHelper.getConfig("zoom_hide_hud"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"));
 			this.REFRESH = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.show_percentage", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("zoom_show_percentage"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_show_percentage", !(boolean) ConfigHelper.getConfig("zoom_show_percentage"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.show_percentage", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"));
 			this.REFRESH = true;
 		}).build(), 1);
 		return GRID;

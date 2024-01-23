@@ -75,9 +75,6 @@ public class ShaderSelectionConfigScreen extends Screen {
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
 			this.SHOULD_CLOSE = true;
-		if (keyCode == GLFW.GLFW_KEY_F5) {
-			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
-		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 }

@@ -19,6 +19,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class ConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final String ID = "config";
@@ -64,41 +65,42 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
-			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
-				ZOOM_LEVEL = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_level", 80);
-				ZOOM_INCREMENT_SIZE = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_increment_size", 1);
-				ZOOM_TRANSITION = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_transition", "smooth");
-				ZOOM_CAMERA_MODE = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_camera_mode", "default");
-				ZOOM_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_hide_hud", false);
-				ZOOM_SHOW_PERCENTAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "zoom_show_percentage", false);
-				HOLD_PERSPECTIVE_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hold_perspective_hide_hud", true);
-				SUPER_SECRET_SETTINGS_SHADER = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_shader", "minecraft:none");
-				SUPER_SECRET_SETTINGS_MODE = JsonHelper.getShaderMode(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_mode", "game");
-				SUPER_SECRET_SETTINGS_ENABLED = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_enabled", false);
-				SUPER_SECRET_SETTINGS_SOUND = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_sound", true);
-				SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_options_screen", false);
-				SUPER_SECRET_SETTINGS_SHOW_NAME = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "super_secret_settings_show_name", true);
-				TEXTURED_NAMED_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "textured_named_entity", true);
-				TEXTURED_RANDOM_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "textured_random_entity", false);
-				ALLOW_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "allow_april_fools", true);
-				FORCE_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_april_fools", false);
-				POSITION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "position_overlay", false);
-				VERSION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "version_overlay", false);
-				FORCE_PRIDE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride", false);
-				FORCE_PRIDE_TYPE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type", false);
-				FORCE_PRIDE_TYPE_INDEX = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "force_pride_type_index", 0);
-				SHOW_DEATH_COORDINATES = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "show_death_coordinates", false);
-				DIRT_TITLE_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "dirt_title_screen", false);
-				HIDE_BLOCK_OUTLINE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_block_outline", false);
-				HIDE_CROSSHAIR = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_crosshair", "false");
-				HIDE_ARMOR = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_armor", false);
-				HIDE_NAMETAGS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_nametags", false);
-				HIDE_PLAYERS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_players", false);
-				HIDE_SHOW_MESSAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "hide_show_message", true);
-				TUTORIALS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "tutorials", true);
-				DETECT_UPDATE_CHANNEL = JsonHelper.getDetectUpdateChannel(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "detect_update_channel", "release");
-				DEBUG = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "debug", false);
-				TEST_RESOURCE_PACK = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.getReader()), "test_resource_pack", false);
+			Optional<Resource> resource = manager.getResource(new Identifier(Data.VERSION.getID(), ID + ".json"));
+			if (resource.isPresent()) {
+				ZOOM_LEVEL = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_level", 80);
+				ZOOM_INCREMENT_SIZE = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_increment_size", 1);
+				ZOOM_TRANSITION = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_transition", "smooth");
+				ZOOM_CAMERA_MODE = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_camera_mode", "default");
+				ZOOM_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_hide_hud", false);
+				ZOOM_SHOW_PERCENTAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_show_percentage", false);
+				HOLD_PERSPECTIVE_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_hide_hud", true);
+				SUPER_SECRET_SETTINGS_SHADER = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_shader", "minecraft:none");
+				SUPER_SECRET_SETTINGS_MODE = JsonHelper.getShaderMode(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_mode", "game");
+				SUPER_SECRET_SETTINGS_ENABLED = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_enabled", false);
+				SUPER_SECRET_SETTINGS_SOUND = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_sound", true);
+				SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_options_screen", false);
+				SUPER_SECRET_SETTINGS_SHOW_NAME = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_show_name", true);
+				TEXTURED_NAMED_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "textured_named_entity", true);
+				TEXTURED_RANDOM_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "textured_random_entity", false);
+				ALLOW_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "allow_april_fools", true);
+				FORCE_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "force_april_fools", false);
+				POSITION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "position_overlay", false);
+				VERSION_OVERLAY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "version_overlay", false);
+				FORCE_PRIDE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "force_pride", false);
+				FORCE_PRIDE_TYPE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", false);
+				FORCE_PRIDE_TYPE_INDEX = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "force_pride_type_index", 0);
+				SHOW_DEATH_COORDINATES = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "show_death_coordinates", false);
+				DIRT_TITLE_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "dirt_title_screen", false);
+				HIDE_BLOCK_OUTLINE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_block_outline", false);
+				HIDE_CROSSHAIR = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_crosshair", "false");
+				HIDE_ARMOR = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_armor", false);
+				HIDE_NAMETAGS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_nametags", false);
+				HIDE_PLAYERS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_players", false);
+				HIDE_SHOW_MESSAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_show_message", true);
+				TUTORIALS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "tutorials", true);
+				DETECT_UPDATE_CHANNEL = JsonHelper.getDetectUpdateChannel(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "detect_update_channel", "release");
+				DEBUG = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "debug", false);
+				TEST_RESOURCE_PACK = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "test_resource_pack", false);
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {

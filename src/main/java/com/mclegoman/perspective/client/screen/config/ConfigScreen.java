@@ -106,32 +106,32 @@ public class ConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("version_overlay", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("version_overlay"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("version_overlay", !(boolean) ConfigHelper.getConfig("version_overlay"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("version_overlay", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"));
 			this.REFRESH = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("position_overlay", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("position_overlay"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("position_overlay", !(boolean) ConfigHelper.getConfig("position_overlay"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("position_overlay", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
 			this.REFRESH = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("dirt_title_screen", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("dirt_title_screen"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("dirt_title_screen", !(boolean) ConfigHelper.getConfig("dirt_title_screen"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("dirt_title_screen", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "dirt_title_screen"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "dirt_title_screen", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "dirt_title_screen"));
 			this.REFRESH = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("show_death_coordinates", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("show_death_coordinates"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("show_death_coordinates", !(boolean) ConfigHelper.getConfig("show_death_coordinates"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("show_death_coordinates", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"));
 			this.REFRESH = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("tutorials", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("tutorials"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("tutorials", !(boolean) ConfigHelper.getConfig("tutorials"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("tutorials", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "tutorials", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"));
 			this.REFRESH = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation("tutorials", true))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("force_pride", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig("force_pride"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("force_pride", !(boolean) ConfigHelper.getConfig("force_pride"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("force_pride", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "force_pride", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"));
 			this.REFRESH = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation((String) ConfigHelper.getConfig("detect_update_channel"))}), (button) -> {
-			ConfigHelper.setConfig("detect_update_channel", UpdateChecker.nextUpdateChannel());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel", UpdateChecker.nextUpdateChannel());
 			this.REFRESH = true;
 			this.CHECK_FOR_UPDATES = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation("detect_update_channel", true))).width(304).build(), 2);
