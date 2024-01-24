@@ -52,7 +52,7 @@
 
 	"gui.perspective.config.zoom.level": "Zoom: %s",
 
-	"gui.perspective.config.zoom.increment_size": "Increment Size: %s",
+	"gui.perspective.config.zoom.increment_size": "Increment Multiplier: %s",
 
 	"gui.perspective.config.zoom.transition": "Transition: %s",
 	"gui.perspective.config.zoom.transition.smooth": "Smooth",

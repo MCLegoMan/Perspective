@@ -26,9 +26,7 @@ public abstract class MouseMixin {
 	@Shadow
 	private double eventDeltaVerticalWheel;
 	@Shadow private double cursorDeltaY;
-
 	@Shadow private double cursorDeltaX;
-
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
 		if (Zoom.isZooming()) {
@@ -42,7 +40,7 @@ public abstract class MouseMixin {
 			int scrollAmount = (int) this.eventDeltaVerticalWheel;
 			this.eventDeltaVerticalWheel -= scrollAmount;
 			if (scrollAmount != 0) {
-				Zoom.zoom(scrollAmount > 0, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size"));
+				Zoom.zoom(scrollAmount, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size"));
 				ci.cancel();
 			}
 		}

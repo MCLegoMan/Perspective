@@ -68,22 +68,14 @@ public class Zoom {
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
 	}
-	public static void zoom(boolean in, int amount) {
+	public static void zoom(int amount, int multiplier) {
 		try {
 			boolean updated = false;
-			for (int i = 0; i < amount; i++) {
-				if (in) {
-					if (!(getZoomLevel() >= 100)) {
-						ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() + 1);
-						updated = true;
-						zoomUpdated = true;
-					}
-				} else {
-					if (!(getZoomLevel() <= 0)) {
-						ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() - 1);
-						updated = true;
-						zoomUpdated = true;
-					}
+			for (int i = 0; i < multiplier; i++) {
+				if (!(getZoomLevel() <= 0) || !(getZoomLevel() >= 100)) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() + amount);
+					updated = true;
+					zoomUpdated = true;
 				}
 			}
 			if (updated) setOverlay();
