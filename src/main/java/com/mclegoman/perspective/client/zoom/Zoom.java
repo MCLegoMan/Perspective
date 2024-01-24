@@ -68,6 +68,9 @@ public class Zoom {
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
 	}
+	public static String getZoomType() {
+		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type");
+	}
 	public static void zoom(int amount, int multiplier) {
 		try {
 			boolean updated = false;

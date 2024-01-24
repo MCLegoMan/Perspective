@@ -227,6 +227,9 @@
 	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
 	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
 
+	"gui.perspective.resource_pack.dev_config": "Perspective: Developer Config",
+	"gui.perspective.resource_pack.dev_config.description": "The developers choice of Perspective",
+
 	"gui.perspective.resource_pack.perspective_test": "Perspective: Test",
 	"gui.perspective.resource_pack.perspective_test.description": "Test Perspective Features",
 

@@ -29,6 +29,11 @@ public class ResourcePacks {
             Contributor(s): MCLegoMan
         */
 		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+		/*
+            Perspective: Developer Config
+            Contributor(s): MCLegoMan
+        */
+		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("dev_config"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
 	}
 	/**
 	 * Resource Packs that require the config to be loaded can be registered in the following function.
