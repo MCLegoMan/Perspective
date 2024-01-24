@@ -67,14 +67,14 @@ public class Translation {
 		else if (key.equalsIgnoreCase("screen")) return getConfigTranslation("shaders.mode.screen");
 		else return getErrorTranslation();
 	}
-	public static Text getZoomModeTranslation(String key) {
+	public static Text getZoomTransitionTranslation(String key) {
 		if (key.equalsIgnoreCase("instant")) return getConfigTranslation("zoom.transition.instant");
 		else if (key.equalsIgnoreCase("smooth")) return getConfigTranslation("zoom.transition.smooth");
 		else return getErrorTranslation();
 	}
-	public static Text getZoomMouseModeTranslation(String key) {
-		if (key.equalsIgnoreCase("scaled")) return getConfigTranslation("zoom.mouse_mode.scaled");
-		else if (key.equalsIgnoreCase("vanilla")) return getConfigTranslation("zoom.mouse_mode.vanilla");
+	public static Text getZoomScaleModeTranslation(String key) {
+		if (key.equalsIgnoreCase("scaled")) return getConfigTranslation("zoom.scale_mode.scaled");
+		else if (key.equalsIgnoreCase("vanilla")) return getConfigTranslation("zoom.scale_mode.vanilla");
 		else return getErrorTranslation();
 	}
 	public static Text getZoomTypeTranslation(String key) {

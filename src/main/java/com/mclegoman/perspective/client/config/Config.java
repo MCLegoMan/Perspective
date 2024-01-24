@@ -19,7 +19,7 @@ public class Config {
 	protected static int ZOOM_LEVEL;
 	protected static int ZOOM_INCREMENT_SIZE;
 	protected static String ZOOM_TRANSITION;
-	protected static String ZOOM_MOUSE_MODE;
+	protected static String ZOOM_SCALE_MODE;
 	protected static boolean ZOOM_HIDE_HUD;
 	protected static boolean ZOOM_SHOW_PERCENTAGE;
 	protected static String ZOOM_TYPE;
@@ -68,7 +68,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_level", ConfigDataLoader.ZOOM_LEVEL));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION));
-		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_mouse_mode", ConfigDataLoader.ZOOM_MOUSE_MODE));
+		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_type", ConfigDataLoader.ZOOM_TYPE));
@@ -107,7 +107,7 @@ public class Config {
 		ZOOM_LEVEL = CONFIG.getOrDefault("zoom_level", ConfigDataLoader.ZOOM_LEVEL);
 		ZOOM_INCREMENT_SIZE = CONFIG.getOrDefault("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE);
 		ZOOM_TRANSITION = CONFIG.getOrDefault("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
-		ZOOM_MOUSE_MODE = CONFIG.getOrDefault("zoom_mouse_mode", ConfigDataLoader.ZOOM_MOUSE_MODE);
+		ZOOM_SCALE_MODE = CONFIG.getOrDefault("zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
 		ZOOM_HIDE_HUD = CONFIG.getOrDefault("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
 		ZOOM_SHOW_PERCENTAGE = CONFIG.getOrDefault("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
 		ZOOM_TYPE = CONFIG.getOrDefault("zoom_type", ConfigDataLoader.ZOOM_TYPE);
@@ -147,7 +147,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
 		CONFIG_PROVIDER.setConfig("zoom_increment_size", ZOOM_INCREMENT_SIZE);
 		CONFIG_PROVIDER.setConfig("zoom_transition", ZOOM_TRANSITION);
-		CONFIG_PROVIDER.setConfig("zoom_mouse_mode", ZOOM_MOUSE_MODE);
+		CONFIG_PROVIDER.setConfig("zoom_scale_mode", ZOOM_SCALE_MODE);
 		CONFIG_PROVIDER.setConfig("zoom_hide_hud", ZOOM_HIDE_HUD);
 		CONFIG_PROVIDER.setConfig("zoom_show_percentage", ZOOM_SHOW_PERCENTAGE);
 		CONFIG_PROVIDER.setConfig("zoom_type", ZOOM_TYPE);

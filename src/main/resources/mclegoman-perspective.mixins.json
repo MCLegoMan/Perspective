@@ -14,6 +14,7 @@
 		"client.hide.LivingEntityRendererMixin",
 		"client.hide.PlayerEntityRendererMixin",
 		"client.hud.ChatHudMixin",
+		"client.hud.HeldItemRendererMixin",
 		"client.hud.InGameHudMixin",
 		"client.hud.TitleScreenMixin",
 		"client.show_death_coordinates.DeathScreenMixin",
@@ -126,7 +127,6 @@
 		"client.textured_entity.minecraft.zombie_horse.ZombieHorseEntityRendererMixin",
 		"client.textured_entity.minecraft.zombie_villager.ZombieVillagerEntityRendererMixin",
 		"client.zoom.GameRendererMixin",
-		"client.hud.HeldItemRendererMixin",
 		"client.zoom.MouseMixin"
 	],
 	"injectors": {

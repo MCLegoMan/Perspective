@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Zoom {
 	private static final String[] ZoomTransitions = new String[]{"smooth", "instant"};
-	private static final String[] ZoomMouseModes = new String[]{"scaled", "vanilla"};
+	private static final String[] ZoomScaleModes = new String[]{"scaled", "vanilla"};
 	private static final String[] ZoomTypes = new String[]{"linear", "logarithmic"};
 	public static boolean zoomInverted;
 	public static double fov;
@@ -34,7 +34,7 @@ public class Zoom {
 		prevZoomMultiplier = zoomMultiplier;
 		zoomMultiplier += (f - zoomMultiplier) * 0.5F;
 	}
-	public static float getZoomMultiplier() {
+	private static float getZoomMultiplier() {
 		if (isZooming()) {
 			String zoomType = (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type");
 			if (zoomType.equals("linear")) {
@@ -47,7 +47,7 @@ public class Zoom {
 	}
 
 	public static double limitFov(double fov) {
-		return MathHelper.clamp(fov, 0.1, 110);
+		return MathHelper.clamp(fov, 0.110, 110);
 	}
 
 	public static boolean isZooming() {
@@ -102,9 +102,9 @@ public class Zoom {
 		List<String> transitions = Arrays.stream(ZoomTransitions).toList();
 		return transitions.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
 	}
-	public static String nextMouseMode() {
-		List<String> cameraModes = Arrays.stream(ZoomMouseModes).toList();
-		return cameraModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode")) ? ZoomMouseModes[(cameraModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode")) + 1) % ZoomMouseModes.length] : ZoomMouseModes[0];
+	public static String nextScaleMode() {
+		List<String> scaleModes = Arrays.stream(ZoomScaleModes).toList();
+		return scaleModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) ? ZoomScaleModes[(scaleModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) + 1) % ZoomScaleModes.length] : ZoomScaleModes[0];
 	}
 	public static String nextZoomType() {
 		List<String> zoomTypes = Arrays.stream(ZoomTypes).toList();

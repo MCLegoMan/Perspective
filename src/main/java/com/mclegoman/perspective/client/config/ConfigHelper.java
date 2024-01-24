@@ -125,10 +125,10 @@ public class ConfigHelper {
 						Shader.legacyIndex = Config.CONFIG.getOrDefault("super_secret_settings", 0);
 					}
 					if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 16) {
-						String cameraMode = Config.CONFIG.getOrDefault("zoom_camera_mode", ConfigDataLoader.ZOOM_MOUSE_MODE);
+						String cameraMode = Config.CONFIG.getOrDefault("zoom_camera_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
 						switch (cameraMode) {
-							case "default" -> setConfig(ConfigType.NORMAL, "zoom_mouse_mode", "vanilla");
-							case "spyglass" -> setConfig(ConfigType.NORMAL, "zoom_mouse_mode", "scaled");
+							case "default" -> setConfig(ConfigType.NORMAL, "zoom_scale_mode", "vanilla");
+							case "spyglass" -> setConfig(ConfigType.NORMAL, "zoom_scale_mode", "scaled");
 						}
 					}
 					setConfig(ConfigType.NORMAL, "config_version", DEFAULT_CONFIG_VERSION);
@@ -168,7 +168,7 @@ public class ConfigHelper {
 			setConfig(ConfigType.NORMAL, "zoom_level", MathHelper.clamp(ConfigDataLoader.ZOOM_LEVEL, 0, 100));
 			setConfig(ConfigType.NORMAL, "zoom_increment_size", MathHelper.clamp(ConfigDataLoader.ZOOM_INCREMENT_SIZE, 1, 10));
 			setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
-			setConfig(ConfigType.NORMAL, "zoom_mouse_mode", ConfigDataLoader.ZOOM_MOUSE_MODE);
+			setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
 			setConfig(ConfigType.NORMAL, "zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
 			setConfig(ConfigType.NORMAL, "zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
 			setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
@@ -217,7 +217,7 @@ public class ConfigHelper {
 						case "zoom_level" -> Config.ZOOM_LEVEL = MathHelper.clamp((int) VALUE, 0, 100);
 						case "zoom_increment_size" -> Config.ZOOM_INCREMENT_SIZE = MathHelper.clamp((int) VALUE, 1, 10);
 						case "zoom_transition" -> Config.ZOOM_TRANSITION = (String) VALUE;
-						case "zoom_mouse_mode" -> Config.ZOOM_MOUSE_MODE = (String) VALUE;
+						case "zoom_scale_mode" -> Config.ZOOM_SCALE_MODE = (String) VALUE;
 						case "zoom_hide_hud" -> Config.ZOOM_HIDE_HUD = (boolean) VALUE;
 						case "zoom_show_percentage" -> Config.ZOOM_SHOW_PERCENTAGE = (boolean) VALUE;
 						case "zoom_type" -> Config.ZOOM_TYPE = (String) VALUE;
@@ -291,8 +291,8 @@ public class ConfigHelper {
 					case "zoom_transition" -> {
 						return Config.ZOOM_TRANSITION;
 					}
-					case "zoom_mouse_mode" -> {
-						return Config.ZOOM_MOUSE_MODE;
+					case "zoom_scale_mode" -> {
+						return Config.ZOOM_SCALE_MODE;
 					}
 					case "zoom_hide_hud" -> {
 						return Config.ZOOM_HIDE_HUD;

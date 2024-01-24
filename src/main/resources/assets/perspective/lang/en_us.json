@@ -58,9 +58,10 @@
 	"gui.perspective.config.zoom.transition.smooth": "Smooth",
 	"gui.perspective.config.zoom.transition.instant": "Instant",
 
-	"gui.perspective.config.zoom.mouse_mode": "Mouse Mode: %s",
-	"gui.perspective.config.zoom.mouse_mode.scaled": "Scaled",
-	"gui.perspective.config.zoom.mouse_mode.vanilla": "Vanilla",
+	"gui.perspective.config.zoom.scale_mode": "Zoom Mode: %s",
+	"gui.perspective.config.zoom.scale_mode.hover": "Toggles whether mouse movement and visual effects should be scaled when zooming.",
+	"gui.perspective.config.zoom.scale_mode.scaled": "Scaled",
+	"gui.perspective.config.zoom.scale_mode.vanilla": "None",
 
 	"gui.perspective.config.zoom.type": "Zoom Type: %s",
 	"gui.perspective.config.zoom.type.linear": "Linear",

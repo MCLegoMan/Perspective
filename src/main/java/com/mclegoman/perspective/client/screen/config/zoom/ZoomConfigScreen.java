@@ -19,6 +19,7 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -98,14 +99,14 @@ public class ZoomConfigScreen extends Screen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", Zoom.nextZoomType());
 			this.REFRESH = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition"))}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomTransitionTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition", Zoom.nextTransition());
 			this.REFRESH = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.mouse_mode", new Object[]{Translation.getZoomMouseModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode", Zoom.nextMouseMode());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.scale_mode", new Object[]{Translation.getZoomScaleModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode", Zoom.nextScaleMode());
 			this.REFRESH = true;
-		}).build(), 1);
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation("zoom.scale_mode", true))).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"));
 			this.REFRESH = true;
