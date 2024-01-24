@@ -60,10 +60,9 @@ public abstract class MouseMixin {
 	private void perspective$updateMouse(double timeDelta, CallbackInfo ci) {
 		if (Zoom.isZooming() && ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode").equals("scaled")) {
 			double mouseSensitivity = ClientData.CLIENT.options.getMouseSensitivity().getValue() * 0.6000000238418579 + 0.20000000298023224;
-			double mouseMultiplier = ((mouseSensitivity * mouseSensitivity * mouseSensitivity) * 8.0) * Math.max(Zoom.getZoomMultiplier(), 0.001);
+			double mouseMultiplier = ((mouseSensitivity * mouseSensitivity * mouseSensitivity) * 8.0) * Math.max(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth") ? MathHelper.lerp(timeDelta, Zoom.prevZoomMultiplier, Zoom.zoomMultiplier) : Zoom.getZoomMultiplier(), 0.001);
 			this.cursorDeltaX = this.cursorDeltaX * mouseMultiplier;
 			this.cursorDeltaY = this.cursorDeltaY * mouseMultiplier;
 		}
 	}
-
 }

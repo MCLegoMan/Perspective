@@ -22,6 +22,7 @@ public class Config {
 	protected static String ZOOM_MOUSE_MODE;
 	protected static boolean ZOOM_HIDE_HUD;
 	protected static boolean ZOOM_SHOW_PERCENTAGE;
+	protected static String ZOOM_TYPE;
 	protected static boolean HOLD_PERSPECTIVE_HIDE_HUD;
 	protected static String SUPER_SECRET_SETTINGS_SHADER;
 	protected static String SUPER_SECRET_SETTINGS_MODE;
@@ -70,6 +71,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_mouse_mode", ConfigDataLoader.ZOOM_MOUSE_MODE));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD));
 		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
+		CONFIG_PROVIDER.add(new ConfigOption<>("zoom_type", ConfigDataLoader.ZOOM_TYPE));
 		CONFIG_PROVIDER.add(new ConfigOption<>("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
 		CONFIG_PROVIDER.add(new ConfigOption<>("super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER));
 		CONFIG_PROVIDER.add(new ConfigOption<>("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
@@ -108,6 +110,7 @@ public class Config {
 		ZOOM_MOUSE_MODE = CONFIG.getOrDefault("zoom_mouse_mode", ConfigDataLoader.ZOOM_MOUSE_MODE);
 		ZOOM_HIDE_HUD = CONFIG.getOrDefault("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
 		ZOOM_SHOW_PERCENTAGE = CONFIG.getOrDefault("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
+		ZOOM_TYPE = CONFIG.getOrDefault("zoom_type", ConfigDataLoader.ZOOM_TYPE);
 		HOLD_PERSPECTIVE_HIDE_HUD = CONFIG.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
 		SUPER_SECRET_SETTINGS_SHADER = CONFIG.getOrDefault("super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
 		SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
@@ -147,6 +150,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("zoom_mouse_mode", ZOOM_MOUSE_MODE);
 		CONFIG_PROVIDER.setConfig("zoom_hide_hud", ZOOM_HIDE_HUD);
 		CONFIG_PROVIDER.setConfig("zoom_show_percentage", ZOOM_SHOW_PERCENTAGE);
+		CONFIG_PROVIDER.setConfig("zoom_type", ZOOM_TYPE);
 		CONFIG_PROVIDER.setConfig("hold_perspective_hide_hud", HOLD_PERSPECTIVE_HIDE_HUD);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_shader", SUPER_SECRET_SETTINGS_SHADER);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);

@@ -23,6 +23,7 @@ import java.util.List;
 public class Zoom {
 	private static final String[] ZoomTransitions = new String[]{"smooth", "instant"};
 	private static final String[] ZoomMouseModes = new String[]{"scaled", "vanilla"};
+	private static final String[] ZoomTypes = new String[]{"linear", "logarithmic"};
 	public static boolean zoomInverted;
 	public static double fov;
 	public static double prevZoomMultiplier;
@@ -34,7 +35,15 @@ public class Zoom {
 		zoomMultiplier += (f - zoomMultiplier) * 0.5F;
 	}
 	public static float getZoomMultiplier() {
-		return isZooming() ? 1 - ((float) getZoomLevel() / 100) : 1;
+		if (isZooming()) {
+			String zoomType = (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type");
+			if (zoomType.equals("linear")) {
+				return 1 - ((float) getZoomLevel() / 100);
+			} else if (zoomType.equals("logarithmic")) {
+				return (float) (1 - Math.log(getZoomLevel() + 1) / Math.log(100.0 + 1));
+			}
+		}
+		return 1.0F;
 	}
 
 	public static double limitFov(double fov) {
@@ -104,5 +113,9 @@ public class Zoom {
 	public static String nextMouseMode() {
 		List<String> cameraModes = Arrays.stream(ZoomMouseModes).toList();
 		return cameraModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode")) ? ZoomMouseModes[(cameraModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode")) + 1) % ZoomMouseModes.length] : ZoomMouseModes[0];
+	}
+	public static String nextZoomType() {
+		List<String> zoomTypes = Arrays.stream(ZoomTypes).toList();
+		return zoomTypes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")) ? ZoomTypes[(zoomTypes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")) + 1) % ZoomTypes.length] : ZoomTypes[0];
 	}
 }

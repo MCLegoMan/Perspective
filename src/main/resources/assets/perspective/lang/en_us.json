@@ -62,6 +62,10 @@
 	"gui.perspective.config.zoom.mouse_mode.scaled": "Scaled",
 	"gui.perspective.config.zoom.mouse_mode.vanilla": "Vanilla",
 
+	"gui.perspective.config.zoom.type": "Zoom Type: %s",
+	"gui.perspective.config.zoom.type.linear": "Linear",
+	"gui.perspective.config.zoom.type.logarithmic": "Logarithmic",
+
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
 
 	"gui.perspective.config.zoom.show_percentage": "Show Percentage: %s",

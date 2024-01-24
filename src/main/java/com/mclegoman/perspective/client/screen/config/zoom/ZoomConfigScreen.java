@@ -94,6 +94,10 @@ public class ZoomConfigScreen extends Screen {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size", (int) ((value) * 9) + 1);
 			}
 		}, 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.type", new Object[]{Translation.getZoomTypeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", Zoom.nextZoomType());
+			this.REFRESH = true;
+		}).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.transition", new Object[]{Translation.getZoomModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition", Zoom.nextTransition());
 			this.REFRESH = true;
@@ -109,7 +113,7 @@ public class ZoomConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.show_percentage", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"));
 			this.REFRESH = true;
-		}).build(), 1);
+		}).build(), 2);
 		return GRID;
 	}
 

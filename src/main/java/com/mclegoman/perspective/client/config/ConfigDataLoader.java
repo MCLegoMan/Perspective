@@ -29,6 +29,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static String ZOOM_MOUSE_MODE;
 	public static boolean ZOOM_HIDE_HUD;
 	public static boolean ZOOM_SHOW_PERCENTAGE;
+	public static String ZOOM_TYPE;
 	public static boolean HOLD_PERSPECTIVE_HIDE_HUD;
 	public static String SUPER_SECRET_SETTINGS_SHADER;
 	public static String SUPER_SECRET_SETTINGS_MODE;
@@ -67,11 +68,12 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 		try {
 			Optional<Resource> resource = manager.getResource(new Identifier(Data.VERSION.getID(), ID + ".json"));
 			if (resource.isPresent()) {
-				ZOOM_LEVEL = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_level", 80);
+				ZOOM_LEVEL = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_level", 50);
 				ZOOM_INCREMENT_SIZE = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_increment_size", 1);
 				ZOOM_TRANSITION = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_transition", "smooth");
 				ZOOM_MOUSE_MODE = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_mouse_mode", "scaled");
 				ZOOM_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_hide_hud", false);
+				ZOOM_TYPE = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_type", "logarithmic");
 				ZOOM_SHOW_PERCENTAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_show_percentage", false);
 				HOLD_PERSPECTIVE_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_hide_hud", true);
 				SUPER_SECRET_SETTINGS_SHADER = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_shader", "minecraft:none");

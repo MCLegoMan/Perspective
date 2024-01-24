@@ -171,6 +171,7 @@ public class ConfigHelper {
 			setConfig(ConfigType.NORMAL, "zoom_mouse_mode", ConfigDataLoader.ZOOM_MOUSE_MODE);
 			setConfig(ConfigType.NORMAL, "zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
 			setConfig(ConfigType.NORMAL, "zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
+			setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
 			setConfig(ConfigType.NORMAL, "hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
 			setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
 			setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
@@ -219,6 +220,7 @@ public class ConfigHelper {
 						case "zoom_mouse_mode" -> Config.ZOOM_MOUSE_MODE = (String) VALUE;
 						case "zoom_hide_hud" -> Config.ZOOM_HIDE_HUD = (boolean) VALUE;
 						case "zoom_show_percentage" -> Config.ZOOM_SHOW_PERCENTAGE = (boolean) VALUE;
+						case "zoom_type" -> Config.ZOOM_TYPE = (String) VALUE;
 						case "hold_perspective_hide_hud" -> Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean) VALUE;
 						case "super_secret_settings_shader" -> Config.SUPER_SECRET_SETTINGS_SHADER = (String) VALUE;
 						case "super_secret_settings_mode" -> Config.SUPER_SECRET_SETTINGS_MODE = (String) VALUE;
@@ -297,6 +299,9 @@ public class ConfigHelper {
 					}
 					case "zoom_show_percentage" -> {
 						return Config.ZOOM_SHOW_PERCENTAGE;
+					}
+					case "zoom_type" -> {
+						return Config.ZOOM_TYPE;
 					}
 					case "hold_perspective_hide_hud" -> {
 						return Config.HOLD_PERSPECTIVE_HIDE_HUD;
