@@ -58,9 +58,9 @@
 	"gui.perspective.config.zoom.transition.smooth": "Smooth",
 	"gui.perspective.config.zoom.transition.instant": "Instant",
 
-	"gui.perspective.config.zoom.camera_mode": "Camera Mode: %s",
-	"gui.perspective.config.zoom.camera_mode.default": "Default",
-	"gui.perspective.config.zoom.camera_mode.spyglass": "Spyglass",
+	"gui.perspective.config.zoom.mouse_mode": "Mouse Mode: %s",
+	"gui.perspective.config.zoom.mouse_mode.scaled": "Scaled",
+	"gui.perspective.config.zoom.mouse_mode.vanilla": "Vanilla",
 
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
 

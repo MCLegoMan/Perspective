@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Zoom {
 	private static final String[] ZoomTransitions = new String[]{"smooth", "instant"};
-	private static final String[] ZoomCameraModes = new String[]{"default", "spyglass"};
+	private static final String[] ZoomMouseModes = new String[]{"scaled", "vanilla"};
 	public static boolean zoomInverted;
 	public static double fov;
 	public static double prevZoomMultiplier;
@@ -101,8 +101,8 @@ public class Zoom {
 		List<String> transitions = Arrays.stream(ZoomTransitions).toList();
 		return transitions.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) ? ZoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) + 1) % ZoomTransitions.length] : ZoomTransitions[0];
 	}
-	public static String nextCameraMode() {
-		List<String> cameraModes = Arrays.stream(ZoomCameraModes).toList();
-		return cameraModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode")) ? ZoomCameraModes[(cameraModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode")) + 1) % ZoomCameraModes.length] : ZoomCameraModes[0];
+	public static String nextMouseMode() {
+		List<String> cameraModes = Arrays.stream(ZoomMouseModes).toList();
+		return cameraModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode")) ? ZoomMouseModes[(cameraModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode")) + 1) % ZoomMouseModes.length] : ZoomMouseModes[0];
 	}
 }

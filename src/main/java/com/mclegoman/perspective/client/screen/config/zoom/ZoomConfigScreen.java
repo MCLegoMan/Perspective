@@ -98,8 +98,8 @@ public class ZoomConfigScreen extends Screen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition", Zoom.nextTransition());
 			this.REFRESH = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.camera_mode", new Object[]{Translation.getZoomCameraModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode", Zoom.nextCameraMode());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.mouse_mode", new Object[]{Translation.getZoomMouseModeTranslation((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode", Zoom.nextMouseMode());
 			this.REFRESH = true;
 		}).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation("zoom.hide_hud", new Object[]{Translation.getVariableTranslation((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {

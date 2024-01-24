@@ -26,7 +26,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static int ZOOM_LEVEL;
 	public static int ZOOM_INCREMENT_SIZE;
 	public static String ZOOM_TRANSITION;
-	public static String ZOOM_CAMERA_MODE;
+	public static String ZOOM_MOUSE_MODE;
 	public static boolean ZOOM_HIDE_HUD;
 	public static boolean ZOOM_SHOW_PERCENTAGE;
 	public static boolean HOLD_PERSPECTIVE_HIDE_HUD;
@@ -70,7 +70,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				ZOOM_LEVEL = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_level", 80);
 				ZOOM_INCREMENT_SIZE = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_increment_size", 1);
 				ZOOM_TRANSITION = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_transition", "smooth");
-				ZOOM_CAMERA_MODE = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_camera_mode", "default");
+				ZOOM_MOUSE_MODE = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_mouse_mode", "scaled");
 				ZOOM_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_hide_hud", false);
 				ZOOM_SHOW_PERCENTAGE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "zoom_show_percentage", false);
 				HOLD_PERSPECTIVE_HIDE_HUD = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_hide_hud", true);

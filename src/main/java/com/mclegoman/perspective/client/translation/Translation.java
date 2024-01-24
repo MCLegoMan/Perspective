@@ -90,9 +90,9 @@ public class Translation {
 		else return getErrorTranslation();
 	}
 
-	public static Text getZoomCameraModeTranslation(String key) {
-		if (key.equalsIgnoreCase("default")) return getConfigTranslation("zoom.camera_mode.default");
-		else if (key.equalsIgnoreCase("spyglass")) return getConfigTranslation("zoom.camera_mode.spyglass");
+	public static Text getZoomMouseModeTranslation(String key) {
+		if (key.equalsIgnoreCase("scaled")) return getConfigTranslation("zoom.mouse_mode.scaled");
+		else if (key.equalsIgnoreCase("vanilla")) return getConfigTranslation("zoom.mouse_mode.vanilla");
 		else return getErrorTranslation();
 	}
 

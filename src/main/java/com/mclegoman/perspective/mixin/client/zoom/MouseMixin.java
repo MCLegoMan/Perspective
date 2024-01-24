@@ -12,16 +12,23 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.minecraft.client.Mouse;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 10000, value = Mouse.class)
 public abstract class MouseMixin {
 	@Shadow
 	private double eventDeltaVerticalWheel;
+	@Shadow private double cursorDeltaY;
+
+	@Shadow private double cursorDeltaX;
+
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
 		if (Zoom.isZooming()) {
@@ -49,12 +56,14 @@ public abstract class MouseMixin {
 			}
 		}
 	}
-	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
-	private boolean perspective$isFirstPerson(boolean isFirstPerson) {
-		return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode").equals("spyglass") ? (isFirstPerson || Zoom.isZooming()) : isFirstPerson;
+	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
+	private void perspective$updateMouse(double timeDelta, CallbackInfo ci) {
+		if (Zoom.isZooming() && ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_mouse_mode").equals("scaled")) {
+			double mouseSensitivity = ClientData.CLIENT.options.getMouseSensitivity().getValue() * 0.6000000238418579 + 0.20000000298023224;
+			double mouseMultiplier = ((mouseSensitivity * mouseSensitivity * mouseSensitivity) * 8.0) * Math.max(Zoom.getZoomMultiplier(), 0.001);
+			this.cursorDeltaX = this.cursorDeltaX * mouseMultiplier;
+			this.cursorDeltaY = this.cursorDeltaY * mouseMultiplier;
+		}
 	}
-	@ModifyExpressionValue(method = "updateMouse(D)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingSpyglass()Z"))
-	private boolean perspective$isUsingSpyglass(boolean isUsingSpyglass) {
-		return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_camera_mode").equals("spyglass") ? (isUsingSpyglass || Zoom.isZooming()) : isUsingSpyglass;
-	}
+
 }
