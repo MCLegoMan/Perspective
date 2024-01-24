@@ -31,6 +31,9 @@ This update adds support for logarithmic zoom, and scaling when zoomed for mouse
     - When outside the namespacelist, all shaders no matter the namespace will be removed.  
 - **Added `Perspective: Developer Config` Resource Pack.**  
   - This resource pack changes the default config options to MCLegoMan's choices and is disabled by default.  
+- **Updated `Perspective: Default` Resource Pack.**  
+  - Added `perspective:golden` shader.  
+    - This shader combines `minecraft:blobs2` with `minecraft:color_convolve` making the colours gold.  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  
