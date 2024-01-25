@@ -29,8 +29,8 @@ public class Zoom {
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
 	private static boolean zoomUpdated;
-	public static void addZoomType(String name, boolean shouldLimitFOV, Runnable setZoomTypeMultiplier) {
-		Triplet<String, Boolean, Runnable> zoomType = new Triplet<>(name.toLowerCase(), shouldLimitFOV, setZoomTypeMultiplier);
+	public static void addZoomType(String name, boolean shouldLimitFOV, Runnable setZoomTypeMultiplierRunnable) {
+		Triplet<String, Boolean, Runnable> zoomType = new Triplet<>(name.toLowerCase(), shouldLimitFOV, setZoomTypeMultiplierRunnable);
 		if (!zoomTypes.contains(zoomType)) zoomTypes.add(zoomType);
 	}
 	public static Triplet<String, Boolean, Runnable> getZoomType() {

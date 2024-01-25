@@ -35,8 +35,8 @@ public abstract class GameRendererMixin {
 	private double perspective$renderHand(double fov) {
 		return Zoom.fov;
 	}
-	@Inject(method = "tick", at = @At("TAIL"))
-	private void perspective$tick(CallbackInfo ci) {
+	@Inject(method = "updateFovMultiplier", at = @At("TAIL"))
+	private void perspective$updateFovMultiplier(CallbackInfo ci) {
 		Zoom.updateZoomMultiplier();
 	}
 	@ModifyReturnValue(method = "getFov", at = @At("RETURN"))
