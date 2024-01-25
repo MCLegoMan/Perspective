@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Hide {
-	private static final String[] hideCrosshairModes = new String[]{"false", "dynamic", "true"};
+	public static final String[] hideCrosshairModes = new String[]{"false", "dynamic", "true"};
 
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideArmorDataLoader());

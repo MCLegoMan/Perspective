@@ -15,6 +15,7 @@
       - This function can use `setMultiplier()` to set the multiplier of the zoom.  
         - You can use `Zoom.getZoomLevel()` to get the current zoom percentage.  
         - This example shows how you can make the zoom multiplier type linear: `setMultiplier(1 - ((float) Zoom.getZoomLevel() / 100))`  
+- **Invalid config values are reset after client initialization.**  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

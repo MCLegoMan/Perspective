@@ -24,11 +24,12 @@ import net.minecraft.util.math.MathHelper;
 import java.util.*;
 
 public class Zoom {
-	private static final String[] zoomTransitions = new String[]{"smooth", "instant"};
-	private static final String[] zoomScaleModes = new String[]{"scaled", "vanilla"};
-	private static final List<Triplet<Identifier, Boolean, Runnable>> zoomTypes = new ArrayList<>();
+	public static final String[] zoomTransitions = new String[]{"smooth", "instant"};
+	public static final String[] zoomScaleModes = new String[]{"scaled", "vanilla"};
+	public static final List<Triplet<Identifier, Boolean, Runnable>> zoomTypes = new ArrayList<>();
 	public static boolean zoomInverted;
 	public static double fov;
+	public static double zoomFov;
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
 	private static boolean zoomUpdated;
@@ -45,8 +46,6 @@ public class Zoom {
 		return null;
 	}
 	public static void init() {
-		Data.VERSION.sendToLog(Helper.LogType.INFO, IdentifierHelper.identifierFromString("perspective:linear").toString());
-
 		addZoomType(new Identifier(Data.VERSION.getID(), "logarithmic"), true, () -> ZoomTypeMultiplier.setMultiplier((float) (1.0F - (Math.log(Zoom.getZoomLevel() + 1.0F) / Math.log(100.0 + 1.0F)))));
 		addZoomType(new Identifier(Data.VERSION.getID(), "linear"), true, () -> ZoomTypeMultiplier.setMultiplier(1.0F - (Zoom.getZoomLevel() / 100.0F)));
 	}

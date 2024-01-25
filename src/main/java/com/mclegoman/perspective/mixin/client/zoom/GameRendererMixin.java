@@ -53,7 +53,8 @@ public abstract class GameRendererMixin {
 				newFOV *= MathHelper.lerp(tickDelta, Zoom.prevZoomMultiplier, Zoom.zoomMultiplier);
 			}
 		}
-		return Zoom.limitFov(newFOV);
+		Zoom.zoomFov = Zoom.limitFov(newFOV);
+		return Zoom.zoomFov;
 	}
 	@ModifyExpressionValue(method = "tiltViewWhenHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;"))
 	private Object perspective$getDamageTiltStrength(Object value) {

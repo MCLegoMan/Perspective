@@ -9,12 +9,15 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.util.UpdateChecker;
+import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Twin;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -24,6 +27,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfigHelper {
@@ -37,6 +41,7 @@ public class ConfigHelper {
 	private static boolean SEEN_DOWNGRADE_WARNING = false;
 	private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
 	private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
+	private static boolean FIXED_CONFIG = false;
 	private static boolean SAVING = false;
 	public static boolean isSaving() {
 		return SAVING;
@@ -62,6 +67,7 @@ public class ConfigHelper {
 	}
 	public static void tick() {
 		try {
+			if (!FIXED_CONFIG) fixConfig();
 			if (Keybindings.OPEN_CONFIG.wasPressed())
 				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1, false));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
@@ -165,6 +171,39 @@ public class ConfigHelper {
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to save config: {}", Data.VERSION.getLoggerPrefix(), error);
 		}
+	}
+	public static void fixConfig() {
+		if ((int) getConfig(ConfigType.NORMAL, "zoom_level") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_level") > 100) {
+			setConfig(ConfigType.NORMAL, "zoom_level", ConfigDataLoader.ZOOM_LEVEL);
+		}
+		if ((int) getConfig(ConfigType.NORMAL, "zoom_increment_size") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_level") > 10) {
+			setConfig(ConfigType.NORMAL, "zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE);
+		}
+		if (!Arrays.stream(Zoom.zoomTransitions).toList().contains((String) getConfig(ConfigType.NORMAL, "zoom_transition"))) {
+			setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+		}
+		if (!Arrays.stream(Zoom.zoomScaleModes).toList().contains((String) getConfig(ConfigType.NORMAL, "zoom_scale_mode"))) {
+			setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
+		}
+		if (!Zoom.zoomTypes.contains(Zoom.getZoomType())) {
+			setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
+		}
+		if (!Shader.isShaderAvailable(Shader.getShaderValue((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader")))) {
+			setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+		}
+		if (!Arrays.stream(Shader.shaderModes).toList().contains((String) getConfig(ConfigType.NORMAL, "super_secret_settings_mode"))) {
+			setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+		}
+		if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > ClientData.PRIDE_LOGOS.length) {
+			setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
+		}
+		if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.NORMAL, "hide_crosshair"))) {
+			setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
+		}
+		if (!Arrays.stream(UpdateChecker.detectUpdateChannels).toList().contains((String) getConfig(ConfigType.NORMAL, "detect_update_channel"))) {
+			setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
+		}
+		FIXED_CONFIG = true;
 	}
 	public static void resetConfig() {
 		try {

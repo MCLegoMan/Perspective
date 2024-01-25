@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class UpdateChecker {
-	private static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
+	public static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
 	public static Version API_VERSION;
 	public static boolean SEEN_UPDATE_TOAST;
 	public static boolean UPDATE_CHECKER_COMPLETE;

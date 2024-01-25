@@ -30,12 +30,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Shader {
+	public static final String[] shaderModes = new String[]{"game", "screen"};
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	public static int superSecretSettingsIndex;
 	public static Framebuffer DEPTH_FRAME_BUFFER;
@@ -252,11 +250,8 @@ public class Shader {
 	}
 
 	public static void cycleShaderModes() {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("game"))
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", "screen");
-		else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen"))
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", "game");
-		else ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", "game");
+		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
 	}
 
 	public static void saveDepth(boolean renderFastFancy, boolean renderFabulous, boolean beginWrite) {
