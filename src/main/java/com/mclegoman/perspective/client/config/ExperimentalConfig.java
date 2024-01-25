@@ -7,9 +7,9 @@
 
 package com.mclegoman.perspective.client.config;
 
-import com.mclegoman.perspective.common.config.ConfigOption;
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.Pair;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
 public class ExperimentalConfig {
@@ -29,8 +29,8 @@ public class ExperimentalConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new ConfigOption<>("super_secret_settings_list", false));
-		CONFIG_PROVIDER.add(new ConfigOption<>("super_secret_settings_notice", false));
+		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_list", false));
+		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings_notice", false));
 	}
 
 	protected static void assign() {

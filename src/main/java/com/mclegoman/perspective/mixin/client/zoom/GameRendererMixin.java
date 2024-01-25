@@ -46,7 +46,7 @@ public abstract class GameRendererMixin {
 		if (!this.isRenderingPanorama()) {
 			if (Zoom.isZooming()) {
 				if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("instant")) {
-					newFOV *= Zoom.zoomMultiplier;
+					newFOV *= Zoom.getZoomMultiplier();
 				}
 			}
 			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth")) {

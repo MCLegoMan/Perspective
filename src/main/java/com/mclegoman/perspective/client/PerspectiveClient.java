@@ -18,6 +18,7 @@ import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
+import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -36,6 +37,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Shader.init();
 			TexturedEntity.init();
 			Tick.init();
+			Zoom.init();
 			ClientData.finishedInitializing();
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.VERSION.getLoggerPrefix(), error);

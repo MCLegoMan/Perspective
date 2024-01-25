@@ -7,11 +7,18 @@
 
 package com.mclegoman.perspective.client.translation;
 
+import com.mclegoman.perspective.client.zoom.Zoom;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.StringUtils;
 
 public class Translation {
+	public static Text getCombinedText(Text... texts) {
+		MutableText outputText = Text.literal("");
+		for (Text text : texts) outputText.append(text);
+		return outputText;
+	}
 	public static Text getVariableTranslation(boolean toggle, TranslationType type) {
 		return toggle ? getTranslation("variable." + type.asString() + ".on") : getTranslation("variable." + type.asString() + ".off");
 	}
@@ -78,9 +85,8 @@ public class Translation {
 		else return getErrorTranslation();
 	}
 	public static Text getZoomTypeTranslation(String key) {
-		if (key.equalsIgnoreCase("linear")) return getConfigTranslation("zoom.type.linear");
-		else if (key.equalsIgnoreCase("logarithmic")) return getConfigTranslation("zoom.type.logarithmic");
-		else return getErrorTranslation();
+		if (Zoom.getZoomType() != null && key.equalsIgnoreCase(Zoom.getZoomType().getFirst())) return getConfigTranslation("zoom.type." + key);
+		return getErrorTranslation();
 	}
 	public static Text getHideCrosshairModeTranslation(String key) {
 		if (key.equalsIgnoreCase("false")) return getTranslation("variable.onff.off");
