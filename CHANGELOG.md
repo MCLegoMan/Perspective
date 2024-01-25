@@ -1,5 +1,5 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)  
-## Perspective 1.3.0-alpha.3 for 23w03a/b
+## Perspective 1.3.0-alpha.3 for 24w04a
 This update adds support for logarithmic zoom, and scaling when zoomed for mouse movement, view bobbing, and damage tilt scaling.  
 
 *Please Note: Perspective will remember your config options when updating, so if you want to check out some of these new features, you may need to (re)set these using the config. (You can access this via Mod Menu or in-game using the Open Config keybinding - by default this is set to [END].)*
