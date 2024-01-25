@@ -3,9 +3,11 @@
 
 
 ### Changelog  
+- **Updated Config Version to `17`.**  
+  - `zoom_type` is now stored as namespace:type.  
 - **Addon mods can now make custom zoom multiplier types.**  
   - New zoom multiplier types can be registered using `Zoom.addZoomType(String name, boolean shouldLimitFOV, Runnable setZoomTypeMultiplierRunnable);` on client initialisation.  
-    - `name` is used for both the config value, and for translation.    
+    - `name` is used for both the config value, and for translation.  
       - `gui.perspective.config.zoom.type.<name>` is the translation key.  
     - `shouldLimitFOV` limits the fov from `0.01` to `179.99` when set to true.  
       - This may change in a future version.  

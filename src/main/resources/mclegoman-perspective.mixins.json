@@ -16,6 +16,7 @@
 		"client.hud.ChatHudMixin",
 		"client.hud.HeldItemRendererMixin",
 		"client.hud.InGameHudMixin",
+		"client.hud.RotatingCubeMapRendererMixin",
 		"client.hud.TitleScreenMixin",
 		"client.show_death_coordinates.DeathScreenMixin",
 		"client.super_secret_settings.GameRendererMixin",
