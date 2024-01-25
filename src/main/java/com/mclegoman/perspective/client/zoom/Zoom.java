@@ -15,7 +15,6 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.perspective.common.util.Triplet;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
