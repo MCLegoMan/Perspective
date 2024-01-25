@@ -28,12 +28,12 @@ public class ResourcePacks {
             Perspective: Default
             Contributor(s): MCLegoMan
         */
-		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.VERSION.getModContainer(), Translation.getTranslation(Data.VERSION.getID(), "resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
 		/*
             Perspective: Developer Config
             Contributor(s): MCLegoMan
         */
-		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("dev_config"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
+		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("dev_config"), Data.VERSION.getModContainer(), Translation.getTranslation(Data.VERSION.getID(), "resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
 	}
 	/**
 	 * Resource Packs that require the config to be loaded can be registered in the following function.
@@ -49,6 +49,6 @@ public class ResourcePacks {
             Perspective: Test
             Contributor(s): MCLegoMan
         */
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.VERSION.getModContainer(), Translation.getTranslation("resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.VERSION.getModContainer(), Translation.getTranslation(Data.VERSION.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
 	}
 }

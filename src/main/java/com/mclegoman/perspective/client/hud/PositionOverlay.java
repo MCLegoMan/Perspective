@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.hud;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 
@@ -16,7 +17,7 @@ public class PositionOverlay {
 	public static void render(DrawContext context) {
 		if (ClientData.CLIENT.player != null) {
 			boolean debugEnabled = !DebugOverlay.debugType.equals(DebugOverlay.Type.NONE);
-			Text pos = Translation.getTranslation("position_overlay", new Object[]{
+			Text pos = Translation.getTranslation(Data.VERSION.getID(), "position_overlay", new Object[]{
 					(int) ClientData.CLIENT.player.getPos().getX(),
 					(int) ClientData.CLIENT.player.getPos().getY(),
 					(int) ClientData.CLIENT.player.getPos().getZ(),

@@ -71,7 +71,7 @@ public class Keybindings {
 		if (!SEEN_CONFLICTING_KEYBINDING_TOASTS) {
 			if (hasKeybindingConflicts()) {
 				Data.VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.VERSION.getName());
-				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.keybinding_conflicts.title")}), Translation.getTranslation("toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
+				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
 			}
 			SEEN_CONFLICTING_KEYBINDING_TOASTS = true;
 		}

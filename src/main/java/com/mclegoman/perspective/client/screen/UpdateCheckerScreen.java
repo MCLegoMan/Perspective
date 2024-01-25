@@ -35,7 +35,7 @@ public class UpdateCheckerScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation("update.checking"), ClientData.CLIENT.textRenderer));
+		GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.checking"), ClientData.CLIENT.textRenderer));
 		return GRID;
 	}
 

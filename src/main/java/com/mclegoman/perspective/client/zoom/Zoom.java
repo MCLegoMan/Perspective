@@ -13,9 +13,12 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.perspective.common.util.Triplet;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.*;
@@ -23,27 +26,29 @@ import java.util.*;
 public class Zoom {
 	private static final String[] zoomTransitions = new String[]{"smooth", "instant"};
 	private static final String[] zoomScaleModes = new String[]{"scaled", "vanilla"};
-	private static final List<Triplet<String, Boolean, Runnable>> zoomTypes = new ArrayList<>();
+	private static final List<Triplet<Identifier, Boolean, Runnable>> zoomTypes = new ArrayList<>();
 	public static boolean zoomInverted;
 	public static double fov;
 	public static double prevZoomMultiplier;
 	public static double zoomMultiplier;
 	private static boolean zoomUpdated;
-	public static void addZoomType(String name, boolean shouldLimitFOV, Runnable setZoomTypeMultiplierRunnable) {
-		Triplet<String, Boolean, Runnable> zoomType = new Triplet<>(name.toLowerCase(), shouldLimitFOV, setZoomTypeMultiplierRunnable);
+	public static void addZoomType(Identifier identifier, boolean shouldLimitFOV, Runnable setZoomTypeMultiplierRunnable) {
+		Triplet<Identifier, Boolean, Runnable> zoomType = new Triplet<>(identifier, shouldLimitFOV, setZoomTypeMultiplierRunnable);
 		if (!zoomTypes.contains(zoomType)) zoomTypes.add(zoomType);
 	}
-	public static Triplet<String, Boolean, Runnable> getZoomType() {
-		for (Triplet<String, Boolean, Runnable> zoomType : zoomTypes) {
-			if (zoomType.getFirst().equalsIgnoreCase((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))) {
+	public static Triplet<Identifier, Boolean, Runnable> getZoomType() {
+		for (Triplet<Identifier, Boolean, Runnable> zoomType : zoomTypes) {
+			if (zoomType.getFirst().toString().equals(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))) {
 				return zoomType;
 			}
 		}
 		return null;
 	}
 	public static void init() {
-		addZoomType("linear", true, () -> ZoomTypeMultiplier.setMultiplier(1 - ((float) Zoom.getZoomLevel() / 100)));
-		addZoomType("logarithmic", true, () -> ZoomTypeMultiplier.setMultiplier((float) (1 - Math.log(Zoom.getZoomLevel() + 1) / Math.log(100.0 + 1))));
+		Data.VERSION.sendToLog(Helper.LogType.INFO, IdentifierHelper.identifierFromString("perspective:linear").toString());
+
+		addZoomType(new Identifier(Data.VERSION.getID(), "logarithmic"), true, () -> ZoomTypeMultiplier.setMultiplier((float) (1.0F - (Math.log(Zoom.getZoomLevel() + 1.0F) / Math.log(100.0 + 1.0F)))));
+		addZoomType(new Identifier(Data.VERSION.getID(), "linear"), true, () -> ZoomTypeMultiplier.setMultiplier(1.0F - (Zoom.getZoomLevel() / 100.0F)));
 	}
 	public static void tick() {
 		try {
@@ -57,11 +62,13 @@ public class Zoom {
 		}
 	}
 	public static void updateZoomMultiplier() {
-		float f = getZoomMultiplier();
 		prevZoomMultiplier = zoomMultiplier;
-		zoomMultiplier += (f - zoomMultiplier) * 0.5F;
+		zoomMultiplier = getZoomTypeMultiplier();
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth")) {
+			zoomMultiplier = (prevZoomMultiplier + zoomMultiplier) * 0.5;
+		}
 	}
-	public static float getZoomMultiplier() {
+	public static float getZoomTypeMultiplier() {
 		if (isZooming()) {
 			if (getZoomType() != null) getZoomType().getThird().run();
 			return ZoomTypeMultiplier.getMultiplier();
@@ -116,10 +123,13 @@ public class Zoom {
 		return scaleModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) ? zoomScaleModes[(scaleModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) + 1) % zoomScaleModes.length] : zoomScaleModes[0];
 	}
 	public static String nextZoomType() {
-		List<String> list = new ArrayList<>();
-		zoomTypes.forEach((zoomType) -> {
-			list.add(zoomType.getFirst());
-		});
-		return list.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")) ? list.get((list.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")) + 1) % list.size()) : list.get(0);
+		if (getZoomType() != null) {
+			List<Identifier> list = new ArrayList<>();
+			zoomTypes.forEach((zoomType) -> {
+				list.add(zoomType.getFirst());
+			});
+			return IdentifierHelper.stringFromIdentifier(list.contains(getZoomType().getFirst()) ? list.get((list.indexOf(getZoomType().getFirst()) + 1) % list.size()) : list.get(0));
+		}
+		return IdentifierHelper.stringFromIdentifier(zoomTypes.get(0).getFirst());
 	}
 }

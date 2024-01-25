@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Pair;
+import com.mclegoman.perspective.common.util.Twin;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
 public class TutorialsConfig {
@@ -30,7 +30,7 @@ public class TutorialsConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Pair<>("super_secret_settings", false));
+		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings", false));
 	}
 
 	protected static void assign() {

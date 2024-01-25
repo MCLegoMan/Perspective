@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.translation;
 
 import com.mclegoman.perspective.client.zoom.Zoom;
+import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -19,44 +20,44 @@ public class Translation {
 		for (Text text : texts) outputText.append(text);
 		return outputText;
 	}
-	public static Text getVariableTranslation(boolean toggle, TranslationType type) {
-		return toggle ? getTranslation("variable." + type.asString() + ".on") : getTranslation("variable." + type.asString() + ".off");
+	public static Text getVariableTranslation(String namespace, boolean toggle, TranslationType type) {
+		return toggle ? getTranslation(namespace, "variable." + type.asString() + ".on") : getTranslation(namespace, "variable." + type.asString() + ".off");
 	}
-	public static Text getConfigTranslation(String name, Object[] variables, Formatting[] formattings, boolean hover) {
-		return hover ? getTranslation("config." + name + ".hover", variables, formattings) : getTranslation("config." + name, variables, formattings);
+	public static Text getConfigTranslation(String namespace, String name, Object[] variables, Formatting[] formattings, boolean hover) {
+		return hover ? getTranslation(namespace, "config." + name + ".hover", variables, formattings) : getTranslation(namespace, "config." + name, variables, formattings);
 	}
-	public static Text getConfigTranslation(String name, Object[] variables, Formatting[] formattings) {
-		return getTranslation("config." + name, variables, formattings);
+	public static Text getConfigTranslation(String namespace, String name, Object[] variables, Formatting[] formattings) {
+		return getTranslation(namespace, "config." + name, variables, formattings);
 	}
-	public static Text getConfigTranslation(String name, Object[] variables, boolean hover) {
-		return hover ? getTranslation("config." + name + ".hover", variables) : getTranslation("config." + name, variables);
+	public static Text getConfigTranslation(String namespace, String name, Object[] variables, boolean hover) {
+		return hover ? getTranslation(namespace, "config." + name + ".hover", variables) : getTranslation(namespace, "config." + name, variables);
 	}
-	public static Text getConfigTranslation(String name, Object[] variables) {
-		return getTranslation("config." + name, variables);
+	public static Text getConfigTranslation(String namespace, String name, Object[] variables) {
+		return getTranslation(namespace, "config." + name, variables);
 	}
-	public static Text getConfigTranslation(String name, Formatting[] formattings, boolean hover) {
-		return hover ? getTranslation("config." + name + ".hover", formattings) : getTranslation("config." + name, formattings);
+	public static Text getConfigTranslation(String namespace, String name, Formatting[] formattings, boolean hover) {
+		return hover ? getTranslation(namespace, "config." + name + ".hover", formattings) : getTranslation(namespace, "config." + name, formattings);
 	}
-	public static Text getConfigTranslation(String name, Formatting[] formattings) {
-		return getTranslation("config." + name, formattings);
+	public static Text getConfigTranslation(String namespace, String name, Formatting[] formattings) {
+		return getTranslation(namespace, "config." + name, formattings);
 	}
-	public static Text getConfigTranslation(String name, boolean hover) {
-		return hover ? getTranslation("config." + name + ".hover") : getTranslation("config." + name);
+	public static Text getConfigTranslation(String namespace, String name, boolean hover) {
+		return hover ? getTranslation(namespace, "config." + name + ".hover") : getTranslation(namespace, "config." + name);
 	}
-	public static Text getConfigTranslation(String name) {
-		return getTranslation("config." + name);
+	public static Text getConfigTranslation(String namespace, String name) {
+		return getTranslation(namespace, "config." + name);
 	}
-	public static Text getTranslation(String key, Object[] variables, Formatting[] formattings) {
-		return Text.translatable("gui.perspective." + key, variables).formatted(formattings);
+	public static Text getTranslation(String namespace, String key, Object[] variables, Formatting[] formattings) {
+		return Text.translatable("gui." + namespace + "." + key, variables).formatted(formattings);
 	}
-	public static Text getTranslation(String key, Object[] variables) {
-		return Text.translatable("gui.perspective." + key, variables);
+	public static Text getTranslation(String namespace, String key, Object[] variables) {
+		return Text.translatable("gui." + namespace + "." + key, variables);
 	}
-	public static Text getTranslation(String key, Formatting[] formattings) {
-		return Text.translatable("gui.perspective." + key).formatted(formattings);
+	public static Text getTranslation(String namespace, String key, Formatting[] formattings) {
+		return Text.translatable("gui." + namespace + "." + key).formatted(formattings);
 	}
-	public static Text getTranslation(String key) {
-		return Text.translatable("gui.perspective." + key);
+	public static Text getTranslation(String namespace, String key) {
+		return Text.translatable("gui." + namespace + "." + key);
 	}
 	public static String getString(String string, Object... variables) {
 		String RETURN = string;
@@ -69,39 +70,39 @@ public class Translation {
 	public static String getKeybindingTranslation(String key) {
 		return Translation.getString("gui.perspective.keybindings.keybinding.{}", key);
 	}
-	public static Text getShaderModeTranslation(String key) {
-		if (key.equalsIgnoreCase("game")) return getConfigTranslation("shaders.mode.game");
-		else if (key.equalsIgnoreCase("screen")) return getConfigTranslation("shaders.mode.screen");
+	public static Text getShaderModeTranslation(String namespace, String key) {
+		if (key.equalsIgnoreCase("game")) return getConfigTranslation(namespace, "shaders.mode.game");
+		else if (key.equalsIgnoreCase("screen")) return getConfigTranslation(namespace, "shaders.mode.screen");
 		else return getErrorTranslation();
 	}
-	public static Text getZoomTransitionTranslation(String key) {
-		if (key.equalsIgnoreCase("instant")) return getConfigTranslation("zoom.transition.instant");
-		else if (key.equalsIgnoreCase("smooth")) return getConfigTranslation("zoom.transition.smooth");
+	public static Text getZoomTransitionTranslation(String namespace, String key) {
+		if (key.equalsIgnoreCase("instant")) return getConfigTranslation(namespace, "zoom.transition.instant");
+		else if (key.equalsIgnoreCase("smooth")) return getConfigTranslation(namespace, "zoom.transition.smooth");
 		else return getErrorTranslation();
 	}
-	public static Text getZoomScaleModeTranslation(String key) {
-		if (key.equalsIgnoreCase("scaled")) return getConfigTranslation("zoom.scale_mode.scaled");
-		else if (key.equalsIgnoreCase("vanilla")) return getConfigTranslation("zoom.scale_mode.vanilla");
+	public static Text getZoomScaleModeTranslation(String namespace, String key) {
+		if (key.equalsIgnoreCase("scaled")) return getConfigTranslation(namespace, "zoom.scale_mode.scaled");
+		else if (key.equalsIgnoreCase("vanilla")) return getConfigTranslation(namespace, "zoom.scale_mode.vanilla");
 		else return getErrorTranslation();
 	}
-	public static Text getZoomTypeTranslation(String key) {
-		if (Zoom.getZoomType() != null && key.equalsIgnoreCase(Zoom.getZoomType().getFirst())) return getConfigTranslation("zoom.type." + key);
+	public static Text getZoomTypeTranslation() {
+		if (Zoom.getZoomType() != null) return getConfigTranslation(Zoom.getZoomType().getFirst().getNamespace(), "zoom.type." + Zoom.getZoomType().getFirst().getPath());
 		return getErrorTranslation();
 	}
-	public static Text getHideCrosshairModeTranslation(String key) {
-		if (key.equalsIgnoreCase("false")) return getTranslation("variable.onff.off");
-		else if (key.equalsIgnoreCase("dynamic")) return getTranslation("variable.dynamic");
-		else if (key.equalsIgnoreCase("true")) return getTranslation("variable.onff.on");
+	public static Text getHideCrosshairModeTranslation(String namespace, String key) {
+		if (key.equalsIgnoreCase("false")) return getTranslation(namespace, "variable.onff.off");
+		else if (key.equalsIgnoreCase("dynamic")) return getTranslation(namespace, "variable.dynamic");
+		else if (key.equalsIgnoreCase("true")) return getTranslation(namespace, "variable.onff.on");
 		else return getErrorTranslation();
 	}
-	public static Text getDetectUpdateChannelTranslation(String key) {
-		if (key.equalsIgnoreCase("none")) return getConfigTranslation("detect_update_channel.none");
-		else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation("detect_update_channel.alpha");
-		else if (key.equalsIgnoreCase("beta")) return getConfigTranslation("detect_update_channel.beta");
-		else if (key.equalsIgnoreCase("release")) return getConfigTranslation("detect_update_channel.release");
+	public static Text getDetectUpdateChannelTranslation(String namespace, String key) {
+		if (key.equalsIgnoreCase("none")) return getConfigTranslation(namespace, "detect_update_channel.none");
+		else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation(namespace, "detect_update_channel.alpha");
+		else if (key.equalsIgnoreCase("beta")) return getConfigTranslation(namespace, "detect_update_channel.beta");
+		else if (key.equalsIgnoreCase("release")) return getConfigTranslation(namespace, "detect_update_channel.release");
 		else return getErrorTranslation();
 	}
 	public static Text getErrorTranslation() {
-		return getConfigTranslation("error", new Formatting[]{Formatting.RED, Formatting.BOLD});
+		return getConfigTranslation(Data.VERSION.getID(), "error", new Formatting[]{Formatting.RED, Formatting.BOLD});
 	}
 }

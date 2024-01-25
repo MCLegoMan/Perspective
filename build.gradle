@@ -38,7 +38,7 @@ dependencies {
 	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
-	modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
+	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
 }
 
 processResources {

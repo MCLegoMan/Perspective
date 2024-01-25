@@ -16,7 +16,7 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Pair;
+import com.mclegoman.perspective.common.util.Twin;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
@@ -29,7 +29,7 @@ import java.util.List;
 public class ConfigHelper {
 	public static final boolean EXPERIMENTS_AVAILABLE = false;
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
-	protected static final int DEFAULT_CONFIG_VERSION = 16;
+	protected static final int DEFAULT_CONFIG_VERSION = 17;
 	protected static boolean SAVE_VIA_TICK = false;
 	protected static int SAVE_VIA_TICK_TICKS = 0;
 	private static boolean SEEN_DEVELOPMENT_WARNING = false;
@@ -81,17 +81,17 @@ public class ConfigHelper {
 	private static void showToasts() {
 		if (Data.VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
 			Data.VERSION.getLogger().info("{} Development Build. Please help us improve by submitting bug reports if you encounter any issues.", Data.VERSION.getName());
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.development_warning.title")}), Translation.getTranslation("toasts.development_warning.description"), 320, Toast.Type.WARNING));
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.development_warning.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.development_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DEVELOPMENT_WARNING = true;
 		}
 		if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
 			Data.VERSION.getLogger().info("{} Downgrading is not supported. You may experience configuration related issues.", Data.VERSION.getName());
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.downgrade_warning.title")}), Translation.getTranslation("toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.downgrade_warning.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DOWNGRADE_WARNING = true;
 		}
 		if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
 			Data.VERSION.getLogger().info("{} License Update. Perspective is now licensed under LGPL-3.0-or-later.", Data.VERSION.getName());
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation("toasts.title", new Object[]{Translation.getTranslation("name"), Translation.getTranslation("toasts.license_update.title")}), Translation.getTranslation("toasts.license_update.description"), 320, Toast.Type.INFO));
+			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.license_update.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.license_update.description"), 320, Toast.Type.INFO));
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
 	}
@@ -131,6 +131,9 @@ public class ConfigHelper {
 							case "default" -> setConfig(ConfigType.NORMAL, "zoom_scale_mode", "vanilla");
 							case "spyglass" -> setConfig(ConfigType.NORMAL, "zoom_scale_mode", "scaled");
 						}
+					}
+					if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 17) {
+						setConfig(ConfigType.NORMAL, "zoom_type", Data.VERSION.getID() + ":" + Config.CONFIG.getOrDefault("zoom_type", ConfigDataLoader.ZOOM_TYPE.replace((Data.VERSION.getID() + ":"), "")));
 					}
 					setConfig(ConfigType.NORMAL, "config_version", DEFAULT_CONFIG_VERSION);
 					Data.VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.VERSION.getLoggerPrefix());
@@ -437,22 +440,22 @@ public class ConfigHelper {
 	public static List<Object> getDebugConfigText() {
 		List<Object> text = new ArrayList<>();
 		text.add(Text.literal(Config.ID).formatted(Formatting.BOLD));
-		for (Pair<String, ?> pair : Config.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+		for (Twin<String, ?> twin : Config.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
 		if (EXPERIMENTS_AVAILABLE) {
 			text.add("\n");
 			text.add(Text.literal(ExperimentalConfig.ID).formatted(Formatting.BOLD));
-			for (Pair<String, ?> pair : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
-				text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+			for (Twin<String, ?> twin : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
+				text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
 		}
 		text.add("\n");
 		text.add(Text.literal(TutorialsConfig.ID).formatted(Formatting.BOLD));
-		for (Pair<String, ?> pair : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+		for (Twin<String, ?> twin : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
 		text.add("\n");
 		text.add(Text.literal(WarningsConfig.ID).formatted(Formatting.BOLD));
-		for (Pair<String, ?> pair : WarningsConfig.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(pair.getFirst() + ": " + pair.getSecond()));
+		for (Twin<String, ?> twin : WarningsConfig.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
 		return text;
 	}
 	public enum ConfigType {

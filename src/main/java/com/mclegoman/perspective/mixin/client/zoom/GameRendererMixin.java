@@ -31,6 +31,8 @@ public abstract class GameRendererMixin {
 
 	@Shadow protected abstract void bobView(MatrixStack matrices, float tickDelta);
 
+	@Shadow public abstract void tick();
+
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"), method = "renderHand")
 	private double perspective$renderHand(double fov) {
 		return Zoom.fov;
@@ -44,10 +46,8 @@ public abstract class GameRendererMixin {
 		Zoom.fov = fov;
 		double newFOV = fov;
 		if (!this.isRenderingPanorama()) {
-			if (Zoom.isZooming()) {
-				if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("instant")) {
-					newFOV *= Zoom.getZoomMultiplier();
-				}
+			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("instant")) {
+				newFOV *= Zoom.zoomMultiplier;
 			}
 			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth")) {
 				newFOV *= MathHelper.lerp(tickDelta, Zoom.prevZoomMultiplier, Zoom.zoomMultiplier);
@@ -57,16 +57,16 @@ public abstract class GameRendererMixin {
 	}
 	@ModifyExpressionValue(method = "tiltViewWhenHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;"))
 	private Object perspective$getDamageTiltStrength(Object value) {
-		if (value instanceof Double) return (Zoom.isZooming() && ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) ? ((Double)value) * Math.max(Zoom.zoomMultiplier, 0.001) : value;
+		if (value instanceof Double) return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled") ? ((Double)value) * Math.max(Zoom.zoomMultiplier, 0.001) : value;
 		return value;
 	}
 	@ModifyExpressionValue(method = "tiltViewWhenHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getDamageTiltYaw()F"))
 	private float perspective$getDamageTiltYaw(float value) {
-		return (Zoom.isZooming() && ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) ? (float) (value * Math.max(Zoom.zoomMultiplier, 0.001)) : value;
+		return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled") ? (float) (value * Math.max(Zoom.zoomMultiplier, 0.001)) : value;
 	}
 	@Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;bobView(Lnet/minecraft/client/util/math/MatrixStack;F)V"))
 	private void perspective$bobViewStrideDistance(GameRenderer instance, MatrixStack matrices, float tickDelta) {
-		if (Zoom.isZooming() && ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
 			if (ClientData.CLIENT.player != null) {
 				float f = ClientData.CLIENT.player.horizontalSpeed - ClientData.CLIENT.player.prevHorizontalSpeed;
 				float g = -(ClientData.CLIENT.player.horizontalSpeed + f * tickDelta);

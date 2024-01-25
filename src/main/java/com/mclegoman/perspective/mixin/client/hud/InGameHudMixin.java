@@ -14,6 +14,7 @@ import com.mclegoman.perspective.client.hud.HUDHelper;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.hud.PositionOverlay;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -48,7 +49,7 @@ public abstract class InGameHudMixin {
 		if (!HUDHelper.shouldHideHUD()) {
 			if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
-					context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation("version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+					context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
 				if (!DebugOverlay.debugType.equals(DebugOverlay.Type.NONE)) {
 					DebugOverlay.renderDebugHUD(context);

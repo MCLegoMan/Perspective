@@ -7,11 +7,11 @@
 
 package com.mclegoman.perspective.common.util;
 
-public record Pair<f, s>(f first, s second) {
-	public f getFirst() {
+public record Twin<a, b>(a first, b second) {
+	public a getFirst() {
 		return first;
 	}
-	public s getSecond() {
+	public b getSecond() {
 		return second;
 	}
 }

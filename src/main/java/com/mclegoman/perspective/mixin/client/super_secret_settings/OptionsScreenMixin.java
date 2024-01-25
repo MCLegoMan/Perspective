@@ -11,6 +11,7 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -30,6 +31,6 @@ public class OptionsScreenMixin extends Screen {
 	@Inject(method = "init", at = @At("TAIL"))
 	private void perspective$renderOptions(CallbackInfo ci) {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_options_screen") && ClientData.CLIENT.world != null)
-			this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation("shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> Shader.cycle(true, true, true, false, false)).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
+			this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> Shader.cycle(true, true, true, false, false)).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
 	}
 }
