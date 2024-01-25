@@ -93,10 +93,10 @@
 	"gui.perspective.config.shaders.mode.game": "Game",
 
 	"gui.perspective.config.shaders.play_sound": "Play Sound: %s",
-	"gui.perspective.config.shaders.play_sound.hover": "Toggle Random Sound on Shader Cycle",
+	"gui.perspective.config.shaders.play_sound.hover": "Toggles whether a random sound should be played when cycling through shaders.",
 
 	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
-	"gui.perspective.config.shaders.show_name.hover": "Toggle Cycle Shaders Name Overlay",
+	"gui.perspective.config.shaders.show_name.hover": "Toggles whether the shader name is displayed when cycling through shaders.",
 
 	"gui.perspective.config.shaders.toggle": "Shaders: %s",
 	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
@@ -136,10 +136,13 @@
 	"gui.perspective.config.hide.hide_crosshair": "Hide Crosshair: %s",
 
 	"gui.perspective.config.hide.hide_armor": "Global Hide Armor: %s",
+	"gui.perspective.config.hide.hide_armor.hover": "Toggles whether player armor should be rendered.",
 
 	"gui.perspective.config.hide.hide_nametags": "Global Hide Nametags: %s",
+	"gui.perspective.config.hide.hide_nametags.hover": "Toggles whether entity nametags should be rendered.",
 
 	"gui.perspective.config.hide.hide_players": "Global Hide Players: %s",
+	"gui.perspective.config.hide.hide_players.hover": "Toggles whether other players should be rendered.",
 
 	"gui.perspective.config.hide.show_message": "Overlay Message: %s",
 

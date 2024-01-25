@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.config;
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Twin;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
 public class WarningsConfig {
@@ -41,7 +42,7 @@ public class WarningsConfig {
 	}
 
 	protected static void save() {
-		Data.VERSION.getLogger().info("{} Writing warning config to file.", Data.VERSION.getLoggerPrefix());
+		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing warning config to file.");
 		CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);
 		CONFIG_PROVIDER.setConfig("prank", PRANK);
 		CONFIG_PROVIDER.saveConfig(ID);

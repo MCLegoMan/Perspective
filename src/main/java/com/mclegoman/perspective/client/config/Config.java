@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.config;
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Twin;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
 public class Config {
@@ -143,7 +144,7 @@ public class Config {
 	}
 
 	protected static void save() {
-		Data.VERSION.getLogger().info("{} Writing config to file.", Data.VERSION.getLoggerPrefix());
+		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing config to file.");
 		CONFIG_PROVIDER.setConfig("zoom_level", ZOOM_LEVEL);
 		CONFIG_PROVIDER.setConfig("zoom_increment_size", ZOOM_INCREMENT_SIZE);
 		CONFIG_PROVIDER.setConfig("zoom_transition", ZOOM_TRANSITION);
