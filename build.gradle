@@ -13,7 +13,7 @@ base {
 }
 
 runClient.doFirst {
-	args = ['--username', "Perspective${new Random().nextInt(1000)}"]
+	args += ['--username', "Perspective${new Random().nextInt(1000)}"]
 }
 
 loom {
@@ -111,8 +111,19 @@ modrinth {
 		required.project "qsl"
 	}
 }
-
 tasks.register("uploadVersion") {
+	group = 'publishing'
+	description = 'Upload project to both GitHub and Modrinth.'
 	dependsOn(tasks.githubRelease)
 	dependsOn(tasks.modrinth)
+}
+tasks.register("quickPlaySingleplayer") {
+	group = 'quickPlay'
+	description = 'Uses Quick Play to join singleplayer world `New World` on launch.'
+	dependsOn(tasks.runClient.args(['--quickPlaySingleplayer', "New World"]))
+}
+tasks.register("quickPlayMultiplayer") {
+	group = 'quickPlay'
+	description = 'Uses Quick Play to join multiplayer server `localhost:25565` on launch.'
+	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', "localhost:25565"]))
 }
