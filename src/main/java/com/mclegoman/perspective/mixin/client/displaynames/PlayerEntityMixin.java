@@ -28,7 +28,7 @@ public abstract class PlayerEntityMixin {
 		if (!DisplayNamesDataLoader.REGISTRY.isEmpty()) {
 			for (Couple<UUID, Text> player : DisplayNamesDataLoader.REGISTRY) {
 				if (player.getFirst().equals(playerEntity.getGameProfile().getId())) {
-					args.set(1, Team.decorateName(((AbstractClientPlayerEntity)args.get(0)).getScoreboardTeam(), player.getSecond()));
+					args.set(1, Team.decorateName(playerEntity.getScoreboardTeam(), player.getSecond()));
 				}
 			}
 		}

@@ -24,11 +24,11 @@ import java.util.UUID;
 @Mixin(priority = 10000, value = PlayerListHud.class)
 public abstract class PlayerListHudMixin {
 	@Inject(method = "getPlayerName", at = @At(value = "RETURN"), cancellable = true)
-	private void perspective$getDisplayName(PlayerListEntry entry, CallbackInfoReturnable<Text> cir) {
+	private void perspective$getDisplayName(PlayerListEntry playerListEntry, CallbackInfoReturnable<Text> cir) {
 		if (!DisplayNamesDataLoader.REGISTRY.isEmpty()) {
 			for (Couple<UUID, Text> player : DisplayNamesDataLoader.REGISTRY) {
-				if (player.getFirst().equals(entry.getProfile().getId())) {
-					if (ClientData.CLIENT.world != null) cir.setReturnValue(Team.decorateName(entry.getScoreboardTeam(), player.getSecond()));
+				if (player.getFirst().equals(playerListEntry.getProfile().getId())) {
+					if (ClientData.CLIENT.world != null) cir.setReturnValue(Team.decorateName(playerListEntry.getScoreboardTeam(), player.getSecond()));
 				}
 			}
 		}
