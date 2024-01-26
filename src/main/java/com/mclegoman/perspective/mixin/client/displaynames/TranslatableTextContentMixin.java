@@ -46,18 +46,14 @@ public abstract class TranslatableTextContentMixin {
 							if (index != (this.args.length - 1)) {
 								if (ClientData.CLIENT.world != null) {
 									HoverEvent hoverEvent = ((Text) cir.getReturnValue()).getStyle().getHoverEvent();
-									Data.VERSION.sendToLog(Helper.LogType.INFO, "1");
 									if (hoverEvent != null && hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY) != null) {
-										Data.VERSION.sendToLog(Helper.LogType.INFO, "2");
 										if (Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).entityType == EntityType.PLAYER) {
-											Data.VERSION.sendToLog(Helper.LogType.INFO, "3");
 											List<AbstractClientPlayerEntity> players = ClientData.CLIENT.world.getPlayers();
 											UUID uuid = Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).uuid;
 											if (!players.isEmpty()) {
 												for (AbstractClientPlayerEntity playerEntity : players) {
 													for (Couple<UUID, Text> player : DisplayNamesDataLoader.REGISTRY) {
 														if (uuid.equals(player.getFirst())) {
-															Data.VERSION.sendToLog(Helper.LogType.INFO, "4");
 															cir.setReturnValue(Team.decorateName(playerEntity.getScoreboardTeam(), player.getSecond()).setStyle(((Text) cir.getReturnValue()).getStyle()));
 														}
 													}
