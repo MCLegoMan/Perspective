@@ -40,28 +40,28 @@ public abstract class TranslatableTextContentMixin {
 		try {
 			if (!DisplayNamesDataLoader.REGISTRY.isEmpty()) {
 				if (cir.getReturnValue() != null && cir.getReturnValue() instanceof Text) {
-					ClientPlayNetworkHandler networkHandler = ClientData.CLIENT.getNetworkHandler();
-					if (networkHandler != null) {
 						if (this.key.startsWith("chat.type")) {
-							if (index != (this.args.length - 1)) {
-								if (ClientData.CLIENT.world != null) {
-									HoverEvent hoverEvent = ((Text) cir.getReturnValue()).getStyle().getHoverEvent();
-									if (hoverEvent != null && hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY) != null) {
-										if (Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).entityType == EntityType.PLAYER) {
-											List<AbstractClientPlayerEntity> players = ClientData.CLIENT.world.getPlayers();
-											UUID uuid = Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).uuid;
-											if (!players.isEmpty()) {
-												for (AbstractClientPlayerEntity playerEntity : players) {
-													for (Couple<UUID, Text> player : DisplayNamesDataLoader.REGISTRY) {
-														if (uuid.equals(player.getFirst())) {
-															cir.setReturnValue(Team.decorateName(playerEntity.getScoreboardTeam(), player.getSecond()).setStyle(((Text) cir.getReturnValue()).getStyle()));
+							if (ClientData.CLIENT.world != null) {
+								HoverEvent hoverEvent = ((Text) cir.getReturnValue()).getStyle().getHoverEvent();
+								if (hoverEvent != null && hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY) != null) {
+									if (Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).entityType == EntityType.PLAYER) {
+										List<AbstractClientPlayerEntity> players = ClientData.CLIENT.world.getPlayers();
+										UUID uuid = Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).uuid;
+										Optional<Text> name = Objects.requireNonNull(hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY)).name;
+										if (!players.isEmpty()) {
+											for (AbstractClientPlayerEntity playerEntity : players) {
+												for (Couple<UUID, Text> player : DisplayNamesDataLoader.REGISTRY) {
+													if (uuid.equals(player.getFirst())) {
+														if (name.isPresent()) {
+															if (name.get().equals(Objects.requireNonNull(ClientData.CLIENT.world.getPlayerByUuid(uuid)).getName())) {
+																cir.setReturnValue(Team.decorateName(playerEntity.getScoreboardTeam(), player.getSecond()).setStyle(((Text) cir.getReturnValue()).getStyle()));
+															}
 														}
 													}
 												}
 											}
 										}
 									}
-								}
 							}
 						}
 					}
