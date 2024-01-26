@@ -14,7 +14,7 @@ import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.IdentifierHelper;
-import com.mclegoman.perspective.common.util.Triplet;
+import com.mclegoman.perspective.common.util.Triple;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -25,7 +25,7 @@ import java.util.*;
 public class Zoom {
 	public static final String[] zoomTransitions = new String[]{"smooth", "instant"};
 	public static final String[] zoomScaleModes = new String[]{"scaled", "vanilla"};
-	public static final List<Triplet<Identifier, Boolean, Runnable>> zoomTypes = new ArrayList<>();
+	public static final List<Triple<Identifier, Boolean, Runnable>> zoomTypes = new ArrayList<>();
 	public static boolean zoomInverted;
 	public static double fov;
 	public static double zoomFov;
@@ -33,11 +33,11 @@ public class Zoom {
 	public static double zoomMultiplier;
 	private static boolean zoomUpdated;
 	public static void addZoomType(Identifier identifier, boolean shouldLimitFOV, Runnable setZoomTypeMultiplierRunnable) {
-		Triplet<Identifier, Boolean, Runnable> zoomType = new Triplet<>(identifier, shouldLimitFOV, setZoomTypeMultiplierRunnable);
+		Triple<Identifier, Boolean, Runnable> zoomType = new Triple<>(identifier, shouldLimitFOV, setZoomTypeMultiplierRunnable);
 		if (!zoomTypes.contains(zoomType)) zoomTypes.add(zoomType);
 	}
-	public static Triplet<Identifier, Boolean, Runnable> getZoomType() {
-		for (Triplet<Identifier, Boolean, Runnable> zoomType : zoomTypes) {
+	public static Triple<Identifier, Boolean, Runnable> getZoomType() {
+		for (Triple<Identifier, Boolean, Runnable> zoomType : zoomTypes) {
 			if (zoomType.getFirst().toString().equals(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))) {
 				return zoomType;
 			}

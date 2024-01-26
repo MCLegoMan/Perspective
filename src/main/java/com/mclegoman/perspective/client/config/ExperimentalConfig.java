@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Twin;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 

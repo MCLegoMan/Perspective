@@ -9,7 +9,7 @@ package com.mclegoman.perspective.common.config;
 
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Twin;
+import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -20,11 +20,11 @@ import java.util.List;
 
 public class ConfigProvider implements SimpleConfig.DefaultConfig {
 	private String CONTENTS = "";
-	private List<Twin<String, ?>> CONFIG_LIST = new ArrayList<>();
-	public List<Twin<String, ?>> getConfigList() {
+	private List<Couple<String, ?>> CONFIG_LIST = new ArrayList<>();
+	public List<Couple<String, ?>> getConfigList() {
 		return CONFIG_LIST;
 	}
-	public void add(Twin<String, ?> keyValueSet) {
+	public void add(Couple<String, ?> keyValueSet) {
 		try {
 			CONFIG_LIST.add(keyValueSet);
 		} catch (Exception error) {
@@ -37,18 +37,18 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 	}
 	public void setContents(String ID) {
 		StringBuilder contents = new StringBuilder(Translation.getString("#{}.properties file\n", ID));
-		for (Twin<String, ?> option : CONFIG_LIST) {
+		for (Couple<String, ?> option : CONFIG_LIST) {
 			contents.append(option.getFirst()).append("=").append(option.getSecond()).append("\n");
 		}
 		CONTENTS = contents.toString();
 	}
 	public void setConfig(String KEY_NAME, Object KEY_VALUE) {
 		try {
-			List<Twin<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
-			for (Twin<String, ?> key : NEW_CONFIG_LIST) {
+			List<Couple<String, ?>> NEW_CONFIG_LIST = this.CONFIG_LIST;
+			for (Couple<String, ?> key : NEW_CONFIG_LIST) {
 				int KEY_INDEX = NEW_CONFIG_LIST.indexOf(key);
 				if (key.getFirst().equals(KEY_NAME)) {
-					NEW_CONFIG_LIST.set(KEY_INDEX, new Twin<>(KEY_NAME, KEY_VALUE));
+					NEW_CONFIG_LIST.set(KEY_INDEX, new Couple<>(KEY_NAME, KEY_VALUE));
 				}
 			}
 			CONFIG_LIST = NEW_CONFIG_LIST;

@@ -7,14 +7,11 @@
 
 package com.mclegoman.perspective.common.util;
 
-public record Triplet<a, b, c>(a first, b second, c third) {
+public record Couple<a, b>(a first, b second) {
 	public a getFirst() {
 		return first;
 	}
 	public b getSecond() {
 		return second;
-	}
-	public c getThird() {
-		return third;
 	}
 }

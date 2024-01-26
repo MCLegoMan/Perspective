@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -29,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+	protected static boolean isReloading;
 	public static final List<List<Object>> REGISTRY = new ArrayList<>();
 	public static final List<String> DUPLICATED_NAMES = new ArrayList<>();
 	public static final String ID = "shaders/shaders";
@@ -137,22 +137,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			releaseShaders();
 			prepared.forEach((identifier, jsonElement) -> layout$perspective(identifier, jsonElement, manager));
 			layout$souper_secret_settings(manager);
-			boolean saveConfig;
-			if (Shader.updateLegacyConfig) {
-				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
-				}
-				Shader.updateLegacyConfig = false;
-			}
-			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
-				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
-				saveConfig = false;
-			} else {
-				Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, REGISTRY.size() - 1);
-				saveConfig = true;
-			}
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
-				Shader.set(true, false, false, saveConfig);
 			List<String> ALL_NAMES = new ArrayList<>();
 			for (List<Object> registry : REGISTRY) {
 				if (!ALL_NAMES.contains((String) registry.get(1))) ALL_NAMES.add((String) registry.get(1));
@@ -161,6 +145,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 						DUPLICATED_NAMES.add((String) registry.get(1));
 				}
 			}
+			isReloading = true;
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.VERSION.getID(), error);
 		}

@@ -19,7 +19,7 @@ import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Twin;
+import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
@@ -151,7 +151,7 @@ public class ConfigHelper {
 				}
 				saveConfig(false);
 			}
-			fixConfig();
+			fixConfig(true);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to update config!");
 		}
@@ -159,7 +159,7 @@ public class ConfigHelper {
 	}
 	public static void saveConfig(boolean onTick) {
 		try {
-			fixConfig();
+			fixConfig(false);
 			if (onTick) {
 				SAVING = true;
 				SAVE_VIA_TICK = true;
@@ -175,7 +175,7 @@ public class ConfigHelper {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to save config!");
 		}
 	}
-	public static void fixConfig() {
+	public static void fixConfig(boolean saveConfig) {
 		if (ClientData.isFinishedInitializing()) {
 			if ((int) getConfig(ConfigType.NORMAL, "zoom_level") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_level") > 100) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_level was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_level") + ")");
@@ -197,9 +197,12 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_type") + ")");
 				setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
 			}
-			if (!Shader.isShaderAvailable(Shader.getShaderValue((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader")))) {
-				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
-				setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+			if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
+				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader") + ")");
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+				if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
+					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
+				}
 			}
 			if (!Arrays.stream(Shader.shaderModes).toList().contains((String) getConfig(ConfigType.NORMAL, "super_secret_settings_mode"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
@@ -217,6 +220,7 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
 				setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
 			}
+			if (saveConfig) saveConfig(true);
 		}
 	}
 	public static void resetConfig() {
@@ -513,22 +517,22 @@ public class ConfigHelper {
 	public static List<Object> getDebugConfigText() {
 		List<Object> text = new ArrayList<>();
 		text.add(Text.literal(Config.ID).formatted(Formatting.BOLD));
-		for (Twin<String, ?> twin : Config.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
+		for (Couple<String, ?> couple : Config.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		if (EXPERIMENTS_AVAILABLE) {
 			text.add("\n");
 			text.add(Text.literal(ExperimentalConfig.ID).formatted(Formatting.BOLD));
-			for (Twin<String, ?> twin : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
-				text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
+			for (Couple<String, ?> couple : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
+				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}
 		text.add("\n");
 		text.add(Text.literal(TutorialsConfig.ID).formatted(Formatting.BOLD));
-		for (Twin<String, ?> twin : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
+		for (Couple<String, ?> couple : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		text.add("\n");
 		text.add(Text.literal(WarningsConfig.ID).formatted(Formatting.BOLD));
-		for (Twin<String, ?> twin : WarningsConfig.CONFIG_PROVIDER.getConfigList())
-			text.add(Text.literal(twin.getFirst() + ": " + twin.getSecond()));
+		for (Couple<String, ?> couple : WarningsConfig.CONFIG_PROVIDER.getConfigList())
+			text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		return text;
 	}
 	public enum ConfigType {

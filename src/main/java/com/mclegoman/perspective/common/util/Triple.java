@@ -7,11 +7,14 @@
 
 package com.mclegoman.perspective.common.util;
 
-public record Twin<a, b>(a first, b second) {
+public record Triple<a, b, c>(a first, b second, c third) {
 	public a getFirst() {
 		return first;
 	}
 	public b getSecond() {
 		return second;
+	}
+	public c getThird() {
+		return third;
 	}
 }

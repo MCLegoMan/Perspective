@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Twin;
+import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
@@ -66,42 +66,42 @@ public class Config {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Twin<>("zoom_level", ConfigDataLoader.ZOOM_LEVEL));
-		CONFIG_PROVIDER.add(new Twin<>("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE));
-		CONFIG_PROVIDER.add(new Twin<>("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION));
-		CONFIG_PROVIDER.add(new Twin<>("zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE));
-		CONFIG_PROVIDER.add(new Twin<>("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD));
-		CONFIG_PROVIDER.add(new Twin<>("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
-		CONFIG_PROVIDER.add(new Twin<>("zoom_type", ConfigDataLoader.ZOOM_TYPE));
-		CONFIG_PROVIDER.add(new Twin<>("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
-		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER));
-		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
-		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
-		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
-		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN));
-		CONFIG_PROVIDER.add(new Twin<>("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
-		CONFIG_PROVIDER.add(new Twin<>("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY));
-		CONFIG_PROVIDER.add(new Twin<>("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY));
-		CONFIG_PROVIDER.add(new Twin<>("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS));
-		CONFIG_PROVIDER.add(new Twin<>("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS));
-		CONFIG_PROVIDER.add(new Twin<>("position_overlay", ConfigDataLoader.POSITION_OVERLAY));
-		CONFIG_PROVIDER.add(new Twin<>("version_overlay", ConfigDataLoader.VERSION_OVERLAY));
-		CONFIG_PROVIDER.add(new Twin<>("force_pride", ConfigDataLoader.FORCE_PRIDE));
-		CONFIG_PROVIDER.add(new Twin<>("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE));
-		CONFIG_PROVIDER.add(new Twin<>("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
-		CONFIG_PROVIDER.add(new Twin<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
-		CONFIG_PROVIDER.add(new Twin<>("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN));
-		CONFIG_PROVIDER.add(new Twin<>("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE));
-		CONFIG_PROVIDER.add(new Twin<>("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR));
-		CONFIG_PROVIDER.add(new Twin<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
-		CONFIG_PROVIDER.add(new Twin<>("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS));
-		CONFIG_PROVIDER.add(new Twin<>("hide_players", ConfigDataLoader.HIDE_PLAYERS));
-		CONFIG_PROVIDER.add(new Twin<>("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE));
-		CONFIG_PROVIDER.add(new Twin<>("tutorials", ConfigDataLoader.TUTORIALS));
-		CONFIG_PROVIDER.add(new Twin<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
-		CONFIG_PROVIDER.add(new Twin<>("debug", ConfigDataLoader.DEBUG));
-		CONFIG_PROVIDER.add(new Twin<>("test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK));
-		CONFIG_PROVIDER.add(new Twin<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_level", ConfigDataLoader.ZOOM_LEVEL));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_transition", ConfigDataLoader.ZOOM_TRANSITION));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE));
+		CONFIG_PROVIDER.add(new Couple<>("zoom_type", ConfigDataLoader.ZOOM_TYPE));
+		CONFIG_PROVIDER.add(new Couple<>("hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
+		CONFIG_PROVIDER.add(new Couple<>("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY));
+		CONFIG_PROVIDER.add(new Couple<>("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY));
+		CONFIG_PROVIDER.add(new Couple<>("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS));
+		CONFIG_PROVIDER.add(new Couple<>("force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS));
+		CONFIG_PROVIDER.add(new Couple<>("position_overlay", ConfigDataLoader.POSITION_OVERLAY));
+		CONFIG_PROVIDER.add(new Couple<>("version_overlay", ConfigDataLoader.VERSION_OVERLAY));
+		CONFIG_PROVIDER.add(new Couple<>("force_pride", ConfigDataLoader.FORCE_PRIDE));
+		CONFIG_PROVIDER.add(new Couple<>("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE));
+		CONFIG_PROVIDER.add(new Couple<>("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
+		CONFIG_PROVIDER.add(new Couple<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
+		CONFIG_PROVIDER.add(new Couple<>("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN));
+		CONFIG_PROVIDER.add(new Couple<>("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE));
+		CONFIG_PROVIDER.add(new Couple<>("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR));
+		CONFIG_PROVIDER.add(new Couple<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
+		CONFIG_PROVIDER.add(new Couple<>("hide_nametags", ConfigDataLoader.HIDE_NAMETAGS));
+		CONFIG_PROVIDER.add(new Couple<>("hide_players", ConfigDataLoader.HIDE_PLAYERS));
+		CONFIG_PROVIDER.add(new Couple<>("hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE));
+		CONFIG_PROVIDER.add(new Couple<>("tutorials", ConfigDataLoader.TUTORIALS));
+		CONFIG_PROVIDER.add(new Couple<>("detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL));
+		CONFIG_PROVIDER.add(new Couple<>("debug", ConfigDataLoader.DEBUG));
+		CONFIG_PROVIDER.add(new Couple<>("test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK));
+		CONFIG_PROVIDER.add(new Couple<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
 	}
 
 	protected static void assign() {

@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.shaders;
 
+import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
@@ -54,7 +55,6 @@ public class Shader {
 			Data.VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	public static void tick() {
 		if (shouldRenderShader()) {
 			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen")) showToasts();
@@ -63,6 +63,30 @@ public class Shader {
 			}
 		}
 		checkKeybindings();
+		if (ShaderDataLoader.isReloading && ClientData.isFinishedInitializing()) {
+			boolean saveConfig;
+			if (Shader.updateLegacyConfig) {
+				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
+				}
+				Shader.updateLegacyConfig = false;
+			}
+			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
+				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
+				saveConfig = false;
+			} else {
+				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader") + ")");
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+				if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
+					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
+				}
+				saveConfig = true;
+			}
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
+				Shader.set(true, false, false, false);
+			if (saveConfig) ConfigHelper.saveConfig(true);
+			ShaderDataLoader.isReloading = false;
+		}
 	}
 
 	public static void checkKeybindings() {
