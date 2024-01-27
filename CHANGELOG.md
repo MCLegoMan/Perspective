@@ -16,8 +16,10 @@
         - You can use `Zoom.getZoomLevel()` to get the current zoom percentage.  
         - This example shows how you can make the zoom multiplier type linear: `setMultiplier(1 - ((float) Zoom.getZoomLevel() / 100))`  
 - **Invalid config values are reset after client initialization.**  
-- **Added custom display names.**  
-  - This allows resource packs to change the displayname of any player in their nametag and player list.  
+
+**Experimental:**  
+- **Added DisplayNames experiment.**  
+  - When enabled, resource packs can change the displayname of any player in their nametag and player list.  
     - The dataloader should be located at `/assets/<namespace>/displaynames/<username>.json` in your resource pack.  
       - This dataloader should have two values `uuid`, and `displayname`.  
         - You can find your player uuid using Mojang's API through services such as: [MCUUID](https://mcuuid.net/) or [NameMC](https://namemc.com/).  

@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.config;
 
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
 
@@ -16,6 +17,7 @@ public class ExperimentalConfig {
 	protected static final String ID = Data.VERSION.getID() + "-experimental";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
+	protected static boolean DISPLAYNAMES;
 
 	protected static void init() {
 		try {
@@ -29,14 +31,17 @@ public class ExperimentalConfig {
 	}
 
 	protected static void create() {
+		CONFIG_PROVIDER.add(new Couple<>("displaynames", false));
 	}
 
 	protected static void assign() {
+		DISPLAYNAMES = CONFIG.getOrDefault("displaynames", false);
 	}
 
 	protected static void save() {
 		if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
+			CONFIG_PROVIDER.setConfig("displaynames", DISPLAYNAMES);
 			CONFIG_PROVIDER.saveConfig(ID);
 		}
 	}

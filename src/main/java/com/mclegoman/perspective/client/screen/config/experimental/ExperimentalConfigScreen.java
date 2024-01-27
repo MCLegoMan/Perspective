@@ -9,10 +9,13 @@ package com.mclegoman.perspective.client.screen.config.experimental;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.displaynames.DisplayNames;
 import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -80,6 +83,10 @@ public class ExperimentalConfigScreen extends Screen {
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true), 2);
 		GRID_ADDER.add(new EmptyWidget(4, 4), 2);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.displaynames", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames", !(boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames"));
+			this.REFRESH = true;
+		}).width(304).build(), 2);
 		return GRID;
 	}
 

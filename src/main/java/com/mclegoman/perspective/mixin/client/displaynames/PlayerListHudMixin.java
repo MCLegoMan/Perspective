@@ -7,9 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.displaynames;
 
-import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.displaynames.DisplayNamesDataLoader;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.displaynames.DisplayNames;
 import net.minecraft.client.gui.hud.PlayerListHud;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.scoreboard.Team;
@@ -19,18 +18,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.UUID;
-
 @Mixin(priority = 10000, value = PlayerListHud.class)
 public abstract class PlayerListHudMixin {
 	@Inject(method = "getPlayerName", at = @At(value = "RETURN"), cancellable = true)
 	private void perspective$getDisplayName(PlayerListEntry playerListEntry, CallbackInfoReturnable<Text> cir) {
-		if (!DisplayNamesDataLoader.REGISTRY.isEmpty()) {
-			for (Couple<UUID, Text> player : DisplayNamesDataLoader.REGISTRY) {
-				if (player.getFirst().equals(playerListEntry.getProfile().getId())) {
-					if (ClientData.CLIENT.world != null) cir.setReturnValue(Team.decorateName(playerListEntry.getScoreboardTeam(), player.getSecond()));
-				}
-			}
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames")) {
+			cir.setReturnValue(Team.decorateName(playerListEntry.getScoreboardTeam(), DisplayNames.getDisplayName(playerListEntry.getProfile().getId())));
 		}
 	}
 }

@@ -163,7 +163,7 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
-	"gui.perspective.config.experimental.option": "%s: %s",
+	"gui.perspective.config.experimental.displaynames": "DisplayNames: %s",
 
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.back": "Back",
