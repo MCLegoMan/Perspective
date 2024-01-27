@@ -10,6 +10,7 @@
 		"client.developer.LivingEntityRendererMixin",
 		"client.displaynames.PlayerEntityMixin",
 		"client.displaynames.PlayerListHudMixin",
+		"client.displaynames.TextTranslationMixin",
 		"client.hide.ArmorFeatureRendererMixin",
 		"client.hide.GameRendererMixin",
 		"client.hide.InGameHudMixin",
