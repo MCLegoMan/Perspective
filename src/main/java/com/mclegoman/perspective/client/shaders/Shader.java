@@ -71,18 +71,7 @@ public class Shader {
 				}
 				Shader.updateLegacyConfig = false;
 			}
-			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
-				Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
-				saveConfig = false;
-			} else {
-				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader") + ")");
-				if (Shader.isShaderAvailable(ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER)) ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
-				else ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getShaderName(0));
-				if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
-					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
-				}
-				saveConfig = true;
-			}
+			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				Shader.set(true, false, false, false);
 			if (saveConfig) ConfigHelper.saveConfig();
