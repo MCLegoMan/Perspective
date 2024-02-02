@@ -76,7 +76,7 @@ public class ConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE, CHECK_FOR_UPDATES));
 			}
 			if (this.SHOULD_CLOSE) {
-				ConfigHelper.saveConfig(false);
+				ConfigHelper.saveConfig();
 				if (this.CHECK_FOR_UPDATES) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(PARENT_SCREEN));
 				else ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}

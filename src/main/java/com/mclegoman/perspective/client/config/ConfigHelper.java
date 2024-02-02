@@ -42,10 +42,11 @@ public class ConfigHelper {
 	private static boolean SEEN_DOWNGRADE_WARNING = false;
 	private static boolean SHOW_LICENSE_UPDATE_NOTICE = false;
 	private static boolean SEEN_LICENSE_UPDATE_NOTICE = false;
-	private static boolean SAVING = false;
 	private static boolean UPDATED_CONFIG = false;
+	private static boolean SAVING_CONFIG = false;
+	private static final List<ConfigType> saveConfigs = new ArrayList<>();
 	public static boolean isSaving() {
-		return SAVING;
+		return SAVING_CONFIG;
 	}
 	public static void init() {
 		try {
@@ -72,10 +73,11 @@ public class ConfigHelper {
 				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1, false));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
 			else {
+				fixConfig(false);
 				if (SAVE_VIA_TICK) {
-					saveConfig(false);
+					for (ConfigType configType : saveConfigs) saveConfig(configType);
 					SAVE_VIA_TICK = false;
-					SAVING = false;
+					SAVING_CONFIG = false;
 				}
 				SAVE_VIA_TICK_TICKS = 0;
 			}
@@ -149,7 +151,7 @@ public class ConfigHelper {
 						SHOW_DOWNGRADE_WARNING = true;
 					}
 				}
-				saveConfig(false);
+				saveConfig();
 			}
 			fixConfig(true);
 		} catch (Exception error) {
@@ -157,22 +159,25 @@ public class ConfigHelper {
 		}
 		UPDATED_CONFIG = true;
 	}
-	public static void saveConfig(boolean onTick) {
+	private static void saveConfig(ConfigType config) {
 		try {
-			fixConfig(false);
-			if (onTick) {
-				SAVING = true;
-				SAVE_VIA_TICK = true;
-			} else {
-				SAVING = true;
-				Config.save();
-				ExperimentalConfig.save();
-				TutorialsConfig.save();
-				WarningsConfig.save();
-				SAVING = false;
+			SAVING_CONFIG = true;
+			switch (config) {
+				case NORMAL -> Config.save();
+				case EXPERIMENTAL -> ExperimentalConfig.save();
+				case TUTORIAL -> TutorialsConfig.save();
+				case WARNING -> WarningsConfig.save();
 			}
+			SAVING_CONFIG = false;
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to save config!");
+		}
+	}
+	public static void saveConfig() {
+		try {
+			SAVE_VIA_TICK = true;
+		} catch (Exception error) {
+			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to set config tick save!");
 		}
 	}
 	public static void fixConfig(boolean saveConfig) {
@@ -220,7 +225,7 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
 				setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
 			}
-			if (saveConfig) saveConfig(true);
+			if (saveConfig) saveConfig();
 		}
 	}
 	public static void resetConfig() {
@@ -278,80 +283,203 @@ public class ConfigHelper {
 	}
 	public static boolean setConfig(ConfigType CONFIG_TYPE, String ID, Object VALUE) {
 		try {
+			boolean configChanged;
 			switch (CONFIG_TYPE) {
 				case NORMAL -> {
 					switch (ID) {
-						case "zoom_level" -> Config.ZOOM_LEVEL = MathHelper.clamp((int) VALUE, 0, 100);
-						case "zoom_increment_size" -> Config.ZOOM_INCREMENT_SIZE = MathHelper.clamp((int) VALUE, 1, 10);
-						case "zoom_transition" -> Config.ZOOM_TRANSITION = (String) VALUE;
-						case "zoom_scale_mode" -> Config.ZOOM_SCALE_MODE = (String) VALUE;
-						case "zoom_hide_hud" -> Config.ZOOM_HIDE_HUD = (boolean) VALUE;
-						case "zoom_show_percentage" -> Config.ZOOM_SHOW_PERCENTAGE = (boolean) VALUE;
-						case "zoom_type" -> Config.ZOOM_TYPE = (String) VALUE;
-						case "hold_perspective_hide_hud" -> Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean) VALUE;
-						case "super_secret_settings_shader" -> Config.SUPER_SECRET_SETTINGS_SHADER = (String) VALUE;
-						case "super_secret_settings_mode" -> Config.SUPER_SECRET_SETTINGS_MODE = (String) VALUE;
-						case "super_secret_settings_enabled" -> Config.SUPER_SECRET_SETTINGS_ENABLED = (boolean) VALUE;
-						case "super_secret_settings_sound" -> Config.SUPER_SECRET_SETTINGS_SOUND = (boolean) VALUE;
-						case "super_secret_settings_options_screen" ->
-								Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean) VALUE;
-						case "super_secret_settings_show_name" -> Config.SUPER_SECRET_SETTINGS_SHOW_NAME = (boolean) VALUE;
-						case "textured_named_entity" -> Config.TEXTURED_NAMED_ENTITY = (boolean) VALUE;
-						case "textured_random_entity" -> Config.TEXTURED_RANDOM_ENTITY = (boolean) VALUE;
-						case "allow_april_fools" -> Config.ALLOW_APRIL_FOOLS = (boolean) VALUE;
-						case "force_april_fools" -> Config.FORCE_APRIL_FOOLS = (boolean) VALUE;
-						case "position_overlay" -> Config.POSITION_OVERLAY = (boolean) VALUE;
-						case "version_overlay" -> Config.VERSION_OVERLAY = (boolean) VALUE;
-						case "force_pride" -> Config.FORCE_PRIDE = (boolean) VALUE;
-						case "force_pride_type" -> Config.FORCE_PRIDE_TYPE = (boolean) VALUE;
-						case "force_pride_type_index" ->
-								Config.FORCE_PRIDE_TYPE_INDEX = MathHelper.clamp((int) VALUE, 0, ClientData.PRIDE_LOGOS.length);
-						case "show_death_coordinates" -> Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
-						case "dirt_title_screen" -> Config.DIRT_TITLE_SCREEN = (boolean) VALUE;
-						case "hide_block_outline" -> Config.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
-						case "hide_crosshair" -> Config.HIDE_CROSSHAIR = (String) VALUE;
-						case "hide_armor" -> Config.HIDE_ARMOR = (boolean) VALUE;
-						case "hide_nametags" -> Config.HIDE_NAMETAGS = (boolean) VALUE;
-						case "hide_players" -> Config.HIDE_PLAYERS = (boolean) VALUE;
-						case "hide_show_message" -> Config.HIDE_SHOW_MESSAGE = (boolean) VALUE;
-						case "tutorials" -> Config.TUTORIALS = (boolean) VALUE;
-						case "detect_update_channel" -> Config.DETECT_UPDATE_CHANNEL = (String) VALUE;
-						case "debug" -> Config.DEBUG = (boolean) VALUE;
-						case "test_resource_pack" -> Config.TEST_RESOURCE_PACK = (boolean) VALUE;
-						case "config_version" -> Config.CONFIG_VERSION = (int) VALUE;
+						case "zoom_level" -> {
+							Config.ZOOM_LEVEL = MathHelper.clamp((int) VALUE, 0, 100);
+							configChanged = true;
+						}
+						case "zoom_increment_size" -> {
+							Config.ZOOM_INCREMENT_SIZE = MathHelper.clamp((int) VALUE, 1, 10);
+							configChanged = true;
+						}
+						case "zoom_transition" -> {
+							Config.ZOOM_TRANSITION = (String) VALUE;
+							configChanged = true;
+						}
+						case "zoom_scale_mode" -> {
+							Config.ZOOM_SCALE_MODE = (String) VALUE;
+							configChanged = true;
+						}
+						case "zoom_hide_hud" -> {
+							Config.ZOOM_HIDE_HUD = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "zoom_show_percentage" -> {
+							Config.ZOOM_SHOW_PERCENTAGE = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "zoom_type" -> {
+							Config.ZOOM_TYPE = (String) VALUE;
+							configChanged = true;
+						}
+						case "hold_perspective_hide_hud" -> {
+							Config.HOLD_PERSPECTIVE_HIDE_HUD = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "super_secret_settings_shader" -> {
+							Config.SUPER_SECRET_SETTINGS_SHADER = (String) VALUE;
+							configChanged = true;
+						}
+						case "super_secret_settings_mode" -> {
+							Config.SUPER_SECRET_SETTINGS_MODE = (String) VALUE;
+							configChanged = true;
+						}
+						case "super_secret_settings_enabled" -> {
+							Config.SUPER_SECRET_SETTINGS_ENABLED = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "super_secret_settings_sound" -> {
+							Config.SUPER_SECRET_SETTINGS_SOUND = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "super_secret_settings_options_screen" -> {
+							Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "super_secret_settings_show_name" -> {
+							Config.SUPER_SECRET_SETTINGS_SHOW_NAME = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "textured_named_entity" -> {
+							Config.TEXTURED_NAMED_ENTITY = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "textured_random_entity" -> {
+							Config.TEXTURED_RANDOM_ENTITY = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "allow_april_fools" -> {
+							Config.ALLOW_APRIL_FOOLS = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "force_april_fools" -> {
+							Config.FORCE_APRIL_FOOLS = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "position_overlay" -> {
+							Config.POSITION_OVERLAY = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "version_overlay" -> {
+							Config.VERSION_OVERLAY = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "force_pride" -> {
+							Config.FORCE_PRIDE = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "force_pride_type" -> {
+							Config.FORCE_PRIDE_TYPE = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "force_pride_type_index" -> {
+							Config.FORCE_PRIDE_TYPE_INDEX = MathHelper.clamp((int) VALUE, 0, ClientData.PRIDE_LOGOS.length);
+							configChanged = true;
+						}
+						case "show_death_coordinates" -> {
+							Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "dirt_title_screen" -> {
+							Config.DIRT_TITLE_SCREEN = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "hide_block_outline" -> {
+							Config.HIDE_BLOCK_OUTLINE = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "hide_crosshair" -> {
+							Config.HIDE_CROSSHAIR = (String) VALUE;
+							configChanged = true;
+						}
+						case "hide_armor" -> {
+							Config.HIDE_ARMOR = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "hide_nametags" -> {
+							Config.HIDE_NAMETAGS = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "hide_players" -> {
+							Config.HIDE_PLAYERS = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "hide_show_message" -> {
+							Config.HIDE_SHOW_MESSAGE = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "tutorials" -> {
+							Config.TUTORIALS = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "detect_update_channel" -> {
+							Config.DETECT_UPDATE_CHANNEL = (String) VALUE;
+							configChanged = true;
+						}
+						case "debug" -> {
+							Config.DEBUG = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "test_resource_pack" -> {
+							Config.TEST_RESOURCE_PACK = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "config_version" -> {
+							Config.CONFIG_VERSION = (int) VALUE;
+							configChanged = true;
+						}
 						default -> {
 							Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", ID));
 							return false;
 						}
 					}
+					if (configChanged) saveConfig(ConfigType.NORMAL);
 				}
 				case EXPERIMENTAL -> {
 					switch (ID) {
-						case "displaynames" -> ExperimentalConfig.DISPLAYNAMES = (Boolean) VALUE;
+						case "displaynames" -> {
+							ExperimentalConfig.DISPLAYNAMES = (Boolean) VALUE;
+							configChanged = true;
+						}
 						default -> {
 							Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
 							return false;
 						}
 					}
+					if (configChanged) saveConfig(ConfigType.EXPERIMENTAL);
 				}
 				case TUTORIAL -> {
 					switch (ID) {
-						case "super_secret_settings" -> TutorialsConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
+						case "super_secret_settings" -> {
+							TutorialsConfig.SUPER_SECRET_SETTINGS = (Boolean) VALUE;
+							configChanged = true;
+						}
 						default -> {
 							Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", ID));
 							return false;
 						}
 					}
+					if (configChanged) saveConfig(ConfigType.TUTORIAL);
 				}
 				case WARNING -> {
 					switch (ID) {
-						case "photosensitivity" -> WarningsConfig.PHOTOSENSITIVITY = (boolean) VALUE;
-						case "prank" -> WarningsConfig.PRANK = (boolean) VALUE;
+						case "photosensitivity" -> {
+							WarningsConfig.PHOTOSENSITIVITY = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "prank" -> {
+							WarningsConfig.PRANK = (boolean) VALUE;
+							configChanged = true;
+						}
 						default -> {
 							Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
 							return false;
 						}
 					}
+					if (configChanged) saveConfig(ConfigType.WARNING);
 				}
 				default -> {
 					Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", ID));

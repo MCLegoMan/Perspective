@@ -76,7 +76,8 @@ public class Shader {
 				saveConfig = false;
 			} else {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader") + ")");
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+				if (Shader.isShaderAvailable(ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER)) ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+				else ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getShaderName(0));
 				if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
 					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
 				}
@@ -84,7 +85,7 @@ public class Shader {
 			}
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				Shader.set(true, false, false, false);
-			if (saveConfig) ConfigHelper.saveConfig(true);
+			if (saveConfig) ConfigHelper.saveConfig();
 			ShaderDataLoader.isReloading = false;
 		}
 	}
@@ -110,7 +111,7 @@ public class Shader {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity", true);
 			save = true;
 		}
-		if (save) ConfigHelper.saveConfig(true);
+		if (save) ConfigHelper.saveConfig();
 	}
 
 	public static String getShaderName(int SHADER) {
@@ -162,7 +163,7 @@ public class Shader {
 		if (showShaderName) {
 			setOverlay(Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"), TranslationType.ENDISABLE));
 		}
-		if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
+		if (SAVE_CONFIG) ConfigHelper.saveConfig();
 	}
 
 	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
@@ -222,7 +223,7 @@ public class Shader {
 			}
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				toggle(true, false, true, false);
-			if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
+			if (SAVE_CONFIG) ConfigHelper.saveConfig();
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 			try {
@@ -238,7 +239,7 @@ public class Shader {
 				} catch (Exception ignored2) {
 				}
 			}
-			if (SAVE_CONFIG) ConfigHelper.saveConfig(true);
+			if (SAVE_CONFIG) ConfigHelper.saveConfig();
 		}
 		DEPTH_FIX = false;
 	}

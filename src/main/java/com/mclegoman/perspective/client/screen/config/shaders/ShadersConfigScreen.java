@@ -66,7 +66,7 @@ public class ShadersConfigScreen extends Screen {
 				ClientData.CLIENT.setScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false));
 			}
 			if (this.SHOULD_CLOSE) {
-				if (this.SAVE_ON_CLOSE) ConfigHelper.saveConfig(false);
+				if (this.SAVE_ON_CLOSE) ConfigHelper.saveConfig();
 				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {

@@ -23,7 +23,7 @@ public class HUDHelper {
 		}
 		if (Keybindings.TOGGLE_POSITION_OVERLAY.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
-			ConfigHelper.saveConfig(true);
+			ConfigHelper.saveConfig();
 		}
 	}
 	public static boolean shouldHideHUD() {

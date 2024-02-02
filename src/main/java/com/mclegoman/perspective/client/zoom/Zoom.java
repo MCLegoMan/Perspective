@@ -52,7 +52,7 @@ public class Zoom {
 		try {
 			if (Keybindings.TOGGLE_ZOOM.wasPressed()) zoomInverted = !zoomInverted;
 			if (!isZooming() && zoomUpdated) {
-				ConfigHelper.saveConfig(true);
+				ConfigHelper.saveConfig();
 				zoomUpdated = false;
 			}
 		} catch (Exception error) {

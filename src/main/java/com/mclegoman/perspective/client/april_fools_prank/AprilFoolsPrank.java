@@ -49,7 +49,7 @@ public class AprilFoolsPrank {
 				}
 			}
 		}
-		if (shouldSave) ConfigHelper.saveConfig(false);
+		if (shouldSave) ConfigHelper.saveConfig();
 	}
 
 	public static boolean isAprilFools() {
