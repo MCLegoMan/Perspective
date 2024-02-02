@@ -166,6 +166,7 @@
 	"gui.perspective.config.experimental.displaynames": "DisplayNames: %s",
 
 	"gui.perspective.config.reset": "Reset to Default",
+	"gui.perspective.config.reset.experiments": "Disable Experiments",
 	"gui.perspective.config.back": "Back",
 	"gui.perspective.config.next": "Next",
 
