@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Objects;
+
 @Mixin(priority = 10000, value = Mouse.class)
 public abstract class MouseMixin {
 	@Shadow
@@ -51,8 +53,8 @@ public abstract class MouseMixin {
 		}
 	}
 	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
-	private void perspective$updateMouse(double timeDelta, CallbackInfo ci) {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
+	private void perspective$updateMouse(CallbackInfo ci) {
+		if (Objects.equals(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode"), "scaled")) {
 			this.cursorDeltaX *= Math.max(Zoom.zoomMultiplier, 0.001);
 			this.cursorDeltaY *= Math.max(Zoom.zoomMultiplier, 0.001);
 		}

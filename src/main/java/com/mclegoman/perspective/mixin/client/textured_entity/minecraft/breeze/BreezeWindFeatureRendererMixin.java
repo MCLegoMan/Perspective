@@ -26,7 +26,7 @@ public class BreezeWindFeatureRendererMixin {
 	@Mutable
 	@Shadow
 	@Final
-	private static Identifier texture;
+	private Identifier texture;
 
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/mob/BreezeEntity;FFFFFF)V")
 	private void perspective$getTexture(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BreezeEntity breezeEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {

@@ -38,7 +38,7 @@ public abstract class InGameHudMixin {
 	private static Identifier CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE;
 
 	@Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
-	private void perspective$renderCrosshair(DrawContext context, float tickDelta, CallbackInfo ci) {
+	private void perspective$renderCrosshair(DrawContext context, CallbackInfo ci) {
 		if (ClientData.CLIENT.world != null) {
 			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("true")) || (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("dynamic"))) {
 				HitResult crosshairTarget = ClientData.CLIENT.crosshairTarget;

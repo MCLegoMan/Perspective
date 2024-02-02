@@ -30,7 +30,6 @@
 		"client.super_secret_settings.WorldRendererMixin",
 		"client.textured_entity.minecraft.EyesFeatureRendererMixin",
 		"client.textured_entity.minecraft.allay.AllayEntityRendererMixin",
-		"client.textured_entity.minecraft.armadillo.ArmadilloEntityRendererMixin",
 		"client.textured_entity.minecraft.armor_stand.ArmorStandEntityRendererMixin",
 		"client.textured_entity.minecraft.arrow.ArrowEntityRendererMixin",
 		"client.textured_entity.minecraft.axolotl.AxolotlEntityRendererMixin",

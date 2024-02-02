@@ -27,10 +27,9 @@ public class BreezeEyesFeatureRendererMixin {
 	@Mutable
 	@Shadow
 	@Final
-	private static RenderLayer TEXTURE;
-
+	private Identifier texture;
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/mob/BreezeEntity;FFFFFF)V")
 	private void perspective$getTexture(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BreezeEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-		TEXTURE = RenderLayer.getEntityTranslucentEmissiveNoOutline(TexturedEntity.getTexture(entity, "minecraft:breeze", "_eyes", new Identifier("textures/entity/breeze/breeze_eyes.png")));
+		texture = TexturedEntity.getTexture(entity, "minecraft:breeze", "_eyes", new Identifier("textures/entity/breeze/breeze_eyes.png"));
 	}
 }

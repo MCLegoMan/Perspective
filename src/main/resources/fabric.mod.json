@@ -33,7 +33,7 @@
   ],
   "depends": {
     "minecraft": [
-      "~1.20.5-alpha"
+      "1.20.4"
     ],
     "fabric-resource-loader-v0": "*",
     "fabric-key-binding-api-v1": "*",
