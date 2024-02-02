@@ -8,6 +8,8 @@
 package com.mclegoman.perspective.client.hud;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.hide.Hide;
+import com.mclegoman.perspective.client.hide.HideHudTypes;
 import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -24,11 +26,9 @@ public class HUDHelper {
 			ConfigHelper.saveConfig(true);
 		}
 	}
-
 	public static boolean shouldHideHUD() {
-		return (Zoom.isZooming() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud")) || (Perspective.isHoldingPerspective() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"));
+		return Hide.shouldHideHud(HideHudTypes.ZOOM) || Hide.shouldHideHud(HideHudTypes.HOLD_PERSPECTIVE);
 	}
-
 	public static int addY(int y) {
 		return y + 1 + 9;
 	}

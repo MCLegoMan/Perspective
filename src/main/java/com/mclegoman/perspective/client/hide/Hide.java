@@ -10,9 +10,11 @@ package com.mclegoman.perspective.client.hide;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
+import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,13 +28,11 @@ import java.util.UUID;
 
 public class Hide {
 	public static final String[] hideCrosshairModes = new String[]{"false", "dynamic", "true"};
-
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideArmorDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HidePlayerDataLoader());
 	}
-
 	public static void tick() {
 		if (Keybindings.TOGGLE_ARMOR.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor"));
@@ -60,7 +60,6 @@ public class Hide {
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 	}
-
 	public static boolean shouldHidePlayer(PlayerEntity player) {
 		if (ClientData.CLIENT.player != null) {
 			UUID uuid = player.getGameProfile().getId();
@@ -69,9 +68,15 @@ public class Hide {
 		}
 		return false;
 	}
-
 	public static String nextCrosshairMode() {
 		List<String> crosshairModes = Arrays.stream(hideCrosshairModes).toList();
 		return crosshairModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair")) ? hideCrosshairModes[(crosshairModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair")) + 1) % hideCrosshairModes.length] : hideCrosshairModes[0];
+	}
+	public static boolean shouldHideHud(HideHudTypes type) {
+		switch (type) {
+			case ZOOM -> {return Zoom.isZooming() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud");}
+			case HOLD_PERSPECTIVE -> {return Perspective.isHoldingPerspective() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud");}
+			default -> {return false;}
+		}
 	}
 }

@@ -269,6 +269,13 @@ public class ConfigHelper {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset config!");
 		}
 	}
+	public static void resetExperiments() {
+		try {
+			setConfig(ConfigType.EXPERIMENTAL, "displaynames", false);
+		} catch (Exception error) {
+			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset experiments!");
+		}
+	}
 	public static boolean setConfig(ConfigType CONFIG_TYPE, String ID, Object VALUE) {
 		try {
 			switch (CONFIG_TYPE) {
