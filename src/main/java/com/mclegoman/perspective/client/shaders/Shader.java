@@ -23,7 +23,6 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
@@ -65,6 +64,7 @@ public class Shader {
 		checkKeybindings();
 		if (ShaderDataLoader.isReloading && ClientData.isFinishedInitializing()) {
 			boolean saveConfig;
+			saveConfig = ConfigHelper.fixConfig(false);
 			if (Shader.updateLegacyConfig) {
 				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
 					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));

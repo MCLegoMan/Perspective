@@ -75,7 +75,10 @@ public class ConfigHelper {
 			else {
 				fixConfig(false);
 				if (SAVE_VIA_TICK) {
-					for (ConfigType configType : saveConfigs) saveConfig(configType);
+					for (ConfigType configType : saveConfigs) {
+						saveConfig(configType);
+					}
+					saveConfigs.clear();
 					SAVE_VIA_TICK = false;
 					SAVING_CONFIG = false;
 				}
@@ -173,6 +176,18 @@ public class ConfigHelper {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to save config!");
 		}
 	}
+	private static void addSaveConfig(ConfigType config) {
+		try {
+			switch (config) {
+				case NORMAL -> {if (!saveConfigs.contains(ConfigType.NORMAL)) saveConfigs.add(ConfigType.NORMAL);}
+				case EXPERIMENTAL -> {if (!saveConfigs.contains(ConfigType.EXPERIMENTAL)) saveConfigs.add(ConfigType.EXPERIMENTAL);}
+				case TUTORIAL -> {if (!saveConfigs.contains(ConfigType.TUTORIAL)) saveConfigs.add(ConfigType.TUTORIAL);}
+				case WARNING -> {if (!saveConfigs.contains(ConfigType.NORMAL)) saveConfigs.add(ConfigType.WARNING);}
+			}
+		} catch (Exception error) {
+			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to add save config!");
+		}
+	}
 	public static void saveConfig() {
 		try {
 			SAVE_VIA_TICK = true;
@@ -180,7 +195,7 @@ public class ConfigHelper {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to set config tick save!");
 		}
 	}
-	public static void fixConfig(boolean saveConfig) {
+	public static boolean fixConfig(boolean saveConfig) {
 		if (ClientData.isFinishedInitializing()) {
 			if ((int) getConfig(ConfigType.NORMAL, "zoom_level") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_level") > 100) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_level was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_level") + ")");
@@ -203,11 +218,11 @@ public class ConfigHelper {
 				setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
 			}
 			if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
-				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader") + ")");
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
-				if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) {
+				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader") + ")");
+				if (!Shader.isShaderAvailable(ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER)) {
 					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
-				}
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex));
+				} else Shader.superSecretSettingsIndex = Shader.getShaderValue(ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
 			}
 			if (!Arrays.stream(Shader.shaderModes).toList().contains((String) getConfig(ConfigType.NORMAL, "super_secret_settings_mode"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
@@ -225,8 +240,12 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
 				setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
 			}
-			if (saveConfig) saveConfig();
+			if (saveConfig) {
+				saveConfig();
+				return true;
+			}
 		}
+		return false;
 	}
 	public static void resetConfig() {
 		try {
@@ -436,7 +455,7 @@ public class ConfigHelper {
 							return false;
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.NORMAL);
+					if (configChanged) addSaveConfig(ConfigType.NORMAL);
 				}
 				case EXPERIMENTAL -> {
 					switch (ID) {
@@ -449,7 +468,7 @@ public class ConfigHelper {
 							return false;
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.EXPERIMENTAL);
+					if (configChanged) addSaveConfig(ConfigType.EXPERIMENTAL);
 				}
 				case TUTORIAL -> {
 					switch (ID) {
@@ -462,7 +481,7 @@ public class ConfigHelper {
 							return false;
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.TUTORIAL);
+					if (configChanged) addSaveConfig(ConfigType.TUTORIAL);
 				}
 				case WARNING -> {
 					switch (ID) {
@@ -479,7 +498,7 @@ public class ConfigHelper {
 							return false;
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.WARNING);
+					if (configChanged) addSaveConfig(ConfigType.WARNING);
 				}
 				default -> {
 					Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", ID));

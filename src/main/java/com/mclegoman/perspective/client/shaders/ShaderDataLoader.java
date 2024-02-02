@@ -42,11 +42,13 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		return DUPLICATED_NAMES.contains(name);
 	}
 	public static Object get(int SHADER, ShaderRegistryValue VALUE) {
-		List<Object> SHADER_MAP = REGISTRY.get(SHADER);
-		if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
-		if (VALUE.equals(ShaderRegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
-		if (VALUE.equals(ShaderRegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
-		if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
+		if (SHADER <= REGISTRY.size()) {
+			List<Object> SHADER_MAP = REGISTRY.get(SHADER);
+			if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
+			if (VALUE.equals(ShaderRegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
+			if (VALUE.equals(ShaderRegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
+			if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
+		}
 		return null;
 	}
 	private void add(String NAMESPACE, String SHADER_NAME, boolean DISABLE_SCREEN_MODE, ResourceManager manager) {

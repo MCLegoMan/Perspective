@@ -20,7 +20,8 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 		for (int i = 0; i <= ShaderDataLoader.getShaderAmount(); i++) {
 			this.addEntry(new ShaderListEntry(i));
 		}
-		this.setSelected(getEntry(Shader.superSecretSettingsIndex));
+		if (getEntryCount() <= Shader.superSecretSettingsIndex) this.setSelected(getEntry(Shader.superSecretSettingsIndex));
+		else this.setSelected(getEntry(0));
 		this.setFocused(true);
 		this.setScrollAmount(scrollAmount >= 0 ? scrollAmount : Shader.superSecretSettingsIndex * 27);
 	}
