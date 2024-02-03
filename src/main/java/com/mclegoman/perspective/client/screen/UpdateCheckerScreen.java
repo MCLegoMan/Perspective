@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
@@ -43,7 +43,7 @@ public class UpdateCheckerScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(false));
+			GRID_ADDER.add(ScreenHelper.createTitle(false));
 			GRID_ADDER.add(createUpdateChecker());
 			GRID.refreshPositions();
 			GRID.forEachChild(this::addDrawableChild);

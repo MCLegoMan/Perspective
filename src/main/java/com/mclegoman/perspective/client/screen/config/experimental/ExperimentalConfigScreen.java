@@ -9,13 +9,12 @@ package com.mclegoman.perspective.client.screen.config.experimental;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.displaynames.DisplayNames;
-import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
+import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
-import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -43,7 +42,7 @@ public class ExperimentalConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), false, "", true));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), false, "experimental", true));
 			if (ConfigHelper.EXPERIMENTS_AVAILABLE) GRID_ADDER.add(createExperiments());
 			else GRID_ADDER.add(createEmpty());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
@@ -95,8 +94,7 @@ public class ExperimentalConfigScreen extends Screen {
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset.experiments"), (button) -> {
-			ConfigHelper.resetExperiments();
-			REFRESH = true;
+			if (ConfigHelper.resetExperiments()) this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;

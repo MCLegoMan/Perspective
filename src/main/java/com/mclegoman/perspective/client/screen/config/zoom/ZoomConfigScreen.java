@@ -9,14 +9,14 @@ package com.mclegoman.perspective.client.screen.config.zoom;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.ScreenHelper;
+import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -43,7 +43,7 @@ public class ZoomConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new ZoomConfigScreen(PARENT_SCREEN, true), true, "zoom", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new ZoomConfigScreen(PARENT_SCREEN, true), true, "zoom", false));
 			GRID_ADDER.add(createZoom());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -124,8 +124,7 @@ public class ZoomConfigScreen extends Screen {
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset"), (button) -> {
-			ConfigHelper.resetConfig();
-			this.REFRESH = true;
+			if (ConfigHelper.resetConfig()) this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;

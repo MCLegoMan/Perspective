@@ -17,7 +17,7 @@
 	"textured_random_entity": false,
 	"allow_april_fools": true,
 	"force_april_fools": false,
-	"position_overlay": false,
+	"position_overlay": true,
 	"version_overlay": false,
 	"force_pride": false,
 	"force_pride_type": false,

@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.screen.config.april_fools_prank.AprilFoolsPrankConfigScreen;
 import com.mclegoman.perspective.client.screen.config.experimental.ExperimentalConfigScreen;
 import com.mclegoman.perspective.client.screen.config.hide.HideConfigScreen;
@@ -27,10 +28,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.EmptyWidget;
-import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.SimplePositioningWidget;
+import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
@@ -56,7 +54,7 @@ public class ConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false, "", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false, "", false));
 			if (PAGE == 1) GRID_ADDER.add(createPageOne());
 			else if (PAGE == 2) GRID_ADDER.add(createPageTwo());
 			else SHOULD_CLOSE = true;
@@ -143,8 +141,7 @@ public class ConfigScreen extends Screen {
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(3);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset"), (button) -> {
-			ConfigHelper.resetConfig();
-			this.REFRESH = true;
+			if (ConfigHelper.resetConfig()) this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> {
 			if (PAGE <= 1) this.SHOULD_CLOSE = true;

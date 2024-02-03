@@ -16,6 +16,7 @@ import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.util.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
@@ -228,7 +229,7 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
 				setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
 			}
-			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > ClientData.PRIDE_LOGOS.length) {
+			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > PerspectiveLogo.pride_types.length) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: force_pride_type_index was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type_index") + ")");
 				setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
 			}
@@ -247,62 +248,65 @@ public class ConfigHelper {
 		}
 		return false;
 	}
-	public static void resetConfig() {
+	public static boolean resetConfig() {
+		boolean configChanged = false;
 		try {
-			// Main Config
-			setConfig(ConfigType.NORMAL, "zoom_level", MathHelper.clamp(ConfigDataLoader.ZOOM_LEVEL, 0, 100));
-			setConfig(ConfigType.NORMAL, "zoom_increment_size", MathHelper.clamp(ConfigDataLoader.ZOOM_INCREMENT_SIZE, 1, 10));
-			setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
-			setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
-			setConfig(ConfigType.NORMAL, "zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
-			setConfig(ConfigType.NORMAL, "zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
-			setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
-			setConfig(ConfigType.NORMAL, "hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
-			setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_level", MathHelper.clamp(ConfigDataLoader.ZOOM_LEVEL, 0, 100));
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_increment_size", MathHelper.clamp(ConfigDataLoader.ZOOM_INCREMENT_SIZE, 1, 10));
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_hide_hud", ConfigDataLoader.ZOOM_HIDE_HUD);
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_show_percentage", ConfigDataLoader.ZOOM_SHOW_PERCENTAGE);
+			configChanged = setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
+			configChanged = setConfig(ConfigType.NORMAL, "hold_perspective_hide_hud", ConfigDataLoader.HOLD_PERSPECTIVE_HIDE_HUD);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
 			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"))) Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 			else Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
-			setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
-			setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) Shader.set(true, false, false, false);
-			setConfig(ConfigType.NORMAL, "super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
-			setConfig(ConfigType.NORMAL, "super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
-			setConfig(ConfigType.NORMAL, "super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
-			setConfig(ConfigType.NORMAL, "textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
-			setConfig(ConfigType.NORMAL, "textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
-			setConfig(ConfigType.NORMAL, "allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
-			setConfig(ConfigType.NORMAL, "force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
-			setConfig(ConfigType.NORMAL, "position_overlay", ConfigDataLoader.POSITION_OVERLAY);
-			setConfig(ConfigType.NORMAL, "version_overlay", ConfigDataLoader.VERSION_OVERLAY);
-			setConfig(ConfigType.NORMAL, "force_pride", ConfigDataLoader.FORCE_PRIDE);
-			setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
-			setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0, ClientData.PRIDE_LOGOS.length));
-			setConfig(ConfigType.NORMAL, "show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
-			setConfig(ConfigType.NORMAL, "dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
-			setConfig(ConfigType.NORMAL, "hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
-			setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
-			setConfig(ConfigType.NORMAL, "hide_armor", ConfigDataLoader.HIDE_ARMOR);
-			setConfig(ConfigType.NORMAL, "hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
-			setConfig(ConfigType.NORMAL, "hide_players", ConfigDataLoader.HIDE_PLAYERS);
-			setConfig(ConfigType.NORMAL, "hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE);
-			setConfig(ConfigType.NORMAL, "tutorials", ConfigDataLoader.TUTORIALS);
-			setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
-			setConfig(ConfigType.NORMAL, "debug", ConfigDataLoader.DEBUG);
-			setConfig(ConfigType.NORMAL, "test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
+			configChanged = setConfig(ConfigType.NORMAL, "textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
+			configChanged = setConfig(ConfigType.NORMAL, "textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
+			configChanged = setConfig(ConfigType.NORMAL, "allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
+			configChanged = setConfig(ConfigType.NORMAL, "force_april_fools", ConfigDataLoader.FORCE_APRIL_FOOLS);
+			configChanged = setConfig(ConfigType.NORMAL, "position_overlay", ConfigDataLoader.POSITION_OVERLAY);
+			configChanged = setConfig(ConfigType.NORMAL, "version_overlay", ConfigDataLoader.VERSION_OVERLAY);
+			configChanged = setConfig(ConfigType.NORMAL, "force_pride", ConfigDataLoader.FORCE_PRIDE);
+			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
+			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0, PerspectiveLogo.pride_types.length));
+			configChanged = setConfig(ConfigType.NORMAL, "show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
+			configChanged = setConfig(ConfigType.NORMAL, "dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
+			configChanged = setConfig(ConfigType.NORMAL, "hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
+			configChanged = setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
+			configChanged = setConfig(ConfigType.NORMAL, "hide_armor", ConfigDataLoader.HIDE_ARMOR);
+			configChanged = setConfig(ConfigType.NORMAL, "hide_nametags", ConfigDataLoader.HIDE_NAMETAGS);
+			configChanged = setConfig(ConfigType.NORMAL, "hide_players", ConfigDataLoader.HIDE_PLAYERS);
+			configChanged = setConfig(ConfigType.NORMAL, "hide_show_message", ConfigDataLoader.HIDE_SHOW_MESSAGE);
+			configChanged = setConfig(ConfigType.NORMAL, "tutorials", ConfigDataLoader.TUTORIALS);
+			configChanged = setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
+			configChanged = setConfig(ConfigType.NORMAL, "debug", ConfigDataLoader.DEBUG);
+			configChanged = setConfig(ConfigType.NORMAL, "test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK);
 			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset config!");
 		}
+		return configChanged;
 	}
-	public static void resetExperiments() {
+	public static boolean resetExperiments() {
+		boolean configChanged = false;
 		try {
-			setConfig(ConfigType.EXPERIMENTAL, "displaynames", false);
+			configChanged = setConfig(ConfigType.EXPERIMENTAL, "displaynames", false);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset experiments!");
 		}
+		return configChanged;
 	}
 	public static boolean setConfig(ConfigType CONFIG_TYPE, String ID, Object VALUE) {
+		boolean configChanged = false;
 		try {
-			boolean configChanged;
 			switch (CONFIG_TYPE) {
 				case NORMAL -> {
 					switch (ID) {
@@ -395,7 +399,7 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						case "force_pride_type_index" -> {
-							Config.FORCE_PRIDE_TYPE_INDEX = MathHelper.clamp((int) VALUE, 0, ClientData.PRIDE_LOGOS.length);
+							Config.FORCE_PRIDE_TYPE_INDEX = MathHelper.clamp((int) VALUE, 0, PerspectiveLogo.pride_types.length);
 							configChanged = true;
 						}
 						case "show_death_coordinates" -> {
@@ -508,7 +512,7 @@ public class ConfigHelper {
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: {}", ID, error));
 		}
-		return true;
+		return configChanged;
 	}
 	public static Object getConfig(ConfigType CONFIG_TYPE, String ID) {
 		switch (CONFIG_TYPE) {
@@ -581,7 +585,7 @@ public class ConfigHelper {
 						return Config.FORCE_PRIDE_TYPE;
 					}
 					case "force_pride_type_index" -> {
-						return MathHelper.clamp(Config.FORCE_PRIDE_TYPE_INDEX, 0, ClientData.PRIDE_LOGOS.length);
+						return MathHelper.clamp(Config.FORCE_PRIDE_TYPE_INDEX, 0, PerspectiveLogo.pride_types.length);
 					}
 					case "show_death_coordinates" -> {
 						return Config.SHOW_DEATH_COORDINATES;

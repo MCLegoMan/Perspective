@@ -8,7 +8,8 @@
 package com.mclegoman.perspective.client.screen.config.information;
 
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.ScreenHelper;
+import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -42,7 +43,7 @@ public class InformationScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), true, "information", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), true, "information", false));
 			GRID_ADDER.add(createInformation());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());

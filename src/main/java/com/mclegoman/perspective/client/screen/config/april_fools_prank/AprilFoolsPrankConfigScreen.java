@@ -9,7 +9,8 @@ package com.mclegoman.perspective.client.screen.config.april_fools_prank;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.ScreenHelper;
+import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
@@ -41,7 +42,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new AprilFoolsPrankConfigScreen(PARENT_SCREEN, true), true, "april_fools_prank", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new AprilFoolsPrankConfigScreen(PARENT_SCREEN, true), true, "april_fools_prank", false));
 			GRID_ADDER.add(createAprilFools());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -83,8 +84,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset"), (button) -> {
-			ConfigHelper.resetConfig();
-			REFRESH = true;
+			if (ConfigHelper.resetConfig()) this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;

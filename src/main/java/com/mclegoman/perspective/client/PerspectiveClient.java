@@ -16,18 +16,20 @@ import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.api.ClientModInitializer;
 
 public class PerspectiveClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		try {
-			Data.VERSION.getLogger().info("{} Initializing {}", Data.VERSION.getLoggerPrefix(), Data.VERSION.getID());
+			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Initializing {}", Data.VERSION.getLoggerPrefix(), Data.VERSION.getID()));
 			AprilFoolsPrank.init();
 			ConfigHelper.init();
 			Contributor.init();
@@ -42,7 +44,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Zoom.init();
 			ClientData.finishedInitializing();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to run onInitializeClient: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Failed to run onInitializeClient: {}", Data.VERSION.getLoggerPrefix(), error));
 		}
 	}
 	public static void onInitializeClientAfterConfig() {
@@ -50,7 +52,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			ResourcePacks.initAfterConfig();
 			ClientData.finishedInitializingAfterConfig();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to run onInitializeClientAfterConfig: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Failed to run onInitializeClientAfterConfig: {}", Data.VERSION.getLoggerPrefix(), error));
 		}
 	}
 }

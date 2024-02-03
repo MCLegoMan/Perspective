@@ -10,7 +10,8 @@ package com.mclegoman.perspective.client.screen.config.hide;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
-import com.mclegoman.perspective.client.screen.config.ConfigScreenHelper;
+import com.mclegoman.perspective.client.screen.ScreenHelper;
+import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
@@ -45,7 +46,7 @@ public class HideConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ConfigScreenHelper.createTitle(ClientData.CLIENT, new HideConfigScreen(PARENT_SCREEN, true), true, "hide", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new HideConfigScreen(PARENT_SCREEN, true), true, "hide", false));
 			GRID_ADDER.add(createHide());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -106,8 +107,7 @@ public class HideConfigScreen extends Screen {
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset"), (button) -> {
-			ConfigHelper.resetConfig();
-			this.REFRESH = true;
+			if (ConfigHelper.resetConfig()) this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
 		return GRID;
