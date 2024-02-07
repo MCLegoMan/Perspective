@@ -50,7 +50,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 		return 20 + Math.max(this.lines.size(), 1) * 12;
 	}
 
-	public net.minecraft.client.toast.Toast.Visibility draw(DrawContext context, ToastManager manager, long startTime) {
+	public Visibility draw(DrawContext context, ToastManager manager, long startTime) {
 		if (this.justUpdated) {
 			this.startTime = startTime;
 			this.justUpdated = false;

@@ -42,7 +42,7 @@ public class PerspectiveLogo {
 	public static Logo getLogo(Logo.Type type) {
 		return new Logo(new Identifier(Data.VERSION.getID(), (type.equals(Logo.Type.PRIDE) ? "perspective/" + getPrideType() : "perspective")), type);
 	}
-	public record Logo(Identifier id, PerspectiveLogo.Logo.Type type) {
+	public record Logo(Identifier id, Type type) {
 		public String getNamespace() {
 			return this.id.getNamespace();
 		}
