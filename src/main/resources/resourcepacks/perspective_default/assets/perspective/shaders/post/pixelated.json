@@ -6,7 +6,13 @@
         {
             "name": "perspective:pixelated",
             "intarget": "minecraft:main",
-            "outtarget": "swap"
+            "outtarget": "swap",
+            "uniforms": [
+                {
+                    "name": "Amount",
+                    "values": [ 8.0 ]
+                }
+            ]
         },
         {
             "name": "blit",

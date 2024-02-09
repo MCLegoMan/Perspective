@@ -5,7 +5,7 @@
 		"dstrgb": "1-srcalpha"
 	},
 	"vertex": "sobel",
-	"fragment": "perspective:pixelated",
+	"fragment": "perspective:reduced_colors",
 	"attributes": [ "Position" ],
 	"samplers": [
 		{ "name": "DiffuseSampler" }
