@@ -45,7 +45,7 @@ public class HorseMarkingFeatureRendererMixin {
 	}
 	@ModifyExpressionValue(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntityTranslucent(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
 	private RenderLayer perspective$getEntityTranslucent(RenderLayer renderLayer) {
-		return RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "minecraft:horse", perspective$getHorseMarking(entity.getMarking()), TEXTURES.get(entity.getMarking())));
+		return RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "minecraft:horse", TexturedEntity.Affix.SUFFIX, perspective$getHorseMarking(entity.getMarking()), TEXTURES.get(entity.getMarking())));
 	}
 	@Unique
 	private String perspective$getHorseMarking(HorseMarking marking) {

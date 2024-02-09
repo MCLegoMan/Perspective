@@ -11,7 +11,7 @@ import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
-import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
+import net.darktree.simplelibs.config.SimpleConfig;
 
 public class Config {
 	protected static final String ID = Data.VERSION.getID();

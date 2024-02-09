@@ -27,8 +27,7 @@ public class TexturedEntity {
 			Data.VERSION.getLogger().warn("{} Failed to initialize textured entity texture: {}", Data.VERSION.getID(), error);
 		}
 	}
-
-	public static Identifier getTexture(Entity entity, String entity_type, String suffix, Identifier default_identifier) {
+	public static Identifier getTexture(Entity entity, String entity_type, Affix affix_type, String affix, Identifier default_identifier) {
 		try {
 			List<String> stringReg = getStringRegistry(entity_type);
 			List<Text> textReg = getTextRegistry(entity_type);
@@ -36,13 +35,15 @@ public class TexturedEntity {
 			String entity_name = entity_type.substring(entity_type.lastIndexOf(":") + 1);
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && textReg.contains(entity.getCustomName())) {
 				if (!stringReg.get(textReg.indexOf(entity.getCustomName())).equalsIgnoreCase("default"))
-					return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(textReg.indexOf(entity.getCustomName())).toLowerCase() + suffix + ".png");
+					if (affix_type.equals(Affix.SUFFIX)) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(textReg.indexOf(entity.getCustomName())).toLowerCase() + affix + ".png");
+					else if (affix_type.equals(Affix.PREFIX)) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + affix + stringReg.get(textReg.indexOf(entity.getCustomName())).toLowerCase() + ".png");
 			}
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
 				if ((!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && !textReg.contains(entity.getCustomName()))) {
 					int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), stringReg.size());
 					if (!stringReg.get(index).equalsIgnoreCase("default"))
-						return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(index).toLowerCase() + suffix + ".png");
+						if (affix_type.equals(Affix.SUFFIX)) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + stringReg.get(index).toLowerCase() + affix + ".png");
+						else if (affix_type.equals(Affix.PREFIX)) return new Identifier(namespace, "textures/textured_entity/" + entity_name + "/" + affix + stringReg.get(index).toLowerCase() + ".png");
 				}
 			}
 		} catch (Exception error) {
@@ -50,7 +51,9 @@ public class TexturedEntity {
 		}
 		return default_identifier;
 	}
-
+	public static Identifier getTexture(Entity entity, String entity_type, Identifier default_identifier) {
+		return getTexture(entity, entity_type, Affix.SUFFIX, "", default_identifier);
+	}
 	private static List<String> getStringRegistry(String entity_type) {
 		List<String> entity_registry = new ArrayList<>();
 		try {
@@ -77,5 +80,9 @@ public class TexturedEntity {
 			Data.VERSION.getLogger().warn("{} Failed to get textured entity text registry: {}", Data.VERSION.getID(), error);
 		}
 		return entity_registry;
+	}
+	public enum Affix {
+		PREFIX,
+		SUFFIX;
 	}
 }

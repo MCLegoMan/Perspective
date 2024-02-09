@@ -10,7 +10,7 @@ package com.mclegoman.perspective.common.config;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
-import com.mclegoman.simplefabriclibs.simple_config.SimpleConfig;
+import net.darktree.simplelibs.config.SimpleConfig;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.PrintWriter;

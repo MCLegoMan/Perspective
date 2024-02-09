@@ -24,6 +24,9 @@ import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.TntBlock;
 
 public class PerspectiveClient implements ClientModInitializer {
 	@Override

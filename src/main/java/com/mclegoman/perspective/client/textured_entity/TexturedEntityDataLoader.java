@@ -64,6 +64,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 					"minecraft:chest_boat",
 					"minecraft:boat",
 					"minecraft:breeze",
+					"minecraft:breeze_wind_charge",
 					"minecraft:camel",
 					"minecraft:cat",
 					"minecraft:cave_spider",

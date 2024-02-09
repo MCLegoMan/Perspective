@@ -21,6 +21,6 @@ public class DrownedEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture", cancellable = true)
 	private void perspective$getTexture(ZombieEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof DrownedEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:drowned", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:drowned", cir.getReturnValue()));
 	}
 }

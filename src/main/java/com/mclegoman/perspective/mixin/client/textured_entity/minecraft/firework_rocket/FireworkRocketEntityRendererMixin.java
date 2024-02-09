@@ -21,6 +21,6 @@ public class FireworkRocketEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof FireworkRocketEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:firework_rocket", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:firework_rocket", cir.getReturnValue()));
 	}
 }

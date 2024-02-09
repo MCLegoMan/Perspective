@@ -46,6 +46,6 @@ public abstract class BoatEntityRendererMixin {
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/CompositeEntityModel;getLayer(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"), method = "render(Lnet/minecraft/entity/vehicle/BoatEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
 	private RenderLayer perspective$getTexture(RenderLayer renderLayer) {
 		Pair<Identifier, CompositeEntityModel<BoatEntity>> pair = this.texturesAndModels.get(entity.getVariant());
-		return pair.getSecond().getLayer(TexturedEntity.getTexture(entity, isChest ? "minecraft:chest_boat" : "minecraft:boat", "_" + entity.getVariant().getName().toLowerCase(), pair.getFirst()));
+		return pair.getSecond().getLayer(TexturedEntity.getTexture(entity, isChest ? "minecraft:chest_boat" : "minecraft:boat", TexturedEntity.Affix.SUFFIX, "/" + entity.getVariant().getName().toLowerCase(), pair.getFirst()));
 	}
 }

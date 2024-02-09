@@ -77,29 +77,29 @@ public class TropicalFishColorFeatureRendererMixin {
 	private void perspective$render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
 		if (entity instanceof TropicalFishEntity) {
 			if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.KOB))
-				KOB_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_kob", new Identifier("textures/entity/fish/tropical_a_pattern_1.png"));
+				KOB_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_kob", new Identifier("textures/entity/fish/tropical_a_pattern_1.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.SUNSTREAK))
-				SUNSTREAK_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_sunstreak", new Identifier("textures/entity/fish/tropical_a_pattern_2.png"));
+				SUNSTREAK_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_sunstreak", new Identifier("textures/entity/fish/tropical_a_pattern_2.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.SNOOPER))
-				SNOOPER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_snooper", new Identifier("textures/entity/fish/tropical_a_pattern_3.png"));
+				SNOOPER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_snooper", new Identifier("textures/entity/fish/tropical_a_pattern_3.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.DASHER))
-				DASHER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_dasher", new Identifier("textures/entity/fish/tropical_a_pattern_4.png"));
+				DASHER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_dasher", new Identifier("textures/entity/fish/tropical_a_pattern_4.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.BRINELY))
-				BRINELY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_brinely", new Identifier("textures/entity/fish/tropical_a_pattern_5.png"));
+				BRINELY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_brinely", new Identifier("textures/entity/fish/tropical_a_pattern_5.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.SPOTTY))
-				SPOTTY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_spotty", new Identifier("textures/entity/fish/tropical_a_pattern_6.png"));
+				SPOTTY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_spotty", new Identifier("textures/entity/fish/tropical_a_pattern_6.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.FLOPPER))
-				FLOPPER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_flopper", new Identifier("textures/entity/fish/tropical_b_pattern_1.png"));
+				FLOPPER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_flopper", new Identifier("textures/entity/fish/tropical_b_pattern_1.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.STRIPEY))
-				STRIPEY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_stripey", new Identifier("textures/entity/fish/tropical_b_pattern_2.png"));
+				STRIPEY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_stripey", new Identifier("textures/entity/fish/tropical_b_pattern_2.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.GLITTER))
-				GLITTER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_glitter", new Identifier("textures/entity/fish/tropical_b_pattern_3.png"));
+				GLITTER_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_glitter", new Identifier("textures/entity/fish/tropical_b_pattern_3.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.BLOCKFISH))
-				BLOCKFISH_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_blockfish", new Identifier("textures/entity/fish/tropical_b_pattern_4.png"));
+				BLOCKFISH_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_blockfish", new Identifier("textures/entity/fish/tropical_b_pattern_4.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.BETTY))
-				BETTY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_betty", new Identifier("textures/entity/fish/tropical_b_pattern_5.png"));
+				BETTY_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_betty", new Identifier("textures/entity/fish/tropical_b_pattern_5.png"));
 			else if (((TropicalFishEntity) entity).getVariant().equals(TropicalFishEntity.Variety.CLAYFISH))
-				CLAYFISH_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", "_clayfish", new Identifier("textures/entity/fish/tropical_b_pattern_6.png"));
+				CLAYFISH_TEXTURE = TexturedEntity.getTexture(entity, "minecraft:tropical_fish", TexturedEntity.Affix.SUFFIX, "_clayfish", new Identifier("textures/entity/fish/tropical_b_pattern_6.png"));
 		}
 	}
 }

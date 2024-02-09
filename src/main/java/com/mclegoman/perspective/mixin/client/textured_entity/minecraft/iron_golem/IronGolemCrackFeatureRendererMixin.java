@@ -32,9 +32,9 @@ public class IronGolemCrackFeatureRendererMixin {
 	private void perspective$render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, IronGolemEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
 		if (entity != null) {
 			DAMAGE_TO_TEXTURE = ImmutableMap.of(
-					IronGolemEntity.Crack.LOW, TexturedEntity.getTexture(entity, "minecraft:iron_golem", "_crackiness_low", new Identifier("textures/entity/iron_golem/iron_golem_crackiness_low.png")),
-					IronGolemEntity.Crack.MEDIUM, TexturedEntity.getTexture(entity, "minecraft:iron_golem", "_crackiness_medium", new Identifier("textures/entity/iron_golem/iron_golem_crackiness_medium.png")),
-					IronGolemEntity.Crack.HIGH, TexturedEntity.getTexture(entity, "minecraft:iron_golem", "_crackiness_high", new Identifier("textures/entity/iron_golem/iron_golem_crackiness_high.png"))
+					IronGolemEntity.Crack.LOW, TexturedEntity.getTexture(entity, "minecraft:iron_golem", TexturedEntity.Affix.SUFFIX, "_crackiness_low", new Identifier("textures/entity/iron_golem/iron_golem_crackiness_low.png")),
+					IronGolemEntity.Crack.MEDIUM, TexturedEntity.getTexture(entity, "minecraft:iron_golem", TexturedEntity.Affix.SUFFIX, "_crackiness_medium", new Identifier("textures/entity/iron_golem/iron_golem_crackiness_medium.png")),
+					IronGolemEntity.Crack.HIGH, TexturedEntity.getTexture(entity, "minecraft:iron_golem", TexturedEntity.Affix.SUFFIX, "_crackiness_high", new Identifier("textures/entity/iron_golem/iron_golem_crackiness_high.png"))
 			);
 		}
 	}

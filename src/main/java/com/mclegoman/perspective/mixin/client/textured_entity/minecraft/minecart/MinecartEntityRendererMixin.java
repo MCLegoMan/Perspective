@@ -22,18 +22,18 @@ public class MinecartEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof ChestMinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:chest_minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:chest_minecart", cir.getReturnValue()));
 		else if (entity instanceof CommandBlockMinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:command_block_minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:command_block_minecart", cir.getReturnValue()));
 		else if (entity instanceof FurnaceMinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:furnace_minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:furnace_minecart", cir.getReturnValue()));
 		else if (entity instanceof HopperMinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:hopper_minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:hopper_minecart", cir.getReturnValue()));
 		else if (entity instanceof SpawnerMinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:spawner_minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:spawner_minecart", cir.getReturnValue()));
 		else if (entity instanceof TntMinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:tnt_minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:tnt_minecart", cir.getReturnValue()));
 		else if (entity instanceof MinecartEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:minecart", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:minecart", cir.getReturnValue()));
 	}
 }

@@ -22,6 +22,6 @@ public class MagmaCubeEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof MagmaCubeEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:magma_cube", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:magma_cube", cir.getReturnValue()));
 	}
 }

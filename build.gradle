@@ -5,8 +5,8 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version + project.mc_version
 group = project.maven_group
+version = project.mod_version + project.mc_version
 
 base {
 	archivesName = project.archives_base_name
@@ -34,7 +34,8 @@ dependencies {
 	include(implementation"com.github.LlamaLad7:MixinExtras:0.1.1")
 	annotationProcessor("com.github.LlamaLad7:MixinExtras:0.1.1")
 
-	include(modImplementation "com.github.MCLegoMan:fabric-simplelibs:${project.fabricsimplelibs}")
+	include(implementation project(path: ':simpleconfig', configuration: 'namedElements'))
+
 	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"

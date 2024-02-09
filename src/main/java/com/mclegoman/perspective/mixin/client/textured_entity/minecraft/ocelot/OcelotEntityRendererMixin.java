@@ -22,6 +22,6 @@ public class OcelotEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof OcelotEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:ocelot", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:ocelot", cir.getReturnValue()));
 	}
 }

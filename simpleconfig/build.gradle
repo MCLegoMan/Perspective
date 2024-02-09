@@ -1,0 +1,23 @@
+plugins {
+	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'maven-publish'
+}
+
+group = 'net.darktree'
+version = '1.0.0'
+
+base {
+	archivesName = 'simpleconfig'
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft}"
+	mappings "net.fabricmc:yarn:${project.mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+}
+
+processResources {
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}

@@ -21,6 +21,6 @@ public class ChickenEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof ChickenEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:chicken", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:chicken", cir.getReturnValue()));
 	}
 }

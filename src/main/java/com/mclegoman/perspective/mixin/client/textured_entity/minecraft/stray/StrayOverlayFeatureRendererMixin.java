@@ -29,6 +29,6 @@ public class StrayOverlayFeatureRendererMixin {
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/mob/MobEntity;FFFFFF)V")
 	private void perspective$getTexture(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, MobEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
 		if (entity instanceof StrayEntity)
-			SKIN = TexturedEntity.getTexture(entity, "minecraft:stray", "_overlay", new Identifier("textures/entity/skeleton/stray_overlay.png"));
+			SKIN = TexturedEntity.getTexture(entity, "minecraft:stray", TexturedEntity.Affix.SUFFIX, "_overlay", new Identifier("textures/entity/skeleton/stray_overlay.png"));
 	}
 }

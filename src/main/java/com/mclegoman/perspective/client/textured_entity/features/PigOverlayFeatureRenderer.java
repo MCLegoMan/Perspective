@@ -35,7 +35,7 @@ public class PigOverlayFeatureRenderer<T extends PigEntity, M extends EntityMode
 		this.getContextModel().copyStateTo(this.model);
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(entity, this.entity_type, "_outer_layer", this.texture)));
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(entity, this.entity_type, TexturedEntity.Affix.SUFFIX, "_outer_layer", this.texture)));
 		this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

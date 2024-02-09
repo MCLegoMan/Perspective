@@ -22,6 +22,6 @@ public class WardenEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof WardenEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:warden", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:warden", cir.getReturnValue()));
 	}
 }

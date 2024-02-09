@@ -41,15 +41,15 @@ public class BeeEntityRendererMixin {
 		if (entity instanceof BeeEntity) {
 			if (((BeeEntity) entity).hasAngerTime()) {
 				if (((BeeEntity) entity).hasNectar()) {
-					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_angry_nectar", ANGRY_NECTAR_TEXTURE));
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", TexturedEntity.Affix.SUFFIX, "_angry_nectar", ANGRY_NECTAR_TEXTURE));
 				} else {
-					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_angry", ANGRY_TEXTURE));
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", TexturedEntity.Affix.SUFFIX, "_angry", ANGRY_TEXTURE));
 				}
 			} else {
 				if (((BeeEntity) entity).hasNectar()) {
-					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "_nectar", NECTAR_TEXTURE));
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", TexturedEntity.Affix.SUFFIX, "_nectar", NECTAR_TEXTURE));
 				} else {
-					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", "", PASSIVE_TEXTURE));
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bee", PASSIVE_TEXTURE));
 				}
 			}
 		}

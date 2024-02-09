@@ -21,6 +21,6 @@ public class GlowSquidEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity instanceof GlowSquidEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:glow_squid", "", cir.getReturnValue()));
+			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:glow_squid", cir.getReturnValue()));
 	}
 }
