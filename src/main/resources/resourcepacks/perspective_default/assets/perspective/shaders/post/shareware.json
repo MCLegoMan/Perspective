@@ -41,8 +41,8 @@
                 {
                     "name": "DitherSampler",
                     "id": "dither",
-                    "width": 64,
-                    "height": 64,
+                    "width": 32,
+                    "height": 32,
                     "bilinear": true
                 }
             ]
