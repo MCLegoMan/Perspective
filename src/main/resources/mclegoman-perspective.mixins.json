@@ -24,6 +24,7 @@
 		"client.show_death_coordinates.DeathScreenMixin",
 		"client.super_secret_settings.GameRendererMixin",
 		"client.super_secret_settings.OptionsScreenMixin",
+		"client.super_secret_settings.PostEffectPassMixin",
 		"client.super_secret_settings.PostEffectProcessorMixin",
 		"client.super_secret_settings.ShaderNamespaceFix",
 		"client.super_secret_settings.ShaderTextureFix",

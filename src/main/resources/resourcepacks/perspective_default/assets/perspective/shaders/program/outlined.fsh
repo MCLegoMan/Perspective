@@ -16,13 +16,15 @@ uniform vec2 OutSize;
 in vec2 texCoord;
 out vec4 fragColor;
 
+uniform float Strength;
+
 void main() {
     vec4 diffuseColor = vec4(texture(DiffuseSampler, texCoord).rgb, 1.0);
     float diffuseDepth = texture(DiffuseDepthSampler, texCoord).r;
     float worldDepth = 2.0 * 0.025 * 1000.0 / (1000.0 + 0.025 - (diffuseDepth * 2.0 - 1.0) * (1000.0 - 0.025));
     float depthOffset = max(0.0048 * max((24.0 - worldDepth) / 24.0, 0.0), 1.0 / OutSize.y);
     float outlineFactor = clamp(pow(max(2.0 * 0.025 * 1000.0 / (1000.0 + 0.025 - (max(texture(DiffuseDepthSampler, texCoord + vec2(-depthOffset * OutSize.y / OutSize.x, -depthOffset)).r, max(texture(DiffuseDepthSampler, texCoord + vec2(-depthOffset * OutSize.y / OutSize.x, +depthOffset)).r, max(texture(DiffuseDepthSampler, texCoord + vec2(+depthOffset * OutSize.y / OutSize.x, +depthOffset)).r, texture(DiffuseDepthSampler, texCoord + vec2(+depthOffset * OutSize.y / OutSize.x, -depthOffset)).r))) * 2.0 - 1.0) * (1000.0 - 0.025)) - worldDepth, 0.0) * 0.15, 2.0), 0.0, 1.0) * exp(-worldDepth * 0.025);
-    diffuseColor.rgb = mix(diffuseColor.rgb, pow(pow(diffuseColor.rgb, vec3(1.0 / 2.2)) + 0.25, vec3(2.2)), outlineFactor);
+    diffuseColor.rgb = mix(diffuseColor.rgb, pow(pow(diffuseColor.rgb, vec3(1.0 / 2.2)) + Strength, vec3(2.2)), outlineFactor);
     vec4 colorLayers[6];
     float depthLayers[6];
     int activeLayers = 0;

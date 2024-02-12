@@ -46,14 +46,12 @@ public abstract class InGameHudMixin {
 
 	@Inject(at = @At("RETURN"), method = "render")
 	private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
-		if (!HUDHelper.shouldHideHUD()) {
-			if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud()) {
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
-					context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
-				if (!DebugOverlay.debugType.equals(DebugOverlay.Type.NONE)) {
-					DebugOverlay.renderDebugHUD(context);
-				}
+		if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud() && !ClientData.CLIENT.options.hudHidden && !HUDHelper.shouldHideHUD()) {
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
+				context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
+			if (!DebugOverlay.debugType.equals(DebugOverlay.Type.NONE)) {
+				DebugOverlay.renderDebugHUD(context);
 			}
 		}
 	}

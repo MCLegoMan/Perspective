@@ -15,7 +15,7 @@
       "outtarget": "swap"
     },
     {
-      "name": "perspective:silhouette_outline",
+      "name": "perspective:outlined",
       "intarget": "swap",
       "outtarget": "final",
       "auxtargets": [
@@ -62,6 +62,12 @@
         {
           "name": "WeatherDepthSampler",
           "id": "weather:depth"
+        }
+      ],
+      "uniforms": [
+        {
+          "name": "Strength",
+          "values": [ 0.75 ]
         }
       ]
     },

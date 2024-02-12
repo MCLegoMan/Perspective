@@ -57,6 +57,12 @@
           "name": "WeatherDepthSampler",
           "id": "weather:depth"
         }
+      ],
+      "uniforms": [
+        {
+          "name": "Strength",
+          "values": [ 0.25 ]
+        }
       ]
     },
     {
