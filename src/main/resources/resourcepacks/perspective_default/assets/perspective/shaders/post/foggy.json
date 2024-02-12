@@ -4,13 +4,23 @@
 	],
 	"passes": [
 		{
-			"name": "perspective:foggy",
+			"name": "perspective:fog",
 			"intarget": "minecraft:main",
 			"outtarget": "swap",
 			"auxtargets": [
 				{
 					"name": "DiffuseDepthSampler",
 					"id": "minecraft:main:depth"
+				}
+			],
+			"uniforms": [
+				{
+					"name": "FogColor",
+					"values": [ 1.0, 1.0, 1.0 ]
+				},
+				{
+					"name": "Thickness",
+					"values": [ 256.0 ]
 				}
 			]
 		},

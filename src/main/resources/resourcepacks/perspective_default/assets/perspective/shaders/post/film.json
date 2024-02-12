@@ -1,22 +1,16 @@
 {
   "targets": [
-    "0",
-    "1"
+    "0"
   ],
   "passes": [
     {
-      "name": "perspective:scanlines",
-      "intarget": "minecraft:main",
-      "outtarget": "0"
-    },
-    {
       "name": "perspective:aspect_ratio",
-      "intarget": "0",
-      "outtarget": "1",
+      "intarget": "minecraft:main",
+      "outtarget": "0",
       "uniforms": [
         {
           "name": "AspectRatio",
-          "values": [ 4.0, 3.0 ]
+          "values": [ 1.9, 1.0 ]
         },
         {
           "name": "BorderColor",
@@ -26,7 +20,7 @@
     },
     {
       "name": "blit",
-      "intarget": "1",
+      "intarget": "0",
       "outtarget": "minecraft:main"
     }
   ]

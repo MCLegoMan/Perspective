@@ -6,7 +6,7 @@ out vec4 fragColor;
 
 uniform sampler2D DiffuseSampler;
 uniform vec2 AspectRatio;
-uniform vec4 BorderColor;
+uniform vec3 BorderColor;
 
 void main() {
     vec4 color = texture(DiffuseSampler, texCoord);
@@ -16,6 +16,6 @@ void main() {
     if (ratio > 1.0) coord.y *= ratio;
     else coord.x /= ratio;
 
-    if (coord.x > 0.5 || coord.y > 0.5) color = BorderColor;
+    if (coord.x > 0.5 || coord.y > 0.5) color = vec4(BorderColor.rgb, 1.0);
     fragColor = color;
 }

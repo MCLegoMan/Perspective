@@ -5,7 +5,7 @@
         "dstrgb": "1-srcalpha"
     },
     "vertex": "sobel",
-    "fragment": "perspective:foggy",
+    "fragment": "perspective:fog",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" },
@@ -14,6 +14,8 @@
     "uniforms": [
         { "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
         { "name": "InSize",     "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
-        { "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] }
+        { "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+        { "name": "FogColor",          "type": "float",     "count": 3,  "values": [ 0.75, 0.75, 0.75 ] },
+        { "name": "Thickness",          "type": "float",     "count": 1,  "values": [ 64.0 ] }
     ]
 }
