@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = ShoulderParrotFeatureRenderer.class)
+@Mixin(priority = 100, value = ShoulderParrotFeatureRenderer.class)
 public class ShoulderParrotFeatureRendererMixin {
 	@Shadow @Final private ParrotEntityModel model;
 	@Inject(at = @At("HEAD"), method = "renderShoulderParrot", cancellable = true)

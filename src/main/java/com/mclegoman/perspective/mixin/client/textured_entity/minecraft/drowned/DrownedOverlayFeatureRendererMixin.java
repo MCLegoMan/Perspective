@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = net.minecraft.client.render.entity.feature.DrownedOverlayFeatureRenderer.class)
+@Mixin(priority = 100, value = net.minecraft.client.render.entity.feature.DrownedOverlayFeatureRenderer.class)
 public class DrownedOverlayFeatureRendererMixin {
 	@Mutable
 	@Shadow

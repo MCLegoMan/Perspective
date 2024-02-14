@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = RotatingCubeMapRenderer.class)
+@Mixin(priority = 100, value = RotatingCubeMapRenderer.class)
 public abstract class RotatingCubeMapRendererMixin {
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
 	private void perspective$render(float delta, float alpha, CallbackInfo ci) {

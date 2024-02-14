@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-@Mixin(priority = 10000, value = net.minecraft.client.render.entity.BoatEntityRenderer.class)
+@Mixin(priority = 100, value = net.minecraft.client.render.entity.BoatEntityRenderer.class)
 public abstract class BoatEntityRendererMixin {
 	@Shadow @Final private Map<BoatEntity.Type, Pair<Identifier, CompositeEntityModel<BoatEntity>>> texturesAndModels;
 	@Unique

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(priority = 10000, value = JsonEffectShaderProgram.class)
+@Mixin(priority = 100, value = JsonEffectShaderProgram.class)
 public class ShaderNamespaceFix {
 	@Redirect(method = "loadEffect", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
 	private static Identifier perspective$loadEffect(String id) {

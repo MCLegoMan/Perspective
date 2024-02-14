@@ -16,11 +16,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(priority = 10000, value = net.minecraft.client.render.entity.GoatEntityRenderer.class)
+@Mixin(priority = 100, value = net.minecraft.client.render.entity.GoatEntityRenderer.class)
 public class GoatEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof GoatEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", cir.getReturnValue()));
+		if (entity instanceof GoatEntity) {
+			if (((GoatEntity)entity).isScreaming()) {
+				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", TexturedEntity.Affix.PREFIX, "screaming_", cir.getReturnValue()));
+			} else {
+				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", cir.getReturnValue()));
+			}
+		}
 	}
 }

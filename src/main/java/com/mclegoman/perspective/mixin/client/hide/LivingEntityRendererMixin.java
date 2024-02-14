@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(priority = 10000, value = LivingEntityRenderer.class)
+@Mixin(priority = 100, value = LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
 	@Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
 	private void perspective$hide_nametag(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {

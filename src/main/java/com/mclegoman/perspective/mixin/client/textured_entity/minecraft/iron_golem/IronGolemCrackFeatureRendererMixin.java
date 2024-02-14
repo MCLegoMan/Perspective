@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-@Mixin(priority = 10000, value = IronGolemCrackFeatureRenderer.class)
+@Mixin(priority = 100, value = IronGolemCrackFeatureRenderer.class)
 public class IronGolemCrackFeatureRendererMixin {
 	@Mutable
 	@Shadow @Final private static Map<IronGolemEntity.Crack, Identifier> DAMAGE_TO_TEXTURE;

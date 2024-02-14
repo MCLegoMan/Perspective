@@ -1,0 +1,6 @@
+{
+  "namespace": "perspective",
+  "shader": "analog_horror",
+  "disable_screen_mode": true,
+  "enabled": true
+}

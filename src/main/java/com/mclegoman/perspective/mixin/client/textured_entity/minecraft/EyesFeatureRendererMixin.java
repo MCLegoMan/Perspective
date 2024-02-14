@@ -24,7 +24,7 @@ import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(priority = 10000, value = EyesFeatureRenderer.class)
+@Mixin(priority = 100, value = EyesFeatureRenderer.class)
 public class EyesFeatureRendererMixin<T extends Entity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	public EyesFeatureRendererMixin(FeatureRendererContext<T, M> context) {
 		super(context);

@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-@Mixin(priority = 10000, value = HorseMarkingFeatureRenderer.class)
+@Mixin(priority = 100, value = HorseMarkingFeatureRenderer.class)
 public class HorseMarkingFeatureRendererMixin {
 	@Shadow @Final
 	private static Map<HorseMarking, Identifier> TEXTURES;

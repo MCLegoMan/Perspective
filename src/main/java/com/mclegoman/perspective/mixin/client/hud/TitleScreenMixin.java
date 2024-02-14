@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = TitleScreen.class)
+@Mixin(priority = 100, value = TitleScreen.class)
 public abstract class TitleScreenMixin {
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LogoDrawer;draw(Lnet/minecraft/client/gui/DrawContext;IF)V"))
 	private void perspective$render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {

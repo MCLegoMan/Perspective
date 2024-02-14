@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(priority = 10000, value = LivingEntityRenderer.class)
+@Mixin(priority = 100, value = LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
 	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {

@@ -15,10 +15,6 @@
 			],
 			"uniforms": [
 				{
-					"name": "FogColor",
-					"values": [ 1.0, 1.0, 1.0 ]
-				},
-				{
 					"name": "Thickness",
 					"values": [ 256.0 ]
 				}

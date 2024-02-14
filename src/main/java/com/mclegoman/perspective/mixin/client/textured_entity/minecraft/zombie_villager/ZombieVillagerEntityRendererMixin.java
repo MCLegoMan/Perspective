@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(priority = 10000, value = ZombieVillagerEntityRenderer.class)
+@Mixin(priority = 100, value = ZombieVillagerEntityRenderer.class)
 public class ZombieVillagerEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {

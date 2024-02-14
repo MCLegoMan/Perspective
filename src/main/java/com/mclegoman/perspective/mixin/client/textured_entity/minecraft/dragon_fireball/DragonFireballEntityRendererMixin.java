@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(priority = 10000, value = net.minecraft.client.render.entity.DragonFireballEntityRenderer.class)
+@Mixin(priority = 100, value = net.minecraft.client.render.entity.DragonFireballEntityRenderer.class)
 public class DragonFireballEntityRendererMixin {
 	@Shadow
 	@Final

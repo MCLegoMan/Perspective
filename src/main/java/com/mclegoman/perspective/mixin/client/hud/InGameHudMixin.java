@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = InGameHud.class)
+@Mixin(priority = 100, value = InGameHud.class)
 public abstract class InGameHudMixin {
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
 	private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {

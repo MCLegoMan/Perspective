@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(priority = 10000, value = AbstractClientPlayerEntity.class)
+@Mixin(priority = 100, value = AbstractClientPlayerEntity.class)
 public class AbstractClientPlayerEntityMixin {
 	@Shadow
 	@Nullable

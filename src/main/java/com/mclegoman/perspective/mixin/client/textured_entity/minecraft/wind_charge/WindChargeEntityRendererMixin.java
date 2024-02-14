@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = WindChargeEntityRenderer.class)
+@Mixin(priority = 100, value = WindChargeEntityRenderer.class)
 public class WindChargeEntityRendererMixin {
 	@Mutable
 	@Shadow

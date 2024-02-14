@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = DeathScreen.class)
+@Mixin(priority = 100, value = DeathScreen.class)
 public class DeathScreenMixin {
 	@Inject(method = "render", at = @At("TAIL"))
 	private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {

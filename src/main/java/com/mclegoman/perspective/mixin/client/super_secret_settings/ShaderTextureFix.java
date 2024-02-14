@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(priority = 10000, value = PostEffectProcessor.class)
+@Mixin(priority = 100, value = PostEffectProcessor.class)
 public class ShaderTextureFix {
 	@Redirect(method = "parsePass", at = @At(value = "NEW", target = "(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"))
 	private static Identifier perspective$loadTexture(String id) {

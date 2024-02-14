@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = PostEffectProcessor.class)
+@Mixin(priority = 100, value = PostEffectProcessor.class)
 public class PostEffectProcessorMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Ljava/lang/String;substring(II)Ljava/lang/String;"), method = "parsePass")
 	public void perspective$detectDepth(TextureManager textureManager, JsonElement jsonPass, CallbackInfo ci) {

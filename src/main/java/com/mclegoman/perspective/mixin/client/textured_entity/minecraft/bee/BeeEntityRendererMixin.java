@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(priority = 10000, value = net.minecraft.client.render.entity.BeeEntityRenderer.class)
+@Mixin(priority = 100, value = net.minecraft.client.render.entity.BeeEntityRenderer.class)
 public class BeeEntityRendererMixin {
 	@Shadow
 	@Final

@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = SheepWoolFeatureRenderer.class)
+@Mixin(priority = 100, value = SheepWoolFeatureRenderer.class)
 public class SheepWoolFeatureRendererMixin {
 	@Mutable
 	@Shadow

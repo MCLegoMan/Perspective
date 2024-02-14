@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Mixin(priority = 10000, value = TranslatableTextContent.class)
+@Mixin(priority = 100, value = TranslatableTextContent.class)
 public abstract class TextTranslationMixin {
 	@Shadow @Final private String key;
 	@Inject(method = "getArg", at = @At(value = "RETURN"), cancellable = true)

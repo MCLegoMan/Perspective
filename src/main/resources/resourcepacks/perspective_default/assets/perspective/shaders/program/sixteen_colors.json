@@ -2,7 +2,7 @@
 	"blend": {
 		"func": "add",
 		"srcrgb": "one",
-		"dstrgb": "1-srcalpha"
+		"dstrgb": "zero"
 	},
 	"vertex": "sobel",
 	"fragment": "perspective:sixteen_colors",

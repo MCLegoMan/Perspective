@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(priority = 10000, value = GameRenderer.class)
+@Mixin(priority = 100, value = GameRenderer.class)
 public abstract class GameRendererMixin {
 	@Inject(at = @At("HEAD"), method = "shouldRenderBlockOutline", cancellable = true)
 	private void perspective$renderBlockOutline(CallbackInfoReturnable<Boolean> cir) {

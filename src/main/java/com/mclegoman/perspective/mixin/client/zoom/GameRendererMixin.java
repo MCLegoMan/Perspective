@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = GameRenderer.class)
+@Mixin(priority = 100, value = GameRenderer.class)
 public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
