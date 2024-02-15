@@ -1,6 +1,6 @@
 {
   "namespace": "perspective",
   "shader": "shareware",
-  "disable_screen_mode": false,
+  "disable_screen_mode": true,
   "enabled": true
 }

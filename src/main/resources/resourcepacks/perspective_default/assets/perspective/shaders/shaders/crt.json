@@ -1,6 +1,6 @@
 {
   "namespace": "perspective",
   "shader": "crt",
-  "disable_screen_mode": false,
+  "disable_screen_mode": true,
   "enabled": true
 }

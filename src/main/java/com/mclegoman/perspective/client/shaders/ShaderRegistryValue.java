@@ -11,5 +11,6 @@ public enum ShaderRegistryValue {
 	ID,
 	NAMESPACE,
 	SHADER_NAME,
-	DISABLE_SCREEN_MODE
+	DISABLE_SCREEN_MODE,
+	CUSTOM
 }

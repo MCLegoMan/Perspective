@@ -48,20 +48,22 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			if (VALUE.equals(ShaderRegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
 			if (VALUE.equals(ShaderRegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
 			if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
+			if (VALUE.equals(ShaderRegistryValue.CUSTOM)) return SHADER_MAP.get(4);
 		}
 		return null;
 	}
-	private void add(String NAMESPACE, String SHADER_NAME, boolean DISABLE_SCREEN_MODE, ResourceManager manager) {
+	private void add(String namespace, String shaderName, boolean disableScreenMode, JsonArray custom, ResourceManager manager) {
 		try {
-			SHADER_NAME = SHADER_NAME.replace("\"", "").toLowerCase();
-			Identifier ID = new Identifier(NAMESPACE.toLowerCase(), ("shaders/post/" + SHADER_NAME + ".json"));
+			shaderName = shaderName.replace("\"", "").toLowerCase();
+			Identifier ID = new Identifier(namespace.toLowerCase(), ("shaders/post/" + shaderName + ".json"));
 			try {
 				manager.getResourceOrThrow(ID);
 				List<Object> SHADER_MAP = new ArrayList<>();
 				SHADER_MAP.add(ID);
-				SHADER_MAP.add(NAMESPACE.toLowerCase());
-				SHADER_MAP.add(SHADER_NAME);
-				SHADER_MAP.add(DISABLE_SCREEN_MODE);
+				SHADER_MAP.add(namespace.toLowerCase());
+				SHADER_MAP.add(shaderName);
+				SHADER_MAP.add(disableScreenMode);
+				SHADER_MAP.add(custom);
 				boolean ALREADY_REGISTERED = false;
 				List<Object> REGISTRY_MAP = SHADER_MAP;
 				for (List<Object> SHADER_MAP_IN_REGISTRY : REGISTRY) {
@@ -104,30 +106,30 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	}
 	private void add$default(ResourceManager manager) {
 		try {
-			add("minecraft", "antialias", false, manager);
-			add("minecraft", "art", true, manager);
-			add("minecraft", "bits", true, manager);
-			add("minecraft", "blobs", true, manager);
-			add("minecraft", "blobs2", true, manager);
-			add("minecraft", "blur", true, manager);
-			add("minecraft", "bumpy", false, manager);
-			add("minecraft", "color_convolve", false, manager);
-			add("minecraft", "creeper", true, manager);
-			add("minecraft", "deconverge", false, manager);
-			add("minecraft", "desaturate", false, manager);
-			add("minecraft", "flip", true, manager);
-			add("minecraft", "fxaa", false, manager);
-			add("minecraft", "green", true, manager);
-			add("minecraft", "invert", false, manager);
-			add("minecraft", "notch", false, manager);
-			add("minecraft", "ntsc", true, manager);
-			add("minecraft", "outline", false, manager);
-			add("minecraft", "pencil", true, manager);
-			add("minecraft", "phosphor", false, manager);
-			add("minecraft", "scan_pincushion", false, manager);
-			add("minecraft", "sobel", false, manager);
-			add("minecraft", "spider", true, manager);
-			add("minecraft", "wobble", false, manager);
+			add("minecraft", "antialias", false, new JsonArray(), manager);
+			add("minecraft", "art", true, new JsonArray(), manager);
+			add("minecraft", "bits", true, new JsonArray(), manager);
+			add("minecraft", "blobs", true, new JsonArray(), manager);
+			add("minecraft", "blobs2", true, new JsonArray(), manager);
+			add("minecraft", "blur", true, new JsonArray(), manager);
+			add("minecraft", "bumpy", false, new JsonArray(), manager);
+			add("minecraft", "color_convolve", false, new JsonArray(), manager);
+			add("minecraft", "creeper", true, new JsonArray(), manager);
+			add("minecraft", "deconverge", false, new JsonArray(), manager);
+			add("minecraft", "desaturate", false, new JsonArray(), manager);
+			add("minecraft", "flip", true, new JsonArray(), manager);
+			add("minecraft", "fxaa", false, new JsonArray(), manager);
+			add("minecraft", "green", true, new JsonArray(), manager);
+			add("minecraft", "invert", false, new JsonArray(), manager);
+			add("minecraft", "notch", false, new JsonArray(), manager);
+			add("minecraft", "ntsc", true, new JsonArray(), manager);
+			add("minecraft", "outline", false, new JsonArray(), manager);
+			add("minecraft", "pencil", true, new JsonArray(), manager);
+			add("minecraft", "phosphor", false, new JsonArray(), manager);
+			add("minecraft", "scan_pincushion", false, new JsonArray(), manager);
+			add("minecraft", "sobel", false, new JsonArray(), manager);
+			add("minecraft", "spider", true, new JsonArray(), manager);
+			add("minecraft", "wobble", false, new JsonArray(), manager);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);
 		}
@@ -158,13 +160,14 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	}
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement, ResourceManager manager) {
 		try {
-			JsonObject READER = jsonElement.getAsJsonObject();
-			String NAMESPACE = JsonHelper.getString(READER, "namespace", Data.VERSION.getID());
-			String SHADER = JsonHelper.getString(READER, "shader");
-			boolean DISABLE_SCREEN_MODE = JsonHelper.getBoolean(READER, "disable_screen_mode", false);
-			boolean ENABLED = JsonHelper.getBoolean(READER, "enabled");
-			if (ENABLED) add(NAMESPACE, SHADER, DISABLE_SCREEN_MODE, manager);
-			else removeShader(NAMESPACE, SHADER);
+			JsonObject reader = jsonElement.getAsJsonObject();
+			String namespace = JsonHelper.getString(reader, "namespace", Data.VERSION.getID());
+			String shader = JsonHelper.getString(reader, "shader");
+			boolean disableScreenMode = JsonHelper.getBoolean(reader, "disable_screen_mode", false);
+			JsonArray custom = JsonHelper.getArray(reader, "custom", new JsonArray());
+			boolean enabled = JsonHelper.getBoolean(reader, "enabled");
+			if (enabled) add(namespace, shader, disableScreenMode, custom, manager);
+			else removeShader(namespace, shader);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.VERSION.getID(), error);
 		}
@@ -176,15 +179,15 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 				try {
 					if (JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "replace", false)) reset(manager);
 					for (JsonElement namespaces : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("namespaces")) {
-						JsonObject NAMESPACE_LIST = JsonHelper.asObject(namespaces, "namespacelist");
-						String SHADER_NAMESPACE = JsonHelper.getString(NAMESPACE_LIST, "namespace", Data.VERSION.getID());
-						boolean REPLACE = JsonHelper.getBoolean(NAMESPACE_LIST, "replace", false);
-						if (REPLACE) clearNamespace(NAMESPACE);
-						List<String> DISABLE_SCREEN_MODE_SHADERS = new ArrayList<>();
-						for (JsonElement SHADER : JsonHelper.getArray(NAMESPACE_LIST, "disable_screen_mode", new JsonArray()))
-							DISABLE_SCREEN_MODE_SHADERS.add(SHADER.getAsString());
-						for (JsonElement SHADER : JsonHelper.getArray(NAMESPACE_LIST, "shaders", new JsonArray()))
-							add(SHADER_NAMESPACE, SHADER.getAsString(), DISABLE_SCREEN_MODE_SHADERS.contains(SHADER.getAsString()), manager);
+						JsonObject namespaceList = JsonHelper.asObject(namespaces, "namespacelist");
+						String namespace = JsonHelper.getString(namespaceList, "namespace", Data.VERSION.getID());
+						boolean replace = JsonHelper.getBoolean(namespaceList, "replace", false);
+						if (replace) clearNamespace(namespace);
+						List<String> disableScreenMode = new ArrayList<>();
+						for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_screen_mode", new JsonArray()))
+							disableScreenMode.add(shader.getAsString());
+						for (JsonElement shader : JsonHelper.getArray(namespaceList, "shaders", new JsonArray()))
+							add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), JsonHelper.getArray(namespaceList, "custom", new JsonArray()), manager);
 					}
 				} catch (Exception error) {
 					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.VERSION.getID(), error);
