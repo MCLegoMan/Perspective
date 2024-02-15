@@ -52,10 +52,9 @@ public class ShaderUniforms {
 	// uniform float perspectiveLight;
 	public static float getLight() {
 		if (ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) {
-			boolean seeSky = ClientData.CLIENT.world.isSkyVisible(ClientData.CLIENT.player.getBlockPos());
 			float blockLightLevel = ClientData.CLIENT.world.getLightLevel(LightType.BLOCK, ClientData.CLIENT.player.getBlockPos());
-			float skyLightLevel = ClientData.CLIENT.world.getSkyBrightness(ClientData.CLIENT.getTickDelta()) * 15;
-			return Math.min(seeSky ? Math.max(blockLightLevel, skyLightLevel) : blockLightLevel, 15);
+			float skyLightLevel = ClientData.CLIENT.world.getLightLevel(LightType.SKY, ClientData.CLIENT.player.getBlockPos());
+			return Math.min(Math.max(blockLightLevel, skyLightLevel), 15);
 		}
 		return 15.0F;
 	}

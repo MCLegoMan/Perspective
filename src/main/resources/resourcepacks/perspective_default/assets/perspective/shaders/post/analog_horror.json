@@ -85,7 +85,7 @@
 			"uniforms": [
 				{
 					"name": "Thickness",
-					"values": [ 256.0 ]
+					"values": [ 128.0 ]
 				}
 			]
 		},
