@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.pig;
 
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
-import com.mclegoman.perspective.client.textured_entity.features.PigOverlayFeatureRenderer;
+import com.mclegoman.perspective.client.textured_entity.features.OverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.PigEntityRenderer;
@@ -31,7 +31,7 @@ public abstract class PigEntityRendererMixin extends MobEntityRenderer<PigEntity
 
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new PigOverlayFeatureRenderer<>(this, new PigEntityModel<>(context.getPart(TexturedEntityModels.PIG_OVERLAY)), "minecraft:pig", new Identifier("textures/entity/pig/pig_outer_layer.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new PigEntityModel<>(context.getPart(TexturedEntityModels.PIG_OVERLAY)), "minecraft:pig", new Identifier("textures/entity/pig/pig_overlay.png")));
 	}
 
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)

@@ -12,19 +12,20 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class PigOverlayFeatureRenderer<T extends PigEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
+public class OverlayFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	private final M model;
 	private final String entity_type;
 	private final Identifier texture;
 
-	public PigOverlayFeatureRenderer(FeatureRendererContext<T, M> context, M model, String entity_type, Identifier texture) {
+	public OverlayFeatureRenderer(FeatureRendererContext<T, M> context, M model, String entity_type, Identifier texture) {
 		super(context);
 		this.model = model;
 		this.entity_type = entity_type;
@@ -35,7 +36,7 @@ public class PigOverlayFeatureRenderer<T extends PigEntity, M extends EntityMode
 		this.getContextModel().copyStateTo(this.model);
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(entity, this.entity_type, TexturedEntity.Affix.SUFFIX, "_outer_layer", this.texture)));
-		this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(entity, this.entity_type, TexturedEntity.Affix.SUFFIX, "_overlay", this.texture)));
+		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

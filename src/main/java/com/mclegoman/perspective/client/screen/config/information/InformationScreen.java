@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.screen.config.information;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
-import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -72,11 +71,10 @@ public class InformationScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).width(304).build(), 2);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.source_code"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective")).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.report"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective/issues")).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.credits_attribution"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective/Credits_and_Attribution")).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.licenses"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective/Licenses")).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.credits"), button -> ClientData.CLIENT.setScreen(new CreditsAttributionScreen(ClientData.CLIENT.currentScreen))).build(), 1);
 		return GRID;
 	}
 

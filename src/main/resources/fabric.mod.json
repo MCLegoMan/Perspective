@@ -7,11 +7,11 @@
   "authors": [
     "MCLegoMan"
   ],
-  "contributors": [
+  "contributors": {
     "Nettakrim"
-  ],
+  },
   "contact": {
-    "homepage": "https://github.com/mclegoman",
+    "homepage": "https://mclegoman.com/Perspective",
     "sources": "https://github.com/mclegoman/perspective",
     "issues": "https://github.com/mclegoman/perspective/issues"
   },

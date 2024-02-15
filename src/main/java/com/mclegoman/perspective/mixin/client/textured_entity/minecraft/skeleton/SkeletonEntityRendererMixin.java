@@ -9,13 +9,10 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.skeleto
 
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
-import com.mclegoman.perspective.client.textured_entity.features.PigOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.render.entity.feature.SkeletonOverlayFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.client.render.entity.model.SkeletonEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;

@@ -61,7 +61,7 @@ public class Translation {
 	}
 	public static String getString(String string, Object... variables) {
 		String RETURN = string;
-		for (Object variable : variables) RETURN = StringUtils.replaceOnce(RETURN, "{}", (String) variable);
+		for (Object variable : variables) RETURN = StringUtils.replaceOnce(RETURN, "{}", String.valueOf(variable));
 		return RETURN;
 	}
 	public static String getKeybindingTranslation(String key, boolean category) {

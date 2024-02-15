@@ -122,7 +122,12 @@
 `❓ = Not Tested`  
 
 #### Incompatible Vanilla Entities:  
-- `minecraft:ender_dragon`  
+- `minecraft:ender_dragon`
+
+### 
+Vanilla Minecraft uses both `_outer_layer` and `_overlay` as suffixes for the outer layer of mobs,
+Perspective will use the same suffix when using textured entities as the vanilla counterpart,
+but for new custom overlays, Perspective will use `_overlay`.
 
 
 ### Related Projects  
