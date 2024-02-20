@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.shaders;
 
+import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
@@ -136,7 +137,13 @@ public class Shader {
 		}
 		return 0;
 	}
-
+	public static Object get(ShaderRegistryValue shaderRegistryValue) {
+		return ShaderDataLoader.get(superSecretSettingsIndex, shaderRegistryValue);
+	}
+	@SuppressWarnings("unused")
+	public static JsonObject getCustom(String namespace) {
+		return ShaderDataLoader.getCustom(superSecretSettingsIndex, namespace);
+	}
 	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {

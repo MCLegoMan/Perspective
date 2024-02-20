@@ -41,7 +41,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean isDuplicatedShaderName(String name) {
 		return DUPLICATED_NAMES.contains(name);
 	}
-	public static Object get(int SHADER, ShaderRegistryValue VALUE) {
+	protected static Object get(int SHADER, ShaderRegistryValue VALUE) {
 		if (SHADER <= REGISTRY.size()) {
 			List<Object> SHADER_MAP = REGISTRY.get(SHADER);
 			if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
@@ -52,7 +52,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		}
 		return null;
 	}
-	public static JsonObject getCustom(int shaderIndex, String namespace) {
+	protected static JsonObject getCustom(int shaderIndex, String namespace) {
 		JsonObject customDatas = (JsonObject) get(shaderIndex, ShaderRegistryValue.CUSTOM);
 		if (customDatas != null) {
 			if (customDatas.has(namespace)) {
