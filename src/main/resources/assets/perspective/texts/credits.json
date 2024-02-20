@@ -98,17 +98,13 @@
 			]
 		},
 		{
-			"title": "Attribution",
+			"title": "Special Thanks",
 			"subsections": [
 				{
-					"subtitle": "Souper Secret Settings",
+					"subtitle": "Nettakrim",
 					"subsections": [
 						{
-							"subtitle": "Re-adds super secret settings through the power of soup!",
-							"subsections": [
-								"Author: Nettakrim",
-								"\nThank you for your help with fixing bugs and making our resource packs cross-compatible."
-							]
+							"subtitle": "Thank you for your help with fixing bugs and making our resource packs cross-compatible."
 						}
 					]
 				}
