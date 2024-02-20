@@ -2,5 +2,6 @@
   "namespace": "perspective",
   "shader": "outlined",
   "disable_screen_mode": true,
+  "translatable": true,
   "enabled": true
 }

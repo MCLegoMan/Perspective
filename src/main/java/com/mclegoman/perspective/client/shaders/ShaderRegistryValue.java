@@ -12,5 +12,6 @@ public enum ShaderRegistryValue {
 	NAMESPACE,
 	SHADER_NAME,
 	DISABLE_SCREEN_MODE,
+	TRANSLATABLE,
 	CUSTOM
 }

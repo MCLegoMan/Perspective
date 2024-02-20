@@ -1,0 +1,17 @@
+{
+	"shader.perspective.analog_horror": "analog_horror",
+	"shader.perspective.crt" : "crt",
+	"shader.perspective.film" : "film",
+	"shader.perspective.foggy" : "foggy",
+	"shader.perspective.gentoo" : "gentoo",
+	"shader.perspective.golden" : "golden",
+	"shader.perspective.grayscale" : "grayscale",
+	"shader.perspective.mirror" : "mirror",
+	"shader.perspective.outlined" : "outlined",
+	"shader.perspective.pixelated" : "pixelated",
+	"shader.perspective.rainbow" : "rainbow",
+	"shader.perspective.saturated" : "saturated",
+	"shader.perspective.shareware" : "shareware",
+	"shader.perspective.silhouette" : "silhouette",
+	"shader.perspective.sixteen_colors": "sixteen_colors"
+}

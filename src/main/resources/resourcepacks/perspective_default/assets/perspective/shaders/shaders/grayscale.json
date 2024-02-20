@@ -2,5 +2,6 @@
   "namespace": "perspective",
   "shader": "grayscale",
   "disable_screen_mode": false,
+  "translatable": true,
   "enabled": true
 }

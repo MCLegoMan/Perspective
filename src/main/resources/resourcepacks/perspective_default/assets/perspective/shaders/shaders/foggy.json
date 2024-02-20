@@ -2,5 +2,6 @@
   "namespace": "perspective",
   "shader": "foggy",
   "disable_screen_mode": true,
+  "translatable": true,
   "enabled": true
 }

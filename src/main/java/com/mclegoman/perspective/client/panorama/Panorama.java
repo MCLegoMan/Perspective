@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.panorama;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.toasts.Toast;
@@ -133,7 +134,7 @@ public class Panorama {
 							ClientData.CLIENT.gameRenderer.render(1.0F, 0L, true);
 							try {
 								if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
-									PostEffectProcessor panoramaPerspectivePostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(ShaderDataLoader.get((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings"), ShaderRegistryValue.ID)));
+									PostEffectProcessor panoramaPerspectivePostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(Shader.get((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings"), ShaderRegistryValue.ID)));
 									panoramaPerspectivePostProcessor.setupDimensions(resolution, resolution);
 									panoramaPerspectivePostProcessor.render(ClientData.CLIENT.getTickDelta());
 								}

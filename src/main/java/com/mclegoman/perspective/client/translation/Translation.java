@@ -59,6 +59,9 @@ public class Translation {
 	public static Text getTranslation(String namespace, String key) {
 		return Text.translatable("gui." + namespace + "." + key);
 	}
+	public static Text getShaderTranslation(String namespace, String shaderName) {
+		return Text.translatable("shader." + namespace + "." + shaderName);
+	}
 	public static String getString(String string, Object... variables) {
 		String RETURN = string;
 		for (Object variable : variables) RETURN = StringUtils.replaceOnce(RETURN, "{}", String.valueOf(variable));
