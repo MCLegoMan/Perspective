@@ -1,5 +1,5 @@
 {
-	"shader.perspective.analog_horror": "analog_horror",
+	"shader.perspective.analog_horror": "analog horror",
 	"shader.perspective.crt" : "crt",
 	"shader.perspective.film" : "film",
 	"shader.perspective.foggy" : "foggy",
@@ -13,5 +13,5 @@
 	"shader.perspective.saturated" : "saturated",
 	"shader.perspective.shareware" : "shareware",
 	"shader.perspective.silhouette" : "silhouette",
-	"shader.perspective.sixteen_colors": "sixteen_colors"
+	"shader.perspective.sixteen_colors": "sixteen colors"
 }
