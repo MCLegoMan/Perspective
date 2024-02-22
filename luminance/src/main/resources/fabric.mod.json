@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "luminance",
+  "version": "${version}",
+  "name": "Luminance",
+  "description": "Dynamic Shader Uniforms",
+  "authors": [
+    "MCLegoMan"
+  ],
+  "contact": {
+    "homepage": "https://mclegoman.com/Luminance",
+    "sources": "https://github.com/mclegoman/Luminance",
+    "issues": "https://github.com/mclegoman/Luminance/issues"
+  },
+  "license": [
+    "LGPL-3.0-or-later"
+  ],
+  "icon": "assets/luminance/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.mclegoman.luminance.client.Luminance"
+    ]
+  },
+  "mixins": [
+    "mclegoman-luminance.mixins.json"
+  ]
+}

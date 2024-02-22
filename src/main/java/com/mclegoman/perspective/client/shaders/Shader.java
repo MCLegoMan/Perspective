@@ -104,7 +104,7 @@ public class Shader {
 		if (save) ConfigHelper.saveConfig();
 	}
 	public static Text getTranslatedShaderName(int shaderIndex) {
-		if ((boolean)get(ShaderRegistryValue.TRANSLATABLE)) {
+		if ((boolean)get(shaderIndex, ShaderRegistryValue.TRANSLATABLE)) {
 			String namespace = (String) get(shaderIndex, ShaderRegistryValue.NAMESPACE);
 			String shaderName = (String) get(shaderIndex, ShaderRegistryValue.SHADER_NAME);
 			if (namespace != null && shaderName != null)

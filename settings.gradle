@@ -18,3 +18,4 @@ if (JavaVersion.current().ordinal() + 1 < 17) {
 }
 
 include 'simpleconfig'
+include 'luminance'

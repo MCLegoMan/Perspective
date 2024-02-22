@@ -6,7 +6,13 @@
     {
       "name": "perspective:mirror",
       "intarget": "minecraft:main",
-      "outtarget": "swap"
+      "outtarget": "swap",
+      "auxtargets": [
+        {
+          "name": "DiffuseDepthSampler",
+          "id": "minecraft:main:depth"
+        }
+      ]
     },
     {
       "name": "blit",

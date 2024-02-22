@@ -12,7 +12,6 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
-import com.mclegoman.perspective.client.shaders.ShaderUniforms;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;

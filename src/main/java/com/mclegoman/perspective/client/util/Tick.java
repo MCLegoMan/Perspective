@@ -16,7 +16,6 @@ import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderUniforms;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
@@ -31,7 +30,6 @@ public class Tick {
 				Perspective.tick();
 				Zoom.tick();
 				Shader.tick();
-				ShaderUniforms.tick();
 				Panorama.tick();
 				MessageOverlay.tick();
 				Hide.tick();

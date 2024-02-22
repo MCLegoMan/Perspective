@@ -1,16 +1,26 @@
 #version 150
 
-uniform sampler2D DiffuseSampler;
+in vec2 texCoord;
+in vec2 oneTexel;
 uniform vec2 InSize;
 uniform vec2 OutSize;
-in vec2 texCoord;
+
+uniform sampler2D DiffuseSampler;
+uniform sampler2D DiffuseDepthSampler;
 out vec4 fragColor;
+uniform float lu_RenderDistance;
 
 void main() {
+    vec4 inputColor = texture(DiffuseSampler, texCoord);
+
     vec2 uv = texCoord.xy;
     uv *= InSize;
     uv.x = InSize.x - uv.x;
     uv /= InSize;
     vec4 color = texture(DiffuseSampler, uv);
-    fragColor = color;
+
+    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * ((lu_RenderDistance * lu_RenderDistance) * lu_RenderDistance), 0.0), 1.0);
+    vec3 outputColor = mix(inputColor.rgb, color.rgb, depth);
+
+    fragColor = vec4(outputColor, inputColor.a);
 }
