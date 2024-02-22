@@ -12,12 +12,6 @@
 					"name": "DiffuseDepthSampler",
 					"id": "minecraft:main:depth"
 				}
-			],
-			"uniforms": [
-				{
-					"name": "Thickness",
-					"values": [ 256.0 ]
-				}
 			]
 		},
 		{
