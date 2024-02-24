@@ -82,10 +82,6 @@ public class ExperimentalConfigScreen extends Screen {
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
 		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true), 2);
 		GRID_ADDER.add(new EmptyWidget(4, 4), 2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.displaynames", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames", !(boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "displaynames"));
-			this.REFRESH = true;
-		}).width(304).build(), 2);
 		return GRID;
 	}
 

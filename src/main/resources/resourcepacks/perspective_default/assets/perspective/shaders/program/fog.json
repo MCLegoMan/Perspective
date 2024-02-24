@@ -4,7 +4,7 @@
         "srcrgb": "one",
         "dstrgb": "1-srcalpha"
     },
-    "vertex": "sobel",
+    "vertex": "screenquad",
     "fragment": "perspective:fog",
     "attributes": [ "Position" ],
     "samplers": [
@@ -17,6 +17,7 @@
         { "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
         { "name": "lu_SmoothFogColor",          "type": "float",     "count": 3,  "values": [ 0.5, 0.5, 0.5 ] },
         { "name": "lu_RenderDistance",          "type": "float",     "count": 1,  "values": [ 12.0 ] },
-        { "name": "lu_SmoothLight",          "type": "float",     "count": 1,  "values": [ 15.0 ] }
+        { "name": "lu_SmoothBlockLight",          "type": "float",     "count": 1,  "values": [ 15.0 ] },
+        { "name": "lu_SmoothSkyLight",          "type": "float",     "count": 1,  "values": [ 15.0 ] }
     ]
 }

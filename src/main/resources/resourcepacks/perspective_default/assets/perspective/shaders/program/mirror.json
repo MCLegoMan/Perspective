@@ -4,7 +4,7 @@
 		"srcrgb": "one",
 		"dstrgb": "1-srcalpha"
 	},
-	"vertex": "sobel",
+	"vertex": "screenquad",
 	"fragment": "perspective:mirror",
 	"attributes": [ "Position" ],
 	"samplers": [

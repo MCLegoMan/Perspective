@@ -274,7 +274,7 @@ public class Shader {
 	}
 
 	public static void render(float tickDelta, String renderType) {
-		RENDER_TYPE = renderType;
+		RENDER_TYPE = renderType + (Shader.USE_DEPTH ? ":depth" : "");
 		if (postProcessor != null) postProcessor.render(tickDelta);
 	}
 	public static boolean shouldDisableScreenMode() {
@@ -296,5 +296,8 @@ public class Shader {
 				if (beginWrite) ClientData.CLIENT.getFramebuffer().beginWrite(false);
 			}
 		}
+	}
+	public static boolean fabulousDepthFix() {
+		return USE_DEPTH && ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
 	}
 }

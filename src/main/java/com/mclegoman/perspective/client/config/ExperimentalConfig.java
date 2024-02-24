@@ -17,7 +17,6 @@ public class ExperimentalConfig {
 	protected static final String ID = Data.VERSION.getID() + "-experimental";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
-	protected static boolean DISPLAYNAMES;
 
 	protected static void init() {
 		try {
@@ -31,17 +30,14 @@ public class ExperimentalConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Couple<>("displaynames", false));
 	}
 
 	protected static void assign() {
-		DISPLAYNAMES = CONFIG.getOrDefault("displaynames", false);
 	}
 
 	protected static void save() {
 		if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
-			CONFIG_PROVIDER.setConfig("displaynames", DISPLAYNAMES);
 			CONFIG_PROVIDER.saveConfig(ID);
 		}
 	}

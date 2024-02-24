@@ -1,7 +1,0 @@
-{
-  "namespace": "perspective",
-  "shader": "film",
-  "disable_screen_mode": false,
-  "translatable": true,
-  "enabled": true
-}
