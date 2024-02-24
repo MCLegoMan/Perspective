@@ -3,7 +3,7 @@
 	"shader.perspective.foggy" : "foggy",
 	"shader.perspective.gentoo" : "gentoo",
 	"shader.perspective.golden" : "golden",
-	"shader.perspective.grayscale" : "grayscale",
+	"shader.perspective.grayscale" : "greyscale",
 	"shader.perspective.mirror" : "mirror",
 	"shader.perspective.outlined" : "outlined",
 	"shader.perspective.pixelated" : "pixelated",
@@ -11,5 +11,5 @@
 	"shader.perspective.saturated" : "saturated",
 	"shader.perspective.shareware" : "shareware",
 	"shader.perspective.silhouette" : "silhouette",
-	"shader.perspective.sixteen_colors": "sixteen colors"
+	"shader.perspective.sixteen_colors": "sixteen colours"
 }
