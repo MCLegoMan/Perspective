@@ -192,15 +192,13 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 						JsonObject namespaceList = JsonHelper.asObject(namespaces, "namespacelist");
 						String namespace = JsonHelper.getString(namespaceList, "namespace", Data.VERSION.getID());
 						boolean replace = JsonHelper.getBoolean(namespaceList, "replace", false);
+						boolean translatable = JsonHelper.getBoolean(namespaceList, "translatable", false);
 						if (replace) clearNamespace(namespace);
 						List<String> disableScreenMode = new ArrayList<>();
 						for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_screen_mode", new JsonArray()))
 							disableScreenMode.add(shader.getAsString());
-						List<String> translatable = new ArrayList<>();
-						for (JsonElement shader : JsonHelper.getArray(namespaceList, "translatable", new JsonArray()))
-							translatable.add(shader.getAsString());
 						for (JsonElement shader : JsonHelper.getArray(namespaceList, "shaders", new JsonArray()))
-							add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable.contains(shader.getAsString()), JsonHelper.getObject(namespaceList, "custom", new JsonObject()), manager);
+							add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, JsonHelper.getObject(namespaceList, "custom", new JsonObject()), manager);
 					}
 				} catch (Exception error) {
 					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.VERSION.getID(), error);
