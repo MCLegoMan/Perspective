@@ -20,9 +20,11 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
@@ -38,6 +40,11 @@ public class Shader {
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	public static int superSecretSettingsIndex;
 	public static Framebuffer DEPTH_FRAME_BUFFER;
+	public static Framebuffer translucentFramebuffer;
+	public static Framebuffer entityFramebuffer;
+	public static Framebuffer particlesFramebuffer;
+	public static Framebuffer weatherFramebuffer;
+	public static Framebuffer cloudsFramebuffer;
 	public static boolean DEPTH_FIX;
 	public static boolean USE_DEPTH;
 	public static String RENDER_TYPE;
@@ -223,6 +230,22 @@ public class Shader {
 			if (postProcessor != null) postProcessor.close();
 			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderRegistryValue.ID)));
 			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+			try {
+				if (postProcessor != null) {
+					if (translucentFramebuffer != null) translucentFramebuffer.delete();
+					translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");
+					if (entityFramebuffer != null) entityFramebuffer.delete();
+					entityFramebuffer = postProcessor.getSecondaryTarget("itemEntity");
+					if (particlesFramebuffer != null) particlesFramebuffer.delete();
+					particlesFramebuffer = postProcessor.getSecondaryTarget("particles");
+					if (weatherFramebuffer != null) weatherFramebuffer.delete();
+					weatherFramebuffer = postProcessor.getSecondaryTarget("weather");
+					if (cloudsFramebuffer != null) cloudsFramebuffer.delete();
+					cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
+				}
+			} catch (Exception error) {
+				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
+			}
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getFullShaderName(superSecretSettingsIndex));
 			if (showShaderName)
 				setOverlay(getTranslatedShaderName(superSecretSettingsIndex));
@@ -275,7 +298,9 @@ public class Shader {
 
 	public static void render(float tickDelta, String renderType) {
 		RENDER_TYPE = renderType + (Shader.USE_DEPTH ? ":depth" : "");
-		if (postProcessor != null) postProcessor.render(tickDelta);
+		if (postProcessor != null) {
+			postProcessor.render(tickDelta);
+		}
 	}
 	public static boolean shouldDisableScreenMode() {
 		return (boolean) Shader.get(ShaderRegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
@@ -299,5 +324,29 @@ public class Shader {
 	}
 	public static boolean fabulousDepthFix() {
 		return USE_DEPTH && ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
+	}
+	public static void setFramebuffers() {
+		if (shouldRenderShader()) {
+			if (translucentFramebuffer != null) {
+				translucentFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+				if (USE_DEPTH) translucentFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+			}
+			if (entityFramebuffer != null) {
+				entityFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+				if (USE_DEPTH) entityFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+			}
+			if (particlesFramebuffer != null) {
+				particlesFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+				if (USE_DEPTH) particlesFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+			}
+			if (weatherFramebuffer != null) {
+				weatherFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+				if (USE_DEPTH) weatherFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+			}
+			if (cloudsFramebuffer != null) {
+				cloudsFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+				if (USE_DEPTH) cloudsFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+			}
+		}
 	}
 }

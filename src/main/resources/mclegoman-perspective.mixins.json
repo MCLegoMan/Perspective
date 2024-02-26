@@ -22,6 +22,7 @@
 		"client.super_secret_settings.GameRendererMixin",
 		"client.super_secret_settings.OptionsScreenMixin",
 		"client.super_secret_settings.PostEffectProcessorMixin",
+		"client.super_secret_settings.RenderPhaseMixin",
 		"client.super_secret_settings.ShaderNamespaceFix",
 		"client.super_secret_settings.ShaderTextureFix",
 		"client.super_secret_settings.WorldRendererMixin",
