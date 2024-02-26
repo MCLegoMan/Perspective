@@ -1,12 +1,12 @@
 {
   "targets": [
-    "swap"
+    "0"
   ],
   "passes": [
     {
       "name": "perspective:outlined",
       "intarget": "minecraft:main",
-      "outtarget": "swap",
+      "outtarget": "0",
       "auxtargets": [
         {
           "name": "DiffuseDepthSampler",
@@ -22,7 +22,7 @@
     },
     {
       "name": "blit",
-      "intarget": "swap",
+      "intarget": "0",
       "outtarget": "minecraft:main"
     }
   ]
