@@ -19,10 +19,10 @@ void main() {
     uv /= InSize;
     vec4 color = texture(DiffuseSampler, uv);
 
-    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * ((lu_RenderDistance * 16) * 0.8), 0.0), 1.0);
+    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * (lu_RenderDistance * 16), 0.0), 1.0);
 
     vec3 outputColor;
-    if (depth > 0.64) outputColor = color.rgb;
+    if (depth > 0.9) outputColor = mix(inputColor.rgb, color.rgb, smoothstep(0.9, 0.91, depth));
     else outputColor = inputColor.rgb;
 
     fragColor = vec4(outputColor, inputColor.a);
