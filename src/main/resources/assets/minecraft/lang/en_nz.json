@@ -23,5 +23,6 @@
 	"shader.minecraft.sobel": "sobel",
 	"shader.minecraft.spider": "spider",
 	"shader.minecraft.wobble": "wobble",
-	"shader.minecraft.love": "love"
+	"shader.minecraft.love": "love",
+	"shader.minecraft.transparency": "fabulous"
 }

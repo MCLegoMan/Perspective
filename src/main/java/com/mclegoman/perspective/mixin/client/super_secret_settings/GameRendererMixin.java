@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.mixin.client.super_secret_settings;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.SimpleFramebuffer;
@@ -21,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
 	private void perspective$render_game(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (!Shader.fabulousDepthFix()) {
+		if (!Shader.fabulousDepthFix() && !ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
 			if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
 				Shader.render(tickDelta, "game");
 			}
@@ -29,8 +30,10 @@ public abstract class GameRendererMixin {
 	}
 	@Inject(method = "render", at = @At("TAIL"))
 	private void perspective$render_screen(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
-			Shader.render(tickDelta, "screen");
+		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+			if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
+				Shader.render(tickDelta, "screen");
+		}
 	}
 	@Inject(method = "onResized", at = @At(value = "TAIL"))
 	private void perspective$onResized(int width, int height, CallbackInfo ci) {

@@ -17,12 +17,14 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.option.Perspective;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -58,7 +60,7 @@ public class Panorama {
 	}
 
 	public static void tick() {
-		if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024);
+		if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024, 0.0F);
 	}
 
 	private static String getFilename() {
@@ -82,109 +84,110 @@ public class Panorama {
 		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug") || getIncompatibleMods().size() == 0 && !ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
 	}
 
-	private static void takePanorama(int resolution) {
-		if (ClientData.CLIENT.player != null) {
-			try {
-				if (shouldTakePanorama()) {
+	private static void takePanorama(int resolution, float startingYaw) {
+		try {
+			if (shouldTakePanorama()) {
+				if (ClientData.CLIENT.player != null) {
+					float playerPitch = ClientData.CLIENT.player.getPitch();
+					float playerYaw = ClientData.CLIENT.player.getYaw();
+
+					int framebufferWidth = ClientData.CLIENT.getWindow().getFramebufferWidth();
+					int framebufferHeight = ClientData.CLIENT.getWindow().getFramebufferHeight();
+					Framebuffer framebuffer = new SimpleFramebuffer(resolution, resolution, true, MinecraftClient.IS_SYSTEM_MAC);
+					ClientData.CLIENT.getWindow().setFramebufferWidth(resolution);
+					ClientData.CLIENT.getWindow().setFramebufferHeight(resolution);
+
+					if (Shader.shouldRenderShader()) Shader.set(true, false, false, true, framebuffer, resolution, resolution);
+
+					Perspective playerPerspective = ClientData.CLIENT.options.getPerspective();
+					if (!playerPerspective.isFirstPerson()) ClientData.CLIENT.options.setPerspective(Perspective.FIRST_PERSON);
+
+					ClientData.CLIENT.gameRenderer.setBlockOutlineEnabled(false);
+					ClientData.CLIENT.gameRenderer.setRenderingPanorama(true);
+
 					String panoramaName = getFilename();
-					String rpDirLoc = ClientData.CLIENT.runDirectory.getPath() + "/resourcepacks/" + panoramaName;
-					String assetsDirLoc = rpDirLoc + "/assets/minecraft/textures/gui/title/background";
-					if (new File(assetsDirLoc).mkdirs()) {
-						int framebufferWidth = ClientData.CLIENT.getWindow().getFramebufferWidth();
-						int framebufferHeight = ClientData.CLIENT.getWindow().getFramebufferHeight();
-						Framebuffer framebuffer = new SimpleFramebuffer(resolution, resolution, true, MinecraftClient.IS_SYSTEM_MAC);
-						float pitch = ClientData.CLIENT.player.getPitch();
-						float yaw = ClientData.CLIENT.player.getYaw();
-						ClientData.CLIENT.gameRenderer.setBlockOutlineEnabled(false);
-						ClientData.CLIENT.gameRenderer.setRenderingPanorama(true);
-						ClientData.CLIENT.getWindow().setFramebufferWidth(resolution);
-						ClientData.CLIENT.getWindow().setFramebufferHeight(resolution);
-						ClientData.CLIENT.getFramebuffer().beginWrite(true);
-						Perspective CURRENT_PERSPECTIVE = ClientData.CLIENT.options.getPerspective();
-						if (!CURRENT_PERSPECTIVE.isFirstPerson())
-							ClientData.CLIENT.options.setPerspective(Perspective.FIRST_PERSON);
+					File resourcePackDir = new File(ClientData.CLIENT.runDirectory.getPath() + "/resourcepacks/" + panoramaName);
+					File screenshotsDir = new File(resourcePackDir + "/assets/minecraft/textures/gui/title/background");
+
+					if (screenshotsDir.mkdirs()) {
+						// Pre-render world
+						for (int l = 0; l < 100; ++l) {
+							framebuffer.beginWrite(true);
+							ClientData.CLIENT.gameRenderer.renderWorld(0.0F, 0L);
+						}
+						// Create panoramic screenshots
 						for (int l = 0; l < 6; ++l) {
 							switch (l) {
 								case 0 -> {
-									ClientData.CLIENT.player.setYaw(0.0F);
+									ClientData.CLIENT.player.setYaw((startingYaw + 0.0F) % 360.0F);
 									ClientData.CLIENT.player.setPitch(0.0F);
 								}
 								case 1 -> {
-									ClientData.CLIENT.player.setYaw(90.0F);
+									ClientData.CLIENT.player.setYaw((startingYaw + 90.0F) % 360.0F);
 									ClientData.CLIENT.player.setPitch(0.0F);
 								}
 								case 2 -> {
-									ClientData.CLIENT.player.setYaw(180.0F);
+									ClientData.CLIENT.player.setYaw((startingYaw + 180.0F) % 360.0F);
 									ClientData.CLIENT.player.setPitch(0.0F);
 								}
 								case 3 -> {
-									ClientData.CLIENT.player.setYaw(270.0F);
+									ClientData.CLIENT.player.setYaw((startingYaw + 270.0F) % 360.0F);
 									ClientData.CLIENT.player.setPitch(0.0F);
 								}
 								case 4 -> {
-									ClientData.CLIENT.player.setYaw(0.0F);
+									ClientData.CLIENT.player.setYaw((startingYaw + 0.0F) % 360.0F);
 									ClientData.CLIENT.player.setPitch(-90.0F);
 								}
-								default -> {
-									ClientData.CLIENT.player.setYaw(0.0F);
+								case 5 -> {
+									ClientData.CLIENT.player.setYaw((startingYaw + 0.0F) % 360.0F);
 									ClientData.CLIENT.player.setPitch(90.0F);
 								}
 							}
 							framebuffer.beginWrite(true);
-							ClientData.CLIENT.gameRenderer.render(1.0F, 0L, true);
-							try {
-								if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
-									PostEffectProcessor panoramaPerspectivePostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(Shader.get((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings"), ShaderRegistryValue.ID)));
-									panoramaPerspectivePostProcessor.setupDimensions(resolution, resolution);
-									panoramaPerspectivePostProcessor.render(ClientData.CLIENT.getTickDelta());
-								}
-							} catch (Exception error) {
-								Data.VERSION.sendToLog(Helper.LogType.ERROR, "Failed to add Super Secret Settings to Panorama.");
-							}
-							ScreenshotRecorder.saveScreenshot(new File(assetsDirLoc), "panorama_" + l + ".png", framebuffer);
+							ClientData.CLIENT.gameRenderer.renderWorld(0.0F, 0L);
+							ScreenshotRecorder.saveScreenshot(screenshotsDir, "panorama_" + l + ".png", framebuffer);
 						}
-						if (!CURRENT_PERSPECTIVE.isFirstPerson())
-							ClientData.CLIENT.options.setPerspective(CURRENT_PERSPECTIVE);
-						File pack_file = new File(rpDirLoc + "/pack.mcmeta");
-						if (pack_file.createNewFile()) {
-							FileWriter pack_writer = new FileWriter(pack_file);
-							pack_writer.write("{\"pack\": {\"pack_format\": 9, \"supported_formats\": {\"min_inclusive\": 9, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
-							pack_writer.close();
+
+						// Create pack.mcmeta
+						File packFile = new File(resourcePackDir + "/pack.mcmeta");
+						if (packFile.createNewFile()) {
+							FileWriter packWriter = new FileWriter(packFile);
+							packWriter.write("{\"pack\": {\"pack_format\": " + SharedConstants.getGameVersion().getResourceVersion(ResourceType.CLIENT_RESOURCES) + ", \"supported_formats\": {\"min_inclusive\": 1, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
+							packWriter.close();
 						}
-						ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.success.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.success.description", new Object[]{Text.literal(panoramaName)}), 320, Toast.Type.INFO));
-						ClientData.CLIENT.player.sendMessage(Translation.getTranslation(Data.VERSION.getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, new File(rpDirLoc).getAbsolutePath())))}));
-						ClientData.CLIENT.player.setPitch(pitch);
-						ClientData.CLIENT.player.setYaw(yaw);
-						ClientData.CLIENT.gameRenderer.setBlockOutlineEnabled(true);
-						ClientData.CLIENT.getWindow().setFramebufferWidth(framebufferWidth);
-						ClientData.CLIENT.getWindow().setFramebufferHeight(framebufferHeight);
-						ClientData.CLIENT.getFramebuffer().beginWrite(true);
-						framebuffer.delete();
-						ClientData.CLIENT.gameRenderer.setRenderingPanorama(false);
-						ClientData.CLIENT.getFramebuffer().beginWrite(true);
+						// Create pack.png
+
 					}
-					if (getIncompatibleMods().size() != 0 || ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
-						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")) {
-							Data.VERSION.getLogger().warn("{} Debug is enabled. The panorama screenshot might not have rendered as expected.", Data.VERSION.getLoggerPrefix());
-							Text description = Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.debug.description");
-							ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.debug.title")}), description, 320, Toast.Type.WARNING));
-						}
-					}
-				} else {
-					if (getIncompatibleMods().size() != 0) {
-						Data.VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Incompatible Mod(s): {}", Data.VERSION.getLoggerPrefix(), getIncompatibleMods().toString().replace("[", "").replace("]", ""));
-						Text description = (getIncompatibleMods().size() == 1) ? Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mod", new Object[]{getIncompatibleMods().toString().replace("[", "").replace("]", "")}) : Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mods", new Object[]{getIncompatibleMods().toString().replace("[", "").replace("]", "")});
-						ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.title")}), description, 320, Toast.Type.WARNING));
-					}
-					if (ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
-						Data.VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: Take Panorama Screenshot is not compatible with Fabulous graphics.", Data.VERSION.getLoggerPrefix());
-						ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.fabulous"), 320, Toast.Type.WARNING));
-					}
+
+					ClientData.CLIENT.getWindow().setFramebufferWidth(framebufferWidth);
+					ClientData.CLIENT.getWindow().setFramebufferHeight(framebufferHeight);
+					if (Shader.shouldRenderShader()) Shader.set(true, false, false, true);
+					framebuffer.delete();
+
+					ClientData.CLIENT.player.setPitch(playerPitch);
+					ClientData.CLIENT.player.setYaw(playerYaw);
+					if (!playerPerspective.isFirstPerson()) ClientData.CLIENT.options.setPerspective(playerPerspective);
+					ClientData.CLIENT.gameRenderer.setBlockOutlineEnabled(true);
+					ClientData.CLIENT.gameRenderer.setRenderingPanorama(false);
+					ClientData.CLIENT.getFramebuffer().beginWrite(true);
+					ClientData.CLIENT.player.sendMessage(Translation.getTranslation(Data.VERSION.getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, resourcePackDir.getAbsolutePath())))}));
 				}
-			} catch (Exception error) {
-				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to take a panorama: {}", Data.VERSION.getLoggerPrefix(), error);
-				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.title")}), Text.of(String.valueOf(error)), 320, Toast.Type.WARNING));
+			} else {
+				Text errorTitle = Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.title")});
+				if (getIncompatibleMods().size() != 0) {
+					String incompatibleMods = getIncompatibleMods().toString().replace("[", "").replace("]", "");
+					Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: Incompatible Mod(s): {}", incompatibleMods));
+					Text errorDescription = (getIncompatibleMods().size() == 1) ? Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mod", new Object[]{incompatibleMods}) : Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mods", new Object[]{incompatibleMods});
+					ClientData.CLIENT.getToastManager().add(new Toast(errorTitle, errorDescription, 320, Toast.Type.WARNING));
+				}
+				if (ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
+					Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: Unsupported Graphics Mode: Fabulous"));
+					Text errorDescription = Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.fabulous");
+					ClientData.CLIENT.getToastManager().add(new Toast(errorTitle, errorDescription, 320, Toast.Type.WARNING));
+				}
 			}
+		} catch (Exception error) {
+			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: {}", error));
 		}
 	}
 }

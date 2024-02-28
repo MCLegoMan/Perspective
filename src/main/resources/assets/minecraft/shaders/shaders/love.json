@@ -1,7 +1,0 @@
-{
-  "namespace": "minecraft",
-  "shader": "love",
-  "disable_screen_mode": false,
-  "translatable": true,
-  "enabled": true
-}

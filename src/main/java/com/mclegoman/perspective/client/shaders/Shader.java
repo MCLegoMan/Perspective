@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
@@ -24,7 +23,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
@@ -33,7 +31,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
@@ -222,14 +223,16 @@ public class Shader {
 			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 		}
 	}
-
 	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
+		set(forwards, playSound, showShaderName, SAVE_CONFIG, ClientData.CLIENT.getFramebuffer(), ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+	}
+	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG, Framebuffer framebuffer, int framebufferWidth, int framebufferHeight) {
 		USE_DEPTH = false;
 		DEPTH_FIX = true;
 		try {
 			if (postProcessor != null) postProcessor.close();
-			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderRegistryValue.ID)));
-			postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(get(ShaderRegistryValue.ID)));
+			postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
 			try {
 				if (postProcessor != null) {
 					if (translucentFramebuffer != null) translucentFramebuffer.delete();
