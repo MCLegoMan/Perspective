@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.mixin.client.super_secret_settings;
+package com.mclegoman.perspective.mixin.client.shaders;
 
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.util.Identifier;

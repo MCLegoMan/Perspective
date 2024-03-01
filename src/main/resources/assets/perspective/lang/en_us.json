@@ -121,13 +121,15 @@
 
 	"gui.perspective.config.show_death_coordinates": "Death Coordinates: %s",
 
-	"gui.perspective.config.detect_update_channel": "Update Notification Channel: %s",
+	"gui.perspective.config.detect_update_channel": "Update Channel: %s",
 	"gui.perspective.config.detect_update_channel.hover": "Cycle Update Notification Channel",
 
 	"gui.perspective.config.tutorials": "Tutorials: %s",
 	"gui.perspective.config.tutorials.hover": "Toggle Perspective Tutorial Toasts",
 
 	"gui.perspective.config.dirt_title_screen": "Dirt Title Screen: %s",
+
+	"gui.perspective.config.ui_background": "UI Background: %s",
 
 	"gui.perspective.config.hide": "Hide",
 
@@ -248,6 +250,10 @@
 
 	"gui.perspective.config.error": "ERROR",
 
+	"gui.perspective.config.ui_background.type.default": "Default",
+	"gui.perspective.config.ui_background.type.gaussian": "Gaussian",
+	"gui.perspective.config.ui_background.type.legacy": "Legacy",
+
 	"gui.perspective.config.detect_update_channel.release": "Release",
 	"gui.perspective.config.detect_update_channel.beta": "Beta",
 	"gui.perspective.config.detect_update_channel.alpha": "Alpha",
@@ -258,5 +264,7 @@
 
 	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s",
 
-	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen"
+	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen",
+
+	"shader.perspective.gaussian" : "gaussian"
 }

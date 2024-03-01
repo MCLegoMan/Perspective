@@ -21,6 +21,7 @@ import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
+import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
@@ -40,7 +41,6 @@ public class ConfigScreen extends Screen {
 	private boolean SHOULD_CLOSE;
 	private int PAGE;
 	private boolean CHECK_FOR_UPDATES;
-
 	public ConfigScreen(Screen PARENT, boolean REFRESH, int PAGE, boolean CHECK_FOR_UPDATES) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
@@ -116,6 +116,10 @@ public class ConfigScreen extends Screen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "dirt_title_screen", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "dirt_title_screen"));
 			this.REFRESH = true;
 		}).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.VERSION.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background"))}), (button) -> {
+			UIBackground.cycleUIBackgroundType(!hasShiftDown());
+			this.REFRESH = true;
+		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"));
 			this.REFRESH = true;
@@ -132,7 +136,7 @@ public class ConfigScreen extends Screen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel", UpdateChecker.nextUpdateChannel());
 			this.REFRESH = true;
 			this.CHECK_FOR_UPDATES = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "detect_update_channel", true))).width(304).build(), 2);
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "detect_update_channel", true))).build());
 		return GRID;
 	}
 

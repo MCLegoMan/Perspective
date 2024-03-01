@@ -3,7 +3,7 @@
   "id": "perspective",
   "version": "${version}",
   "name": "Perspective",
-  "description": "Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to zoom, change and hold perspectives, have custom textures on named/random entities, take panoramic screenshots, and use super secret settings!\nCredits and Attribution:\n- Vanilla Shader Fixes: Nettakrim\n- Shader Namespace Fixes: Nettakrim\n- Depth Fix for Post Processor Shaders: Nettakrim",
+  "description": "Adds several client-side features including Zoom, Hold Perspective, Super Secret Settings, Textured Entities, and Panoramic Screenshots.",
   "authors": [
     "MCLegoMan"
   ],

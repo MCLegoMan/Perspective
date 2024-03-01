@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.util;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mclegoman.perspective.client.ui.UIBackground;
 
 public class JsonHelper extends net.minecraft.util.JsonHelper {
 	public static String getShaderMode(JsonObject object, String element, String defaultObj) {
@@ -29,13 +30,13 @@ public class JsonHelper extends net.minecraft.util.JsonHelper {
 		}
 	}
 
-	private static String asShaderMode(String STRING) {
+	public static String asShaderMode(String STRING) {
 		if (STRING.equalsIgnoreCase("screen")) return "screen";
 		else if (STRING.equalsIgnoreCase("game")) return "game";
 		return "game";
 	}
 
-	private static String asShaderMode(boolean BOOLEAN) {
+	public static String asShaderMode(boolean BOOLEAN) {
 		// This is to keep backwards compatibility with older versions of Perspective.
 		if (BOOLEAN) return "screen";
 		return "game";
@@ -45,10 +46,18 @@ public class JsonHelper extends net.minecraft.util.JsonHelper {
 		return object.has(element) ? asDetectUpdateChannel(object.get(element).getAsString()) : asDetectUpdateChannel(defaultObj);
 	}
 
-	private static String asDetectUpdateChannel(String STRING) {
+	public static String asDetectUpdateChannel(String STRING) {
 		if (STRING.equalsIgnoreCase("none")) return "none";
 		else if (STRING.equalsIgnoreCase("alpha")) return "alpha";
 		else if (STRING.equalsIgnoreCase("beta")) return "beta";
 		return "release";
+	}
+
+	public static String getUIBackground(JsonObject object, String element, String defaultObj) {
+		return object.has(element) ? asUIBackground(object.get(element).getAsString()) : asUIBackground(defaultObj);
+	}
+
+	public static String asUIBackground(String STRING) {
+		return UIBackground.isValidUIBackgroundType(STRING) ? STRING : "default";
 	}
 }

@@ -41,20 +41,20 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean isDuplicatedShaderName(String name) {
 		return DUPLICATED_NAMES.contains(name);
 	}
-	protected static Object get(int SHADER, ShaderRegistryValue VALUE) {
+	protected static Object get(int SHADER, RegistryValue VALUE) {
 		if (SHADER <= REGISTRY.size()) {
 			List<Object> SHADER_MAP = REGISTRY.get(SHADER);
-			if (VALUE.equals(ShaderRegistryValue.ID)) return SHADER_MAP.get(0);
-			if (VALUE.equals(ShaderRegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
-			if (VALUE.equals(ShaderRegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
-			if (VALUE.equals(ShaderRegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
-			if (VALUE.equals(ShaderRegistryValue.TRANSLATABLE)) return SHADER_MAP.get(4);
-			if (VALUE.equals(ShaderRegistryValue.CUSTOM)) return SHADER_MAP.get(5);
+			if (VALUE.equals(RegistryValue.ID)) return SHADER_MAP.get(0);
+			if (VALUE.equals(RegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
+			if (VALUE.equals(RegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
+			if (VALUE.equals(RegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
+			if (VALUE.equals(RegistryValue.TRANSLATABLE)) return SHADER_MAP.get(4);
+			if (VALUE.equals(RegistryValue.CUSTOM)) return SHADER_MAP.get(5);
 		}
 		return null;
 	}
 	protected static JsonObject getCustom(int shaderIndex, String namespace) {
-		JsonObject customDatas = (JsonObject) get(shaderIndex, ShaderRegistryValue.CUSTOM);
+		JsonObject customDatas = (JsonObject) get(shaderIndex, RegistryValue.CUSTOM);
 		if (customDatas != null) {
 			if (customDatas.has(namespace)) {
 				return JsonHelper.getObject(customDatas, namespace);
@@ -229,5 +229,13 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to release shaders: {}", Data.VERSION.getID(), error);
 		}
+	}
+	public enum RegistryValue {
+		ID,
+		NAMESPACE,
+		SHADER_NAME,
+		DISABLE_SCREEN_MODE,
+		TRANSLATABLE,
+		CUSTOM
 	}
 }

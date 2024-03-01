@@ -279,6 +279,7 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0, PerspectiveLogo.pride_types.length));
 			configChanged = setConfig(ConfigType.NORMAL, "show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
 			configChanged = setConfig(ConfigType.NORMAL, "dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
+			configChanged = setConfig(ConfigType.NORMAL, "ui_background", ConfigDataLoader.UI_BACKGROUND);
 			configChanged = setConfig(ConfigType.NORMAL, "hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
 			configChanged = setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
 			configChanged = setConfig(ConfigType.NORMAL, "hide_armor", ConfigDataLoader.HIDE_ARMOR);
@@ -408,6 +409,10 @@ public class ConfigHelper {
 						}
 						case "dirt_title_screen" -> {
 							Config.DIRT_TITLE_SCREEN = (boolean) VALUE;
+							configChanged = true;
+						}
+						case "ui_background" -> {
+							Config.UI_BACKGROUND = (String) VALUE;
 							configChanged = true;
 						}
 						case "hide_block_outline" -> {
@@ -588,6 +593,9 @@ public class ConfigHelper {
 					}
 					case "dirt_title_screen" -> {
 						return Config.DIRT_TITLE_SCREEN;
+					}
+					case "ui_background" -> {
+						return Config.UI_BACKGROUND;
 					}
 					case "hide_block_outline" -> {
 						return Config.HIDE_BLOCK_OUTLINE;

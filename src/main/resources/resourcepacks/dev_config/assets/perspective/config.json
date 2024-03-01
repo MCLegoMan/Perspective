@@ -24,6 +24,7 @@
 	"force_pride_type_index": 0,
 	"show_death_coordinates": true,
 	"dirt_title_screen": false,
+	"ui_background": "gaussian",
 	"hide_block_outline": false,
 	"hide_crosshair": "dynamic",
 	"hide_armor": true,

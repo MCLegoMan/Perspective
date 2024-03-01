@@ -42,6 +42,7 @@ public class Config {
 	protected static int FORCE_PRIDE_TYPE_INDEX;
 	protected static boolean SHOW_DEATH_COORDINATES;
 	protected static boolean DIRT_TITLE_SCREEN;
+	protected static String UI_BACKGROUND;
 	protected static String HIDE_CROSSHAIR;
 	protected static boolean HIDE_BLOCK_OUTLINE;
 	protected static boolean HIDE_ARMOR;
@@ -91,6 +92,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Couple<>("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
 		CONFIG_PROVIDER.add(new Couple<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
 		CONFIG_PROVIDER.add(new Couple<>("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN));
+		CONFIG_PROVIDER.add(new Couple<>("ui_background", ConfigDataLoader.UI_BACKGROUND));
 		CONFIG_PROVIDER.add(new Couple<>("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE));
 		CONFIG_PROVIDER.add(new Couple<>("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR));
 		CONFIG_PROVIDER.add(new Couple<>("hide_armor", ConfigDataLoader.HIDE_ARMOR));
@@ -130,6 +132,7 @@ public class Config {
 		FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
 		SHOW_DEATH_COORDINATES = CONFIG.getOrDefault("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
 		DIRT_TITLE_SCREEN = CONFIG.getOrDefault("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
+		UI_BACKGROUND = CONFIG.getOrDefault("ui_background", ConfigDataLoader.UI_BACKGROUND);
 		HIDE_BLOCK_OUTLINE = CONFIG.getOrDefault("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
 		HIDE_CROSSHAIR = CONFIG.getOrDefault("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
 		HIDE_ARMOR = CONFIG.getOrDefault("hide_armor", ConfigDataLoader.HIDE_ARMOR);
@@ -170,6 +173,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
 		CONFIG_PROVIDER.setConfig("show_death_coordinates", SHOW_DEATH_COORDINATES);
 		CONFIG_PROVIDER.setConfig("dirt_title_screen", DIRT_TITLE_SCREEN);
+		CONFIG_PROVIDER.setConfig("ui_background", UI_BACKGROUND);
 		CONFIG_PROVIDER.setConfig("hide_block_outline", HIDE_BLOCK_OUTLINE);
 		CONFIG_PROVIDER.setConfig("hide_crosshair", HIDE_CROSSHAIR);
 		CONFIG_PROVIDER.setConfig("hide_armor", HIDE_ARMOR);

@@ -5,13 +5,15 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.mixin.client.super_secret_settings;
+package com.mclegoman.perspective.mixin.client.shaders;
 
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
+import com.mclegoman.perspective.client.ui.UIBackground;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,6 +30,17 @@ public abstract class GameRendererMixin {
 			}
 		}
 	}
+	@Inject(method = "renderBlur", at = @At("HEAD"), cancellable = true)
+	private void render(float tickDelta, CallbackInfo ci) {
+		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy")) {
+			ci.cancel();
+			UIBackground.Legacy.render(new DrawContext(ClientData.CLIENT, ClientData.CLIENT.getBufferBuilders().getEntityVertexConsumers()), tickDelta);
+		}
+		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("gaussian")) {
+			ci.cancel();
+			UIBackground.Gaussian.render(tickDelta);
+		}
+	}
 	@Inject(method = "render", at = @At("TAIL"))
 	private void perspective$render_screen(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
 		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
@@ -39,6 +52,9 @@ public abstract class GameRendererMixin {
 	private void perspective$onResized(int width, int height, CallbackInfo ci) {
 		if (Shader.postProcessor != null) {
 			Shader.postProcessor.setupDimensions(width, height);
+		}
+		if (UIBackground.Gaussian.blurPostProcessor != null) {
+			UIBackground.Gaussian.blurPostProcessor.setupDimensions(width, height);
 		}
 		if (Shader.DEPTH_FRAME_BUFFER == null) {
 			Shader.DEPTH_FRAME_BUFFER = new SimpleFramebuffer(width, height, true, MinecraftClient.IS_SYSTEM_MAC);

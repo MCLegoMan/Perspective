@@ -112,9 +112,9 @@ public class Shader {
 		if (save) ConfigHelper.saveConfig();
 	}
 	public static Text getTranslatedShaderName(int shaderIndex) {
-		if ((boolean)get(shaderIndex, ShaderRegistryValue.TRANSLATABLE)) {
-			String namespace = (String) get(shaderIndex, ShaderRegistryValue.NAMESPACE);
-			String shaderName = (String) get(shaderIndex, ShaderRegistryValue.SHADER_NAME);
+		if ((boolean)get(shaderIndex, ShaderDataLoader.RegistryValue.TRANSLATABLE)) {
+			String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.NAMESPACE);
+			String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.SHADER_NAME);
 			if (namespace != null && shaderName != null)
 				return Translation.getShaderTranslation(namespace, shaderName);
 		} else {
@@ -123,15 +123,15 @@ public class Shader {
 		return null;
 	}
 	public static String getShaderName(int shaderIndex) {
-		String namespace = (String) get(shaderIndex, ShaderRegistryValue.NAMESPACE);
-		String shaderName = (String) get(shaderIndex, ShaderRegistryValue.SHADER_NAME);
+		String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.NAMESPACE);
+		String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.SHADER_NAME);
 		if (namespace != null && shaderName != null)
 			return ShaderDataLoader.isDuplicatedShaderName(shaderName) ? namespace + ":" + shaderName : shaderName;
 		return null;
 	}
 	public static String getFullShaderName(int SHADER) {
-		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.NAMESPACE);
-		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderRegistryValue.SHADER_NAME);
+		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.NAMESPACE);
+		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.SHADER_NAME);
 		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
 		return null;
 	}
@@ -154,10 +154,10 @@ public class Shader {
 		}
 		return 0;
 	}
-	public static Object get(ShaderRegistryValue shaderRegistryValue) {
+	public static Object get(ShaderDataLoader.RegistryValue shaderRegistryValue) {
 		return ShaderDataLoader.get(superSecretSettingsIndex, shaderRegistryValue);
 	}
-	public static Object get(int shaderIndex, ShaderRegistryValue shaderRegistryValue) {
+	public static Object get(int shaderIndex, ShaderDataLoader.RegistryValue shaderRegistryValue) {
 		return ShaderDataLoader.get(shaderIndex, shaderRegistryValue);
 	}
 	@SuppressWarnings("unused")
@@ -231,7 +231,7 @@ public class Shader {
 		DEPTH_FIX = true;
 		try {
 			if (postProcessor != null) postProcessor.close();
-			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(get(ShaderRegistryValue.ID)));
+			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
 			postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
 			try {
 				if (postProcessor != null) {
@@ -270,7 +270,7 @@ public class Shader {
 				superSecretSettingsIndex = 0;
 				try {
 					if (postProcessor != null) postProcessor.close();
-					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderRegistryValue.ID)));
+					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
 					postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 						toggle(false, true, true, false);
@@ -306,7 +306,7 @@ public class Shader {
 		}
 	}
 	public static boolean shouldDisableScreenMode() {
-		return (boolean) Shader.get(ShaderRegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
+		return (boolean) Shader.get(ShaderDataLoader.RegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
 	}
 	public static void cycleShaderModes() {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();

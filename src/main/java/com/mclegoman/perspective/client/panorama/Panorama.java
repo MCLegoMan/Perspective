@@ -10,8 +10,6 @@ package com.mclegoman.perspective.client.panorama;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
-import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
@@ -20,7 +18,6 @@ import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.option.Perspective;
@@ -28,14 +25,12 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Panorama {
 	private static final List<String> incompatibleMods = new ArrayList<>();

@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderRegistryValue;
+import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -47,7 +47,7 @@ public class DebugOverlay {
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
 			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
-			debugText.add(Text.literal("disable_screen_mode: " + Shader.get(ShaderRegistryValue.DISABLE_SCREEN_MODE)));
+			debugText.add(Text.literal("disable_screen_mode: " + Shader.get(ShaderDataLoader.RegistryValue.DISABLE_SCREEN_MODE)));
 			debugText.add(Text.literal("render_type: " + Shader.RENDER_TYPE));
 			debugText.add(Text.literal("use_depth: " + Shader.USE_DEPTH));
 			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));

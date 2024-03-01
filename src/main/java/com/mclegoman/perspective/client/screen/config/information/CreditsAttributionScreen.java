@@ -13,9 +13,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.PerspectiveLogo;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.NarratorManager;
@@ -35,10 +37,10 @@ import java.util.List;
 public class CreditsAttributionScreen extends Screen {
 	private final Screen parentScreen;
 	private float time;
+	private float backgroundFade;
 	private List<OrderedText> credits;
 	private final List<Integer> centeredLines = new ArrayList<>();
 	private int creditsHeight;
-	private float backgroundFade;
 	private boolean isHoldingSpace;
 	public CreditsAttributionScreen(Screen parentScreen) {
 		super(NarratorManager.EMPTY);
@@ -46,7 +48,7 @@ public class CreditsAttributionScreen extends Screen {
 		this.backgroundFade = 0.0F;
 	}
 	public void tick() {
-		if (this.time > (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 96)) this.close();
+		if (this.time > (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 64)) this.close();
 	}
 	private float getSpeed() {
 		return this.time > 0 ? ((isHoldingSpace ? 4.0F : 1.0F) * (hasControlDown() ? 4.0F : 1.0F)) : 1.0F;
@@ -120,8 +122,9 @@ public class CreditsAttributionScreen extends Screen {
 		this.credits.addAll(ClientData.CLIENT.textRenderer.wrapLines(text, ClientData.CLIENT.getWindow().getScaledWidth() - ClientData.CLIENT.getWindow().getScaledWidth() / 2 - ClientData.CLIENT.getWindow().getScaledWidth() / 2 + 320));
 	}
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		this.time = Math.max(0.0F, this.time + (delta * this.getSpeed()));
 		super.render(context, mouseX, mouseY, delta);
+		RenderSystem.defaultBlendFunc();
+		this.time = Math.max(0.0F, this.time + (delta * this.getSpeed()));
 		context.getMatrices().push();
 		context.getMatrices().translate(0.0F, -this.time, 0.0F);
 		context.drawTexture(PerspectiveLogo.getLogo(PerspectiveLogo.isPride() ? PerspectiveLogo.Logo.Type.PRIDE : PerspectiveLogo.Logo.Type.DEFAULT).getTexture(), ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 128, ClientData.CLIENT.getWindow().getScaledHeight() + 2, 0.0F, 0.0F, 256, 44, 256, 64);
@@ -145,17 +148,21 @@ public class CreditsAttributionScreen extends Screen {
 		}
 		context.getMatrices().pop();
 	}
-	public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-		if (this.time > (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 48)) {
-			float fadeStart = (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 48);
-			float fadeEnd = (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 92);
-			this.backgroundFade = MathHelper.lerp(((this.time - fadeStart) / (fadeEnd - fadeStart)) * 0.5F, this.backgroundFade, 0.0F);
-		} else {
-			this.backgroundFade = MathHelper.lerp((this.time / 48) * 0.25F, this.backgroundFade, 0.25F);
-		}
-		context.setShaderColor(this.backgroundFade, this.backgroundFade, this.backgroundFade, 1.0F);
-		context.drawTexture(OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
-		context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+	@Override
+	public void renderBackground(DrawContext context, int mouseX, int mouseY, float tickDelta) {
+		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy")) {
+			if (this.time > (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 48)) {
+				float fadeStart = (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 48);
+				float fadeEnd = (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 92);
+				this.backgroundFade = MathHelper.lerp(((this.time - fadeStart) / (fadeEnd - fadeStart)) * 0.5F, this.backgroundFade, 0.0F);
+			} else {
+				this.backgroundFade = MathHelper.lerp((this.time / 48) * 0.25F, this.backgroundFade, 0.25F);
+			}
+			context.setShaderColor(this.backgroundFade, this.backgroundFade, this.backgroundFade, 1.0F);
+			context.drawTexture(new Identifier("minecraft", "textures/block/dirt.png"), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 16, 16);
+			context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			this.renderDarkening(context);
+		} else super.renderBackground(context, mouseX, mouseY, tickDelta);
 	}
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_SPACE) {

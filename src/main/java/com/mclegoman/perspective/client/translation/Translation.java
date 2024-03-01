@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.translation;
 
+import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.text.MutableText;
@@ -97,6 +98,10 @@ public class Translation {
 		else if (key.equalsIgnoreCase("dynamic")) return getTranslation(namespace, "variable.dynamic");
 		else if (key.equalsIgnoreCase("true")) return getTranslation(namespace, "variable.onff.on");
 		else return getErrorTranslation();
+	}
+	public static Text getUIBackgroundTranslation(String namespace, String key) {
+		if (UIBackground.isValidUIBackgroundType(UIBackground.getUIBackgroundType())) return getConfigTranslation(namespace, "ui_background.type." + UIBackground.getUIBackgroundType());
+		return getErrorTranslation();
 	}
 	public static Text getDetectUpdateChannelTranslation(String namespace, String key) {
 		if (key.equalsIgnoreCase("none")) return getConfigTranslation(namespace, "detect_update_channel.none");
