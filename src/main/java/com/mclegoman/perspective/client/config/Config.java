@@ -31,6 +31,7 @@ public class Config {
 	protected static boolean SUPER_SECRET_SETTINGS_SOUND;
 	protected static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
 	protected static boolean SUPER_SECRET_SETTINGS_SHOW_NAME;
+	protected static boolean SUPER_SECRET_SETTINGS_SELECTION_BLUR;
 	protected static boolean TEXTURED_NAMED_ENTITY;
 	protected static boolean TEXTURED_RANDOM_ENTITY;
 	protected static boolean ALLOW_APRIL_FOOLS;
@@ -41,7 +42,7 @@ public class Config {
 	protected static boolean FORCE_PRIDE_TYPE;
 	protected static int FORCE_PRIDE_TYPE_INDEX;
 	protected static boolean SHOW_DEATH_COORDINATES;
-	protected static boolean DIRT_TITLE_SCREEN;
+	protected static String TITLE_SCREEN;
 	protected static String UI_BACKGROUND;
 	protected static String HIDE_CROSSHAIR;
 	protected static boolean HIDE_BLOCK_OUTLINE;
@@ -81,6 +82,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN));
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_selection_blur", ConfigDataLoader.SUPER_SECRET_SETTINGS_SELECTION_BLUR));
 		CONFIG_PROVIDER.add(new Couple<>("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY));
 		CONFIG_PROVIDER.add(new Couple<>("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY));
 		CONFIG_PROVIDER.add(new Couple<>("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS));
@@ -91,7 +93,7 @@ public class Config {
 		CONFIG_PROVIDER.add(new Couple<>("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE));
 		CONFIG_PROVIDER.add(new Couple<>("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX));
 		CONFIG_PROVIDER.add(new Couple<>("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES));
-		CONFIG_PROVIDER.add(new Couple<>("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN));
+		CONFIG_PROVIDER.add(new Couple<>("title_screen", ConfigDataLoader.TITLE_SCREEN));
 		CONFIG_PROVIDER.add(new Couple<>("ui_background", ConfigDataLoader.UI_BACKGROUND));
 		CONFIG_PROVIDER.add(new Couple<>("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE));
 		CONFIG_PROVIDER.add(new Couple<>("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR));
@@ -121,6 +123,7 @@ public class Config {
 		SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
 		SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = CONFIG.getOrDefault("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
 		SUPER_SECRET_SETTINGS_SHOW_NAME = CONFIG.getOrDefault("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
+		SUPER_SECRET_SETTINGS_SELECTION_BLUR = CONFIG.getOrDefault("super_secret_settings_selection_blur", ConfigDataLoader.SUPER_SECRET_SETTINGS_SELECTION_BLUR);
 		TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
 		TEXTURED_RANDOM_ENTITY = CONFIG.getOrDefault("textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
 		ALLOW_APRIL_FOOLS = CONFIG.getOrDefault("allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -131,7 +134,7 @@ public class Config {
 		FORCE_PRIDE_TYPE = CONFIG.getOrDefault("force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
 		FORCE_PRIDE_TYPE_INDEX = CONFIG.getOrDefault("force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
 		SHOW_DEATH_COORDINATES = CONFIG.getOrDefault("show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
-		DIRT_TITLE_SCREEN = CONFIG.getOrDefault("dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
+		TITLE_SCREEN = CONFIG.getOrDefault("title_screen", ConfigDataLoader.TITLE_SCREEN);
 		UI_BACKGROUND = CONFIG.getOrDefault("ui_background", ConfigDataLoader.UI_BACKGROUND);
 		HIDE_BLOCK_OUTLINE = CONFIG.getOrDefault("hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
 		HIDE_CROSSHAIR = CONFIG.getOrDefault("hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
@@ -162,6 +165,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("super_secret_settings_sound", SUPER_SECRET_SETTINGS_SOUND);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_options_screen", SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_show_name", SUPER_SECRET_SETTINGS_SHOW_NAME);
+		CONFIG_PROVIDER.setConfig("super_secret_settings_selection_blur", SUPER_SECRET_SETTINGS_SELECTION_BLUR);
 		CONFIG_PROVIDER.setConfig("textured_named_entity", TEXTURED_NAMED_ENTITY);
 		CONFIG_PROVIDER.setConfig("textured_random_entity", TEXTURED_RANDOM_ENTITY);
 		CONFIG_PROVIDER.setConfig("allow_april_fools", ALLOW_APRIL_FOOLS);
@@ -172,7 +176,7 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("force_pride_type", FORCE_PRIDE_TYPE);
 		CONFIG_PROVIDER.setConfig("force_pride_type_index", FORCE_PRIDE_TYPE_INDEX);
 		CONFIG_PROVIDER.setConfig("show_death_coordinates", SHOW_DEATH_COORDINATES);
-		CONFIG_PROVIDER.setConfig("dirt_title_screen", DIRT_TITLE_SCREEN);
+		CONFIG_PROVIDER.setConfig("title_screen", TITLE_SCREEN);
 		CONFIG_PROVIDER.setConfig("ui_background", UI_BACKGROUND);
 		CONFIG_PROVIDER.setConfig("hide_block_outline", HIDE_BLOCK_OUTLINE);
 		CONFIG_PROVIDER.setConfig("hide_crosshair", HIDE_CROSSHAIR);

@@ -24,10 +24,13 @@ import java.util.List;
 
 public class UIBackground {
 	private static final List<String> uiBackgroundTypes = new ArrayList<>();
+	private static final List<String> titleScreenBackgroundTypes = new ArrayList<>();
 	public static void init() {
 		uiBackgroundTypes.add("default");
 		uiBackgroundTypes.add("gaussian");
 		uiBackgroundTypes.add("legacy");
+		titleScreenBackgroundTypes.add("default");
+		titleScreenBackgroundTypes.add("dirt");
 	}
 	public static String getUIBackgroundType() {
 		if (!isValidUIBackgroundType(JsonHelper.asUIBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background")))) cycleUIBackgroundType();
@@ -43,24 +46,37 @@ public class UIBackground {
 	public static boolean isValidUIBackgroundType(String UIBackgroundType) {
 		return uiBackgroundTypes.contains(UIBackgroundType.toLowerCase());
 	}
+	public static String getTitleScreenBackgroundType() {
+		if (!isValidTitleScreenBackgroundType(JsonHelper.asTitleScreenBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen")))) cycleTitleScreenBackgroundType();
+		return JsonHelper.asTitleScreenBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen"));
+	}
+	public static void cycleTitleScreenBackgroundType() {
+		cycleTitleScreenBackgroundType(true);
+	}
+	public static void cycleTitleScreenBackgroundType(boolean direction) {
+		int currentIndex = titleScreenBackgroundTypes.indexOf(getTitleScreenBackgroundType());
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", JsonHelper.asTitleScreenBackground(titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size())));
+	}
+	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {
+		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType.toLowerCase());
+	}
 	public static class Gaussian {
 		@Nullable
-		public static PostEffectProcessor blurPostProcessor;
+		public static PostEffectProcessor postProcessor;
 		private static void load() {
 			try {
-				if (blurPostProcessor != null) blurPostProcessor.close();
-				blurPostProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), new Identifier("perspective", "shaders/post/gaussian.json"));
-				blurPostProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+				if (postProcessor != null) postProcessor.close();
+				postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), new Identifier("perspective", "shaders/post/gaussian.json"));
+				postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error loading blur shader: {}", error));
 			}
 		}
 		public static void render(float tickDelta) {
 			try {
-				if (blurPostProcessor == null) load();
-				blurPostProcessor.setUniforms("Alpha", (float) ClientData.CLIENT.options.getMenuBackgroundBlurrinessValue());
+				if (postProcessor == null) load();
 				RenderSystem.enableBlend();
-				blurPostProcessor.render(tickDelta);
+				postProcessor.render(tickDelta);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering blur ui background: {}", error));
@@ -68,15 +84,23 @@ public class UIBackground {
 		}
 	}
 	public static class Legacy {
-		public static void render(DrawContext context, float tickDelta) {
+		public static void renderWorld(DrawContext context) {
 			try {
-				if (ClientData.CLIENT.world != null) {
-					context.fillGradient(0, 0, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), -1072689136, -804253680);
-				} else {
-					context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
-					context.drawTexture(new Identifier("minecraft", "textures/block/dirt.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 16, 16);
-					context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-				}
+				RenderSystem.enableBlend();
+				context.fillGradient(0, 0, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), -1072689136, -804253680);
+				RenderSystem.disableBlend();
+			} catch (Exception error) {
+				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
+			}
+		}
+		public static void renderMenu(DrawContext context) {
+			try {
+				RenderSystem.enableBlend();
+				context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
+				context.drawTexture(new Identifier("textures/block/dirt.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(new Identifier("textures/gui/options_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
+				context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+				RenderSystem.disableBlend();
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
 			}

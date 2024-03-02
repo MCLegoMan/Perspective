@@ -60,4 +60,12 @@ public class JsonHelper extends net.minecraft.util.JsonHelper {
 	public static String asUIBackground(String STRING) {
 		return UIBackground.isValidUIBackgroundType(STRING) ? STRING : "default";
 	}
+
+	public static String getTitleScreenBackground(JsonObject object, String element, String defaultObj) {
+		return object.has(element) ? asTitleScreenBackground(object.get(element).getAsString()) : asTitleScreenBackground(defaultObj);
+	}
+
+	public static String asTitleScreenBackground(String STRING) {
+		return UIBackground.isValidTitleScreenBackgroundType(STRING) ? STRING : "default";
+	}
 }

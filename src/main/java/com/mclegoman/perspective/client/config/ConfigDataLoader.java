@@ -37,6 +37,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean SUPER_SECRET_SETTINGS_SOUND;
 	public static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
 	public static boolean SUPER_SECRET_SETTINGS_SHOW_NAME;
+	public static boolean SUPER_SECRET_SETTINGS_SELECTION_BLUR;
 	public static boolean TEXTURED_NAMED_ENTITY;
 	public static boolean TEXTURED_RANDOM_ENTITY;
 	public static boolean ALLOW_APRIL_FOOLS;
@@ -47,7 +48,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean FORCE_PRIDE_TYPE;
 	public static int FORCE_PRIDE_TYPE_INDEX;
 	public static boolean SHOW_DEATH_COORDINATES;
-	public static boolean DIRT_TITLE_SCREEN;
+	public static String TITLE_SCREEN;
 	public static String UI_BACKGROUND;
 	public static boolean HIDE_BLOCK_OUTLINE;
 	public static String HIDE_CROSSHAIR;
@@ -83,6 +84,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				SUPER_SECRET_SETTINGS_SOUND = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_sound", true);
 				SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_options_screen", false);
 				SUPER_SECRET_SETTINGS_SHOW_NAME = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_show_name", true);
+				SUPER_SECRET_SETTINGS_SELECTION_BLUR = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_selection_blur", true);
 				TEXTURED_NAMED_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "textured_named_entity", true);
 				TEXTURED_RANDOM_ENTITY = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "textured_random_entity", false);
 				ALLOW_APRIL_FOOLS = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "allow_april_fools", true);
@@ -93,7 +95,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				FORCE_PRIDE_TYPE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", false);
 				FORCE_PRIDE_TYPE_INDEX = net.minecraft.util.JsonHelper.getInt(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "force_pride_type_index", 0);
 				SHOW_DEATH_COORDINATES = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "show_death_coordinates", false);
-				DIRT_TITLE_SCREEN = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "dirt_title_screen", false);
+				TITLE_SCREEN = JsonHelper.getTitleScreenBackground(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "title_screen", "default");
 				UI_BACKGROUND = JsonHelper.getUIBackground(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "ui_background", "default");
 				HIDE_BLOCK_OUTLINE = net.minecraft.util.JsonHelper.getBoolean(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_block_outline", false);
 				HIDE_CROSSHAIR = net.minecraft.util.JsonHelper.getString(net.minecraft.util.JsonHelper.deserialize(resource.get().getReader()), "hide_crosshair", "false");

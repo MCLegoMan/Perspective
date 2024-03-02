@@ -12,7 +12,8 @@ import net.minecraft.util.StringIdentifiable;
 public enum TranslationType implements StringIdentifiable {
 	ENDISABLE("endisable"),
 	ONFF("onff"),
-	DISABLE_SCREEN_MODE("disable_screen_mode");
+	DISABLE_SCREEN_MODE("disable_screen_mode"),
+	BLUR("blur");
 	private final String name;
 
 	TranslationType(String name) {

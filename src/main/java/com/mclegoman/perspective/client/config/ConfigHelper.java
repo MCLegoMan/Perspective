@@ -147,6 +147,7 @@ public class ConfigHelper {
 					}
 					if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < 17) {
 						setConfig(ConfigType.NORMAL, "zoom_type", Data.VERSION.getID() + ":" + Config.CONFIG.getOrDefault("zoom_type", ConfigDataLoader.ZOOM_TYPE.replace((Data.VERSION.getID() + ":"), "")));
+						setConfig(ConfigType.NORMAL, "title_screen", Config.CONFIG.getOrDefault("dirt_title_screen", false) ? "dirt" : "default");
 					}
 					setConfig(ConfigType.NORMAL, "config_version", DEFAULT_CONFIG_VERSION);
 					Data.VERSION.getLogger().info("{} Successfully updated config to the latest version.", Data.VERSION.getLoggerPrefix());
@@ -268,6 +269,7 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
+			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_selection_blur", ConfigDataLoader.SUPER_SECRET_SETTINGS_SELECTION_BLUR);
 			configChanged = setConfig(ConfigType.NORMAL, "textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
 			configChanged = setConfig(ConfigType.NORMAL, "textured_random_entity", ConfigDataLoader.TEXTURED_RANDOM_ENTITY);
 			configChanged = setConfig(ConfigType.NORMAL, "allow_april_fools", ConfigDataLoader.ALLOW_APRIL_FOOLS);
@@ -278,7 +280,7 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.FORCE_PRIDE_TYPE);
 			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX, 0, PerspectiveLogo.pride_types.length));
 			configChanged = setConfig(ConfigType.NORMAL, "show_death_coordinates", ConfigDataLoader.SHOW_DEATH_COORDINATES);
-			configChanged = setConfig(ConfigType.NORMAL, "dirt_title_screen", ConfigDataLoader.DIRT_TITLE_SCREEN);
+			configChanged = setConfig(ConfigType.NORMAL, "title_screen", ConfigDataLoader.TITLE_SCREEN);
 			configChanged = setConfig(ConfigType.NORMAL, "ui_background", ConfigDataLoader.UI_BACKGROUND);
 			configChanged = setConfig(ConfigType.NORMAL, "hide_block_outline", ConfigDataLoader.HIDE_BLOCK_OUTLINE);
 			configChanged = setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
@@ -367,6 +369,10 @@ public class ConfigHelper {
 							Config.SUPER_SECRET_SETTINGS_SHOW_NAME = (boolean) VALUE;
 							configChanged = true;
 						}
+						case "super_secret_settings_selection_blur" -> {
+							Config.SUPER_SECRET_SETTINGS_SELECTION_BLUR = (boolean) VALUE;
+							configChanged = true;
+						}
 						case "textured_named_entity" -> {
 							Config.TEXTURED_NAMED_ENTITY = (boolean) VALUE;
 							configChanged = true;
@@ -407,8 +413,8 @@ public class ConfigHelper {
 							Config.SHOW_DEATH_COORDINATES = (boolean) VALUE;
 							configChanged = true;
 						}
-						case "dirt_title_screen" -> {
-							Config.DIRT_TITLE_SCREEN = (boolean) VALUE;
+						case "title_screen" -> {
+							Config.TITLE_SCREEN = (String) VALUE;
 							configChanged = true;
 						}
 						case "ui_background" -> {
@@ -561,6 +567,9 @@ public class ConfigHelper {
 					case "super_secret_settings_show_name" -> {
 						return Config.SUPER_SECRET_SETTINGS_SHOW_NAME;
 					}
+					case "super_secret_settings_selection_blur" -> {
+						return Config.SUPER_SECRET_SETTINGS_SELECTION_BLUR;
+					}
 					case "textured_named_entity" -> {
 						return Config.TEXTURED_NAMED_ENTITY;
 					}
@@ -591,8 +600,8 @@ public class ConfigHelper {
 					case "show_death_coordinates" -> {
 						return Config.SHOW_DEATH_COORDINATES;
 					}
-					case "dirt_title_screen" -> {
-						return Config.DIRT_TITLE_SCREEN;
+					case "title_screen" -> {
+						return Config.TITLE_SCREEN;
 					}
 					case "ui_background" -> {
 						return Config.UI_BACKGROUND;

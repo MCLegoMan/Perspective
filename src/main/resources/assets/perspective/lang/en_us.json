@@ -101,6 +101,8 @@
 	"gui.perspective.config.shaders.toggle": "Shaders: %s",
 	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
 
+	"gui.perspective.config.shaders.toggle_blur": "%s",
+
 	"gui.perspective.config.textured_entity": "Textured Entity",
 
 	"gui.perspective.config.textured_entity.named": "Named Entity: %s",
@@ -127,7 +129,7 @@
 	"gui.perspective.config.tutorials": "Tutorials: %s",
 	"gui.perspective.config.tutorials.hover": "Toggle Perspective Tutorial Toasts",
 
-	"gui.perspective.config.dirt_title_screen": "Dirt Title Screen: %s",
+	"gui.perspective.config.title_screen": "Title Screen: %s",
 
 	"gui.perspective.config.ui_background": "UI Background: %s",
 
@@ -243,6 +245,9 @@
 	"gui.perspective.variable.onff.on": "ON",
 	"gui.perspective.variable.onff.off": "OFF",
 
+	"gui.perspective.variable.blur.on": "\uD83D\uDE48",
+	"gui.perspective.variable.blur.off": "\uD83D\uDC35",
+
 	"gui.perspective.variable.dynamic": "DYNAMIC",
 
 	"gui.perspective.variable.disable_screen_mode.on": "*",
@@ -253,6 +258,11 @@
 	"gui.perspective.config.ui_background.type.default": "Default",
 	"gui.perspective.config.ui_background.type.gaussian": "Gaussian",
 	"gui.perspective.config.ui_background.type.legacy": "Legacy",
+
+	"gui.perspective.config.title_screen.type.default": "Default",
+	"gui.perspective.config.title_screen.type.blur": "Blur",
+	"gui.perspective.config.title_screen.type.gaussian": "Gaussian",
+	"gui.perspective.config.title_screen.type.dirt": "Dirt",
 
 	"gui.perspective.config.detect_update_channel.release": "Release",
 	"gui.perspective.config.detect_update_channel.beta": "Beta",

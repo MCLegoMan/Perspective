@@ -37,18 +37,20 @@ public class ShadersConfigScreen extends Screen {
 	private boolean SHOULD_CLOSE;
 	private boolean REFRESH;
 	private boolean REVERSE;
-	public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, boolean REFRESH) {
+	private Formatting[] formattings;
+	public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, Formatting[] formattings, boolean REFRESH) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 		this.SAVE_ON_CLOSE = SAVE_ON_CLOSE;
 		this.REFRESH = REFRESH;
+		this.formattings = formattings;
 	}
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, true), true, "shaders", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, true), true, "shaders", false));
 			GRID_ADDER.add(createShaders());
 			GRID_ADDER.add(createShaderOptions());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
@@ -63,7 +65,7 @@ public class ShadersConfigScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false));
+				ClientData.CLIENT.setScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false));
 			}
 			if (this.SHOULD_CLOSE) {
 				if (this.SAVE_ON_CLOSE) ConfigHelper.saveConfig();
@@ -77,14 +79,13 @@ public class ShadersConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(3);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.cycle", new Object[]{Shader.getTranslatedShaderName(Shader.superSecretSettingsIndex)}, new Formatting[]{Shader.getRandomColor()}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.cycle", new Object[]{Shader.getTranslatedShaderName(Shader.superSecretSettingsIndex)}, formattings), (button) -> {
 			Shader.cycle(true, !this.REVERSE, true, false, false);
+			this.formattings = new Formatting[]{Shader.getRandomColor()};
 			this.REFRESH = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.cycle", true))).width(256).build());
 
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list"), (button) -> {
-			ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, false), -1));
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list", true))).width(20).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list"), (button) -> ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false), new Formatting[]{Shader.getRandomColor()}, -1, (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur")))).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list", true))).width(20).build());
 
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.random"), (button) -> {
 			Shader.random(true, false, false);

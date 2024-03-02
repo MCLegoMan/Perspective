@@ -103,6 +103,10 @@ public class Translation {
 		if (UIBackground.isValidUIBackgroundType(UIBackground.getUIBackgroundType())) return getConfigTranslation(namespace, "ui_background.type." + UIBackground.getUIBackgroundType());
 		return getErrorTranslation();
 	}
+	public static Text getTitleScreenBackgroundTranslation(String namespace, String key) {
+		if (UIBackground.isValidTitleScreenBackgroundType(UIBackground.getTitleScreenBackgroundType())) return getConfigTranslation(namespace, "title_screen.type." + UIBackground.getTitleScreenBackgroundType());
+		return getErrorTranslation();
+	}
 	public static Text getDetectUpdateChannelTranslation(String namespace, String key) {
 		if (key.equalsIgnoreCase("none")) return getConfigTranslation(namespace, "detect_update_channel.none");
 		else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation(namespace, "detect_update_channel.alpha");
