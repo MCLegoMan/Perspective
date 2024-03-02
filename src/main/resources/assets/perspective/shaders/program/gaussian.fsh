@@ -13,23 +13,20 @@ uniform float Alpha;
 
 out vec4 fragColor;
 
-float gaussian(float x, float y) {
-    return exp(-(x * x) / (2.0 * y * y)) / (sqrt(2.0 * 3.14159) * y);
+float gaussian(float x) {
+    return exp(-(x * x) / (2.0 * (Radius / 3.0) * (Radius / 3.0))) / (sqrt(2.0 * 3.14159) * (Radius / 3.0));
 }
 
 void main() {
     vec4 blurred = vec4(0.0);
     float totalStrength = 0.0;
     float totalAlpha = 0.0;
-    float totalSamples = 0.0;
     for(float r = -Radius; r <= Radius; r += 1.0) {
         vec4 sampleValue = texture(DiffuseSampler, texCoord + oneTexel * r * Alpha * BlurDir);
-        float gaussianValue = gaussian(r, (Radius / 3.0));
-        totalAlpha += sampleValue.a * gaussianValue;
-        totalSamples = totalSamples + 1.0;
-        float strength = 1.0 - abs(r / Radius);
-        totalStrength = totalStrength + strength;
-        blurred += sampleValue * gaussianValue;
+        totalAlpha += sampleValue.a * gaussian(r);
+        blurred += sampleValue * gaussian(r);
+        totalStrength += gaussian(r);
     }
-    fragColor = vec4(blurred.rgb / (Radius * 2.0 + 1.0), totalAlpha);
+    blurred /= totalStrength;
+    fragColor = vec4(blurred.rgb, totalAlpha);
 }

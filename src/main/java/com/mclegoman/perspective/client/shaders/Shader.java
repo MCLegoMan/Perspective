@@ -305,7 +305,6 @@ public class Shader {
 		RENDER_TYPE = renderType + (Shader.USE_DEPTH ? ":depth" : "");
 		if (postProcessor != null) {
 			RenderSystem.enableBlend();
-			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 			postProcessor.render(tickDelta);
 			RenderSystem.disableBlend();
 			RenderSystem.defaultBlendFunc();
