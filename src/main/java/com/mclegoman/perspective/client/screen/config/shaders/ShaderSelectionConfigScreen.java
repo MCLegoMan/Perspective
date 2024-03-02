@@ -49,23 +49,11 @@ public class ShaderSelectionConfigScreen extends Screen {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders$select screen: {}", Data.VERSION.getID(), error);
 		}
 	}
+
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		if (ClientData.CLIENT.world == null) {
-			context.setShaderColor(0.125F, 0.125F, 0.125F, 1.0F);
-			context.drawTexture(new Identifier("textures/gui/options_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
-			context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		}
-		context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
-		context.drawTexture(new Identifier("textures/gui/options_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), 32, 32, 32);
-		context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
-		context.drawTexture(new Identifier("textures/gui/options_background.png"), 0, ClientData.CLIENT.getWindow().getScaledHeight() - 32, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), 32, 32, 32);
-		context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		super.render(context, mouseX, mouseY, delta);
 		context.drawCenteredTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list.select", new Formatting[]{randomColor}), ClientData.CLIENT.getWindow().getScaledWidth() / 2, 12, 0xFFFFFF);
-		for (Drawable drawable : this.drawables) {
-			drawable.render(context, mouseX, mouseY, delta);
-		}
 	}
 	@Override
 	public boolean shouldCloseOnEsc() {

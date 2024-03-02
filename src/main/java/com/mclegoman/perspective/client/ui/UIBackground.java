@@ -13,11 +13,9 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.JsonHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.GameMenuScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,7 +59,9 @@ public class UIBackground {
 			try {
 				if (blurPostProcessor == null) load();
 				blurPostProcessor.setUniforms("Alpha", (float) ClientData.CLIENT.options.getMenuBackgroundBlurrinessValue());
+				RenderSystem.enableBlend();
 				blurPostProcessor.render(tickDelta);
+				RenderSystem.disableBlend();
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering blur ui background: {}", error));
 			}

@@ -17,6 +17,8 @@ import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
@@ -302,7 +304,11 @@ public class Shader {
 	public static void render(float tickDelta, String renderType) {
 		RENDER_TYPE = renderType + (Shader.USE_DEPTH ? ":depth" : "");
 		if (postProcessor != null) {
+			RenderSystem.enableBlend();
+			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 			postProcessor.render(tickDelta);
+			RenderSystem.disableBlend();
+			RenderSystem.defaultBlendFunc();
 		}
 	}
 	public static boolean shouldDisableScreenMode() {
