@@ -140,6 +140,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			add("minecraft", "spider", true, true, new JsonObject(), manager);
 			add("minecraft", "wobble", false, true, new JsonObject(), manager);
 			add("minecraft", "love", false, true, new JsonObject(), manager);
+			add("perspective", "gaussian", true, true, new JsonObject(), manager);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);
 		}

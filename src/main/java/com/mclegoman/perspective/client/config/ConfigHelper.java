@@ -74,7 +74,7 @@ public class ConfigHelper {
 				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1, false));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
 			else {
-				fixConfig(false);
+				if (fixConfig()) saveConfig();
 				if (SAVE_VIA_TICK) {
 					for (ConfigType configType : saveConfigs) {
 						saveConfig(configType);
@@ -109,6 +109,7 @@ public class ConfigHelper {
 	}
 	public static void updateConfig() {
 		try {
+			boolean shouldSaveConfig = false;
 			if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) != DEFAULT_CONFIG_VERSION) {
 				if (Config.CONFIG.getOrDefault("config_version", DEFAULT_CONFIG_VERSION) < DEFAULT_CONFIG_VERSION) {
 					Data.VERSION.getLogger().info("{} Attempting to update config to the latest version.", Data.VERSION.getLoggerPrefix());
@@ -155,9 +156,10 @@ public class ConfigHelper {
 						SHOW_DOWNGRADE_WARNING = true;
 					}
 				}
-				saveConfig();
+				shouldSaveConfig = true;
 			}
-			fixConfig(true);
+			if (fixConfig()) shouldSaveConfig = true;
+			if (shouldSaveConfig) saveConfig();
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to update config!");
 		}
@@ -196,55 +198,53 @@ public class ConfigHelper {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to set config tick save!");
 		}
 	}
-	public static boolean fixConfig(boolean saveConfig) {
+	public static boolean fixConfig() {
 		if (ClientData.isFinishedInitializing()) {
+			boolean hasFixedConfig = false;
 			if ((int) getConfig(ConfigType.NORMAL, "zoom_level") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_level") > 100) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_level was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_level") + ")");
-				setConfig(ConfigType.NORMAL, "zoom_level", ConfigDataLoader.ZOOM_LEVEL);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_level", ConfigDataLoader.ZOOM_LEVEL);
 			}
 			if ((int) getConfig(ConfigType.NORMAL, "zoom_increment_size") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_increment_size") > 10) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_increment_size was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_increment_size") + ")");
-				setConfig(ConfigType.NORMAL, "zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_increment_size", ConfigDataLoader.ZOOM_INCREMENT_SIZE);
 			}
 			if (!Arrays.stream(Zoom.zoomTransitions).toList().contains((String) getConfig(ConfigType.NORMAL, "zoom_transition"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_transition was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_transition") + ")");
-				setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.ZOOM_TRANSITION);
 			}
 			if (!Arrays.stream(Zoom.zoomScaleModes).toList().contains((String) getConfig(ConfigType.NORMAL, "zoom_scale_mode"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_scale_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_scale_mode") + ")");
-				setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
 			}
 			if (!Zoom.zoomTypes.contains(Zoom.getZoomType())) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_type") + ")");
-				setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
 			}
 			if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
 				if (!Shader.isShaderAvailable(ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER)) {
 					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
-					ConfigHelper.setConfig(ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex));
+					hasFixedConfig = setConfig(ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex));
 				} else Shader.superSecretSettingsIndex = Shader.getShaderValue(ConfigDataLoader.SUPER_SECRET_SETTINGS_SHADER);
 			}
 			if (!Arrays.stream(Shader.shaderModes).toList().contains((String) getConfig(ConfigType.NORMAL, "super_secret_settings_mode"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
-				setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
 			}
 			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > PerspectiveLogo.pride_types.length) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: force_pride_type_index was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type_index") + ")");
-				setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.FORCE_PRIDE_TYPE_INDEX);
 			}
 			if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.NORMAL, "hide_crosshair"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "hide_crosshair") + ")");
-				setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.HIDE_CROSSHAIR);
 			}
 			if (!Arrays.stream(UpdateChecker.detectUpdateChannels).toList().contains((String) getConfig(ConfigType.NORMAL, "detect_update_channel"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
-				setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
+				hasFixedConfig = setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.DETECT_UPDATE_CHANNEL);
 			}
-			if (saveConfig) {
-				saveConfig();
-				return true;
-			}
+			return hasFixedConfig;
 		}
 		return false;
 	}

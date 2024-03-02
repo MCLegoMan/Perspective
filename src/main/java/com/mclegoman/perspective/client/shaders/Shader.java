@@ -75,7 +75,7 @@ public class Shader {
 		checkKeybindings();
 		if (ShaderDataLoader.isReloading && ClientData.isFinishedInitializing()) {
 			boolean saveConfig;
-			saveConfig = ConfigHelper.fixConfig(false);
+			saveConfig = ConfigHelper.fixConfig();
 			if (Shader.updateLegacyConfig) {
 				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
 					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
