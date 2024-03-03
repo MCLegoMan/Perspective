@@ -329,9 +329,6 @@ public class Shader {
 			}
 		}
 	}
-	public static boolean fabulousDepthFix() {
-		return USE_DEPTH && ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
-	}
 	public static void setFramebuffers() {
 		if (shouldRenderShader()) {
 			if (translucentFramebuffer != null) {

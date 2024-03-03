@@ -77,7 +77,6 @@
 	"gui.perspective.config.shaders": "Super Secret Settings",
 
 	"gui.perspective.config.shaders.cycle": "Shader: %s",
-	"gui.perspective.config.shaders.cycle.hover": "Cycle Super Secret Settings",
 
 	"gui.perspective.config.shaders.list": "☰",
 	"gui.perspective.config.shaders.list.hover": "Open Shader Selection Screen",
@@ -85,21 +84,26 @@
 	"gui.perspective.config.shaders.list.shader": "%s%s",
 
 	"gui.perspective.config.shaders.random": "\uD83D\uDD00",
-	"gui.perspective.config.shaders.random.hover": "Set Random Shader",
+	"gui.perspective.config.shaders.random.hover": "Randomize Shader",
 
-	"gui.perspective.config.shaders.mode": "Shader Mode: %s%s",
-	"gui.perspective.config.shaders.mode.hover": "Cycle Shader Mode",
-	"gui.perspective.config.shaders.mode.screen": "Screen",
+	"gui.perspective.config.shaders.mode": "Renderer: %s%s",
 	"gui.perspective.config.shaders.mode.game": "Game",
+	"gui.perspective.config.shaders.mode.screen": "Screen",
+	"gui.perspective.config.shaders.mode.hover": "%s",
+	"gui.perspective.config.shaders.mode.game.hover": "Shaders are rendered in-game.",
+	"gui.perspective.config.shaders.mode.screen.hover": "Shaders are rendered over the gui. Please Note: Some shaders, such as depth shaders, will instead be rendered in-game. (Marked by *)",
 
-	"gui.perspective.config.shaders.play_sound": "Play Sound: %s",
-	"gui.perspective.config.shaders.play_sound.hover": "Toggles whether a random sound should be played when cycling through shaders.",
+	"gui.perspective.config.shaders.play_sound": "Random Sound: %s",
+	"gui.perspective.config.shaders.play_sound.hover": "%s",
+	"gui.perspective.config.shaders.play_sound.on.hover": "A random sound will be played when cycling through shaders.",
+	"gui.perspective.config.shaders.play_sound.off.hover": "No sound will be played when cycling through shaders.",
 
-	"gui.perspective.config.shaders.show_name": "Show Shader Name: %s",
-	"gui.perspective.config.shaders.show_name.hover": "Toggles whether the shader name is displayed when cycling through shaders.",
+	"gui.perspective.config.shaders.show_name": "Shader Name Overlay: %s",
+	"gui.perspective.config.shaders.show_name.hover": "%s",
+	"gui.perspective.config.shaders.show_name.on.hover": "The shader name will be displayed when cycling through shaders using the in-game keybinding.",
+	"gui.perspective.config.shaders.show_name.off.hover": "The shader name will be hidden when cycling through shaders using the in-game keybinding.",
 
-	"gui.perspective.config.shaders.toggle": "Shaders: %s",
-	"gui.perspective.config.shaders.toggle.hover": "Toggle Shaders",
+	"gui.perspective.config.shaders.toggle": "%s",
 
 	"gui.perspective.config.shaders.toggle_blur": "%s",
 

@@ -83,7 +83,7 @@ public class ShadersConfigScreen extends Screen {
 			Shader.cycle(true, !this.REVERSE, true, false, false);
 			this.formattings = new Formatting[]{Shader.getRandomColor()};
 			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.cycle", true))).width(256).build());
+		}).width(256).build());
 
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list"), (button) -> ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false), new Formatting[]{Shader.getRandomColor()}, -1, (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur")))).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list", true))).width(20).build());
 
@@ -101,19 +101,19 @@ public class ShadersConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.mode", new Object[]{Translation.getShaderModeTranslation(Data.VERSION.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")), ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) Shader.get(ShaderDataLoader.RegistryValue.DISABLE_SCREEN_MODE), TranslationType.DISABLE_SCREEN_MODE) : ""}), (button) -> {
 			Shader.cycleShaderModes();
 			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.mode", true))).build());
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.mode", new Object[]{Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.mode." + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode"), true)}, true))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.play_sound", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"));
 			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.play_sound", true))).build());
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.play_sound", new Object[]{Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.play_sound." + ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound") ? "on" : "off"), true)}, true))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.show_name", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name"));
 			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.show_name", true))).build());
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.show_name", new Object[]{Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.show_name." + ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name") ? "on" : "off"), true)}, true))).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.toggle", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"), TranslationType.ENDISABLE)}), (button) -> {
 			Shader.toggle(true, false, false, false);
 			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.toggle", true))).build());
+		}).build());
 		return GRID;
 	}
 	private GridWidget createFooter() {

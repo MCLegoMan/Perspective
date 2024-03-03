@@ -34,14 +34,14 @@ public class ShaderSelectionConfigScreen extends Screen {
 		this.parent = PARENT;
 		this.formattings = formattings;
 		this.scrollAmount = scrollAmount;
-		this.blurEnabled = blurEnabled;
+		this.blurEnabled = ClientData.CLIENT.world == null || blurEnabled;
 		this.refresh = false;
 	}
 	protected void init() {
 		this.widget = new ShadersListWidget<>(ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32, 27, scrollAmount);
 		addDrawableChild(widget);
 		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).dimensions(ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 75, ClientData.CLIENT.getWindow().getScaledHeight() - 26, 150, 20).build());
-		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.toggle_blur", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"), TranslationType.BLUR)}), (button) -> {
+		if (ClientData.CLIENT.world != null) addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.toggle_blur", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"), TranslationType.BLUR)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"));
 			this.refresh = true;
 		}).dimensions(ClientData.CLIENT.getWindow().getScaledWidth() - 42, ClientData.CLIENT.getWindow().getScaledHeight() - 26, 20, 20).build());
