@@ -90,7 +90,9 @@ public class Translation {
 		else return getErrorTranslation();
 	}
 	public static Text getZoomTypeTranslation() {
-		if (Zoom.getZoomType() != null) return getConfigTranslation(Zoom.getZoomType().getFirst().getNamespace(), "zoom.type." + Zoom.getZoomType().getFirst().getPath());
+		if (Zoom.isValidZoomType(Zoom.getZoomType())) {
+			return getConfigTranslation(Zoom.getZoomType().getNamespace(), "zoom.type." + Zoom.getZoomType().getPath());
+		}
 		return getErrorTranslation();
 	}
 	public static Text getHideCrosshairModeTranslation(String namespace, String key) {

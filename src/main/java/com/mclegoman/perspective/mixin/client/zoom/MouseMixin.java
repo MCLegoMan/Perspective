@@ -53,8 +53,8 @@ public abstract class MouseMixin {
 	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
 	private void perspective$updateMouse(double timeDelta, CallbackInfo ci) {
 		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
-			this.cursorDeltaX *= Math.max(Zoom.zoomMultiplier, 0.001);
-			this.cursorDeltaY *= Math.max(Zoom.zoomMultiplier, 0.001);
+			this.cursorDeltaX *= Math.max(Zoom.getMultiplier(), 0.001);
+			this.cursorDeltaY *= Math.max(Zoom.getMultiplier(), 0.001);
 		}
 	}
 }

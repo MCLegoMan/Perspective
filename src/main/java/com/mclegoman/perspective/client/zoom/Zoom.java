@@ -11,73 +11,76 @@ import com.mclegoman.perspective.client.config.ConfigDataLoader;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
+import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.util.JsonHelper;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.IdentifierHelper;
-import com.mclegoman.perspective.common.util.Triple;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Zoom {
+	public static final List<Identifier> zoomTypes = new ArrayList<>();
 	public static final String[] zoomTransitions = new String[]{"smooth", "instant"};
 	public static final String[] zoomScaleModes = new String[]{"scaled", "vanilla"};
-	public static final List<Triple<Identifier, Boolean, Runnable>> zoomTypes = new ArrayList<>();
-	public static boolean zoomInverted;
+	private static boolean isZooming;
+	private static boolean hasUpdated;
+	private static double prevMultiplier;
+	private static double multiplier;
 	public static double fov;
-	public static double zoomFov;
-	public static double prevZoomMultiplier;
-	public static double zoomMultiplier;
-	private static boolean zoomUpdated;
-	public static void addZoomType(Identifier identifier, boolean shouldLimitFOV, Runnable setZoomTypeMultiplierRunnable) {
-		Triple<Identifier, Boolean, Runnable> zoomType = new Triple<>(identifier, shouldLimitFOV, setZoomTypeMultiplierRunnable);
-		if (!zoomTypes.contains(zoomType)) zoomTypes.add(zoomType);
-	}
-	public static Triple<Identifier, Boolean, Runnable> getZoomType() {
-		for (Triple<Identifier, Boolean, Runnable> zoomType : zoomTypes) {
-			if (zoomType.getFirst().toString().equals(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))) {
-				return zoomType;
-			}
-		}
-		return null;
+	public static double zoomFOV;
+	public static void addZoomType(Identifier identifier) {
+		if (!zoomTypes.contains(identifier)) zoomTypes.add(identifier);
 	}
 	public static void init() {
-		addZoomType(new Identifier(Data.VERSION.getID(), "logarithmic"), true, () -> ZoomTypeMultiplier.setMultiplier((float) (1.0F - (Math.log(Zoom.getZoomLevel() + 1.0F) / Math.log(100.0 + 1.0F)))));
-		addZoomType(new Identifier(Data.VERSION.getID(), "linear"), true, () -> ZoomTypeMultiplier.setMultiplier(1.0F - (Zoom.getZoomLevel() / 100.0F)));
+		addZoomType(Logarithmic.getIdentifier());
+		addZoomType(Linear.getIdentifier());
 	}
 	public static void tick() {
 		try {
-			if (Keybindings.TOGGLE_ZOOM.wasPressed()) zoomInverted = !zoomInverted;
-			if (!isZooming() && zoomUpdated) {
+			if (Keybindings.TOGGLE_ZOOM.wasPressed()) isZooming = !isZooming;
+			if (!isZooming() && hasUpdated) {
 				ConfigHelper.saveConfig();
-				zoomUpdated = false;
+				hasUpdated = false;
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to tick zoom: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
 		}
-	}
-	public static void updateZoomMultiplier() {
-		prevZoomMultiplier = zoomMultiplier;
-		zoomMultiplier = getZoomTypeMultiplier();
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth")) {
-			zoomMultiplier = (prevZoomMultiplier + zoomMultiplier) * 0.5;
-		}
-	}
-	public static float getZoomTypeMultiplier() {
-		if (isZooming()) {
-			if (getZoomType() != null) getZoomType().getThird().run();
-			return ZoomTypeMultiplier.getMultiplier();
-		}
-		return 1.0F;
-	}
-	public static double limitFov(double fov) {
-		return getZoomType() != null && getZoomType().getSecond() ? MathHelper.clamp(fov, 0.01, 179.99): fov;
 	}
 	public static boolean isZooming() {
-		return ClientData.CLIENT.player != null && (zoomInverted != Keybindings.HOLD_ZOOM.isPressed());
+		return ClientData.CLIENT.player != null && (isZooming != Keybindings.HOLD_ZOOM.isPressed());
+	}
+	public static void updateMultiplier() {
+		prevMultiplier = multiplier;
+		if (!isZooming()) Multiplier.setMultiplier(1.0F);
+		else {
+			if (getZoomType().equals(Logarithmic.getIdentifier())) Logarithmic.updateMultiplier();
+			if (getZoomType().equals(Linear.getIdentifier())) Linear.updateMultiplier();
+		}
+		multiplier = Multiplier.getMultiplier();
+		updateTransition();
+	}
+	public static void updateTransition() {
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth")) {
+			multiplier = (prevMultiplier + multiplier) * 0.5;
+		}
+	}
+	public static double getPrevMultiplier() {
+		return prevMultiplier;
+	}
+	public static double getMultiplier() {
+		return multiplier;
+	}
+	public static Identifier getZoomType() {
+		if (!isValidZoomType(IdentifierHelper.identifierFromString(JsonHelper.asZoomType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))))) cycleZoomType();
+		return IdentifierHelper.identifierFromString(JsonHelper.asZoomType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")));
 	}
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
@@ -89,7 +92,7 @@ public class Zoom {
 				if (!(getZoomLevel() <= 0) || !(getZoomLevel() >= 100)) {
 					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() + amount);
 					updated = true;
-					zoomUpdated = true;
+					hasUpdated = true;
 				}
 			}
 			if (updated) setOverlay();
@@ -102,7 +105,7 @@ public class Zoom {
 			if ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") != ConfigDataLoader.ZOOM_LEVEL) {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", ConfigDataLoader.ZOOM_LEVEL);
 				setOverlay();
-				zoomUpdated = true;
+				hasUpdated = true;
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to reset zoom level: {}", Data.VERSION.getLoggerPrefix(), error);
@@ -112,6 +115,54 @@ public class Zoom {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"))
 			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")).formatted(Formatting.GOLD));
 	}
+	public static void cycleZoomType() {
+		cycleZoomType(true);
+	}
+	public static void cycleZoomType(boolean direction) {
+		int currentIndex = zoomTypes.indexOf(getZoomType());
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", JsonHelper.asZoomType(IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size()))));
+	}
+	public static boolean isValidZoomType(Identifier ZoomType) {
+		return zoomTypes.contains(ZoomType);
+	}
+	public static class Logarithmic {
+		public static Identifier getIdentifier() {
+			return new Identifier(Data.VERSION.getID(), "logarithmic");
+		}
+		public static double getLimitFOV(double input) {
+			return MathHelper.clamp(input, 0.01, 179.99);
+		}
+		public static void updateMultiplier() {
+			Multiplier.setMultiplier((float) (1.0F - (Math.log(Zoom.getZoomLevel() + 1.0F) / Math.log(100.0 + 1.0F))));
+		}
+	}
+	public static class Linear {
+		public static Identifier getIdentifier() {
+			return new Identifier(Data.VERSION.getID(), "linear");
+		}
+		public static double getLimitFOV(double input) {
+			return MathHelper.clamp(input, 0.01, 179.99);
+		}
+		public static void updateMultiplier() {
+			Multiplier.setMultiplier(1.0F - (Zoom.getZoomLevel() / 100.0F));
+		}
+	}
+	public static class Multiplier {
+		protected static float currentMultiplier = 1.0F;
+		protected static float getMultiplier() {
+			return currentMultiplier;
+		}
+		protected static void setMultiplier(float multiplier) {
+			try {
+				currentMultiplier = multiplier;
+			} catch (Exception error) {
+				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set Zoom Multiplier: {}", error));
+			}
+		}
+	}
+
+
+
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(zoomTransitions).toList();
 		return transitions.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) ? zoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) + 1) % zoomTransitions.length] : zoomTransitions[0];
@@ -119,15 +170,5 @@ public class Zoom {
 	public static String nextScaleMode() {
 		List<String> scaleModes = Arrays.stream(zoomScaleModes).toList();
 		return scaleModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) ? zoomScaleModes[(scaleModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) + 1) % zoomScaleModes.length] : zoomScaleModes[0];
-	}
-	public static String nextZoomType() {
-		if (getZoomType() != null) {
-			List<Identifier> list = new ArrayList<>();
-			zoomTypes.forEach((zoomType) -> {
-				list.add(zoomType.getFirst());
-			});
-			return IdentifierHelper.stringFromIdentifier(list.contains(getZoomType().getFirst()) ? list.get((list.indexOf(getZoomType().getFirst()) + 1) % list.size()) : list.get(0));
-		}
-		return IdentifierHelper.stringFromIdentifier(zoomTypes.get(0).getFirst());
 	}
 }

@@ -97,7 +97,7 @@ public class ZoomConfigScreen extends Screen {
 			}
 		}, 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation()}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", Zoom.nextZoomType());
+			Zoom.cycleZoomType(!hasShiftDown());
 			this.REFRESH = true;
 		}).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.transition", new Object[]{Translation.getZoomTransitionTranslation(Data.VERSION.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition"))}), (button) -> {
@@ -107,7 +107,7 @@ public class ZoomConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.scale_mode", new Object[]{Translation.getZoomScaleModeTranslation(Data.VERSION.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode", Zoom.nextScaleMode());
 			this.REFRESH = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.scale_mode", true))).build(), 1);
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.scale_mode", new Object[]{Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.scale_mode." + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode"), true)}, true))).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom.hide_hud", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"));
 			this.REFRESH = true;
