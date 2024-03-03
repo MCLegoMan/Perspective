@@ -32,6 +32,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Initializing {}", Data.VERSION.getLoggerPrefix(), Data.VERSION.getID()));
 			AprilFoolsPrank.init();
 			UIBackground.init();
+			Zoom.init();
 			ConfigHelper.init();
 			Contributor.init();
 			Hide.init();
@@ -41,7 +42,6 @@ public class PerspectiveClient implements ClientModInitializer {
 			Shader.init();
 			TexturedEntity.init();
 			Tick.init();
-			Zoom.init();
 			ClientData.finishedInitializing();
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Failed to run onInitializeClient: {}", Data.VERSION.getLoggerPrefix(), error));

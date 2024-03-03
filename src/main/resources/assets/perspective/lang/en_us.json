@@ -54,20 +54,20 @@
 
 	"gui.perspective.config.zoom.increment_size": "Increment Multiplier: %s",
 
+	"gui.perspective.config.zoom.type": "Scale: %s",
+	"gui.perspective.config.zoom.type.linear": "Linear",
+	"gui.perspective.config.zoom.type.logarithmic": "Logarithmic",
+
 	"gui.perspective.config.zoom.transition": "Transition: %s",
 	"gui.perspective.config.zoom.transition.smooth": "Smooth",
 	"gui.perspective.config.zoom.transition.instant": "Instant",
 
 	"gui.perspective.config.zoom.scale_mode": "Mode: %s",
 	"gui.perspective.config.zoom.scale_mode.scaled": "Scaled",
-	"gui.perspective.config.zoom.scale_mode.vanilla": "None",
+	"gui.perspective.config.zoom.scale_mode.vanilla": "Unscaled",
 	"gui.perspective.config.zoom.scale_mode.hover": "%s",
 	"gui.perspective.config.zoom.scale_mode.scaled.hover": "Mouse movements and some visual effects scale when zooming.",
 	"gui.perspective.config.zoom.scale_mode.vanilla.hover": "Mouse movements and some visual effects remain unscaled when zooming.",
-
-	"gui.perspective.config.zoom.type": "Type: %s",
-	"gui.perspective.config.zoom.type.linear": "Linear",
-	"gui.perspective.config.zoom.type.logarithmic": "Logarithmic",
 
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
 
