@@ -53,11 +53,16 @@ public class UIBackground {
 		cycleTitleScreenBackgroundType(true);
 	}
 	public static void cycleTitleScreenBackgroundType(boolean direction) {
-		int currentIndex = titleScreenBackgroundTypes.indexOf(getTitleScreenBackgroundType());
-		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
+		String titleScreenBackgroundType = getTitleScreenBackgroundType();
+		if (isValidTitleScreenBackgroundType(titleScreenBackgroundType)) {
+			int currentIndex = titleScreenBackgroundTypes.indexOf(titleScreenBackgroundType);
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
+		} else {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", titleScreenBackgroundTypes.get(0));
+		}
 	}
 	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {
-		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType.toLowerCase());
+		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType);
 	}
 	public static class Gaussian {
 		@Nullable

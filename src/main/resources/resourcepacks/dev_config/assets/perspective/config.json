@@ -24,7 +24,7 @@
 	"force_pride_type": false,
 	"force_pride_type_index": 0,
 	"show_death_coordinates": true,
-	"title_screen": false,
+	"title_screen": "default",
 	"ui_background": "gaussian",
 	"hide_block_outline": false,
 	"hide_crosshair": "dynamic",
