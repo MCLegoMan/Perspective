@@ -24,13 +24,11 @@ public class UpdateCheckerScreen extends Screen {
 	private final Screen PARENT_SCREEN;
 	private final GridWidget GRID;
 	private boolean STARTED;
-
 	public UpdateCheckerScreen(Screen PARENT) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 	}
-
 	private static GridWidget createUpdateChecker() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -38,7 +36,6 @@ public class UpdateCheckerScreen extends Screen {
 		GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.checking"), ClientData.CLIENT.textRenderer));
 		return GRID;
 	}
-
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -52,11 +49,10 @@ public class UpdateCheckerScreen extends Screen {
 			Data.VERSION.getLogger().warn("{} Failed to initialize config$update checker screen: {}", Data.VERSION.getID(), error);
 		}
 	}
-
 	public void tick() {
 		try {
 			if (!STARTED) {
-				UpdateChecker.checkForUpdates();
+				UpdateChecker.checkForUpdates(Data.VERSION);
 				STARTED = true;
 			}
 			if (UpdateChecker.UPDATE_CHECKER_COMPLETE) {
@@ -66,19 +62,15 @@ public class UpdateCheckerScreen extends Screen {
 			Data.VERSION.getLogger().warn("{} Failed to tick config$update checker screen: {}", Data.VERSION.getID(), error);
 		}
 	}
-
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
 	}
-
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
-
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
-
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

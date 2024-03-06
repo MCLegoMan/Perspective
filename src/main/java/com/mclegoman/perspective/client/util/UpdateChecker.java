@@ -31,7 +31,7 @@ import java.util.Objects;
 
 public class UpdateChecker {
 	public static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
-	public static Version API_VERSION;
+	public static Version apiVersion;
 	public static boolean SEEN_UPDATE_TOAST;
 	public static boolean UPDATE_CHECKER_COMPLETE;
 	public static boolean NEWER_VERSION_FOUND;
@@ -40,7 +40,7 @@ public class UpdateChecker {
 
 	public static void tick() {
 		if (!UPDATE_CHECKER_COMPLETE) {
-			checkForUpdates();
+			checkForUpdates(Data.VERSION);
 			if (NEWER_VERSION_FOUND) {
 				if (!SEEN_UPDATE_TOAST) {
 					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.update.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), 280, Toast.Type.INFO));
@@ -51,15 +51,15 @@ public class UpdateChecker {
 		}
 	}
 
-	public static void checkForUpdates() {
+	public static void checkForUpdates(Version currentVersion) {
 		UPDATE_CHECKER_COMPLETE = false;
 		NEWER_VERSION_FOUND = false;
 		try {
 			if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("none")) {
-				Data.VERSION.getLogger().info("Checking for updates...");
-				Data.VERSION.getLogger().info("Current Version: " + Data.VERSION.getFriendlyString());
-				Data.VERSION.getLogger().info("Update Channel: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"));
-				Data.VERSION.getLogger().info("Minecraft Version: " + SharedConstants.getGameVersion().getName());
+				Data.VERSION.sendToLog(Helper.LogType.INFO, "Checking for new updates...");
+				Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Current Version: {}", Data.VERSION.getFriendlyString()));
+				Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Update Channel: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")));
+				Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Minecraft Version: {}", SharedConstants.getGameVersion().getName()));
 				JsonArray apiDataVersion = (JsonArray) getModrinthData(Data.VERSION.getModrinthID(), "version");
 				if (apiDataVersion != null) {
 					boolean compatible_version = false;
@@ -82,72 +82,74 @@ public class UpdateChecker {
 							int patch = Integer.parseInt(version_number.substring(4, 5));
 							Helper.ReleaseType type = Helper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
 							int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
-							API_VERSION = new Version("Perspective", "perspective", major, minor, patch, type, build, Data.VERSION.getModrinthID());
-							if (API_VERSION.compareTo(Data.VERSION) > 0) {
+							apiVersion = new Version(currentVersion.getName(), currentVersion.getID(), major, minor, patch, type, build, Data.VERSION.getModrinthID());
+							if (apiVersion.compareTo(currentVersion) > 0) {
 								if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("alpha")) {
-									if (API_VERSION.getType().equals(Helper.ReleaseType.ALPHA) || API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
+									if (apiVersion.getType().equals(Helper.ReleaseType.ALPHA) || apiVersion.getType().equals(Helper.ReleaseType.BETA) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-"))
 											version_id = version_id.replace("+", "-release.1+");
 										LATEST_VERSION_FOUND = version_id;
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
-										break;
 									}
 								} else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("beta")) {
-									if (API_VERSION.getType().equals(Helper.ReleaseType.BETA) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
+									if (apiVersion.getType().equals(Helper.ReleaseType.BETA) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-"))
 											version_id = version_id.replace("+", "-release.1+");
 										LATEST_VERSION_FOUND = version_id;
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
-										break;
 									}
 								} else {
-									if (API_VERSION.getType().equals(Helper.ReleaseType.RELEASE)) {
+									if (apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
 										NEWER_VERSION_FOUND = true;
 										String version_id = JsonHelper.getString(version_obj, "version_number");
 										if (!version_id.contains("-"))
 											version_id = version_id.replace("+", "-release.1+");
 										LATEST_VERSION_FOUND = version_id;
 										DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
-										break;
 									}
 								}
+							}
+							if (NEWER_VERSION_FOUND) {
+								Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("A newer version of {} was found using Modrinth API: {}", currentVersion.getName(), apiVersion.getFriendlyString()));
+								break;
 							}
 						}
 					}
 					if (!compatible_version) {
-						Data.VERSION.getLogger().info("No compatible version found.");
+						Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Could not find a compatible version of {} using Modrinth API.", currentVersion.getName()));
 					} else {
-						if (NEWER_VERSION_FOUND) {
-							Data.VERSION.getLogger().info("Newer version found: " + API_VERSION.getFriendlyString());
-						} else
-							Data.VERSION.getLogger().info("You are already running the latest version of {}", Data.VERSION.getName());
+						if (!NEWER_VERSION_FOUND) Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("You are already running the latest version of {}: {}", currentVersion.getName(), currentVersion.getFriendlyString()));
 					}
 				}
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().error("{} {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Failed to check for updates using Modrinth API: {}", error));
 		}
 	}
 
 	private static JsonElement getModrinthData(String project_id, String request) {
 		try {
+			Data.VERSION.sendToLog(Helper.LogType.INFO, "Getting data from Modrinth API...");
 			URL url = Objects.equals(request, "") ? new URL("https://api.modrinth.com/v2/project/" + project_id) : new URL("https://api.modrinth.com/v2/project/" + project_id + "/" + request);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				StringBuilder jsonContent = new StringBuilder();
 				String line;
 				while ((line = reader.readLine()) != null) {
 					jsonContent.append(line);
 				}
 				return JsonParser.parseString(jsonContent.toString());
+			} catch (Exception error) {
+				Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Failed to read data from Modrinth API: {}", error));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception error) {
+			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Failed to get data from Modrinth API: {}", error));
 		}
 		return null;
 	}
