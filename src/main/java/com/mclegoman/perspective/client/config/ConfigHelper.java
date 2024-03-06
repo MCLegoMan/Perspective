@@ -21,6 +21,7 @@ import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
@@ -169,6 +170,7 @@ public class ConfigHelper {
 	private static void saveConfig(ConfigType config) {
 		try {
 			SAVING_CONFIG = true;
+			fixConfig();
 			switch (config) {
 				case NORMAL -> Config.save();
 				case EXPERIMENTAL -> ExperimentalConfig.save();
@@ -218,7 +220,7 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_scale_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_scale_mode") + ")");
 				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.ZOOM_SCALE_MODE);
 			}
-			if (!Zoom.zoomTypes.contains(Zoom.getZoomType())) {
+			if (!Zoom.isValidZoomType(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigType.NORMAL, "zoom_type")))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_type") + ")");
 				hasFixedConfig = setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.ZOOM_TYPE);
 			}
@@ -293,6 +295,7 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "debug", ConfigDataLoader.DEBUG);
 			configChanged = setConfig(ConfigType.NORMAL, "test_resource_pack", ConfigDataLoader.TEST_RESOURCE_PACK);
 			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
+			fixConfig();
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset config!");
 		}
