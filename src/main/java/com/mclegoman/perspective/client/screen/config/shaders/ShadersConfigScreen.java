@@ -10,12 +10,12 @@ package com.mclegoman.perspective.client.screen.config.shaders;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
-import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -50,7 +50,7 @@ public class ShadersConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, true), true, "shaders", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, true), true, "shaders", false, true));
 			GRID_ADDER.add(createShaders());
 			GRID_ADDER.add(createShaderOptions());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
@@ -146,7 +146,7 @@ public class ShadersConfigScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+			UpdateChecker.checkForUpdates(Data.VERSION, true);
 			this.REFRESH = true;
 		}
 		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT)

@@ -17,7 +17,6 @@ import com.mclegoman.perspective.client.screen.config.hold_perspective.HoldPersp
 import com.mclegoman.perspective.client.screen.config.information.InformationScreen;
 import com.mclegoman.perspective.client.screen.config.shaders.ShadersConfigScreen;
 import com.mclegoman.perspective.client.screen.config.textured_entity.TexturedEntityConfigScreen;
-import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -56,7 +55,7 @@ public class ConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false, "", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false, "", false, true));
 			if (PAGE == 1) GRID_ADDER.add(createPageOne());
 			else if (PAGE == 2) GRID_ADDER.add(createPageTwo());
 			else SHOULD_CLOSE = true;
@@ -77,7 +76,7 @@ public class ConfigScreen extends Screen {
 			}
 			if (this.SHOULD_CLOSE) {
 				ConfigHelper.saveConfig();
-				if (this.CHECK_FOR_UPDATES) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(PARENT_SCREEN));
+				if (this.CHECK_FOR_UPDATES) UpdateChecker.checkForUpdates(Data.VERSION, true);
 				else ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
@@ -153,15 +152,13 @@ public class ConfigScreen extends Screen {
 			if (PAGE <= 1) this.SHOULD_CLOSE = true;
 			else {
 				PAGE -= 1;
-				if (this.CHECK_FOR_UPDATES) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false)));
-				else this.REFRESH = true;
+				this.REFRESH = true;
 			}
 		}).width(74).build());
 		ButtonWidget NEXT = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "next"), (button) -> {
 			if (!(PAGE >= 2)) {
 				PAGE += 1;
-				if (this.CHECK_FOR_UPDATES) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false)));
-				else this.REFRESH = true;
+				this.REFRESH = true;
 			}
 		}).width(74).build();
 		if (PAGE >= 2) NEXT.active = false;
@@ -189,8 +186,6 @@ public class ConfigScreen extends Screen {
 			}
 			else {
 				PAGE -= 1;
-				if (this.CHECK_FOR_UPDATES) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false)));
-				else this.REFRESH = true;
 			}
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
@@ -198,7 +193,7 @@ public class ConfigScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+			UpdateChecker.checkForUpdates(Data.VERSION, true);
 			this.REFRESH = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);

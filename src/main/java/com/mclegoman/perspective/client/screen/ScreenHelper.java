@@ -20,12 +20,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class ScreenHelper {
-	public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, boolean showPageName, String pageName, boolean experimental) {
+	public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, boolean showPageName, String pageName, boolean experimental, boolean updateMsg) {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
 		GRID_ADDER.add(new PerspectiveLogo.Widget(experimental));
-		if (UpdateChecker.NEWER_VERSION_FOUND) {
+		if (UpdateChecker.NEWER_VERSION_FOUND && updateMsg) {
 			GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
 			Text NEW_VERSION_TEXT = Translation.getConfigTranslation(Data.VERSION.getID(), "update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}, new Formatting[]{Formatting.YELLOW});
 			GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(PARENT_SCREEN, UpdateChecker.DOWNLOAD_LINK)), client.textRenderer));

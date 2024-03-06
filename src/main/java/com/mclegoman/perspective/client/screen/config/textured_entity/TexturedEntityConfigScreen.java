@@ -10,11 +10,10 @@ package com.mclegoman.perspective.client.screen.config.textured_entity;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
-import com.mclegoman.perspective.client.screen.config.ConfigScreen;
-import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -44,7 +43,7 @@ public class TexturedEntityConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new TexturedEntityConfigScreen(PARENT_SCREEN, true), true, "textured_entity", false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new TexturedEntityConfigScreen(PARENT_SCREEN, true), true, "textured_entity", false, true));
 			GRID_ADDER.add(createTexturedEntity());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -116,7 +115,7 @@ public class TexturedEntityConfigScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			ClientData.CLIENT.setScreen(new UpdateCheckerScreen(this));
+			UpdateChecker.checkForUpdates(Data.VERSION, true);
 			this.REFRESH = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);

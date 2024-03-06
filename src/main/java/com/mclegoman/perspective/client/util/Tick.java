@@ -33,7 +33,6 @@ public class Tick {
 				Panorama.tick();
 				MessageOverlay.tick();
 				Hide.tick();
-				UpdateChecker.tick();
 			}
 		});
 	}
