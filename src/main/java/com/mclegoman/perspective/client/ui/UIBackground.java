@@ -10,7 +10,6 @@ package com.mclegoman.perspective.client.ui;
 import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.JsonHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -33,29 +32,29 @@ public class UIBackground {
 		titleScreenBackgroundTypes.add("dirt");
 	}
 	public static String getUIBackgroundType() {
-		if (!isValidUIBackgroundType(JsonHelper.asUIBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background")))) cycleUIBackgroundType();
-		return JsonHelper.asUIBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background"));
+		if (!isValidUIBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background"))) cycleUIBackgroundType();
+		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background");
 	}
 	public static void cycleUIBackgroundType() {
 		cycleUIBackgroundType(true);
 	}
 	public static void cycleUIBackgroundType(boolean direction) {
 		int currentIndex = uiBackgroundTypes.indexOf(getUIBackgroundType());
-		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "ui_background", JsonHelper.asUIBackground(uiBackgroundTypes.get(direction ? (currentIndex + 1) % uiBackgroundTypes.size() : (currentIndex - 1 + uiBackgroundTypes.size()) % uiBackgroundTypes.size())));
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "ui_background", uiBackgroundTypes.get(direction ? (currentIndex + 1) % uiBackgroundTypes.size() : (currentIndex - 1 + uiBackgroundTypes.size()) % uiBackgroundTypes.size()));
 	}
 	public static boolean isValidUIBackgroundType(String UIBackgroundType) {
 		return uiBackgroundTypes.contains(UIBackgroundType.toLowerCase());
 	}
 	public static String getTitleScreenBackgroundType() {
-		if (!isValidTitleScreenBackgroundType(JsonHelper.asTitleScreenBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen")))) cycleTitleScreenBackgroundType();
-		return JsonHelper.asTitleScreenBackground((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen"));
+		if (!isValidTitleScreenBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen"))) cycleTitleScreenBackgroundType();
+		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen");
 	}
 	public static void cycleTitleScreenBackgroundType() {
 		cycleTitleScreenBackgroundType(true);
 	}
 	public static void cycleTitleScreenBackgroundType(boolean direction) {
 		int currentIndex = titleScreenBackgroundTypes.indexOf(getTitleScreenBackgroundType());
-		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", JsonHelper.asTitleScreenBackground(titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size())));
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
 	}
 	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {
 		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType.toLowerCase());

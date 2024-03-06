@@ -1,7 +1,7 @@
 /*
     Luminance
     Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Github: https://github.com/MCLegoMan/Luminance
     Licence: GNU LGPLv3
 */
 
@@ -55,34 +55,34 @@ public class ShaderUniforms {
 		} catch (Exception ignored) {}
 	}
 	protected static void updateFOV() {
-		lu_FOV = ClientData.client.options.getFov().getValue() != null ? ClientData.client.options.getFov().getValue() : 70.0F;
+		lu_FOV = ClientData.CLIENT.options.getFov().getValue() != null ? ClientData.CLIENT.options.getFov().getValue() : 70.0F;
 	}
 	protected static void updateRenderDistance() {
-		lu_RenderDistance = ClientData.client.options.getViewDistance().getValue() != null ? ClientData.client.options.getViewDistance().getValue() : 12.0F;
+		lu_RenderDistance = ClientData.CLIENT.options.getViewDistance().getValue() != null ? ClientData.CLIENT.options.getViewDistance().getValue() : 12.0F;
 	}
 	protected static void updatePlayerPos() {
-		lu_PlayerPos = ClientData.client.player != null ? ClientData.client.player.getPos().toVector3f() : Vec3d.ZERO.toVector3f();
+		lu_PlayerPos = ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getPos().toVector3f() : Vec3d.ZERO.toVector3f();
 	}
 	protected static void updatePlayerPitch() {
-		lu_PlayerPitch = ClientData.client.player != null ? ClientData.client.player.getPitch() : 90.0F;
+		lu_PlayerPitch = ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getPitch() : 90.0F;
 	}
 	protected static void updatePlayerYaw() {
-		lu_PlayerYaw = ClientData.client.player != null ? ClientData.client.player.getYaw() : 0.0F;
+		lu_PlayerYaw = ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getYaw() : 0.0F;
 	}
 	protected static void updateBlockLight() {
-		lu_BlockLight = ClientData.client.world != null && ClientData.client.player != null ? ClientData.client.world.getLightLevel(LightType.BLOCK, ClientData.client.player.getBlockPos()) : 15.0F;
+		lu_BlockLight = ClientData.CLIENT.world != null && ClientData.CLIENT.player != null ? ClientData.CLIENT.world.getLightLevel(LightType.BLOCK, ClientData.CLIENT.player.getBlockPos()) : 15.0F;
 	}
 	protected static void updateSkyLight() {
-		lu_SkyLight = ClientData.client.world != null && ClientData.client.player != null ? ClientData.client.world.getLightLevel(LightType.SKY, ClientData.client.player.getBlockPos()) : 15.0F;
+		lu_SkyLight = ClientData.CLIENT.world != null && ClientData.CLIENT.player != null ? ClientData.CLIENT.world.getLightLevel(LightType.SKY, ClientData.CLIENT.player.getBlockPos()) : 15.0F;
 	}
 	protected static void updateFogColor() {
-		lu_FogColor = (ClientData.client.world != null && ClientData.client.player != null) ? Vec3d.unpackRgb(ClientData.client.world.getBiome(ClientData.client.player.getBlockPos()).value().getFogColor()).toVector3f() : Vec3d.ZERO.toVector3f();
+		lu_FogColor = (ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) ? Vec3d.unpackRgb(ClientData.CLIENT.world.getBiome(ClientData.CLIENT.player.getBlockPos()).value().getFogColor()).toVector3f() : Vec3d.ZERO.toVector3f();
 	}
 	protected static void updateSubmergedInWater() {
-		lu_SubmergedInWater = ClientData.client.player != null && ClientData.client.player.isSubmergedInWater() ? 1.0F : 0.0F;
+		lu_SubmergedInWater = ClientData.CLIENT.player != null && ClientData.CLIENT.player.isSubmergedInWater() ? 1.0F : 0.0F;
 	}
 	protected static void updateWaterFogColor() {
-		lu_WaterFogColor = (ClientData.client.world != null && ClientData.client.player != null) ? Vec3d.unpackRgb(ClientData.client.world.getBiome(ClientData.client.player.getBlockPos()).value().getWaterFogColor()).toVector3f() : Vec3d.ZERO.toVector3f();
+		lu_WaterFogColor = (ClientData.CLIENT.world != null && ClientData.CLIENT.player != null) ? Vec3d.unpackRgb(ClientData.CLIENT.world.getBiome(ClientData.CLIENT.player.getBlockPos()).value().getWaterFogColor()).toVector3f() : Vec3d.ZERO.toVector3f();
 	}
 	protected static void setUniform(JsonEffectShaderProgram program, String uniformName, float... value) {
 		try {

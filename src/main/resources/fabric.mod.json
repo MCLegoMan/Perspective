@@ -22,7 +22,8 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.mclegoman.perspective.client.PerspectiveClient"
+      "com.mclegoman.perspective.client.PerspectiveClient",
+      "com.mclegoman.luminance.client.LuminanceClient"
     ],
     "modmenu": [
 	    "com.mclegoman.perspective.compat.ModMenuCompat"

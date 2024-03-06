@@ -31,9 +31,6 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 
-	include(implementation project(path: ':simpleconfig', configuration: 'namedElements'))
-	include(implementation project(path: ':luminance', configuration: 'namedElements'))
-
 	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"

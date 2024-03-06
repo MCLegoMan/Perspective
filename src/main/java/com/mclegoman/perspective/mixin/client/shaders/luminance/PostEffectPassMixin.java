@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.luminance.mixin.client;
+package com.mclegoman.perspective.mixin.client.shaders.luminance;
 
 import com.mclegoman.luminance.client.shaders.ShaderUniforms;
 import net.minecraft.client.gl.JsonEffectShaderProgram;

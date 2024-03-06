@@ -12,7 +12,6 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.JsonHelper;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.IdentifierHelper;
@@ -91,8 +90,8 @@ public class Zoom {
 		return multiplier;
 	}
 	public static Identifier getZoomType() {
-		if (!isValidZoomType(IdentifierHelper.identifierFromString(JsonHelper.asZoomType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"))))) cycleZoomType();
-		return IdentifierHelper.identifierFromString(JsonHelper.asZoomType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")));
+		if (!isValidZoomType(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")))) cycleZoomType();
+		return IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"));
 	}
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
@@ -137,7 +136,7 @@ public class Zoom {
 	public static void cycleZoomType(boolean direction) {
 		try {
 			int currentIndex = zoomTypes.indexOf(getZoomType());
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", JsonHelper.asZoomType(IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size()))));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size())));
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
 		}

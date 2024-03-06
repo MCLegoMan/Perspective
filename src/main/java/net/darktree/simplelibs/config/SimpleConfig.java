@@ -133,7 +133,7 @@ public class SimpleConfig {
 		}
 	}
 
-	private SimpleConfig( ConfigRequest request ) {
+	private SimpleConfig(ConfigRequest request ) {
 		this.request = request;
 		String identifier = "Config '" + request.filename + "'";
 

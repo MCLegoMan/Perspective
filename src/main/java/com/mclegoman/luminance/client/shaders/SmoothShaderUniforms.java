@@ -1,7 +1,7 @@
 /*
     Luminance
     Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Github: https://github.com/MCLegoMan/Luminance
     Licence: GNU LGPLv3
 */
 
@@ -38,19 +38,19 @@ public class SmoothShaderUniforms {
 		} catch (Exception ignored) {}
 	}
 	protected static void updateSmoothBlockLight() {
-		lu_SmoothBlockLight = MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothBlockLight, ShaderUniforms.lu_BlockLight);
+		lu_SmoothBlockLight = MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothBlockLight, ShaderUniforms.lu_BlockLight);
 	}
 	protected static void updateSmoothSkyLight() {
-		lu_SmoothSkyLight = MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothSkyLight, ShaderUniforms.lu_SkyLight);
+		lu_SmoothSkyLight = MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothSkyLight, ShaderUniforms.lu_SkyLight);
 	}
 	protected static void updateSmoothFogColor() {
-		lu_SmoothFogColor = new Vec3d(MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothFogColor.x, ShaderUniforms.lu_FogColor.x), MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothFogColor.y, ShaderUniforms.lu_FogColor.y), MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothFogColor.z, ShaderUniforms.lu_FogColor.z)).toVector3f();
+		lu_SmoothFogColor = new Vec3d(MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothFogColor.x, ShaderUniforms.lu_FogColor.x), MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothFogColor.y, ShaderUniforms.lu_FogColor.y), MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothFogColor.z, ShaderUniforms.lu_FogColor.z)).toVector3f();
 	}
 	protected static void updateSmoothSubmergedInWater() {
-		lu_SmoothSubmergedInWater = MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothSubmergedInWater, ShaderUniforms.lu_SubmergedInWater);
+		lu_SmoothSubmergedInWater = MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothSubmergedInWater, ShaderUniforms.lu_SubmergedInWater);
 	}
 	protected static void updateSmoothWaterFogColor() {
-		lu_SmoothWaterFogColor = new Vec3d(MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothWaterFogColor.x, ShaderUniforms.lu_WaterFogColor.x), MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothWaterFogColor.y, ShaderUniforms.lu_WaterFogColor.y), MathHelper.lerp(ClientData.client.getTickDelta(), lu_SmoothWaterFogColor.z, ShaderUniforms.lu_WaterFogColor.z)).toVector3f();
+		lu_SmoothWaterFogColor = new Vec3d(MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothWaterFogColor.x, ShaderUniforms.lu_WaterFogColor.x), MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothWaterFogColor.y, ShaderUniforms.lu_WaterFogColor.y), MathHelper.lerp(ClientData.CLIENT.getTickDelta(), lu_SmoothWaterFogColor.z, ShaderUniforms.lu_WaterFogColor.z)).toVector3f();
 	}
 	static {
 		lu_SmoothBlockLight = ShaderUniforms.lu_BlockLight;
