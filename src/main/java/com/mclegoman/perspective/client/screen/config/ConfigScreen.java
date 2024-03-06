@@ -41,21 +41,19 @@ public class ConfigScreen extends Screen {
 	private boolean REFRESH;
 	private boolean SHOULD_CLOSE;
 	private int PAGE;
-	private boolean CHECK_FOR_UPDATES;
-	public ConfigScreen(Screen PARENT, boolean REFRESH, int PAGE, boolean CHECK_FOR_UPDATES) {
+	public ConfigScreen(Screen PARENT, boolean REFRESH, int PAGE) {
 		super(Text.literal(""));
 		this.GRID = new GridWidget();
 		this.PARENT_SCREEN = PARENT;
 		this.REFRESH = REFRESH;
 		this.PAGE = PAGE;
-		this.CHECK_FOR_UPDATES = CHECK_FOR_UPDATES;
 	}
 
 	public void init() {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false, "", false, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE), false, "", false, true));
 			if (PAGE == 1) GRID_ADDER.add(createPageOne());
 			else if (PAGE == 2) GRID_ADDER.add(createPageTwo());
 			else SHOULD_CLOSE = true;
@@ -68,34 +66,31 @@ public class ConfigScreen extends Screen {
 			Data.VERSION.getLogger().warn("{} Failed to initialize config screen: {}", Data.VERSION.getID(), error);
 		}
 	}
-
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE, CHECK_FOR_UPDATES));
+				ClientData.CLIENT.setScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE));
 			}
 			if (this.SHOULD_CLOSE) {
 				ConfigHelper.saveConfig();
-				if (this.CHECK_FOR_UPDATES) UpdateChecker.checkForUpdates(Data.VERSION, true);
-				else ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.CLIENT.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config screen: {}", Data.VERSION.getID(), error);
 		}
 	}
-
 	private GridWidget createPageOne() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom"), (button) -> ClientData.CLIENT.setScreen(new ZoomConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders"), (button) -> ClientData.CLIENT.setScreen(new ShadersConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false, new Formatting[]{Shader.getRandomColor()}, false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "textured_entity"), (button) -> ClientData.CLIENT.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "april_fools_prank"), (button) -> ClientData.CLIENT.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hide"), (button) -> ClientData.CLIENT.setScreen(new HideConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE, false), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hold_perspective"), (button) -> ClientData.CLIENT.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information"), (button) -> ClientData.CLIENT.setScreen(new InformationScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false))).build());
-		ButtonWidget EXPERIMENTAL = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental"), (button) -> ClientData.CLIENT.setScreen(new ExperimentalConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE, false), false))).build();
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom"), (button) -> ClientData.CLIENT.setScreen(new ZoomConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders"), (button) -> ClientData.CLIENT.setScreen(new ShadersConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false, new Formatting[]{Shader.getRandomColor()}, false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "textured_entity"), (button) -> ClientData.CLIENT.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "april_fools_prank"), (button) -> ClientData.CLIENT.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hide"), (button) -> ClientData.CLIENT.setScreen(new HideConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hold_perspective"), (button) -> ClientData.CLIENT.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information"), (button) -> ClientData.CLIENT.setScreen(new InformationScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		ButtonWidget EXPERIMENTAL = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental"), (button) -> ClientData.CLIENT.setScreen(new ExperimentalConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build();
 		EXPERIMENTAL.active = ConfigHelper.EXPERIMENTS_AVAILABLE;
 		GRID_ADDER.add(EXPERIMENTAL);
 		return GRID;
@@ -136,7 +131,6 @@ public class ConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation(Data.VERSION.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel", UpdateChecker.nextUpdateChannel());
 			this.REFRESH = true;
-			this.CHECK_FOR_UPDATES = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "detect_update_channel", true))).build());
 		return GRID;
 	}
@@ -149,7 +143,9 @@ public class ConfigScreen extends Screen {
 			if (ConfigHelper.resetConfig()) this.REFRESH = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> {
-			if (PAGE <= 1) this.SHOULD_CLOSE = true;
+			if (PAGE <= 1) {
+				this.SHOULD_CLOSE = true;
+			}
 			else {
 				PAGE -= 1;
 				this.REFRESH = true;

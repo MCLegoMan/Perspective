@@ -73,7 +73,7 @@ public class ConfigHelper {
 		try {
 			if (!UPDATED_CONFIG) ConfigHelper.updateConfig();
 			if (Keybindings.OPEN_CONFIG.wasPressed())
-				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1, false));
+				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
 			else {
 				if (fixConfig()) saveConfig();
