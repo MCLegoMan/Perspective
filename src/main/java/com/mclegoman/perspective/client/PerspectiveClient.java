@@ -20,22 +20,20 @@ import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
-import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class PerspectiveClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		try {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Initializing {}", Data.VERSION.getLoggerPrefix(), Data.VERSION.getID()));
+			ConfigHelper.init();
 			AprilFoolsPrank.init();
 			UIBackground.init();
 			Zoom.init();
-			ConfigHelper.init();
 			Contributor.init();
 			Hide.init();
 			Keybindings.init();
@@ -44,18 +42,9 @@ public class PerspectiveClient implements ClientModInitializer {
 			Shader.init();
 			TexturedEntity.init();
 			Tick.init();
-			ClientData.finishedInitializing();
+			ClientData.setFinishedInitializing(true);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Failed to run onInitializeClient: {}", Data.VERSION.getLoggerPrefix(), error));
-		}
-	}
-	public static void onInitializeClientAfterConfig() {
-		try {
-			ResourcePacks.initAfterConfig();
-			if (!UpdateChecker.UPDATE_CHECKER_COMPLETE) UpdateChecker.checkForUpdates(Data.VERSION);
-			ClientData.finishedInitializingAfterConfig();
-		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("{} Failed to run onInitializeClientAfterConfig: {}", Data.VERSION.getLoggerPrefix(), error));
 		}
 	}
 }

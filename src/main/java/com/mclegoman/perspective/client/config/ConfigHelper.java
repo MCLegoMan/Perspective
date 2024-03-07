@@ -18,6 +18,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.PerspectiveLogo;
+import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
@@ -67,7 +68,16 @@ public class ConfigHelper {
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to load configs!");
 		}
-		PerspectiveClient.onInitializeClientAfterConfig();
+		if (!ClientData.getFinishedInitializingAfterConfig()) afterConfig();
+	}
+	protected static void afterConfig() {
+		try {
+			ResourcePacks.initAfterConfig();
+			UpdateChecker.checkForUpdates(Data.VERSION);
+			ClientData.setFinishedInitializingAfterConfig(true);
+		} catch (Exception error) {
+			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to init afterConfig.");
+		}
 	}
 	public static void tick() {
 		try {

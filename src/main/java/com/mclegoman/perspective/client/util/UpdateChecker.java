@@ -132,7 +132,6 @@ public class UpdateChecker {
 			}
 		}
 	}
-
 	private static JsonElement getModrinthData(String project_id, String request) {
 		try {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, "Getting data from Modrinth API...");
@@ -155,7 +154,6 @@ public class UpdateChecker {
 		}
 		return null;
 	}
-
 	public static String nextUpdateChannel() {
 		List<String> updateChannels = Arrays.stream(detectUpdateChannels).toList();
 		return updateChannels.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];
