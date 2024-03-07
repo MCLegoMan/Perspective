@@ -20,6 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class WolfEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/WolfEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(WolfEntity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity != null) cir.setReturnValue(entity.isTamed() ? (TexturedEntity.getTexture(entity, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_tame", new Identifier("textures/entity/wolf/wolf_tame.png"))) : (entity.hasAngerTime() ? TexturedEntity.getTexture(entity, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_angry", new Identifier("textures/entity/wolf/wolf_angry.png")) : TexturedEntity.getTexture(entity, "minecraft:wolf", new Identifier("textures/entity/wolf/wolf.png"))));
+		if (entity != null) cir.setReturnValue(entity.isTamed() ? (TexturedEntity.getTexture(entity, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_tame", cir.getReturnValue())) : (entity.hasAngerTime() ? TexturedEntity.getTexture(entity, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_angry", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:wolf", cir.getReturnValue())));
 	}
 }
