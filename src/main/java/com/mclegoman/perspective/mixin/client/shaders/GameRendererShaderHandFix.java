@@ -30,12 +30,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererShaderHandFix {
 	@Shadow public boolean renderHand;
 	@Shadow public abstract void renderHand(Camera camera, float tickDelta);
-	@Redirect(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V"))
-	private void perspective$handRendering(HeldItemRenderer heldItemRenderer, float tickDelta, MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, ClientPlayerEntity player, int light) {
+	@Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;renderHand(Lnet/minecraft/client/render/Camera;F)V"))
+	private void perspective$handRendering(GameRenderer instance, Camera camera, float tickDelta) {
 		if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer")) {
 			if (Shader.shouldRenderShader()) return;
 		}
-		Shader.getGameRendererAccessor().getFirstPersonRenderer().renderItem(tickDelta, matrices, vertexConsumers, player, light);
+		this.renderHand(ClientData.CLIENT.gameRenderer.getCamera(), tickDelta);
 	}
 	// This ideally should be in WorldRenderer. However I am currently having trouble getting the hand to follow the camera.
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V", shift = At.Shift.AFTER))
