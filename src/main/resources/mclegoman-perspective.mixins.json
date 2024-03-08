@@ -4,6 +4,7 @@
 	"compatibilityLevel": "JAVA_17",
 	"plugin": "com.mclegoman.perspective.mixin.MixinPlugin",
 	"client": [
+		"client.accessors.GameRendererAccessor",
 		"client.april_fools_prank.AbstractClientPlayerEntityMixin",
 		"client.april_fools_prank.LivingEntityRendererMixin",
 		"client.developer.AbstractClientPlayerEntityMixin",
@@ -17,7 +18,7 @@
 		"client.hud.HeldItemRendererMixin",
 		"client.hud.InGameHudMixin",
 		"client.shaders.GameRendererMixin",
-		"client.shaders.HandRendererFix",
+		"client.shaders.GameRendererShaderHandFix",
 		"client.shaders.OptionsScreenMixin",
 		"client.shaders.PostEffectProcessorMixin",
 		"client.shaders.RenderPhaseMixin",

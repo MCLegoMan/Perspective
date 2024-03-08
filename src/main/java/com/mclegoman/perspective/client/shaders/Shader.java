@@ -16,6 +16,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.mixin.client.accessors.GameRendererAccessor;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -55,6 +56,7 @@ public class Shader {
 	public static boolean updateLegacyConfig;
 	public static int legacyIndex;
 	private static Formatting LAST_COLOR;
+	private static GameRendererAccessor gameRendererAccessor;
 
 	public static void init() {
 		try {
@@ -352,5 +354,11 @@ public class Shader {
 				if (USE_DEPTH) cloudsFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 			}
 		}
+	}
+	public static GameRendererAccessor getGameRendererAccessor() {
+		if (gameRendererAccessor == null) {
+			gameRendererAccessor = (GameRendererAccessor)ClientData.CLIENT.gameRenderer;
+		}
+		return gameRendererAccessor;
 	}
 }
