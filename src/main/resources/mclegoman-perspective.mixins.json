@@ -17,6 +17,7 @@
 		"client.hud.HeldItemRendererMixin",
 		"client.hud.InGameHudMixin",
 		"client.shaders.GameRendererMixin",
+		"client.shaders.HandRendererFix",
 		"client.shaders.OptionsScreenMixin",
 		"client.shaders.PostEffectProcessorMixin",
 		"client.shaders.RenderPhaseMixin",

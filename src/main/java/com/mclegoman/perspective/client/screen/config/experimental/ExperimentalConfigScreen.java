@@ -11,12 +11,14 @@ import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -77,9 +79,13 @@ public class ExperimentalConfigScreen extends Screen {
 	private GridWidget createExperiments() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true), 2);
-		GRID_ADDER.add(new EmptyWidget(4, 4), 2);
+		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
+		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true));
+		GRID_ADDER.add(new EmptyWidget(4, 4));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.override_hand_renderer", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer"));
+			this.REFRESH = true;
+		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.override_hand_renderer", true))).build());
 		return GRID;
 	}
 

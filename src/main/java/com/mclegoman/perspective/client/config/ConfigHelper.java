@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConfigHelper {
-	public static final boolean EXPERIMENTS_AVAILABLE = false;
+	public static final boolean EXPERIMENTS_AVAILABLE = true;
 	protected static final int SAVE_VIA_TICK_SAVE_TICK = 20;
 	protected static final int DEFAULT_CONFIG_VERSION = 17;
 	protected static boolean SAVE_VIA_TICK = false;
@@ -323,7 +323,7 @@ public class ConfigHelper {
 	public static boolean resetExperiments() {
 		boolean configChanged = false;
 		try {
-			//configChanged = true;
+			configChanged = setConfig(ConfigType.EXPERIMENTAL, "override_hand_renderer", false);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset experiments!");
 		}
@@ -496,12 +496,16 @@ public class ConfigHelper {
 				}
 				case EXPERIMENTAL -> {
 					switch (ID) {
+						case "override_hand_renderer" -> {
+							ExperimentalConfig.overrideHandRenderer = (boolean) VALUE;
+							configChanged = true;
+						}
 						default -> {
 							Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
 							return false;
 						}
 					}
-					//if (configChanged) addSaveConfig(ConfigType.EXPERIMENTAL);
+					if (configChanged) addSaveConfig(ConfigType.EXPERIMENTAL);
 				}
 				case TUTORIAL -> {
 					switch (ID) {
@@ -669,6 +673,9 @@ public class ConfigHelper {
 			}
 			case EXPERIMENTAL -> {
 				switch (ID) {
+					case "override_hand_renderer" -> {
+						return ExperimentalConfig.overrideHandRenderer;
+					}
 					default -> {
 						Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", ID));
 						return new Object();

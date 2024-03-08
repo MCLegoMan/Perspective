@@ -173,6 +173,9 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
+	"gui.perspective.config.experimental.override_hand_renderer": "Shader Hand Renderer %s",
+	"gui.perspective.config.experimental.override_hand_renderer.hover": "This experiment forces the hand to render over super secret settings.",
+
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.experiments": "Disable All Experiments",
 	"gui.perspective.config.back": "Back",
