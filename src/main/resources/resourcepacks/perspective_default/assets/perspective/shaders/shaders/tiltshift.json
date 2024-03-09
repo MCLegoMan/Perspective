@@ -1,0 +1,7 @@
+{
+  "namespace": "perspective",
+  "shader": "tiltshift",
+  "disable_screen_mode": true,
+  "translatable": true,
+  "enabled": true
+}

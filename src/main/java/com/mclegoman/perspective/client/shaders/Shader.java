@@ -16,7 +16,6 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.mixin.client.accessors.GameRendererAccessor;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -24,7 +23,6 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
-import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
@@ -56,8 +54,6 @@ public class Shader {
 	public static boolean updateLegacyConfig;
 	public static int legacyIndex;
 	private static Formatting LAST_COLOR;
-	private static GameRendererAccessor gameRendererAccessor;
-
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
@@ -318,19 +314,6 @@ public class Shader {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
 	}
-
-	public static void saveDepth(boolean renderFastFancy, boolean renderFabulous, boolean beginWrite) {
-		boolean currentGraphics = ClientData.CLIENT.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
-		boolean shouldSaveDepth = false;
-		if (!currentGraphics && renderFastFancy) shouldSaveDepth = true;
-		else if (currentGraphics && renderFabulous) shouldSaveDepth = true;
-		if (shouldSaveDepth) {
-			if (Shader.USE_DEPTH) {
-				Shader.DEPTH_FRAME_BUFFER.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-				if (beginWrite) ClientData.CLIENT.getFramebuffer().beginWrite(false);
-			}
-		}
-	}
 	public static void setFramebuffers() {
 		if (shouldRenderShader()) {
 			if (translucentFramebuffer != null) {
@@ -354,11 +337,5 @@ public class Shader {
 				if (USE_DEPTH) cloudsFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 			}
 		}
-	}
-	public static GameRendererAccessor getGameRendererAccessor() {
-		if (gameRendererAccessor == null) {
-			gameRendererAccessor = (GameRendererAccessor)ClientData.CLIENT.gameRenderer;
-		}
-		return gameRendererAccessor;
 	}
 }

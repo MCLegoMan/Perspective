@@ -7,6 +7,7 @@
 	"shader.perspective.mirror" : "mirror",
 	"shader.perspective.outlined" : "outlined",
 	"shader.perspective.pixelated" : "pixelated",
+	"shader.perspective.tiltshift" : "tiltshift",
 	"shader.perspective.rainbow" : "rainbow",
 	"shader.perspective.saturated" : "saturated",
 	"shader.perspective.shareware" : "shareware",
