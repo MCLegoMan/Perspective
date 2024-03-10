@@ -17,6 +17,6 @@
 		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "Strength",          "type": "float",     "count": 1,  "values": [ 0.25 ] },
 		{ "name": "Thickness",          "type": "float",     "count": 1,  "values": [ 0.0033 ] },
-		{ "name": "lu_RenderDistance",          "type": "float",     "count": 1,  "values": [ 12.0 ] }
+		{ "name": "lu_viewDistance",          "type": "float",     "count": 1,  "values": [ 12.0 ] }
 	]
 }

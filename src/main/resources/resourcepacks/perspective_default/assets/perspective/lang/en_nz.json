@@ -1,6 +1,5 @@
 {
 	"shader.perspective.crt" : "crt",
-	"shader.perspective.foggy" : "foggy",
 	"shader.perspective.gentoo" : "gentoo",
 	"shader.perspective.golden" : "golden",
 	"shader.perspective.grayscale" : "greyscale",

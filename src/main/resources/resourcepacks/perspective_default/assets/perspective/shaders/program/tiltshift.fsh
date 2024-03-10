@@ -8,9 +8,10 @@ uniform sampler2D DiffuseSampler;
 
 uniform vec2 BlurDir;
 uniform float Radius;
+uniform float perspective_zoomMultiplier;
 
 float gaussian(float x) {
-    return exp(-(x * x) / (2.0 * (Radius / 3.0) * (Radius / 3.0))) / (sqrt(2.0 * 3.14159) * (Radius / 3.0));
+    return exp(-(x * x) / (2.0 * (Radius / 3.0) * (Radius / 3.0))) / (sqrt(2.0 * 3.141592653589793) * (Radius / 3.0));
 }
 
 void main() {
@@ -22,5 +23,5 @@ void main() {
         totalStrength += gaussian(r);
     }
     blurred /= totalStrength;
-    fragColor = vec4(mix(texture(DiffuseSampler, texCoord).rgb, blurred.rgb, clamp(distance(texCoord, vec2(0.5)) * 4, 0.0, 1.0)), 1.0);
+    fragColor = vec4(mix(texture(DiffuseSampler, texCoord).rgb, blurred.rgb, clamp((distance(texCoord, vec2(0.5)) * 4), 0.0, 1.0)), 1.0);
 }

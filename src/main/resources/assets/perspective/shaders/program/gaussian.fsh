@@ -14,7 +14,7 @@ uniform float Alpha;
 out vec4 fragColor;
 
 float gaussian(float x) {
-    return exp(-(x * x) / (2.0 * (Radius / 3.0) * (Radius / 3.0))) / (sqrt(2.0 * 3.14159) * (Radius / 3.0));
+    return exp(-(x * x) / (2.0 * (Radius / 3.0) * (Radius / 3.0))) / (sqrt(2.0 * 3.141592653589793) * (Radius / 3.0));
 }
 
 void main() {
