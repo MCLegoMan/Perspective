@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = RenderPhase.class, priority = 100)
 public abstract class RenderPhaseMixin {
+	// This needs to be made more compatible with other mods.
 	@Redirect(method = "<clinit>", at = @At(value = "NEW", target = "(Ljava/lang/String;Ljava/lang/Runnable;Ljava/lang/Runnable;)Lnet/minecraft/client/render/RenderPhase$Target;", ordinal = 2))
 	private static RenderPhase.Target perspective$overrideTargets(String string, Runnable runnable, Runnable runnable2) {
 		switch (string) {
