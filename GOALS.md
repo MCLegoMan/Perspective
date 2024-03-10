@@ -3,12 +3,25 @@
   - Test and Fix **_every_** vanilla textured entity.  
   - Shader Selection Screen will now open when selecting shaders using the config screen.
 - Documentation on the [Perspective Wiki](https://mclegoman.com/Perspective)  
-- Fix Depth Shaders rendering over the players hand.  
-  - I have found a fix for this in 1.20.4 but it gets broken in 1.20.5 snapshots.
-    - As there is some hand renderer related bug fixes marked as "Fixed" in "Future Update", I'll wait till the snapshot drops before trying to make the 1.20.5 fix.
-      - Until this is fixed, the Shader Hand Renderer Experiment will render the hand over shaders.  
+- Fix Depth Shaders rendering over the player's hand.  
+  - I have found a fix for this in 1.20.4, but it gets broken in 1.20.5 snapshots.
+    - As there are some hand renderer related bug fixes marked as "Fixed" in "Future Update", I'll wait till the snapshot drops before trying to make the 1.20.5 fix.
+      - Until this is fixed, the Shader Hand Renderer Experiment will render the player's hand over shaders.
 - Fix Panorama Screenshot compatibility with iris/canvas/fabulous. (unlikely to be fixed anytime soon, maybe custom screenshotting?)
-  - It's possible that fabulous graphics could be fixed first as it's likely to be related to the framebuffers in some way.  
+  - It's possible that fabulous graphics could be fixed first as it's likely to be related to the framebuffers in some way.
+
+### Shader Uniforms  
+| Uniform                      | Description                           | Recommended Defaults | Extra Info                                              |
+|------------------------------|---------------------------------------|----------------------|---------------------------------------------------------|
+| `lu_viewDistance`            | Render Distance                       | 12.0                 | This will be moved to a separate library mod in future. |
+| `lu_eyePosition`             | Camera Eye Position (x, y, z)         | 0.0, 0.0, 0.0        | This will be moved to a separate library mod in future. |
+| `lu_pitch`                   | Player Pitch (0.0-360.0)              | 0.0                  | This will be moved to a separate library mod in future. |
+| `lu_yaw`                     | Player Yaw (0.0-360.0)                | 0.0                  | This will be moved to a separate library mod in future. |
+| `lu_currentHealth`           | Player Health                         | 20.0                 | This will be moved to a separate library mod in future. |
+| `lu_maxHealth`               | Max Player Health                     | 20.0                 | This will be moved to a separate library mod in future. |
+| `lu_currentAir`              | Player Air                            | 10.0                 | This will be moved to a separate library mod in future. |
+| `lu_maxAir`                  | Max Player Air                        | 10.0                 | This will be moved to a separate library mod in future. |
+| `perspective_zoomMultiplier` | Perspective Zoom Multiplier (0.0-1.0) | 1.0                  | This uniform will stay in Perspective.                  |
 
 ### Textured Entity Testing:
 
