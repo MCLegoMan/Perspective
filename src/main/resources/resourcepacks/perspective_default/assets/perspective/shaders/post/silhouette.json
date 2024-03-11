@@ -1,8 +1,7 @@
 {
   "targets": [
     "0",
-    "1",
-    "translucent"
+    "1"
   ],
   "passes": [
     {
@@ -17,7 +16,7 @@
       "auxtargets": [
         {
           "name": "DiffuseDepthSampler",
-          "id": "translucent:depth"
+          "id": "minecraft:main:depth"
         }
       ],
       "uniforms": [

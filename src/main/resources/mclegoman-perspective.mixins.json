@@ -23,6 +23,7 @@
 		"client.shaders.PostEffectProcessorMixin",
 		"client.shaders.ShaderNamespaceFix",
 		"client.shaders.ShaderTextureFix",
+		"client.shaders.RenderPhaseMixin",
 		"client.shaders.WorldRendererMixin",
 		"client.show_death_coordinates.DeathScreenMixin",
 		"client.textured_entity.minecraft.EyesFeatureRendererMixin",

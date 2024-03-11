@@ -22,7 +22,7 @@ vec4 outlineColor (vec4 inputColor, sampler2D DepthSampler) {
 
 void main() {
     vec4 inputColor = texture(DiffuseSampler, texCoord);
-    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * (lu_viewDistance * 16), 0.0), 1.0);
+    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * ((lu_viewDistance * 16) * 0.64), 0.0), 1.0);
     vec3 outputColor = outlineColor(inputColor, DiffuseDepthSampler).rgb;
     if (depth > 0.9) outputColor = mix(outputColor.rgb, inputColor.rgb, smoothstep(0.9, 0.91, depth));
     fragColor = vec4(outputColor, inputColor.a);

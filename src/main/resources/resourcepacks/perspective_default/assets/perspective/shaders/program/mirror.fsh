@@ -19,7 +19,7 @@ void main() {
     uv /= InSize;
     vec4 color = texture(DiffuseSampler, uv);
 
-    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * (lu_viewDistance * 16), 0.0), 1.0);
+    float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * ((lu_viewDistance * 16) * 0.64), 0.0), 1.0);
 
     vec3 outputColor;
     if (depth > 0.9) outputColor = mix(inputColor.rgb, color.rgb, smoothstep(0.9, 0.91, depth));
