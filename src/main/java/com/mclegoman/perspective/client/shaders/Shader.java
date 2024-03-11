@@ -230,17 +230,6 @@ public class Shader {
 			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
 			postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
 			try {
-				// 'Fabulous Graphics' framebuffers aren't currently working in super secret settings as the previous method isn't very compatible with other mods.
-
-				// RenderPhase$TRANSLUCENT_TARGET
-				// if (Shader.shouldRenderShader && Shader.translucentFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
-
-				// WorldRenderer$Render$RenderLayer(ordinal = 3/5)
-				// if (Shader.shouldRenderShader && Shader.translucentFramebuffer != null) {
-				//     Shader.translucentFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-				//     Shader.translucentFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-				// }
-
 				if (postProcessor != null) {
 					if (translucentFramebuffer != null) translucentFramebuffer.delete();
 					translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");

@@ -36,12 +36,6 @@ public abstract class WorldRendererMixin {
 		Shader.depthFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 		if (ClientData.CLIENT.options.getGraphicsMode().getValue().getId() <= GraphicsMode.FANCY.getId()) ClientData.CLIENT.getFramebuffer().beginWrite(false);
 	}
-
-	// WorldRenderer$Render$RenderLayer(ordinal = 3/5)
-	// if (Shader.shouldRenderShader && Shader.translucentFramebuffer != null) {
-	//     Shader.translucentFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-	//     Shader.translucentFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-	// }
 	@Inject(at = {
 			@At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderLayer(Lnet/minecraft/client/render/RenderLayer;DDDLorg/joml/Matrix4f;Lorg/joml/Matrix4f;)V", ordinal = 3),
 			@At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderLayer(Lnet/minecraft/client/render/RenderLayer;DDDLorg/joml/Matrix4f;Lorg/joml/Matrix4f;)V", ordinal = 5)
