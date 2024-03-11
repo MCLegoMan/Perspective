@@ -149,7 +149,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset(manager);
-			releaseShaders();
+			Shader.releaseShaders();
 			prepared.forEach((identifier, jsonElement) -> layout$perspective(identifier, jsonElement, manager));
 			layout$souper_secret_settings(manager);
 			List<String> ALL_NAMES = new ArrayList<>();
@@ -206,28 +206,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.VERSION.getID(), error);
 				}
 			}
-		}
-	}
-	// Nettakrim:Souper-Secret-Settings:ShaderResourceLoader.releaseFromType(ShaderStage.Type type);
-	// https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/ShaderResourceLoader.java
-	private void releaseShaders() {
-		try {
-			List<ShaderStage.Type> shaderTypes = new ArrayList<>();
-			shaderTypes.add(ShaderStage.Type.VERTEX);
-			shaderTypes.add(ShaderStage.Type.FRAGMENT);
-			for (ShaderStage.Type type : shaderTypes) {
-				List<Map.Entry<String, ShaderStage>> loadedShaders = type.getLoadedShaders().entrySet().stream().toList();
-				for (int index = loadedShaders.size() - 1; index > -1; index--) {
-					Map.Entry<String, ShaderStage> loadedShader = loadedShaders.get(index);
-					String name = loadedShader.getKey();
-					if (name.startsWith("rendertype_")) continue;
-					if (name.startsWith("position_")) continue;
-					if (name.equals("position") || name.equals("particle")) continue;
-					loadedShader.getValue().release();
-				}
-			}
-		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to release shaders: {}", Data.VERSION.getID(), error);
 		}
 	}
 	public enum RegistryValue {

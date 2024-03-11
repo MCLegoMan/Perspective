@@ -20,9 +20,9 @@ import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.client.gl.ShaderStage;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
@@ -31,16 +31,13 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	public static int superSecretSettingsIndex;
-	public static Framebuffer DEPTH_FRAME_BUFFER;
+	public static Framebuffer depthFramebuffer;
 	public static Framebuffer translucentFramebuffer;
 	public static Framebuffer entityFramebuffer;
 	public static Framebuffer particlesFramebuffer;
@@ -233,6 +230,17 @@ public class Shader {
 			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
 			postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
 			try {
+				// 'Fabulous Graphics' framebuffers aren't currently working in super secret settings as the previous method isn't very compatible with other mods.
+
+				// RenderPhase$TRANSLUCENT_TARGET
+				// if (Shader.shouldRenderShader && Shader.translucentFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
+
+				// WorldRenderer$Render$RenderLayer(ordinal = 3/5)
+				// if (Shader.shouldRenderShader && Shader.translucentFramebuffer != null) {
+				//     Shader.translucentFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+				//     Shader.translucentFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+				// }
+
 				if (postProcessor != null) {
 					if (translucentFramebuffer != null) translucentFramebuffer.delete();
 					translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");
@@ -261,6 +269,7 @@ public class Shader {
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				toggle(true, false, true, false);
 			if (SAVE_CONFIG) ConfigHelper.saveConfig();
+
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 			try {
@@ -314,28 +323,27 @@ public class Shader {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
 	}
-	public static void setFramebuffers() {
-		if (shouldRenderShader()) {
-			if (translucentFramebuffer != null) {
-				translucentFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-				if (USE_DEPTH) translucentFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+
+	// Nettakrim:Souper-Secret-Settings:ShaderResourceLoader.releaseFromType(ShaderStage.Type type);
+	// https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/ShaderResourceLoader.java
+	protected static void releaseShaders() {
+		try {
+			List<ShaderStage.Type> shaderTypes = new ArrayList<>();
+			shaderTypes.add(ShaderStage.Type.VERTEX);
+			shaderTypes.add(ShaderStage.Type.FRAGMENT);
+			for (ShaderStage.Type type : shaderTypes) {
+				List<Map.Entry<String, ShaderStage>> loadedShaders = type.getLoadedShaders().entrySet().stream().toList();
+				for (int index = loadedShaders.size() - 1; index > -1; index--) {
+					Map.Entry<String, ShaderStage> loadedShader = loadedShaders.get(index);
+					String name = loadedShader.getKey();
+					if (name.startsWith("rendertype_")) continue;
+					if (name.startsWith("position_")) continue;
+					if (name.equals("position") || name.equals("particle")) continue;
+					loadedShader.getValue().release();
+				}
 			}
-			if (entityFramebuffer != null) {
-				entityFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-				if (USE_DEPTH) entityFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-			}
-			if (particlesFramebuffer != null) {
-				particlesFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-				if (USE_DEPTH) particlesFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-			}
-			if (weatherFramebuffer != null) {
-				weatherFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-				if (USE_DEPTH) weatherFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-			}
-			if (cloudsFramebuffer != null) {
-				cloudsFramebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-				if (USE_DEPTH) cloudsFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
-			}
+		} catch (Exception error) {
+			Data.VERSION.getLogger().warn("{} Failed to release shaders: {}", Data.VERSION.getID(), error);
 		}
 	}
 }

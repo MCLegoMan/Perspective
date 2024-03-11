@@ -21,7 +21,6 @@
 		"client.shaders.OptionsScreenMixin",
 		"client.shaders.PostEffectPassMixin",
 		"client.shaders.PostEffectProcessorMixin",
-		"client.shaders.RenderPhaseMixin",
 		"client.shaders.ShaderNamespaceFix",
 		"client.shaders.ShaderTextureFix",
 		"client.shaders.WorldRendererMixin",

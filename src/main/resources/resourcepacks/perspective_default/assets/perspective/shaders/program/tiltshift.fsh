@@ -8,7 +8,6 @@ uniform sampler2D DiffuseSampler;
 
 uniform vec2 BlurDir;
 uniform float Radius;
-uniform float perspective_zoomMultiplier;
 
 float gaussian(float x) {
     return exp(-(x * x) / (2.0 * (Radius / 3.0) * (Radius / 3.0))) / (sqrt(2.0 * 3.141592653589793) * (Radius / 3.0));

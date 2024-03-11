@@ -44,10 +44,10 @@ public abstract class GameRendererMixin {
 		if (UIBackground.Gaussian.postProcessor != null) {
 			UIBackground.Gaussian.postProcessor.setupDimensions(width, height);
 		}
-		if (Shader.DEPTH_FRAME_BUFFER == null) {
-			Shader.DEPTH_FRAME_BUFFER = new SimpleFramebuffer(width, height, true, MinecraftClient.IS_SYSTEM_MAC);
+		if (Shader.depthFramebuffer == null) {
+			Shader.depthFramebuffer = new SimpleFramebuffer(width, height, true, MinecraftClient.IS_SYSTEM_MAC);
 		} else {
-			Shader.DEPTH_FRAME_BUFFER.resize(width, height, false);
+			Shader.depthFramebuffer.resize(width, height, false);
 		}
 	}
 }

@@ -29,7 +29,7 @@ public class PostEffectProcessorMixin {
 	@Inject(at = @At(value = "HEAD"), method = "render")
 	public void perspective$fixDepth(float tickDelta, CallbackInfo ci) {
 		if (Shader.USE_DEPTH) {
-			ClientData.CLIENT.getFramebuffer().copyDepthFrom(Shader.DEPTH_FRAME_BUFFER);
+			ClientData.CLIENT.getFramebuffer().copyDepthFrom(Shader.depthFramebuffer);
 		}
 	}
 }
