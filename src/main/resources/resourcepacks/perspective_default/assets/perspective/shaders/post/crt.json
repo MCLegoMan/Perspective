@@ -1,18 +1,24 @@
 {
   "targets": [
     "0",
-    "1"
+    "1",
+    "2"
   ],
   "passes": [
     {
-      "name": "perspective:scanlines",
+      "name": "perspective:fisheye",
       "intarget": "minecraft:main",
       "outtarget": "0"
     },
     {
-      "name": "perspective:aspect_ratio",
+      "name": "perspective:scanlines",
       "intarget": "0",
-      "outtarget": "1",
+      "outtarget": "1"
+    },
+    {
+      "name": "perspective:aspect_ratio",
+      "intarget": "1",
+      "outtarget": "2",
       "uniforms": [
         {
           "name": "AspectRatio",
@@ -26,7 +32,7 @@
     },
     {
       "name": "blit",
-      "intarget": "1",
+      "intarget": "2",
       "outtarget": "minecraft:main"
     }
   ]

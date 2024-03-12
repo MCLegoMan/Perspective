@@ -9,6 +9,9 @@
       - Until this is fixed, the Shader Hand Renderer Experiment will render the player's hand over shaders.
 - Fix Panorama Screenshot compatibility with iris/canvas/fabulous. (unlikely to be fixed anytime soon, maybe custom screenshotting?)
   - It's possible that fabulous graphics could be fixed first as it's likely to be related to the framebuffers in some way.
+- Update Config to use `.json` instead of `.properties`.  
+  - This will require both the config to be updated to use JSON and the config updater to update old configs to JSON.  
+
 
 ### Shader Uniforms  
 | Uniform                      | Description                           | Recommended Defaults | Extra Info                                              |

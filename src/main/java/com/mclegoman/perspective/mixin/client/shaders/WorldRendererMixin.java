@@ -64,9 +64,6 @@ public abstract class WorldRendererMixin {
 			}
 		}
 	}
-
-
-
 	// Panorama Shader Renderer
 	@Inject(method = "render", at = @At(value = "RETURN"))
 	private void perspective$renderShaderPanorama(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {

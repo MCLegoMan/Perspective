@@ -8,6 +8,6 @@ uniform vec2 InSize;
 
 void main() {
     vec4 color = texture(DiffuseSampler, texCoord);
-    float brightnessModifier = sin((texCoord.y * InSize.y * 0.25) * 3.141592653589793 + 0.0 * InSize.y * 0.25);
-    fragColor = vec4((color.rgb * mix(1.0, (pow(brightnessModifier * brightnessModifier, 1.0) + 1.0) * 0.5, 0.8)).rgb, color.a);
+    float brightness = mix(1.0, (pow(pow(sin((texCoord.y * InSize.y * 1.0 * 0.25) * 3.1415926535 + 0.0 * InSize.y * 0.25), 2.0), 1.0) * 1.0 + 1.0) * 0.5, 0.8);
+    fragColor = vec4(color.rgb * brightness, color.a);
 }
