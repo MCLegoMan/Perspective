@@ -1,5 +1,3 @@
 accessWidener v2 named
-accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;
-accessible class net/minecraft/client/render/RenderPhase$Target
 accessible field net/minecraft/client/render/GameRenderer renderHand Z
 accessible method net/minecraft/client/render/GameRenderer renderHand (Lnet/minecraft/client/render/Camera;FLorg/joml/Matrix4f;)V

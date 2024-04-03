@@ -35,7 +35,6 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static String SUPER_SECRET_SETTINGS_MODE;
 	public static boolean SUPER_SECRET_SETTINGS_ENABLED;
 	public static boolean SUPER_SECRET_SETTINGS_SOUND;
-	public static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
 	public static boolean SUPER_SECRET_SETTINGS_SHOW_NAME;
 	public static boolean SUPER_SECRET_SETTINGS_SELECTION_BLUR;
 	public static boolean TEXTURED_NAMED_ENTITY;
@@ -82,7 +81,6 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				SUPER_SECRET_SETTINGS_MODE = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_mode", "game");
 				SUPER_SECRET_SETTINGS_ENABLED = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_enabled", false);
 				SUPER_SECRET_SETTINGS_SOUND = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_sound", true);
-				SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_options_screen", false);
 				SUPER_SECRET_SETTINGS_SHOW_NAME = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_show_name", true);
 				SUPER_SECRET_SETTINGS_SELECTION_BLUR = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_selection_blur", true);
 				TEXTURED_NAMED_ENTITY = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "textured_named_entity", true);

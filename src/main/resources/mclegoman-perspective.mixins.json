@@ -18,7 +18,6 @@
 		"client.hud.InGameHudMixin",
 		"client.shaders.GameRendererMixin",
 		"client.shaders.GameRendererShaderHandFix",
-		"client.shaders.OptionsScreenMixin",
 		"client.shaders.PostEffectPassMixin",
 		"client.shaders.PostEffectProcessorMixin",
 		"client.shaders.RenderPhaseMixin",

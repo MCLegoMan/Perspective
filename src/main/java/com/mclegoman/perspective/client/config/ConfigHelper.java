@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.client.config;
 
-import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
@@ -288,7 +287,6 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
 			if ((boolean) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_enabled")) Shader.set(true, false, false, false);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
-			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_selection_blur", ConfigDataLoader.SUPER_SECRET_SETTINGS_SELECTION_BLUR);
 			configChanged = setConfig(ConfigType.NORMAL, "textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
@@ -381,10 +379,6 @@ public class ConfigHelper {
 						}
 						case "super_secret_settings_sound" -> {
 							Config.SUPER_SECRET_SETTINGS_SOUND = (boolean) VALUE;
-							configChanged = true;
-						}
-						case "super_secret_settings_options_screen" -> {
-							Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = (boolean) VALUE;
 							configChanged = true;
 						}
 						case "super_secret_settings_show_name" -> {
@@ -586,9 +580,6 @@ public class ConfigHelper {
 					}
 					case "super_secret_settings_sound" -> {
 						return Config.SUPER_SECRET_SETTINGS_SOUND;
-					}
-					case "super_secret_settings_options_screen" -> {
-						return Config.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
 					}
 					case "super_secret_settings_show_name" -> {
 						return Config.SUPER_SECRET_SETTINGS_SHOW_NAME;

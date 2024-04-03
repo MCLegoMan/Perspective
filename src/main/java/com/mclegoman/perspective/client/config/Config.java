@@ -29,7 +29,6 @@ public class Config {
 	protected static String SUPER_SECRET_SETTINGS_MODE;
 	protected static boolean SUPER_SECRET_SETTINGS_ENABLED;
 	protected static boolean SUPER_SECRET_SETTINGS_SOUND;
-	protected static boolean SUPER_SECRET_SETTINGS_OPTIONS_SCREEN;
 	protected static boolean SUPER_SECRET_SETTINGS_SHOW_NAME;
 	protected static boolean SUPER_SECRET_SETTINGS_SELECTION_BLUR;
 	protected static boolean TEXTURED_NAMED_ENTITY;
@@ -80,7 +79,6 @@ public class Config {
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE));
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED));
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND));
-		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN));
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME));
 		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings_selection_blur", ConfigDataLoader.SUPER_SECRET_SETTINGS_SELECTION_BLUR));
 		CONFIG_PROVIDER.add(new Couple<>("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY));
@@ -121,7 +119,6 @@ public class Config {
 		SUPER_SECRET_SETTINGS_MODE = CONFIG.getOrDefault("super_secret_settings_mode", ConfigDataLoader.SUPER_SECRET_SETTINGS_MODE);
 		SUPER_SECRET_SETTINGS_ENABLED = CONFIG.getOrDefault("super_secret_settings_enabled", ConfigDataLoader.SUPER_SECRET_SETTINGS_ENABLED);
 		SUPER_SECRET_SETTINGS_SOUND = CONFIG.getOrDefault("super_secret_settings_sound", ConfigDataLoader.SUPER_SECRET_SETTINGS_SOUND);
-		SUPER_SECRET_SETTINGS_OPTIONS_SCREEN = CONFIG.getOrDefault("super_secret_settings_options_screen", ConfigDataLoader.SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
 		SUPER_SECRET_SETTINGS_SHOW_NAME = CONFIG.getOrDefault("super_secret_settings_show_name", ConfigDataLoader.SUPER_SECRET_SETTINGS_SHOW_NAME);
 		SUPER_SECRET_SETTINGS_SELECTION_BLUR = CONFIG.getOrDefault("super_secret_settings_selection_blur", ConfigDataLoader.SUPER_SECRET_SETTINGS_SELECTION_BLUR);
 		TEXTURED_NAMED_ENTITY = CONFIG.getOrDefault("textured_named_entity", ConfigDataLoader.TEXTURED_NAMED_ENTITY);
@@ -163,7 +160,6 @@ public class Config {
 		CONFIG_PROVIDER.setConfig("super_secret_settings_mode", SUPER_SECRET_SETTINGS_MODE);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_enabled", SUPER_SECRET_SETTINGS_ENABLED);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_sound", SUPER_SECRET_SETTINGS_SOUND);
-		CONFIG_PROVIDER.setConfig("super_secret_settings_options_screen", SUPER_SECRET_SETTINGS_OPTIONS_SCREEN);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_show_name", SUPER_SECRET_SETTINGS_SHOW_NAME);
 		CONFIG_PROVIDER.setConfig("super_secret_settings_selection_blur", SUPER_SECRET_SETTINGS_SELECTION_BLUR);
 		CONFIG_PROVIDER.setConfig("textured_named_entity", TEXTURED_NAMED_ENTITY);
