@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.ShaderStage;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
@@ -30,6 +31,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 
 import java.util.*;
 
@@ -51,6 +53,8 @@ public class Shader {
 	public static boolean updateLegacyConfig;
 	public static int legacyIndex;
 	private static Formatting LAST_COLOR;
+	public static Camera handfix_camera;
+	public static Matrix4f handfix_matrix4f;
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
@@ -140,7 +144,7 @@ public class Shader {
 		return false;
 	}
 	public static boolean isShaderAvailable(int id) {
-		return id <= ShaderDataLoader.getShaderAmount();
+		return id <= (ShaderDataLoader.getShaderAmount() - 1);
 	}
 
 	public static int getShaderValue(String id) {
@@ -184,15 +188,15 @@ public class Shader {
 
 	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		try {
-			if (shouldCycle) {
+			if (shouldCycle && isShaderButtonsEnabled()) {
 				if (forwards) {
-					if (superSecretSettingsIndex < ShaderDataLoader.getShaderAmount())
+					if (superSecretSettingsIndex < (ShaderDataLoader.getShaderAmount() - 1))
 						superSecretSettingsIndex++;
 					else superSecretSettingsIndex = 0;
 				} else {
 					if (superSecretSettingsIndex > 0)
 						superSecretSettingsIndex--;
-					else superSecretSettingsIndex = ShaderDataLoader.getShaderAmount();
+					else superSecretSettingsIndex = (ShaderDataLoader.getShaderAmount() - 1);
 				}
 			}
 			set(forwards, false, showShaderName, SAVE_CONFIG);
@@ -210,11 +214,13 @@ public class Shader {
 
 	public static void random(boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
 		try {
-			int SHADER = superSecretSettingsIndex;
-			while (SHADER == superSecretSettingsIndex)
-				SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
-			superSecretSettingsIndex = SHADER;
-			Shader.set(true, playSound, showShaderName, SAVE_CONFIG);
+			if (isShaderButtonsEnabled()) {
+				int SHADER = superSecretSettingsIndex;
+				while (SHADER == superSecretSettingsIndex)
+					SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
+				superSecretSettingsIndex = SHADER - 1;
+				Shader.set(true, playSound, showShaderName, SAVE_CONFIG);
+			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 		}
@@ -312,7 +318,9 @@ public class Shader {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
 	}
-
+	public static boolean isShaderButtonsEnabled() {
+		return ShaderDataLoader.getShaderAmount() > 1;
+	}
 	// Nettakrim:Souper-Secret-Settings:ShaderResourceLoader.releaseFromType(ShaderStage.Type type);
 	// https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/ShaderResourceLoader.java
 	protected static void releaseShaders() {

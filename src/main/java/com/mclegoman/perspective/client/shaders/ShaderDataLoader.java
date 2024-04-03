@@ -36,7 +36,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		super(new Gson(), ID);
 	}
 	public static int getShaderAmount() {
-		return REGISTRY.size() - 1;
+		return REGISTRY.size();
 	}
 	public static boolean isDuplicatedShaderName(String name) {
 		return DUPLICATED_NAMES.contains(name);
@@ -115,31 +115,6 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	}
 	private void add$default(ResourceManager manager) {
 		try {
-			add("minecraft", "antialias", false, true, new JsonObject(), manager);
-			add("minecraft", "art", true, true, new JsonObject(), manager);
-			add("minecraft", "bits", true, true, new JsonObject(), manager);
-			add("minecraft", "blobs", true, true, new JsonObject(), manager);
-			add("minecraft", "blobs2", true, true, new JsonObject(), manager);
-			add("minecraft", "blur", true, true, new JsonObject(), manager);
-			add("minecraft", "bumpy", false, true, new JsonObject(), manager);
-			add("minecraft", "color_convolve", false, true, new JsonObject(), manager);
-			add("minecraft", "creeper", true, true, new JsonObject(), manager);
-			add("minecraft", "deconverge", false, true, new JsonObject(), manager);
-			add("minecraft", "desaturate", false, true, new JsonObject(), manager);
-			add("minecraft", "flip", true, true, new JsonObject(), manager);
-			add("minecraft", "fxaa", false, true, new JsonObject(), manager);
-			add("minecraft", "green", true, true, new JsonObject(), manager);
-			add("minecraft", "invert", false, true, new JsonObject(), manager);
-			add("minecraft", "notch", false, true, new JsonObject(), manager);
-			add("minecraft", "ntsc", true, true, new JsonObject(), manager);
-			add("minecraft", "outline", false, true, new JsonObject(), manager);
-			add("minecraft", "pencil", true, true, new JsonObject(), manager);
-			add("minecraft", "phosphor", false, true, new JsonObject(), manager);
-			add("minecraft", "scan_pincushion", false, true, new JsonObject(), manager);
-			add("minecraft", "sobel", false, true, new JsonObject(), manager);
-			add("minecraft", "spider", true, true, new JsonObject(), manager);
-			add("minecraft", "wobble", false, true, new JsonObject(), manager);
-			add("minecraft", "love", false, true, new JsonObject(), manager);
 			add("perspective", "gaussian", true, true, new JsonObject(), manager);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);

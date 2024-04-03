@@ -1,0 +1,7 @@
+{
+  "namespace": "minecraft",
+  "shader": "scan_pincushion",
+  "disable_screen_mode": false,
+  "translatable": true,
+  "enabled": true
+}

@@ -18,18 +18,9 @@
 - **Invalid config values are reset after client initialization.**  
 
 **Experimental:**  
-- **Added DisplayNames experiment.**  
-  - When enabled, resource packs can change the displayname of any player in their nametag and player list.  
-    - The dataloader should be located at `/assets/<namespace>/displaynames/<username>.json` in your resource pack.  
-      - This dataloader should have two values `uuid`, and `displayname`.  
-        - You can find your player uuid using Mojang's API through services such as: [MCUUID](https://mcuuid.net/) or [NameMC](https://namemc.com/).  
-        - The following example would change the displayname of `MCLegoMan` to `Lego` in Light Red (`§c`) formatting:  
-          ```
-          {
-              "uuid": "772eb47b-a24e-4d43-a685-6ca9e9e132f7",
-              "displayname": "§cLego",
-          }
-          ```
+- **Added Shader Hand Renderer experiment.**  
+  - When enabled, the player's hand will render over the shader.
+    - This will be updated in future to render the hand in the world to allow depth shaders to use hand depth.  
 
 ### Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

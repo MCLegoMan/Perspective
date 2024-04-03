@@ -1,0 +1,7 @@
+{
+  "namespace": "minecraft",
+  "shader": "blobs2",
+  "disable_screen_mode": true,
+  "translatable": true,
+  "enabled": true
+}

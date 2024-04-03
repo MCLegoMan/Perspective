@@ -1,31 +1,33 @@
 {
   "targets": [
-    "deconverge_swap",
-    "shareware_0",
-    "shareware_1",
-    "shareware_swap",
-    "scan_pincushion_swap"
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
   ],
   "passes": [
     {
       "name": "deconverge",
       "intarget": "minecraft:main",
-      "outtarget": "deconverge_swap"
+      "outtarget": "0"
     },
     {
       "name": "blit",
-      "intarget": "deconverge_swap",
-      "outtarget": "minecraft:main"
+      "intarget": "0",
+      "outtarget": "1"
     },
     {
       "name": "downscale",
-      "intarget": "minecraft:main",
-      "outtarget": "shareware_0"
+      "intarget": "1",
+      "outtarget": "2"
     },
     {
       "name": "notch",
-      "intarget": "shareware_0",
-      "outtarget": "shareware_1",
+      "intarget": "2",
+      "outtarget": "3",
       "auxtargets": [
         {
           "name": "DitherSampler",
@@ -38,22 +40,22 @@
     },
     {
       "name": "downscale",
-      "intarget": "shareware_1",
-      "outtarget": "shareware_swap"
+      "intarget": "3",
+      "outtarget": "4"
     },
     {
       "name": "blit",
-      "intarget": "shareware_swap",
-      "outtarget": "minecraft:main"
+      "intarget": "4",
+      "outtarget": "5"
     },
     {
       "name": "scan_pincushion",
-      "intarget": "minecraft:main",
-      "outtarget": "scan_pincushion_swap"
+      "intarget": "5",
+      "outtarget": "6"
     },
     {
       "name": "blit",
-      "intarget": "scan_pincushion_swap",
+      "intarget": "6",
       "outtarget": "minecraft:main"
     }
   ]

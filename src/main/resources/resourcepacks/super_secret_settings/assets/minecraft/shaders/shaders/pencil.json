@@ -1,0 +1,7 @@
+{
+  "namespace": "minecraft",
+  "shader": "pencil",
+  "disable_screen_mode": true,
+  "translatable": true,
+  "enabled": true
+}

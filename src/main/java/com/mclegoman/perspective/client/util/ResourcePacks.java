@@ -20,10 +20,16 @@ public class ResourcePacks {
 	 * 1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
 	 * - Resource Pack Name
 	 * - Contributor(s): _________
-	 * 2. Your resource pack must use the GNU LGPLv3 licence.
-	 * - This only applies to resource packs that are included with Perspective.
+	 * - Licence: _________
+	 * You only need to include the licence in your comment if it is not GNU LGPLv3.
 	 */
 	public static void init() {
+		/*
+            Super Secret Settings
+            Contributor(s): Mojang Studios, Microsoft Corporation
+            Licence: Minecraft EULA
+        */
+		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("super_secret_settings"), Data.VERSION.getModContainer(), Translation.getTranslation(Data.VERSION.getID(), "resource_pack.super_secret_settings"), ResourcePackActivationType.DEFAULT_ENABLED);
 		/*
             Perspective: Default
             Contributor(s): MCLegoMan

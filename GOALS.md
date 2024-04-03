@@ -2,6 +2,7 @@
 - **1.3.0**  
   - Test and Fix **_every_** vanilla textured entity.  
   - Shader Selection Screen will now open when selecting shaders using the config screen.
+  - Add Bloom Shader from a_or_b.
 - Documentation on the [Perspective Wiki](https://mclegoman.com/Perspective)  
 - Fix Depth Shaders rendering over the player's hand.  
   - I have found a fix for this in 1.20.4, but it gets broken in 1.20.5 snapshots.

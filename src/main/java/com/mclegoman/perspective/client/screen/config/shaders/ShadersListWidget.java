@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>> extends AlwaysSelectedEntryListWidget<ShaderListEntry> {
 	protected ShadersListWidget(int width, int height, int top, int bottom, int itemHeight, double scrollAmount) {
 		super(ClientData.CLIENT, width, height - top - bottom, top, itemHeight);
-		for (int i = 0; i <= ShaderDataLoader.getShaderAmount(); i++) {
+		for (int i = 0; i <= (ShaderDataLoader.getShaderAmount() - 1); i++) {
 			this.addEntry(new ShaderListEntry(i));
 		}
 		this.setSelected(getEntry(Shader.superSecretSettingsIndex));
