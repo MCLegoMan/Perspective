@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.zoom;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.minecraft.client.render.Camera;

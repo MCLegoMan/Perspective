@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.hide;
 
-import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;

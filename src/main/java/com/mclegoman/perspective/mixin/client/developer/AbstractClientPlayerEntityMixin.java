@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.developer;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
-import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataloader;
 import com.mclegoman.perspective.client.util.Cape;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

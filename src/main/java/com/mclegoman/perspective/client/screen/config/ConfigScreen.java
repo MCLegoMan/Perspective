@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config;
 
-import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.screen.config.april_fools_prank.AprilFoolsPrankConfigScreen;

@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.config;
+package com.mclegoman.perspective.config;
 
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
@@ -13,12 +13,11 @@ import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
-public class WarningsConfig {
-	protected static final String ID = Data.VERSION.getID() + "-warnings";
+public class ExperimentalConfig {
+	protected static final String ID = Data.VERSION.getID() + "-experimental";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
-	protected static boolean PHOTOSENSITIVITY;
-	protected static boolean PRANK;
+	protected static boolean overrideHandRenderer;
 
 	protected static void init() {
 		try {
@@ -32,19 +31,18 @@ public class WarningsConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Couple<>("photosensitivity", false));
-		CONFIG_PROVIDER.add(new Couple<>("prank", false));
+		CONFIG_PROVIDER.add(new Couple<>("override_hand_renderer", false));
 	}
 
 	protected static void assign() {
-		PHOTOSENSITIVITY = CONFIG.getOrDefault("photosensitivity", false);
-		PRANK = CONFIG.getOrDefault("prank", false);
+		overrideHandRenderer = CONFIG.getOrDefault("override_hand_renderer", false);
 	}
 
 	protected static void save() {
-		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing warning config to file.");
-		CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);
-		CONFIG_PROVIDER.setConfig("prank", PRANK);
-		CONFIG_PROVIDER.saveConfig(ID);
+		if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
+			Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
+			CONFIG_PROVIDER.setConfig("override_hand_renderer", overrideHandRenderer);
+			CONFIG_PROVIDER.saveConfig(ID);
+		}
 	}
 }

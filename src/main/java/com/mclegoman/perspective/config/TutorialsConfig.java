@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.config;
+package com.mclegoman.perspective.config;
 
 import com.mclegoman.perspective.common.config.ConfigProvider;
 import com.mclegoman.perspective.common.data.Data;
@@ -13,11 +13,11 @@ import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
-public class ExperimentalConfig {
-	protected static final String ID = Data.VERSION.getID() + "-experimental";
+public class TutorialsConfig {
+	protected static final String ID = Data.VERSION.getID() + "-tutorials";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
-	protected static boolean overrideHandRenderer;
+	protected static boolean SUPER_SECRET_SETTINGS;
 
 	protected static void init() {
 		try {
@@ -31,18 +31,16 @@ public class ExperimentalConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Couple<>("override_hand_renderer", false));
+		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings", false));
 	}
 
 	protected static void assign() {
-		overrideHandRenderer = CONFIG.getOrDefault("override_hand_renderer", false);
+		SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", false);
 	}
 
 	protected static void save() {
-		if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
-			Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
-			CONFIG_PROVIDER.setConfig("override_hand_renderer", overrideHandRenderer);
-			CONFIG_PROVIDER.saveConfig(ID);
-		}
+		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing tutorial config to file.");
+		CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
+		CONFIG_PROVIDER.saveConfig(ID);
 	}
 }

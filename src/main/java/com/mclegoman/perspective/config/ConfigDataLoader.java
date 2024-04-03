@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.config;
+package com.mclegoman.perspective.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.shaders;
 
-import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.ui.UIBackground;

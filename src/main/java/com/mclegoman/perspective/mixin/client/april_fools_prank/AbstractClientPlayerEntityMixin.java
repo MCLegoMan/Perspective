@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.april_fools_prank;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
-import com.mclegoman.perspective.client.config.ConfigHelper;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataloader;
 import com.mclegoman.perspective.client.util.Cape;
 import com.mclegoman.perspective.common.data.Data;

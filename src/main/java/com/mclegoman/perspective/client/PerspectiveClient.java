@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
-import com.mclegoman.perspective.client.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.Contributor;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
@@ -22,6 +21,7 @@ import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.api.ClientModInitializer;
 

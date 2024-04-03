@@ -35,8 +35,9 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 	protected int addEntry(ShaderListEntry entry) {
 		return super.addEntry(entry);
 	}
+
 	@Override
-	protected int getScrollbarPositionX() {
+	protected int getScrollbarX()  {
 		return (ClientData.CLIENT.getWindow().getScaledWidth()) - 6;
 	}
 }

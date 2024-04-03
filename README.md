@@ -18,10 +18,10 @@ Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to 
 - **Can I add my own shader to Super Secret Settings?**
     - Yes! You can add more shaders using resource packs.
         - **Do you have a guide for this?**
-            - Not yet! However you can also use the [Souper Secret Settings: Resourcepack Guide](https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/ResourcepackGuide/ResourcepackGuide.md).
+            - Not yet! However, you can also use the [Souper Secret Settings: Resourcepack Guide](https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/ResourcepackGuide/ResourcepackGuide.md).
     - Perspective is cross-compatible with [Souper Secret Settings](https://modrinth.com/mod/souper-secret-settings).
 - **Why are some keybinding(s) not working?**
-    - Make sure there is no conflicts with any keybinding(s).
+    - Make sure there are no conflicts with any keybinding(s).
         - `Load Hoatbar Activator` and `Save Hotbar Activator` may be conflicting by default.
 - **Do you have a version of this for [LegacyFabric](https://legacyfabric.net)?**
     - Yes, however this version is not feature complete and is in early development.
@@ -29,3 +29,9 @@ Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to 
 
 ## Compatible Mods
 [Souper Secret Settings](https://modrinth.com/mod/souper-secret-settings) by Nettakrim
+
+#
+Licensed under LGPL-3.0-or-later.
+
+**This mod is not affiliated with/endorsed by Mojang Studios or Microsoft.**  
+Some game assets are property of Mojang Studios and fall under Minecraft EULA.  
