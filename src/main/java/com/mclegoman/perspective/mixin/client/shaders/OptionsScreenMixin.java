@@ -30,10 +30,13 @@ public class OptionsScreenMixin extends Screen {
 
 	@Inject(method = "init", at = @At("TAIL"))
 	private void perspective$renderOptions(CallbackInfo ci) {
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_options_screen") && ClientData.CLIENT.world != null)
-			this.addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> {
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_options_screen") && ClientData.CLIENT.world != null) {
+			ButtonWidget cycleShaders = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders", new Formatting[]{Shader.getRandomColor()}), (button) -> {
 				Shader.cycle(true, true, true, false, false);
 				ClientData.CLIENT.setScreen(ClientData.CLIENT.currentScreen);
-			}).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build());
+			}).dimensions(this.width / 2 + 5, this.height / 6 + 17, 150, 20).build();
+			cycleShaders.active = Shader.isShaderButtonsEnabled();
+			this.addDrawableChild(cycleShaders);
+		}
 	}
 }
