@@ -90,8 +90,9 @@ public class Zoom {
 		return multiplier;
 	}
 	public static Identifier getZoomType() {
-		if (!isValidZoomType(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type")))) cycleZoomType();
-		return IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"));
+		Identifier zoomTypeIdentifier = IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"));
+		while (zoomTypeIdentifier == null && !isValidZoomType(zoomTypeIdentifier)) zoomTypeIdentifier = IdentifierHelper.identifierFromString(cycleZoomType());
+		return zoomTypeIdentifier;
 	}
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
@@ -130,19 +131,21 @@ public class Zoom {
 			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
 		}
 	}
-	public static void cycleZoomType() {
-		cycleZoomType(true);
+	public static String cycleZoomType() {
+		return cycleZoomType(true);
 	}
-	public static void cycleZoomType(boolean direction) {
+	public static String cycleZoomType(boolean direction) {
 		try {
 			int currentIndex = zoomTypes.indexOf(getZoomType());
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size())));
+			String zoomType = IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size()));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", zoomType);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
 		}
+		return null;
 	}
-	public static boolean isValidZoomType(Identifier ZoomType) {
-		return zoomTypes.contains(ZoomType);
+	public static boolean isValidZoomType(Identifier zoomType) {
+		return zoomTypes.contains(zoomType);
 	}
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(zoomTransitions).toList();
