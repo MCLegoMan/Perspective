@@ -49,7 +49,7 @@
             ]
         },
         {
-            "name": "perspective:merge_dither_bloom",
+            "name": "perspective:bloom_dither",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "auxtargets": [
