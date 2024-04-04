@@ -9,6 +9,7 @@ package com.mclegoman.perspective.mixin.client.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
+import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.render.Camera;
@@ -35,6 +36,24 @@ public abstract class WorldRendererMixin {
 	public void perspective$saveDepth(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		Shader.depthFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 		if (ClientData.CLIENT.options.getGraphicsMode().getValue().getId() <= GraphicsMode.FANCY.getId()) ClientData.CLIENT.getFramebuffer().beginWrite(false);
+	}
+	@Inject(at = {
+			@At(value = "INVOKE", target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal = 1, shift = At.Shift.AFTER),
+			@At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderWorldBorder(Lnet/minecraft/client/render/Camera;)V", ordinal = 1, shift = At.Shift.AFTER)
+	}, method = "render")
+	public void perspective$renderGameExperimental(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
+		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+			if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
+				if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer") && Shader.USE_DEPTH) {
+					// We currently render the hand after shaders instead of after rendering particles as the hand doesn't follow the player. (1.20.5)
+					// This also happens when you enable the RenderSystem.depthMask(); before the hand.
+					// Rendering this outside of depth means depth shaders won't render on the hand.
+					ClientData.CLIENT.gameRenderer.renderHand(camera, tickDelta, matrix4f);
+					// We render the shaders here - which is also where fabulous shaders get rendered.
+					Shader.render(tickDelta, "game_experimental");
+				}
+			}
+		}
 	}
 	@Inject(at = {
 			@At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderLayer(Lnet/minecraft/client/render/RenderLayer;DDDLorg/joml/Matrix4f;Lorg/joml/Matrix4f;)V", ordinal = 3),

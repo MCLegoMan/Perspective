@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.toasts.Toast;
@@ -16,6 +15,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -23,7 +23,6 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.ShaderStage;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
@@ -53,8 +52,6 @@ public class Shader {
 	public static boolean updateLegacyConfig;
 	public static int legacyIndex;
 	private static Formatting LAST_COLOR;
-	public static Camera handfix_camera;
-	public static Matrix4f handfix_matrix4f;
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());

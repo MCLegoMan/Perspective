@@ -17,7 +17,7 @@ runClient.doFirst {
 }
 
 loom {
-	accessWidenerPath = file("src/main/resources/perspective.accesswidener")
+	accessWidenerPath = file("src/main/resources/mclegoman-perspective.accesswidener")
 }
 
 repositories {
