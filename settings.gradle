@@ -13,6 +13,6 @@ pluginManagement {
     }
 }
 
-if (JavaVersion.current().ordinal() + 1 < 17) {
-    throw new IllegalStateException("Please run gradle with Java 17+! Error: Currently running with Java " + String.valueOf(JavaVersion.current().ordinal() + 1) + ".")
+if (JavaVersion.current().ordinal() + 1 < 21) {
+    throw new IllegalStateException("Please run gradle with Java 21+! Error: Currently running with Java " + String.valueOf(JavaVersion.current().ordinal() + 1) + ".")
 }

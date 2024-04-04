@@ -4,6 +4,7 @@ Perspective is a Minecraft mod developed for Fabric/Quilt. It allows players to 
 
 ## Dependencies
 - [Fabric API](https://modrinth.com/mod/fabric-api) or [Quilted Fabric API (QFAPI)](https://modrinth.com/mod/qsl)
+- Java 21 or later. (Built with the Microsoft build of OpenJDK 21.0.2)
 
 ## FAQ
 - **Is this compatible with Forge?**
