@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.ui;
 
+import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -64,6 +65,12 @@ public class UIBackground {
 	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {
 		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType);
 	}
+	public static Identifier getUiBackgroundTextureFromConfig() {
+		String uiBackgroundTexture = (String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background_texture");
+		String namespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, uiBackgroundTexture);
+		String key = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, uiBackgroundTexture);
+		return (namespace != null && key != null) ? new Identifier(namespace, (!key.startsWith("textures/") ? "textures/" : "") + key + (!key.endsWith(".png") ? ".png" : "")) : new Identifier("minecraft", "textures/block/dirt.png");
+	}
 	public static class Gaussian {
 		@Nullable
 		public static PostEffectProcessor postProcessor;
@@ -100,10 +107,8 @@ public class UIBackground {
 		public static void renderMenu(DrawContext context) {
 			try {
 				RenderSystem.enableBlend();
-				context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
-				context.drawTexture(new Identifier("textures/block/dirt.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
-				context.drawTexture(new Identifier("textures/gui/options_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
-				context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+				context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
