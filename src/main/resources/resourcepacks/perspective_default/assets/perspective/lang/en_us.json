@@ -11,5 +11,7 @@
 	"shader.perspective.saturated" : "saturated",
 	"shader.perspective.shareware" : "shareware",
 	"shader.perspective.silhouette" : "silhouette",
-	"shader.perspective.sixteen_colors": "sixteen colors"
+	"shader.perspective.sixteen_colors": "sixteen colors",
+	"shader.perspective.bloom_dither": "light-based dither",
+	"shader.perspective.depth_dither": "depth-based dither"
 }

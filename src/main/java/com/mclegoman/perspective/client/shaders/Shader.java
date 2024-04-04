@@ -264,7 +264,8 @@ public class Shader {
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
 			try {
-				cycle(true, forwards, false, true, SAVE_CONFIG);
+				// If there's an issue, we always save the config.
+				cycle(true, forwards, false, true, true);
 			} catch (Exception ignored) {
 				superSecretSettingsIndex = 0;
 				try {
@@ -272,11 +273,10 @@ public class Shader {
 					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
 					postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
-						toggle(false, true, true, false);
+						toggle(false, true, true, true);
 				} catch (Exception ignored2) {
 				}
 			}
-			if (SAVE_CONFIG) ConfigHelper.saveConfig();
 		}
 		DEPTH_FIX = false;
 	}
@@ -305,6 +305,7 @@ public class Shader {
 			postProcessor.render(tickDelta);
 			RenderSystem.disableBlend();
 			RenderSystem.defaultBlendFunc();
+			ClientData.CLIENT.getFramebuffer().beginWrite(false);
 		}
 	}
 	public static boolean shouldDisableScreenMode() {
