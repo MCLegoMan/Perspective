@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.shaders;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.config.ConfigHelper;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.render.Camera;
@@ -46,9 +47,11 @@ public abstract class WorldRendererMixin {
 			if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
 				if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer") && Shader.USE_DEPTH) {
 					// We currently render the hand after shaders instead of after rendering particles as the hand doesn't follow the player. (1.20.5)
-					// This also happens when you enable the RenderSystem.depthMask(); before the hand.
+					// This happens when the RenderSystem.depthMask(); is enabled.
 					// Rendering this outside of depth means depth shaders won't render on the hand.
+					if (ClientData.CLIENT.options.getGraphicsMode().getValue().getId() >= GraphicsMode.FABULOUS.getId()) RenderSystem.depthMask(false);
 					ClientData.CLIENT.gameRenderer.renderHand(camera, tickDelta, matrix4f);
+					if (ClientData.CLIENT.options.getGraphicsMode().getValue().getId() >= GraphicsMode.FABULOUS.getId()) RenderSystem.depthMask(true);
 					// We render the shaders here - which is also where fabulous shaders get rendered.
 					Shader.render(tickDelta, "game_experimental");
 				}
