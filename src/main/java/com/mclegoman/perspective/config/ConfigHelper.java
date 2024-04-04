@@ -716,7 +716,7 @@ public class ConfigHelper {
 		int typeAmount = 0;
 		if (Arrays.stream(types).toList().contains(ConfigType.NORMAL)) {
 			typeAmount += 1;
-			text.add(Text.literal(Config.id).formatted(Formatting.BOLD));
+			text.add(Text.literal("Normal Config").formatted(Formatting.BOLD));
 			for (Couple<String, ?> couple : Config.configProvider.getConfigList())
 				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}
@@ -724,7 +724,7 @@ public class ConfigHelper {
 			if (EXPERIMENTS_AVAILABLE) {
 				typeAmount += 1;
 				if (typeAmount > 1) text.add("\n");
-				text.add(Text.literal(ExperimentalConfig.ID).formatted(Formatting.BOLD));
+				text.add(Text.literal("Experimental Config").formatted(Formatting.BOLD));
 				for (Couple<String, ?> couple : ExperimentalConfig.CONFIG_PROVIDER.getConfigList())
 					text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 			}
@@ -732,14 +732,14 @@ public class ConfigHelper {
 		if (Arrays.stream(types).toList().contains(ConfigType.TUTORIAL)) {
 			typeAmount += 1;
 			if (typeAmount > 1) text.add("\n");
-			text.add(Text.literal(TutorialsConfig.ID).formatted(Formatting.BOLD));
+			text.add(Text.literal("Tutorial Config").formatted(Formatting.BOLD));
 			for (Couple<String, ?> couple : TutorialsConfig.CONFIG_PROVIDER.getConfigList())
 				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}
 		if (Arrays.stream(types).toList().contains(ConfigType.WARNING)) {
 			typeAmount += 1;
 			if (typeAmount > 1) text.add("\n");
-			text.add(Text.literal(WarningsConfig.ID).formatted(Formatting.BOLD));
+			text.add(Text.literal("Warning Config").formatted(Formatting.BOLD));
 			for (Couple<String, ?> couple : WarningsConfig.CONFIG_PROVIDER.getConfigList())
 				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}
