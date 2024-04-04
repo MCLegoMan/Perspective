@@ -1,7 +1,0 @@
-{
-  "namespace": "minecraft",
-  "shader": "blur",
-  "disable_screen_mode": true,
-  "translatable": true,
-  "enabled": true
-}

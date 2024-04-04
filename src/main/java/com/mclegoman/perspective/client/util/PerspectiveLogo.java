@@ -24,6 +24,7 @@ import java.util.TimeZone;
 public class PerspectiveLogo {
 	// Pride Logos will be re-worked in the near future.
 	public static final String[] pride_types = new String[]{"rainbow"};
+	// Whilst currently there is only one type, there will be more in the near future as they are re-worked.
 	private static final int pride_index = new Random().nextInt(pride_types.length);
 	public static boolean isPride() {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride")) return true;

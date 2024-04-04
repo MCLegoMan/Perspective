@@ -1,7 +1,0 @@
-{
-  "namespace": "minecraft",
-  "shader": "creeper",
-  "disable_screen_mode": true,
-  "translatable": true,
-  "enabled": true
-}

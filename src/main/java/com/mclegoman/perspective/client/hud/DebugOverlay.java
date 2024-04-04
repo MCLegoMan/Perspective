@@ -53,10 +53,13 @@ public class DebugOverlay {
 			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));
 			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
 		}
-		if (debugType.equals(Type.CONFIG)) {
+		if (debugType.equals(Type.CONFIG) || debugType.equals(Type.EXPERIMENTAL_CONFIG) || debugType.equals(Type.TUTORIALS_CONFIG) || debugType.equals(Type.WARNINGS_CONFIG)) {
 			debugText.add("\n");
 			debugText.add(Text.literal("Latest Saved Config Values").formatted(Formatting.BOLD));
-			debugText.addAll(ConfigHelper.getDebugConfigText());
+			if (debugType.equals(Type.CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.NORMAL));
+			if (debugType.equals(Type.EXPERIMENTAL_CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.EXPERIMENTAL));
+			if (debugType.equals(Type.TUTORIALS_CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.TUTORIAL));
+			if (debugType.equals(Type.WARNINGS_CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.WARNING));
 		}
 		for (Object item : debugText) {
 			if (item instanceof Text text) {
@@ -80,7 +83,10 @@ public class DebugOverlay {
 	public enum Type {
 		NONE,
 		MISC,
-		CONFIG;
+		CONFIG,
+		EXPERIMENTAL_CONFIG,
+		TUTORIALS_CONFIG,
+		WARNINGS_CONFIG;
 		private static final Type[] VALUES = values();
 
 		public Type next() {
