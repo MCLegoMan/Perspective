@@ -8,13 +8,42 @@
   - Minecraft Snapshot 24w14a changed the included Java distribution to the Microsoft build of OpenJDK 21.0.2.  
     - Perspective is now also built using the Microsoft build of OpenJDK 21.0.2.  
 ### Config Version 17  
-  - `zoom_type` is now stored as namespace:key string.  
-    - The default value is set to `perspective:logarithmic`.  
-  - Added `ui_background_texture`.  
-    - This sets the texture of Dirt Title Screen and Legacy UI Background.  
-    - This config option is stored as a namespace:key string  
-      - The key doesn't require "textures/" at the beginning or ".png" at the end as they are automatically added, but you can still add them if you want.  
-      - The default value is set to `minecraft:blocks/dirt`.  
+- `zoom_type` is now stored as namespace:key string.  
+  - The default value is set to `perspective:logarithmic`.  
+- Added `ui_background_texture`.  
+  - This sets the texture of Dirt Title Screen and Legacy UI Background.  
+  - This config option is stored as a namespace:key string  
+    - The key doesn't require "textures/" at the beginning or ".png" at the end as they are automatically added, but you can still add them if you want.  
+    - The default value is set to `minecraft:blocks/dirt`.  
+### Feature Changes  
+#### Entity  
+- Mooshrooms now have an overlay texture.
+  - The texture is located at `minecraft:textures/entity/mooshroom/mooshroom_overlay.png`.  
+#### Textured Entity  
+- Added `entity_specific` to Textured Entity dataloader.  
+  - This allows for textured entities to have data specific to some entities.  
+- Mooshroom textured entities will now require an overlay texture.
+  - The texture should be located at `minecraft:textures/textured_entity/mooshroom/<name>_overlay.png`.  
+- Mooshroom textured entities now can optionally change the mushroom blockstate, and optionally set textured entity enabled for a specific varient(s) of mooshroom.  
+  - **Here's an example:**  
+```
+  {
+    "entity": "minecraft:mooshroom",
+    "name": "Moobloom",
+    "entity_specific": {
+      "red": {
+        "enabled": true,
+        "mushroom": "minecraft:dandelion"
+      },
+      "brown": {
+        "enabled": true,
+        "mushroom": "minecraft:torchflower"
+      }
+    },
+    "enabled": true
+  }
+```
+
 ### Resource Packs  
 #### Perspective: Default  
 - Added **depth-based dither** shader.  

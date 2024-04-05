@@ -32,12 +32,13 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 		super(new Gson(), ID);
 	}
 
-	private void add(String namespace, String type, String name, Boolean enabled) {
+	private void add(String namespace, String type, String name, JsonObject entity_specific, Boolean enabled) {
 		try {
 			List<Object> texturedEntity = new ArrayList<>();
 			texturedEntity.add(namespace);
 			texturedEntity.add(type);
 			texturedEntity.add(name);
+			texturedEntity.add(entity_specific);
 			if (enabled) REGISTRY.add(texturedEntity);
 			else REGISTRY.remove(texturedEntity);
 		} catch (Exception error) {
@@ -160,7 +161,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 	}
 	public void addDefaultTexturedEntities(String namespace, String[] entityTypes) {
 		for (String entity : entityTypes) {
-			add(namespace, entity, "default", true);
+			add(namespace, entity, "default", new JsonObject(), true);
 		}
 	}
 	@Override
@@ -185,8 +186,9 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			String namespace = entity.contains(":") ? entity.substring(0, entity.lastIndexOf(":")) : "minecraft";
 			String type = entity.contains(":") ? entity.substring(entity.lastIndexOf(":") + 1) : entity;
 			String name = JsonHelper.getString(reader, "name");
+			JsonObject entity_specific = JsonHelper.getObject(reader, "entity_specific", new JsonObject());
 			Boolean enabled = JsonHelper.getBoolean(reader, "enabled", true);
-			add(namespace, type, name, enabled);
+			add(namespace, type, name, entity_specific, enabled);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to load perspective textured entity: {}", Data.VERSION.getID(), error);
 		}

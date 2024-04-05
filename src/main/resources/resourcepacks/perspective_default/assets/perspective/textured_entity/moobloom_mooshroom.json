@@ -1,0 +1,15 @@
+{
+  "entity": "minecraft:mooshroom",
+  "name": "Moobloom",
+  "entity_specific": {
+    "red": {
+      "enabled": true,
+      "mushroom": "minecraft:dandelion"
+    },
+    "brown": {
+      "enabled": false,
+      "mushroom": "minecraft:torchflower"
+    }
+  },
+  "enabled": true
+}
