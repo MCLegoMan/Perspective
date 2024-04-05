@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.WitherSkeletonEntityRenderer;
 import net.minecraft.client.render.entity.feature.SkeletonOverlayFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.SkeletonEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
@@ -32,7 +31,7 @@ public abstract class WitherSkeletonEntityRendererMixin extends BipedEntityRende
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new SkeletonOverlayFeatureRenderer<>(this, context.getModelLoader(), TexturedEntityModels.WITHER_SKELETON_OVERLAY, new Identifier("textures/entity/skeleton/wither_skeleton_overlay.png")));
+		this.addFeature(new SkeletonOverlayFeatureRenderer<>(this, context.getModelLoader(), TexturedEntityModels.witherSkeletonOverlay, new Identifier("textures/entity/skeleton/wither_skeleton_overlay.png")));
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {

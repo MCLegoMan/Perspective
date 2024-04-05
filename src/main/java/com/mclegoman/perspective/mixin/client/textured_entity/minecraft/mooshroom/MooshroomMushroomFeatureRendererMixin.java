@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MooshroomMushroomFeatureRendererMixin {
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/MooshroomEntity$Type;getMushroomState()Lnet/minecraft/block/BlockState;"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/MooshroomEntity;FFFFFF)V")
 	private BlockState perspective$getMushroom(MooshroomEntity.Type mooshroomType) {
-			if (entity != null) {
+		if (entity != null) {
 			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
 			if (entitySpecific != null) {
 				String type = String.valueOf(mooshroomType).toLowerCase();

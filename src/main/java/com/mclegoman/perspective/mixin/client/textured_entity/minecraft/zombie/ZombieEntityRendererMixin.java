@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.zombie;
 
 import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
-import com.mclegoman.perspective.client.textured_entity.features.OverlayFeatureRenderer;
+import com.mclegoman.perspective.client.textured_entity.renderer.feature.OverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.ZombieEntityRenderer;
@@ -27,6 +27,6 @@ public abstract class ZombieEntityRendererMixin extends MobEntityRenderer<Zombie
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new ZombieEntityModel<>(context.getPart(TexturedEntityModels.ZOMBIE_OVERLAY)), "minecraft:zombie", new Identifier("textures/entity/zombie/zombie_overlay.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new ZombieEntityModel<>(context.getPart(TexturedEntityModels.zombieOverlay)), "minecraft:zombie", new Identifier("textures/entity/zombie/zombie_overlay.png")));
 	}
 }

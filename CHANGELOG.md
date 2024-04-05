@@ -1,6 +1,8 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)  
 ## Perspective 1.3.0-alpha.4 for 24w14a
+I hope everyone enjoyed the chaos that was April Fools', we're back at it with another alpha!  
 
+For those of you who tried out my April Fools' mod [Mysterious Update](https://modrinth.com/mod/mclmaf2024), you'll be happy to see that the Mooblooms have made it into Perspective!  
 
 ## Changelog  
 ### Technical Changes  
@@ -47,7 +49,12 @@
 ### Resource Packs  
 #### Perspective: Default  
 - Added **depth-based dither** shader.  
+  - A dithering effect will render in the distance using depth.  
 - Added **light-based dither** shader.  
+  - A dithering effect will render over the lightest parts of the screen.  
+- Added **Moobloom** mooshroom textured entity.  
+  - Red Mooshrooms turn into regular Mooblooms.  
+  - Brown Mooshrooms turn into Ancient Mooblooms.  
 #### Super Secret Settings  
 - Moved shaders that were used in previous versions of minecraft to this resource pack.  
 ### Experimental  

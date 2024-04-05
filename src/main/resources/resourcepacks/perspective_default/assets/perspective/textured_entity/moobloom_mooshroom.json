@@ -7,7 +7,7 @@
       "mushroom": "minecraft:dandelion"
     },
     "brown": {
-      "enabled": false,
+      "enabled": true,
       "mushroom": "minecraft:torchflower"
     }
   },
