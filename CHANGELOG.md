@@ -40,7 +40,7 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
       },
       "brown": {
         "enabled": true,
-        "mushroom": "minecraft:white_candle"
+        "mushroom": "minecraft:black_candle"
       }
     },
     "enabled": true
