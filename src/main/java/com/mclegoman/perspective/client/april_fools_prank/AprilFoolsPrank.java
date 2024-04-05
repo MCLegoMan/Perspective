@@ -37,7 +37,7 @@ public class AprilFoolsPrank {
 		if (!SEEN_WARNING && ClientData.CLIENT.world != null) {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && isAprilFools()) {
 				if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "prank")) {
-					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.prank.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+					ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.prank.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
 					ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "prank", true);
 					shouldSave = true;
 					SEEN_WARNING = true;

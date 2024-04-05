@@ -55,7 +55,7 @@ public class Panorama {
 	}
 
 	public static void tick() {
-		if (Keybindings.TAKE_PANORAMA_SCREENSHOT.wasPressed()) takePanorama(1024, 0.0F);
+		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(1024, 0.0F);
 	}
 
 	private static String getFilename() {

@@ -74,7 +74,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 	}
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getCode())
+		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
 			this.SHOULD_CLOSE = true;
 		if (keyCode == GLFW.GLFW_KEY_F1) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"));

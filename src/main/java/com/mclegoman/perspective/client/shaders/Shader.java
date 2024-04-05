@@ -85,17 +85,17 @@ public class Shader {
 	}
 
 	public static void checkKeybindings() {
-		if (Keybindings.CYCLE_SHADERS.wasPressed())
+		if (Keybindings.cycleShaders.wasPressed())
 			cycle(true, !ClientData.CLIENT.options.sneakKey.isPressed(), true, true, true);
-		if (Keybindings.TOGGLE_SHADERS.wasPressed()) toggle(true, true, true, true);
-		if (Keybindings.RANDOM_SHADER.wasPressed()) random(true, true, true);
+		if (Keybindings.toggleShaders.wasPressed()) toggle(true, true, true, true);
+		if (Keybindings.randomizeShader.wasPressed()) random(true, true, true);
 	}
 
 	private static void showToasts() {
 		boolean save = false;
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials")) {
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings")) {
-				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.CYCLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.TOGGLE_SHADERS).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.OPEN_CONFIG).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.cycleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.toggleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings", true);
 				save = true;
 			}

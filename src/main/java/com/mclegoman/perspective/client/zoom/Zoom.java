@@ -48,7 +48,7 @@ public class Zoom {
 	}
 	public static void tick() {
 		try {
-			if (Keybindings.TOGGLE_ZOOM.wasPressed()) isZooming = !isZooming;
+			if (Keybindings.toggleZoom.wasPressed()) isZooming = !isZooming;
 			if (!isZooming() && hasUpdated) {
 				ConfigHelper.saveConfig();
 				hasUpdated = false;
@@ -58,7 +58,7 @@ public class Zoom {
 		}
 	}
 	public static boolean isZooming() {
-		return ClientData.CLIENT.player != null && (isZooming != Keybindings.HOLD_ZOOM.isPressed());
+		return ClientData.CLIENT.player != null && (isZooming != Keybindings.holdZoom.isPressed());
 	}
 	public static void updateMultiplier() {
 		try {

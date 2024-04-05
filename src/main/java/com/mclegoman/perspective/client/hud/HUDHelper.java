@@ -15,11 +15,11 @@ import com.mclegoman.perspective.client.util.Keybindings;
 
 public class HUDHelper {
 	public static void tick() {
-		if (Keybindings.CYCLE_DEBUG.wasPressed()) {
+		if (Keybindings.cycleDebug.wasPressed()) {
 			DebugOverlay.shaderColor = Shader.getRandomColor();
 			DebugOverlay.debugType = DebugOverlay.debugType.next();
 		}
-		if (Keybindings.TOGGLE_POSITION_OVERLAY.wasPressed()) {
+		if (Keybindings.togglePosOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
 			ConfigHelper.saveConfig();
 		}

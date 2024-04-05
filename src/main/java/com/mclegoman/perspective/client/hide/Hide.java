@@ -34,27 +34,27 @@ public class Hide {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HidePlayerDataLoader());
 	}
 	public static void tick() {
-		if (Keybindings.TOGGLE_ARMOR.wasPressed()) {
+		if (Keybindings.toggleArmour.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.armor", Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
-		if (Keybindings.TOGGLE_BLOCK_OUTLINE.wasPressed()) {
+		if (Keybindings.toggleBlockOutline.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
-		if (Keybindings.CYCLE_CROSSHAIR.wasPressed()) {
+		if (Keybindings.cycleCrosshair.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair", nextCrosshairMode());
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.crosshair", Translation.getHideCrosshairModeTranslation(Data.VERSION.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair"))).formatted(Formatting.GOLD));
 		}
-		if (Keybindings.TOGGLE_NAMETAGS.wasPressed()) {
+		if (Keybindings.toggleNametags.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.nametags", Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));
 		}
-		if (Keybindings.TOGGLE_PLAYERS.wasPressed()) {
+		if (Keybindings.togglePlayers.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_players", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_players"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags"), TranslationType.ENDISABLE)).formatted(Formatting.GOLD));

@@ -25,17 +25,17 @@ public class Perspective {
 	}
 
 	public static void tick() {
-		if (Keybindings.SET_PERSPECTIVE_FIRST_PERSON.wasPressed())
+		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
 			ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
-		if (Keybindings.SET_PERSPECTIVE_THIRD_PERSON_BACK.wasPressed())
+		if (Keybindings.setPerspectiveThirdPersonBack.wasPressed())
 			ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
-		if (Keybindings.SET_PERSPECTIVE_THIRD_PERSON_FRONT.wasPressed())
+		if (Keybindings.setPerspectiveThirdPersonFront.wasPressed())
 			ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 		getHoldAll();
 	}
 
 	private static void setThirdPersonFront(net.minecraft.client.option.Perspective perspective) {
-		if (!Keybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed() && !HOLD_THIRD_PERSON_BACK_LOCK) {
+		if (!Keybindings.holdPerspectiveThirdPersonBack.isPressed() && !HOLD_THIRD_PERSON_BACK_LOCK) {
 			if (!HOLD_THIRD_PERSON_FRONT_LOCK) {
 				HOLD_THIRD_PERSON_FRONT_PREV = perspective;
 				if (ClientData.CLIENT.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT))
@@ -48,7 +48,7 @@ public class Perspective {
 	}
 
 	private static void setThirdPersonBack(net.minecraft.client.option.Perspective perspective) {
-		if (!Keybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed() && !HOLD_THIRD_PERSON_FRONT_LOCK) {
+		if (!Keybindings.holdPerspectiveThirdPersonFront.isPressed() && !HOLD_THIRD_PERSON_FRONT_LOCK) {
 			if (!HOLD_THIRD_PERSON_BACK_LOCK) {
 				HOLD_THIRD_PERSON_BACK_PREV = perspective;
 				if (ClientData.CLIENT.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK))
@@ -62,24 +62,24 @@ public class Perspective {
 
 	private static void getHoldAll() {
 		for (int i = 0; i < 2; i++) {
-			if (Keybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed())
+			if (Keybindings.holdPerspectiveThirdPersonFront.isPressed())
 				setThirdPersonFront(ClientData.CLIENT.options.getPerspective());
 			clearHoldFront();
-			if (Keybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed())
+			if (Keybindings.holdPerspectiveThirdPersonBack.isPressed())
 				setThirdPersonBack(ClientData.CLIENT.options.getPerspective());
 			clearHoldBack();
 		}
 	}
 
 	private static void clearHoldFront() {
-		if (!Keybindings.HOLD_PERSPECTIVE_THIRD_PERSON_FRONT.isPressed() && HOLD_THIRD_PERSON_FRONT_LOCK) {
+		if (!Keybindings.holdPerspectiveThirdPersonFront.isPressed() && HOLD_THIRD_PERSON_FRONT_LOCK) {
 			HOLD_THIRD_PERSON_FRONT_LOCK = false;
 			ClientData.CLIENT.options.setPerspective(HOLD_THIRD_PERSON_FRONT_PREV);
 		}
 	}
 
 	private static void clearHoldBack() {
-		if (!Keybindings.HOLD_PERSPECTIVE_THIRD_PERSON_BACK.isPressed() && HOLD_THIRD_PERSON_BACK_LOCK) {
+		if (!Keybindings.holdPerspectiveThirdPersonBack.isPressed() && HOLD_THIRD_PERSON_BACK_LOCK) {
 			HOLD_THIRD_PERSON_BACK_LOCK = false;
 			ClientData.CLIENT.options.setPerspective(HOLD_THIRD_PERSON_BACK_PREV);
 		}
