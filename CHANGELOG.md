@@ -36,11 +36,15 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity_specific": {
       "red": {
         "enabled": true,
-        "mushroom": "minecraft:white_candle"
+        "mushroom": {
+          "identifier": "minecraft:white_candle"
+        }
       },
       "brown": {
         "enabled": true,
-        "mushroom": "minecraft:black_candle"
+        "mushroom": {
+          "identifier": "minecraft:white_candle"
+        }
       }
     },
     "enabled": true

@@ -4,11 +4,15 @@
   "entity_specific": {
     "red": {
       "enabled": true,
-      "mushroom": "minecraft:dandelion"
+      "mushroom": {
+        "identifier": "minecraft:dandelion"
+      }
     },
     "brown": {
       "enabled": true,
-      "mushroom": "minecraft:torchflower"
+      "mushroom": {
+        "identifier": "minecraft:torchflower"
+      }
     }
   },
   "enabled": true

@@ -37,9 +37,9 @@ public class MooshroomMushroomFeatureRendererMixin {
 					JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, String.valueOf(mooshroomType).toLowerCase());
 					if (typeRegistry != null) {
 						boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
-						String mushroom = JsonHelper.getString(typeRegistry, "mushroom");
+						JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
 						if (enabled && mushroom != null) {
-							Identifier blockId = IdentifierHelper.identifierFromString(mushroom);
+							Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(typeRegistry, "identifier"));
 							if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
 						}
 					}
