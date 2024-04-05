@@ -37,13 +37,13 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
       "red": {
         "enabled": true,
         "mushroom": {
-          "identifier": "minecraft:white_candle"
+          "identifier": "minecraft:red_candle"
         }
       },
       "brown": {
         "enabled": true,
         "mushroom": {
-          "identifier": "minecraft:white_candle"
+          "identifier": "minecraft:brown_candle"
         }
       }
     },
@@ -87,6 +87,29 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
         "enabled": true
       },
       "minecraft:woods": {
+        "enabled": true
+      }
+    },
+    "enabled": true
+  }
+```
+- Frog textured entities will now require textures for each variant.
+  - The variant textures should be located at:
+    - `<variant_namespace>:textures/textured_entity/wolf/<name>_<variant>.png`.  
+- Frog textured entities now can optionally set textured entity enabled for a specific variant(s) of frog.
+  - **Here's an example:**
+```
+  {
+    "entity": "minecraft:frog",
+    "name": "Herobrine",
+    "entity_specific": {
+      "minecraft:temperate": {
+        "enabled": true
+      },
+      "minecraft:warm": {
+        "enabled": true
+      },
+      "minecraft:cold": {
         "enabled": true
       }
     },
