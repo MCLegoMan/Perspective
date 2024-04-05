@@ -24,9 +24,14 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
 #### Textured Entity  
 - Added `entity_specific` to Textured Entity dataloader.  
   - This allows for textured entities to have data specific to some entities.  
-- Mooshroom textured entities will now require an overlay texture, and a texture for each varient.  
+- Mooshroom textured entities will now require an overlay texture, and a texture for each variant.  
   - The overlay texture should be located at `minecraft:textures/textured_entity/mooshroom/<name>_overlay.png`.  
-  - The variant texture should be located at `minecraft:textures/textured_entity/mooshroom/<variant>_<name>_overlay.png`.  
+  - The variant texture should be located at `minecraft:textures/textured_entity/mooshroom/<variant>_<name>.png`.  
+- Wolf textured entities will now require textures for each variant.  
+  - The variant textures should be located at:  
+    - `<variant_namespace>:textures/textured_entity/wolf/<name>_<variant>_tame.png`.  
+    - `<variant_namespace>:textures/textured_entity/wolf/<name>_<variant>_angry.png`.  
+    - `<variant_namespace>:textures/textured_entity/wolf/<name>_<variant>.png`.  
 - Mooshroom textured entities now can optionally change the mushroom blockstate, and optionally set textured entity enabled for a specific variant(s) of mooshroom.  
   - **Here's an example:**  
 ```
@@ -46,7 +51,44 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "enabled": true
   }
 ```
-
+- Wolf textured entities now can optionally set textured entity enabled for a specific variant(s) of wolf.  
+  - **Here's an example:**  
+```
+  {
+    "entity": "minecraft:wolf",
+    "name": "Doggie",
+    "entity_specific": {
+      "minecraft:ashen": {
+        "enabled": true
+      },
+      "minecraft:black": {
+        "enabled": true
+      },
+      "minecraft:chestnut": {
+        "enabled": true
+      },
+      "minecraft:pale": {
+        "enabled": true
+      },
+      "minecraft:rusty": {
+        "enabled": true
+      },
+      "minecraft:snowy": {
+        "enabled": true
+      },
+      "minecraft:spotted": {
+        "enabled": true
+      },
+      "minecraft:striped": {
+        "enabled": true
+      },
+      "minecraft:woods": {
+        "enabled": true
+      }
+    },
+    "enabled": true
+  }
+```
 ### Resource Packs  
 #### Perspective: Default  
 - Added **depth-based dither** shader.  
