@@ -192,6 +192,26 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "enabled": true
   }
 ```
+- Fox textured entities will now require textures for each variant.
+  - The variant textures should be located at:
+    - `<variant_namespace>:textures/textured_entity/fox/<name>_<variant>.png`.
+- Fox textured entities now can optionally set textured entity enabled for a specific variant(s) of axolotl.
+  - **Here's an example:**
+```
+  {
+    "entity": "minecraft:fox",
+    "name": "Herobrine",
+    "entity_specific": {
+      "red": {
+        "enabled": true
+      },
+      "snow": {
+        "enabled": true
+      }
+    },
+    "enabled": true
+  }
+```
 ### Resource Packs  
 #### Perspective: Default  
 - Added **depth-based dither** shader.  
