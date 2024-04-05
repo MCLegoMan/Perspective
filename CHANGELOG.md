@@ -32,15 +32,15 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
 ```
   {
     "entity": "minecraft:mooshroom",
-    "name": "Moobloom",
+    "name": "Herobrine",
     "entity_specific": {
       "red": {
         "enabled": true,
-        "mushroom": "minecraft:dandelion"
+        "mushroom": "minecraft:white_candle"
       },
       "brown": {
         "enabled": true,
-        "mushroom": "minecraft:torchflower"
+        "mushroom": "minecraft:white_candle"
       }
     },
     "enabled": true
@@ -56,7 +56,7 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
 ```
   {
     "entity": "minecraft:wolf",
-    "name": "Doggie",
+    "name": "Herobrine",
     "entity_specific": {
       "minecraft:ashen": {
         "enabled": true
