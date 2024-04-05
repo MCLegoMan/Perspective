@@ -34,9 +34,9 @@ public class WolfEntityRendererMixin {
 				}
 			}
 			if (isTexturedEntity) {
-				String wolfVariant = entity.getVariant().getIdAsString();
-				String variantNamespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, wolfVariant);
-				String variantKey = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, wolfVariant);
+				String variant = entity.getVariant().getIdAsString();
+				String variantNamespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant);
+				String variantKey = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant);
 				cir.setReturnValue(entity.isTamed() ? TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_" + variantKey + "_tame", cir.getReturnValue()) : (entity.hasAngerTime() ? TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_" + variantKey + "_angry", cir.getReturnValue()) : TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, "_" + variantKey, cir.getReturnValue())));
 			}
 		}

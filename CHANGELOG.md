@@ -181,10 +181,10 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
       },
       "gold": {
         "enabled": true
-      }
+      },
       "cyan": {
         "enabled": true
-      }
+      },
       "blue": {
         "enabled": true
       }
