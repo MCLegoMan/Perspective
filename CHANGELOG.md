@@ -95,7 +95,7 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
 ```
 - Frog textured entities will now require textures for each variant.
   - The variant textures should be located at:
-    - `<variant_namespace>:textures/textured_entity/wolf/<name>_<variant>.png`.  
+    - `<variant_namespace>:textures/textured_entity/frog/<name>_<variant>.png`.  
 - Frog textured entities now can optionally set textured entity enabled for a specific variant(s) of frog.
   - **Here's an example:**
 ```
@@ -110,6 +110,82 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
         "enabled": true
       },
       "minecraft:cold": {
+        "enabled": true
+      }
+    },
+    "enabled": true
+  }
+```
+- Cat textured entities will now require textures for each variant.
+  - The variant textures should be located at:
+    - `<variant_namespace>:textures/textured_entity/cat/<name>_<variant>.png`.
+- Cat textured entities now can optionally set textured entity enabled for a specific variant(s) of cat.
+  - **Here's an example:**
+```
+  {
+    "entity": "minecraft:cat",
+    "name": "Herobrine",
+    "entity_specific": {
+      "minecraft:tabby": {
+        "enabled": true
+      },
+      "minecraft:black": {
+        "enabled": true
+      },
+      "minecraft:red": {
+        "enabled": true
+      },
+      "minecraft:siamese": {
+        "enabled": true
+      },
+      "minecraft:british_shorthair": {
+        "enabled": true
+      },
+      "minecraft:calico": {
+        "enabled": true
+      },
+      "minecraft:persian": {
+        "enabled": true
+      },
+      "minecraft:ragdoll": {
+        "enabled": true
+      },
+      "minecraft:white": {
+        "enabled": true
+      },
+      "minecraft:jellie": {
+        "enabled": true
+      },
+      "minecraft:all_black": {
+        "enabled": true
+      }
+    },
+    "enabled": true
+  }
+```
+- Axolotl textured entities will now require textures for each variant.
+  - The variant textures should be located at:
+    - `<variant_namespace>:textures/textured_entity/axolotl/<name>_<variant>.png`.
+- Axolotl textured entities now can optionally set textured entity enabled for a specific variant(s) of axolotl.
+  - **Here's an example:**
+```
+  {
+    "entity": "minecraft:axolotl",
+    "name": "Herobrine",
+    "entity_specific": {
+      "lucy": {
+        "enabled": true
+      },
+      "wild": {
+        "enabled": true
+      },
+      "gold": {
+        "enabled": true
+      }
+      "cyan": {
+        "enabled": true
+      }
+      "blue": {
         "enabled": true
       }
     },
