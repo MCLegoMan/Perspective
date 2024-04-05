@@ -24,9 +24,10 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
 #### Textured Entity  
 - Added `entity_specific` to Textured Entity dataloader.  
   - This allows for textured entities to have data specific to some entities.  
-- Mooshroom textured entities will now require an overlay texture.
-  - The texture should be located at `minecraft:textures/textured_entity/mooshroom/<name>_overlay.png`.  
-- Mooshroom textured entities now can optionally change the mushroom blockstate, and optionally set textured entity enabled for a specific varient(s) of mooshroom.  
+- Mooshroom textured entities will now require an overlay texture, and a texture for each varient.  
+  - The overlay texture should be located at `minecraft:textures/textured_entity/mooshroom/<name>_overlay.png`.  
+  - The variant texture should be located at `minecraft:textures/textured_entity/mooshroom/<variant>_<name>_overlay.png`.  
+- Mooshroom textured entities now can optionally change the mushroom blockstate, and optionally set textured entity enabled for a specific variant(s) of mooshroom.  
   - **Here's an example:**  
 ```
   {
