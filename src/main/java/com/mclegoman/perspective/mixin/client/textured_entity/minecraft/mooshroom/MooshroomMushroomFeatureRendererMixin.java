@@ -29,23 +29,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MooshroomMushroomFeatureRendererMixin {
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/MooshroomEntity$Type;getMushroomState()Lnet/minecraft/block/BlockState;"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/MooshroomEntity;FFFFFF)V")
 	private BlockState perspective$getMushroom(MooshroomEntity.Type mooshroomType) {
-		if (entity != null) {
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
-			if (entitySpecific != null) {
-				String type = String.valueOf(mooshroomType).toLowerCase();
-				if (entitySpecific.has(type)) {
-					JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, String.valueOf(mooshroomType).toLowerCase());
-					if (typeRegistry != null) {
-						boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
-						JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
-						if (enabled && mushroom != null) {
-							Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(typeRegistry, "identifier"));
-							if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+		try {
+			if (entity != null) {
+				JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
+				if (entitySpecific != null) {
+					String type = String.valueOf(mooshroomType).toLowerCase();
+					if (entitySpecific.has(type)) {
+						JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, String.valueOf(mooshroomType).toLowerCase());
+						if (typeRegistry != null) {
+							boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+							JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
+							if (enabled && mushroom != null) {
+								Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
+								if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+							}
 						}
 					}
 				}
 			}
-		}
+		} catch (Exception ignored) {}
 		return mooshroomType.getMushroomState();
 	}
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/MooshroomEntity;FFFFFF)V")
