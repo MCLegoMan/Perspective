@@ -2,20 +2,22 @@
   "entity": "minecraft:axolotl",
   "name": "Lushie",
   "entity_specific": {
-    "lucy": {
-      "enabled": true
-    },
-    "wild": {
-      "enabled": true
-    },
-    "gold": {
-      "enabled": true
-    },
-    "cyan": {
-      "enabled": true
-    },
-    "blue": {
-      "enabled": true
+    "variants": {
+      "lucy": {
+        "enabled": true
+      },
+      "wild": {
+        "enabled": true
+      },
+      "gold": {
+        "enabled": true
+      },
+      "cyan": {
+        "enabled": true
+      },
+      "blue": {
+        "enabled": true
+      }
     }
   },
   "enabled": true

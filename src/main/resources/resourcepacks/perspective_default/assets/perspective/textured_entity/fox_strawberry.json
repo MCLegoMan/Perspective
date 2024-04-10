@@ -2,11 +2,13 @@
   "entity": "minecraft:fox",
   "name": "Strawberry",
   "entity_specific": {
-    "red": {
-      "enabled": true
-    },
-    "snow": {
-      "enabled": true
+    "variants": {
+      "red": {
+        "enabled": true
+      },
+      "snow": {
+        "enabled": true
+      }
     }
   },
   "enabled": true

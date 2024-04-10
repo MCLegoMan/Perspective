@@ -1,5 +1,15 @@
 {
   "entity": "minecraft:goat",
   "name": "Waffel",
+  "entity_specific": {
+    "variants": {
+      "normal": {
+        "enabled": true
+      },
+      "screaming": {
+        "enabled": true
+      }
+    }
+  },
   "enabled": true
 }

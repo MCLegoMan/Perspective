@@ -1,6 +1,7 @@
 ## **Current Goals for Perspective:**  
 - **1.3.0**  
   - Test and Fix **_every_** vanilla textured entity.  
+    - How should we treat panda genetics with textured entities?
   - Shader Selection Screen will now open when selecting shaders using the config screen.
   - Add Bloom Shader from a_or_b.
 - Documentation on the [Perspective Wiki](https://mclegoman.com/Perspective)  
