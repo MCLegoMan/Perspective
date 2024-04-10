@@ -9,7 +9,9 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.mooshro
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.IdentifierHelper;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.MooshroomMushroomFeatureRenderer;
@@ -36,15 +38,17 @@ public class MooshroomMushroomFeatureRendererMixin {
 					if (entitySpecific.has("variants")) {
 						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
 						if (variants != null) {
-							if (entitySpecific.has(mooshroomType.asString().toLowerCase())) {
+							if (variants.has(mooshroomType.asString().toLowerCase())) {
 								JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomType.asString().toLowerCase());
 								if (typeRegistry != null) {
 									boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
 									if (enabled) {
 										if (typeRegistry.has("mushroom")) {
 											JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
-											Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
-											if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+											if (mushroom.has("identifier")) {
+												Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
+												if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+											}
 										}
 									}
 								}
