@@ -67,7 +67,7 @@
 | `minecraft:experience_orb`         | ❓               |  
 | `minecraft:firework_rocket`        | ❓               |  
 | `minecraft:fox`                    | ✔️              |  
-| `minecraft:frog`                   | ❓               |  
+| `minecraft:frog`                   | ✔️              |  
 | `minecraft:furnace_minecart`       | ❓               |  
 | `minecraft:ghast`                  | ❓               |  
 | `minecraft:giant`                  | ❓               |  
