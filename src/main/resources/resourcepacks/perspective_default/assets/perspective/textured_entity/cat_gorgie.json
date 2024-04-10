@@ -1,0 +1,42 @@
+{
+  "entity": "minecraft:cat",
+  "name": "Gorgie",
+  "entity_specific": {
+    "variants": {
+      "minecraft:tabby": {
+        "enabled": true
+      },
+      "minecraft:black": {
+        "enabled": true
+      },
+      "minecraft:red": {
+        "enabled": true
+      },
+      "minecraft:siamese": {
+        "enabled": true
+      },
+      "minecraft:british_shorthair": {
+        "enabled": true
+      },
+      "minecraft:calico": {
+        "enabled": true
+      },
+      "minecraft:persian": {
+        "enabled": true
+      },
+      "minecraft:ragdoll": {
+        "enabled": true
+      },
+      "minecraft:white": {
+        "enabled": true
+      },
+      "minecraft:jellie": {
+        "enabled": true
+      },
+      "minecraft:all_black": {
+        "enabled": true
+      }
+    }
+  },
+  "enabled": true
+}

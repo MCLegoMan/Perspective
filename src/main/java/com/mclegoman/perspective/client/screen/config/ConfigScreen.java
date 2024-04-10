@@ -182,6 +182,7 @@ public class ConfigScreen extends Screen {
 			}
 			else {
 				PAGE -= 1;
+				this.REFRESH = true;
 			}
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
