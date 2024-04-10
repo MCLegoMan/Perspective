@@ -27,10 +27,12 @@ public class FrogEntityRendererMixin {
 			boolean isTexturedEntity = true;
 			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:frog");
 			if (entitySpecific != null) {
-				String type = entity.getVariant().getIdAsString().toLowerCase();
-				if (entitySpecific.has(type)) {
-					JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, entity.getVariant().getIdAsString().toLowerCase());
-					if (typeRegistry != null) isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+				if (variants != null) {
+					JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getIdAsString().toLowerCase());
+					if (typeRegistry != null) {
+						isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+					}
 				}
 			}
 			if (isTexturedEntity) {

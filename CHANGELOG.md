@@ -34,16 +34,18 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity": "minecraft:mooshroom",
     "name": "Herobrine",
     "entity_specific": {
-      "red": {
-        "enabled": true,
-        "mushroom": {
-          "identifier": "minecraft:red_candle"
-        }
-      },
-      "brown": {
-        "enabled": true,
-        "mushroom": {
-          "identifier": "minecraft:brown_candle"
+      "variants": {
+        "red": {
+          "enabled": true,
+          "mushroom": {
+            "identifier": "minecraft:red_candle"
+          }
+        },
+        "brown": {
+          "enabled": true,
+          "mushroom": {
+            "identifier": "minecraft:brown_candle"
+          }
         }
       }
     },
@@ -62,32 +64,34 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity": "minecraft:wolf",
     "name": "Herobrine",
     "entity_specific": {
-      "minecraft:ashen": {
-        "enabled": true
-      },
-      "minecraft:black": {
-        "enabled": true
-      },
-      "minecraft:chestnut": {
-        "enabled": true
-      },
-      "minecraft:pale": {
-        "enabled": true
-      },
-      "minecraft:rusty": {
-        "enabled": true
-      },
-      "minecraft:snowy": {
-        "enabled": true
-      },
-      "minecraft:spotted": {
-        "enabled": true
-      },
-      "minecraft:striped": {
-        "enabled": true
-      },
-      "minecraft:woods": {
-        "enabled": true
+      "variants": {
+        "minecraft:ashen": {
+          "enabled": true
+        },
+        "minecraft:black": {
+          "enabled": true
+        },
+        "minecraft:chestnut": {
+          "enabled": true
+        },
+        "minecraft:pale": {
+          "enabled": true
+        },
+        "minecraft:rusty": {
+          "enabled": true
+        },
+        "minecraft:snowy": {
+          "enabled": true
+        },
+        "minecraft:spotted": {
+          "enabled": true
+        },
+        "minecraft:striped": {
+          "enabled": true
+        },
+        "minecraft:woods": {
+          "enabled": true
+        }
       }
     },
     "enabled": true
@@ -103,14 +107,16 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity": "minecraft:frog",
     "name": "Herobrine",
     "entity_specific": {
-      "minecraft:temperate": {
-        "enabled": true
-      },
-      "minecraft:warm": {
-        "enabled": true
-      },
-      "minecraft:cold": {
-        "enabled": true
+      "variants": {
+        "minecraft:temperate": {
+          "enabled": true
+        },
+        "minecraft:warm": {
+          "enabled": true
+        },
+        "minecraft:cold": {
+          "enabled": true
+        }
       }
     },
     "enabled": true
@@ -126,38 +132,40 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity": "minecraft:cat",
     "name": "Herobrine",
     "entity_specific": {
-      "minecraft:tabby": {
-        "enabled": true
-      },
-      "minecraft:black": {
-        "enabled": true
-      },
-      "minecraft:red": {
-        "enabled": true
-      },
-      "minecraft:siamese": {
-        "enabled": true
-      },
-      "minecraft:british_shorthair": {
-        "enabled": true
-      },
-      "minecraft:calico": {
-        "enabled": true
-      },
-      "minecraft:persian": {
-        "enabled": true
-      },
-      "minecraft:ragdoll": {
-        "enabled": true
-      },
-      "minecraft:white": {
-        "enabled": true
-      },
-      "minecraft:jellie": {
-        "enabled": true
-      },
-      "minecraft:all_black": {
-        "enabled": true
+      "variants": {
+        "minecraft:tabby": {
+          "enabled": true
+        },
+        "minecraft:black": {
+          "enabled": true
+        },
+        "minecraft:red": {
+          "enabled": true
+        },
+        "minecraft:siamese": {
+          "enabled": true
+        },
+        "minecraft:british_shorthair": {
+          "enabled": true
+        },
+        "minecraft:calico": {
+          "enabled": true
+        },
+        "minecraft:persian": {
+          "enabled": true
+        },
+        "minecraft:ragdoll": {
+          "enabled": true
+        },
+        "minecraft:white": {
+          "enabled": true
+        },
+        "minecraft:jellie": {
+          "enabled": true
+        },
+        "minecraft:all_black": {
+          "enabled": true
+        }
       }
     },
     "enabled": true
@@ -173,20 +181,22 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity": "minecraft:axolotl",
     "name": "Herobrine",
     "entity_specific": {
-      "lucy": {
-        "enabled": true
-      },
-      "wild": {
-        "enabled": true
-      },
-      "gold": {
-        "enabled": true
-      },
-      "cyan": {
-        "enabled": true
-      },
-      "blue": {
-        "enabled": true
+      "variants": {
+        "lucy": {
+          "enabled": true
+        },
+        "wild": {
+          "enabled": true
+        },
+        "gold": {
+          "enabled": true
+        },
+        "cyan": {
+          "enabled": true
+        },
+        "blue": {
+          "enabled": true
+        }
       }
     },
     "enabled": true
@@ -202,11 +212,13 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "entity": "minecraft:fox",
     "name": "Herobrine",
     "entity_specific": {
-      "red": {
-        "enabled": true
-      },
-      "snow": {
-        "enabled": true
+      "variants": {
+        "red": {
+          "enabled": true
+        },
+        "snow": {
+          "enabled": true
+        }
       }
     },
     "enabled": true

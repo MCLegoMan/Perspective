@@ -33,9 +33,9 @@ public class MooshroomMushroomFeatureRendererMixin {
 			if (entity != null) {
 				JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
 				if (entitySpecific != null) {
-					String type = String.valueOf(mooshroomType).toLowerCase();
-					if (entitySpecific.has(type)) {
-						JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, String.valueOf(mooshroomType).toLowerCase());
+					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+					if (variants != null) {
+						JsonObject typeRegistry = JsonHelper.getObject(variants, String.valueOf(mooshroomType).toLowerCase());
 						if (typeRegistry != null) {
 							boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
 							JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");

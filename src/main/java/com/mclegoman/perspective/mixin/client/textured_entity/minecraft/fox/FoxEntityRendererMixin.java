@@ -29,10 +29,12 @@ public class FoxEntityRendererMixin {
 			boolean isTexturedEntity = true;
 			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:fox");
 			if (entitySpecific != null) {
-				String type = entity.getVariant().asString().toLowerCase();
-				if (entitySpecific.has(type)) {
-					JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, entity.getVariant().asString().toLowerCase());
-					if (typeRegistry != null) isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+				if (variants != null) {
+					JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().asString().toLowerCase());
+					if (typeRegistry != null) {
+						isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+					}
 				}
 			}
 			if (isTexturedEntity) {

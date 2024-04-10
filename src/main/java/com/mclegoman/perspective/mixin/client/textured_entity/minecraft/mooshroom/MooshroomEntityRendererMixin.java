@@ -43,9 +43,9 @@ public class MooshroomEntityRendererMixin extends MobEntityRenderer<MooshroomEnt
 		boolean isTexturedEntity = true;
 		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(mooshroomEntity, "minecraft:mooshroom");
 		if (entitySpecific != null) {
-			String type = String.valueOf(mooshroomEntity.getVariant()).toLowerCase();
-			if (entitySpecific.has(type)) {
-				JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, String.valueOf(mooshroomEntity.getVariant()).toLowerCase());
+			JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+			if (variants != null) {
+				JsonObject typeRegistry = JsonHelper.getObject(variants, String.valueOf(mooshroomEntity.getVariant()).toLowerCase());
 				if (typeRegistry != null) {
 					isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
 				}
