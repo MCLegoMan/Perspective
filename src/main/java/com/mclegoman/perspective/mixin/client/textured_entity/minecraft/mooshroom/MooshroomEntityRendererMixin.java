@@ -43,15 +43,22 @@ public class MooshroomEntityRendererMixin extends MobEntityRenderer<MooshroomEnt
 		boolean isTexturedEntity = true;
 		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(mooshroomEntity, "minecraft:mooshroom");
 		if (entitySpecific != null) {
-			JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-			if (variants != null) {
-				JsonObject typeRegistry = JsonHelper.getObject(variants, String.valueOf(mooshroomEntity.getVariant()).toLowerCase());
-				if (typeRegistry != null) {
-					isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+			if (entitySpecific.has("variants")) {
+				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+				if (variants != null) {
+					if (entitySpecific.has(mooshroomEntity.getVariant().asString().toLowerCase())) {
+						JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomEntity.getVariant().asString().toLowerCase());
+						if (typeRegistry != null) {
+							isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+						}
+					}
 				}
 			}
 		}
-		if (isTexturedEntity) return TexturedEntity.getTexture(mooshroomEntity, "minecraft:mooshroom", TexturedEntity.Affix.PREFIX, mooshroomEntity.getVariant().asString().toLowerCase() + "_", TEXTURES.get(mooshroomEntity.getVariant()));
+		if (isTexturedEntity) {
+			String variant = mooshroomEntity.getVariant() != null ? mooshroomEntity.getVariant().asString().toLowerCase() + "_" : "";
+			return TexturedEntity.getTexture(mooshroomEntity, "minecraft:mooshroom", TexturedEntity.Affix.PREFIX, variant, TEXTURES.get(mooshroomEntity.getVariant()));
+		}
 		else return TEXTURES.get(mooshroomEntity.getVariant());
 	}
 }

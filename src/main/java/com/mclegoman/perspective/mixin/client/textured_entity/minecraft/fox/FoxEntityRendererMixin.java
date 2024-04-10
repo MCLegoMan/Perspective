@@ -29,17 +29,21 @@ public class FoxEntityRendererMixin {
 			boolean isTexturedEntity = true;
 			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:fox");
 			if (entitySpecific != null) {
-				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-				if (variants != null) {
-					JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().asString().toLowerCase());
-					if (typeRegistry != null) {
-						isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+				if (entitySpecific.has("variants")) {
+					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+					if (variants != null) {
+						if (variants.has(entity.getVariant().asString().toLowerCase())) {
+							JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().asString().toLowerCase());
+							if (typeRegistry != null) {
+								isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+							}
+						}
 					}
 				}
 			}
 			if (isTexturedEntity) {
-				String variant = entity.getVariant().asString();
-				cir.setReturnValue(entity.isSleeping() ? TexturedEntity.getTexture(entity, "minecraft:fox", TexturedEntity.Affix.SUFFIX, "_" + variant + "_sleep", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:fox", TexturedEntity.Affix.SUFFIX, "_" + variant, cir.getReturnValue()));
+				String variant = entity.getVariant() != null ? "_" + entity.getVariant().asString() : "";
+				cir.setReturnValue(entity.isSleeping() ? TexturedEntity.getTexture(entity, "minecraft:fox", TexturedEntity.Affix.SUFFIX, variant + "_sleep", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:fox", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
 			}
 		}
 	}

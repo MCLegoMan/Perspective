@@ -26,19 +26,23 @@ public class CatEntityRendererMixin {
 			boolean isTexturedEntity = true;
 			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:cat");
 			if (entitySpecific != null) {
-				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-				if (variants != null) {
-					JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getIdAsString().toLowerCase());
-					if (typeRegistry != null) {
-						isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+				if (entitySpecific.has("variants")) {
+					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+					if (variants != null) {
+						if (entitySpecific.has(entity.getVariant().getIdAsString().toLowerCase())) {
+							JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getIdAsString().toLowerCase());
+							if (typeRegistry != null) {
+								isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+							}
+						}
 					}
 				}
 			}
 			if (isTexturedEntity) {
 				String variant = entity.getVariant().getIdAsString();
-				String variantNamespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant);
-				String variantKey = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant);
-				cir.setReturnValue(TexturedEntity.getTexture(entity, variantNamespace, "minecraft:cat", TexturedEntity.Affix.SUFFIX, "_" + variantKey, cir.getReturnValue()));
+				String variantNamespace = entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : "minecraft";
+				String variantKey = entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : "";
+				cir.setReturnValue(TexturedEntity.getTexture(entity, variantNamespace, "minecraft:cat", TexturedEntity.Affix.SUFFIX, variantKey, cir.getReturnValue()));
 			}
 		}
 	}

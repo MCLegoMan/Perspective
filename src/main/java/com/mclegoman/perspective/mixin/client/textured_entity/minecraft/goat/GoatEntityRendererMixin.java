@@ -25,22 +25,25 @@ public class GoatEntityRendererMixin {
 	private void perspective$getTexture(GoatEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
+			boolean isScreaming = true;
 			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:goat");
 			if (entitySpecific != null) {
-				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-				if (variants != null) {
-					JsonObject normal = JsonHelper.getObject(variants, "normal");
-					if (normal != null) {
-						isTexturedEntity = JsonHelper.getBoolean(normal, "enabled", true);
-					}
-					JsonObject screaming = JsonHelper.getObject(variants, "screaming");
-					if (screaming != null && entity.isScreaming()) {
-						isTexturedEntity = JsonHelper.getBoolean(screaming, "enabled", true);
+				if (entitySpecific.has("variants")) {
+					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+					if (variants != null) {
+						if (variants.has("normal")) {
+							JsonObject normal = JsonHelper.getObject(variants, "normal");
+							if (normal != null) isTexturedEntity = JsonHelper.getBoolean(normal, "enabled", true);
+						}
+						if (variants.has("screaming")) {
+							JsonObject screaming = JsonHelper.getObject(variants, "screaming");
+							if (screaming != null) isTexturedEntity = JsonHelper.getBoolean(screaming, "enabled", true);
+						}
 					}
 				}
 			}
 			if (isTexturedEntity) {
-				String variant = entity.isScreaming() ? "_screaming" : "";
+				String variant = isScreaming && entity.isScreaming() ? "_screaming" : "";
 				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
 			}
 		}

@@ -33,15 +33,21 @@ public class MooshroomMushroomFeatureRendererMixin {
 			if (entity != null) {
 				JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
 				if (entitySpecific != null) {
-					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-					if (variants != null) {
-						JsonObject typeRegistry = JsonHelper.getObject(variants, String.valueOf(mooshroomType).toLowerCase());
-						if (typeRegistry != null) {
-							boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
-							JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
-							if (enabled && mushroom != null) {
-								Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
-								if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+					if (entitySpecific.has("variants")) {
+						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+						if (variants != null) {
+							if (entitySpecific.has(mooshroomType.asString().toLowerCase())) {
+								JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomType.asString().toLowerCase());
+								if (typeRegistry != null) {
+									boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+									if (enabled) {
+										if (typeRegistry.has("mushroom")) {
+											JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
+											Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
+											if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+										}
+									}
+								}
 							}
 						}
 					}
