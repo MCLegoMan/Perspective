@@ -11,7 +11,6 @@ import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.resource.ResourceType;
@@ -19,7 +18,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TexturedEntity {
 	public static void init() {
@@ -32,23 +30,25 @@ public class TexturedEntity {
 	}
 	public static Identifier getTexture(Entity entity, String namespace, String entity_type, String prefix, String suffix, Identifier default_identifier) {
 		try {
-			List<String> registry = getNameRegistry(entity_type);
-			if (!registry.isEmpty()) {
-				String typeName = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type);
-				if (entity.hasCustomName()) {
-					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && registry.contains(entity.getCustomName().getString())) {
-						if (!registry.get(registry.indexOf(entity.getCustomName().getString())).equalsIgnoreCase("default")) {
-							String texture = prefix + registry.get(registry.indexOf(entity.getCustomName().getString())).toLowerCase() + suffix;
-							return new Identifier(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+			if (TexturedEntityDataLoader.isReady) {
+				List<String> registry = getNameRegistry(entity_type);
+				if (!registry.isEmpty()) {
+					String typeName = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type);
+					if (entity.hasCustomName()) {
+						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && registry.contains(entity.getCustomName().getString())) {
+							if (!registry.get(registry.indexOf(entity.getCustomName().getString())).equalsIgnoreCase("default")) {
+								String texture = prefix + registry.get(registry.indexOf(entity.getCustomName().getString())).toLowerCase() + suffix;
+								return new Identifier(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+							}
 						}
 					}
-				}
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
-					if ((!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && !registry.contains(String.valueOf(entity.getCustomName())))) {
-						int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
-						if (!registry.get(index).equalsIgnoreCase("default")) {
-							String texture = prefix + registry.get(index).toLowerCase() + suffix;
-							return new Identifier(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
+						if ((!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && !registry.contains(String.valueOf(entity.getCustomName())))) {
+							int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
+							if (!registry.get(index).equalsIgnoreCase("default")) {
+								String texture = prefix + registry.get(index).toLowerCase() + suffix;
+								return new Identifier(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+							}
 						}
 					}
 				}
@@ -76,7 +76,7 @@ public class TexturedEntity {
 	private static List<String> getNameRegistry(String entity_type) {
 		List<String> entityRegistry = new ArrayList<>();
 		try {
-			for (List<Object> registry : TexturedEntityDataLoader.REGISTRY) {
+			for (List<Object> registry : TexturedEntityDataLoader.registry) {
 				String entityNamespace = (String) registry.get(0);
 				String entityType = (String) registry.get(1);
 				String name = (String) registry.get(2);
@@ -89,16 +89,18 @@ public class TexturedEntity {
 	}
 	public static JsonObject getEntitySpecific(Entity entity, String type) {
 		try {
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) {
-				if (entity.hasCustomName() && !entity.getCustomName().getString().equalsIgnoreCase("default")) {
-					return (JsonObject)TexturedEntity.getRegistry(type, entity.getCustomName().getString(), 3);
+			if (TexturedEntityDataLoader.isReady) {
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) {
+					if (entity.hasCustomName() && !entity.getCustomName().getString().equalsIgnoreCase("default")) {
+						return (JsonObject)TexturedEntity.getRegistry(type, entity.getCustomName().getString(), 3);
+					}
 				}
-			}
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
-				List<String> registry = getNameRegistry(type);
-				int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
-				if (!registry.get(index).equalsIgnoreCase("default")) {
-					return (JsonObject)TexturedEntity.getRegistry(type, registry.get(index), 3);
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
+					List<String> registry = getNameRegistry(type);
+					int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
+					if (!registry.get(index).equalsIgnoreCase("default")) {
+						return (JsonObject)TexturedEntity.getRegistry(type, registry.get(index), 3);
+					}
 				}
 			}
 		} catch (Exception error) {
@@ -118,7 +120,7 @@ public class TexturedEntity {
 	public static List<Object> getRegistry(String type, String name) {
 		List<Object> entityRegistry = new ArrayList<>();
 		try {
-			for (List<Object> registry : TexturedEntityDataLoader.REGISTRY) {
+			for (List<Object> registry : TexturedEntityDataLoader.registry) {
 				String entityNamespace = (String) registry.get(0);
 				String entityType = (String) registry.get(1);
 				String entityName = (String) registry.get(2);

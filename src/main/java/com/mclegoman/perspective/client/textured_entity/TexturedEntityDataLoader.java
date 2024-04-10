@@ -25,11 +25,12 @@ import java.util.List;
 import java.util.Map;
 
 public class TexturedEntityDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-	public static final List<List<Object>> REGISTRY = new ArrayList<>();
-	public static final String ID = "textured_entity";
+	public static final List<List<Object>> registry = new ArrayList<>();
+	public static final String identifier = "textured_entity";
+	public static boolean isReady;
 
 	public TexturedEntityDataLoader() {
-		super(new Gson(), ID);
+		super(new Gson(), identifier);
 	}
 
 	private void add(String namespace, String type, String name, JsonObject entity_specific, Boolean enabled) {
@@ -39,8 +40,8 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			texturedEntity.add(type);
 			texturedEntity.add(name);
 			texturedEntity.add(entity_specific);
-			if (enabled) REGISTRY.add(texturedEntity);
-			else REGISTRY.remove(texturedEntity);
+			if (enabled) registry.add(texturedEntity);
+			else registry.remove(texturedEntity);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.VERSION.getID(), error);
 		}
@@ -48,7 +49,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 
 	private void reset() {
 		try {
-			REGISTRY.clear();
+			registry.clear();
 			addDefaultTexturedEntities("minecraft", new String[]{
 					"allay",
 					"armor_stand",
@@ -167,8 +168,10 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
+			isReady = false;
 			reset();
 			prepared.forEach(this::layout$perspective);
+			isReady = true;
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.VERSION.getID(), error);
 		}
@@ -176,7 +179,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), ID);
+		return new Identifier(Data.VERSION.getID(), identifier);
 	}
 
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
