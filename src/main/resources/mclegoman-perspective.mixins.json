@@ -133,12 +133,10 @@
 		"client.ui.ScreenMixin",
 		"client.ui.TitleScreenMixin",
 		"client.zoom.GameRendererMixin",
-		"client.zoom.MouseMixin"
+		"client.zoom.MouseMixin",
+		"client.textured_entity.minecraft.mooshroom.MooshroomMushroomFeatureRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
-	},
-	"mixins": [
-		"client.textured_entity.minecraft.mooshroom.MooshroomMushroomFeatureRendererMixin"
-	]
+	}
 }
