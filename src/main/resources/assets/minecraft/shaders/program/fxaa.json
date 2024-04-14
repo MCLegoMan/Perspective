@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "fxaa",
-    "fragment": "fxaa",
+    "vertex": "minecraft:fxaa",
+    "fragment": "minecraft:fxaa",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }

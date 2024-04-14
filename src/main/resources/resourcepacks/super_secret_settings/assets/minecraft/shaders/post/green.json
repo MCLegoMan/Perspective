@@ -4,7 +4,7 @@
     ],
     "passes": [
         {
-            "name": "color_convolve",
+            "name": "minecraft:color_convolve",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "uniforms": [
@@ -23,17 +23,17 @@
             ]
         },
         {
-            "name": "bits",
+            "name": "minecraft:bits",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         },
         {
-            "name": "scan_pincushion",
+            "name": "minecraft:scan_pincushion",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

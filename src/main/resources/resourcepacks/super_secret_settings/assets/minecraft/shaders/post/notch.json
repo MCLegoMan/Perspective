@@ -4,7 +4,7 @@
     ],
     "passes": [
         {
-            "name": "notch",
+            "name": "minecraft:notch",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "auxtargets": [
@@ -18,7 +18,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

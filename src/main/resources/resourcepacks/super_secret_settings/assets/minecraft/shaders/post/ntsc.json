@@ -6,12 +6,12 @@
     ],
     "passes": [
         {
-            "name": "ntsc_encode",
+            "name": "minecraft:ntsc_encode",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "ntsc_decode",
+            "name": "minecraft:ntsc_decode",
             "intarget": "swap",
             "outtarget": "swap2",
             "auxtargets": [
@@ -22,17 +22,17 @@
             ]
         },
         {
-            "name": "color_convolve",
+            "name": "minecraft:color_convolve",
             "intarget": "swap2",
             "outtarget": "swap"
         },
         {
-            "name": "deconverge",
+            "name": "minecraft:deconverge",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         },
         {
-            "name": "box_blur",
+            "name": "minecraft:box_blur",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "uniforms": [
@@ -47,7 +47,7 @@
             ]
         },
         {
-            "name": "box_blur",
+            "name": "minecraft:box_blur",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "uniforms": [
@@ -62,12 +62,12 @@
             ]
         },
         {
-            "name": "scan_pincushion",
+            "name": "minecraft:scan_pincushion",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "phosphor",
+            "name": "minecraft:phosphor",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "auxtargets": [
@@ -84,7 +84,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "minecraft:main",
             "outtarget": "previous"
         }

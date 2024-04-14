@@ -4,12 +4,12 @@
     ],
     "passes": [
         {
-            "name": "blobs2",
+            "name": "minecraft:blobs2",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

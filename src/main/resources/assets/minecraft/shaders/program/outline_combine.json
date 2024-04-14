@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "sobel",
-    "fragment": "outline_combine",
+    "vertex": "minecraft:sobel",
+    "fragment": "minecraft:outline_combine",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" },

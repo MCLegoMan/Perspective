@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "sobel",
-    "fragment": "sobel",
+    "vertex": "minecraft:sobel",
+    "fragment": "minecraft:sobel",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }

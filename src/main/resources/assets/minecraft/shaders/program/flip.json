@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "1-srcalpha"
     },
-    "vertex": "flip",
-    "fragment": "blit",
+    "vertex": "minecraft:flip",
+    "fragment": "minecraft:blit",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }

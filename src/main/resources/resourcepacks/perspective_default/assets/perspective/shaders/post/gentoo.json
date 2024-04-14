@@ -5,27 +5,26 @@
     "2",
     "3",
     "4",
-    "5",
-    "6"
+    "5"
   ],
   "passes": [
     {
-      "name": "deconverge",
+      "name": "minecraft:deconverge",
       "intarget": "minecraft:main",
       "outtarget": "0"
     },
     {
-      "name": "blit",
+      "name": "minecraft:blit",
       "intarget": "0",
       "outtarget": "1"
     },
     {
-      "name": "downscale",
+      "name": "minecraft:downscale",
       "intarget": "1",
       "outtarget": "2"
     },
     {
-      "name": "notch",
+      "name": "minecraft:notch",
       "intarget": "2",
       "outtarget": "3",
       "auxtargets": [
@@ -39,23 +38,18 @@
       ]
     },
     {
-      "name": "downscale",
+      "name": "minecraft:downscale",
       "intarget": "3",
       "outtarget": "4"
     },
     {
-      "name": "blit",
+      "name": "minecraft:scan_pincushion",
       "intarget": "4",
       "outtarget": "5"
     },
     {
-      "name": "scan_pincushion",
+      "name": "minecraft:blit",
       "intarget": "5",
-      "outtarget": "6"
-    },
-    {
-      "name": "blit",
-      "intarget": "6",
       "outtarget": "minecraft:main"
     }
   ]

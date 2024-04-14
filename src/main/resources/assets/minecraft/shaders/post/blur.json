@@ -5,7 +5,7 @@
     ],
     "passes": [
         {
-            "name": "blur",
+            "name": "minecraft:blur",
             "intarget": "minecraft:main",
             "outtarget": "0",
             "use_linear_filter": true,
@@ -21,7 +21,7 @@
             ]
         },
         {
-            "name": "blur",
+            "name": "minecraft:blur",
             "intarget": "0",
             "outtarget": "1",
             "use_linear_filter": true,
@@ -37,7 +37,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "1",
             "outtarget": "minecraft:main"
         }

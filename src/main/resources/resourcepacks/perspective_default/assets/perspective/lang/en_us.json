@@ -9,7 +9,6 @@
 	"shader.perspective.tiltshift" : "tiltshift",
 	"shader.perspective.rainbow" : "rainbow",
 	"shader.perspective.saturated" : "saturated",
-	"shader.perspective.shareware" : "shareware",
 	"shader.perspective.silhouette" : "silhouette",
 	"shader.perspective.sixteen_colors": "sixteen colors",
 	"shader.perspective.bloom_dither": "light-based dither",

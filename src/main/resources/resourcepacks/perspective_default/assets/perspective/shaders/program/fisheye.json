@@ -4,7 +4,7 @@
 		"srcrgb": "one",
 		"dstrgb": "1-srcalpha"
 	},
-	"vertex": "screenquad",
+	"vertex": "minecraft:screenquad",
 	"fragment": "perspective:fisheye",
 	"attributes": [ "Position" ],
 	"samplers": [

@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "blobs",
-    "fragment": "blobs2",
+    "vertex": "minecraft:blobs",
+    "fragment": "minecraft:blobs2",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }

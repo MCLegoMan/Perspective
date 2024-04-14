@@ -49,6 +49,7 @@ public abstract class WorldRendererMixin {
 		try {
 			if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer")) {
 				if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+					// This could possibly be changed to have isFirstPerson configurable (first person / all perspective)??.
 					if (Shader.shouldRenderEntityLinkShader() && ClientData.CLIENT.options.getPerspective().isFirstPerson()) {
 						for (PostEffectProcessor postProcessor : Shader.entityPostProcessor) {
 							Shader.render(postProcessor, tickDelta);

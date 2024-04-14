@@ -7,7 +7,7 @@
     ],
     "passes": [
         {
-            "name": "brightness_threshold",
+            "name": "minecraft:brightness_threshold",
             "intarget": "minecraft:main",
             "outtarget": "bloom_1",
             "uniforms": [
@@ -18,7 +18,7 @@
             ]
         },
         {
-            "name": "brightness_threshold",
+            "name": "minecraft:brightness_threshold",
             "intarget": "minecraft:main",
             "outtarget": "highlights_1",
             "uniforms": [
@@ -29,7 +29,7 @@
             ]
         },
         {
-            "name": "blur",
+            "name": "minecraft:blur",
             "intarget": "bloom_1",
             "outtarget": "bloom_2",
             "use_linear_filter": true,
@@ -45,7 +45,7 @@
             ]
         },
         {
-            "name": "blur",
+            "name": "minecraft:blur",
             "intarget": "bloom_2",
             "outtarget": "bloom_1",
             "use_linear_filter": true,
@@ -61,7 +61,7 @@
             ]
         },
         {
-            "name": "blur",
+            "name": "minecraft:blur",
             "intarget": "highlights_1",
             "outtarget": "highlights_2",
             "use_linear_filter": true,
@@ -77,7 +77,7 @@
             ]
         },
         {
-            "name": "blur",
+            "name": "minecraft:blur",
             "intarget": "highlights_2",
             "outtarget": "highlights_1",
             "use_linear_filter": true,
@@ -93,7 +93,7 @@
             ]
         },
         {
-            "name": "merge_bloom",
+            "name": "minecraft:merge_bloom",
             "intarget": "minecraft:main",
             "outtarget": "bloom_2",
             "auxtargets": [
@@ -118,7 +118,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "bloom_2",
             "outtarget": "minecraft:main"
         }

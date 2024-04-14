@@ -4,8 +4,8 @@
 		"srcrgb": "one",
 		"dstrgb": "1-srcalpha"
 	},
-	"vertex": "blur",
-	"fragment": "box_blur",
+	"vertex": "minecraft:blur",
+	"fragment": "minecraft:box_blur",
 	"attributes": [ "Position" ],
 	"samplers": [
 		{ "name": "DiffuseSampler" }

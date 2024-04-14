@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "sobel",
-    "fragment": "scan_pincushion",
+    "vertex": "minecraft:sobel",
+    "fragment": "minecraft:scan_pincushion",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }

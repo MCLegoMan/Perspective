@@ -4,12 +4,12 @@
     ],
     "passes": [
         {
-            "name": "minecraft:flip",
+            "name": "minecraft:shareware",
             "intarget": "minecraft:main",
             "outtarget": "swap"
         },
         {
-            "name": "minecraft:blit",
+            "name": "blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

@@ -5,17 +5,17 @@
     ],
     "passes": [
         {
-            "name": "blobs2",
+            "name": "minecraft:blobs2",
             "intarget": "minecraft:main",
             "outtarget": "0"
         },
         {
-            "name": "outline_watercolor",
+            "name": "minecraft:outline_watercolor",
             "intarget": "0",
             "outtarget": "minecraft:main"
         },
         {
-            "name": "box_blur",
+            "name": "minecraft:box_blur",
             "intarget": "minecraft:main",
             "outtarget": "1",
             "uniforms": [
@@ -30,7 +30,7 @@
             ]
         },
         {
-            "name": "box_blur",
+            "name": "minecraft:box_blur",
             "intarget": "1",
             "outtarget": "minecraft:main",
             "uniforms": [
@@ -45,7 +45,7 @@
             ]
         },
         {
-            "name": "outline_combine",
+            "name": "minecraft:outline_combine",
             "intarget": "0",
             "outtarget": "1",
             "auxtargets": [
@@ -56,7 +56,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "1",
             "outtarget": "minecraft:main"
         }

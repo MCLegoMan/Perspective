@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "blit",
-    "fragment": "overlay",
+    "vertex": "minecraft:blit",
+    "fragment": "minecraft:overlay",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "OverlaySampler" },

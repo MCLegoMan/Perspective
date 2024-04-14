@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "bumpy",
-    "fragment": "bumpy",
+    "vertex": "minecraft:bumpy",
+    "fragment": "minecraft:bumpy",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }

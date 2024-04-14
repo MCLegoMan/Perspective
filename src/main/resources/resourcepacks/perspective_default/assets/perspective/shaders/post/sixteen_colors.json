@@ -9,7 +9,7 @@
             "outtarget": "swap"
         },
         {
-            "name": "blit",
+            "name": "minecraft:blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

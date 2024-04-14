@@ -4,8 +4,8 @@
         "srcrgb": "one",
         "dstrgb": "zero"
     },
-    "vertex": "downscale",
-    "fragment": "downscale",
+    "vertex": "minecraft:downscale",
+    "fragment": "minecraft:downscale",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" }
