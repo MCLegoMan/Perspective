@@ -25,18 +25,31 @@ public class RenderPhaseMixin {
 	@Shadow @Final protected String name;
 	@Inject(at = @At(value = "RETURN"), method = "startDrawing")
 	public void perspective$startDrawing(CallbackInfo ci) {
-		if (Shader.shouldRenderShader()) {
-			if (this.name.equals("translucent_target") && Shader.translucentFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
-			if (this.name.equals("item_entity_target") && Shader.entityFramebuffer != null) Shader.entityFramebuffer.beginWrite(false);
-			if (this.name.equals("particles_target") && Shader.particlesFramebuffer != null) Shader.particlesFramebuffer.beginWrite(false);
-			if (this.name.equals("weather_target") && Shader.weatherFramebuffer != null) Shader.weatherFramebuffer.beginWrite(false);
-			if (this.name.equals("clouds_target") && Shader.cloudsFramebuffer != null) Shader.cloudsFramebuffer.beginWrite(false);
+		if (this.name.equals("translucent_target")) {
+			if (Shader.shouldRenderShader() && Shader.translucentFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
+			if (Shader.shouldRenderEntityLinkShader() && Shader.entityTranslucentFramebuffer != null) for (Framebuffer framebuffer : Shader.entityTranslucentFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
+		}
+		if (this.name.equals("item_entity_target")) {
+			if (Shader.shouldRenderShader() && Shader.entityFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
+			if (Shader.shouldRenderEntityLinkShader() && Shader.entityEntityFramebuffer != null) for (Framebuffer framebuffer : Shader.entityEntityFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
+		}
+		if (this.name.equals("particles_target")) {
+			if (Shader.shouldRenderShader() && Shader.particlesFramebuffer != null) Shader.particlesFramebuffer.beginWrite(false);
+			if (Shader.shouldRenderEntityLinkShader() && Shader.entityParticlesFramebuffer != null) for (Framebuffer framebuffer : Shader.entityParticlesFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
+		}
+		if (this.name.equals("weather_target")) {
+			if (Shader.shouldRenderShader() && Shader.weatherFramebuffer != null) Shader.weatherFramebuffer.beginWrite(false);
+			if (Shader.shouldRenderEntityLinkShader() && Shader.entityWeatherFramebuffer != null) for (Framebuffer framebuffer : Shader.entityWeatherFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
+		}
+		if (this.name.equals("clouds_target")) {
+			if (Shader.shouldRenderShader() && Shader.cloudsFramebuffer != null) Shader.cloudsFramebuffer.beginWrite(false);
+			if (Shader.shouldRenderEntityLinkShader() && Shader.entityCloudsFramebuffer != null) for (Framebuffer framebuffer : Shader.entityCloudsFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
 		}
 	}
 	@Inject(at = @At(value = "RETURN"), method = "endDrawing")
 	public void perspective$endDrawing(CallbackInfo ci) {
-		if (Shader.shouldRenderShader()) {
-			if (ClientData.CLIENT.getFramebuffer() != null) ClientData.CLIENT.getFramebuffer().beginWrite(false);
+		if (ClientData.CLIENT.getFramebuffer() != null) {
+			if (Shader.shouldRenderShader() || Shader.shouldRenderEntityLinkShader()) ClientData.CLIENT.getFramebuffer().beginWrite(false);
 		}
 	}
 }

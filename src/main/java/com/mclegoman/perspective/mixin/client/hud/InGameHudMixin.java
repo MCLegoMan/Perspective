@@ -29,7 +29,7 @@ public abstract class InGameHudMixin {
 	private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHUD()) ci.cancel();
 		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
-			float h = MessageOverlay.REMAINING - tickDelta;
+			float h = MessageOverlay.remaining - tickDelta;
 			int l = (int) (h * 255.0F / 20.0F);
 			if (l > 255) l = 255;
 			if (l > 10) {
@@ -37,8 +37,8 @@ public abstract class InGameHudMixin {
 				context.getMatrices().translate((float) (ClientData.CLIENT.getWindow().getScaledWidth() / 2), 27, 0.0F);
 				int k = 16777215;
 				int m = l << 24 & -16777216;
-				int n = ClientData.CLIENT.textRenderer.getWidth(MessageOverlay.MESSAGE);
-				context.drawTextWithShadow(ClientData.CLIENT.textRenderer, MessageOverlay.MESSAGE, -n / 2, -4, k | m);
+				int n = ClientData.CLIENT.textRenderer.getWidth(MessageOverlay.message);
+				context.drawTextWithShadow(ClientData.CLIENT.textRenderer, MessageOverlay.message, -n / 2, -4, k | m);
 				context.getMatrices().pop();
 			}
 		}
@@ -50,7 +50,7 @@ public abstract class InGameHudMixin {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
 				context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
-			if (!DebugOverlay.debugType.equals(DebugOverlay.Type.NONE)) {
+			if (!DebugOverlay.debugType.equals(DebugOverlay.Type.none)) {
 				DebugOverlay.renderDebugHUD(context);
 			}
 		}

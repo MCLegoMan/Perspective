@@ -15,6 +15,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.translation.TranslationType;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -24,6 +25,7 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.ShaderStage;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.entity.Entity;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
@@ -31,26 +33,39 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	public static int superSecretSettingsIndex;
+	public static boolean depthFix;
+	public static boolean useDepth;
+	public static boolean entityDepthFix;
+	public static boolean entityUseDepth;
+	public static String renderType;
+	public static boolean updateLegacyConfig;
+	public static int legacyIndex;
+	private static Formatting lastColor;
+	@Nullable
+	public static PostEffectProcessor postProcessor;
 	public static Framebuffer depthFramebuffer;
 	public static Framebuffer translucentFramebuffer;
 	public static Framebuffer entityFramebuffer;
 	public static Framebuffer particlesFramebuffer;
 	public static Framebuffer weatherFramebuffer;
 	public static Framebuffer cloudsFramebuffer;
-	public static boolean DEPTH_FIX;
-	public static boolean USE_DEPTH;
-	public static String RENDER_TYPE;
 	@Nullable
-	public static PostEffectProcessor postProcessor;
-	public static boolean updateLegacyConfig;
-	public static int legacyIndex;
-	private static Formatting LAST_COLOR;
+	public static List<PostEffectProcessor> entityPostProcessor;
+	public static List<Framebuffer> entityDepthFramebuffer;
+	public static List<Framebuffer> entityTranslucentFramebuffer;
+	public static List<Framebuffer> entityEntityFramebuffer;
+	public static List<Framebuffer> entityParticlesFramebuffer;
+	public static List<Framebuffer> entityWeatherFramebuffer;
+	public static List<Framebuffer> entityCloudsFramebuffer;
+	public static Entity entityShaderEntityPrev;
+	public static Entity entityShaderEntity;
 	public static void init() {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
@@ -82,6 +97,9 @@ public class Shader {
 			if (saveConfig) ConfigHelper.saveConfig();
 			ShaderDataLoader.isReloading = false;
 		}
+		entityShaderEntityPrev = entityShaderEntity;
+		entityShaderEntity = ClientData.CLIENT.getCameraEntity();
+		if (entityShaderEntity != entityShaderEntityPrev) prepEntityShader(entityShaderEntity);
 	}
 
 	public static void checkKeybindings() {
@@ -108,9 +126,9 @@ public class Shader {
 		if (save) ConfigHelper.saveConfig();
 	}
 	public static Text getTranslatedShaderName(int shaderIndex) {
-		if ((boolean)get(shaderIndex, ShaderDataLoader.RegistryValue.TRANSLATABLE)) {
-			String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.NAMESPACE);
-			String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.SHADER_NAME);
+		if ((boolean)get(shaderIndex, ShaderDataLoader.RegistryValue.translatable)) {
+			String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.namespace);
+			String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.shaderName);
 			if (namespace != null && shaderName != null)
 				return Translation.getShaderTranslation(namespace, shaderName);
 		} else {
@@ -119,21 +137,21 @@ public class Shader {
 		return null;
 	}
 	public static String getShaderName(int shaderIndex) {
-		String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.NAMESPACE);
-		String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.SHADER_NAME);
+		String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.namespace);
+		String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.shaderName);
 		if (namespace != null && shaderName != null)
 			return ShaderDataLoader.isDuplicatedShaderName(shaderName) ? namespace + ":" + shaderName : shaderName;
 		return null;
 	}
 	public static String getFullShaderName(int SHADER) {
-		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.NAMESPACE);
-		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.SHADER_NAME);
+		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.namespace);
+		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.shaderName);
 		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
 		return null;
 	}
 
 	public static boolean isShaderAvailable(String id) {
-		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {
+		for (int shader = 0; shader < ShaderDataLoader.registry.size(); shader++) {
 			if (id.contains(":") && id.equals(getFullShaderName(shader))) return true;
 			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return true;
 		}
@@ -144,7 +162,7 @@ public class Shader {
 	}
 
 	public static int getShaderValue(String id) {
-		for (int shader = 0; shader < ShaderDataLoader.REGISTRY.size(); shader++) {
+		for (int shader = 0; shader < ShaderDataLoader.registry.size(); shader++) {
 			if (id.contains(":") && id.equals(getFullShaderName(shader))) return shader;
 			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return shader;
 		}
@@ -168,7 +186,7 @@ public class Shader {
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
 			set(true, playSound, showShaderName, true);
-			if (skipDisableScreenModeWhenWorldNull && (ClientData.CLIENT.world == null && (USE_DEPTH || !shouldDisableScreenMode())))
+			if (skipDisableScreenModeWhenWorldNull && (ClientData.CLIENT.world == null && (useDepth || !shouldDisableScreenMode())))
 				cycle(true, true, false, true, SAVE_CONFIG);
 		} else {
 			if (postProcessor != null) {
@@ -225,27 +243,34 @@ public class Shader {
 		set(forwards, playSound, showShaderName, SAVE_CONFIG, ClientData.CLIENT.getFramebuffer(), ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 	}
 	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG, Framebuffer framebuffer, int framebufferWidth, int framebufferHeight) {
-		USE_DEPTH = false;
-		DEPTH_FIX = true;
+		useDepth = false;
+		depthFix = true;
 		try {
 			if (postProcessor != null) postProcessor.close();
-			postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
-			postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
+			Identifier shaderId = ShaderDataLoader.getPostShader((String) get(ShaderDataLoader.RegistryValue.id));
 			try {
-				if (postProcessor != null) {
-					if (translucentFramebuffer != null) translucentFramebuffer.delete();
-					translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");
-					if (entityFramebuffer != null) entityFramebuffer.delete();
-					entityFramebuffer = postProcessor.getSecondaryTarget("itemEntity");
-					if (particlesFramebuffer != null) particlesFramebuffer.delete();
-					particlesFramebuffer = postProcessor.getSecondaryTarget("particles");
-					if (weatherFramebuffer != null) weatherFramebuffer.delete();
-					weatherFramebuffer = postProcessor.getSecondaryTarget("weather");
-					if (cloudsFramebuffer != null) cloudsFramebuffer.delete();
-					cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
+				ClientData.CLIENT.getResourceManager().getResourceOrThrow(shaderId);
+				postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, shaderId);
+				postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
+				try {
+					if (postProcessor != null) {
+						if (translucentFramebuffer != null) translucentFramebuffer.delete();
+						translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");
+						if (entityFramebuffer != null) entityFramebuffer.delete();
+						entityFramebuffer = postProcessor.getSecondaryTarget("itemEntity");
+						if (particlesFramebuffer != null) particlesFramebuffer.delete();
+						particlesFramebuffer = postProcessor.getSecondaryTarget("particles");
+						if (weatherFramebuffer != null) weatherFramebuffer.delete();
+						weatherFramebuffer = postProcessor.getSecondaryTarget("weather");
+						if (cloudsFramebuffer != null) cloudsFramebuffer.delete();
+						cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
+					}
+				} catch (Exception error) {
+					Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 				}
-			} catch (Exception error) {
-				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
+			} catch (FileNotFoundException ignored) {
+				// We ignore this error as we would have already caught errors with the post json on load.
+				// Errors related to the shader program will still be logged.
 			}
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getFullShaderName(superSecretSettingsIndex));
 			if (showShaderName)
@@ -270,7 +295,7 @@ public class Shader {
 				superSecretSettingsIndex = 0;
 				try {
 					if (postProcessor != null) postProcessor.close();
-					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.ID)));
+					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.id)));
 					postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 						toggle(false, true, true, true);
@@ -278,9 +303,49 @@ public class Shader {
 				}
 			}
 		}
-		DEPTH_FIX = false;
+		depthFix = false;
 	}
-
+	public static void setEntityShader(Framebuffer framebuffer, int framebufferWidth, int framebufferHeight, Entity entity) {
+		entityUseDepth = false;
+		entityDepthFix = true;
+		try {
+			if (entityPostProcessor != null) {
+				if (!entityPostProcessor.isEmpty()) entityPostProcessor.clear();
+				for (List<Object> shader : ShaderDataLoader.entityLinkRegistry) {
+					if (entity.getType().toString().equalsIgnoreCase((String) shader.get(0))) {
+						try {
+							Identifier shaderId = ((String) shader.get(1)).contains(":") ? ShaderDataLoader.getPostShader((String) shader.get(1)): ShaderDataLoader.getPostShader(ShaderDataLoader.guessPostShaderNamespace((String) shader.get(1)), (String) shader.get(1));
+							PostEffectProcessor shaderProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, shaderId);
+							shaderProcessor.setupDimensions(framebufferWidth, framebufferHeight);
+							entityPostProcessor.add(shaderProcessor);
+							try {
+								if (entityTranslucentFramebuffer == null) entityTranslucentFramebuffer = new ArrayList<>();
+								if (entityEntityFramebuffer == null) entityEntityFramebuffer = new ArrayList<>();
+								if (entityParticlesFramebuffer == null) entityParticlesFramebuffer = new ArrayList<>();
+								if (entityWeatherFramebuffer == null) entityWeatherFramebuffer = new ArrayList<>();
+								if (entityCloudsFramebuffer == null) entityCloudsFramebuffer = new ArrayList<>();
+								for (PostEffectProcessor postProcessor : entityPostProcessor) {
+									entityTranslucentFramebuffer.add(postProcessor.getSecondaryTarget("translucent"));
+									entityEntityFramebuffer.add(postProcessor.getSecondaryTarget("itemEntity"));
+									entityParticlesFramebuffer.add(postProcessor.getSecondaryTarget("particles"));
+									entityWeatherFramebuffer.add(postProcessor.getSecondaryTarget("weather"));
+									entityCloudsFramebuffer.add(postProcessor.getSecondaryTarget("clouds"));
+								}
+							} catch (Exception error) {
+								Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
+							}
+						} catch (FileNotFoundException ignored) {
+							// We ignore this error as we would have already caught errors with the post json on load.
+							// Errors related to the shader program will still be logged.
+						}
+					}
+				}
+			}
+		} catch (Exception error) {
+			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set entity link shader.", Data.VERSION.getLoggerPrefix(), error);
+		}
+		entityDepthFix = false;
+	}
 	private static void setOverlay(Text message) {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name"))
 			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
@@ -288,28 +353,42 @@ public class Shader {
 
 	public static Formatting getRandomColor() {
 		Random random = new Random();
-		Formatting COLOR = LAST_COLOR;
-		while (COLOR == LAST_COLOR) COLOR = COLORS[(random.nextInt(COLORS.length))];
-		LAST_COLOR = COLOR;
+		Formatting COLOR = lastColor;
+		while (COLOR == lastColor) COLOR = COLORS[(random.nextInt(COLORS.length))];
+		lastColor = COLOR;
 		return COLOR;
 	}
-
 	public static boolean shouldRenderShader() {
 		return postProcessor != null && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled");
 	}
-
-	public static void render(float tickDelta, String renderType) {
-		RENDER_TYPE = renderType + (Shader.USE_DEPTH ? ":depth" : "");
-		if (postProcessor != null) {
-			RenderSystem.enableBlend();
-			postProcessor.render(tickDelta);
-			RenderSystem.disableBlend();
-			RenderSystem.defaultBlendFunc();
-			ClientData.CLIENT.getFramebuffer().beginWrite(false);
+	public static boolean shouldRenderEntityLinkShader() {
+		return entityPostProcessor != null && !entityPostProcessor.isEmpty();
+	}
+	public static void prepEntityShader(@Nullable Entity entity) {
+		if (entity != null) {
+			Shader.entityPostProcessor = new ArrayList<>();
+			Shader.setEntityShader(ClientData.CLIENT.getFramebuffer(), ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight(), entity);
+		}
+	}
+	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta, String type) {
+		Shader.renderType = type + (Shader.useDepth ? ":depth" : "");
+		render(postEffectProcessor, tickDelta);
+	}
+	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta) {
+		try {
+			if (postEffectProcessor != null) {
+				ClientData.CLIENT.getResourceManager().getResourceOrThrow(IdentifierHelper.identifierFromString(postEffectProcessor.getName()));
+				RenderSystem.enableBlend();
+				RenderSystem.defaultBlendFunc();
+				postEffectProcessor.render(tickDelta);
+				RenderSystem.disableBlend();
+				ClientData.CLIENT.getFramebuffer().beginWrite(true);
+			}
+		} catch (FileNotFoundException ignored) {
 		}
 	}
 	public static boolean shouldDisableScreenMode() {
-		return (boolean) Shader.get(ShaderDataLoader.RegistryValue.DISABLE_SCREEN_MODE) || USE_DEPTH;
+		return (boolean) Shader.get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;
 	}
 	public static void cycleShaderModes() {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();

@@ -10,8 +10,9 @@ package com.mclegoman.perspective.mixin.client.shaders;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.config.ConfigHelper;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.Framebuffer;
+import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -28,6 +29,7 @@ public abstract class WorldRendererMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal = 0), method = "render")
 	public void perspective$saveDepthOutlines(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		Shader.depthFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+		for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 		ClientData.CLIENT.getFramebuffer().beginWrite(false);
 	}
 	@Inject(at = {
@@ -36,6 +38,7 @@ public abstract class WorldRendererMixin {
 	}, method = "render")
 	public void perspective$saveDepth(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		Shader.depthFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+		for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 		if (ClientData.CLIENT.options.getGraphicsMode().getValue().getId() <= GraphicsMode.FANCY.getId()) ClientData.CLIENT.getFramebuffer().beginWrite(false);
 	}
 	@Inject(at = {
@@ -43,13 +46,20 @@ public abstract class WorldRendererMixin {
 			@At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderWorldBorder(Lnet/minecraft/client/render/Camera;)V", ordinal = 1, shift = At.Shift.AFTER)
 	}, method = "render")
 	public void perspective$renderGameExperimental(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
-		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
-			if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
-				if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer") && Shader.USE_DEPTH) {
-					// We render the shaders here - which is also where fabulous shaders get rendered.
-					Shader.render(tickDelta, "game_experimental");
+		try {
+			if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer")) {
+				if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+					if (Shader.shouldRenderEntityLinkShader() && ClientData.CLIENT.options.getPerspective().isFirstPerson()) {
+						for (PostEffectProcessor postProcessor : Shader.entityPostProcessor) {
+							Shader.render(postProcessor, tickDelta);
+						}
+					}
+					if ((Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) && Shader.useDepth) {
+						Shader.render(Shader.postProcessor, tickDelta, "game_experimental");
+					}
 				}
 			}
+		} catch (Exception error) {
 		}
 	}
 	@Inject(at = {
@@ -79,13 +89,55 @@ public abstract class WorldRendererMixin {
 				Shader.cloudsFramebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
 			}
 		}
+		if (Shader.shouldRenderEntityLinkShader()) {
+			if (!Shader.entityTranslucentFramebuffer.isEmpty()) {
+				for (Framebuffer framebuffer : Shader.entityTranslucentFramebuffer) {
+					if (framebuffer != null) {
+						framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+						framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+					}
+				}
+			}
+			if (!Shader.entityEntityFramebuffer.isEmpty()) {
+				for (Framebuffer framebuffer : Shader.entityEntityFramebuffer) {
+					if (framebuffer != null) {
+						framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+						framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+					}
+				}
+			}
+			if (!Shader.entityParticlesFramebuffer.isEmpty()) {
+				for (Framebuffer framebuffer : Shader.entityParticlesFramebuffer) {
+					if (framebuffer != null) {
+						framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+						framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+					}
+				}
+			}
+			if (!Shader.entityWeatherFramebuffer.isEmpty()) {
+				for (Framebuffer framebuffer : Shader.entityWeatherFramebuffer) {
+					if (framebuffer != null) {
+						framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+						framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+					}
+				}
+			}
+			if (!Shader.entityCloudsFramebuffer.isEmpty()) {
+				for (Framebuffer framebuffer : Shader.entityCloudsFramebuffer) {
+					if (framebuffer != null) {
+						framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+						framebuffer.copyDepthFrom(ClientData.CLIENT.getFramebuffer());
+					}
+				}
+			}
+		}
 	}
 	// Panorama Shader Renderer
 	@Inject(method = "render", at = @At(value = "RETURN"))
 	private void perspective$renderShaderPanorama(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		if (ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
 			if (Shader.shouldRenderShader()) {
-				Shader.render(tickDelta, "game:panorama");
+				Shader.render(Shader.postProcessor, tickDelta, "game:panorama");
 			}
 		}
 	}

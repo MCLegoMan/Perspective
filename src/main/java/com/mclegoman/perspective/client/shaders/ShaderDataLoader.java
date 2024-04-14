@@ -12,49 +12,46 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.IdentifierHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.client.gl.ShaderStage;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	protected static boolean isReloading;
-	public static final List<List<Object>> REGISTRY = new ArrayList<>();
-	public static final List<String> DUPLICATED_NAMES = new ArrayList<>();
+	public static final List<List<Object>> registry = new ArrayList<>();
+	public static final List<List<Object>> entityLinkRegistry = new ArrayList<>();
+	public static final List<String> duplicatedNames = new ArrayList<>();
 	public static final String ID = "shaders/shaders";
 	public ShaderDataLoader() {
 		super(new Gson(), ID);
 	}
 	public static int getShaderAmount() {
-		return REGISTRY.size();
+		return registry.size();
 	}
 	public static boolean isDuplicatedShaderName(String name) {
-		return DUPLICATED_NAMES.contains(name);
+		return duplicatedNames.contains(name);
 	}
 	protected static Object get(int SHADER, RegistryValue VALUE) {
-		if (SHADER <= REGISTRY.size()) {
-			List<Object> SHADER_MAP = REGISTRY.get(SHADER);
-			if (VALUE.equals(RegistryValue.ID)) return SHADER_MAP.get(0);
-			if (VALUE.equals(RegistryValue.NAMESPACE)) return SHADER_MAP.get(1);
-			if (VALUE.equals(RegistryValue.SHADER_NAME)) return SHADER_MAP.get(2);
-			if (VALUE.equals(RegistryValue.DISABLE_SCREEN_MODE)) return SHADER_MAP.get(3);
-			if (VALUE.equals(RegistryValue.TRANSLATABLE)) return SHADER_MAP.get(4);
-			if (VALUE.equals(RegistryValue.CUSTOM)) return SHADER_MAP.get(5);
+		if (SHADER <= registry.size()) {
+			List<Object> SHADER_MAP = registry.get(SHADER);
+			if (VALUE.equals(RegistryValue.id)) return SHADER_MAP.get(0);
+			if (VALUE.equals(RegistryValue.namespace)) return SHADER_MAP.get(1);
+			if (VALUE.equals(RegistryValue.shaderName)) return SHADER_MAP.get(2);
+			if (VALUE.equals(RegistryValue.disableScreenMode)) return SHADER_MAP.get(3);
+			if (VALUE.equals(RegistryValue.translatable)) return SHADER_MAP.get(4);
+			if (VALUE.equals(RegistryValue.custom)) return SHADER_MAP.get(5);
 		}
 		return null;
 	}
 	protected static JsonObject getCustom(int shaderIndex, String namespace) {
-		JsonObject customDatas = (JsonObject) get(shaderIndex, RegistryValue.CUSTOM);
+		JsonObject customDatas = (JsonObject) get(shaderIndex, RegistryValue.custom);
 		if (customDatas != null) {
 			if (customDatas.has(namespace)) {
 				return JsonHelper.getObject(customDatas, namespace);
@@ -62,38 +59,56 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		}
 		return null;
 	}
+	public static String guessPostShaderNamespace(String id) {
+		// If the shader registry contains at least one shader with the name, the first detected instance will be used.
+		if (!id.contains(":")) {
+			for (List<Object> registry : ShaderDataLoader.registry) {
+				if (id.equalsIgnoreCase((String)registry.get(2))) return (String)registry.get(1);
+			}
+		}
+		// This will fall back to the minecraft namespace if no namespace is present.
+		return IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, id, "minecraft");
+	}
+	public static Identifier getPostShader(String id) {
+		String namespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, id, "minecraft");
+		String shader = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, id);
+		return getPostShader(namespace, shader);
+	}
+	public static Identifier getPostShader(String namespace, String shader) {
+		if (namespace != null && shader != null) {
+			shader = shader.replace("\"", "").toLowerCase();
+			return new Identifier(namespace.toLowerCase(), ("shaders/post/" + shader + ".json"));
+		}
+		return null;
+	}
 	private void add(String namespace, String shaderName, boolean disableScreenMode, boolean translatable, JsonObject custom, ResourceManager manager) {
 		try {
-			shaderName = shaderName.replace("\"", "").toLowerCase();
-			Identifier ID = new Identifier(namespace.toLowerCase(), ("shaders/post/" + shaderName + ".json"));
-			try {
-				manager.getResourceOrThrow(ID);
-				List<Object> SHADER_MAP = new ArrayList<>();
-				SHADER_MAP.add(ID);
-				SHADER_MAP.add(namespace.toLowerCase());
-				SHADER_MAP.add(shaderName);
-				SHADER_MAP.add(disableScreenMode);
-				SHADER_MAP.add(translatable);
-				SHADER_MAP.add(custom);
-				boolean ALREADY_REGISTERED = false;
-				for (List<Object> SHADER_MAP_IN_REGISTRY : REGISTRY) {
-					if (SHADER_MAP_IN_REGISTRY.contains(ID)) {
-						ALREADY_REGISTERED = true;
-						break;
-					}
+			String id = namespace.toLowerCase() + ":" + shaderName.toLowerCase();
+			manager.getResourceOrThrow(getPostShader(id));
+			List<Object> shaderMap = new ArrayList<>();
+			shaderMap.add(id);
+			shaderMap.add(namespace.toLowerCase());
+			shaderMap.add(shaderName.toLowerCase());
+			shaderMap.add(disableScreenMode);
+			shaderMap.add(translatable);
+			shaderMap.add(custom);
+			boolean alreadyRegistered = false;
+			for (List<Object> SHADER_MAP_IN_REGISTRY : registry) {
+				if (SHADER_MAP_IN_REGISTRY.contains(id)) {
+					alreadyRegistered = true;
+					break;
 				}
-				if (!ALREADY_REGISTERED) REGISTRY.add(SHADER_MAP);
-			} catch (FileNotFoundException error) {
-				Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to register shader: " + error);
 			}
+			if (!alreadyRegistered) registry.add(shaderMap);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to add shader to registry: " + error);
 		}
 	}
 	private void reset(ResourceManager manager) {
 		try {
-			REGISTRY.clear();
-			DUPLICATED_NAMES.clear();
+			registry.clear();
+			entityLinkRegistry.clear();
+			duplicatedNames.clear();
 			add$default(manager);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", Data.VERSION.getID(), error);
@@ -101,14 +116,16 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	}
 	private void clearNamespace(String namespace) {
 		try {
-			REGISTRY.removeIf((SHADER) -> SHADER.get(1).toString().equalsIgnoreCase(namespace));
+			registry.removeIf((shader) -> shader.get(1).toString().equalsIgnoreCase(namespace));
+			entityLinkRegistry.removeIf((shader) -> shader.get(0).toString().equalsIgnoreCase(namespace));
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.VERSION.getID(), namespace, error);
 		}
 	}
-	private void removeShader(String namespace, String shader) {
+	private void removeShader(String namespace, String name) {
 		try {
-			REGISTRY.removeIf((SHADER) -> SHADER.get(1).toString().equalsIgnoreCase(namespace) && SHADER.get(2).toString().equalsIgnoreCase(shader));
+			registry.removeIf((shader) -> shader.get(1).toString().equalsIgnoreCase(namespace) && shader.get(2).toString().equalsIgnoreCase(name));
+			entityLinkRegistry.removeIf((shader) -> shader.get(1).toString().equalsIgnoreCase(namespace) && shader.get(2).toString().equalsIgnoreCase(name));
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.VERSION.getID(), namespace, error);
 		}
@@ -129,14 +146,15 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		try {
 			reset(manager);
 			Shader.releaseShaders();
-			prepared.forEach((identifier, jsonElement) -> layout$perspective(identifier, jsonElement, manager));
+			prepared.forEach((identifier, jsonElement) -> layout$perspective(jsonElement, manager));
 			layout$souper_secret_settings(manager);
+			layout$souper_secret_settings$entity_links(manager);
 			List<String> ALL_NAMES = new ArrayList<>();
-			for (List<Object> registry : REGISTRY) {
+			for (List<Object> registry : registry) {
 				if (!ALL_NAMES.contains((String) registry.get(1))) ALL_NAMES.add((String) registry.get(1));
 				else {
-					if (!DUPLICATED_NAMES.contains((String) registry.get(1)))
-						DUPLICATED_NAMES.add((String) registry.get(1));
+					if (!duplicatedNames.contains((String) registry.get(1)))
+						duplicatedNames.add((String) registry.get(1));
 				}
 			}
 			isReloading = true;
@@ -148,16 +166,25 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public Identifier getFabricId() {
 		return new Identifier(Data.VERSION.getID(), ID);
 	}
-	private void layout$perspective(Identifier identifier, JsonElement jsonElement, ResourceManager manager) {
+	private void layout$perspective(JsonElement jsonElement, ResourceManager manager) {
 		try {
 			JsonObject reader = jsonElement.getAsJsonObject();
 			String namespace = JsonHelper.getString(reader, "namespace", Data.VERSION.getID());
 			String shader = JsonHelper.getString(reader, "shader");
 			boolean disableScreenMode = JsonHelper.getBoolean(reader, "disable_screen_mode", false);
 			boolean translatable = JsonHelper.getBoolean(reader, "translatable", false);
+			JsonArray entityLinks = JsonHelper.getArray(reader, "entity_links", new JsonArray());
 			JsonObject custom = JsonHelper.getObject(reader, "custom", new JsonObject());
 			boolean enabled = JsonHelper.getBoolean(reader, "enabled");
-			if (enabled) add(namespace, shader, disableScreenMode, translatable, custom, manager);
+			if (enabled) {
+				add(namespace, shader, disableScreenMode, translatable, custom, manager);
+				for (JsonElement entity : entityLinks) {
+					List<Object> entityLink = new ArrayList<>();
+					entityLink.add(entity.getAsString());
+					entityLink.add(namespace + ":" + shader);
+					entityLinkRegistry.add(entityLink);
+				}
+			}
 			else removeShader(namespace, shader);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.VERSION.getID(), error);
@@ -168,18 +195,21 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier(NAMESPACE, "shaders.json"));
 			for (Resource resource : SHADER_LISTS) {
 				try {
-					if (JsonHelper.getBoolean(JsonHelper.deserialize(resource.getReader()), "replace", false)) reset(manager);
-					for (JsonElement namespaces : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("namespaces")) {
-						JsonObject namespaceList = JsonHelper.asObject(namespaces, "namespacelist");
-						String namespace = JsonHelper.getString(namespaceList, "namespace", Data.VERSION.getID());
-						boolean replace = JsonHelper.getBoolean(namespaceList, "replace", false);
-						boolean translatable = JsonHelper.getBoolean(namespaceList, "translatable", false);
-						if (replace) clearNamespace(namespace);
-						List<String> disableScreenMode = new ArrayList<>();
-						for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_screen_mode", new JsonArray()))
-							disableScreenMode.add(shader.getAsString());
-						for (JsonElement shader : JsonHelper.getArray(namespaceList, "shaders", new JsonArray()))
-							add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, JsonHelper.getObject(namespaceList, "custom", new JsonObject()), manager);
+					JsonObject reader = JsonHelper.deserialize(resource.getReader());
+					if (JsonHelper.getBoolean(reader, "replace", false)) reset(manager);
+					if (JsonHelper.hasArray(reader, "namespaces") && !JsonHelper.getArray(reader, "namespaces").isEmpty()) {
+						for (JsonElement namespaces : reader.getAsJsonArray("namespaces")) {
+							JsonObject namespaceList = JsonHelper.asObject(namespaces, "namespacelist");
+							String namespace = JsonHelper.getString(namespaceList, "namespace", "minecraft");
+							boolean replace = JsonHelper.getBoolean(namespaceList, "replace", false);
+							boolean translatable = JsonHelper.getBoolean(namespaceList, "translatable", false);
+							if (replace) clearNamespace(namespace);
+							List<String> disableScreenMode = new ArrayList<>();
+							for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_screen_mode", new JsonArray()))
+								disableScreenMode.add(shader.getAsString());
+							for (JsonElement shader : JsonHelper.getArray(namespaceList, "shaders", new JsonArray()))
+								add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, JsonHelper.getObject(namespaceList, "custom", new JsonObject()), manager);
+						}
 					}
 				} catch (Exception error) {
 					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.VERSION.getID(), error);
@@ -187,12 +217,34 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 		}
 	}
+	private void layout$souper_secret_settings$entity_links(ResourceManager manager) {
+		for (String NAMESPACE : manager.getAllNamespaces()) {
+			List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier(NAMESPACE, "shaders.json"));
+			for (Resource resource : SHADER_LISTS) {
+				try {
+					JsonObject reader = JsonHelper.deserialize(resource.getReader());
+					if (JsonHelper.hasJsonObject(reader, "entity_links")) {
+						JsonObject entityLinks = JsonHelper.getObject(reader, "entity_links");
+						Set<Map.Entry<String, JsonElement>> entitySet = entityLinks.entrySet();
+						for (Map.Entry<String, JsonElement> entry: entitySet) {
+							List<Object> entityLink = new ArrayList<>();
+							entityLink.add(entry.getKey());
+							entityLink.add(JsonHelper.asString(entry.getValue(), "shader"));
+							entityLinkRegistry.add(entityLink);
+						}
+					}
+				} catch (Exception error) {
+					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader entity links: {}", Data.VERSION.getID(), error);
+				}
+			}
+		}
+	}
 	public enum RegistryValue {
-		ID,
-		NAMESPACE,
-		SHADER_NAME,
-		DISABLE_SCREEN_MODE,
-		TRANSLATABLE,
-		CUSTOM
+		id,
+		namespace,
+		shaderName,
+		disableScreenMode,
+		translatable,
+		custom
 	}
 }

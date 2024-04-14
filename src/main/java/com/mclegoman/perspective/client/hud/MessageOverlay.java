@@ -10,15 +10,15 @@ package com.mclegoman.perspective.client.hud;
 import net.minecraft.text.Text;
 
 public class MessageOverlay {
-	public static Text MESSAGE;
-	public static float REMAINING;
+	public static Text message;
+	public static float remaining;
 
 	public static void tick() {
-		if (REMAINING > 0) REMAINING -= 1;
+		if (remaining > 0) remaining -= 1;
 	}
 
 	public static void setOverlay(Text text) {
-		MESSAGE = text;
-		REMAINING = 40;
+		message = text;
+		remaining = 40;
 	}
 }

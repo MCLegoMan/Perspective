@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.hud;
 
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.hide.HideHudTypes;
@@ -17,7 +18,7 @@ public class HUDHelper {
 	public static void tick() {
 		if (Keybindings.cycleDebug.wasPressed()) {
 			DebugOverlay.shaderColor = Shader.getRandomColor();
-			DebugOverlay.debugType = DebugOverlay.debugType.next();
+			DebugOverlay.debugType = ClientData.CLIENT.options.sneakKey.isPressed() ? DebugOverlay.debugType.prev() : DebugOverlay.debugType.next();
 		}
 		if (Keybindings.togglePosOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
@@ -25,7 +26,7 @@ public class HUDHelper {
 		}
 	}
 	public static boolean shouldHideHUD() {
-		return Hide.shouldHideHud(HideHudTypes.ZOOM) || Hide.shouldHideHud(HideHudTypes.HOLD_PERSPECTIVE);
+		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspective);
 	}
 	public static int addY(int y) {
 		return y + 1 + 9;

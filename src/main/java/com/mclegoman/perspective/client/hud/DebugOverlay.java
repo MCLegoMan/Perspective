@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DebugOverlay {
-	public static Type debugType = Type.NONE;
+	public static Type debugType = Type.none;
 	public static Formatting shaderColor;
 
 	public static void renderDebugHUD(DrawContext context) {
@@ -36,7 +36,7 @@ public class DebugOverlay {
 			debugText.add("\n");
 		}
 		debugText.add(Text.literal(Data.VERSION.getName() + " " + Data.VERSION.getFriendlyString(false)));
-		if (debugType.equals(Type.MISC)) {
+		if (debugType.equals(Type.misc)) {
 			debugText.add("\n");
 			debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));
 			debugText.add(Text.literal("isSaving(): " + ConfigHelper.isSaving()));
@@ -47,19 +47,19 @@ public class DebugOverlay {
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
 			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
-			debugText.add(Text.literal("disable_screen_mode: " + Shader.get(ShaderDataLoader.RegistryValue.DISABLE_SCREEN_MODE)));
-			debugText.add(Text.literal("render_type: " + Shader.RENDER_TYPE));
-			debugText.add(Text.literal("use_depth: " + Shader.USE_DEPTH));
+			debugText.add(Text.literal("disable_screen_mode: " + Shader.get(ShaderDataLoader.RegistryValue.disableScreenMode)));
+			debugText.add(Text.literal("render_type: " + Shader.renderType));
+			debugText.add(Text.literal("use_depth: " + Shader.useDepth));
 			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));
 			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
 		}
-		if (debugType.equals(Type.CONFIG) || debugType.equals(Type.EXPERIMENTAL_CONFIG) || debugType.equals(Type.TUTORIALS_CONFIG) || debugType.equals(Type.WARNINGS_CONFIG)) {
+		if (debugType.equals(Type.config) || debugType.equals(Type.experimentalConfig) || debugType.equals(Type.tutorialsConfig) || debugType.equals(Type.warningsConfig)) {
 			debugText.add("\n");
 			debugText.add(Text.literal("Latest Saved Config Values").formatted(Formatting.BOLD));
-			if (debugType.equals(Type.CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.NORMAL));
-			if (debugType.equals(Type.EXPERIMENTAL_CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.EXPERIMENTAL));
-			if (debugType.equals(Type.TUTORIALS_CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.TUTORIAL));
-			if (debugType.equals(Type.WARNINGS_CONFIG)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.WARNING));
+			if (debugType.equals(Type.config)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.NORMAL));
+			if (debugType.equals(Type.experimentalConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.EXPERIMENTAL));
+			if (debugType.equals(Type.tutorialsConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.TUTORIAL));
+			if (debugType.equals(Type.warningsConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.WARNING));
 		}
 		for (Object item : debugText) {
 			if (item instanceof Text text) {
@@ -81,16 +81,18 @@ public class DebugOverlay {
 	}
 
 	public enum Type {
-		NONE,
-		MISC,
-		CONFIG,
-		EXPERIMENTAL_CONFIG,
-		TUTORIALS_CONFIG,
-		WARNINGS_CONFIG;
-		private static final Type[] VALUES = values();
-
+		none,
+		misc,
+		config,
+		experimentalConfig,
+		tutorialsConfig,
+		warningsConfig;
+		private static final Type[] values = values();
+		public Type prev() {
+			return values[(this.ordinal() - 1) < 0 ? values.length - 1 : this.ordinal() - 1];
+		}
 		public Type next() {
-			return VALUES[(this.ordinal() + 1) % VALUES.length];
+			return values[(this.ordinal() + 1) % values.length];
 		}
 	}
 }

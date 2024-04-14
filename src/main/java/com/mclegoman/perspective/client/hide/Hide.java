@@ -74,8 +74,8 @@ public class Hide {
 	}
 	public static boolean shouldHideHud(HideHudTypes type) {
 		switch (type) {
-			case ZOOM -> {return Zoom.isZooming() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud");}
-			case HOLD_PERSPECTIVE -> {return Perspective.isHoldingPerspective() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud");}
+			case zoom -> {return Zoom.isZooming() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud");}
+			case holdPerspective -> {return Perspective.isHoldingPerspective() && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud");}
 			default -> {return false;}
 		}
 	}

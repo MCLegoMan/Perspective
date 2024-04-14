@@ -16,7 +16,7 @@ public class ExperimentalConfig {
 	protected static final String ID = Data.VERSION.getID() + "-experimental";
 	protected static SimpleConfig CONFIG;
 	protected static ConfigProvider CONFIG_PROVIDER;
-	protected static boolean overrideHandRenderer;
+	protected static boolean improvedShaderRenderer;
 
 	protected static void init() {
 		try {
@@ -30,17 +30,17 @@ public class ExperimentalConfig {
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Couple<>("override_hand_renderer", false));
+		CONFIG_PROVIDER.add(new Couple<>("improved_shader_renderer", false));
 	}
 
 	protected static void assign() {
-		overrideHandRenderer = CONFIG.getOrDefault("override_hand_renderer", false);
+		improvedShaderRenderer = CONFIG.getOrDefault("improved_shader_renderer", false);
 	}
 
 	protected static void save() {
 		if (ConfigHelper.EXPERIMENTS_AVAILABLE) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
-			CONFIG_PROVIDER.setConfig("override_hand_renderer", overrideHandRenderer);
+			CONFIG_PROVIDER.setConfig("improved_shader_renderer", improvedShaderRenderer);
 			CONFIG_PROVIDER.saveConfig(ID);
 		}
 	}

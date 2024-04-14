@@ -82,10 +82,10 @@ public class ExperimentalConfigScreen extends Screen {
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
 		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true));
 		GRID_ADDER.add(new EmptyWidget(4, 4));
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.override_hand_renderer", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer"), TranslationType.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "override_hand_renderer"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.improved_shader_renderer", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"), TranslationType.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"));
 			this.REFRESH = true;
-		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.override_hand_renderer", true))).build());
+		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.improved_shader_renderer", true))).build());
 		return GRID;
 	}
 

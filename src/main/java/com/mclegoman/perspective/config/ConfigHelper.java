@@ -238,7 +238,7 @@ public class ConfigHelper {
 			if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
 				if (!Shader.isShaderAvailable(ConfigDataLoader.superSecretSettingsShader)) {
-					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
+					Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1);
 					hasFixedConfig = setConfig(ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex));
 				} else Shader.superSecretSettingsIndex = Shader.getShaderValue(ConfigDataLoader.superSecretSettingsShader);
 			}
@@ -283,7 +283,7 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader);
 			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
-			else Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.REGISTRY.size() - 1);
+			else Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode);
 			configChanged = setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", ConfigDataLoader.superSecretSettingsEnabled);
 			if ((boolean) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_enabled")) Shader.set(true, false, false, false);
@@ -323,7 +323,7 @@ public class ConfigHelper {
 	public static boolean resetExperiments() {
 		boolean configChanged = false;
 		try {
-			configChanged = setConfig(ConfigType.EXPERIMENTAL, "override_hand_renderer", false);
+			configChanged = setConfig(ConfigType.EXPERIMENTAL, "improved_shader_renderer", false);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to reset experiments!");
 		}
@@ -496,8 +496,8 @@ public class ConfigHelper {
 				}
 				case EXPERIMENTAL -> {
 					switch (ID) {
-						case "override_hand_renderer" -> {
-							ExperimentalConfig.overrideHandRenderer = (boolean) VALUE;
+						case "improved_shader_renderer" -> {
+							ExperimentalConfig.improvedShaderRenderer = (boolean) VALUE;
 							configChanged = true;
 						}
 						default -> {
@@ -673,8 +673,8 @@ public class ConfigHelper {
 			}
 			case EXPERIMENTAL -> {
 				switch (ID) {
-					case "override_hand_renderer" -> {
-						return ExperimentalConfig.overrideHandRenderer;
+					case "improved_shader_renderer" -> {
+						return ExperimentalConfig.improvedShaderRenderer;
 					}
 					default -> {
 						Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", ID));

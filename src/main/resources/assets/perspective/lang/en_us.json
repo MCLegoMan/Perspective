@@ -173,8 +173,8 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
-	"gui.perspective.config.experimental.override_hand_renderer": "Improved Shader Renderer %s",
-	"gui.perspective.config.experimental.override_hand_renderer.hover": "This experiment changes super secret settings render in-world when using game mode.",
+	"gui.perspective.config.experimental.improved_shader_renderer": "Improved Shader Renderer %s",
+	"gui.perspective.config.experimental.improved_shader_renderer.hover": "This experiment changes super secret settings render in-world when using game mode, and enables support for entity linked shaders.",
 
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.experiments": "Disable All Experiments",
