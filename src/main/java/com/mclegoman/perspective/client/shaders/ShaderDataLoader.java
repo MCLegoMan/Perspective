@@ -38,16 +38,26 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean isDuplicatedShaderName(String name) {
 		return duplicatedNames.contains(name);
 	}
+	protected static List<Object> getFallbackShader() {
+		List<Object> shaderMap = new ArrayList<>();
+		String namespace = "minecraft";
+		String shaderName = "blit";
+		shaderMap.add(namespace.toLowerCase() + ":" + shaderName.toLowerCase());
+		shaderMap.add(namespace.toLowerCase());
+		shaderMap.add(shaderName.toLowerCase());
+		shaderMap.add(true);
+		shaderMap.add(false);
+		shaderMap.add(new ArrayList<>());
+		return shaderMap;
+	}
 	protected static Object get(int SHADER, RegistryValue VALUE) {
-		if (SHADER <= registry.size()) {
-			List<Object> SHADER_MAP = registry.get(SHADER);
-			if (VALUE.equals(RegistryValue.id)) return SHADER_MAP.get(0);
-			if (VALUE.equals(RegistryValue.namespace)) return SHADER_MAP.get(1);
-			if (VALUE.equals(RegistryValue.shaderName)) return SHADER_MAP.get(2);
-			if (VALUE.equals(RegistryValue.disableScreenMode)) return SHADER_MAP.get(3);
-			if (VALUE.equals(RegistryValue.translatable)) return SHADER_MAP.get(4);
-			if (VALUE.equals(RegistryValue.custom)) return SHADER_MAP.get(5);
-		}
+		List<Object> SHADER_MAP = SHADER <= registry.size() ? registry.get(SHADER) : getFallbackShader();
+		if (VALUE.equals(RegistryValue.id)) return SHADER_MAP.get(0);
+		if (VALUE.equals(RegistryValue.namespace)) return SHADER_MAP.get(1);
+		if (VALUE.equals(RegistryValue.shaderName)) return SHADER_MAP.get(2);
+		if (VALUE.equals(RegistryValue.disableScreenMode)) return SHADER_MAP.get(3);
+		if (VALUE.equals(RegistryValue.translatable)) return SHADER_MAP.get(4);
+		if (VALUE.equals(RegistryValue.custom)) return SHADER_MAP.get(5);
 		return null;
 	}
 	protected static JsonObject getCustom(int shaderIndex, String namespace) {
@@ -134,8 +144,8 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		try {
 			add("minecraft", "blur", true, true, new JsonObject(), manager);
 			add("minecraft", "creeper", true, true, new JsonObject(), manager);
-			add("minecraft", "invert", true, true, new JsonObject(), manager);
-			add("minecraft", "spider", false, true, new JsonObject(), manager);
+			add("minecraft", "invert", false, true, new JsonObject(), manager);
+			add("minecraft", "spider", true, true, new JsonObject(), manager);
 			add("perspective", "gaussian", true, true, new JsonObject(), manager);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);
