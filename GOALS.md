@@ -15,7 +15,6 @@
 - Update Config to use `.json` instead of `.properties`.  
   - This will require both the config to be updated to use JSON and the config updater to update old configs to JSON.  
 
-
 ### Shader Uniforms  
 | Uniform                      | Description                           | Recommended Defaults | Extra Info                                              |
 |------------------------------|---------------------------------------|----------------------|---------------------------------------------------------|
@@ -28,6 +27,10 @@
 | `lu_currentAir`              | Player Air                            | 10.0                 | This will be moved to a separate library mod in future. |
 | `lu_maxAir`                  | Max Player Air                        | 10.0                 | This will be moved to a separate library mod in future. |
 | `perspective_zoomMultiplier` | Perspective Zoom Multiplier (0.0-1.0) | 1.0                  | This uniform will stay in Perspective.                  |
+
+- **Should we register 'super secret settings' resource pack in luminance instead of perspective?**
+  - It would still be included in perspective, as luminance will be included in the build.
+  - This would allow other mods that use luminance to also use shaders from previous minecraft versions.
 
 ### Textured Entity Testing:
 
