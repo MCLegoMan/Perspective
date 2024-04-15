@@ -12,18 +12,13 @@ uniform float lu_viewDistance;
 
 void main() {
     vec4 inputColor = texture(DiffuseSampler, texCoord);
-
     vec2 uv = texCoord.xy;
     uv *= InSize;
     uv.x = InSize.x - uv.x;
     uv /= InSize;
     vec4 color = texture(DiffuseSampler, uv);
-
     float depth = min(max(1.0 - (1.0 - texture(DiffuseDepthSampler, texCoord).r) * ((lu_viewDistance * 16) * 0.64), 0.0), 1.0);
-
-    vec3 outputColor;
+    vec3 outputColor = inputColor.rgb;
     if (depth > 0.9) outputColor = mix(inputColor.rgb, color.rgb, smoothstep(0.9, 0.91, depth));
-    else outputColor = inputColor.rgb;
-
     fragColor = vec4(outputColor, inputColor.a);
 }

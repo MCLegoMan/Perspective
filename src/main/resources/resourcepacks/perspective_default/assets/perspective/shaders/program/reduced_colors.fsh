@@ -8,5 +8,5 @@ out vec4 fragColor;
 uniform float Amount;
 
 void main() {
-    fragColor.rgb = floor(texture(DiffuseSampler, texCoord).rgb * Amount) / Amount;
+    fragColor = vec4(floor(texture(DiffuseSampler, texCoord).rgb * Amount) / Amount, 1.0);
 }
