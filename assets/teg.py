@@ -4,9 +4,9 @@
 # Licence: GNU LGPLv3
 
 # This script will help you in the process of making textured entities for cats.
-# Currently this script will copy the input file and output a file for each variant.
+# Currently, this script will copy the input file and output a file for each variant.
 
-# In future this tool will ideally be updated to create the resource pack for you.
+# In future, this tool will ideally be updated to create the resource pack for you.
 # I also want to add support for all vanilla entities (and possibly modded entities too if the mod supports Perspective)
 
 import shutil
