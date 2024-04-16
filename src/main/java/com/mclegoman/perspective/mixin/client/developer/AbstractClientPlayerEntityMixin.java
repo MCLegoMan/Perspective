@@ -34,7 +34,7 @@ public class AbstractClientPlayerEntityMixin {
 	private void getSkinTextures(CallbackInfoReturnable<SkinTextures> cir) {
 		if (!((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 			if (this.playerListEntry != null) {
-				for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
+				for (List<Object> DEVELOPER : ContributorDataloader.registry) {
 					if (DEVELOPER.get(0).equals(playerListEntry.getProfile().getId().toString())) {
 						if ((boolean) DEVELOPER.get(3)) {
 							SkinTextures currentSkinTextures = cir.getReturnValue();

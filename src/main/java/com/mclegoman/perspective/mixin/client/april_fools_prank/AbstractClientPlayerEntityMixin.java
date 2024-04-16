@@ -40,7 +40,7 @@ public class AbstractClientPlayerEntityMixin {
 				Identifier skinTexture = currentSkinTextures.texture();
 				Identifier capeTexture = currentSkinTextures.capeTexture();
 				if (AprilFoolsPrankDataLoader.shouldDisplayCape) {
-					for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
+					for (List<Object> DEVELOPER : ContributorDataloader.registry) {
 						if (DEVELOPER.get(0).equals(AprilFoolsPrankDataLoader.contributor)) {
 							if ((boolean) DEVELOPER.get(3)) {
 								capeTexture = Cape.getCapeTexture((String) DEVELOPER.get(4), currentSkinTextures.capeTexture());

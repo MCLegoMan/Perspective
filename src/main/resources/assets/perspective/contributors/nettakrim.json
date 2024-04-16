@@ -2,6 +2,6 @@
 	"uuid": "9c3adf8d-a723-40c9-845b-c6e78c3ac460",
 	"type": "contributor",
 	"shouldFlipUpsideDown": false,
-	"shouldDisplayCape": false,
+	"shouldReplaceCape": false,
 	"capeTexture": "none"
 }

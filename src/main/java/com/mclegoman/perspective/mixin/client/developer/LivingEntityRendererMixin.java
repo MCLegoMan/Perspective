@@ -26,7 +26,7 @@ public abstract class LivingEntityRendererMixin {
 	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
 		if (!((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && AprilFoolsPrank.isAprilFools())) {
 			if (entity instanceof PlayerEntity)
-				for (List<Object> DEVELOPER : ContributorDataloader.REGISTRY) {
+				for (List<Object> DEVELOPER : ContributorDataloader.registry) {
 					if (DEVELOPER.get(0).equals(((PlayerEntity) entity).getGameProfile().getId().toString())) {
 						if ((boolean) DEVELOPER.get(2)) {
 							cir.setReturnValue(true);
