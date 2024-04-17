@@ -50,7 +50,7 @@ public class ShadersConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, true), true, "shaders", false, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, true), "shaders", false, true));
 			GRID_ADDER.add(createShaders());
 			GRID_ADDER.add(createShaderOptions());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
@@ -65,11 +65,11 @@ public class ShadersConfigScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false));
+				ClientData.minecraft.setScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false));
 			}
 			if (this.SHOULD_CLOSE) {
 				if (this.SAVE_ON_CLOSE) ConfigHelper.saveConfig();
-				ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.minecraft.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$shaders screen: {}", Data.VERSION.getID(), error);
@@ -86,7 +86,7 @@ public class ShadersConfigScreen extends Screen {
 		}).width(256).build();
 		cycleShaders.active = Shader.isShaderButtonsEnabled();
 		GRID_ADDER.add(cycleShaders);
-		ButtonWidget listShaders = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list"), (button) -> ClientData.CLIENT.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false), new Formatting[]{Shader.getRandomColor()}, -1, (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur")))).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list", true))).width(20).build();
+		ButtonWidget listShaders = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list"), (button) -> ClientData.minecraft.setScreen(new ShaderSelectionConfigScreen(new ShadersConfigScreen(PARENT_SCREEN, SAVE_ON_CLOSE, formattings, false), new Formatting[]{Shader.getRandomColor()}, -1, (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur")))).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.list", true))).width(20).build();
 		listShaders.active = Shader.isShaderButtonsEnabled();
 		GRID_ADDER.add(listShaders);
 		ButtonWidget randomShader = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders.random"), (button) -> {

@@ -29,7 +29,7 @@ import java.util.List;
 public abstract class GameRendererMixin {
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
 	public void perspective$renderGame(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
 			if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
 				if (!((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && Shader.useDepth)) {
 					Shader.render(Shader.postProcessor, tickDelta, "game");
@@ -39,7 +39,7 @@ public abstract class GameRendererMixin {
 	}
 	@Inject(method = "render", at = @At("TAIL"))
 	private void perspective$renderScreen(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
 			if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
 				Shader.render(Shader.postProcessor, tickDelta, "screen");
 		}

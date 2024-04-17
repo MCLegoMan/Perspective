@@ -35,8 +35,8 @@ public class UpdateCheckerScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new UpdateCheckerScreen(PARENT_SCREEN), false, "update_checker", false, false));
-			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.checking"), ClientData.CLIENT.textRenderer).setCentered(true));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new UpdateCheckerScreen(PARENT_SCREEN), "update_checker", false, false));
+			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.checking"), ClientData.minecraft.textRenderer).setCentered(true));
 			GRID.refreshPositions();
 			GRID.forEachChild(this::addDrawableChild);
 			initTabNavigation();
@@ -47,7 +47,7 @@ public class UpdateCheckerScreen extends Screen {
 	public void tick() {
 		try {
 			if (UpdateChecker.UPDATE_CHECKER_COMPLETE) this.SHOULD_CLOSE = true;
-			if (this.SHOULD_CLOSE) ClientData.CLIENT.setScreen(PARENT_SCREEN);
+			if (this.SHOULD_CLOSE) ClientData.minecraft.setScreen(PARENT_SCREEN);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.VERSION.getID(), error);
 		}

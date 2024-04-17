@@ -78,7 +78,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				zoomType = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "zoom_type", "perspective:logarithmic");
 				zoomShowPercentage = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_show_percentage", false);
 				holdPerspectiveHideHud = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_hide_hud", true);
-				superSecretSettingsShader = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_shader", "minecraft:none");
+				superSecretSettingsShader = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_shader", "minecraft:blur");
 				superSecretSettingsMode = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_mode", "game");
 				superSecretSettingsEnabled = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_enabled", false);
 				superSecretSettingsSound = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_sound", true);

@@ -39,25 +39,25 @@ public abstract class InGameHudMixin {
 
 	@Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
 	private void perspective$renderCrosshair(DrawContext context, float tickDelta, CallbackInfo ci) {
-		if (ClientData.CLIENT.world != null) {
+		if (ClientData.minecraft.world != null) {
 			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("true")) || (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("dynamic"))) {
-				HitResult crosshairTarget = ClientData.CLIENT.crosshairTarget;
+				HitResult crosshairTarget = ClientData.minecraft.crosshairTarget;
 				boolean hide_crosshair = (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("true"));
 				if (crosshairTarget != null) {
 					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("dynamic")))
-						hide_crosshair = (crosshairTarget.getType() == HitResult.Type.BLOCK) ? ClientData.CLIENT.world.getBlockState(((BlockHitResult) crosshairTarget).getBlockPos()).isAir() : crosshairTarget.getType() != HitResult.Type.ENTITY;
+						hide_crosshair = (crosshairTarget.getType() == HitResult.Type.BLOCK) ? ClientData.minecraft.world.getBlockState(((BlockHitResult) crosshairTarget).getBlockPos()).isAir() : crosshairTarget.getType() != HitResult.Type.ENTITY;
 					if (hide_crosshair) {
-						if (ClientData.CLIENT.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
-							if (ClientData.CLIENT.player != null) {
-								if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
-									float cooldownProgress = ClientData.CLIENT.player.getAttackCooldownProgress(0.0F);
+						if (ClientData.minecraft.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
+							if (ClientData.minecraft.player != null) {
+								if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
+									float cooldownProgress = ClientData.minecraft.player.getAttackCooldownProgress(0.0F);
 									boolean cooldownProgressFull = false;
-									if (ClientData.CLIENT.targetedEntity instanceof LivingEntity && cooldownProgress >= 1.0F) {
-										cooldownProgressFull = ClientData.CLIENT.player.getAttackCooldownProgressPerTick() > 5.0F;
-										cooldownProgressFull &= ClientData.CLIENT.targetedEntity.isAlive();
+									if (ClientData.minecraft.targetedEntity instanceof LivingEntity && cooldownProgress >= 1.0F) {
+										cooldownProgressFull = ClientData.minecraft.player.getAttackCooldownProgressPerTick() > 5.0F;
+										cooldownProgressFull &= ClientData.minecraft.targetedEntity.isAlive();
 									}
-									int j = ClientData.CLIENT.getWindow().getScaledHeight() / 2 - 7 + 16;
-									int k = ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 8;
+									int j = ClientData.minecraft.getWindow().getScaledHeight() / 2 - 7 + 16;
+									int k = ClientData.minecraft.getWindow().getScaledWidth() / 2 - 8;
 									if (cooldownProgressFull) {
 										context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
 									} else if (cooldownProgress < 1.0F) {

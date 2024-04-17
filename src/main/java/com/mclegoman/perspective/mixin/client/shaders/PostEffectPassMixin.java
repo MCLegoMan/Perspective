@@ -31,17 +31,17 @@ public abstract class PostEffectPassMixin {
 	private void perspective$updateUniforms(float time, CallbackInfo ci) {
 		try {
 			// Uniforms with the "lu_" prefix will be moved to a separate mod in a future update to allow other shader mods to use them too without having perspective installed.
-			getUniform("viewDistance").set((float) ClientData.CLIENT.options.getViewDistance().getValue());
+			getUniform("viewDistance").set((float) ClientData.minecraft.options.getViewDistance().getValue());
 
-			getUniform("eyePosition").set(ClientData.CLIENT.cameraEntity != null ? ClientData.CLIENT.cameraEntity.getEyePos().toVector3f() : new Vector3f(0, 0, 0));
-			getUniform("pitch").set(ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getPitch(ClientData.CLIENT.getTickDelta()) % 360 : 0);
-			getUniform("yaw").set(ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getYaw(ClientData.CLIENT.getTickDelta()) % 360 : 0);
+			getUniform("eyePosition").set(ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0, 0, 0));
+			getUniform("pitch").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getPitch(ClientData.minecraft.getTickDelta()) % 360 : 0);
+			getUniform("yaw").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getYaw(ClientData.minecraft.getTickDelta()) % 360 : 0);
 
-			getUniform("currentHealth").set(ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getHealth() : 20);
-			getUniform("maxHealth").set(ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getMaxHealth() : 20);
+			getUniform("currentHealth").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getHealth() : 20);
+			getUniform("maxHealth").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20);
 
-			getUniform("currentAir").set(ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getAir() : 10);
-			getUniform("maxAir").set(ClientData.CLIENT.player != null ? ClientData.CLIENT.player.getMaxAir() : 10);
+			getUniform("currentAir").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getAir() : 10);
+			getUniform("maxAir").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAir() : 10);
 
 			// Perspective Uniforms
 			getUniform(Data.VERSION.getID(), "zoomMultiplier").set((float) Zoom.getMultiplier());

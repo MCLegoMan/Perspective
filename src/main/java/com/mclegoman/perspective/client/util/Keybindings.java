@@ -71,7 +71,7 @@ public class Keybindings {
 		if (!seenConflictingKeybindingToasts) {
 			if (hasKeybindingConflicts()) {
 				Data.VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.VERSION.getName());
-				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
+				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
 			}
 			seenConflictingKeybindingToasts = true;
 		}
@@ -79,7 +79,7 @@ public class Keybindings {
 
 	public static boolean hasKeybindingConflicts() {
 		for (KeyBinding currentKey1 : allKeybindings) {
-			for (KeyBinding currentKey2 : ClientData.CLIENT.options.allKeys) {
+			for (KeyBinding currentKey2 : ClientData.minecraft.options.allKeys) {
 				if (!currentKey1.isUnbound() && !currentKey2.isUnbound()) {
 					if (currentKey1 != currentKey2) {
 						if (KeyBindingHelper.getBoundKeyOf(currentKey1) == KeyBindingHelper.getBoundKeyOf(currentKey2))

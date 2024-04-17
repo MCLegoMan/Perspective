@@ -18,8 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
 @Mixin(priority = 100, value = RenderPhase.class)
 public class RenderPhaseMixin {
 	@Shadow @Final protected String name;
@@ -48,8 +46,8 @@ public class RenderPhaseMixin {
 	}
 	@Inject(at = @At(value = "RETURN"), method = "endDrawing")
 	public void perspective$endDrawing(CallbackInfo ci) {
-		if (ClientData.CLIENT.getFramebuffer() != null) {
-			if (Shader.shouldRenderShader() || Shader.shouldRenderEntityLinkShader()) ClientData.CLIENT.getFramebuffer().beginWrite(false);
+		if (ClientData.minecraft.getFramebuffer() != null) {
+			if (Shader.shouldRenderShader() || Shader.shouldRenderEntityLinkShader()) ClientData.minecraft.getFramebuffer().beginWrite(false);
 		}
 	}
 }

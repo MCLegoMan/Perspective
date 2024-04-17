@@ -18,7 +18,7 @@ public class HUDHelper {
 	public static void tick() {
 		if (Keybindings.cycleDebug.wasPressed()) {
 			DebugOverlay.shaderColor = Shader.getRandomColor();
-			DebugOverlay.debugType = ClientData.CLIENT.options.sneakKey.isPressed() ? DebugOverlay.debugType.prev() : DebugOverlay.debugType.next();
+			DebugOverlay.debugType = ClientData.minecraft.options.sneakKey.isPressed() ? DebugOverlay.debugType.prev() : DebugOverlay.debugType.next();
 		}
 		if (Keybindings.togglePosOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));

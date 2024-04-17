@@ -67,10 +67,10 @@ public abstract class GameRendererMixin {
 	@Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;bobView(Lnet/minecraft/client/util/math/MatrixStack;F)V"))
 	private void perspective$bobViewStrideDistance(GameRenderer instance, MatrixStack matrices, float tickDelta) {
 		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
-			if (ClientData.CLIENT.player != null) {
-				float f = ClientData.CLIENT.player.horizontalSpeed - ClientData.CLIENT.player.prevHorizontalSpeed;
-				float g = -(ClientData.CLIENT.player.horizontalSpeed + f * tickDelta);
-				float h = (float) (MathHelper.lerp(tickDelta, ClientData.CLIENT.player.prevStrideDistance, ClientData.CLIENT.player.strideDistance) * Math.max(Zoom.getMultiplier(), 0.001));
+			if (ClientData.minecraft.player != null) {
+				float f = ClientData.minecraft.player.horizontalSpeed - ClientData.minecraft.player.prevHorizontalSpeed;
+				float g = -(ClientData.minecraft.player.horizontalSpeed + f * tickDelta);
+				float h = (float) (MathHelper.lerp(tickDelta, ClientData.minecraft.player.prevStrideDistance, ClientData.minecraft.player.strideDistance) * Math.max(Zoom.getMultiplier(), 0.001));
 				matrices.translate(MathHelper.sin(g * 3.1415927F) * h * 0.5F, -Math.abs(MathHelper.cos(g * 3.1415927F) * h), 0.0F);
 				matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.sin(g * 3.1415927F) * h * 3.0F));
 				matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(Math.abs(MathHelper.cos(g * 3.1415927F - 0.2F) * h) * 5.0F));

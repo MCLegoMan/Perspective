@@ -29,7 +29,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 	private boolean justUpdated;
 
 	public Toast(Text title, Text description, int width, Type type) {
-		this(title, ClientData.CLIENT.textRenderer.wrapLines(description, width - 32), width, type);
+		this(title, ClientData.minecraft.textRenderer.wrapLines(description, width - 32), width, type);
 	}
 
 	private Toast(Text title, List<OrderedText> lines, int width, Type type) {
@@ -43,7 +43,7 @@ public class Toast implements net.minecraft.client.toast.Toast {
 	}
 
 	public int getWidth() {
-		return ClientData.CLIENT.textRenderer.getWidth(this.title) > this.width ? ClientData.CLIENT.textRenderer.getWidth(this.title) + 32 : this.width;
+		return ClientData.minecraft.textRenderer.getWidth(this.title) > this.width ? ClientData.minecraft.textRenderer.getWidth(this.title) + 32 : this.width;
 	}
 
 	public int getHeight() {

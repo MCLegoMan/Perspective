@@ -8,6 +8,7 @@
             "name": "perspective:gaussian",
             "intarget": "minecraft:main",
             "outtarget": "0",
+            "use_linear_filter": true,
             "uniforms": [
                 {
                     "name": "BlurDir",
@@ -23,6 +24,7 @@
             "name": "perspective:gaussian",
             "intarget": "0",
             "outtarget": "1",
+            "use_linear_filter": true,
             "uniforms": [
                 {
                     "name": "BlurDir",

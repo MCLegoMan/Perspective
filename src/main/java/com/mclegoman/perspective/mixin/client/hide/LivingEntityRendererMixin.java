@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityRendererMixin {
 	@Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
 	private void perspective$hide_nametag(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-		if (ClientData.CLIENT.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags") || (entity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))))
+		if (ClientData.minecraft.gameRenderer.isRenderingPanorama() || (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags") || (entity instanceof PlayerEntity && HideNameTagsDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId())))))
 			cir.setReturnValue(false);
 		if (entity instanceof PlayerEntity) {
 			if (Hide.shouldHidePlayer((PlayerEntity) entity)) cir.setReturnValue(false);

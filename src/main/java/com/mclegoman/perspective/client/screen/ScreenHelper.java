@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.PerspectiveLogo;
+import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.MinecraftClient;
@@ -20,7 +20,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class ScreenHelper {
-	public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, boolean showPageName, String pageName, boolean experimental, boolean updateMsg) {
+	public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, String pageName, boolean experimental, boolean updateMsg) {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
@@ -30,13 +30,10 @@ public class ScreenHelper {
 			Text NEW_VERSION_TEXT = Translation.getConfigTranslation(Data.VERSION.getID(), "update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}, new Formatting[]{Formatting.YELLOW});
 			GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(PARENT_SCREEN, UpdateChecker.DOWNLOAD_LINK)), client.textRenderer));
 		}
-		if (showPageName) {
-			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), pageName), ClientData.CLIENT.textRenderer).setCentered(true));
-			GRID_ADDER.add(new EmptyWidget(2, 2));
-		}
+		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), pageName), ClientData.minecraft.textRenderer).setCentered(true));
+		GRID_ADDER.add(new EmptyWidget(2, 2));
 		return GRID;
 	}
-
 	public static GridWidget createTitle(boolean experimental) {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);

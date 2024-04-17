@@ -28,17 +28,17 @@ public abstract class InGameHudMixin {
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
 	private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHUD()) ci.cancel();
-		if (!ClientData.CLIENT.gameRenderer.isRenderingPanorama()) {
+		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
 			float h = MessageOverlay.remaining - tickDelta;
 			int l = (int) (h * 255.0F / 20.0F);
 			if (l > 255) l = 255;
 			if (l > 10) {
 				context.getMatrices().push();
-				context.getMatrices().translate((float) (ClientData.CLIENT.getWindow().getScaledWidth() / 2), 27, 0.0F);
+				context.getMatrices().translate((float) (ClientData.minecraft.getWindow().getScaledWidth() / 2), 27, 0.0F);
 				int k = 16777215;
 				int m = l << 24 & -16777216;
-				int n = ClientData.CLIENT.textRenderer.getWidth(MessageOverlay.message);
-				context.drawTextWithShadow(ClientData.CLIENT.textRenderer, MessageOverlay.message, -n / 2, -4, k | m);
+				int n = ClientData.minecraft.textRenderer.getWidth(MessageOverlay.message);
+				context.drawTextWithShadow(ClientData.minecraft.textRenderer, MessageOverlay.message, -n / 2, -4, k | m);
 				context.getMatrices().pop();
 			}
 		}
@@ -46,9 +46,9 @@ public abstract class InGameHudMixin {
 
 	@Inject(at = @At("RETURN"), method = "render")
 	private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
-		if (!ClientData.CLIENT.getDebugHud().shouldShowDebugHud() && !ClientData.CLIENT.options.hudHidden && !HUDHelper.shouldHideHUD()) {
+		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
-				context.drawTextWithShadow(ClientData.CLIENT.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
 			if (!DebugOverlay.debugType.equals(DebugOverlay.Type.none)) {
 				DebugOverlay.renderDebugHUD(context);

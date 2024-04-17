@@ -25,6 +25,7 @@ public abstract class TitleScreenMixin {
 	}
 	@Inject(method = "renderBackground", at = @At(value = "TAIL"))
 	private void perspective$renderBackground(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen").equals("dirt")) UIBackground.Legacy.renderMenu(new DrawContext(ClientData.CLIENT, ClientData.CLIENT.getBufferBuilders().getEntityVertexConsumers()));
+		// This needs to be moved to the panorama renderer class with a check if the screen is instance of title screen.
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen").equals("dirt")) UIBackground.Legacy.renderMenu(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
 	}
 }

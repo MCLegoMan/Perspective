@@ -53,7 +53,7 @@ public class ConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE), false, "", false, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(PARENT_SCREEN, true, PAGE), "config", false, true));
 			if (PAGE == 1) GRID_ADDER.add(createPageOne());
 			else if (PAGE == 2) GRID_ADDER.add(createPageTwo());
 			else SHOULD_CLOSE = true;
@@ -69,11 +69,11 @@ public class ConfigScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE));
+				ClientData.minecraft.setScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE));
 			}
 			if (this.SHOULD_CLOSE) {
 				ConfigHelper.saveConfig();
-				ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.minecraft.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config screen: {}", Data.VERSION.getID(), error);
@@ -83,14 +83,14 @@ public class ConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom"), (button) -> ClientData.CLIENT.setScreen(new ZoomConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders"), (button) -> ClientData.CLIENT.setScreen(new ShadersConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false, new Formatting[]{Shader.getRandomColor()}, false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "textured_entity"), (button) -> ClientData.CLIENT.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "april_fools_prank"), (button) -> ClientData.CLIENT.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hide"), (button) -> ClientData.CLIENT.setScreen(new HideConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hold_perspective"), (button) -> ClientData.CLIENT.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information"), (button) -> ClientData.CLIENT.setScreen(new InformationScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
-		ButtonWidget EXPERIMENTAL = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental"), (button) -> ClientData.CLIENT.setScreen(new ExperimentalConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build();
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "shaders"), (button) -> ClientData.minecraft.setScreen(new ShadersConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false, new Formatting[]{Shader.getRandomColor()}, false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hide"), (button) -> ClientData.minecraft.setScreen(new HideConfigScreen(new ConfigScreen(PARENT_SCREEN, false, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hold_perspective"), (button) -> ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information"), (button) -> ClientData.minecraft.setScreen(new InformationScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build());
+		ButtonWidget EXPERIMENTAL = ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental"), (button) -> ClientData.minecraft.setScreen(new ExperimentalConfigScreen(new ConfigScreen(PARENT_SCREEN, true, PAGE), false))).build();
 		EXPERIMENTAL.active = ConfigHelper.EXPERIMENTS_AVAILABLE;
 		GRID_ADDER.add(EXPERIMENTAL);
 		return GRID;

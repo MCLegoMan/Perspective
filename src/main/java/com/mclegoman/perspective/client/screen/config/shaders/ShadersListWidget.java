@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>> extends AlwaysSelectedEntryListWidget<ShaderListEntry> {
 	protected ShadersListWidget(int width, int height, int top, int bottom, int itemHeight, double scrollAmount) {
-		super(ClientData.CLIENT, width, height - top - bottom, top, itemHeight);
+		super(ClientData.minecraft, width, height - top - bottom, top, itemHeight);
 		for (int i = 0; i <= (ShaderDataLoader.getShaderAmount() - 1); i++) {
 			this.addEntry(new ShaderListEntry(i));
 		}
@@ -38,6 +38,6 @@ public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>>
 
 	@Override
 	protected int getScrollbarX()  {
-		return (ClientData.CLIENT.getWindow().getScaledWidth()) - 6;
+		return (ClientData.minecraft.getWindow().getScaledWidth()) - 6;
 	}
 }

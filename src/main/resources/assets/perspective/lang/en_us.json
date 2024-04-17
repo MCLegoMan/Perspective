@@ -48,6 +48,8 @@
 
 	"gui.perspective.config.update.checking": "Checking for updates...",
 
+	"gui.perspective.config.config": "Config",
+
 	"gui.perspective.config.zoom": "Zoom",
 
 	"gui.perspective.config.zoom.level": "Zoom: %s",
@@ -288,5 +290,14 @@
 
 	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen",
 
-	"shader.perspective.gaussian" : "gaussian"
+	"shader.perspective.gaussian" : "gaussian",
+
+	"splashes.perspective.whered_my_hud_go": "Where'd my HUD go?",
+	"splashes.perspective.also_try_souper_secret_settings": "Also try Souper Secret Settings!",
+	"splashes.perspective.waffel_is_the_goat": "Waffel is the Goat!",
+	"splashes.perspective.mooshroom_moobloom": "Mooshroom? Moobloom!",
+	"splashes.perspective.thousands_of_downloads_on_modrinth": "Thousands of downloads on Modrinth!",
+
+	"splashes.perspective.special.pride_month": "§4Hap§6py P§eri§2de §9Mon§5th!",
+	"splashes.perspective.special.april_fools": "April Fools'!"
 }

@@ -26,11 +26,11 @@ public class Perspective {
 
 	public static void tick() {
 		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
-			ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
+			ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
 		if (Keybindings.setPerspectiveThirdPersonBack.wasPressed())
-			ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
+			ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
 		if (Keybindings.setPerspectiveThirdPersonFront.wasPressed())
-			ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
+			ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 		getHoldAll();
 	}
 
@@ -38,10 +38,10 @@ public class Perspective {
 		if (!Keybindings.holdPerspectiveThirdPersonBack.isPressed() && !HOLD_THIRD_PERSON_BACK_LOCK) {
 			if (!HOLD_THIRD_PERSON_FRONT_LOCK) {
 				HOLD_THIRD_PERSON_FRONT_PREV = perspective;
-				if (ClientData.CLIENT.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT))
-					ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
+				if (ClientData.minecraft.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT))
+					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
 				else
-					ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
+					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 			}
 			HOLD_THIRD_PERSON_FRONT_LOCK = true;
 		}
@@ -51,10 +51,10 @@ public class Perspective {
 		if (!Keybindings.holdPerspectiveThirdPersonFront.isPressed() && !HOLD_THIRD_PERSON_FRONT_LOCK) {
 			if (!HOLD_THIRD_PERSON_BACK_LOCK) {
 				HOLD_THIRD_PERSON_BACK_PREV = perspective;
-				if (ClientData.CLIENT.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK))
-					ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
+				if (ClientData.minecraft.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK))
+					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
 				else
-					ClientData.CLIENT.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
+					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
 			}
 			HOLD_THIRD_PERSON_BACK_LOCK = true;
 		}
@@ -63,10 +63,10 @@ public class Perspective {
 	private static void getHoldAll() {
 		for (int i = 0; i < 2; i++) {
 			if (Keybindings.holdPerspectiveThirdPersonFront.isPressed())
-				setThirdPersonFront(ClientData.CLIENT.options.getPerspective());
+				setThirdPersonFront(ClientData.minecraft.options.getPerspective());
 			clearHoldFront();
 			if (Keybindings.holdPerspectiveThirdPersonBack.isPressed())
-				setThirdPersonBack(ClientData.CLIENT.options.getPerspective());
+				setThirdPersonBack(ClientData.minecraft.options.getPerspective());
 			clearHoldBack();
 		}
 	}
@@ -74,14 +74,14 @@ public class Perspective {
 	private static void clearHoldFront() {
 		if (!Keybindings.holdPerspectiveThirdPersonFront.isPressed() && HOLD_THIRD_PERSON_FRONT_LOCK) {
 			HOLD_THIRD_PERSON_FRONT_LOCK = false;
-			ClientData.CLIENT.options.setPerspective(HOLD_THIRD_PERSON_FRONT_PREV);
+			ClientData.minecraft.options.setPerspective(HOLD_THIRD_PERSON_FRONT_PREV);
 		}
 	}
 
 	private static void clearHoldBack() {
 		if (!Keybindings.holdPerspectiveThirdPersonBack.isPressed() && HOLD_THIRD_PERSON_BACK_LOCK) {
 			HOLD_THIRD_PERSON_BACK_LOCK = false;
-			ClientData.CLIENT.options.setPerspective(HOLD_THIRD_PERSON_BACK_PREV);
+			ClientData.minecraft.options.setPerspective(HOLD_THIRD_PERSON_BACK_PREV);
 		}
 	}
 }

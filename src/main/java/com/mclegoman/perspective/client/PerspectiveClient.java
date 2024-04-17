@@ -17,6 +17,7 @@ import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -38,13 +39,14 @@ public class PerspectiveClient implements ClientModInitializer {
 			Hide.init();
 			Keybindings.init();
 			Panorama.init();
+			PerspectiveLogo.init();
 			ResourcePacks.init();
 			Shader.init();
 			TexturedEntity.init();
 			Tick.init();
 			ClientData.setFinishedInitializing(true);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Failed to run onInitializeClient: {}", error));
+			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to run onInitializeClient: {}", error));
 		}
 	}
 }

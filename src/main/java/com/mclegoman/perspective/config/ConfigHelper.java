@@ -16,7 +16,7 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.Keybindings;
-import com.mclegoman.perspective.client.util.PerspectiveLogo;
+import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -83,7 +83,7 @@ public class ConfigHelper {
 		try {
 			if (!UPDATED_CONFIG) ConfigHelper.updateConfig();
 			if (Keybindings.openConfig.wasPressed())
-				ClientData.CLIENT.setScreen(new ConfigScreen(ClientData.CLIENT.currentScreen, false, 1));
+				ClientData.minecraft.setScreen(new ConfigScreen(ClientData.minecraft.currentScreen, false, 1));
 			if (SAVE_VIA_TICK_TICKS < SAVE_VIA_TICK_SAVE_TICK) SAVE_VIA_TICK_TICKS += 1;
 			else {
 				if (fixConfig()) saveConfig();
@@ -105,17 +105,17 @@ public class ConfigHelper {
 	private static void showToasts() {
 		if (Data.VERSION.isDevelopmentBuild() && !SEEN_DEVELOPMENT_WARNING) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, "Development Build: Please help us improve by submitting bug reports if you encounter any issues.");
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.development_warning.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.development_warning.description"), 320, Toast.Type.WARNING));
+			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.development_warning.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.development_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DEVELOPMENT_WARNING = true;
 		}
 		if (SHOW_DOWNGRADE_WARNING && !SEEN_DOWNGRADE_WARNING) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, "Downgrading is not supported: You may experience configuration related issues.");
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.downgrade_warning.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
+			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.downgrade_warning.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
 			SEEN_DOWNGRADE_WARNING = true;
 		}
 		if (SHOW_LICENSE_UPDATE_NOTICE && !SEEN_LICENSE_UPDATE_NOTICE) {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, "License Update: Perspective is now licensed under LGPL-3.0-or-later.");
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.license_update.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.license_update.description"), 320, Toast.Type.INFO));
+			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.license_update.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.license_update.description"), 320, Toast.Type.INFO));
 			SEEN_LICENSE_UPDATE_NOTICE = true;
 		}
 	}
@@ -244,7 +244,7 @@ public class ConfigHelper {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
 				hasFixedConfig = setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode);
 			}
-			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > PerspectiveLogo.pride_types.length) {
+			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > PerspectiveLogo.prideTypes.length) {
 				Data.VERSION.sendToLog(Helper.LogType.WARN, "Config: force_pride_type_index was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type_index") + ")");
 				hasFixedConfig = setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex);
 			}
@@ -296,7 +296,7 @@ public class ConfigHelper {
 			configChanged = setConfig(ConfigType.NORMAL, "version_overlay", ConfigDataLoader.versionOverlay);
 			configChanged = setConfig(ConfigType.NORMAL, "force_pride", ConfigDataLoader.forcePride);
 			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.forcePrideType);
-			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.forcePrideTypeIndex, 0, PerspectiveLogo.pride_types.length));
+			configChanged = setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.forcePrideTypeIndex, 0, PerspectiveLogo.prideTypes.length));
 			configChanged = setConfig(ConfigType.NORMAL, "show_death_coordinates", ConfigDataLoader.showDeathCoordinates);
 			configChanged = setConfig(ConfigType.NORMAL, "title_screen", ConfigDataLoader.titleScreen);
 			configChanged = setConfig(ConfigType.NORMAL, "ui_background", ConfigDataLoader.uiBackground);
@@ -422,7 +422,7 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						case "force_pride_type_index" -> {
-							Config.forcePrideTypeIndex = MathHelper.clamp((int) VALUE, 0, PerspectiveLogo.pride_types.length);
+							Config.forcePrideTypeIndex = MathHelper.clamp((int) VALUE, 0, PerspectiveLogo.prideTypes.length);
 							configChanged = true;
 						}
 						case "show_death_coordinates" -> {
@@ -616,7 +616,7 @@ public class ConfigHelper {
 						return Config.forcePrideType;
 					}
 					case "force_pride_type_index" -> {
-						return MathHelper.clamp(Config.forcePrideTypeIndex, 0, PerspectiveLogo.pride_types.length);
+						return MathHelper.clamp(Config.forcePrideTypeIndex, 0, PerspectiveLogo.prideTypes.length);
 					}
 					case "show_death_coordinates" -> {
 						return Config.showDeathCoordinates;

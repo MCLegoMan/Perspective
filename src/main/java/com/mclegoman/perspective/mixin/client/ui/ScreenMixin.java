@@ -20,13 +20,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ScreenMixin {
 	@Inject(method = "renderBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;applyBlur(F)V"))
 	private void perspective$renderBackground(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy") && ClientData.CLIENT.world != null) UIBackground.Legacy.renderWorld(new DrawContext(ClientData.CLIENT, ClientData.CLIENT.getBufferBuilders().getEntityVertexConsumers()));
+		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy") && ClientData.minecraft.world != null) UIBackground.Legacy.renderWorld(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
 	}
 	@Inject(method = "renderPanoramaBackground", at = @At(value = "HEAD"), cancellable = true)
 	private void perspective$renderPanoramaBackground(DrawContext context, float delta, CallbackInfo ci) {
 		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy")) {
 			ci.cancel();
-			UIBackground.Legacy.renderMenu(new DrawContext(ClientData.CLIENT, ClientData.CLIENT.getBufferBuilders().getEntityVertexConsumers()));
+			UIBackground.Legacy.renderMenu(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
 		}
 	}
 }

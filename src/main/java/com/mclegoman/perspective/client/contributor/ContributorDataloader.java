@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.contributor;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -40,6 +41,8 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 				contributor.add(shouldReplaceCape);
 				contributor.add(capeTexture);
 				if (!registry.contains(contributor)) registry.add(contributor);
+			} else {
+				Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
 			}
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to add contributor to contributor registry: {}", error));
@@ -63,13 +66,13 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 	}
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
 		try {
-			JsonObject READER = jsonElement.getAsJsonObject();
-			String uuid = JsonHelper.getString(READER, "uuid");
-			String type = JsonHelper.getString(READER, "type");
-			boolean shouldFlipUpsideDown = JsonHelper.getBoolean(READER, "shouldFlipUpsideDown", false);
-			boolean shouldReplaceCape = JsonHelper.getBoolean(READER, "shouldReplaceCape", false);
-			String capeTexture = JsonHelper.getString(READER, "capeTexture", "perspective:developer");
-			add(uuid, type, shouldFlipUpsideDown, shouldReplaceCape, capeTexture);
+			JsonObject reader = jsonElement.getAsJsonObject();
+			JsonArray uuids = JsonHelper.getArray(reader, "uuids");
+			String type = JsonHelper.getString(reader, "type");
+			boolean shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown", false);
+			boolean shouldReplaceCape = JsonHelper.getBoolean(reader, "shouldReplaceCape", false);
+			String capeTexture = JsonHelper.getString(reader, "capeTexture", "perspective:developer");
+			for (JsonElement uuid : uuids) add(uuid.getAsString(), type, shouldFlipUpsideDown, shouldReplaceCape, capeTexture);
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
 		}

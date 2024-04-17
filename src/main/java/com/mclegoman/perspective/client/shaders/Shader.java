@@ -78,7 +78,7 @@ public class Shader {
 		if (shouldRenderShader()) {
 			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen")) showToasts();
 			else {
-				if (ClientData.CLIENT.world != null) showToasts();
+				if (ClientData.minecraft.world != null) showToasts();
 			}
 		}
 		checkKeybindings();
@@ -98,13 +98,13 @@ public class Shader {
 			ShaderDataLoader.isReloading = false;
 		}
 		entityShaderEntityPrev = entityShaderEntity;
-		entityShaderEntity = ClientData.CLIENT.getCameraEntity();
+		entityShaderEntity = ClientData.minecraft.getCameraEntity();
 		if (entityShaderEntity != entityShaderEntityPrev) prepEntityShader(entityShaderEntity);
 	}
 
 	public static void checkKeybindings() {
 		if (Keybindings.cycleShaders.wasPressed())
-			cycle(true, !ClientData.CLIENT.options.sneakKey.isPressed(), true, true, true);
+			cycle(true, !ClientData.minecraft.options.sneakKey.isPressed(), true, true, true);
 		if (Keybindings.toggleShaders.wasPressed()) toggle(true, true, true, true);
 		if (Keybindings.randomizeShader.wasPressed()) random(true, true, true);
 	}
@@ -113,13 +113,13 @@ public class Shader {
 		boolean save = false;
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials")) {
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings")) {
-				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.cycleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.toggleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.cycleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.toggleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings", true);
 				save = true;
 			}
 		}
 		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity")) {
-			ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.photosensitivity.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
+			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.photosensitivity.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity", true);
 			save = true;
 		}
@@ -186,7 +186,7 @@ public class Shader {
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
 			set(true, playSound, showShaderName, true);
-			if (skipDisableScreenModeWhenWorldNull && (ClientData.CLIENT.world == null && (useDepth || !shouldDisableScreenMode())))
+			if (skipDisableScreenModeWhenWorldNull && (ClientData.minecraft.world == null && (useDepth || !shouldDisableScreenMode())))
 				cycle(true, true, false, true, SAVE_CONFIG);
 		} else {
 			if (postProcessor != null) {
@@ -216,7 +216,7 @@ public class Shader {
 			set(forwards, false, showShaderName, SAVE_CONFIG);
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"))
-					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
+					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
 				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.VERSION.getLoggerPrefix(), error);
@@ -240,7 +240,7 @@ public class Shader {
 		}
 	}
 	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
-		set(forwards, playSound, showShaderName, SAVE_CONFIG, ClientData.CLIENT.getFramebuffer(), ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+		set(forwards, playSound, showShaderName, SAVE_CONFIG, ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 	}
 	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG, Framebuffer framebuffer, int framebufferWidth, int framebufferHeight) {
 		useDepth = false;
@@ -249,8 +249,8 @@ public class Shader {
 			if (postProcessor != null) postProcessor.close();
 			Identifier shaderId = ShaderDataLoader.getPostShader((String) get(ShaderDataLoader.RegistryValue.id));
 			try {
-				ClientData.CLIENT.getResourceManager().getResourceOrThrow(shaderId);
-				postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, shaderId);
+				ClientData.minecraft.getResourceManager().getResourceOrThrow(shaderId);
+				postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), framebuffer, shaderId);
 				postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
 				try {
 					if (postProcessor != null) {
@@ -277,7 +277,7 @@ public class Shader {
 				setOverlay(getTranslatedShaderName(superSecretSettingsIndex));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"))
-					ClientData.CLIENT.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
+					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
 				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.VERSION.getLoggerPrefix(), error);
@@ -295,8 +295,8 @@ public class Shader {
 				superSecretSettingsIndex = 0;
 				try {
 					if (postProcessor != null) postProcessor.close();
-					postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.id)));
-					postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+					postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), ClientData.minecraft.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.id)));
+					postProcessor.setupDimensions(ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 						toggle(false, true, true, true);
 				} catch (Exception ignored2) {
@@ -315,7 +315,7 @@ public class Shader {
 					if (entity.getType().toString().equalsIgnoreCase((String) shader.get(0))) {
 						try {
 							Identifier shaderId = ((String) shader.get(1)).contains(":") ? ShaderDataLoader.getPostShader((String) shader.get(1)): ShaderDataLoader.getPostShader(ShaderDataLoader.guessPostShaderNamespace((String) shader.get(1)), (String) shader.get(1));
-							PostEffectProcessor shaderProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), framebuffer, shaderId);
+							PostEffectProcessor shaderProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), framebuffer, shaderId);
 							shaderProcessor.setupDimensions(framebufferWidth, framebufferHeight);
 							entityPostProcessor.add(shaderProcessor);
 							try {
@@ -367,7 +367,7 @@ public class Shader {
 	public static void prepEntityShader(@Nullable Entity entity) {
 		if (entity != null) {
 			Shader.entityPostProcessor = new ArrayList<>();
-			Shader.setEntityShader(ClientData.CLIENT.getFramebuffer(), ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight(), entity);
+			Shader.setEntityShader(ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight(), entity);
 		}
 	}
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta, String type) {
@@ -377,12 +377,12 @@ public class Shader {
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta) {
 		try {
 			if (postEffectProcessor != null) {
-				ClientData.CLIENT.getResourceManager().getResourceOrThrow(IdentifierHelper.identifierFromString(postEffectProcessor.getName()));
+				ClientData.minecraft.getResourceManager().getResourceOrThrow(IdentifierHelper.identifierFromString(postEffectProcessor.getName()));
 				RenderSystem.enableBlend();
 				RenderSystem.defaultBlendFunc();
 				postEffectProcessor.render(tickDelta);
 				RenderSystem.disableBlend();
-				ClientData.CLIENT.getFramebuffer().beginWrite(true);
+				ClientData.minecraft.getFramebuffer().beginWrite(true);
 			}
 		} catch (FileNotFoundException ignored) {
 		}

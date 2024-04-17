@@ -45,7 +45,7 @@ public class HideConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new HideConfigScreen(PARENT_SCREEN, true), true, "hide", false, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new HideConfigScreen(PARENT_SCREEN, true), "hide", false, true));
 			GRID_ADDER.add(createHide());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -60,10 +60,10 @@ public class HideConfigScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new HideConfigScreen(PARENT_SCREEN, false));
+				ClientData.minecraft.setScreen(new HideConfigScreen(PARENT_SCREEN, false));
 			}
 			if (this.SHOULD_CLOSE) {
-				ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.minecraft.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.VERSION.getID(), error);

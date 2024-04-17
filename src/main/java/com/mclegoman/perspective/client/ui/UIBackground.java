@@ -77,8 +77,8 @@ public class UIBackground {
 		private static void load() {
 			try {
 				if (postProcessor != null) postProcessor.close();
-				postProcessor = new PostEffectProcessor(ClientData.CLIENT.getTextureManager(), ClientData.CLIENT.getResourceManager(), ClientData.CLIENT.getFramebuffer(), new Identifier("perspective", "shaders/post/gaussian.json"));
-				postProcessor.setupDimensions(ClientData.CLIENT.getWindow().getFramebufferWidth(), ClientData.CLIENT.getWindow().getFramebufferHeight());
+				postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), ClientData.minecraft.getFramebuffer(), new Identifier("perspective", "shaders/post/gaussian.json"));
+				postProcessor.setupDimensions(ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error loading blur shader: {}", error));
 			}
@@ -98,7 +98,7 @@ public class UIBackground {
 		public static void renderWorld(DrawContext context) {
 			try {
 				RenderSystem.enableBlend();
-				context.fillGradient(0, 0, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), -1072689136, -804253680);
+				context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
@@ -107,8 +107,8 @@ public class UIBackground {
 		public static void renderMenu(DrawContext context) {
 			try {
 				RenderSystem.enableBlend();
-				context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
-				context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
 				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));

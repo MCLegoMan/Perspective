@@ -38,7 +38,7 @@ public class ShoulderParrotFeatureRendererMixin {
 			matrices.push();
 			matrices.translate(leftShoulder ? 0.4F : -0.4F, player.isInSneakingPose() ? -1.3F : -1.5F, 0.0F);
 			ParrotEntity.Variant variant = ParrotEntity.Variant.byIndex(nbtCompound.getInt("Variant"));
-			Identifier texture = TexturedEntity.getTexture(EntityType.getEntityFromNbt(nbtCompound, ClientData.CLIENT.world).get(), "minecraft:parrot", ParrotEntityRenderer.getTexture(variant));
+			Identifier texture = TexturedEntity.getTexture(EntityType.getEntityFromNbt(nbtCompound, ClientData.minecraft.world).get(), "minecraft:parrot", ParrotEntityRenderer.getTexture(variant));
 			VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.model.getLayer(texture));
 			this.model.poseOnShoulder(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, limbAngle, limbDistance, headYaw, headPitch, player.age);
 			matrices.pop();

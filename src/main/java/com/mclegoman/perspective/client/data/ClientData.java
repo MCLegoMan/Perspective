@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.data;
 import net.minecraft.client.MinecraftClient;
 
 public class ClientData {
-	public static final MinecraftClient CLIENT = MinecraftClient.getInstance();
+	public static final MinecraftClient minecraft = MinecraftClient.getInstance();
 	private static boolean finishedInitializing = false;
 	private static boolean finishedInitializingAfterConfig = false;
 	public static void setFinishedInitializing(boolean value) {
@@ -26,6 +26,6 @@ public class ClientData {
 		return finishedInitializingAfterConfig;
 	}
 	public static boolean isFinishedInitializing() {
-		return CLIENT.isFinishedLoading() && getFinishedInitializing() && getFinishedInitializingAfterConfig();
+		return minecraft.isFinishedLoading() && getFinishedInitializing() && getFinishedInitializingAfterConfig();
 	}
 }

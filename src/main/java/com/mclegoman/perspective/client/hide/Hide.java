@@ -61,9 +61,9 @@ public class Hide {
 		}
 	}
 	public static boolean shouldHidePlayer(PlayerEntity player) {
-		if (ClientData.CLIENT.player != null) {
+		if (ClientData.minecraft.player != null) {
 			UUID uuid = player.getGameProfile().getId();
-			if (!uuid.equals(ClientData.CLIENT.player.getGameProfile().getId()))
+			if (!uuid.equals(ClientData.minecraft.player.getGameProfile().getId()))
 				return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_players") || HidePlayerDataLoader.REGISTRY.contains(String.valueOf(player.getGameProfile().getId()));
 		}
 		return false;

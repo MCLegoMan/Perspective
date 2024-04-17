@@ -41,7 +41,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.CLIENT, new AprilFoolsPrankConfigScreen(PARENT_SCREEN, true), true, "april_fools_prank", false, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new AprilFoolsPrankConfigScreen(PARENT_SCREEN, true), "april_fools_prank", false, true));
 			GRID_ADDER.add(createAprilFools());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -55,10 +55,10 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new AprilFoolsPrankConfigScreen(PARENT_SCREEN, false));
+				ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(PARENT_SCREEN, false));
 			}
 			if (this.SHOULD_CLOSE) {
-				ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.minecraft.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$april_fools screen: {}", Data.VERSION.getID(), error);

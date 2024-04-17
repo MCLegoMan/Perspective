@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
-import com.mclegoman.perspective.client.util.PerspectiveLogo;
+import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -48,13 +48,13 @@ public class CreditsAttributionScreen extends Screen {
 		this.backgroundFade = 0.0F;
 	}
 	public void tick() {
-		if (this.time > (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 64)) this.close();
+		if (this.time > (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 64)) this.close();
 	}
 	private float getSpeed() {
 		return this.time > 0 ? ((isHoldingSpace ? 4.0F : 1.0F) * (hasControlDown() ? 4.0F : 1.0F)) : 1.0F;
 	}
 	public void close() {
-		ClientData.CLIENT.setScreen(this.parentScreen);
+		ClientData.minecraft.setScreen(this.parentScreen);
 	}
 	protected void init() {
 		if (this.credits == null) {
@@ -65,7 +65,7 @@ public class CreditsAttributionScreen extends Screen {
 	}
 	private void load(Identifier id, CreditsAttributionReader reader1) {
 		try {
-			Reader reader2 = ClientData.CLIENT.getResourceManager().openAsReader(id);
+			Reader reader2 = ClientData.minecraft.getResourceManager().openAsReader(id);
 			try {
 				reader1.read(reader2);
 			} catch (Exception error) {
@@ -119,7 +119,7 @@ public class CreditsAttributionScreen extends Screen {
 		if (centered) {
 			this.centeredLines.add(this.credits.size());
 		}
-		this.credits.addAll(ClientData.CLIENT.textRenderer.wrapLines(text, ClientData.CLIENT.getWindow().getScaledWidth() - ClientData.CLIENT.getWindow().getScaledWidth() / 2 - ClientData.CLIENT.getWindow().getScaledWidth() / 2 + 320));
+		this.credits.addAll(ClientData.minecraft.textRenderer.wrapLines(text, ClientData.minecraft.getWindow().getScaledWidth() - ClientData.minecraft.getWindow().getScaledWidth() / 2 - ClientData.minecraft.getWindow().getScaledWidth() / 2 + 320));
 	}
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);
@@ -127,21 +127,21 @@ public class CreditsAttributionScreen extends Screen {
 		this.time = Math.max(0.0F, this.time + (delta * this.getSpeed()));
 		context.getMatrices().push();
 		context.getMatrices().translate(0.0F, -this.time, 0.0F);
-		context.drawTexture(PerspectiveLogo.getLogo(PerspectiveLogo.isPride() ? PerspectiveLogo.Logo.Type.PRIDE : PerspectiveLogo.Logo.Type.DEFAULT).getTexture(), ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 128, ClientData.CLIENT.getWindow().getScaledHeight() + 2, 0.0F, 0.0F, 256, 44, 256, 64);
-		int height = ClientData.CLIENT.getWindow().getScaledHeight() + 80;
+		context.drawTexture(PerspectiveLogo.getLogo(PerspectiveLogo.isPride() ? PerspectiveLogo.Logo.Type.PRIDE : PerspectiveLogo.Logo.Type.DEFAULT).getTexture(), ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 2, 0.0F, 0.0F, 256, 44, 256, 64);
+		int height = ClientData.minecraft.getWindow().getScaledHeight() + 80;
 		for(int l = 0; l < this.credits.size(); ++l) {
 			if (l == this.credits.size() - 1) {
-				float g = height - this.time - (float)(ClientData.CLIENT.getWindow().getScaledHeight() / 2 - 6);
+				float g = height - this.time - (float)(ClientData.minecraft.getWindow().getScaledHeight() / 2 - 6);
 				if (g < 0.0F) {
 					context.getMatrices().translate(0.0F, -g, 0.0F);
 				}
 			}
-			if (height - this.time + 12.0F + 8.0F > 0.0F && height - this.time < (float)ClientData.CLIENT.getWindow().getScaledHeight()) {
+			if (height - this.time + 12.0F + 8.0F > 0.0F && height - this.time < (float)ClientData.minecraft.getWindow().getScaledHeight()) {
 				OrderedText orderedText = this.credits.get(l);
 				if (this.centeredLines.contains(l)) {
-					context.drawCenteredTextWithShadow(this.textRenderer, orderedText, ClientData.CLIENT.getWindow().getScaledWidth() / 2, height, 16777215);
+					context.drawCenteredTextWithShadow(this.textRenderer, orderedText, ClientData.minecraft.getWindow().getScaledWidth() / 2, height, 16777215);
 				} else {
-					context.drawTextWithShadow(this.textRenderer, orderedText, ClientData.CLIENT.getWindow().getScaledWidth() / 2 - 160, height, 16777215);
+					context.drawTextWithShadow(this.textRenderer, orderedText, ClientData.minecraft.getWindow().getScaledWidth() / 2 - 160, height, 16777215);
 				}
 			}
 			height += 12;
@@ -151,15 +151,15 @@ public class CreditsAttributionScreen extends Screen {
 	@Override
 	public void renderBackground(DrawContext context, int mouseX, int mouseY, float tickDelta) {
 		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy")) {
-			if (this.time > (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 48)) {
-				float fadeStart = (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 48);
-				float fadeEnd = (this.creditsHeight + ClientData.CLIENT.getWindow().getScaledHeight() + 92);
+			if (this.time > (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 48)) {
+				float fadeStart = (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 48);
+				float fadeEnd = (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 92);
 				this.backgroundFade = MathHelper.lerp(((this.time - fadeStart) / (fadeEnd - fadeStart)) * 0.5F, this.backgroundFade, 0.0F);
 			} else {
 				this.backgroundFade = MathHelper.lerp((this.time / 48) * 0.25F, this.backgroundFade, 0.25F);
 			}
 			context.setShaderColor(this.backgroundFade, this.backgroundFade, this.backgroundFade, 1.0F);
-			context.drawTexture(new Identifier("minecraft", "textures/block/dirt.png"), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.CLIENT.getWindow().getScaledWidth(), ClientData.CLIENT.getWindow().getScaledHeight(), 16, 16);
+			context.drawTexture(new Identifier("minecraft", "textures/block/dirt.png"), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 16, 16);
 			context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			this.renderDarkening(context);
 		} else super.renderBackground(context, mouseX, mouseY, tickDelta);

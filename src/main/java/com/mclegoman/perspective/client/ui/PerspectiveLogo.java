@@ -5,16 +5,23 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.util;
+package com.mclegoman.perspective.client.ui;
 
-import com.mclegoman.perspective.config.ConfigHelper;
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.config.ConfigHelper;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -23,9 +30,12 @@ import java.util.TimeZone;
 
 public class PerspectiveLogo {
 	// Pride Logos will be re-worked in the near future.
-	public static final String[] pride_types = new String[]{"rainbow"};
+	public static final String[] prideTypes = new String[]{"rainbow"};
 	// Whilst currently there is only one type, there will be more in the near future as they are re-worked.
-	private static final int pride_index = new Random().nextInt(pride_types.length);
+	private static final int prideIndex = new Random().nextInt(prideTypes.length);
+	public static void init() {
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
+	}
 	public static boolean isPride() {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride")) return true;
 		else {
@@ -35,9 +45,9 @@ public class PerspectiveLogo {
 	}
 	private static String getPrideType() {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type")) {
-			return pride_types[(int)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type_index")];
+			return prideTypes[(int)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type_index")];
 		} else {
-			return pride_types[pride_index];
+			return prideTypes[prideIndex];
 		}
 	}
 	public static Logo getLogo(Logo.Type type) {
@@ -81,6 +91,20 @@ public class PerspectiveLogo {
 		private void renderPerspectiveLogo(DrawContext context) {
 			Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
 			context.drawTexture(logoIdentifier, this.getX(), this.getY(), 0.0F, 0.0F, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
+			createSplashText(context, this.getWidth(), this.getX(), this.getY(), ClientData.minecraft.textRenderer);
+		}
+		public void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer) {
+			if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
+				context.getMatrices().push();
+				context.getMatrices().translate(x + width, y + 40.0F, 0.0F);
+				context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-20.0f));
+				float f = 1.8f - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0f * ((float)Math.PI * 2)) * 0.1f);
+				Text splashText = SplashesDataloader.getSplashText().getSecond() ? Text.translatable(SplashesDataloader.getSplashText().getFirst()) : Text.literal(SplashesDataloader.getSplashText().getFirst());
+				f = f * 100.0f / (float)(textRenderer.getWidth(splashText) + 32);
+				context.getMatrices().scale(f, f, f);
+				context.drawCenteredTextWithShadow(textRenderer, splashText, 0, -8, 0xFFFF00);
+				context.getMatrices().pop();
+			}
 		}
 		@Override
 		protected void appendClickableNarrations(NarrationMessageBuilder builder) {

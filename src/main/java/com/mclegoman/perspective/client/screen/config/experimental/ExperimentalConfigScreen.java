@@ -42,7 +42,7 @@ public class ExperimentalConfigScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), false, "experimental", true, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new ExperimentalConfigScreen(PARENT_SCREEN, true), "experimental", true, true));
 			if (ConfigHelper.EXPERIMENTS_AVAILABLE) GRID_ADDER.add(createExperiments());
 			else GRID_ADDER.add(createEmpty());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
@@ -58,10 +58,10 @@ public class ExperimentalConfigScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new ExperimentalConfigScreen(PARENT_SCREEN, false));
+				ClientData.minecraft.setScreen(new ExperimentalConfigScreen(PARENT_SCREEN, false));
 			}
 			if (this.SHOULD_CLOSE) {
-				ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.minecraft.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$experimental screen: {}", Data.VERSION.getID(), error);
@@ -72,7 +72,7 @@ public class ExperimentalConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.none", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true));
+		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.none", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.textRenderer).setCentered(true));
 		return GRID;
 	}
 
@@ -80,7 +80,7 @@ public class ExperimentalConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.CLIENT.textRenderer).setCentered(true));
+		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.textRenderer).setCentered(true));
 		GRID_ADDER.add(new EmptyWidget(4, 4));
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "experimental.improved_shader_renderer", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"), TranslationType.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"));

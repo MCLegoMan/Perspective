@@ -32,10 +32,10 @@ public class PostEffectProcessorMixin {
 	@Inject(at = @At(value = "HEAD"), method = "render")
 	public void perspective$fixDepth(float tickDelta, CallbackInfo ci) {
 		if (Shader.useDepth) {
-			ClientData.CLIENT.getFramebuffer().copyDepthFrom(Shader.depthFramebuffer);
+			ClientData.minecraft.getFramebuffer().copyDepthFrom(Shader.depthFramebuffer);
 		}
 		if (Shader.entityUseDepth) {
-			for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) ClientData.CLIENT.getFramebuffer().copyDepthFrom(framebuffer);
+			for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) ClientData.minecraft.getFramebuffer().copyDepthFrom(framebuffer);
 		}
 	}
 }

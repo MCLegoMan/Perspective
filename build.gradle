@@ -23,6 +23,7 @@ loom {
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
+	mavenCentral()
 }
 
 dependencies {
@@ -35,6 +36,9 @@ dependencies {
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
+
+	// Development Environment Only
+	modImplementation "com.ptsmods:devlogin:3.4.1"
 }
 
 processResources {
@@ -116,10 +120,15 @@ tasks.register("uploadVersion") {
 tasks.register("quickPlaySingleplayer") {
 	group = 'quickPlay'
 	description = 'Uses Quick Play to join singleplayer world `New World` on launch.'
-	dependsOn(tasks.runClient.args(['--quickPlaySingleplayer', "New World"]))
+	dependsOn(tasks.runClient.args(['--quickPlaySingleplayer', 'New World']))
 }
 tasks.register("quickPlayMultiplayer") {
 	group = 'quickPlay'
 	description = 'Uses Quick Play to join multiplayer server `localhost:25565` on launch.'
-	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', "localhost:25565"]))
+	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', 'localhost:25565']))
+}
+tasks.register("runClientLoggedIn") {
+	group = 'fabric'
+	description = 'Uses DevLogin to login to your Minecraft Account'
+	dependsOn(tasks.runClient.args(['--msa']))
 }

@@ -42,7 +42,7 @@ public class InformationScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), true, "information", false, true));
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), "information", false, true));
 			GRID_ADDER.add(createInformation());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
@@ -57,10 +57,10 @@ public class InformationScreen extends Screen {
 	public void tick() {
 		try {
 			if (this.REFRESH) {
-				ClientData.CLIENT.setScreen(new InformationScreen(PARENT_SCREEN, false));
+				ClientData.minecraft.setScreen(new InformationScreen(PARENT_SCREEN, false));
 			}
 			if (this.SHOULD_CLOSE) {
-				ClientData.CLIENT.setScreen(PARENT_SCREEN);
+				ClientData.minecraft.setScreen(PARENT_SCREEN);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$info screen: {}", Data.VERSION.getID(), error);
@@ -74,7 +74,7 @@ public class InformationScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.source_code"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective")).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.report"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective/issues")).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.credits"), button -> ClientData.CLIENT.setScreen(new CreditsAttributionScreen(ClientData.CLIENT.currentScreen))).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.credits"), button -> ClientData.minecraft.setScreen(new CreditsAttributionScreen(ClientData.minecraft.currentScreen))).build(), 1);
 		return GRID;
 	}
 

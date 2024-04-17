@@ -26,8 +26,8 @@ public abstract class MouseMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
 		if (Zoom.isZooming()) {
-			boolean discreteMouseScroll = ClientData.CLIENT.options.getDiscreteMouseScroll().getValue();
-			double mouseWheelSensitivity = ClientData.CLIENT.options.getMouseWheelSensitivity().getValue();
+			boolean discreteMouseScroll = ClientData.minecraft.options.getDiscreteMouseScroll().getValue();
+			double mouseWheelSensitivity = ClientData.minecraft.options.getMouseWheelSensitivity().getValue();
 			double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
 			if (this.eventDeltaVerticalWheel != 0.0 && Math.signum(calculatedScroll) != Math.signum(this.eventDeltaVerticalWheel)) {
 				this.eventDeltaVerticalWheel = 0.0;

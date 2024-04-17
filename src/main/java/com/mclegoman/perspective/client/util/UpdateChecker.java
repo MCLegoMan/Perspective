@@ -41,7 +41,7 @@ public class UpdateChecker {
 	public static String DOWNLOAD_LINK;
 
 	public static void checkForUpdates(Version currentVersion, boolean showScreen) {
-		if (showScreen) ClientData.CLIENT.setScreen(new UpdateCheckerScreen(ClientData.CLIENT.currentScreen));
+		if (showScreen) ClientData.minecraft.setScreen(new UpdateCheckerScreen(ClientData.minecraft.currentScreen));
 		checkForUpdates(currentVersion);
 	}
 	public static void checkForUpdates(Version currentVersion) {
@@ -127,7 +127,7 @@ public class UpdateChecker {
 		});
 		if (NEWER_VERSION_FOUND) {
 			if (!SEEN_UPDATE_TOAST) {
-				ClientData.CLIENT.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.update.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), 280, Toast.Type.INFO));
+				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.update.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), 280, Toast.Type.INFO));
 				SEEN_UPDATE_TOAST = true;
 			}
 		}

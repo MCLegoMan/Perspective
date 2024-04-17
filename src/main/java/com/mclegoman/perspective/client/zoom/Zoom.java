@@ -58,7 +58,7 @@ public class Zoom {
 		}
 	}
 	public static boolean isZooming() {
-		return ClientData.CLIENT.player != null && (isZooming != Keybindings.holdZoom.isPressed());
+		return ClientData.minecraft.player != null && (isZooming != Keybindings.holdZoom.isPressed());
 	}
 	public static void updateMultiplier() {
 		try {

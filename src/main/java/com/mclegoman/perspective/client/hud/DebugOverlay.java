@@ -63,14 +63,14 @@ public class DebugOverlay {
 		}
 		for (Object item : debugText) {
 			if (item instanceof Text text) {
-				TextRenderer textRenderer = ClientData.CLIENT.textRenderer;
+				TextRenderer textRenderer = ClientData.minecraft.textRenderer;
 				int width = textRenderer.getWidth(text);
-				if (y > ClientData.CLIENT.getWindow().getScaledHeight() - 2 - 9) {
+				if (y > ClientData.minecraft.getWindow().getScaledHeight() - 2 - 9) {
 					y = 2;
 					x += 256;
 				}
 				context.fill(x - 1, y - 1, x + width + 1, y + 9, -1873784752);
-				context.drawText(ClientData.CLIENT.textRenderer, text, x, y, 0xffffff, false);
+				context.drawText(ClientData.minecraft.textRenderer, text, x, y, 0xffffff, false);
 				y = HUDHelper.addY(y);
 			} else {
 				if (item.equals("\n")) {
