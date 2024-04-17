@@ -30,8 +30,8 @@ import java.util.TimeZone;
 
 public class PerspectiveLogo {
 	// Pride Logos will be re-worked in the near future.
-	public static final String[] prideTypes = new String[]{"rainbow"};
-	// Whilst currently there is only one type, there will be more in the near future as they are re-worked.
+	public static final String[] prideTypes = new String[]{"rainbow", "bi"};
+	// Whilst currently there are only two types, there will be more in the near future as they are re-worked.
 	private static final int prideIndex = new Random().nextInt(prideTypes.length);
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
@@ -51,7 +51,12 @@ public class PerspectiveLogo {
 		}
 	}
 	public static Logo getLogo(Logo.Type type) {
-		return new Logo(new Identifier(Data.VERSION.getID(), (type.equals(Logo.Type.PRIDE) ? "perspective/" + getPrideType() : "perspective")), type);
+		return new Logo(new Identifier(Data.VERSION.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : "perspective")), type);
+	}
+	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
+		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
+		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, height, width, height);
+		context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/logo/development.png"), x, y, 0.0F, 0.0F, width, height, width, height);
 	}
 	public record Logo(Identifier id, Type type) {
 		public String getNamespace() {
@@ -61,7 +66,7 @@ public class PerspectiveLogo {
 			return this.id.getPath();
 		}
 		public Identifier getTexture() {
-			return new Identifier(getNamespace(), "textures/gui/logo/" + type().toString() + "/" + getName() + "/" + (Data.VERSION.isDevelopmentBuild() ? "development" : "release") + ".png");
+			return new Identifier(getNamespace(), "textures/gui/logo/" + type().toString() + "/" + getName() + ".png");
 		}
 		public enum Type implements StringIdentifiable {
 			DEFAULT("default"),
@@ -86,22 +91,17 @@ public class PerspectiveLogo {
 			this.experimental = experimental;
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderPerspectiveLogo(context);
-		}
-		private void renderPerspectiveLogo(DrawContext context) {
-			Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
-			context.drawTexture(logoIdentifier, this.getX(), this.getY(), 0.0F, 0.0F, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
+			renderPerspectiveLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
 			createSplashText(context, this.getWidth(), this.getX(), this.getY(), ClientData.minecraft.textRenderer);
 		}
 		public void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer) {
 			if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
+				Text splashText = SplashesDataloader.getSplashText().getSecond() ? Text.translatable(SplashesDataloader.getSplashText().getFirst()) : Text.literal(SplashesDataloader.getSplashText().getFirst());
 				context.getMatrices().push();
 				context.getMatrices().translate(x + width, y + 40.0F, 0.0F);
-				context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-20.0f));
-				float f = 1.8f - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0f * ((float)Math.PI * 2)) * 0.1f);
-				Text splashText = SplashesDataloader.getSplashText().getSecond() ? Text.translatable(SplashesDataloader.getSplashText().getFirst()) : Text.literal(SplashesDataloader.getSplashText().getFirst());
-				f = f * 100.0f / (float)(textRenderer.getWidth(splashText) + 32);
-				context.getMatrices().scale(f, f, f);
+				context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-20.0F));
+				float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(splashText) + 32);
+				context.getMatrices().scale(scale, scale, scale);
 				context.drawCenteredTextWithShadow(textRenderer, splashText, 0, -8, 0xFFFF00);
 				context.getMatrices().pop();
 			}

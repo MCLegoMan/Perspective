@@ -127,7 +127,7 @@ public class CreditsAttributionScreen extends Screen {
 		this.time = Math.max(0.0F, this.time + (delta * this.getSpeed()));
 		context.getMatrices().push();
 		context.getMatrices().translate(0.0F, -this.time, 0.0F);
-		context.drawTexture(PerspectiveLogo.getLogo(PerspectiveLogo.isPride() ? PerspectiveLogo.Logo.Type.PRIDE : PerspectiveLogo.Logo.Type.DEFAULT).getTexture(), ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 2, 0.0F, 0.0F, 256, 44, 256, 64);
+		PerspectiveLogo.renderPerspectiveLogo(context, ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 2, 256, 64, false);
 		int height = ClientData.minecraft.getWindow().getScaledHeight() + 80;
 		for(int l = 0; l < this.credits.size(); ++l) {
 			if (l == this.credits.size() - 1) {
