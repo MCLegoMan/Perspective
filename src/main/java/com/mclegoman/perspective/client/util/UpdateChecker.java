@@ -26,6 +26,7 @@ import net.minecraft.util.Util;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -135,7 +136,7 @@ public class UpdateChecker {
 	private static JsonElement getModrinthData(String project_id, String request) {
 		try {
 			Data.VERSION.sendToLog(Helper.LogType.INFO, "Getting data from Modrinth API...");
-			URL url = Objects.equals(request, "") ? new URL("https://api.modrinth.com/v2/project/" + project_id) : new URL("https://api.modrinth.com/v2/project/" + project_id + "/" + request);
+			URL url = Objects.equals(request, "") ? new URI("https://api.modrinth.com/v2/project/" + project_id).toURL() : new URI("https://api.modrinth.com/v2/project/" + project_id + "/" + request).toURL();
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			try {

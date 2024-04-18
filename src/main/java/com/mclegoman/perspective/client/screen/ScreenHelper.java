@@ -22,7 +22,7 @@ import net.minecraft.util.Formatting;
 public class ScreenHelper {
 	public static GridWidget createTitle(MinecraftClient client, Screen PARENT_SCREEN, String pageName, boolean experimental, boolean updateMsg) {
 		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
+		GRID.getMainPositioner().alignHorizontalCenter();
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
 		GRID_ADDER.add(new PerspectiveLogo.Widget(experimental));
 		if (UpdateChecker.NEWER_VERSION_FOUND && updateMsg) {
@@ -31,14 +31,7 @@ public class ScreenHelper {
 			GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(PARENT_SCREEN, UpdateChecker.DOWNLOAD_LINK)), client.textRenderer));
 		}
 		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), pageName), ClientData.minecraft.textRenderer).setCentered(true));
-		GRID_ADDER.add(new EmptyWidget(2, 2));
-		return GRID;
-	}
-	public static GridWidget createTitle(boolean experimental) {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(new PerspectiveLogo.Widget(experimental));
+		GRID_ADDER.add(new EmptyWidget(4, 4));
 		return GRID;
 	}
 }

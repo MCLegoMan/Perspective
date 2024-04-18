@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.ui;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.font.TextRenderer;
@@ -55,8 +56,20 @@ public class PerspectiveLogo {
 	}
 	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
-		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, height, width, height);
-		context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/logo/development.png"), x, y, 0.0F, 0.0F, width, height, width, height);
+		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
+		context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/logo/development.png"), (x + (width / 2)) - ((int) (width * 0.625) / 2), (int) (y + ((height * 0.6875) - 14)), 0.0F, 0.0F, (int) (width * 0.625), height / 4, (int) (width * 0.625), height / 4);
+	}
+	public static void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer, Couple<String, Boolean> splashText, float rotation) {
+		if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
+			Text text = splashText.getSecond() ? Text.translatable(splashText.getFirst()) : Text.literal(splashText.getFirst());
+			context.getMatrices().push();
+			context.getMatrices().translate(x + width, y, 0.0F);
+			context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
+			float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(text) + 32);
+			context.getMatrices().scale(scale, scale, scale);
+			context.drawCenteredTextWithShadow(textRenderer, text, 0, -8, 0xFFFF00);
+			context.getMatrices().pop();
+		}
 	}
 	public record Logo(Identifier id, Type type) {
 		public String getNamespace() {
@@ -73,7 +86,7 @@ public class PerspectiveLogo {
 			PRIDE("pride"),
 			EXPERIMENTAL("experimental");
 			private final String name;
-			private Type(String name) {
+			Type(String name) {
 				this.name = name;
 			}
 			public String toString() {
@@ -91,20 +104,8 @@ public class PerspectiveLogo {
 			this.experimental = experimental;
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderPerspectiveLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
-			createSplashText(context, this.getWidth(), this.getX(), this.getY(), ClientData.minecraft.textRenderer);
-		}
-		public void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer) {
-			if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
-				Text splashText = SplashesDataloader.getSplashText().getSecond() ? Text.translatable(SplashesDataloader.getSplashText().getFirst()) : Text.literal(SplashesDataloader.getSplashText().getFirst());
-				context.getMatrices().push();
-				context.getMatrices().translate(x + width, y + 40.0F, 0.0F);
-				context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-20.0F));
-				float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(splashText) + 32);
-				context.getMatrices().scale(scale, scale, scale);
-				context.drawCenteredTextWithShadow(textRenderer, splashText, 0, -8, 0xFFFF00);
-				context.getMatrices().pop();
-			}
+			renderPerspectiveLogo(context, this.getX(), this.getY() + 12, this.getWidth(), this.getHeight(), experimental);
+			createSplashText(context, this.getWidth(), this.getX(), this.getY() + 50, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		}
 		@Override
 		protected void appendClickableNarrations(NarrationMessageBuilder builder) {

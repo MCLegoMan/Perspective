@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config;
 
+import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
@@ -25,6 +26,7 @@ import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -34,6 +36,8 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.Random;
 
 public class ConfigScreen extends Screen {
 	private final Screen PARENT_SCREEN;

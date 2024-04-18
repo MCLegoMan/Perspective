@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.common.data.Data;
@@ -128,6 +129,8 @@ public class CreditsAttributionScreen extends Screen {
 		context.getMatrices().push();
 		context.getMatrices().translate(0.0F, -this.time, 0.0F);
 		PerspectiveLogo.renderPerspectiveLogo(context, ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 2, 256, 64, false);
+		// The credits and attributions screen doesn't need the splash text (this matches the behaviour of vanilla's end credits)
+		//PerspectiveLogo.createSplashText(context, 256, ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 40, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		int height = ClientData.minecraft.getWindow().getScaledHeight() + 80;
 		for(int l = 0; l < this.credits.size(); ++l) {
 			if (l == this.credits.size() - 1) {
