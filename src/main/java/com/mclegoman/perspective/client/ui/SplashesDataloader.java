@@ -34,8 +34,8 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 	public static final String id = "splashes";
 	private static Couple<String, Boolean> splashText;
 	public static Couple<String, Boolean> getSplashText() {
-		if (PerspectiveLogo.isPride()) return new Couple<>("splashes.perspective.special.pride_month", true);
-		else if (AprilFoolsPrank.isAprilFools()) return new Couple<>("splashes.perspective.special.april_fools", true);
+		if (PerspectiveLogo.isPride() && !PerspectiveLogo.isForcePride()) return new Couple<>("splashes.perspective.special.pride_month", true);
+		else if (AprilFoolsPrank.isAprilFools() && !AprilFoolsPrank.isForceAprilFools()) return new Couple<>("splashes.perspective.special.april_fools", true);
 		else return splashText;
 	}
 	public SplashesDataloader() {

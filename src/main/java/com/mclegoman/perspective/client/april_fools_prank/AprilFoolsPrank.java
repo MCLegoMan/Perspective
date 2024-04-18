@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.april_fools_prank;
 
+import com.mclegoman.perspective.client.util.DateHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.toasts.Toast;
@@ -50,12 +51,11 @@ public class AprilFoolsPrank {
 		if (shouldSave) ConfigHelper.saveConfig();
 	}
 	public static boolean isAprilFools() {
-		// We use the GMT+12 timezone and check if it's april 1st or 2nd to make sure the prank is enabled for everyone at the same time.
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools")) return true;
-		else {
-			LocalDate date = LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId());
-			return date.getMonth() == Month.APRIL && date.getDayOfMonth() <= 2;
-		}
+		LocalDate date = DateHelper.getDate();
+		return isForceAprilFools() || (date.getMonth() == Month.APRIL && date.getDayOfMonth() <= 2);
+	}
+	public static boolean isForceAprilFools() {
+		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools");
 	}
 	public static int getAprilFoolsIndex(long getLeastSignificantBits, int registrySize) {
 		// We add the current year to the player's uuid, so they get a different skin each year.

@@ -14,6 +14,7 @@ import com.mclegoman.perspective.common.util.Couple;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.StringIdentifiable;
 import org.apache.commons.lang3.StringUtils;
 
 public class Translation {
@@ -46,7 +47,7 @@ public class Translation {
 		for (Text text : texts) outputText.append(text);
 		return outputText;
 	}
-	public static Text getVariableTranslation(String namespace, boolean toggle, TranslationType type) {
+	public static Text getVariableTranslation(String namespace, boolean toggle, Type type) {
 		return toggle ? getTranslation(namespace, "variable." + type.asString() + ".on") : getTranslation(namespace, "variable." + type.asString() + ".off");
 	}
 	public static Text getConfigTranslation(String namespace, String name, Object[] variables, Formatting[] formattings, boolean hover) {
@@ -146,5 +147,19 @@ public class Translation {
 	}
 	public static Text getErrorTranslation() {
 		return getConfigTranslation(Data.VERSION.getID(), "error", new Formatting[]{Formatting.RED, Formatting.BOLD});
+	}
+	public enum Type implements StringIdentifiable {
+		ENDISABLE("endisable"),
+		ONFF("onff"),
+		DISABLE_SCREEN_MODE("disable_screen_mode"),
+		BLUR("blur");
+		private final String name;
+		Type(String name) {
+			this.name = name;
+		}
+		@Override
+		public String asString() {
+			return this.name;
+		}
 	}
 }

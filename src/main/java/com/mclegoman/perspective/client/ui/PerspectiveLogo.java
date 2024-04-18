@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.ui;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.util.DateHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -28,7 +29,6 @@ import net.minecraft.util.math.RotationAxis;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Random;
-import java.util.TimeZone;
 
 public class PerspectiveLogo {
 	// Pride Logos will be re-worked in the near future.
@@ -39,11 +39,11 @@ public class PerspectiveLogo {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
 	}
 	public static boolean isPride() {
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride")) return true;
-		else {
-			LocalDate date = LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId());
-			return date.getMonth() == Month.JUNE || date.getMonth() == Month.JULY && date.getDayOfMonth() <= 2;
-		}
+		LocalDate date = DateHelper.getDate();
+		return isForcePride() || date.getMonth() == Month.JUNE || date.getMonth() == Month.JULY && date.getDayOfMonth() <= 2;
+	}
+	public static boolean isForcePride() {
+		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride");
 	}
 	private static String getPrideType() {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type")) {
