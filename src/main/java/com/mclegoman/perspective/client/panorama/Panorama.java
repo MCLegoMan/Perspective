@@ -76,7 +76,7 @@ public class Panorama {
 	}
 
 	private static boolean shouldTakePanorama() {
-		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug") || getIncompatibleMods().size() == 0 && !ClientData.minecraft.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
+		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug") || getIncompatibleMods().isEmpty() && !ClientData.minecraft.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
 	}
 
 	private static void takePanorama(int resolution, float startingYaw) {

@@ -37,6 +37,7 @@ import java.util.*;
 
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
+	private static final List<String> worldRendererIncompatibleMods = new ArrayList<>();
 	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	public static int superSecretSettingsIndex;
 	public static boolean depthFix;
@@ -68,6 +69,8 @@ public class Shader {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderSoundsDataLoader());
+			addWorldRendererIncompatibleMod("iris");
+			addWorldRendererIncompatibleMod("canvas");
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.VERSION.getLoggerPrefix(), error);
 		}
@@ -100,7 +103,21 @@ public class Shader {
 		entityShaderEntity = ClientData.minecraft.getCameraEntity();
 		if (entityShaderEntity != entityShaderEntityPrev) prepEntityShader(entityShaderEntity);
 	}
-
+	public static void addWorldRendererIncompatibleMod(String modID) {
+		if (!worldRendererIncompatibleMods.contains(modID)) worldRendererIncompatibleMods.add(modID);
+	}
+	public static List<String> getWorldRendererIncompatibleMods() {
+		List<String> worldRendererIncompatibleModsFound = new ArrayList<>();
+		for (String modID : worldRendererIncompatibleMods) {
+			if (Data.isModInstalled(modID)) {
+				worldRendererIncompatibleModsFound.add(Data.getModContainer(modID).getMetadata().getName());
+			}
+		}
+		return worldRendererIncompatibleModsFound;
+	}
+	public static boolean shouldDisableWorldRenderer() {
+		return !(boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug") && !getWorldRendererIncompatibleMods().isEmpty();
+	}
 	public static void checkKeybindings() {
 		if (Keybindings.cycleShaders.wasPressed())
 			cycle(true, !ClientData.minecraft.options.sneakKey.isPressed(), true, true, true);
@@ -398,7 +415,7 @@ public class Shader {
 		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !shouldDisableScreenMode();
 	}
 	public static boolean shouldUseDepthGameRenderer() {
-		return shouldUseGameRenderer() && !Data.isModInstalled("iris") && ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && useDepth);
+		return shouldUseGameRenderer() && !shouldDisableWorldRenderer() && ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && useDepth);
 	}
 	public static boolean shouldUseEntityLink() {
 		return canUseEntityLink() && entityPostProcessor != null && !entityPostProcessor.isEmpty();
