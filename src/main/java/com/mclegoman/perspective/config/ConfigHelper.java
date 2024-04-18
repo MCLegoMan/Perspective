@@ -61,14 +61,17 @@ public class ConfigHelper {
 	}
 	protected static void loadConfig() {
 		try {
-			Config.init();
-			ExperimentalConfig.init();
-			TutorialsConfig.init();
-			WarningsConfig.init();
+			reloadConfig();
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to load configs!");
 		}
 		if (!ClientData.getFinishedInitializingAfterConfig()) afterConfig();
+	}
+	public static void reloadConfig() {
+		Config.init();
+		ExperimentalConfig.init();
+		TutorialsConfig.init();
+		WarningsConfig.init();
 	}
 	protected static void afterConfig() {
 		try {

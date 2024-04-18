@@ -148,7 +148,8 @@ public class ShadersConfigScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			UpdateChecker.checkForUpdates(Data.VERSION, true);
+			if (hasControlDown()) ConfigHelper.reloadConfig();
+			else UpdateChecker.checkForUpdates(Data.VERSION, true);
 			this.REFRESH = true;
 		}
 		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT)

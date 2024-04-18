@@ -13,6 +13,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
@@ -107,7 +108,8 @@ public class InformationScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			UpdateChecker.checkForUpdates(Data.VERSION);
+			if (hasControlDown()) ConfigHelper.reloadConfig();
+			else UpdateChecker.checkForUpdates(Data.VERSION, true);
 			this.REFRESH = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);

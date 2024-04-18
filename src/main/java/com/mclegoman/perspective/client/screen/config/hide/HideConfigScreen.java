@@ -132,7 +132,8 @@ public class HideConfigScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			UpdateChecker.checkForUpdates(Data.VERSION, true);
+			if (hasControlDown()) ConfigHelper.reloadConfig();
+			else UpdateChecker.checkForUpdates(Data.VERSION, true);
 			this.REFRESH = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);

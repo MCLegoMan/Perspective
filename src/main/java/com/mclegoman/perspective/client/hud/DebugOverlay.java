@@ -52,6 +52,7 @@ public class DebugOverlay {
 			debugText.add(Text.literal("use_depth: " + Shader.useDepth));
 			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));
 			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
+			debugText.add(Text.literal("shouldDisableImprovedDepthRenderer(): " + Shader.shouldDisableImprovedDepthRenderer()));
 		}
 		if (debugType.equals(Type.config) || debugType.equals(Type.experimentalConfig) || debugType.equals(Type.tutorialsConfig) || debugType.equals(Type.warningsConfig)) {
 			debugText.add("\n");
