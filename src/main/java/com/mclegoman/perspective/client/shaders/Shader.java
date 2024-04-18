@@ -1,6 +1,6 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
+    Contributor(s): MCLegoMan, Nettakrim
     Github: https://github.com/MCLegoMan/Perspective
     Licence: GNU LGPLv3
 */
@@ -27,7 +27,7 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.Entity;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.Text;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -124,14 +124,14 @@ public class Shader {
 		}
 		if (save) ConfigHelper.saveConfig();
 	}
-	public static Text getTranslatedShaderName(int shaderIndex) {
+	public static MutableText getTranslatedShaderName(int shaderIndex) {
 		if ((boolean)get(shaderIndex, ShaderDataLoader.RegistryValue.translatable)) {
 			String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.namespace);
 			String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.shaderName);
 			if (namespace != null && shaderName != null)
 				return Translation.getShaderTranslation(namespace, shaderName);
 		} else {
-			return Text.literal(Objects.requireNonNull(getShaderName(shaderIndex)));
+			return Translation.getText(getShaderName(shaderIndex), false);
 		}
 		return null;
 	}
@@ -345,9 +345,9 @@ public class Shader {
 		}
 		entityDepthFix = false;
 	}
-	private static void setOverlay(Text message) {
+	private static void setOverlay(MutableText message) {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name"))
-			MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.shader", message).formatted(getRandomColor()));
+			MessageOverlay.setOverlay(Translation.getText("gui.perspective.message.shader", true, new Object[]{message}, new Formatting[]{getRandomColor()}));
 	}
 
 	public static Formatting getRandomColor() {
