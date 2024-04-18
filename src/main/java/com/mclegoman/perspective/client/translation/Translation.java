@@ -10,14 +10,39 @@ package com.mclegoman.perspective.client.translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.common.util.Couple;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.StringUtils;
 
 public class Translation {
+	public static MutableText getText(String string, boolean isTranslatable) {
+		return isTranslatable ? Text.translatable(string) : Text.literal(string);
+	}
+	public static MutableText getText(String string, boolean isTranslatable, Formatting[] formattings) {
+		return getText(string, isTranslatable).formatted(formattings);
+	}
+	public static MutableText getText(String string, boolean isTranslatable, Object[] variables) {
+		return isTranslatable ? Text.translatable(string, variables) : Text.literal(getString(string, "%s", variables));
+	}
+	public static MutableText getText(String string, boolean isTranslatable, Object[] variables, Formatting[] formattings) {
+		return getText(string, isTranslatable, variables).formatted(formattings);
+	}
+	public static MutableText getText(Couple<String, Boolean> data) {
+		return getText(data.getFirst(), data.getSecond());
+	}
+	public static MutableText getText(Couple<String, Boolean> data, Formatting[] formattings) {
+		return getText(data.getFirst(), data.getSecond(), formattings);
+	}
+	public static MutableText getText(Couple<String, Boolean> data, Object[] variables) {
+		return getText(data.getFirst(), data.getSecond(), variables);
+	}
+	public static MutableText getText(Couple<String, Boolean> data, Object[] variables, Formatting[] formattings) {
+		return getText(data.getFirst(), data.getSecond(), variables, formattings);
+	}
 	public static Text getCombinedText(Text... texts) {
-		MutableText outputText = Text.literal("");
+		MutableText outputText = getText("", false);
 		for (Text text : texts) outputText.append(text);
 		return outputText;
 	}
@@ -49,30 +74,33 @@ public class Translation {
 		return getTranslation(namespace, "config." + name);
 	}
 	public static Text getTranslation(String namespace, String key, Object[] variables, Formatting[] formattings) {
-		return Text.translatable("gui." + namespace + "." + key, variables).formatted(formattings);
+		return getText("gui." + namespace + "." + key, true, variables, formattings);
 	}
 	public static Text getTranslation(String namespace, String key, Object[] variables) {
-		return Text.translatable("gui." + namespace + "." + key, variables);
+		return getText("gui." + namespace + "." + key, true, variables);
 	}
 	public static Text getTranslation(String namespace, String key, Formatting[] formattings) {
-		return Text.translatable("gui." + namespace + "." + key).formatted(formattings);
+		return getText("gui." + namespace + "." + key, true, formattings);
 	}
 	public static Text getTranslation(String namespace, String key) {
-		return Text.translatable("gui." + namespace + "." + key);
+		return getText("gui." + namespace + "." + key, true);
 	}
 	public static Text getShaderTranslation(String namespace, String shaderName) {
-		return Text.translatable("shader." + namespace + "." + shaderName);
+		return getText("shader." + namespace + "." + shaderName, true);
+	}
+	public static String getFormattedString(String value, String searchString, Object[] variables) {
+		String string = value;
+		for (Object variable : variables) string = StringUtils.replaceOnce(string, searchString, String.valueOf(variable));
+		return string;
 	}
 	public static String getString(String string, Object... variables) {
-		String RETURN = string;
-		for (Object variable : variables) RETURN = StringUtils.replaceOnce(RETURN, "{}", String.valueOf(variable));
-		return RETURN;
+		return getFormattedString(string, "{}", variables);
 	}
 	public static String getKeybindingTranslation(String key, boolean category) {
-		return category ? Translation.getString("gui.perspective.keybindings.category.{}", key) : Translation.getString("gui.perspective.keybindings.keybinding.{}", key);
+		return category ? getString("gui.perspective.keybindings.category.{}", key) : getString("gui.perspective.keybindings.keybinding.{}", key);
 	}
 	public static String getKeybindingTranslation(String key) {
-		return Translation.getString("gui.perspective.keybindings.keybinding.{}", key);
+		return getString("gui.perspective.keybindings.keybinding.{}", key);
 	}
 	public static Text getShaderModeTranslation(String namespace, String key) {
 		if (key.equalsIgnoreCase("game")) return getConfigTranslation(namespace, "shaders.mode.game");
@@ -102,11 +130,11 @@ public class Translation {
 		else return getErrorTranslation();
 	}
 	public static Text getUIBackgroundTranslation(String namespace, String key) {
-		if (UIBackground.isValidUIBackgroundType(UIBackground.getUIBackgroundType())) return getConfigTranslation(namespace, "ui_background.type." + UIBackground.getUIBackgroundType());
+		if (UIBackground.isValidUIBackgroundType(UIBackground.getUIBackgroundType())) return getConfigTranslation(namespace, "ui_background.type." + key);
 		return getErrorTranslation();
 	}
 	public static Text getTitleScreenBackgroundTranslation(String namespace, String key) {
-		if (UIBackground.isValidTitleScreenBackgroundType(UIBackground.getTitleScreenBackgroundType())) return getConfigTranslation(namespace, "title_screen.type." + UIBackground.getTitleScreenBackgroundType());
+		if (UIBackground.isValidTitleScreenBackgroundType(UIBackground.getTitleScreenBackgroundType())) return getConfigTranslation(namespace, "title_screen.type." + key);
 		return getErrorTranslation();
 	}
 	public static Text getDetectUpdateChannelTranslation(String namespace, String key) {

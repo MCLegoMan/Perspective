@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.ui;
 
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -61,13 +62,12 @@ public class PerspectiveLogo {
 	}
 	public static void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer, Couple<String, Boolean> splashText, float rotation) {
 		if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
-			Text text = splashText.getSecond() ? Text.translatable(splashText.getFirst()) : Text.literal(splashText.getFirst());
 			context.getMatrices().push();
 			context.getMatrices().translate(x + width, y, 0.0F);
 			context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
-			float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(text) + 32);
+			float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(Translation.getText(splashText)) + 32);
 			context.getMatrices().scale(scale, scale, scale);
-			context.drawCenteredTextWithShadow(textRenderer, text, 0, -8, 0xFFFF00);
+			context.drawCenteredTextWithShadow(textRenderer, Translation.getText(splashText), 0, -8, 0xFFFF00);
 			context.getMatrices().pop();
 		}
 	}
