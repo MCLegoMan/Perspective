@@ -92,6 +92,7 @@ public class Shader {
 			superSecretSettingsIndex = getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				set(true, false, false, false);
+			prepEntityShader(ClientData.minecraft.getCameraEntity());
 			if (saveConfig) ConfigHelper.saveConfig();
 			ShaderDataLoader.isReloading = false;
 		}
