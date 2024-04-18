@@ -165,24 +165,24 @@ public class Panorama {
 					ClientData.minecraft.gameRenderer.setBlockOutlineEnabled(true);
 					ClientData.minecraft.gameRenderer.setRenderingPanorama(false);
 					ClientData.minecraft.getFramebuffer().beginWrite(true);
-					ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.VERSION.getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, resourcePackDir.getAbsolutePath())))}));
+					ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.version.getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, resourcePackDir.getAbsolutePath())))}));
 				}
 			} else {
-				Text errorTitle = Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.title")});
+				Text errorTitle = Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.take_panorama_screenshot.failure.title")});
 				if (getIncompatibleMods().size() != 0) {
 					String incompatibleMods = getIncompatibleMods().toString().replace("[", "").replace("]", "");
-					Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: Incompatible Mod(s): {}", incompatibleMods));
-					Text errorDescription = (getIncompatibleMods().size() == 1) ? Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mod", new Object[]{incompatibleMods}) : Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mods", new Object[]{incompatibleMods});
+					Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: Incompatible Mod(s): {}", incompatibleMods));
+					Text errorDescription = (getIncompatibleMods().size() == 1) ? Translation.getTranslation(Data.version.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mod", new Object[]{incompatibleMods}) : Translation.getTranslation(Data.version.getID(), "toasts.take_panorama_screenshot.failure.description.incompatible_mods", new Object[]{incompatibleMods});
 					ClientData.minecraft.getToastManager().add(new Toast(errorTitle, errorDescription, 320, Toast.Type.WARNING));
 				}
 				if (ClientData.minecraft.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS)) {
-					Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: Unsupported Graphics Mode: Fabulous"));
-					Text errorDescription = Translation.getTranslation(Data.VERSION.getID(), "toasts.take_panorama_screenshot.failure.description.fabulous");
+					Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: Unsupported Graphics Mode: Fabulous"));
+					Text errorDescription = Translation.getTranslation(Data.version.getID(), "toasts.take_panorama_screenshot.failure.description.fabulous");
 					ClientData.minecraft.getToastManager().add(new Toast(errorTitle, errorDescription, 320, Toast.Type.WARNING));
 				}
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: {}", error));
 		}
 	}
 }

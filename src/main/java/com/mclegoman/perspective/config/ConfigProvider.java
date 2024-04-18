@@ -28,7 +28,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 		try {
 			CONFIG_LIST.add(keyValueSet);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to add {} config value: {}", Data.VERSION.getLoggerPrefix(), keyValueSet, error);
+			Data.version.getLogger().warn("{} Failed to add {} config value: {}", Data.version.getLoggerPrefix(), keyValueSet, error);
 		}
 	}
 	@Override
@@ -53,7 +53,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			}
 			CONFIG_LIST = NEW_CONFIG_LIST;
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to set {} config value: {}", Data.VERSION.getLoggerPrefix(), KEY_NAME, error);
+			Data.version.getLogger().warn("{} Failed to set {} config value: {}", Data.version.getLoggerPrefix(), KEY_NAME, error);
 		}
 	}
 	public void saveConfig(String ID) {
@@ -63,7 +63,7 @@ public class ConfigProvider implements SimpleConfig.DefaultConfig {
 			writer.write(CONTENTS);
 			writer.close();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to save {} config: {}", Data.VERSION.getLoggerPrefix(), ID, error);
+			Data.version.getLogger().warn("{} Failed to save {} config: {}", Data.version.getLoggerPrefix(), ID, error);
 		}
 	}
 }

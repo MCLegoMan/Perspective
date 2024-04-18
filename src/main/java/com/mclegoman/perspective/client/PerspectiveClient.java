@@ -30,7 +30,7 @@ public class PerspectiveClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		try {
-			Data.VERSION.sendToLog(Helper.LogType.INFO, Translation.getString("Initializing {}", Data.VERSION.getName()));
+			Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Initializing {}", Data.version.getName()));
 			ConfigHelper.init();
 			AprilFoolsPrank.init();
 			UIBackground.init();
@@ -46,7 +46,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Tick.init();
 			ClientData.setFinishedInitializing(true);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to run onInitializeClient: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to run onInitializeClient: {}", error));
 		}
 	}
 }

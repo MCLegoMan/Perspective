@@ -7,39 +7,40 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
 public class TutorialsConfig {
-	protected static final String ID = Data.VERSION.getID() + "-tutorials";
-	protected static SimpleConfig CONFIG;
-	protected static ConfigProvider CONFIG_PROVIDER;
-	protected static boolean SUPER_SECRET_SETTINGS;
+	protected static final String id = Data.version.getID() + "-tutorials";
+	protected static SimpleConfig config;
+	protected static ConfigProvider configProvider;
+	protected static boolean superSecretSettings;
 
 	protected static void init() {
 		try {
-			CONFIG_PROVIDER = new ConfigProvider();
+			configProvider = new ConfigProvider();
 			create();
-			CONFIG = SimpleConfig.of(ID).provider(CONFIG_PROVIDER).request();
+			config = SimpleConfig.of(id).provider(configProvider).request();
 			assign();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.VERSION.getLoggerPrefix(), ID, error);
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to initialize {} config: {}", id, error));
 		}
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Couple<>("super_secret_settings", false));
+		configProvider.add(new Couple<>("super_secret_settings", false));
 	}
 
 	protected static void assign() {
-		SUPER_SECRET_SETTINGS = CONFIG.getOrDefault("super_secret_settings", false);
+		superSecretSettings = config.getOrDefault("super_secret_settings", false);
 	}
 
 	protected static void save() {
-		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing tutorial config to file.");
-		CONFIG_PROVIDER.setConfig("super_secret_settings", SUPER_SECRET_SETTINGS);
-		CONFIG_PROVIDER.saveConfig(ID);
+		Data.version.sendToLog(Helper.LogType.INFO,"Writing tutorial config to file.");
+		configProvider.setConfig("super_secret_settings", superSecretSettings);
+		configProvider.saveConfig(id);
 	}
 }

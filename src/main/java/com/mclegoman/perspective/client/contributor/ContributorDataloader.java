@@ -42,17 +42,17 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 				contributor.add(capeTexture);
 				if (!registry.contains(contributor)) registry.add(contributor);
 			} else {
-				Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
+				Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to add contributor to contributor registry: {}", error));
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to add contributor to contributor registry: {}", error));
 		}
 	}
 	private void reset() {
 		try {
 			registry.clear();
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to reset contributor registry: {}", error));
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to reset contributor registry: {}", error));
 		}
 	}
 	@Override
@@ -61,7 +61,7 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 			reset();
 			prepared.forEach(this::layout$perspective);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to apply contributor dataloader: {}", error));
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to apply contributor dataloader: {}", error));
 		}
 	}
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
@@ -74,11 +74,11 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 			String capeTexture = JsonHelper.getString(reader, "capeTexture", "perspective:developer");
 			for (JsonElement uuid : uuids) add(uuid.getAsString(), type, shouldFlipUpsideDown, shouldReplaceCape, capeTexture);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
 		}
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), id);
+		return new Identifier(Data.version.getID(), id);
 	}
 }

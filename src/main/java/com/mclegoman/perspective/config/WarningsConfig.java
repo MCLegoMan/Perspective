@@ -7,43 +7,44 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
 public class WarningsConfig {
-	protected static final String ID = Data.VERSION.getID() + "-warnings";
-	protected static SimpleConfig CONFIG;
-	protected static ConfigProvider CONFIG_PROVIDER;
-	protected static boolean PHOTOSENSITIVITY;
-	protected static boolean PRANK;
+	protected static final String id = Data.version.getID() + "-warnings";
+	protected static SimpleConfig config;
+	protected static ConfigProvider configProvider;
+	protected static boolean photosensitivity;
+	protected static boolean prank;
 
 	protected static void init() {
 		try {
-			CONFIG_PROVIDER = new ConfigProvider();
+			configProvider = new ConfigProvider();
 			create();
-			CONFIG = SimpleConfig.of(ID).provider(CONFIG_PROVIDER).request();
+			config = SimpleConfig.of(id).provider(configProvider).request();
 			assign();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.VERSION.getLoggerPrefix(), ID, error);
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to initialize {} config: {}", id, error));
 		}
 	}
 
 	protected static void create() {
-		CONFIG_PROVIDER.add(new Couple<>("photosensitivity", false));
-		CONFIG_PROVIDER.add(new Couple<>("prank", false));
+		configProvider.add(new Couple<>("photosensitivity", false));
+		configProvider.add(new Couple<>("prank", false));
 	}
 
 	protected static void assign() {
-		PHOTOSENSITIVITY = CONFIG.getOrDefault("photosensitivity", false);
-		PRANK = CONFIG.getOrDefault("prank", false);
+		photosensitivity = config.getOrDefault("photosensitivity", false);
+		prank = config.getOrDefault("prank", false);
 	}
 
 	protected static void save() {
-		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing warning config to file.");
-		CONFIG_PROVIDER.setConfig("photosensitivity", PHOTOSENSITIVITY);
-		CONFIG_PROVIDER.setConfig("prank", PRANK);
-		CONFIG_PROVIDER.saveConfig(ID);
+		Data.version.sendToLog(Helper.LogType.INFO,"Writing warning config to file.");
+		configProvider.setConfig("photosensitivity", photosensitivity);
+		configProvider.setConfig("prank", prank);
+		configProvider.saveConfig(id);
 	}
 }

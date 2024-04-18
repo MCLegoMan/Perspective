@@ -26,44 +26,44 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class HoldPerspectiveConfigScreen extends Screen {
-	private final Screen PARENT_SCREEN;
-	private final GridWidget GRID;
-	private boolean REFRESH;
-	private boolean SHOULD_CLOSE;
+	private final Screen parentScreen;
+	private final GridWidget grid;
+	private boolean refresh;
+	private boolean shouldClose;
 
 	public HoldPerspectiveConfigScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
-		this.GRID = new GridWidget();
-		this.PARENT_SCREEN = PARENT;
-		this.REFRESH = REFRESH;
+		this.grid = new GridWidget();
+		this.parentScreen = PARENT;
+		this.refresh = REFRESH;
 	}
 
 	public void init() {
 		try {
-			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new HoldPerspectiveConfigScreen(PARENT_SCREEN, true), "hold_perspective", false, true));
+			grid.getMainPositioner().alignHorizontalCenter().margin(0);
+			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new HoldPerspectiveConfigScreen(parentScreen, true), "hold_perspective", false, true));
 			GRID_ADDER.add(createHoldPerspective());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
-			GRID.refreshPositions();
-			GRID.forEachChild(this::addDrawableChild);
+			grid.refreshPositions();
+			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize config$hold_perspective screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to initialize config$hold_perspective screen: {}", Data.version.getID(), error);
 		}
 	}
 
 	public void tick() {
 		try {
-			if (this.REFRESH) {
-				ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(PARENT_SCREEN, false));
+			if (this.refresh) {
+				ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(parentScreen, false));
 			}
-			if (this.SHOULD_CLOSE) {
-				ClientData.minecraft.setScreen(PARENT_SCREEN);
+			if (this.shouldClose) {
+				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to tick config$hold_perspective screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to tick config$hold_perspective screen: {}", Data.version.getID(), error);
 		}
 	}
 
@@ -71,9 +71,9 @@ public class HoldPerspectiveConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"), Translation.Type.ONFF)}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hold_perspective_hide_hud"));
-			this.REFRESH = true;
+			this.refresh = true;
 		}).width(304).build());
 		return GRID;
 	}
@@ -82,15 +82,15 @@ public class HoldPerspectiveConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset"), (button) -> {
-			if (ConfigHelper.resetConfig()) this.REFRESH = true;
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
+			if (ConfigHelper.resetConfig()) this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).build());
 		return GRID;
 	}
 
 	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+		SimplePositioningWidget.setPos(grid, getNavigationFocus());
 	}
 
 	public Text getNarratedTitle() {
@@ -104,15 +104,15 @@ public class HoldPerspectiveConfigScreen extends Screen {
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.SHOULD_CLOSE = true;
+			this.shouldClose = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			if (hasControlDown()) ConfigHelper.reloadConfig();
-			else UpdateChecker.checkForUpdates(Data.VERSION, true);
-			this.REFRESH = true;
+			if (hasControlDown()) ConfigHelper.reloadConfig(true, true);
+			else UpdateChecker.checkForUpdates(Data.version, true);
+			this.refresh = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}

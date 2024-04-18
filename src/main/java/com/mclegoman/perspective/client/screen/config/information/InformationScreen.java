@@ -27,44 +27,44 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class InformationScreen extends Screen {
-	private final Screen PARENT_SCREEN;
-	private final GridWidget GRID;
-	private boolean REFRESH;
-	private boolean SHOULD_CLOSE;
+	private final Screen parentScreen;
+	private final GridWidget grid;
+	private boolean refresh;
+	private boolean shouldClose;
 
 	public InformationScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
-		this.GRID = new GridWidget();
-		this.PARENT_SCREEN = PARENT;
-		this.REFRESH = REFRESH;
+		this.grid = new GridWidget();
+		this.parentScreen = PARENT;
+		this.refresh = REFRESH;
 	}
 
 	public void init() {
 		try {
-			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new InformationScreen(PARENT_SCREEN, true), "information", false, true));
+			grid.getMainPositioner().alignHorizontalCenter().margin(0);
+			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
+			GRID_ADDER.add(ScreenHelper.createTitle(client, new InformationScreen(parentScreen, true), "information", false, true));
 			GRID_ADDER.add(createInformation());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
-			GRID.refreshPositions();
-			GRID.forEachChild(this::addDrawableChild);
+			grid.refreshPositions();
+			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize information screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to initialize information screen: {}", Data.version.getID(), error);
 		}
 	}
 
 	public void tick() {
 		try {
-			if (this.REFRESH) {
-				ClientData.minecraft.setScreen(new InformationScreen(PARENT_SCREEN, false));
+			if (this.refresh) {
+				ClientData.minecraft.setScreen(new InformationScreen(parentScreen, false));
 			}
-			if (this.SHOULD_CLOSE) {
-				ClientData.minecraft.setScreen(PARENT_SCREEN);
+			if (this.shouldClose) {
+				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$info screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to tick perspective$config$info screen: {}", Data.version.getID(), error);
 		}
 	}
 
@@ -72,10 +72,10 @@ public class InformationScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.source_code"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective")).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.report"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective/issues")).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "information.credits"), button -> ClientData.minecraft.setScreen(new CreditsAttributionScreen(ClientData.minecraft.currentScreen))).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.source_code"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective")).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.report"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective/issues")).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.credits"), button -> ClientData.minecraft.setScreen(new CreditsAttributionScreen(ClientData.minecraft.currentScreen))).build(), 1);
 		return GRID;
 	}
 
@@ -83,12 +83,12 @@ public class InformationScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).build());
 		return GRID;
 	}
 
 	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+		SimplePositioningWidget.setPos(grid, getNavigationFocus());
 	}
 
 	public Text getNarratedTitle() {
@@ -102,15 +102,15 @@ public class InformationScreen extends Screen {
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.SHOULD_CLOSE = true;
+			this.shouldClose = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			if (hasControlDown()) ConfigHelper.reloadConfig();
-			else UpdateChecker.checkForUpdates(Data.VERSION, true);
-			this.REFRESH = true;
+			if (hasControlDown()) ConfigHelper.reloadConfig(true, true);
+			else UpdateChecker.checkForUpdates(Data.version, true);
+			this.refresh = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}

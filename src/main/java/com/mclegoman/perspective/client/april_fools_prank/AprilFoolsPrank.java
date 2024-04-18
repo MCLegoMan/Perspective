@@ -28,7 +28,7 @@ public class AprilFoolsPrank {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new AprilFoolsPrankDataLoader());
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize april fools prank: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} Failed to initialize april fools prank: {}", Data.version.getLoggerPrefix(), error);
 		}
 	}
 	public static void tick() {
@@ -36,7 +36,7 @@ public class AprilFoolsPrank {
 		if (!seenWarning && ClientData.minecraft.world != null) {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && isAprilFools()) {
 				if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "prank")) {
-					ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.prank.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+					ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.prank.title")}), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
 					ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "prank", true);
 					shouldSave = true;
 					seenWarning = true;

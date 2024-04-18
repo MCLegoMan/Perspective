@@ -17,7 +17,7 @@ public class PositionOverlay {
 	public static void render(DrawContext context) {
 		if (ClientData.minecraft.player != null) {
 			boolean debugEnabled = !DebugOverlay.debugType.equals(DebugOverlay.Type.none);
-			Text pos = Translation.getTranslation(Data.VERSION.getID(), "position_overlay", new Object[]{
+			Text pos = Translation.getTranslation(Data.version.getID(), "position_overlay", new Object[]{
 					(int) ClientData.minecraft.player.getPos().getX(),
 					(int) ClientData.minecraft.player.getPos().getY(),
 					(int) ClientData.minecraft.player.getPos().getZ(),

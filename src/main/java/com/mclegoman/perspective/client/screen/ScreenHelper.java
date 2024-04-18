@@ -33,11 +33,11 @@ public class ScreenHelper {
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
 		GRID_ADDER.add(new PerspectiveLogo.Widget(experimental));
 		if (UpdateChecker.NEWER_VERSION_FOUND && updateMsg) {
-			GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
-			Text NEW_VERSION_TEXT = Translation.getConfigTranslation(Data.VERSION.getID(), "update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}, new Formatting[]{Formatting.YELLOW});
+			GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
+			Text NEW_VERSION_TEXT = Translation.getConfigTranslation(Data.version.getID(), "update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}, new Formatting[]{Formatting.YELLOW});
 			GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(parentScreen, UpdateChecker.DOWNLOAD_LINK)), client.textRenderer));
 		}
-		if (showPageName && pageName != null) GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), pageName), ClientData.minecraft.textRenderer).setCentered(true));
+		if (showPageName && pageName != null) GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), pageName), ClientData.minecraft.textRenderer).setCentered(true));
 		GRID_ADDER.add(new EmptyWidget(4, 4));
 		return GRID;
 	}

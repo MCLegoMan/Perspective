@@ -13,7 +13,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.common.data.Data;
@@ -71,10 +70,10 @@ public class CreditsAttributionScreen extends Screen {
 				reader1.read(reader2);
 			} catch (Exception error) {
 				reader2.close();
-				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
+				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
 		}
 	}
 	private void readCredits(Reader reader1) {
@@ -110,7 +109,7 @@ public class CreditsAttributionScreen extends Screen {
 				this.addEmptyLine();
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
 		}
 	}
 	private void addEmptyLine() {

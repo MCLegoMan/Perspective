@@ -34,7 +34,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to add hide armor to registry: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to add hide armor to registry: {}", Data.version.getID(), error);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 		try {
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to reset hide armor registry: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to reset hide armor registry: {}", Data.version.getID(), error);
 		}
 	}
 
@@ -52,13 +52,13 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 			reset();
 			layout$perspective(manager);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to apply hide armor dataloader: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to apply hide armor dataloader: {}", Data.version.getID(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), ID);
+		return new Identifier(Data.version.getID(), ID);
 	}
 
 	private void layout$perspective(ResourceManager manager) {
@@ -69,7 +69,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 					add(value.getAsString());
 				}
 			} catch (Exception error) {
-				Data.VERSION.getLogger().warn("{} Failed to load perspective hide armor list: {}", Data.VERSION.getID(), error);
+				Data.version.getLogger().warn("{} Failed to load perspective hide armor list: {}", Data.version.getID(), error);
 			}
 		}
 	}

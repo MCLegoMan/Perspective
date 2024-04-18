@@ -114,7 +114,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 			if (!alreadyRegistered) registry.add(shaderMap);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.WARN, "Failed to add shader to registry: " + error);
+			Data.version.sendToLog(Helper.LogType.WARN, "Failed to add shader to registry: " + error);
 		}
 	}
 	private void reset(ResourceManager manager) {
@@ -124,7 +124,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			duplicatedNames.clear();
 			add$default(manager);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to reset shaders registry: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to reset shaders registry: {}", Data.version.getID(), error);
 		}
 	}
 	private void clearNamespace(String namespace) {
@@ -132,7 +132,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			registry.removeIf((shader) -> shader.get(1).toString().equalsIgnoreCase(namespace));
 			entityLinkRegistry.removeIf((shader) -> shader.get(0).toString().equalsIgnoreCase(namespace));
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.VERSION.getID(), namespace, error);
+			Data.version.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.version.getID(), namespace, error);
 		}
 	}
 	private void removeShader(String namespace, String name) {
@@ -140,7 +140,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			registry.removeIf((shader) -> shader.get(1).toString().equalsIgnoreCase(namespace) && shader.get(2).toString().equalsIgnoreCase(name));
 			entityLinkRegistry.removeIf((shader) -> shader.get(1).toString().equalsIgnoreCase(namespace) && shader.get(2).toString().equalsIgnoreCase(name));
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.VERSION.getID(), namespace, error);
+			Data.version.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.version.getID(), namespace, error);
 		}
 	}
 	private void add$default(ResourceManager manager) {
@@ -151,7 +151,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			add("minecraft", "spider", true, true, false, new JsonObject(), manager);
 			add("perspective", "gaussian", true, true, false, new JsonObject(), manager);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.version.getID(), error);
 		}
 	}
 	@Override
@@ -172,17 +172,17 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 			isReloading = true;
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to apply shaders dataloader: {}", Data.version.getID(), error);
 		}
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), ID);
+		return new Identifier(Data.version.getID(), ID);
 	}
 	private void layout$perspective(JsonElement jsonElement, ResourceManager manager) {
 		try {
 			JsonObject reader = jsonElement.getAsJsonObject();
-			String namespace = JsonHelper.getString(reader, "namespace", Data.VERSION.getID());
+			String namespace = JsonHelper.getString(reader, "namespace", Data.version.getID());
 			String shader = JsonHelper.getString(reader, "shader");
 			boolean disableScreenMode = JsonHelper.getBoolean(reader, "disable_screen_mode", false);
 			boolean translatable = JsonHelper.getBoolean(reader, "translatable", false);
@@ -201,7 +201,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 			else removeShader(namespace, shader);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to load perspective shader: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to load perspective shader: {}", Data.version.getID(), error);
 		}
 	}
 	private void layout$souper_secret_settings(ResourceManager manager) {
@@ -230,7 +230,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 						}
 					}
 				} catch (Exception error) {
-					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.VERSION.getID(), error);
+					Data.version.getLogger().warn("{} Failed to load souper secret settings shader list: {}", Data.version.getID(), error);
 				}
 			}
 		}
@@ -250,7 +250,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 						entityLinkRegistry.add(entityLink);
 					}
 				} catch (Exception error) {
-					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader entity links: {}", Data.VERSION.getID(), error);
+					Data.version.getLogger().warn("{} Failed to load souper secret settings shader entity links: {}", Data.version.getID(), error);
 				}
 			}
 		}

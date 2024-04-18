@@ -23,37 +23,37 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class UpdateCheckerScreen extends Screen {
-	private final Screen PARENT_SCREEN;
-	private final GridWidget GRID;
-	private boolean SHOULD_CLOSE;
+	private final Screen parentScreen;
+	private final GridWidget grid;
+	private boolean shouldClose;
 	public UpdateCheckerScreen(Screen PARENT) {
 		super(Text.literal(""));
-		this.GRID = new GridWidget();
-		this.PARENT_SCREEN = PARENT;
+		this.grid = new GridWidget();
+		this.parentScreen = PARENT;
 	}
 	public void init() {
 		try {
-			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new UpdateCheckerScreen(PARENT_SCREEN), false, false));
-			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.checking"), ClientData.minecraft.textRenderer).setCentered(true));
-			GRID.refreshPositions();
-			GRID.forEachChild(this::addDrawableChild);
+			grid.getMainPositioner().alignHorizontalCenter().margin(0);
+			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new UpdateCheckerScreen(parentScreen), false, false));
+			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.checking"), ClientData.minecraft.textRenderer).setCentered(true));
+			grid.refreshPositions();
+			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.version.getID(), error);
 		}
 	}
 	public void tick() {
 		try {
-			if (UpdateChecker.UPDATE_CHECKER_COMPLETE) this.SHOULD_CLOSE = true;
-			if (this.SHOULD_CLOSE) ClientData.minecraft.setScreen(PARENT_SCREEN);
+			if (UpdateChecker.UPDATE_CHECKER_COMPLETE) this.shouldClose = true;
+			if (this.shouldClose) ClientData.minecraft.setScreen(parentScreen);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.version.getID(), error);
 		}
 	}
 	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+		SimplePositioningWidget.setPos(grid, getNavigationFocus());
 	}
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
@@ -64,7 +64,7 @@ public class UpdateCheckerScreen extends Screen {
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.SHOULD_CLOSE = true;
+			this.shouldClose = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	@Override

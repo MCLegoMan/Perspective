@@ -48,7 +48,7 @@ public abstract class InGameHudMixin {
 	private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
 		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
-				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.VERSION.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) PositionOverlay.render(context);
 			if (!DebugOverlay.debugType.equals(DebugOverlay.Type.none)) {
 				DebugOverlay.renderDebugHUD(context);

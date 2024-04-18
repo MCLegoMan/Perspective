@@ -25,6 +25,7 @@ import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.ShaderStage;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
@@ -38,7 +39,7 @@ import java.util.*;
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
 	private static final List<String> improvedDepthRendererIncompatibleMods = new ArrayList<>();
-	private static final Formatting[] COLORS = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
+	private static final Formatting[] colors = new Formatting[]{Formatting.DARK_BLUE, Formatting.DARK_GREEN, Formatting.DARK_AQUA, Formatting.DARK_RED, Formatting.DARK_PURPLE, Formatting.GOLD, Formatting.BLUE, Formatting.GREEN, Formatting.AQUA, Formatting.RED, Formatting.LIGHT_PURPLE, Formatting.YELLOW};
 	public static int superSecretSettingsIndex;
 	public static boolean depthFix;
 	public static boolean useDepth;
@@ -72,7 +73,7 @@ public class Shader {
 			addImprovedDepthRendererIncompatibleMod("iris");
 			addImprovedDepthRendererIncompatibleMod("canvas");
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.version.getLoggerPrefix(), error);
 		}
 	}
 	public static void tick() {
@@ -116,7 +117,7 @@ public class Shader {
 		return incompatibleModsFound;
 	}
 	public static boolean shouldDisableImprovedDepthRenderer() {
-		return !((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug") && getImprovedDepthRendererIncompatibleMods().isEmpty());
+		return !((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")) && !getImprovedDepthRendererIncompatibleMods().isEmpty();
 	}
 	public static void checkKeybindings() {
 		if (Keybindings.cycleShaders.wasPressed())
@@ -129,13 +130,13 @@ public class Shader {
 		boolean save = false;
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials")) {
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings")) {
-				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.cycleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.toggleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
+				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.cycleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.toggleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings", true);
 				save = true;
 			}
 		}
 		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity")) {
-			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.photosensitivity.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
+			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.warning.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.warning.photosensitivity.title")}), Translation.getTranslation(Data.version.getID(), "toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity", true);
 			save = true;
 		}
@@ -211,7 +212,7 @@ public class Shader {
 			}
 		}
 		if (showShaderName) {
-			setOverlay(Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"), Translation.Type.ENDISABLE));
+			setOverlay(Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"), Translation.Type.ENDISABLE));
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig();
 	}
@@ -235,10 +236,10 @@ public class Shader {
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
-				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.VERSION.getLoggerPrefix(), error);
+				Data.version.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.version.getLoggerPrefix(), error);
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.version.getLoggerPrefix(), error);
 		}
 	}
 
@@ -252,7 +253,7 @@ public class Shader {
 				set(true, playSound, showShaderName, SAVE_CONFIG);
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.version.getLoggerPrefix(), error);
 		}
 	}
 	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
@@ -282,7 +283,7 @@ public class Shader {
 						cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
 					}
 				} catch (Exception error) {
-					Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
+					Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 				}
 			} catch (FileNotFoundException ignored) {
 				// We ignore this error as we would have already caught errors with the post json on load.
@@ -296,14 +297,14 @@ public class Shader {
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
-				Data.VERSION.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.VERSION.getLoggerPrefix(), error);
+				Data.version.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.version.getLoggerPrefix(), error);
 			}
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				toggle(true, false, true, false);
 			if (SAVE_CONFIG) ConfigHelper.saveConfig();
 
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.version.getLoggerPrefix(), error);
 			try {
 				// If there's an issue, we always save the config.
 				cycle(true, forwards, false, true, true);
@@ -321,14 +322,14 @@ public class Shader {
 		}
 		depthFix = false;
 	}
-	public static void setEntityShader(Framebuffer framebuffer, int framebufferWidth, int framebufferHeight, Entity entity) {
+	public static void setEntityShader(Framebuffer framebuffer, int framebufferWidth, int framebufferHeight, String entityType) {
 		entityUseDepth = false;
 		entityDepthFix = true;
 		try {
 			if (entityPostProcessor != null) {
 				if (!entityPostProcessor.isEmpty()) entityPostProcessor.clear();
 				for (List<Object> shader : ShaderDataLoader.entityLinkRegistry) {
-					if (entity.getType().toString().equalsIgnoreCase((String) shader.get(0))) {
+					if (entityType.equalsIgnoreCase((String) shader.get(0))) {
 						try {
 							Identifier shaderId = ((String) shader.get(1)).contains(":") ? ShaderDataLoader.getPostShader((String) shader.get(1)): ShaderDataLoader.getPostShader(ShaderDataLoader.guessPostShaderNamespace((String) shader.get(1)), (String) shader.get(1));
 							PostEffectProcessor shaderProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), framebuffer, shaderId);
@@ -348,7 +349,7 @@ public class Shader {
 									entityCloudsFramebuffer.add(postProcessor.getSecondaryTarget("clouds"));
 								}
 							} catch (Exception error) {
-								Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
+								Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
 							}
 						} catch (FileNotFoundException ignored) {
 							// We ignore this error as we would have already caught errors with the post json on load.
@@ -358,7 +359,7 @@ public class Shader {
 				}
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to set entity link shader.", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} An error occurred whilst trying to set entity link shader.", Data.version.getLoggerPrefix(), error);
 		}
 		entityDepthFix = false;
 	}
@@ -370,7 +371,7 @@ public class Shader {
 	public static Formatting getRandomColor() {
 		Random random = new Random();
 		Formatting COLOR = lastColor;
-		while (COLOR == lastColor) COLOR = COLORS[(random.nextInt(COLORS.length))];
+		while (COLOR == lastColor) COLOR = colors[(random.nextInt(colors.length))];
 		lastColor = COLOR;
 		return COLOR;
 	}
@@ -378,10 +379,9 @@ public class Shader {
 		return postProcessor != null && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled");
 	}
 	public static void prepEntityShader(@Nullable Entity entity) {
-		if (entity != null) {
-			entityPostProcessor = new ArrayList<>();
-			setEntityShader(ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight(), entity);
-		}
+		String entityType = entity != null ? entity.getType().toString() : EntityType.PLAYER.toString();
+		entityPostProcessor = new ArrayList<>();
+		setEntityShader(ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight(), entityType);
 	}
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta, String type) {
 		renderType = type + (useDepth ? ":depth" : "");
@@ -455,7 +455,7 @@ public class Shader {
 				}
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to release shaders: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to release shaders: {}", Data.version.getID(), error);
 		}
 	}
 }

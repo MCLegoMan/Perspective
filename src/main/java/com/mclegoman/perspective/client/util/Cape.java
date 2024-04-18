@@ -20,7 +20,7 @@ public class Cape {
 				String cape_texture = texture.substring(texture.indexOf(":") + 1);
 				return new Identifier(cape_namespace, "textures/entity/player/cape/" + cape_texture + ".png");
 			} else {
-				return new Identifier(Data.VERSION.getID(), "textures/entity/player/cape/" + texture + ".png");
+				return new Identifier(Data.version.getID(), "textures/entity/player/cape/" + texture + ".png");
 			}
 		}
 	}

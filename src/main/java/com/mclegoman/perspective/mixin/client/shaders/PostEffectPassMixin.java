@@ -44,9 +44,9 @@ public abstract class PostEffectPassMixin {
 			getUniform("maxAir").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAir() : 10);
 
 			// Perspective Uniforms
-			getUniform(Data.VERSION.getID(), "zoomMultiplier").set((float) Zoom.getMultiplier());
+			getUniform(Data.version.getID(), "zoomMultiplier").set((float) Zoom.getMultiplier());
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
 		}
 	}
 	@Unique

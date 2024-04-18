@@ -43,7 +43,7 @@ public class Zoom {
 			addZoomType(Logarithmic.getIdentifier());
 			addZoomType(Linear.getIdentifier());
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to init zoom: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to init zoom: {}", error));
 		}
 	}
 	public static void tick() {
@@ -54,7 +54,7 @@ public class Zoom {
 				hasUpdated = false;
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
 		}
 	}
 	public static boolean isZooming() {
@@ -71,7 +71,7 @@ public class Zoom {
 			multiplier = Multiplier.getMultiplier();
 			updateTransition();
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to update zoom multiplier: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to update zoom multiplier: {}", error));
 		}
 	}
 	public static void updateTransition() {
@@ -80,7 +80,7 @@ public class Zoom {
 				multiplier = (prevMultiplier + multiplier) * 0.5;
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to update zoom transition: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to update zoom transition: {}", error));
 		}
 	}
 	public static double getPrevMultiplier() {
@@ -109,7 +109,7 @@ public class Zoom {
 			}
 			if (updated) setOverlay();
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom level: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom level: {}", error));
 		}
 	}
 	public static void reset() {
@@ -120,7 +120,7 @@ public class Zoom {
 				hasUpdated = true;
 			}
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to reset zoom level: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to reset zoom level: {}", error));
 		}
 	}
 	private static void setOverlay() {
@@ -128,7 +128,7 @@ public class Zoom {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")).formatted(Formatting.GOLD));
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
 		}
 	}
 	public static String cycleZoomType() {
@@ -140,7 +140,7 @@ public class Zoom {
 			String zoomType = IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size()));
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", zoomType);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
 		}
 		return null;
 	}
@@ -157,7 +157,7 @@ public class Zoom {
 	}
 	public static class Logarithmic {
 		public static Identifier getIdentifier() {
-			return new Identifier(Data.VERSION.getID(), "logarithmic");
+			return new Identifier(Data.version.getID(), "logarithmic");
 		}
 		public static double getLimitFOV(double input) {
 			return MathHelper.clamp(input, 0.01, 179.99);
@@ -168,7 +168,7 @@ public class Zoom {
 	}
 	public static class Linear {
 		public static Identifier getIdentifier() {
-			return new Identifier(Data.VERSION.getID(), "linear");
+			return new Identifier(Data.version.getID(), "linear");
 		}
 		public static double getLimitFOV(double input) {
 			return MathHelper.clamp(input, 0.01, 179.99);
@@ -186,7 +186,7 @@ public class Zoom {
 			try {
 				currentMultiplier = multiplier;
 			} catch (Exception error) {
-				Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set Zoom Multiplier: {}", error));
+				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set Zoom Multiplier: {}", error));
 			}
 		}
 	}

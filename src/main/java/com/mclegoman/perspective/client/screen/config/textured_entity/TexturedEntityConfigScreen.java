@@ -26,44 +26,44 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class TexturedEntityConfigScreen extends Screen {
-	private final Screen PARENT_SCREEN;
-	private final GridWidget GRID;
-	private boolean REFRESH;
-	private boolean SHOULD_CLOSE;
+	private final Screen parentScreen;
+	private final GridWidget grid;
+	private boolean refresh;
+	private boolean shouldClose;
 
 	public TexturedEntityConfigScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
-		this.GRID = new GridWidget();
-		this.PARENT_SCREEN = PARENT;
-		this.REFRESH = REFRESH;
+		this.grid = new GridWidget();
+		this.parentScreen = PARENT;
+		this.refresh = REFRESH;
 	}
 
 	public void init() {
 		try {
-			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new TexturedEntityConfigScreen(PARENT_SCREEN, true), "textured_entity", false, true));
+			grid.getMainPositioner().alignHorizontalCenter().margin(0);
+			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new TexturedEntityConfigScreen(parentScreen, true), "textured_entity", false, true));
 			GRID_ADDER.add(createTexturedEntity());
 			GRID_ADDER.add(new EmptyWidget(4, 4));
 			GRID_ADDER.add(createFooter());
-			GRID.refreshPositions();
-			GRID.forEachChild(this::addDrawableChild);
+			grid.refreshPositions();
+			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize config>textured entity screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to initialize config>textured entity screen: {}", Data.version.getID(), error);
 		}
 	}
 
 	public void tick() {
 		try {
-			if (this.REFRESH) {
-				ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(PARENT_SCREEN, false));
+			if (this.refresh) {
+				ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(parentScreen, false));
 			}
-			if (this.SHOULD_CLOSE) {
-				ClientData.minecraft.setScreen(PARENT_SCREEN);
+			if (this.shouldClose) {
+				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to tick perspective$config$textured_entity screen: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to tick perspective$config$textured_entity screen: {}", Data.version.getID(), error);
 		}
 	}
 
@@ -71,13 +71,13 @@ public class TexturedEntityConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "textured_entity.named", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity"), Translation.Type.ONFF)}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity.named", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity"));
-			REFRESH = true;
+			refresh = true;
 		}).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "textured_entity.random", new Object[]{Translation.getVariableTranslation(Data.VERSION.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity"), Translation.Type.ONFF)}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity.random", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity"));
-			REFRESH = true;
+			refresh = true;
 		}).width(304).build(), 1);
 		return GRID;
 	}
@@ -86,15 +86,15 @@ public class TexturedEntityConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "reset"), (button) -> {
-			if (ConfigHelper.resetConfig()) this.REFRESH = true;
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
+			if (ConfigHelper.resetConfig()) this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.VERSION.getID(), "back"), (button) -> this.SHOULD_CLOSE = true).build());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).build());
 		return GRID;
 	}
 
 	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(GRID, getNavigationFocus());
+		SimplePositioningWidget.setPos(grid, getNavigationFocus());
 	}
 
 	public Text getNarratedTitle() {
@@ -108,15 +108,15 @@ public class TexturedEntityConfigScreen extends Screen {
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.SHOULD_CLOSE = true;
+			this.shouldClose = true;
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			if (hasControlDown()) ConfigHelper.reloadConfig();
-			else UpdateChecker.checkForUpdates(Data.VERSION, true);
-			this.REFRESH = true;
+			if (hasControlDown()) ConfigHelper.reloadConfig(true, true);
+			else UpdateChecker.checkForUpdates(Data.version, true);
+			this.refresh = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}

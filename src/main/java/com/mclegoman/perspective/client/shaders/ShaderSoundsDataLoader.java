@@ -38,7 +38,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 		try {
 			if (!SOUNDS.contains(SOUND)) SOUNDS.add(SOUND);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().error("{} Failed to add shader sound to registry: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().error("{} Failed to add shader sound to registry: {}", Data.version.getLoggerPrefix(), error);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 			SOUNDS.clear();
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().error("{} Failed to reset shader sound registry: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().error("{} Failed to reset shader sound registry: {}", Data.version.getLoggerPrefix(), error);
 		}
 	}
 
@@ -55,7 +55,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), ID + ".json"))) {
+			for (Resource resource : manager.getAllResources(new Identifier(Data.version.getID(), ID + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
 				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonArray defaultSounds = new JsonArray();
@@ -73,12 +73,12 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 				}
 			}
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to load shader sound values: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} Failed to load shader sound values: {}", Data.version.getLoggerPrefix(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), ID);
+		return new Identifier(Data.version.getID(), ID);
 	}
 }

@@ -7,13 +7,14 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
 public class Config {
-	protected static final String id = Data.VERSION.getID();
+	protected static final String id = Data.version.getID();
 	protected static SimpleConfig config;
 	protected static ConfigProvider configProvider;
 	protected static int zoomLevel;
@@ -62,7 +63,7 @@ public class Config {
 			config = SimpleConfig.of(id).provider(configProvider).request();
 			assign();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to initialize {} config: {}", Data.VERSION.getLoggerPrefix(), id, error);
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to initialize {} config: {}", id, error));
 		}
 	}
 
@@ -104,7 +105,7 @@ public class Config {
 		configProvider.add(new Couple<>("detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 		configProvider.add(new Couple<>("debug", ConfigDataLoader.debug));
 		configProvider.add(new Couple<>("test_resource_pack", ConfigDataLoader.testResourcePack));
-		configProvider.add(new Couple<>("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION));
+		configProvider.add(new Couple<>("config_version", ConfigHelper.defaultConfigVersion));
 	}
 
 	protected static void assign() {
@@ -145,11 +146,11 @@ public class Config {
 		detectUpdateChannel = config.getOrDefault("detect_update_channel", ConfigDataLoader.detectUpdateChannel);
 		debug = config.getOrDefault("debug", ConfigDataLoader.debug);
 		testResourcePack = config.getOrDefault("test_resource_pack", ConfigDataLoader.testResourcePack);
-		configVersion = config.getOrDefault("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
+		configVersion = config.getOrDefault("config_version", ConfigHelper.defaultConfigVersion);
 	}
 
 	protected static void save() {
-		Data.VERSION.sendToLog(Helper.LogType.INFO,"Writing config to file.");
+		Data.version.sendToLog(Helper.LogType.INFO,"Writing config to file.");
 		configProvider.setConfig("zoom_level", zoomLevel);
 		configProvider.setConfig("zoom_increment_size", zoomIncrementSize);
 		configProvider.setConfig("zoom_transition", zoomTransition);
@@ -187,7 +188,7 @@ public class Config {
 		configProvider.setConfig("detect_update_channel", detectUpdateChannel);
 		configProvider.setConfig("debug", debug);
 		configProvider.setConfig("test_resource_pack", testResourcePack);
-		configProvider.setConfig("config_version", ConfigHelper.DEFAULT_CONFIG_VERSION);
+		configProvider.setConfig("config_version", ConfigHelper.defaultConfigVersion);
 		configProvider.saveConfig(id);
 	}
 }

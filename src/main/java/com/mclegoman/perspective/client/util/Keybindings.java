@@ -41,37 +41,37 @@ public class Keybindings {
 
 	static {
 		allKeybindings = new KeyBinding[]{
-				cycleCrosshair = getKeybinding(Data.VERSION.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
-				cycleDebug = getKeybinding(Data.VERSION.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN),
-				cycleShaders = getKeybinding(Data.VERSION.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
-				holdPerspectiveThirdPersonBack = getKeybinding(Data.VERSION.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
-				holdPerspectiveThirdPersonFront = getKeybinding(Data.VERSION.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
-				holdZoom = getKeybinding(Data.VERSION.getID(), "hold_zoom", GLFW.GLFW_KEY_C),
-				openConfig = getKeybinding(Data.VERSION.getID(), "open_config", GLFW.GLFW_KEY_END),
-				randomizeShader = getKeybinding(Data.VERSION.getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
-				setPerspectiveFirstPerson = getKeybinding(Data.VERSION.getID(), "set_perspective_first_person", GLFW.GLFW_KEY_UNKNOWN),
-				setPerspectiveThirdPersonBack = getKeybinding(Data.VERSION.getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_UNKNOWN),
-				setPerspectiveThirdPersonFront = getKeybinding(Data.VERSION.getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_UNKNOWN),
-				takePanoScreenshot = getKeybinding(Data.VERSION.getID(), "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
-				toggleArmour = getKeybinding(Data.VERSION.getID(), "toggle_armor", GLFW.GLFW_KEY_UNKNOWN),
-				toggleBlockOutline = getKeybinding(Data.VERSION.getID(), "toggle_block_outline", GLFW.GLFW_KEY_UNKNOWN),
-				toggleNametags = getKeybinding(Data.VERSION.getID(), "toggle_nametags", GLFW.GLFW_KEY_UNKNOWN),
-				togglePlayers = getKeybinding(Data.VERSION.getID(), "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
-				togglePosOverlay = getKeybinding(Data.VERSION.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
-				toggleShaders = getKeybinding(Data.VERSION.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
-				toggleZoom = getKeybinding(Data.VERSION.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
+				cycleCrosshair = getKeybinding(Data.version.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
+				cycleDebug = getKeybinding(Data.version.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN),
+				cycleShaders = getKeybinding(Data.version.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
+				holdPerspectiveThirdPersonBack = getKeybinding(Data.version.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
+				holdPerspectiveThirdPersonFront = getKeybinding(Data.version.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_X),
+				holdZoom = getKeybinding(Data.version.getID(), "hold_zoom", GLFW.GLFW_KEY_C),
+				openConfig = getKeybinding(Data.version.getID(), "open_config", GLFW.GLFW_KEY_END),
+				randomizeShader = getKeybinding(Data.version.getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
+				setPerspectiveFirstPerson = getKeybinding(Data.version.getID(), "set_perspective_first_person", GLFW.GLFW_KEY_UNKNOWN),
+				setPerspectiveThirdPersonBack = getKeybinding(Data.version.getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_UNKNOWN),
+				setPerspectiveThirdPersonFront = getKeybinding(Data.version.getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_UNKNOWN),
+				takePanoScreenshot = getKeybinding(Data.version.getID(), "take_panorama_screenshot", GLFW.GLFW_KEY_UNKNOWN),
+				toggleArmour = getKeybinding(Data.version.getID(), "toggle_armor", GLFW.GLFW_KEY_UNKNOWN),
+				toggleBlockOutline = getKeybinding(Data.version.getID(), "toggle_block_outline", GLFW.GLFW_KEY_UNKNOWN),
+				toggleNametags = getKeybinding(Data.version.getID(), "toggle_nametags", GLFW.GLFW_KEY_UNKNOWN),
+				togglePlayers = getKeybinding(Data.version.getID(), "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
+				togglePosOverlay = getKeybinding(Data.version.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				toggleShaders = getKeybinding(Data.version.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
+				toggleZoom = getKeybinding(Data.version.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
 		};
 	}
 
 	public static void init() {
-		Data.VERSION.getLogger().info("{} Initializing keybindings", Data.VERSION.getLoggerPrefix());
+		Data.version.getLogger().info("{} Initializing keybindings", Data.version.getLoggerPrefix());
 	}
 
 	public static void tick() {
 		if (!seenConflictingKeybindingToasts) {
 			if (hasKeybindingConflicts()) {
-				Data.VERSION.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.VERSION.getName());
-				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.VERSION.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.VERSION.getID(), "name"), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.title")}), Translation.getTranslation(Data.VERSION.getID(), "toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
+				Data.version.getLogger().info("{} Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed.", Data.version.getName());
+				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.keybinding_conflicts.title")}), Translation.getTranslation(Data.version.getID(), "toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
 			}
 			seenConflictingKeybindingToasts = true;
 		}

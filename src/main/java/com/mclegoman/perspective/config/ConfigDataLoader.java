@@ -68,7 +68,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
-			Optional<Resource> resource = manager.getResource(new Identifier(Data.VERSION.getID(), ID + ".json"));
+			Optional<Resource> resource = manager.getResource(new Identifier(Data.version.getID(), ID + ".json"));
 			if (resource.isPresent()) {
 				zoomLevel = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "zoom_level", 40);
 				zoomIncrementSize = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "zoom_increment_size", 1);
@@ -110,12 +110,12 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to load default config values: {}", Data.VERSION.getLoggerPrefix(), error);
+			Data.version.getLogger().warn("{} Failed to load default config values: {}", Data.version.getLoggerPrefix(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), ID);
+		return new Identifier(Data.version.getID(), ID);
 	}
 }

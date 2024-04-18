@@ -51,21 +51,21 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 			Couple<String, Boolean> splash = new Couple<>(text, translatable);
 			if (!registry.contains(splash)) registry.add(splash);
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to add splash text to registry: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to add splash text to registry: {}", error));
 		}
 	}
 	private void reset() {
 		try {
 			registry.clear();
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to reset splash text registry: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to reset splash text registry: {}", error));
 		}
 	}
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.VERSION.getID(), id + ".json"))) {
+			for (Resource resource : manager.getAllResources(new Identifier(Data.version.getID(), id + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
 				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonArray translatableTexts = JsonHelper.getArray(reader, "translatable");
@@ -75,11 +75,11 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 			}
 			randomizeSplashText();
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to load splash text from dataloader: {}", error));
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to load splash text from dataloader: {}", error));
 		}
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), id);
+		return new Identifier(Data.version.getID(), id);
 	}
 }

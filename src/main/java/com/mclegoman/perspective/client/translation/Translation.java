@@ -146,7 +146,7 @@ public class Translation {
 		else return getErrorTranslation();
 	}
 	public static MutableText getErrorTranslation() {
-		return getConfigTranslation(Data.VERSION.getID(), "error", new Formatting[]{Formatting.RED, Formatting.BOLD});
+		return getConfigTranslation(Data.version.getID(), "error", new Formatting[]{Formatting.RED, Formatting.BOLD});
 	}
 	public enum Type implements StringIdentifiable {
 		ENDISABLE("endisable"),

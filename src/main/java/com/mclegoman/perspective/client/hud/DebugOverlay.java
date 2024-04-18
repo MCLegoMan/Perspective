@@ -35,9 +35,10 @@ public class DebugOverlay {
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay")) {
 			debugText.add("\n");
 		}
-		debugText.add(Text.literal(Data.VERSION.getName() + " " + Data.VERSION.getFriendlyString(false)));
+		debugText.add(Text.literal(Data.version.getName() + " " + Data.version.getFriendlyString(false)));
 		if (debugType.equals(Type.misc)) {
 			debugText.add("\n");
+			debugText.add(Text.literal("debug: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")));
 			debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));
 			debugText.add(Text.literal("isSaving(): " + ConfigHelper.isSaving()));
 			debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));

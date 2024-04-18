@@ -43,7 +43,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			if (enabled) registry.add(texturedEntity);
 			else registry.remove(texturedEntity);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.version.getID(), error);
 		}
 	}
 
@@ -157,7 +157,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 					"zombie_villager"
 			});
 		} catch (Exception error) {
-			Data.VERSION.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to reset Textured Entity registry: {}", error));
+			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to reset Textured Entity registry: {}", error));
 		}
 	}
 	public void addDefaultTexturedEntities(String namespace, String[] entityTypes) {
@@ -173,13 +173,13 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			prepared.forEach(this::layout$perspective);
 			isReady = true;
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.version.getID(), error);
 		}
 	}
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.VERSION.getID(), identifier);
+		return new Identifier(Data.version.getID(), identifier);
 	}
 
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
@@ -193,7 +193,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Boolean enabled = JsonHelper.getBoolean(reader, "enabled", true);
 			add(namespace, type, name, entity_specific, enabled);
 		} catch (Exception error) {
-			Data.VERSION.getLogger().warn("{} Failed to load perspective textured entity: {}", Data.VERSION.getID(), error);
+			Data.version.getLogger().warn("{} Failed to load perspective textured entity: {}", Data.version.getID(), error);
 		}
 	}
 }
