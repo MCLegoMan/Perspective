@@ -407,7 +407,7 @@ public class Shader {
 		return shouldUseEntityLink() && useDepth;
 	}
 	public static boolean canUseEntityLink() {
-		return ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"));
+		return ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer")) && !Data.isModInstalled("souper_secret_settings");
 	}
 	public static boolean shouldDisableScreenMode() {
 		return (boolean) get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;
