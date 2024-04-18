@@ -57,7 +57,9 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		if (VALUE.equals(RegistryValue.shaderName)) return SHADER_MAP.get(2);
 		if (VALUE.equals(RegistryValue.disableScreenMode)) return SHADER_MAP.get(3);
 		if (VALUE.equals(RegistryValue.translatable)) return SHADER_MAP.get(4);
-		if (VALUE.equals(RegistryValue.custom)) return SHADER_MAP.get(5);
+		if (VALUE.equals(RegistryValue.disableSoup)) return SHADER_MAP.get(5);
+		if (VALUE.equals(RegistryValue.entityLinks)) return SHADER_MAP.get(6);
+		if (VALUE.equals(RegistryValue.custom)) return SHADER_MAP.get(7);
 		return null;
 	}
 	protected static JsonObject getCustom(int shaderIndex, String namespace) {
@@ -91,7 +93,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		}
 		return null;
 	}
-	private void add(String namespace, String shaderName, boolean disableScreenMode, boolean translatable, JsonObject custom, ResourceManager manager) {
+	private void add(String namespace, String shaderName, boolean disableScreenMode, boolean translatable, boolean disableSoup, JsonObject custom, ResourceManager manager) {
 		try {
 			String id = namespace.toLowerCase() + ":" + shaderName.toLowerCase();
 			manager.getResourceOrThrow(getPostShader(id));
@@ -101,6 +103,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			shaderMap.add(shaderName.toLowerCase());
 			shaderMap.add(disableScreenMode);
 			shaderMap.add(translatable);
+			shaderMap.add(disableSoup);
 			shaderMap.add(custom);
 			boolean alreadyRegistered = false;
 			for (List<Object> SHADER_MAP_IN_REGISTRY : registry) {
@@ -142,11 +145,11 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	}
 	private void add$default(ResourceManager manager) {
 		try {
-			add("minecraft", "blur", true, true, new JsonObject(), manager);
-			add("minecraft", "creeper", true, true, new JsonObject(), manager);
-			add("minecraft", "invert", false, true, new JsonObject(), manager);
-			add("minecraft", "spider", true, true, new JsonObject(), manager);
-			add("perspective", "gaussian", true, true, new JsonObject(), manager);
+			add("minecraft", "blur", true, true, false, new JsonObject(), manager);
+			add("minecraft", "creeper", true, true, false, new JsonObject(), manager);
+			add("minecraft", "invert", false, true, false, new JsonObject(), manager);
+			add("minecraft", "spider", true, true, false, new JsonObject(), manager);
+			add("perspective", "gaussian", true, true, false, new JsonObject(), manager);
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.VERSION.getID(), error);
 		}
@@ -183,11 +186,12 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			String shader = JsonHelper.getString(reader, "shader");
 			boolean disableScreenMode = JsonHelper.getBoolean(reader, "disable_screen_mode", false);
 			boolean translatable = JsonHelper.getBoolean(reader, "translatable", false);
+			boolean disableSoup = JsonHelper.getBoolean(reader, "disable_soup", false);
 			JsonArray entityLinks = JsonHelper.getArray(reader, "entity_links", new JsonArray());
 			JsonObject custom = JsonHelper.getObject(reader, "custom", new JsonObject());
 			boolean enabled = JsonHelper.getBoolean(reader, "enabled");
 			if (enabled) {
-				add(namespace, shader, disableScreenMode, translatable, custom, manager);
+				add(namespace, shader, disableScreenMode, translatable, disableSoup, custom, manager);
 				for (JsonElement entity : entityLinks) {
 					List<Object> entityLink = new ArrayList<>();
 					entityLink.add(entity.getAsString());
@@ -217,8 +221,12 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 							List<String> disableScreenMode = new ArrayList<>();
 							for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_screen_mode", new JsonArray()))
 								disableScreenMode.add(shader.getAsString());
+							List<String> disableSoup = new ArrayList<>();
+							for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_soup", new JsonArray()))
+								disableSoup.add(shader.getAsString());
+							JsonObject custom = JsonHelper.getObject(namespaceList, "custom", new JsonObject());
 							for (JsonElement shader : JsonHelper.getArray(namespaceList, "shaders", new JsonArray()))
-								add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, JsonHelper.getObject(namespaceList, "custom", new JsonObject()), manager);
+								add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, disableSoup.contains(shader.getAsString()), JsonHelper.getObject(custom, shader.getAsString(), new JsonObject()), manager);
 						}
 					}
 				} catch (Exception error) {
@@ -255,6 +263,8 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		shaderName,
 		disableScreenMode,
 		translatable,
+		disableSoup,
+		entityLinks,
 		custom
 	}
 }

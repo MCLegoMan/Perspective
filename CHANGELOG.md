@@ -224,6 +224,53 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     "enabled": true
   }
 ```
+#### Super Secret Settings  
+- Added **Entity Linked** Shaders    
+  - You can set shaders to be linked to entities using the `entity_links` array in the shader dataloader.
+    - This currently requires the **Improved Shader Renderer** experiment to be enabled.  
+    - Here's an example:
+##### Perspective Layout:  
+```
+  {
+    "namespace": "perspective",
+    "shader": "silhouette",
+    "disable_screen_mode": true,
+    "translatable": true,
+    "disable_soup": false,
+    "entity_links": [
+      "entity.minecraft.warden"
+    ],
+    "custom": {},
+    "enabled": true
+  }
+```
+##### Soup Layout:
+```
+  {
+      "namespaces": [
+          {
+              "replace": false,
+              "namespace": "perspective",
+              "translatable": true,
+              "shaders": [
+                  "silhouette"
+              ],
+              "disable_screen_mode": [
+                  "silhouette"
+              ],
+              "disable_soup": [],
+              "custom": {
+                  "silhouette": {}
+              }
+          }
+      ],
+      "entity_links": {
+          "entity.minecraft.warden": "perspective:silhouette"
+      }
+  }
+```
+*If no namespace is given, the first instance of a shader with that name will be used.*
+
 ### Resource Packs  
 #### Perspective: Default  
 - Added **depth-based dither** shader.  
@@ -235,10 +282,13 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
   - Brown Mooshrooms turn into Ancient Mooblooms.  
 #### Super Secret Settings  
 - Moved shaders that were used in previous versions of minecraft to this resource pack.  
+  - This resource pack will be moved to **Luminance** in the near future.  
 ### Experimental  
 - Added **Improved Shader Renderer** experiment.  
   - When enabled, Super Secret Settings will be rendered in the world renderer, the same place as fabulous graphics.   
     - This also makes the depth shaders be rendered under the player's hand.  
+  - This experiment also enables Entity Linked shaders.
+    - Entity Linked shaders render when the player is spectating the linked entity.
   - *If there are no issues found with this experiment, it will be added to 1.3.0.*  
 
 ## Development Build  
