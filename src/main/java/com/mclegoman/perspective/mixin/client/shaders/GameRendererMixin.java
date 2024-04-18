@@ -31,6 +31,7 @@ public abstract class GameRendererMixin {
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
 	public void perspective$renderGame(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
 		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
+			Shader.renderEntityLink(tickDelta, false);
 			if (Shader.shouldRenderShader() && Shader.shouldUseGameRenderer()) {
 				if (!Shader.shouldUseDepthGameRenderer()) Shader.render(Shader.postProcessor, tickDelta, "game_renderer:game");
 			}

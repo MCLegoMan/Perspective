@@ -46,14 +46,9 @@ public abstract class WorldRendererMixin {
 	}, method = "render")
 	public void perspective$renderGameExperimental(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		try {
-			if (Shader.shouldUseDepthGameRenderer()) {
-				if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
-					// This could possibly be changed to have isFirstPerson configurable (first person / all perspective)??.
-					if (Shader.shouldRenderEntityLinkShader() && ClientData.minecraft.options.getPerspective().isFirstPerson()) {
-						for (PostEffectProcessor postProcessor : Shader.entityPostProcessor) {
-							Shader.render(postProcessor, tickDelta);
-						}
-					}
+			if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
+				Shader.renderEntityLink(tickDelta, true);
+				if (Shader.shouldUseDepthGameRenderer()) {
 					if (Shader.shouldRenderShader()) Shader.render(Shader.postProcessor, tickDelta, "world_renderer:game");
 				}
 			}
@@ -87,7 +82,7 @@ public abstract class WorldRendererMixin {
 				Shader.cloudsFramebuffer.copyDepthFrom(ClientData.minecraft.getFramebuffer());
 			}
 		}
-		if (Shader.shouldRenderEntityLinkShader()) {
+		if (Shader.shouldUseEntityLink()) {
 			if (!Shader.entityTranslucentFramebuffer.isEmpty()) {
 				for (Framebuffer framebuffer : Shader.entityTranslucentFramebuffer) {
 					if (framebuffer != null) {

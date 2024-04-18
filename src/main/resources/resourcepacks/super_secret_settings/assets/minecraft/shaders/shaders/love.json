@@ -3,5 +3,7 @@
   "shader": "love",
   "disable_screen_mode": false,
   "translatable": true,
+  "entity_links": [],
+  "custom": {},
   "enabled": true
 }

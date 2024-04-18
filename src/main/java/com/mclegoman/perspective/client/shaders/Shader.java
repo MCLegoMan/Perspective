@@ -84,15 +84,15 @@ public class Shader {
 		if (ShaderDataLoader.isReloading && ClientData.isFinishedInitializing()) {
 			boolean saveConfig;
 			saveConfig = ConfigHelper.fixConfig();
-			if (Shader.updateLegacyConfig) {
-				if (Shader.getFullShaderName(Shader.legacyIndex) != null && Shader.isShaderAvailable(Shader.legacyIndex)) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.legacyIndex));
+			if (updateLegacyConfig) {
+				if (getFullShaderName(legacyIndex) != null && isShaderAvailable(legacyIndex)) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getFullShaderName(legacyIndex));
 				}
-				Shader.updateLegacyConfig = false;
+				updateLegacyConfig = false;
 			}
-			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
+			superSecretSettingsIndex = getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
-				Shader.set(true, false, false, false);
+				set(true, false, false, false);
 			if (saveConfig) ConfigHelper.saveConfig();
 			ShaderDataLoader.isReloading = false;
 		}
@@ -232,7 +232,7 @@ public class Shader {
 				while (SHADER == superSecretSettingsIndex)
 					SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
 				superSecretSettingsIndex = SHADER - 1;
-				Shader.set(true, playSound, showShaderName, SAVE_CONFIG);
+				set(true, playSound, showShaderName, SAVE_CONFIG);
 			}
 		} catch (Exception error) {
 			Data.VERSION.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.VERSION.getLoggerPrefix(), error);
@@ -360,17 +360,14 @@ public class Shader {
 	public static boolean shouldRenderShader() {
 		return postProcessor != null && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled");
 	}
-	public static boolean shouldRenderEntityLinkShader() {
-		return entityPostProcessor != null && !entityPostProcessor.isEmpty();
-	}
 	public static void prepEntityShader(@Nullable Entity entity) {
 		if (entity != null) {
-			Shader.entityPostProcessor = new ArrayList<>();
-			Shader.setEntityShader(ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight(), entity);
+			entityPostProcessor = new ArrayList<>();
+			setEntityShader(ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight(), entity);
 		}
 	}
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta, String type) {
-		Shader.renderType = type + (Shader.useDepth ? ":depth" : "");
+		renderType = type + (useDepth ? ":depth" : "");
 		render(postEffectProcessor, tickDelta);
 	}
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta) {
@@ -386,17 +383,34 @@ public class Shader {
 		} catch (FileNotFoundException ignored) {
 		}
 	}
+	public static void renderEntityLink(float tickDelta, boolean isDepth) {
+		// This could possibly be changed to have isFirstPerson configurable (first person / all perspective)??.
+		if ((isDepth ? shouldUseDepthEntityLink() : (shouldUseEntityLink() && !shouldUseDepthEntityLink())) && ClientData.minecraft.options.getPerspective().isFirstPerson()) {
+			for (PostEffectProcessor postProcessor : entityPostProcessor) {
+				render(postProcessor, tickDelta);
+			}
+		}
+	}
 	public static boolean shouldUseGameRenderer() {
-		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode();
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || shouldDisableScreenMode();
 	}
 	public static boolean shouldUseScreenRenderer() {
-		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode();
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !shouldDisableScreenMode();
 	}
 	public static boolean shouldUseDepthGameRenderer() {
-		return shouldUseGameRenderer() && !Data.isModInstalled("iris") && ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && Shader.useDepth);
+		return shouldUseGameRenderer() && !Data.isModInstalled("iris") && ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && useDepth);
+	}
+	public static boolean shouldUseEntityLink() {
+		return canUseEntityLink() && entityPostProcessor != null && !entityPostProcessor.isEmpty();
+	}
+	public static boolean shouldUseDepthEntityLink() {
+		return shouldUseEntityLink() && useDepth;
+	}
+	public static boolean canUseEntityLink() {
+		return ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"));
 	}
 	public static boolean shouldDisableScreenMode() {
-		return (boolean) Shader.get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;
+		return (boolean) get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;
 	}
 	public static void cycleShaderModes() {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();

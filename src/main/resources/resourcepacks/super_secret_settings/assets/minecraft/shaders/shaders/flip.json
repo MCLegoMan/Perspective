@@ -3,5 +3,7 @@
   "shader": "flip",
   "disable_screen_mode": true,
   "translatable": true,
+  "entity_links": [],
+  "custom": {},
   "enabled": true
 }
