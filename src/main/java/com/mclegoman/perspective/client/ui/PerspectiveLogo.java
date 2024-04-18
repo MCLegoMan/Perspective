@@ -58,7 +58,7 @@ public class PerspectiveLogo {
 	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
 		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
-		context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/logo/development.png"), (x + (width / 2)) - ((int) (width * 0.625) / 2), (int) (y + ((height * 0.6875) - 14)), 0.0F, 0.0F, (int) (width * 0.625), height / 4, (int) (width * 0.625), height / 4);
+		if (Data.VERSION.isDevelopmentBuild()) context.drawTexture(new Identifier(Data.VERSION.getID(), "textures/gui/logo/development.png"), (x + (width / 2)) - ((int) (width * 0.625) / 2), (int) (y + ((height * 0.6875) - 14)), 0.0F, 0.0F, (int) (width * 0.625), height / 4, (int) (width * 0.625), height / 4);
 	}
 	public static void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer, Couple<String, Boolean> splashText, float rotation) {
 		if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
@@ -104,8 +104,8 @@ public class PerspectiveLogo {
 			this.experimental = experimental;
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderPerspectiveLogo(context, this.getX(), this.getY() + 12, this.getWidth(), this.getHeight(), experimental);
-			createSplashText(context, this.getWidth(), this.getX(), this.getY() + 50, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
+			renderPerspectiveLogo(context, this.getX(), this.getY() + 7, this.getWidth(), this.getHeight(), experimental);
+			createSplashText(context, this.getWidth(), this.getX(), this.getY() + 41, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		}
 		@Override
 		protected void appendClickableNarrations(NarrationMessageBuilder builder) {

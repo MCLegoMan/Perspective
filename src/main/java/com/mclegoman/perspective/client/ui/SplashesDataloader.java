@@ -38,6 +38,11 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 		else if (AprilFoolsPrank.isAprilFools() && !AprilFoolsPrank.isForceAprilFools()) return new Couple<>("splashes.perspective.special.april_fools", true);
 		else return splashText;
 	}
+	public static void randomizeSplashText() {
+		List<Couple<String, Boolean>> splashes = new ArrayList<>(registry);
+		if (getSplashText() != null) splashes.remove(getSplashText());
+		splashText = splashes.get(new Random().nextInt(splashes.size()));
+	}
 	public SplashesDataloader() {
 		super(new Gson(), id);
 	}
@@ -68,7 +73,7 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 				JsonArray literalTexts = JsonHelper.getArray(reader, "literal");
 				for (JsonElement splashText : literalTexts) add(splashText.getAsString(), false);
 			}
-			splashText = registry.get(new Random().nextInt(registry.size()));
+			randomizeSplashText();
 		} catch (Exception error) {
 			Data.VERSION.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to load splash text from dataloader: {}", error));
 		}

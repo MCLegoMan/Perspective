@@ -11,7 +11,8 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.ui.UIBackground;
-import com.mclegoman.perspective.config.ConfigHelper;
+import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -30,18 +31,16 @@ public abstract class GameRendererMixin {
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;beginWrite(Z)V"))
 	public void perspective$renderGame(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
 		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
-			if (Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) {
-				if (!((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && Shader.useDepth)) {
-					Shader.render(Shader.postProcessor, tickDelta, "game");
-				}
+			if (Shader.shouldRenderShader() && Shader.shouldUseGameRenderer()) {
+				if (!Shader.shouldUseDepthGameRenderer()) Shader.render(Shader.postProcessor, tickDelta, "game_renderer:game");
 			}
 		}
 	}
 	@Inject(method = "render", at = @At("TAIL"))
 	private void perspective$renderScreen(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
 		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
-			if (Shader.shouldRenderShader() && String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode())
-				Shader.render(Shader.postProcessor, tickDelta, "screen");
+			if (Shader.shouldRenderShader() && Shader.shouldUseScreenRenderer())
+				Shader.render(Shader.postProcessor, tickDelta, "game_renderer:screen");
 		}
 	}
 	@Inject(method = "onResized", at = @At(value = "TAIL"))

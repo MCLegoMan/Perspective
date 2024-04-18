@@ -386,6 +386,15 @@ public class Shader {
 		} catch (FileNotFoundException ignored) {
 		}
 	}
+	public static boolean shouldUseGameRenderer() {
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode();
+	}
+	public static boolean shouldUseScreenRenderer() {
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !Shader.shouldDisableScreenMode();
+	}
+	public static boolean shouldUseDepthGameRenderer() {
+		return shouldUseGameRenderer() && !Data.isModInstalled("iris") && ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && Shader.useDepth);
+	}
 	public static boolean shouldDisableScreenMode() {
 		return (boolean) Shader.get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;
 	}

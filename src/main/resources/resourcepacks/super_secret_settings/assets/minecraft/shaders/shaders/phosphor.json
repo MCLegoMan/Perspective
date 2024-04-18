@@ -1,7 +1,7 @@
 {
   "namespace": "minecraft",
   "shader": "phosphor",
-  "disable_screen_mode": false,
+  "disable_screen_mode": true,
   "translatable": true,
   "enabled": true
 }

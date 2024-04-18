@@ -24,12 +24,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(priority = 10000, value = GameRenderer.class)
+@Mixin(priority = 100, value = GameRenderer.class)
 public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
-
-	@Shadow protected abstract void bobView(MatrixStack matrices, float tickDelta);
 
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"), method = "renderHand")
 	private double perspective$renderHand(double fov) {
@@ -64,8 +62,8 @@ public abstract class GameRendererMixin {
 	private float perspective$getDamageTiltYaw(float value) {
 		return ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled") ? (float) (value * Math.max(Zoom.getMultiplier(), 0.001)) : value;
 	}
-	@Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;bobView(Lnet/minecraft/client/util/math/MatrixStack;F)V"))
-	private void perspective$bobViewStrideDistance(GameRenderer instance, MatrixStack matrices, float tickDelta) {
+	@Inject(method = "bobView", at = @At(value = "HEAD"), cancellable = true)
+	private void perspective$bobViewStrideDistance(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
 		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
 			if (ClientData.minecraft.player != null) {
 				float f = ClientData.minecraft.player.horizontalSpeed - ClientData.minecraft.player.prevHorizontalSpeed;
@@ -75,6 +73,7 @@ public abstract class GameRendererMixin {
 				matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.sin(g * 3.1415927F) * h * 3.0F));
 				matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(Math.abs(MathHelper.cos(g * 3.1415927F - 0.2F) * h) * 5.0F));
 			}
-		} else this.bobView(matrices, tickDelta);
+			ci.cancel();
+		}
 	}
 }

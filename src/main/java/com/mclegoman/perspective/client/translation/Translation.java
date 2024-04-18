@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Translation {
 	public static MutableText getText(String string, boolean isTranslatable) {
-		return isTranslatable ? Text.translatable(string) : Text.literal(string);
+		return getText(string, isTranslatable, new Object[]{});
 	}
 	public static MutableText getText(String string, boolean isTranslatable, Formatting[] formattings) {
 		return getText(string, isTranslatable).formatted(formattings);

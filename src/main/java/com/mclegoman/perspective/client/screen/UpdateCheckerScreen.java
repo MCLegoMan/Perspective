@@ -35,7 +35,7 @@ public class UpdateCheckerScreen extends Screen {
 		try {
 			GRID.getMainPositioner().alignHorizontalCenter().margin(0);
 			GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new UpdateCheckerScreen(PARENT_SCREEN), "update_checker", false, false));
+			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new UpdateCheckerScreen(PARENT_SCREEN), false, false));
 			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.VERSION.getID(), "update.checking"), ClientData.minecraft.textRenderer).setCentered(true));
 			GRID.refreshPositions();
 			GRID.forEachChild(this::addDrawableChild);

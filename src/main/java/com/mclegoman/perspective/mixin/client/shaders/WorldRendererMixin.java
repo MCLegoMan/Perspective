@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -47,7 +46,7 @@ public abstract class WorldRendererMixin {
 	}, method = "render")
 	public void perspective$renderGameExperimental(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		try {
-			if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer")) {
+			if (Shader.shouldUseDepthGameRenderer()) {
 				if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
 					// This could possibly be changed to have isFirstPerson configurable (first person / all perspective)??.
 					if (Shader.shouldRenderEntityLinkShader() && ClientData.minecraft.options.getPerspective().isFirstPerson()) {
@@ -55,9 +54,7 @@ public abstract class WorldRendererMixin {
 							Shader.render(postProcessor, tickDelta);
 						}
 					}
-					if ((Shader.shouldRenderShader() && (String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || Shader.shouldDisableScreenMode())) && Shader.useDepth) {
-						Shader.render(Shader.postProcessor, tickDelta, "game_experimental");
-					}
+					if (Shader.shouldRenderShader()) Shader.render(Shader.postProcessor, tickDelta, "world_renderer:game");
 				}
 			}
 		} catch (Exception error) {

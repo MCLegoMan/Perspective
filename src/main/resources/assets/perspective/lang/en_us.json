@@ -48,8 +48,6 @@
 
 	"gui.perspective.config.update.checking": "Checking for updates...",
 
-	"gui.perspective.config.config": "Config",
-
 	"gui.perspective.config.zoom": "Zoom",
 
 	"gui.perspective.config.zoom.level": "Zoom: %s",
