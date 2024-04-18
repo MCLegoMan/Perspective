@@ -3,7 +3,9 @@
   "shader": "silhouette",
   "disable_screen_mode": true,
   "translatable": true,
-  "entity_links": [],
+  "entity_links": [
+    "entity.minecraft.warden"
+  ],
   "custom": {},
   "enabled": true
 }
