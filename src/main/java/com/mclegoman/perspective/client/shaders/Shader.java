@@ -57,7 +57,6 @@ public class Shader {
 	public static Framebuffer cloudsFramebuffer;
 	@Nullable
 	public static List<PostEffectProcessor> entityPostProcessor;
-	public static List<Framebuffer> entityDepthFramebuffer;
 	public static List<Framebuffer> entityTranslucentFramebuffer;
 	public static List<Framebuffer> entityEntityFramebuffer;
 	public static List<Framebuffer> entityParticlesFramebuffer;

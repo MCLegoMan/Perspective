@@ -11,7 +11,6 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -28,7 +27,6 @@ public abstract class WorldRendererMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal = 0), method = "render")
 	public void perspective$saveDepthOutlines(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		Shader.depthFramebuffer.copyDepthFrom(ClientData.minecraft.getFramebuffer());
-		for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) framebuffer.copyDepthFrom(ClientData.minecraft.getFramebuffer());
 		ClientData.minecraft.getFramebuffer().beginWrite(false);
 	}
 	@Inject(at = {
@@ -37,7 +35,6 @@ public abstract class WorldRendererMixin {
 	}, method = "render")
 	public void perspective$saveDepth(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		Shader.depthFramebuffer.copyDepthFrom(ClientData.minecraft.getFramebuffer());
-		for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) framebuffer.copyDepthFrom(ClientData.minecraft.getFramebuffer());
 		if (ClientData.minecraft.options.getGraphicsMode().getValue().getId() <= GraphicsMode.FANCY.getId()) ClientData.minecraft.getFramebuffer().beginWrite(false);
 	}
 	@Inject(at = {

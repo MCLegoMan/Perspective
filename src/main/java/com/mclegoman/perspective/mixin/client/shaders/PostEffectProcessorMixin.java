@@ -10,7 +10,6 @@ package com.mclegoman.perspective.mixin.client.shaders;
 import com.google.gson.JsonElement;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.texture.TextureManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,11 +30,8 @@ public class PostEffectProcessorMixin {
 	}
 	@Inject(at = @At(value = "HEAD"), method = "render")
 	public void perspective$fixDepth(float tickDelta, CallbackInfo ci) {
-		if (Shader.useDepth) {
+		if (Shader.useDepth || Shader.entityUseDepth) {
 			ClientData.minecraft.getFramebuffer().copyDepthFrom(Shader.depthFramebuffer);
-		}
-		if (Shader.entityUseDepth) {
-			for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) ClientData.minecraft.getFramebuffer().copyDepthFrom(framebuffer);
 		}
 	}
 }

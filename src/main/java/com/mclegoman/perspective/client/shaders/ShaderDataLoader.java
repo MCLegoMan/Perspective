@@ -241,15 +241,13 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			for (Resource resource : SHADER_LISTS) {
 				try {
 					JsonObject reader = JsonHelper.deserialize(resource.getReader());
-					if (JsonHelper.hasJsonObject(reader, "entity_links")) {
-						JsonObject entityLinks = JsonHelper.getObject(reader, "entity_links");
-						Set<Map.Entry<String, JsonElement>> entitySet = entityLinks.entrySet();
-						for (Map.Entry<String, JsonElement> entry: entitySet) {
-							List<Object> entityLink = new ArrayList<>();
-							entityLink.add(entry.getKey());
-							entityLink.add(JsonHelper.asString(entry.getValue(), "shader"));
-							entityLinkRegistry.add(entityLink);
-						}
+					JsonObject entityLinks = JsonHelper.getObject(reader, "entity_links", new JsonObject());
+					Set<Map.Entry<String, JsonElement>> entitySet = entityLinks.entrySet();
+					for (Map.Entry<String, JsonElement> entry: entitySet) {
+						List<Object> entityLink = new ArrayList<>();
+						entityLink.add(entry.getKey());
+						entityLink.add(JsonHelper.asString(entry.getValue(), "shader"));
+						entityLinkRegistry.add(entityLink);
 					}
 				} catch (Exception error) {
 					Data.VERSION.getLogger().warn("{} Failed to load souper secret settings shader entity links: {}", Data.VERSION.getID(), error);

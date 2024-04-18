@@ -9,12 +9,8 @@ package com.mclegoman.perspective.mixin.client.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.ui.UIBackground;
-import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.render.GameRenderer;
@@ -22,9 +18,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(priority = 100, value = GameRenderer.class)
 public abstract class GameRendererMixin {
@@ -61,16 +54,6 @@ public abstract class GameRendererMixin {
 			Shader.depthFramebuffer = new SimpleFramebuffer(width, height, true, MinecraftClient.IS_SYSTEM_MAC);
 		} else {
 			Shader.depthFramebuffer.resize(width, height, MinecraftClient.IS_SYSTEM_MAC);
-		}
-		if (Shader.entityDepthFramebuffer == null) {
-			Shader.entityDepthFramebuffer = new ArrayList<>();
-			for (List<Object> ignored : ShaderDataLoader.entityLinkRegistry) {
-				Shader.entityDepthFramebuffer.add(new SimpleFramebuffer(width, height, true, MinecraftClient.IS_SYSTEM_MAC));
-			}
-		} else {
-			for (Framebuffer framebuffer : Shader.entityDepthFramebuffer) {
-				framebuffer.resize(width, height, MinecraftClient.IS_SYSTEM_MAC);
-			}
 		}
 	}
 }
