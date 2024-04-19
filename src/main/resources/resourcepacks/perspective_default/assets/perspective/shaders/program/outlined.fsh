@@ -40,7 +40,7 @@ vec4 outline( vec4 color, sampler2D DepthSampler ) {
     float amount = clamp(pow(max(2.0 * 0.025 * 1000.0 / (1000.0 + 0.025 - (max(depth0, max(depth1, max(depth2, depth3))) * 2.0 - 1.0) * (1000.0 - 0.025)) - outlineDepth, 0.0) * 0.15, 2.0), 0.0, 1.0) * exp(-outlineDepth * 0.025);
     vec4 outputColor = vec4(mix(color.rgb, pow(pow(color.rgb, vec3(0.5)) + Strength, vec3(2.0)), amount), color.a);
     float depth4 = min(max(1.0 - (1.0 - depth) * ((lu_viewDistance * 16) * 0.64), 0.0), 1.0);
-    return vec4(mix(color.rgb, outputColor.rgb, smoothstep(0.9, 0.91, depth4)), outputColor.a);
+    return vec4(mix(outputColor.rgb, color.rgb, smoothstep(0.9, 0.91, depth4)), outputColor.a);
 }
 
 void try_insert( vec4 color, sampler2D DepthSampler ) {
