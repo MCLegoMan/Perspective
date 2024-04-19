@@ -4,28 +4,22 @@ plugins {
 	id "com.modrinth.minotaur" version "2.+"
 	id 'maven-publish'
 }
-
 group = project.maven_group
 version = project.mod_version + project.mc_version
-
 base {
 	archivesName = project.archives_base_name
 }
-
 runClient.doFirst {
 	args += ['--username', "Perspective${new Random().nextInt(1000)}"]
 }
-
 loom {
 	accessWidenerPath = file("src/main/resources/mclegoman-perspective.accesswidener")
 }
-
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 	mavenCentral()
 }
-
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft}"
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
@@ -40,7 +34,6 @@ dependencies {
 	// Development Environment Only
 	modImplementation "com.ptsmods:devlogin:3.4.1"
 }
-
 processResources {
 	inputs.property "version", project.mod_version
 
@@ -48,24 +41,20 @@ processResources {
 		expand "version": project.mod_version
 	}
 }
-
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
-
 java {
 	withSourcesJar()
 
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
 }
-
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
 }
-
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -75,7 +64,6 @@ publishing {
 	repositories {
 	}
 }
-
 githubRelease {
 	token rootProject.file(".env").text.readLines().get(1).replace("GITHUB=", "").replace("\"", "")
 	owner "MCLegoMan"
@@ -95,7 +83,6 @@ githubRelease {
 	apiEndpoint "https://api.github.com"
 	client
 }
-
 modrinth {
 	token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
 	projectId = "${project.modrinth_id}"
