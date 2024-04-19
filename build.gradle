@@ -128,7 +128,17 @@ tasks.register("quickPlayMultiplayer") {
 	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', 'localhost:25565']))
 }
 tasks.register("runClientLoggedIn") {
-	group = 'fabric'
+	group = 'devLogin'
 	description = 'Uses DevLogin to login to your Minecraft Account'
 	dependsOn(tasks.runClient.args(['--msa']))
+}
+tasks.register("quickPlaySingleplayerLoggedIn") {
+	group = 'devLogin'
+	description = 'Uses Quick Play to join singleplayer world `New World` on launch and uses DevLogin to login to your Minecraft Account.'
+	dependsOn(tasks.runClient.args(['--quickPlaySingleplayer', 'New World', '--msa']))
+}
+tasks.register("quickPlayMultiplayerLoggedIn") {
+	group = 'devLogin'
+	description = 'Uses Quick Play to join multiplayer server `localhost:25565` on launch and uses DevLogin to login to your Minecraft Account.'
+	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', 'localhost:25565', '--msa']))
 }
