@@ -66,15 +66,15 @@
         },
         {
           "name": "Silhouette",
-          "values": [ 1.0 ]
+          "values": [ 2.0 ]
         },
         {
           "name": "OutlineColor",
-          "values": [ 1.0, 1.0, 1.0 ]
+          "values": [ 0.0, 0.0, 0.0 ]
         },
         {
           "name": "OutlineColorMultiplier",
-          "values": [ 1.0 ]
+          "values": [ -1.0 ]
         }
       ]
     },
