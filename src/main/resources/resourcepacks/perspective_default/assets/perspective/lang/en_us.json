@@ -10,7 +10,7 @@
 	"shader.perspective.rainbow" : "rainbow",
 	"shader.perspective.saturated" : "saturated",
 	"shader.perspective.silhouette" : "silhouette",
-	"shader.perspective.silhouette2" : "silhouette2",
+	"shader.perspective.silhouette2" : "inverted silhouette",
 	"shader.perspective.sixteen_colors": "sixteen colors",
 	"shader.perspective.bloom_dither": "light-based dither",
 	"shader.perspective.depth_dither": "depth-based dither",
