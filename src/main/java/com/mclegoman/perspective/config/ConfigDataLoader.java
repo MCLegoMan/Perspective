@@ -83,7 +83,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				superSecretSettingsEnabled = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_enabled", false);
 				superSecretSettingsSound = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_sound", true);
 				superSecretSettingsShowName = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_show_name", true);
-				superSecretSettingsSelectionBlur = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_selection_blur", true);
+				superSecretSettingsSelectionBlur = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_selection_blur", false);
 				texturedNamedEntity = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "textured_named_entity", true);
 				texturedRandomEntity = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "textured_random_entity", false);
 				allowAprilFools = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "allow_april_fools", true);
