@@ -32,14 +32,12 @@ public class HideConfigScreen extends Screen {
 	private final GridWidget grid;
 	private boolean refresh;
 	private boolean shouldClose;
-
 	public HideConfigScreen(Screen PARENT, boolean REFRESH) {
 		super(Text.literal(""));
 		this.grid = new GridWidget();
 		this.parentScreen = PARENT;
 		this.refresh = REFRESH;
 	}
-
 	public void init() {
 		try {
 			grid.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -55,7 +53,6 @@ public class HideConfigScreen extends Screen {
 			Data.version.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.version.getID(), error);
 		}
 	}
-
 	public void tick() {
 		try {
 			if (this.refresh) {
@@ -68,7 +65,6 @@ public class HideConfigScreen extends Screen {
 			Data.version.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.version.getID(), error);
 		}
 	}
-
 	private GridWidget createHide() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -99,7 +95,6 @@ public class HideConfigScreen extends Screen {
 		}).build());
 		return GRID;
 	}
-
 	private GridWidget createFooter() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -110,19 +105,15 @@ public class HideConfigScreen extends Screen {
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).build());
 		return GRID;
 	}
-
 	public void initTabNavigation() {
 		SimplePositioningWidget.setPos(grid, getNavigationFocus());
 	}
-
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
 	}
-
 	public boolean shouldCloseOnEsc() {
 		return false;
 	}
-
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
@@ -138,7 +129,6 @@ public class HideConfigScreen extends Screen {
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);
 	}
-
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);

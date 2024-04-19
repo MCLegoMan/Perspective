@@ -1,35 +1,78 @@
 {
   "targets": [
-    "0",
-    "1",
-    "translucent"
+    "water",
+    "translucent",
+    "itemEntity",
+    "particles",
+    "clouds",
+    "weather",
+    "0"
   ],
   "passes": [
     {
-      "name": "perspective:silhouette",
-      "intarget": "minecraft:main",
-      "outtarget": "0"
-    },
-    {
       "name": "perspective:outlined",
-      "intarget": "0",
-      "outtarget": "1",
+      "intarget": "minecraft:main",
+      "outtarget": "0",
       "auxtargets": [
         {
           "name": "DiffuseDepthSampler",
+          "id": "minecraft:main:depth"
+        },
+        {
+          "name": "TranslucentSampler",
+          "id": "translucent"
+        },
+        {
+          "name": "TranslucentDepthSampler",
           "id": "translucent:depth"
+        },
+        {
+          "name": "ItemEntitySampler",
+          "id": "itemEntity"
+        },
+        {
+          "name": "ItemEntityDepthSampler",
+          "id": "itemEntity:depth"
+        },
+        {
+          "name": "ParticlesSampler",
+          "id": "particles"
+        },
+        {
+          "name": "ParticlesDepthSampler",
+          "id": "particles:depth"
+        },
+        {
+          "name": "CloudsSampler",
+          "id": "clouds"
+        },
+        {
+          "name": "CloudsDepthSampler",
+          "id": "clouds:depth"
+        },
+        {
+          "name": "WeatherSampler",
+          "id": "weather"
+        },
+        {
+          "name": "WeatherDepthSampler",
+          "id": "weather:depth"
         }
       ],
       "uniforms": [
         {
           "name": "Strength",
           "values": [ 0.5 ]
+        },
+        {
+          "name": "Silhouette",
+          "values": [ 1.0 ]
         }
       ]
     },
     {
-      "name": "minecraft:blit",
-      "intarget": "1",
+      "name": "blit",
+      "intarget": "0",
       "outtarget": "minecraft:main"
     }
   ]

@@ -9,14 +9,24 @@
 	"attributes": [ "Position" ],
 	"samplers": [
 		{ "name": "DiffuseSampler" },
-		{ "name": "DiffuseDepthSampler" }
+		{ "name": "DiffuseDepthSampler" },
+		{ "name": "TranslucentSampler" },
+		{ "name": "TranslucentDepthSampler" },
+		{ "name": "ItemEntitySampler" },
+		{ "name": "ItemEntityDepthSampler" },
+		{ "name": "ParticlesSampler" },
+		{ "name": "ParticlesDepthSampler" },
+		{ "name": "CloudsSampler" },
+		{ "name": "CloudsDepthSampler" },
+		{ "name": "WeatherSampler" },
+		{ "name": "WeatherDepthSampler" }
 	],
 	"uniforms": [
-		{ "name": "ProjMat",          "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
-		{ "name": "InSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
-		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+		{ "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+		{ "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "Strength",          "type": "float",     "count": 1,  "values": [ 0.25 ] },
 		{ "name": "Thickness",          "type": "float",     "count": 1,  "values": [ 0.0033 ] },
+		{ "name": "Silhouette",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
 		{ "name": "lu_viewDistance",          "type": "float",     "count": 1,  "values": [ 12.0 ] }
 	]
 }

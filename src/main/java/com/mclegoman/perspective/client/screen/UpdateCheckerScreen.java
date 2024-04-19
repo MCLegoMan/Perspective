@@ -46,7 +46,7 @@ public class UpdateCheckerScreen extends Screen {
 	}
 	public void tick() {
 		try {
-			if (UpdateChecker.UPDATE_CHECKER_COMPLETE) this.shouldClose = true;
+			if (UpdateChecker.updateCheckerComplete) this.shouldClose = true;
 			if (this.shouldClose) ClientData.minecraft.setScreen(parentScreen);
 		} catch (Exception error) {
 			Data.version.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.version.getID(), error);

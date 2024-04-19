@@ -35,11 +35,11 @@ import java.util.Objects;
 public class UpdateChecker {
 	public static final String[] detectUpdateChannels = new String[]{"release", "beta", "alpha", "none"};
 	public static Version apiVersion;
-	public static boolean SEEN_UPDATE_TOAST;
-	public static boolean UPDATE_CHECKER_COMPLETE;
-	public static boolean NEWER_VERSION_FOUND;
-	public static String LATEST_VERSION_FOUND = Data.version.getFriendlyString();
-	public static String DOWNLOAD_LINK;
+	public static boolean seenUpdateToast;
+	public static boolean updateCheckerComplete;
+	public static boolean newerVersionFound;
+	public static String latestVersionFound = Data.version.getFriendlyString();
+	public static String downloadLink;
 
 	public static void checkForUpdates(Version currentVersion, boolean showScreen) {
 		if (showScreen) ClientData.minecraft.setScreen(new UpdateCheckerScreen(ClientData.minecraft.currentScreen));
@@ -47,8 +47,8 @@ public class UpdateChecker {
 	}
 	public static void checkForUpdates(Version currentVersion) {
 		Util.getMainWorkerExecutor().execute(() -> {
-			UPDATE_CHECKER_COMPLETE = false;
-			NEWER_VERSION_FOUND = false;
+			updateCheckerComplete = false;
+			newerVersionFound = false;
 			try {
 				if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("none")) {
 					Data.version.sendToLog(Helper.LogType.INFO, "Checking for new updates...");
@@ -81,34 +81,34 @@ public class UpdateChecker {
 								if (apiVersion.compareTo(currentVersion) > 0) {
 									if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("alpha")) {
 										if (apiVersion.getType().equals(Helper.ReleaseType.ALPHA) || apiVersion.getType().equals(Helper.ReleaseType.BETA) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
-											NEWER_VERSION_FOUND = true;
+											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
 											if (!version_id.contains("-"))
 												version_id = version_id.replace("+", "-release.1+");
-											LATEST_VERSION_FOUND = version_id;
-											DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
+											latestVersionFound = version_id;
+											downloadLink = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										}
 									} else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("beta")) {
 										if (apiVersion.getType().equals(Helper.ReleaseType.BETA) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
-											NEWER_VERSION_FOUND = true;
+											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
 											if (!version_id.contains("-"))
 												version_id = version_id.replace("+", "-release.1+");
-											LATEST_VERSION_FOUND = version_id;
-											DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
+											latestVersionFound = version_id;
+											downloadLink = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										}
 									} else {
 										if (apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
-											NEWER_VERSION_FOUND = true;
+											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
 											if (!version_id.contains("-"))
 												version_id = version_id.replace("+", "-release.1+");
-											LATEST_VERSION_FOUND = version_id;
-											DOWNLOAD_LINK = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
+											latestVersionFound = version_id;
+											downloadLink = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										}
 									}
 								}
-								if (NEWER_VERSION_FOUND) {
+								if (newerVersionFound) {
 									Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("A newer version of {} was found using Modrinth API: {}", currentVersion.getName(), apiVersion.getFriendlyString()));
 									break;
 								}
@@ -117,19 +117,19 @@ public class UpdateChecker {
 						if (!compatible_version) {
 							Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Could not find a compatible version of {} using Modrinth API.", currentVersion.getName()));
 						} else {
-							if (!NEWER_VERSION_FOUND) Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("You are already running the latest version of {}: {}", currentVersion.getName(), currentVersion.getFriendlyString()));
+							if (!newerVersionFound) Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("You are already running the latest version of {}: {}", currentVersion.getName(), currentVersion.getFriendlyString()));
 						}
 					}
 				}
 			} catch (Exception error) {
 				Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Failed to check for updates using Modrinth API: {}", error));
 			}
-			UPDATE_CHECKER_COMPLETE = true;
+			updateCheckerComplete = true;
 		});
-		if (NEWER_VERSION_FOUND) {
-			if (!SEEN_UPDATE_TOAST) {
-				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.update.title")}), Translation.getTranslation(Data.version.getID(), "toasts.update.description", new Object[]{UpdateChecker.LATEST_VERSION_FOUND}), 280, Toast.Type.INFO));
-				SEEN_UPDATE_TOAST = true;
+		if (newerVersionFound) {
+			if (!seenUpdateToast) {
+				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.update.title")}), Translation.getTranslation(Data.version.getID(), "toasts.update.description", new Object[]{UpdateChecker.latestVersionFound}), 280, Toast.Type.INFO));
+				seenUpdateToast = true;
 			}
 		}
 	}
