@@ -120,7 +120,7 @@ public class ExperimentalConfigScreen extends Screen {
 	@Override
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
-			if (hasControlDown()) ConfigHelper.reloadConfig(true, true);
+			if (hasControlDown()) ConfigHelper.reloadConfig(true);
 			else UpdateChecker.checkForUpdates(Data.version, true);
 			this.refresh = true;
 		}
@@ -130,5 +130,6 @@ public class ExperimentalConfigScreen extends Screen {
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);
+		if (ConfigHelper.showReloadOverlay) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "reload"), 2, 2, 0xFFFFFF);
 	}
 }

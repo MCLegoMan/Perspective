@@ -37,6 +37,8 @@ import java.util.List;
 
 public class ConfigHelper {
 	public static final boolean experimentsAvailable = true;
+	public static boolean showReloadOverlay = false;
+	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
 	protected static final int defaultConfigVersion = 17;
 	protected static boolean saveViaTick = false;
@@ -61,19 +63,22 @@ public class ConfigHelper {
 	}
 	protected static void loadConfig() {
 		try {
-			reloadConfig(false, false);
+			reloadConfig(false);
 		} catch (Exception error) {
 			Data.version.sendToLog(Helper.LogType.WARN, "Failed to load configs!");
 		}
 		if (!ClientData.getFinishedInitializingAfterConfig()) afterConfig();
 	}
-	public static void reloadConfig(boolean log, boolean shouldSave) {
-		if (log) Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Reloading Config!"));
+	public static void reloadConfig(boolean log) {
+		if (log) {
+			Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Reloading Config!"));
+			showReloadOverlay = true;
+			showReloadOverlayTicks = 20;
+		}
 		Config.init();
 		ExperimentalConfig.init();
 		TutorialsConfig.init();
 		WarningsConfig.init();
-		if (shouldSave) saveConfig();
 	}
 	protected static void afterConfig() {
 		try {
@@ -101,6 +106,14 @@ public class ConfigHelper {
 					savingConfig = false;
 				}
 				saveViaTickTicks = 0;
+			}
+			if (showReloadOverlay) {
+				if (showReloadOverlayTicks < 1) {
+					showReloadOverlay = false;
+					showReloadOverlayTicks = 20;
+				} else {
+					showReloadOverlayTicks -= 1;
+				}
 			}
 			showToasts();
 		} catch (Exception error) {
@@ -198,13 +211,19 @@ public class ConfigHelper {
 			Data.version.sendToLog(Helper.LogType.WARN, "Failed to save config!");
 		}
 	}
-	private static void addSaveConfig(ConfigType config) {
+	private static void addSaveConfig(boolean shouldSave, ConfigType... configTypes) {
+		addSaveConfig(configTypes);
+		if (shouldSave) saveConfig();
+	}
+	private static void addSaveConfig(ConfigType... configTypes) {
 		try {
-			switch (config) {
-				case NORMAL -> {if (!saveConfigs.contains(ConfigType.NORMAL)) saveConfigs.add(ConfigType.NORMAL);}
-				case EXPERIMENTAL -> {if (!saveConfigs.contains(ConfigType.EXPERIMENTAL)) saveConfigs.add(ConfigType.EXPERIMENTAL);}
-				case TUTORIAL -> {if (!saveConfigs.contains(ConfigType.TUTORIAL)) saveConfigs.add(ConfigType.TUTORIAL);}
-				case WARNING -> {if (!saveConfigs.contains(ConfigType.NORMAL)) saveConfigs.add(ConfigType.WARNING);}
+			for (ConfigType configType : configTypes) {
+				switch (configType) {
+					case NORMAL -> {if (!saveConfigs.contains(ConfigType.NORMAL)) saveConfigs.add(ConfigType.NORMAL);}
+					case EXPERIMENTAL -> {if (!saveConfigs.contains(ConfigType.EXPERIMENTAL)) saveConfigs.add(ConfigType.EXPERIMENTAL);}
+					case TUTORIAL -> {if (!saveConfigs.contains(ConfigType.TUTORIAL)) saveConfigs.add(ConfigType.TUTORIAL);}
+					case WARNING -> {if (!saveConfigs.contains(ConfigType.NORMAL)) saveConfigs.add(ConfigType.WARNING);}
+				}
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(Helper.LogType.WARN, "Failed to add save config!");

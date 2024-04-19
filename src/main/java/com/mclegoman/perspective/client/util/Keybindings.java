@@ -46,7 +46,7 @@ public class Keybindings {
 				cycleShaders = getKeybinding(Data.version.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
 				holdPerspectiveThirdPersonBack = getKeybinding(Data.version.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
 				holdPerspectiveThirdPersonFront = getKeybinding(Data.version.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_V),
-				holdZoom = getKeybinding(Data.version.getID(), "hold_zoom", GLFW.GLFW_KEY_B),
+				holdZoom = getKeybinding(Data.version.getID(), "hold_zoom", GLFW.GLFW_KEY_R),
 				openConfig = getKeybinding(Data.version.getID(), "open_config", GLFW.GLFW_KEY_END),
 				randomizeShader = getKeybinding(Data.version.getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
 				setPerspectiveFirstPerson = getKeybinding(Data.version.getID(), "set_perspective_first_person", GLFW.GLFW_KEY_UNKNOWN),
