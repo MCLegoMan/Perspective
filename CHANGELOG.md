@@ -4,6 +4,7 @@
 
 ## Changelog  
 ### Config Version 18  
+- Updated the default value of `super_secret_settings_selection_blur` to **false**.  
 ### Feature Changes  
 ### Resource Packs  
 #### Perspective: Default  
