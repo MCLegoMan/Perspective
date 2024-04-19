@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.util;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.util.Identifier;
 
-public class Cape {
+public class TextureHelper {
 	public static Identifier getCapeTexture(String texture, Identifier current) {
 		if (texture.equals("none")) {
 			return current;

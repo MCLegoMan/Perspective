@@ -11,12 +11,21 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
     - Perspective is now also built using the Microsoft build of OpenJDK 21.0.2.  
 ### Config Version 17  
 - `zoom_type` is now stored as namespace:key string.  
-  - The default value is set to `perspective:logarithmic`.  
-- Added `ui_background_texture`.  
-  - This sets the texture of Dirt Title Screen and Legacy UI Background.  
-  - This config option is stored as a namespace:key string  
-    - The key doesn't require "textures/" at the beginning or ".png" at the end as they are automatically added, but you can still add them if you want.  
-    - The default value is set to `minecraft:blocks/dirt`.  
+  - The default value is set to `perspective:logarithmic`.
+- Renamed `dirt_title_screen` to `title_screen`.
+  - Updated to use string instead of boolean.
+    - The valid values for this option are: `dirt`, `default`.
+- Added `ui_background`.
+  - This sets the background blur to be `default`, `gaussian`, or `legacy`
+    - `gaussian` replaces the blur shader with a nicer looking gaussian blur.
+    - `legacy` removes the blur shader and renders a dirt/darkened background.
+      - When in a world, the background is darkened.
+      - When not in a world, the background uses the `ui_background_texture` texture.
+- Added `ui_background_texture`.
+  - This sets the texture of Dirt Title Screen and Legacy UI Background.
+  - This config option is stored as a namespace:key string
+    - The key doesn't require "textures/" at the beginning or ".png" at the end as they are automatically added, but you can still add them if you want.
+    - The default value is set to `minecraft:blocks/dirt`.
 ### Feature Changes  
 #### Entity  
 - Mooshrooms now have an overlay texture.
@@ -270,7 +279,55 @@ For those of you who tried out my April Fools' mod [Mysterious Update](https://m
   }
 ```
 *If no namespace is given, the first instance of a shader with that name will be used.*
-
+#### Shaders  
+- Added **Dynamic Uniforms**.
+  - **Please Note:** These will be moved to a separate library mod (**Luminance**) in a future update, but will be included with Perspective.  
+    - `lu_viewDistance`
+      - Float value.
+      - Outputs your render distance.
+    - `lu_eyePosition`
+      - Vec3 value.
+      - Outputs your camera eye position.
+      - Defaults to vec3(0, 0, 0).
+    - `lu_pitch`
+      - Float value ranging from 0 to 360.
+      - Outputs your player pitch.
+      - Defaults to 0.
+    - `lu_yaw`
+      - Float value ranging from 0 to 360.
+      - Outputs your player yaw.
+      - Defaults to 0.
+    - `lu_currentHealth`
+      - Float value.
+      - Outputs your current health.
+      - Defaults to 20.
+    - `lu_maxHealth`
+      - Float value.
+      - Outputs your maximum health.
+      - Defaults to 20.
+    - `lu_currentAir`
+      - Float value.
+      - Outputs your current air.
+      - Defaults to 10.
+    - `lu_maxAir`
+      - Float value.
+      - Outputs your maximum air.
+      - Defaults to 10.
+  - `perspective_zoomMultiplier`
+    - Float value that ranges from 0.0 to 1.0.
+    - Outputs Perspective's zoom multiplier.
+- Added **Render Phases**.
+  - This should match the behaviour of the vanilla fabulous shader.
+  - `translucent_target`
+  - `item_entity_target`
+  - `particles_target`
+  - `weather_target`
+  - `clouds_target`
+#### Keybindings  
+- The default values for **Hold Perspective Front** and **Hold Zoom** have been updated.
+  - These changes were made so these keybindings wouldn't be conflicting by default.
+    - **Hold Perspective Front** will now default to **V**.  
+    - **Hold Zoom** will now default to **R**.
 ### Resource Packs  
 #### Perspective: Default  
 - Added **depth-based dither** shader.  
