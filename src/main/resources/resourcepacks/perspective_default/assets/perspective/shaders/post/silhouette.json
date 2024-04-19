@@ -65,20 +65,12 @@
           "values": [ 0.5 ]
         },
         {
-          "name": "Thickness",
-          "values": [ 0.0033 ]
-        },
-        {
           "name": "Silhouette",
           "values": [ 1.0 ]
         },
         {
-          "name": "OutlineColor",
-          "values": [ 1.0, 1.0, 1.0 ]
-        },
-        {
-          "name": "OutlineColorMultiplier",
-          "values": [ 1.0 ]
+          "name": "SilhouetteColor",
+          "values": [ 0.0, 0.0, 0.0 ]
         }
       ]
     },

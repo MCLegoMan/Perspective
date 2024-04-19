@@ -23,6 +23,7 @@ uniform vec3 OutlineColor;
 uniform vec3 OutlinePow;
 uniform float OutlineColorMultiplier;
 uniform float Silhouette;
+uniform vec3 SilhouetteColor;
 uniform float lu_viewDistance;
 
 #define NUM_LAYERS 6
@@ -61,8 +62,7 @@ void try_insert( vec4 color, sampler2D DepthSampler ) {
     }
     float depth = texture( DepthSampler, texCoord ).r;
 
-    if (Silhouette == 1) color = vec4(0.0, 0.0, 0.0, 1.0);
-    if (Silhouette == 2) color = vec4(1.0, 1.0, 1.0, 1.0);
+    if (Silhouette != 0) color = vec4(SilhouetteColor, 1.0);
 
     color = outline(color, DepthSampler);
 
@@ -90,11 +90,8 @@ vec3 blend( vec3 dst, vec4 src ) {
 
 void main() {
     vec4 color;
-    if (Silhouette == 1) {
-        color = vec4(0.0, 0.0, 0.0, 1.0);
-    }
-    else if (Silhouette == 2) {
-        color = vec4(1.0, 1.0, 1.0, 1.0);
+    if (Silhouette != 0) {
+        color = vec4(SilhouetteColor, 1.0);
     } else {
         color = texture(DiffuseSampler, texCoord);
     }
