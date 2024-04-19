@@ -24,10 +24,12 @@
 	"uniforms": [
 		{ "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
 		{ "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
-		{ "name": "Strength",          "type": "float",     "count": 1,  "values": [ 0.25 ] },
+		{ "name": "Transparency",          "type": "float",     "count": 1,  "values": [ 0.25 ] },
 		{ "name": "Thickness",          "type": "float",     "count": 1,  "values": [ 0.0033 ] },
 		{ "name": "Silhouette",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
-		{ "name": "OutlineColor",          "type": "float",     "count": 3,  "values": [ 0.5, 0.5, 0.5 ] },
+		{ "name": "Outline",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
+		{ "name": "OutlineColor",          "type": "float",     "count": 3,  "values": [ 1.0, 1.0, 1.0 ] },
+		{ "name": "OutlinePow",          "type": "float",     "count": 3,  "values": [ 0.5, 0.5, 0.5 ] },
 		{ "name": "OutlineColorMultiplier",          "type": "float",     "count": 1,  "values": [ 1.0 ] },
 		{ "name": "lu_viewDistance",          "type": "float",     "count": 1,  "values": [ 12.0 ] }
 	]

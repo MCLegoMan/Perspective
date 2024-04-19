@@ -5,6 +5,7 @@
 	"shader.perspective.grayscale" : "grayscale",
 	"shader.perspective.mirror" : "mirror",
 	"shader.perspective.outlined" : "outlined",
+	"shader.perspective.outlined2" : "darkened outline",
 	"shader.perspective.pixelated" : "pixelated",
 	"shader.perspective.tiltshift" : "tiltshift",
 	"shader.perspective.rainbow" : "rainbow",

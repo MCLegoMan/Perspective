@@ -16,9 +16,11 @@ uniform sampler2D CloudsDepthSampler;
 in vec2 texCoord;
 
 uniform vec2 OutSize;
-uniform float Strength;
+uniform float Transparency;
 uniform float Thickness;
+uniform float Outline;
 uniform vec3 OutlineColor;
+uniform vec3 OutlinePow;
 uniform float OutlineColorMultiplier;
 uniform float Silhouette;
 uniform float lu_viewDistance;
@@ -40,7 +42,15 @@ vec4 outline( vec4 color, sampler2D DepthSampler ) {
     float depth2 = texture(DepthSampler, texCoord + vec2(+offset * OutSize.y / OutSize.x, +offset)).r;
     float depth3 = texture(DepthSampler, texCoord + vec2(+offset * OutSize.y / OutSize.x, -offset)).r;
     float amount = clamp(pow(max(2.0 * 0.025 * 1000.0 / (1000.0 + 0.025 - (max(depth0, max(depth1, max(depth2, depth3))) * 2.0 - 1.0) * (1000.0 - 0.025)) - outlineDepth, 0.0) * 0.15, 2.0), 0.0, 1.0) * exp(-outlineDepth * 0.025);
-    vec4 outputColor = vec4(mix(color.rgb, pow((pow(color.rgb, OutlineColor) * OutlineColorMultiplier) + Strength, vec3(2.0)), amount), color.a);
+
+    vec3 outlineColor;
+    if (Outline == 0) {
+        outlineColor = color.rgb;
+    } else if (Outline == 1) {
+        outlineColor = OutlineColor;
+    }
+
+    vec4 outputColor = vec4(mix(color.rgb, pow((pow(outlineColor, OutlinePow) * OutlineColorMultiplier) + Transparency, vec3(2.0)), amount), color.a);
     float depth4 = min(max(1.0 - (1.0 - depth) * ((lu_viewDistance * 16) * 0.64), 0.0), 1.0);
     return vec4(mix(outputColor.rgb, color.rgb, smoothstep(0.9, 0.91, depth4)), outputColor.a);
 }

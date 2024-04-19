@@ -62,19 +62,27 @@
       "uniforms": [
         {
           "name": "Transparency",
-          "values": [ 0.5 ]
+          "values": [ 1.0 ]
         },
         {
           "name": "Thickness",
-          "values": [ 0.0033 ]
+          "values": [ 0.002112 ]
         },
         {
           "name": "Silhouette",
-          "values": [ 2.0 ]
+          "values": [ 0.0 ]
+        },
+        {
+          "name": "Outline",
+          "values": [ 1.0 ]
         },
         {
           "name": "OutlineColor",
-          "values": [ 0.0, 0.0, 0.0 ]
+          "values": [ 1.0, 1.0, 1.0 ]
+        },
+        {
+          "name": "OutlinePow",
+          "values": [ 0.5, 0.5, 0.5 ]
         },
         {
           "name": "OutlineColorMultiplier",
