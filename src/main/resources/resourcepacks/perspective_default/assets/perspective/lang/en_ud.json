@@ -12,5 +12,6 @@
 	"shader.perspective.silhouette" : "ǝʇʇǝnoɥlᴉs",
 	"shader.perspective.sixteen_colors": "sɹoloɔ uǝǝʇxᴉs",
 	"shader.perspective.bloom_dither": "ɹǝɥʇᴉp pǝsɐq-ʇɥƃᴉl",
-	"shader.perspective.depth_dither": "ɹǝɥʇᴉp pǝsɐq-ɥʇdǝp"
+	"shader.perspective.depth_dither": "ɹǝɥʇᴉp pǝsɐq-ɥʇdǝp",
+	"shader.perspective.eightbit": "ʇᴉq-8"
 }

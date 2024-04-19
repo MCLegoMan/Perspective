@@ -205,19 +205,19 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		}
 	}
 	private void layout$souper_secret_settings(ResourceManager manager) {
-		for (String NAMESPACE : manager.getAllNamespaces()) {
-			List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier(NAMESPACE, "shaders.json"));
-			for (Resource resource : SHADER_LISTS) {
+		for (String namespace : manager.getAllNamespaces()) {
+			List<Resource> shaderLists = manager.getAllResources(new Identifier(namespace, "shaders.json"));
+			for (Resource resource : shaderLists) {
 				try {
 					JsonObject reader = JsonHelper.deserialize(resource.getReader());
 					if (JsonHelper.getBoolean(reader, "replace", false)) reset(manager);
 					if (JsonHelper.hasArray(reader, "namespaces") && !JsonHelper.getArray(reader, "namespaces").isEmpty()) {
 						for (JsonElement namespaces : reader.getAsJsonArray("namespaces")) {
 							JsonObject namespaceList = JsonHelper.asObject(namespaces, "namespacelist");
-							String namespace = JsonHelper.getString(namespaceList, "namespace", "minecraft");
+							String shaderNamespace = JsonHelper.getString(namespaceList, "namespace", "minecraft");
 							boolean replace = JsonHelper.getBoolean(namespaceList, "replace", false);
 							boolean translatable = JsonHelper.getBoolean(namespaceList, "translatable", false);
-							if (replace) clearNamespace(namespace);
+							if (replace) clearNamespace(shaderNamespace);
 							List<String> disableScreenMode = new ArrayList<>();
 							for (JsonElement shader : JsonHelper.getArray(namespaceList, "disable_screen_mode", new JsonArray()))
 								disableScreenMode.add(shader.getAsString());
@@ -226,7 +226,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 								disableSoup.add(shader.getAsString());
 							JsonObject custom = JsonHelper.getObject(namespaceList, "custom", new JsonObject());
 							for (JsonElement shader : JsonHelper.getArray(namespaceList, "shaders", new JsonArray()))
-								add(namespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, disableSoup.contains(shader.getAsString()), JsonHelper.getObject(custom, shader.getAsString(), new JsonObject()), manager);
+								add(shaderNamespace, shader.getAsString(), disableScreenMode.contains(shader.getAsString()), translatable, disableSoup.contains(shader.getAsString()), JsonHelper.getObject(custom, shader.getAsString(), new JsonObject()), manager);
 						}
 					}
 				} catch (Exception error) {
@@ -236,9 +236,9 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		}
 	}
 	private void layout$souper_secret_settings$entity_links(ResourceManager manager) {
-		for (String NAMESPACE : manager.getAllNamespaces()) {
-			List<Resource> SHADER_LISTS = manager.getAllResources(new Identifier(NAMESPACE, "shaders.json"));
-			for (Resource resource : SHADER_LISTS) {
+		for (String namespace : manager.getAllNamespaces()) {
+			List<Resource> shaderLists = manager.getAllResources(new Identifier(namespace, "shaders.json"));
+			for (Resource resource : shaderLists) {
 				try {
 					JsonObject reader = JsonHelper.deserialize(resource.getReader());
 					JsonObject entityLinks = JsonHelper.getObject(reader, "entity_links", new JsonObject());

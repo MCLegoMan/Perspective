@@ -13,17 +13,17 @@ import net.fabricmc.loader.api.ModContainer;
 import org.apache.commons.lang3.StringUtils;
 
 public class Data {
-	public static final Version version = new Version("Perspective", "perspective", 1, 0, 0, Helper.ReleaseType.ALPHA, 4, "6CTGnrNg");
+	public static final Version version = new Version("Perspective", "perspective", 1, 0, 0, Helper.ReleaseType.ALPHA, 5, "6CTGnrNg");
 	public static boolean isModInstalled(String MOD_ID) {
 		return FabricLoader.getInstance().isModLoaded(MOD_ID);
 	}
-	public static boolean isModInstalledVersionOrHigher(String MOD_ID, String REQUIRED_VERSION, boolean SUBSTRING) {
+	public static boolean isModInstalledVersionOrHigher(String modId, String REQUIRED_VERSION, boolean SUBSTRING) {
 		try {
-			if (isModInstalled(MOD_ID)) {
-				return checkModVersion(getModContainer(MOD_ID).getMetadata().getVersion().getFriendlyString(), REQUIRED_VERSION, SUBSTRING);
+			if (isModInstalled(modId)) {
+				return checkModVersion(getModContainer(modId).getMetadata().getVersion().getFriendlyString(), REQUIRED_VERSION, SUBSTRING);
 			}
 		} catch (Exception error) {
-			version.getLogger().error(version.getLoggerPrefix() + "Failed to check mod version for " + MOD_ID + ": {}", (Object) error);
+			version.getLogger().error(version.getLoggerPrefix() + "Failed to check mod version for " + modId + ": {}", (Object) error);
 		}
 		return false;
 	}
@@ -38,7 +38,7 @@ public class Data {
 		}
 		return false;
 	}
-	public static ModContainer getModContainer(String MODID) {
-		return FabricLoader.getInstance().getModContainer(MODID).get();
+	public static ModContainer getModContainer(String modId) {
+		return FabricLoader.getInstance().getModContainer(modId).get();
 	}
 }
