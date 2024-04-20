@@ -4,7 +4,7 @@
 		"srcrgb": "one",
 		"dstrgb": "1-srcalpha"
 	},
-	"vertex": "minecraft:screenquad",
+	"vertex": "minecraft:sobel",
 	"fragment": "perspective:mirror",
 	"attributes": [ "Position" ],
 	"samplers": [

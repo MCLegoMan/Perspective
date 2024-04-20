@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.shaders;
 
+import com.mclegoman.luminance.client.shaders.Uniforms;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -31,20 +32,29 @@ public abstract class PostEffectPassMixin {
 	private void perspective$updateUniforms(float time, CallbackInfo ci) {
 		try {
 			// Uniforms with the "lu_" prefix will be moved to a separate mod in a future update to allow other shader mods to use them too without having perspective installed.
-			getUniform("viewDistance").set((float) ClientData.minecraft.options.getViewDistance().getValue());
+			// TODO: Add variants of uniforms that lerp using tickDelta for a smoother effect.
+			setUniform("viewDistance", ClientData.minecraft.options.getViewDistance().getValue());
 
-			getUniform("eyePosition").set(ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0, 0, 0));
-			getUniform("pitch").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getPitch(ClientData.minecraft.getTickDelta()) % 360 : 0);
-			getUniform("yaw").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getYaw(ClientData.minecraft.getTickDelta()) % 360 : 0);
+			setUniform("eyePosition", ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F));
+			setUniform("pitch", ClientData.minecraft.player != null ? ClientData.minecraft.player.getPitch(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F);
+			setUniform("yaw", ClientData.minecraft.player != null ? ClientData.minecraft.player.getYaw(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F);
 
-			getUniform("currentHealth").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getHealth() : 20);
-			getUniform("maxHealth").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20);
+			setUniform("currentHealth", ClientData.minecraft.player != null ? ClientData.minecraft.player.getHealth() : 20.0F);
+			setUniform("maxHealth", ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20.0F);
 
-			getUniform("currentAir").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getAir() : 10);
-			getUniform("maxAir").set(ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAir() : 10);
+			setUniform("currentAir", ClientData.minecraft.player != null ? ClientData.minecraft.player.getAir() : 10.0F);
+			setUniform("maxAir", ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAir() : 10.0F);
+
+			setUniform("isSprinting", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSprinting() ? 1.0F : 0.0F) : 0.0F);
+			setUniform("isSwimming", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSwimming() ? 1.0F : 0.0F) : 0.0F);
+			setUniform("isSneaking", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSneaking() ? 1.0F : 0.0F) : 0.0F);
+			setUniform("isCrawling", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isCrawling() ? 1.0F : 0.0F) : 0.0F);
+
+			// This will be a config option in Luminance.
+			setUniform("alpha", Uniforms.get());
 
 			// Perspective Uniforms
-			getUniform(Data.version.getID(), "zoomMultiplier").set((float) Zoom.getMultiplier());
+			setUniform(getUniformName(Data.version.getID(), "zoomMultiplier"), (float) Zoom.getMultiplier());
 		} catch (Exception error) {
 			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
 		}
@@ -56,6 +66,18 @@ public abstract class PostEffectPassMixin {
 	}
 	@Unique
 	private Uniform getUniform(String prefix, String uniformName) {
-		return this.program.getUniformByNameOrDummy(prefix + "_" + uniformName);
+		return this.program.getUniformByNameOrDummy(getUniformName(prefix, uniformName));
+	}
+	@Unique
+	private String getUniformName(String prefix, String uniformName) {
+		return prefix + "_" + uniformName;
+	}
+	@Unique
+	private void setUniform(String uniformName, float... value) {
+		getUniform(uniformName).set(value);
+	}
+	@Unique
+	private void setUniform(String uniformName, Vector3f value) {
+		getUniform(uniformName).set(value);
 	}
 }

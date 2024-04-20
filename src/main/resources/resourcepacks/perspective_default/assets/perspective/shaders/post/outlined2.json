@@ -83,7 +83,7 @@
       ]
     },
     {
-      "name": "blit",
+      "name": "minecraft:blit",
       "intarget": "0",
       "outtarget": "minecraft:main"
     }

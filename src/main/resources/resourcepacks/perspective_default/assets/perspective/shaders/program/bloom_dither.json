@@ -2,9 +2,9 @@
     "blend": {
         "func": "add",
         "srcrgb": "one",
-        "dstrgb": "zero"
+        "dstrgb": "1-srcalpha"
     },
-    "vertex": "minecraft:screenquad",
+    "vertex": "minecraft:sobel",
     "fragment": "perspective:bloom_dither",
     "attributes": [ "Position" ],
     "samplers": [

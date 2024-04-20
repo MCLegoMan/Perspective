@@ -36,6 +36,7 @@ public class Keybindings {
 	public static final KeyBinding togglePosOverlay;
 	public static final KeyBinding toggleShaders;
 	public static final KeyBinding toggleZoom;
+	public static final KeyBinding adjustAlpha;
 	public static final KeyBinding[] allKeybindings;
 	public static boolean seenConflictingKeybindingToasts;
 
@@ -59,7 +60,8 @@ public class Keybindings {
 				togglePlayers = getKeybinding(Data.version.getID(), "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
 				togglePosOverlay = getKeybinding(Data.version.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleShaders = getKeybinding(Data.version.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
-				toggleZoom = getKeybinding(Data.version.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
+				toggleZoom = getKeybinding(Data.version.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN),
+				adjustAlpha = getKeybinding("luminance", "adjust_alpha", GLFW.GLFW_KEY_UNKNOWN)
 		};
 	}
 

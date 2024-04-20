@@ -7,6 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.zoom;
 
+import com.mclegoman.luminance.client.shaders.Uniforms;
+import com.mclegoman.perspective.client.util.Keybindings;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -25,7 +27,7 @@ public abstract class MouseMixin {
 	@Shadow private double cursorDeltaX;
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-		if (Zoom.isZooming()) {
+		if (Zoom.isZooming() || Keybindings.adjustAlpha.isPressed()) {
 			boolean discreteMouseScroll = ClientData.minecraft.options.getDiscreteMouseScroll().getValue();
 			double mouseWheelSensitivity = ClientData.minecraft.options.getMouseWheelSensitivity().getValue();
 			double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
@@ -36,16 +38,18 @@ public abstract class MouseMixin {
 			int scrollAmount = (int) this.eventDeltaVerticalWheel;
 			this.eventDeltaVerticalWheel -= scrollAmount;
 			if (scrollAmount != 0) {
-				Zoom.zoom(scrollAmount, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size"));
+				if (Zoom.isZooming()) Zoom.zoom(scrollAmount, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size"));
+				if (Keybindings.adjustAlpha.isPressed()) Uniforms.adjust(scrollAmount);
 				ci.cancel();
 			}
 		}
 	}
 	@Inject(at = @At("HEAD"), method = "onMouseButton", cancellable = true)
 	private void perspective$onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
-		if (Zoom.isZooming()) {
+		if (Zoom.isZooming() || Keybindings.adjustAlpha.isPressed()) {
 			if (button == 2) {
-				Zoom.reset();
+				if (Zoom.isZooming()) Zoom.reset();
+				if (Keybindings.adjustAlpha.isPressed()) Uniforms.reset();
 				ci.cancel();
 			}
 		}
