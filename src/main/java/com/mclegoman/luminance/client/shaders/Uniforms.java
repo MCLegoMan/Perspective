@@ -19,12 +19,72 @@ public class Uniforms {
 	public static void init() {
 		alpha = (int)ConfigHelper.getConfig("alpha_level");
 		prevAlpha = alpha;
+		SmoothUniforms.init();
 	}
 	public static void tick() {
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
 			if (alpha != prevAlpha) ConfigHelper.setConfig("alpha_level", alpha);
 		}
+		SmoothUniforms.tick();
+	}
+	public static void update(JsonEffectShaderProgram program) {
+		setUniform(program, "viewDistance", getViewDistance());
+
+		setUniform(program, "eyePosition", getEyePosition());
+		setUniform(program, "pitch", getPitch());
+		setUniform(program, "yaw", getYaw());
+
+		setUniform(program, "currentHealth", getCurrentHealth());
+		setUniform(program, "maxHealth", getMaxHealth());
+
+		setUniform(program, "currentAir", getCurrentAir());
+		setUniform(program, "maxAir", getMaxAir());
+
+		setUniform(program, "isSprinting", getIsSprinting());
+		setUniform(program, "isSwimming", getIsSwimming());
+		setUniform(program, "isSneaking", getIsSneaking());
+		setUniform(program, "isCrawling", getIsCrawling());
+
+		setUniform(program, "alpha", getAlpha());
+
+		SmoothUniforms.update(program);
+	}
+	public static float getViewDistance() {
+		return ClientData.minecraft.options.getViewDistance().getValue();
+	}
+	public static Vector3f getEyePosition() {
+		return ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F);
+	}
+	public static float getPitch() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getPitch(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F;
+	}
+	public static float getYaw() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getYaw(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F;
+	}
+	public static float getCurrentHealth() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getHealth() : 20.0F;
+	}
+	public static float getMaxHealth() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20.0F;
+	}
+	public static float getCurrentAir() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getAir() : 10.0F;
+	}
+	public static float getMaxAir() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAir() : 10.0F;
+	}
+	public static float getIsSprinting() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSprinting() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getIsSwimming() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSwimming() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getIsSneaking() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSneaking() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getIsCrawling() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isCrawling() ? 1.0F : 0.0F) : 0.0F;
 	}
 	public static float getAlpha() {
 		return Math.max(0.0F, Math.min((alpha / 100.0F), 1.0F));
@@ -49,27 +109,6 @@ public class Uniforms {
 			updatingAlpha = true;
 		}
 		return value;
-	}
-	public static void update(JsonEffectShaderProgram program) {
-		// TODO: Add variants of uniforms that lerp using tickDelta for a smoother effect.
-		Uniforms.setUniform(program, "viewDistance", ClientData.minecraft.options.getViewDistance().getValue());
-
-		Uniforms.setUniform(program, "eyePosition", ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F));
-		Uniforms.setUniform(program, "pitch", ClientData.minecraft.player != null ? ClientData.minecraft.player.getPitch(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F);
-		Uniforms.setUniform(program, "yaw", ClientData.minecraft.player != null ? ClientData.minecraft.player.getYaw(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F);
-
-		Uniforms.setUniform(program, "currentHealth", ClientData.minecraft.player != null ? ClientData.minecraft.player.getHealth() : 20.0F);
-		Uniforms.setUniform(program, "maxHealth", ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20.0F);
-
-		Uniforms.setUniform(program, "currentAir", ClientData.minecraft.player != null ? ClientData.minecraft.player.getAir() : 10.0F);
-		Uniforms.setUniform(program, "maxAir", ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAir() : 10.0F);
-
-		Uniforms.setUniform(program, "isSprinting", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSprinting() ? 1.0F : 0.0F) : 0.0F);
-		Uniforms.setUniform(program, "isSwimming", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSwimming() ? 1.0F : 0.0F) : 0.0F);
-		Uniforms.setUniform(program, "isSneaking", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isSneaking() ? 1.0F : 0.0F) : 0.0F);
-		Uniforms.setUniform(program, "isCrawling", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isCrawling() ? 1.0F : 0.0F) : 0.0F);
-
-		Uniforms.setUniform(program, "alpha", Uniforms.getAlpha());
 	}
 	public static Uniform getUniform(JsonEffectShaderProgram program, String uniformName) {
 		return getUniform(program, "lu", uniformName);
