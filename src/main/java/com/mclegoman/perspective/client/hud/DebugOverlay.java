@@ -13,7 +13,7 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.UpdateChecker;
+import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.font.TextRenderer;
@@ -44,7 +44,7 @@ public class DebugOverlay {
 			debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));
 			debugText.add(Text.literal("getZoomLevel(): " + Zoom.getZoomLevel()));
 			debugText.add(Translation.getCombinedText(Text.literal("getZoomType(): "), Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath())));
-			debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.newerVersionFound));
+			debugText.add(Text.literal("Newer Version Found: " + Update.newerVersionFound));
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
 			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));

@@ -8,13 +8,12 @@
 package com.mclegoman.luminance.common.data;
 
 import com.mclegoman.releasetypeutils.common.version.Helper;
-import com.mclegoman.releasetypeutils.common.version.Version;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import org.apache.commons.lang3.StringUtils;
 
 public class Data {
-	public static final Version version = new Version("Luminance", "luminance", 1, 0, 0, Helper.ReleaseType.ALPHA, 1);
+	public static final Version version = Version.create("Luminance", "luminance", 1, 0, 0, Helper.ReleaseType.ALPHA, 1);
 	public static boolean isModInstalled(String MOD_ID) {
 		return FabricLoader.getInstance().isModLoaded(MOD_ID);
 	}

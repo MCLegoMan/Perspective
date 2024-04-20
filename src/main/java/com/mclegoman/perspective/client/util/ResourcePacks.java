@@ -25,12 +25,6 @@ public class ResourcePacks {
 	 */
 	public static void init() {
 		/*
-            Super Secret Settings
-            Contributor(s): Mojang Studios, Microsoft Corporation
-            Licence: Minecraft EULA
-        */
-		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("super_secret_settings"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.super_secret_settings"), ResourcePackActivationType.DEFAULT_ENABLED);
-		/*
             Perspective: Default
             Contributor(s): MCLegoMan
         */

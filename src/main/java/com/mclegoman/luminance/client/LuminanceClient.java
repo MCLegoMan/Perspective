@@ -10,6 +10,7 @@ package com.mclegoman.luminance.client;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
 import com.mclegoman.luminance.client.shaders.Uniforms;
 import com.mclegoman.luminance.client.translation.Translation;
+import com.mclegoman.luminance.client.util.ResourcePacks;
 import com.mclegoman.luminance.client.util.Tick;
 import com.mclegoman.luminance.common.data.Data;
 import com.mclegoman.luminance.config.ConfigHelper;
@@ -23,6 +24,7 @@ public class LuminanceClient implements ClientModInitializer {
 			Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Initializing {}", Data.version.getName()));
 			ConfigHelper.init();
 			Keybindings.init();
+			ResourcePacks.init();
 			Tick.init();
 			Uniforms.init();
 		} catch (Exception error) {

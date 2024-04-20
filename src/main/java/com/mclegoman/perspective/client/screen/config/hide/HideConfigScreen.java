@@ -13,7 +13,7 @@ import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.util.UpdateChecker;
+import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -124,7 +124,7 @@ public class HideConfigScreen extends Screen {
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
 			if (hasControlDown()) ConfigHelper.reloadConfig(true);
-			else UpdateChecker.checkForUpdates(Data.version, true);
+			else Update.checkForUpdates(Data.version, true);
 			this.refresh = true;
 		}
 		return super.keyReleased(keyCode, scanCode, modifiers);

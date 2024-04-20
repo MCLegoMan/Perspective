@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 100, value = RenderPhase.class)
-public class RenderPhaseMixin {
+public abstract class RenderPhaseMixin {
 	@Shadow @Final protected String name;
 	@Inject(at = @At(value = "RETURN"), method = "startDrawing")
 	public void perspective$startDrawing(CallbackInfo ci) {

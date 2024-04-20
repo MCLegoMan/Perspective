@@ -14,7 +14,7 @@ import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.util.UpdateChecker;
+import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -149,7 +149,7 @@ public class ShadersConfigScreen extends Screen {
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_F5) {
 			if (hasControlDown()) ConfigHelper.reloadConfig(true);
-			else UpdateChecker.checkForUpdates(Data.version, true);
+			else Update.checkForUpdates(Data.version, true);
 			this.refresh = true;
 		}
 		if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT)

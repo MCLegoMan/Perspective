@@ -239,13 +239,6 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
 
-	"gui.perspective.keybindings.category.luminance": "Luminance",
-
-	"gui.perspective.keybindings.keybinding.adjust_alpha": "Adjust Alpha",
-
-	"gui.perspective.resource_pack.super_secret_settings": "Super Secret Settings",
-	"gui.perspective.resource_pack.super_secret_settings.description": "Adds shaders from previous Minecraft versions",
-
 	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
 	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
 

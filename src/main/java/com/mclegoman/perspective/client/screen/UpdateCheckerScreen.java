@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.screen;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.util.UpdateChecker;
+import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
@@ -46,7 +46,7 @@ public class UpdateCheckerScreen extends Screen {
 	}
 	public void tick() {
 		try {
-			if (UpdateChecker.updateCheckerComplete) this.shouldClose = true;
+			if (Update.updateCheckerComplete) this.shouldClose = true;
 			if (this.shouldClose) ClientData.minecraft.setScreen(parentScreen);
 		} catch (Exception error) {
 			Data.version.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.version.getID(), error);

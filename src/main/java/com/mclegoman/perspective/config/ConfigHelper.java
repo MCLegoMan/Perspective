@@ -18,7 +18,7 @@ import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.ResourcePacks;
-import com.mclegoman.perspective.client.util.UpdateChecker;
+import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
@@ -83,7 +83,7 @@ public class ConfigHelper {
 	protected static void afterConfig() {
 		try {
 			ResourcePacks.initAfterConfig();
-			UpdateChecker.checkForUpdates(Data.version);
+			Update.checkForUpdates(Data.version);
 			ClientData.setFinishedInitializingAfterConfig(true);
 		} catch (Exception error) {
 			Data.version.sendToLog(Helper.LogType.WARN, "Failed to init afterConfig.");
@@ -275,7 +275,7 @@ public class ConfigHelper {
 				Data.version.sendToLog(Helper.LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "hide_crosshair") + ")");
 				hasFixedConfig = setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.hideCrosshair);
 			}
-			if (!Arrays.stream(UpdateChecker.detectUpdateChannels).toList().contains((String) getConfig(ConfigType.NORMAL, "detect_update_channel"))) {
+			if (!Arrays.stream(Update.detectUpdateChannels).toList().contains((String) getConfig(ConfigType.NORMAL, "detect_update_channel"))) {
 				Data.version.sendToLog(Helper.LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
 				hasFixedConfig = setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.detectUpdateChannel);
 			}

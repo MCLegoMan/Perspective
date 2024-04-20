@@ -9,6 +9,10 @@ package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.config.ConfigHelper;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
+import net.minecraft.client.gl.JsonEffectShaderProgram;
+import net.minecraft.client.gl.Uniform;
+import org.joml.Vector3f;
+import org.spongepowered.asm.mixin.Unique;
 
 public class Uniforms {
 	private static int alpha = 100;
@@ -45,5 +49,20 @@ public class Uniforms {
 			updatingAlpha = true;
 		}
 		return value;
+	}
+	public static Uniform getUniform(JsonEffectShaderProgram program, String uniformName) {
+		return getUniform(program, "lu", uniformName);
+	}
+	public static Uniform getUniform(JsonEffectShaderProgram program, String prefix, String uniformName) {
+		return program.getUniformByNameOrDummy(getUniformName(prefix, uniformName));
+	}
+	public static String getUniformName(String prefix, String uniformName) {
+		return prefix + "_" + uniformName;
+	}
+	public static void setUniform(JsonEffectShaderProgram program, String uniformName, float... value) {
+		getUniform(program, uniformName).set(value);
+	}
+	public static void setUniform(JsonEffectShaderProgram program, String uniformName, Vector3f value) {
+		getUniform(program, uniformName).set(value);
 	}
 }
