@@ -51,7 +51,7 @@ public abstract class PostEffectPassMixin {
 			setUniform("isCrawling", ClientData.minecraft.player != null ? (ClientData.minecraft.player.isCrawling() ? 1.0F : 0.0F) : 0.0F);
 
 			// This will be a config option in Luminance.
-			setUniform("alpha", Uniforms.get());
+			setUniform("alpha", Uniforms.getAlpha());
 
 			// Perspective Uniforms
 			setUniform(getUniformName(Data.version.getID(), "zoomMultiplier"), (float) Zoom.getMultiplier());

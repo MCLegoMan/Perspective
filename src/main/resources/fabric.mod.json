@@ -22,14 +22,16 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.mclegoman.perspective.client.PerspectiveClient"
+      "com.mclegoman.perspective.client.PerspectiveClient",
+      "com.mclegoman.luminance.client.LuminanceClient"
     ],
     "modmenu": [
 	    "com.mclegoman.perspective.compat.ModMenuCompat"
     ]
   },
   "mixins": [
-    "mclegoman-perspective.mixins.json"
+    "mclegoman-perspective.mixins.json",
+    "mclegoman-luminance.mixins.json"
   ],
   "depends": {
     "minecraft": [

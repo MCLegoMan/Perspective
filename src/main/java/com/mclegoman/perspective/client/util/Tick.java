@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;

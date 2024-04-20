@@ -9,10 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.axolotl
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AxolotlEntity;
-import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;

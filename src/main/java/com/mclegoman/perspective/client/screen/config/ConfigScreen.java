@@ -21,7 +21,7 @@ import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
-import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;

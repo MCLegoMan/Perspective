@@ -7,9 +7,10 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.config.ConfigProvider;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
@@ -45,6 +46,6 @@ public class WarningsConfig {
 		Data.version.sendToLog(Helper.LogType.INFO,"Writing warning config to file.");
 		configProvider.setConfig("photosensitivity", photosensitivity);
 		configProvider.setConfig("prank", prank);
-		configProvider.saveConfig(id);
+		configProvider.saveConfig(Data.version, id);
 	}
 }

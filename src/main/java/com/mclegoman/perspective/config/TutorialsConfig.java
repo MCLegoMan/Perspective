@@ -7,9 +7,10 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.config.ConfigProvider;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
@@ -41,6 +42,6 @@ public class TutorialsConfig {
 	protected static void save() {
 		Data.version.sendToLog(Helper.LogType.INFO,"Writing tutorial config to file.");
 		configProvider.setConfig("super_secret_settings", superSecretSettings);
-		configProvider.saveConfig(id);
+		configProvider.saveConfig(Data.version, id);
 	}
 }

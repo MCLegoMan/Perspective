@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.contributor;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataloader;
 import com.mclegoman.perspective.client.util.TextureHelper;

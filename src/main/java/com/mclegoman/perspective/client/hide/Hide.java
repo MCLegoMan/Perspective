@@ -12,7 +12,7 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;

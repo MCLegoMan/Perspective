@@ -9,11 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.fox;
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.entity.passive.FrogEntity;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;

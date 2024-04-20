@@ -9,8 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.frog;
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
-import net.minecraft.entity.Entity;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import net.minecraft.entity.passive.FrogEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;

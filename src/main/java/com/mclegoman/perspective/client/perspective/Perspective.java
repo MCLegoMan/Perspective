@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.perspective;
 
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 
 public class Perspective {
 	private static boolean holdThirdPersonBackLock;

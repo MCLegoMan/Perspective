@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.common.util;
+package com.mclegoman.luminance.common.util;
 
 public record Couple<a, b>(a first, b second) {
 	public a getFirst() {

@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;

@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.common.util;
+package com.mclegoman.luminance.common.util;
 
 public record Triple<a, b, c>(a first, b second, c third) {
 	public a getFirst() {return first;}

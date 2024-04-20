@@ -12,7 +12,7 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.hide.HideHudTypes;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 
 public class HUDHelper {
 	public static void tick() {

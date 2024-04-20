@@ -15,14 +15,14 @@ import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
-import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.ui.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
+import com.mclegoman.luminance.common.util.Couple;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
@@ -96,7 +96,6 @@ public class ConfigHelper {
 				ClientData.minecraft.setScreen(new ConfigScreen(ClientData.minecraft.currentScreen, false, 1));
 			if (saveViaTickTicks < saveViaTickSaveTick) saveViaTickTicks += 1;
 			else {
-				if (fixConfig()) saveConfig();
 				if (saveViaTick) {
 					for (ConfigType configType : saveConfigs) {
 						saveConfig(configType);
@@ -511,7 +510,6 @@ public class ConfigHelper {
 						}
 						default -> {
 							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", ID));
-							return false;
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.NORMAL);
@@ -524,7 +522,6 @@ public class ConfigHelper {
 						}
 						default -> {
 							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
-							return false;
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.EXPERIMENTAL);
@@ -537,7 +534,6 @@ public class ConfigHelper {
 						}
 						default -> {
 							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", ID));
-							return false;
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.TUTORIAL);
@@ -554,7 +550,6 @@ public class ConfigHelper {
 						}
 						default -> {
 							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
-							return false;
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.WARNING);

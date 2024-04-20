@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.cat;
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;

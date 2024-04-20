@@ -1,12 +1,13 @@
 /*
-    Perspective
+    Luminance
     Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Github: https://github.com/MCLegoMan/Luminance
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.perspective.common.data;
 
+import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.loader.api.ModContainer;
 

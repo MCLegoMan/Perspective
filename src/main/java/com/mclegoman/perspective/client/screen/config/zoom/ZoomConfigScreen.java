@@ -11,7 +11,7 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.Keybindings;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.util.UpdateChecker;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
@@ -94,7 +94,7 @@ public class ZoomConfigScreen extends Screen {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size", (int) ((value) * 9) + 1);
 			}
 		}, 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation()}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath())}), (button) -> {
 			Zoom.cycleZoomType(!hasShiftDown());
 			this.refresh = true;
 		}).build(), 1);

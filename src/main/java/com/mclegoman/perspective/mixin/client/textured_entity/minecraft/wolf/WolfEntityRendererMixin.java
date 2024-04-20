@@ -9,7 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.wolf;
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import net.minecraft.client.render.entity.WolfEntityRenderer;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;

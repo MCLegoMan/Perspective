@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.client.ui;
 
-import com.mclegoman.perspective.common.util.IdentifierHelper;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;

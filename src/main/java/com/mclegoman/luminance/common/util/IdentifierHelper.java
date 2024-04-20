@@ -1,4 +1,4 @@
-package com.mclegoman.perspective.common.util;
+package com.mclegoman.luminance.common.util;
 
 import net.minecraft.util.Identifier;
 

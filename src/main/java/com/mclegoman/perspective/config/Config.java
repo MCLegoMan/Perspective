@@ -7,9 +7,10 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.config.ConfigProvider;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
@@ -189,6 +190,6 @@ public class Config {
 		configProvider.setConfig("debug", debug);
 		configProvider.setConfig("test_resource_pack", testResourcePack);
 		configProvider.setConfig("config_version", ConfigHelper.defaultConfigVersion);
-		configProvider.saveConfig(id);
+		configProvider.saveConfig(Data.version, id);
 	}
 }

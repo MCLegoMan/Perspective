@@ -43,7 +43,7 @@ public class DebugOverlay {
 			debugText.add(Text.literal("isSaving(): " + ConfigHelper.isSaving()));
 			debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));
 			debugText.add(Text.literal("getZoomLevel(): " + Zoom.getZoomLevel()));
-			debugText.add(Translation.getCombinedText(Text.literal("getZoomType(): "), Translation.getZoomTypeTranslation()));
+			debugText.add(Translation.getCombinedText(Text.literal("getZoomType(): "), Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath())));
 			debugText.add(Text.literal("Newer Version Found: " + UpdateChecker.newerVersionFound));
 			debugText.add("\n");
 			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));

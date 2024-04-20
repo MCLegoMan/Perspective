@@ -7,9 +7,10 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.config.ConfigProvider;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
@@ -42,7 +43,7 @@ public class ExperimentalConfig {
 		if (ConfigHelper.experimentsAvailable) {
 			Data.version.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
 			configProvider.setConfig("improved_shader_renderer", improvedShaderRenderer);
-			configProvider.saveConfig(id);
+			configProvider.saveConfig(Data.version, id);
 		}
 	}
 }

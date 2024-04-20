@@ -9,9 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.mooshro
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
-import com.mclegoman.releasetypeutils.common.version.Helper;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.MooshroomMushroomFeatureRenderer;

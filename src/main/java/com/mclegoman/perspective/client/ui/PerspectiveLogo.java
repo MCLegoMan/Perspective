@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.DateHelper;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.Couple;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.font.TextRenderer;

@@ -12,7 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.perspective.common.util.IdentifierHelper;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
