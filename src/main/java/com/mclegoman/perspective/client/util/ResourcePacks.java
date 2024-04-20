@@ -10,11 +10,10 @@ package com.mclegoman.perspective.client.util;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.minecraft.util.Identifier;
 
-public class ResourcePacks {
+public class ResourcePacks extends com.mclegoman.luminance.client.util.ResourcePacks {
 	/**
 	 * To add a resource pack to this project, please follow these guidelines:
 	 * 1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
@@ -28,12 +27,12 @@ public class ResourcePacks {
             Perspective: Default
             Contributor(s): MCLegoMan
         */
-		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_default"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+		register(new Identifier("perspective_default"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
 		/*
             Perspective: Developer Config
             Contributor(s): MCLegoMan
         */
-		ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("dev_config"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
+		register(new Identifier("dev_config"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
 	}
 	/**
 	 * Resource Packs that require the config to be loaded can be registered in the following function.
@@ -49,6 +48,6 @@ public class ResourcePacks {
             Perspective: Test
             Contributor(s): MCLegoMan
         */
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) register(new Identifier("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
 	}
 }

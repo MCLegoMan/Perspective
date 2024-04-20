@@ -24,11 +24,11 @@ public class Perspective {
 	}
 	public static void tick() {
 		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
-			ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
+			setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
 		if (Keybindings.setPerspectiveThirdPersonBack.wasPressed())
-			ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
+			setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
 		if (Keybindings.setPerspectiveThirdPersonFront.wasPressed())
-			ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
+			setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 		getHoldAll();
 	}
 	private static void setThirdPersonFront(net.minecraft.client.option.Perspective perspective) {
@@ -36,9 +36,9 @@ public class Perspective {
 			if (!holdThirdPersonFrontLock) {
 				holdThirdPersonFrontPrev = perspective;
 				if (ClientData.minecraft.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT))
-					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
+					setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
 				else
-					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
+					setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 			}
 			holdThirdPersonFrontLock = true;
 		}
@@ -46,35 +46,52 @@ public class Perspective {
 	private static void setThirdPersonBack(net.minecraft.client.option.Perspective perspective) {
 		if (!Keybindings.holdPerspectiveThirdPersonFront.isPressed() && !holdThirdPersonFrontLock) {
 			if (!holdThirdPersonBackLock) {
+				ClientData.minecraft.worldRenderer.scheduleTerrainUpdate();
 				holdThirdPersonBackPrev = perspective;
 				if (ClientData.minecraft.options.getPerspective().equals(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK))
-					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
+					setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);
 				else
-					ClientData.minecraft.options.setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
+					setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_BACK);
 			}
 			holdThirdPersonBackLock = true;
 		}
 	}
 	private static void getHoldAll() {
-		for (int i = 0; i < 2; i++) {
-			if (Keybindings.holdPerspectiveThirdPersonFront.isPressed())
-				setThirdPersonFront(ClientData.minecraft.options.getPerspective());
-			clearHoldFront();
-			if (Keybindings.holdPerspectiveThirdPersonBack.isPressed())
-				setThirdPersonBack(ClientData.minecraft.options.getPerspective());
-			clearHoldBack();
-		}
+		getHoldFront(ClientData.minecraft.options.getPerspective());
+		getHoldBack(ClientData.minecraft.options.getPerspective());
+	}
+	private static boolean isHoldFront() {
+		return Keybindings.holdPerspectiveThirdPersonFront.isPressed();
+	}
+	private static void getHoldFront(net.minecraft.client.option.Perspective perspective) {
+		if (isHoldFront())
+			setThirdPersonFront(perspective);
+		clearHoldFront();
+	}
+	private static boolean isHoldBack() {
+		return Keybindings.holdPerspectiveThirdPersonBack.isPressed();
+	}
+	private static void getHoldBack(net.minecraft.client.option.Perspective perspective) {
+		if (isHoldBack())
+			setThirdPersonBack(perspective);
+		clearHoldBack();
 	}
 	private static void clearHoldFront() {
 		if (!Keybindings.holdPerspectiveThirdPersonFront.isPressed() && holdThirdPersonFrontLock) {
 			holdThirdPersonFrontLock = false;
-			ClientData.minecraft.options.setPerspective(holdThirdPersonFrontPrev);
+			if (isHoldBack()) getHoldBack(holdThirdPersonFrontPrev);
+			else setPerspective(holdThirdPersonFrontPrev);
 		}
 	}
 	private static void clearHoldBack() {
 		if (!Keybindings.holdPerspectiveThirdPersonBack.isPressed() && holdThirdPersonBackLock) {
 			holdThirdPersonBackLock = false;
-			ClientData.minecraft.options.setPerspective(holdThirdPersonBackPrev);
+			if (isHoldFront()) getHoldFront(holdThirdPersonBackPrev);
+			else setPerspective(holdThirdPersonBackPrev);
 		}
+	}
+	public static void setPerspective(net.minecraft.client.option.Perspective perspective) {
+		ClientData.minecraft.worldRenderer.scheduleTerrainUpdate();
+		ClientData.minecraft.options.setPerspective(perspective);
 	}
 }

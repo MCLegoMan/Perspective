@@ -1,0 +1,10 @@
+{
+  "namespace": "perspective",
+  "shader": "health_overlay",
+  "disable_screen_mode": false,
+  "translatable": true,
+  "disable_soup": true,
+  "entity_links": [],
+  "custom": {},
+  "enabled": true
+}

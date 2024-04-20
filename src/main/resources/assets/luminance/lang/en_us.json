@@ -5,6 +5,6 @@
 
 	"gui.luminance.keybindings.keybinding.adjust_alpha": "Adjust Alpha",
 
-	"gui.perspective.resource_pack.super_secret_settings": "Super Secret Settings",
-	"gui.perspective.resource_pack.super_secret_settings.description": "Adds shaders from previous Minecraft versions"
+	"gui.luminance.resource_pack.super_secret_settings": "Super Secret Settings",
+	"gui.luminance.resource_pack.super_secret_settings.description": "Adds shaders from previous Minecraft versions"
 }

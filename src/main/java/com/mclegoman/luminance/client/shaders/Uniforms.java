@@ -51,7 +51,7 @@ public class Uniforms {
 		SmoothUniforms.update(program);
 	}
 	public static float getViewDistance() {
-		return ClientData.minecraft.options.getViewDistance().getValue();
+		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12;
 	}
 	public static Vector3f getEyePosition() {
 		return ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F);

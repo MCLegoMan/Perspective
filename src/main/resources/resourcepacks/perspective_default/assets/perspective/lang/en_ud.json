@@ -15,5 +15,6 @@
 	"shader.perspective.sixteen_colors": "sɹoloɔ uǝǝʇxᴉs",
 	"shader.perspective.bloom_dither": "ɹǝɥʇᴉp pǝsɐq-ʇɥƃᴉl",
 	"shader.perspective.depth_dither": "ɹǝɥʇᴉp pǝsɐq-ɥʇdǝp",
-	"shader.perspective.eightbit": "ʇᴉq-8"
+	"shader.perspective.eightbit": "ʇᴉq-8",
+	"shader.perspective.health_overlay": "ʎɐlɹǝʌo ɥʇlɐǝɥ"
 }

@@ -4,10 +4,13 @@ uniform sampler2D DiffuseSampler;
 
 in vec2 texCoord;
 out vec4 fragColor;
+
 uniform vec2 InSize;
-uniform float lu_alpha;
+uniform float Amount;
+uniform float Strength;
+uniform float lu_alphaSmooth;
 
 void main() {
-    vec4 color = texture(DiffuseSampler, texCoord);
-    fragColor = mix(color, vec4(color.rgb * mix(1.0, (pow(pow(sin((texCoord.y * InSize.y * 1.0 * 0.25) * 3.1415926535 + 0.0 * InSize.y * 0.25), 2.0), 1.0) * 1.0 + 1.0) * 0.5, 0.8), 1.0), lu_alpha);
+    vec3 inputColor = texture(DiffuseSampler, texCoord).rgb;
+    fragColor = vec4(mix(inputColor, inputColor - sin((texCoord.y * InSize.y) * Amount) * Strength, lu_alphaSmooth), 1.0);
 }

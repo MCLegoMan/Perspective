@@ -1,8 +1,10 @@
 {
 	"blend": {
 		"func": "add",
-		"srcrgb": "one",
-		"dstrgb": "1-srcalpha"
+		"srcrgb": "srcalpha",
+		"dstrgb": "1-srcalpha",
+		"srcalpha": "one",
+		"dstalpha": "zero"
 	},
 	"vertex": "minecraft:sobel",
 	"fragment": "perspective:fisheye",
@@ -15,6 +17,6 @@
 		{ "name": "InSize",     "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "Strength",    "type": "float",     "count": 1,  "values": [ 1.0 ] },
-		{ "name": "lu_alpha",          "type": "float",     "count": 1,  "values": [ 1.0 ] }
+		{ "name": "lu_alphaSmooth",          "type": "float",     "count": 1,  "values": [ 1.0 ] }
 	]
 }

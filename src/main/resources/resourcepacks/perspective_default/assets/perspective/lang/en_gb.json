@@ -16,6 +16,7 @@
 	"shader.perspective.bloom_dither": "light-based dither",
 	"shader.perspective.depth_dither": "depth-based dither",
 	"shader.perspective.eightbit": "8-bit",
+	"shader.perspective.health_overlay": "health overlay",
 
 	"splashes.perspective.now_with_more_shaders": "Now with more shaders!"
 }
