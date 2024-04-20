@@ -1,6 +1,6 @@
 /*
     Perspective
-    Contributor(s): Nettakrim
+    Contributor(s): Nettakrim, MCLegoMan
     Github: https://github.com/MCLegoMan/Perspective
     Licence: GNU LGPLv3
 */
