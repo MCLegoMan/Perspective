@@ -30,6 +30,7 @@ public class Uniforms {
 	public static void tick() {
 		// This will get reset every 48 hours to prevent shader stuttering/freezing on some shaders.
 		// This may still stutter/freeze on weaker systems.
+		// TODO: We need to reset lu_timeSmooth without lerping.
 		ticks = (ticks + 0.01F) % 34560.0F;
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
