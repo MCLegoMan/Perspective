@@ -12,6 +12,9 @@ import com.mclegoman.luminance.client.keybindings.Keybindings;
 import com.mclegoman.luminance.config.ConfigHelper;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.client.gl.Uniform;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.joml.Vector3f;
 
 public class Uniforms {
@@ -47,6 +50,8 @@ public class Uniforms {
 		setUniform(program, "isSneaking", getIsSneaking());
 		setUniform(program, "isCrawling", getIsCrawling());
 		setUniform(program, "isInvisible", getIsInvisible());
+		setUniform(program, "isWithered", getHasEffect(StatusEffects.WITHER));
+		setUniform(program, "isPoisoned", getHasEffect(StatusEffects.POISON));
 		setUniform(program, "isBurning", getIsBurning());
 		setUniform(program, "isOnGround", getIsOnGround());
 		setUniform(program, "isOnLadder", getIsOnLadder());
@@ -109,6 +114,9 @@ public class Uniforms {
 	}
 	public static float getIsInvisible() {
 		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isInvisible() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getHasEffect(RegistryEntry<StatusEffect> statusEffect) {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.hasStatusEffect(statusEffect) ? 1.0F : 0.0F) : 0.0F;
 	}
 	public static float getIsBurning() {
 		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isOnFire() ? 1.0F : 0.0F) : 0.0F;

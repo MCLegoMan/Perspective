@@ -19,6 +19,8 @@
 		{ "name": "lu_currentHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] },
 		{ "name": "lu_maxHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] },
 		{ "name": "lu_currentHurtTimeSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
-		{ "name": "lu_maxHurtTimeSmooth",          "type": "float",     "count": 1,  "values": [ 10.0 ] }
+		{ "name": "lu_maxHurtTimeSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
+		{ "name": "lu_isWitheredSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
+		{ "name": "lu_isPoisonedSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] }
 	]
 }

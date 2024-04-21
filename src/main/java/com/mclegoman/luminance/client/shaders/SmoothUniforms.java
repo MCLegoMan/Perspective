@@ -9,6 +9,7 @@ package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.client.data.ClientData;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 
@@ -49,6 +50,10 @@ public class SmoothUniforms extends Uniforms {
 	public static float isCrawling = getIsCrawling();
 	public static float prevIsInvisible = getIsInvisible();
 	public static float isInvisible = getIsInvisible();
+	public static float prevIsWithered = getHasEffect(StatusEffects.WITHER);
+	public static float isWithered = getHasEffect(StatusEffects.WITHER);
+	public static float prevIsPoisoned = getHasEffect(StatusEffects.POISON);
+	public static float isPoisoned = getHasEffect(StatusEffects.POISON);
 	public static float prevIsBurning = getIsBurning();
 	public static float isBurning = getIsBurning();
 	public static float prevIsOnGround = getIsOnGround();
@@ -103,6 +108,10 @@ public class SmoothUniforms extends Uniforms {
 		isCrawling = (prevIsCrawling + getIsCrawling()) * 0.5F;
 		prevIsInvisible = isInvisible;
 		isInvisible = (prevIsInvisible + getIsInvisible()) * 0.5F;
+		prevIsWithered = isWithered;
+		isWithered = (prevIsWithered + getHasEffect(StatusEffects.WITHER)) * 0.5F;
+		prevIsPoisoned = isPoisoned;
+		isPoisoned = (prevIsPoisoned + getHasEffect(StatusEffects.POISON)) * 0.5F;
 		prevIsBurning = isBurning;
 		isBurning = (prevIsBurning + getIsBurning()) * 0.5F;
 		prevIsOnGround = isOnGround;
@@ -138,6 +147,8 @@ public class SmoothUniforms extends Uniforms {
 		setUniform(program, "isSneakingSmooth", MathHelper.lerp(tickDelta, prevIsSneaking, isSneaking));
 		setUniform(program, "isCrawlingSmooth", MathHelper.lerp(tickDelta, prevIsCrawling, isCrawling));
 		setUniform(program, "isInvisibleSmooth", MathHelper.lerp(tickDelta, prevIsInvisible, isInvisible));
+		setUniform(program, "isWitheredSmooth", MathHelper.lerp(tickDelta, prevIsWithered, isWithered));
+		setUniform(program, "isPoisonedSmooth", MathHelper.lerp(tickDelta, prevIsPoisoned, isPoisoned));
 		setUniform(program, "isBurningSmooth", MathHelper.lerp(tickDelta, prevIsBurning, isBurning));
 		setUniform(program, "isOnGroundSmooth", MathHelper.lerp(tickDelta, prevIsOnGround, isOnGround));
 		setUniform(program, "isOnLadderSmooth", MathHelper.lerp(tickDelta, prevIsOnLadder, isOnLadder));
