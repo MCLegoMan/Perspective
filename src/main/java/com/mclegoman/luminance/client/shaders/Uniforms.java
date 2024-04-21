@@ -31,20 +31,17 @@ public class Uniforms {
 	public static void update(JsonEffectShaderProgram program) {
 		setUniform(program, "viewDistance", getViewDistance());
 		setUniform(program, "fov", getFov());
-
 		setUniform(program, "eyePosition", getEyePosition());
 		setUniform(program, "pitch", getPitch());
 		setUniform(program, "yaw", getYaw());
-
 		setUniform(program, "currentHealth", getCurrentHealth());
 		setUniform(program, "maxHealth", getMaxHealth());
-
+		setUniform(program, "currentAbsorption", getCurrentAbsorption());
+		setUniform(program, "maxAbsorption", getMaxAbsorption());
 		setUniform(program, "currentHurtTime", getCurrentHurtTime());
 		setUniform(program, "maxHurtTime", getMaxHurtTime());
-
 		setUniform(program, "currentAir", getCurrentAir());
 		setUniform(program, "maxAir", getMaxAir());
-
 		setUniform(program, "isSprinting", getIsSprinting());
 		setUniform(program, "isSwimming", getIsSwimming());
 		setUniform(program, "isSneaking", getIsSneaking());
@@ -56,9 +53,7 @@ public class Uniforms {
 		setUniform(program, "isRiding", getIsRiding());
 		setUniform(program, "hasPassengers", getHasPassengers());
 		setUniform(program, "biomeTemperature", getBiomeTemperature());
-
 		setUniform(program, "alpha", getAlpha());
-
 		SmoothUniforms.update(program);
 	}
 	public static float getViewDistance() {
@@ -81,6 +76,12 @@ public class Uniforms {
 	}
 	public static float getMaxHealth() {
 		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20.0F;
+	}
+	public static float getCurrentAbsorption() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getAbsorptionAmount() : 0.0F;
+	}
+	public static float getMaxAbsorption() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxAbsorption() : 0.0F;
 	}
 	public static float getCurrentHurtTime() {
 		return ClientData.minecraft.player != null ? ClientData.minecraft.player.hurtTime : 0.0F;

@@ -11,13 +11,13 @@ uniform float lu_maxHurtTimeSmooth;
 
 void main() {
     vec3 inputColor = texture(DiffuseSampler, texCoord).rgb;
-    float health = lu_currentHealthSmooth / lu_maxHealthSmooth;
-    float hurt = lu_currentHurtTimeSmooth / lu_maxHurtTimeSmooth;
+    float health = lu_currentHealthSmooth / (lu_maxHealthSmooth * 0.5);
+    float hurt = 1.0 - (lu_currentHurtTimeSmooth / lu_maxHurtTimeSmooth);
     vec3 healthColor = inputColor;
-    if (health < 0.5) {
-        healthColor = mix(mix(inputColor, vec3(1.0, 0.0, 0.0), smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), inputColor, (health * 0.5));
+    if (health < 1.0) {
+        healthColor = mix(mix(inputColor, vec3(1.0, 0.0, 0.0), smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), inputColor, health);
     }
     vec3 hurtColor = healthColor;
-    hurtColor = mix(mix(healthColor, vec3(0.5, 0.0, 0.0), smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), healthColor, 1.0 - hurt);
+    if (hurt < 1.0) hurtColor = mix(mix(healthColor, vec3(0.5, 0.0, 0.0), smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), healthColor, hurt);
     fragColor = vec4(hurtColor, 1.0);
 }

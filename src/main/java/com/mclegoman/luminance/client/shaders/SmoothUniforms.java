@@ -27,6 +27,10 @@ public class SmoothUniforms extends Uniforms {
 	public static float currentHealth = getCurrentHealth();
 	public static float prevMaxHealth = getMaxHealth();
 	public static float maxHealth = getMaxHealth();
+	public static float prevCurrentAbsorption = getCurrentAbsorption();
+	public static float currentAbsorption = getCurrentAbsorption();
+	public static float prevMaxAbsorption = getMaxAbsorption();
+	public static float maxAbsorption = getMaxAbsorption();
 	public static float prevCurrentHurtTime = getCurrentHurtTime();
 	public static float currentHurtTime = getCurrentHurtTime();
 	public static float prevMaxHurtTime = getMaxHurtTime();
@@ -77,6 +81,10 @@ public class SmoothUniforms extends Uniforms {
 		currentHealth = (prevCurrentHealth + getCurrentHealth()) * 0.5F;
 		prevMaxHealth = maxHealth;
 		maxHealth = (prevMaxHealth + getMaxHealth()) * 0.5F;
+		prevCurrentAbsorption = currentAbsorption;
+		currentAbsorption = (prevCurrentAbsorption + getCurrentAbsorption()) * 0.5F;
+		prevMaxAbsorption = maxAbsorption;
+		maxAbsorption = (prevMaxAbsorption + getMaxAbsorption()) * 0.5F;
 		prevCurrentHurtTime = currentHurtTime;
 		currentHurtTime = (prevCurrentHurtTime + getCurrentHurtTime()) * 0.5F;
 		prevMaxHurtTime = maxHurtTime;
@@ -119,6 +127,8 @@ public class SmoothUniforms extends Uniforms {
 		setUniform(program, "yawSmooth", MathHelper.lerp(tickDelta, prevYaw, yaw));
 		setUniform(program, "currentHealthSmooth", MathHelper.lerp(tickDelta, prevCurrentHealth, currentHealth));
 		setUniform(program, "maxHealthSmooth", MathHelper.lerp(tickDelta, prevMaxHealth, maxHealth));
+		setUniform(program, "currentAbsorptionSmooth", getCurrentAbsorption());
+		setUniform(program, "maxAbsorptionSmooth", getMaxAbsorption());
 		setUniform(program, "currentHurtTimeSmooth", MathHelper.lerp(tickDelta, prevCurrentHurtTime, currentHurtTime));
 		setUniform(program, "maxHurtTimeSmooth", MathHelper.lerp(tickDelta, prevMaxHurtTime, maxHurtTime));
 		setUniform(program, "currentAirSmooth", MathHelper.lerp(tickDelta, prevCurrentAir, currentAir));
