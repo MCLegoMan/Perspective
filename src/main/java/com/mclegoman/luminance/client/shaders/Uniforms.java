@@ -8,8 +8,8 @@
 package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.client.data.ClientData;
-import com.mclegoman.luminance.config.ConfigHelper;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
+import com.mclegoman.luminance.config.ConfigHelper;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.client.gl.Uniform;
 import org.joml.Vector3f;
@@ -30,6 +30,7 @@ public class Uniforms {
 	}
 	public static void update(JsonEffectShaderProgram program) {
 		setUniform(program, "viewDistance", getViewDistance());
+		setUniform(program, "fov", getFov());
 
 		setUniform(program, "eyePosition", getEyePosition());
 		setUniform(program, "pitch", getPitch());
@@ -38,6 +39,9 @@ public class Uniforms {
 		setUniform(program, "currentHealth", getCurrentHealth());
 		setUniform(program, "maxHealth", getMaxHealth());
 
+		setUniform(program, "currentHurtTime", getCurrentHurtTime());
+		setUniform(program, "maxHurtTime", getMaxHurtTime());
+
 		setUniform(program, "currentAir", getCurrentAir());
 		setUniform(program, "maxAir", getMaxAir());
 
@@ -45,13 +49,23 @@ public class Uniforms {
 		setUniform(program, "isSwimming", getIsSwimming());
 		setUniform(program, "isSneaking", getIsSneaking());
 		setUniform(program, "isCrawling", getIsCrawling());
+		setUniform(program, "isInvisible", getIsInvisible());
+		setUniform(program, "isBurning", getIsBurning());
+		setUniform(program, "isOnGround", getIsOnGround());
+		setUniform(program, "isOnLadder", getIsOnLadder());
+		setUniform(program, "isRiding", getIsRiding());
+		setUniform(program, "hasPassengers", getHasPassengers());
+		setUniform(program, "biomeTemperature", getBiomeTemperature());
 
 		setUniform(program, "alpha", getAlpha());
 
 		SmoothUniforms.update(program);
 	}
 	public static float getViewDistance() {
-		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12;
+		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12.0F;
+	}
+	public static float getFov() {
+		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getFov().getValue() : 70.0F;
 	}
 	public static Vector3f getEyePosition() {
 		return ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F);
@@ -67,6 +81,12 @@ public class Uniforms {
 	}
 	public static float getMaxHealth() {
 		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getMaxHealth() : 20.0F;
+	}
+	public static float getCurrentHurtTime() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.hurtTime : 0.0F;
+	}
+	public static float getMaxHurtTime() {
+		return ClientData.minecraft.player != null ? ClientData.minecraft.player.maxHurtTime : 10.0F;
 	}
 	public static float getCurrentAir() {
 		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getAir() : 10.0F;
@@ -85,6 +105,27 @@ public class Uniforms {
 	}
 	public static float getIsCrawling() {
 		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isCrawling() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getIsInvisible() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isInvisible() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getIsBurning() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isOnFire() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getIsOnGround() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isOnGround() ? 1.0F : 0.0F) : 1.0F;
+	}
+	public static float getIsOnLadder() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isHoldingOntoLadder() ? 1.0F : 0.0F) : 1.0F;
+	}
+	public static float getIsRiding() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.isRiding() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getHasPassengers() {
+		return ClientData.minecraft.player != null ? (ClientData.minecraft.player.hasPassengers() ? 1.0F : 0.0F) : 0.0F;
+	}
+	public static float getBiomeTemperature() {
+		return ClientData.minecraft.world != null && ClientData.minecraft.player != null ? ClientData.minecraft.world.getBiome(ClientData.minecraft.player.getBlockPos()).value().getTemperature() : 1.0F;
 	}
 	public static float getAlpha() {
 		return Math.max(0.0F, Math.min((alpha / 100.0F), 1.0F));
@@ -119,8 +160,14 @@ public class Uniforms {
 	public static String getUniformName(String prefix, String uniformName) {
 		return prefix + "_" + uniformName;
 	}
+	public static void setUniform(JsonEffectShaderProgram program, String prefix, String uniformName, float... value) {
+		getUniform(program, prefix, uniformName).set(value);
+	}
 	public static void setUniform(JsonEffectShaderProgram program, String uniformName, float... value) {
 		getUniform(program, uniformName).set(value);
+	}
+	public static void setUniform(JsonEffectShaderProgram program, String prefix, String uniformName, Vector3f value) {
+		getUniform(program, prefix, uniformName).set(value);
 	}
 	public static void setUniform(JsonEffectShaderProgram program, String uniformName, Vector3f value) {
 		getUniform(program, uniformName).set(value);

@@ -17,6 +17,8 @@
 		{ "name": "InSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "lu_currentHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] },
-		{ "name": "lu_maxHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] }
+		{ "name": "lu_maxHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] },
+		{ "name": "lu_currentHurtTimeSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
+		{ "name": "lu_maxHurtTimeSmooth",          "type": "float",     "count": 1,  "values": [ 10.0 ] }
 	]
 }
