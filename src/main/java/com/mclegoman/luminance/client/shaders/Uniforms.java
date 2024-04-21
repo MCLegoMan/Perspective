@@ -31,7 +31,6 @@ public class Uniforms {
 		// This will get reset every 48 hours to prevent shader stuttering/freezing on some shaders.
 		// This may still stutter/freeze on weaker systems.
 		ticks = (ticks + 0.01F) % 34560.0F;
-		Data.version.sendToLog(Helper.LogType.INFO, String.valueOf(ticks));
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
 			if (alpha != prevAlpha) ConfigHelper.setConfig("alpha_level", alpha);
