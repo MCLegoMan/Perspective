@@ -18,6 +18,10 @@ public class SmoothUniforms extends Uniforms {
 	public static float viewDistance = getViewDistance();
 	public static float prevFov = getFov();
 	public static float fov = getFov();
+	public static float prevFps = getFps();
+	public static float fps = getFps();
+	public static float prevTime = getTime();
+	public static float time = getTime();
 	public static Vector3f prevEyePosition = getEyePosition();
 	public static Vector3f eyePosition = getEyePosition();
 	public static float prevPitch = getPitch();
@@ -75,6 +79,10 @@ public class SmoothUniforms extends Uniforms {
 		viewDistance = (prevViewDistance + getViewDistance()) * 0.5F;
 		prevFov = fov;
 		fov = (prevFov + getFov()) * 0.5F;
+		prevFps = fps;
+		fps = (prevFps + getFps()) * 0.5F;
+		prevTime = time;
+		time = (prevTime + getTime()) * 0.5F;
 		prevEyePosition = eyePosition;
 		Vector3f currentEyePosition = getEyePosition();
 		eyePosition = new Vector3f((prevEyePosition.x + currentEyePosition.x) * 0.5F, (prevEyePosition.y + currentEyePosition.y) * 0.5F, (prevEyePosition.z + currentEyePosition.z) * 0.5F);
@@ -128,33 +136,41 @@ public class SmoothUniforms extends Uniforms {
 		alpha = (prevAlpha + getAlpha()) * 0.5F;
 	}
 	public static void update(JsonEffectShaderProgram program) {
+		setUniform(program, "viewDistanceSmooth", getSmooth(prevViewDistance, viewDistance));
+		setUniform(program, "fovSmooth", getSmooth(prevFov, fov));
+		setUniform(program, "fpsSmooth", getSmooth(prevFps, fps));
+		setUniform(program, "timeSmooth", getSmooth(prevTime, time));
+		setUniform(program, "eyePositionSmooth", getSmooth(prevEyePosition, eyePosition));
+		setUniform(program, "pitchSmooth", getSmooth(prevPitch, pitch));
+		setUniform(program, "yawSmooth", getSmooth(prevYaw, yaw));
+		setUniform(program, "currentHealthSmooth", getSmooth(prevCurrentHealth, currentHealth));
+		setUniform(program, "maxHealthSmooth", getSmooth(prevMaxHealth, maxHealth));
+		setUniform(program, "currentAbsorptionSmooth", getSmooth(prevCurrentAbsorption, currentAbsorption));
+		setUniform(program, "maxAbsorptionSmooth", getSmooth(prevMaxAbsorption, maxAbsorption));
+		setUniform(program, "currentHurtTimeSmooth", getSmooth(prevCurrentHurtTime, currentHurtTime));
+		setUniform(program, "maxHurtTimeSmooth", getSmooth(prevMaxHurtTime, maxHurtTime));
+		setUniform(program, "currentAirSmooth", getSmooth(prevCurrentAir, currentAir));
+		setUniform(program, "maxAirSmooth", getSmooth(prevMaxAir, maxAir));
+		setUniform(program, "isSprintingSmooth", getSmooth(prevIsSprinting, isSprinting));
+		setUniform(program, "isSwimmingSmooth", getSmooth(prevIsSwimming, isSwimming));
+		setUniform(program, "isSneakingSmooth", getSmooth(prevIsSneaking, isSneaking));
+		setUniform(program, "isCrawlingSmooth", getSmooth(prevIsCrawling, isCrawling));
+		setUniform(program, "isInvisibleSmooth", getSmooth(prevIsInvisible, isInvisible));
+		setUniform(program, "isWitheredSmooth", getSmooth(prevIsWithered, isWithered));
+		setUniform(program, "isPoisonedSmooth", getSmooth(prevIsPoisoned, isPoisoned));
+		setUniform(program, "isBurningSmooth", getSmooth(prevIsBurning, isBurning));
+		setUniform(program, "isOnGroundSmooth", getSmooth(prevIsOnGround, isOnGround));
+		setUniform(program, "isOnLadderSmooth", getSmooth(prevIsOnLadder, isOnLadder));
+		setUniform(program, "isRidingSmooth", getSmooth(prevIsRiding, isRiding));
+		setUniform(program, "hasPassengersSmooth", getSmooth(prevHasPassengers, hasPassengers));
+		setUniform(program, "biomeTemperatureSmooth", getSmooth(prevBiomeTemperature, biomeTemperature));
+		setUniform(program, "alphaSmooth", getSmooth(prevAlpha, alpha));
+	}
+	public static float getSmooth(float prev, float current) {
 		float tickDelta = ClientData.minecraft.getTickDelta();
-		setUniform(program, "viewDistanceSmooth", MathHelper.lerp(tickDelta, prevViewDistance, viewDistance));
-		setUniform(program, "fovSmooth", MathHelper.lerp(tickDelta, prevFov, fov));
-		setUniform(program, "eyePositionSmooth", new Vector3f(MathHelper.lerp(tickDelta, prevEyePosition.x, eyePosition.x), MathHelper.lerp(tickDelta, prevEyePosition.y, eyePosition.y), MathHelper.lerp(tickDelta, prevEyePosition.z, eyePosition.z)));
-		setUniform(program, "pitchSmooth", MathHelper.lerp(tickDelta, prevPitch, pitch));
-		setUniform(program, "yawSmooth", MathHelper.lerp(tickDelta, prevYaw, yaw));
-		setUniform(program, "currentHealthSmooth", MathHelper.lerp(tickDelta, prevCurrentHealth, currentHealth));
-		setUniform(program, "maxHealthSmooth", MathHelper.lerp(tickDelta, prevMaxHealth, maxHealth));
-		setUniform(program, "currentAbsorptionSmooth", MathHelper.lerp(tickDelta, prevCurrentAbsorption, currentAbsorption));
-		setUniform(program, "maxAbsorptionSmooth", MathHelper.lerp(tickDelta, prevMaxAbsorption, maxAbsorption));
-		setUniform(program, "currentHurtTimeSmooth", MathHelper.lerp(tickDelta, prevCurrentHurtTime, currentHurtTime));
-		setUniform(program, "maxHurtTimeSmooth", MathHelper.lerp(tickDelta, prevMaxHurtTime, maxHurtTime));
-		setUniform(program, "currentAirSmooth", MathHelper.lerp(tickDelta, prevCurrentAir, currentAir));
-		setUniform(program, "maxAirSmooth", MathHelper.lerp(tickDelta, prevMaxAir, maxAir));
-		setUniform(program, "isSprintingSmooth", MathHelper.lerp(tickDelta, prevIsSprinting, isSprinting));
-		setUniform(program, "isSwimmingSmooth", MathHelper.lerp(tickDelta, prevIsSwimming, isSwimming));
-		setUniform(program, "isSneakingSmooth", MathHelper.lerp(tickDelta, prevIsSneaking, isSneaking));
-		setUniform(program, "isCrawlingSmooth", MathHelper.lerp(tickDelta, prevIsCrawling, isCrawling));
-		setUniform(program, "isInvisibleSmooth", MathHelper.lerp(tickDelta, prevIsInvisible, isInvisible));
-		setUniform(program, "isWitheredSmooth", MathHelper.lerp(tickDelta, prevIsWithered, isWithered));
-		setUniform(program, "isPoisonedSmooth", MathHelper.lerp(tickDelta, prevIsPoisoned, isPoisoned));
-		setUniform(program, "isBurningSmooth", MathHelper.lerp(tickDelta, prevIsBurning, isBurning));
-		setUniform(program, "isOnGroundSmooth", MathHelper.lerp(tickDelta, prevIsOnGround, isOnGround));
-		setUniform(program, "isOnLadderSmooth", MathHelper.lerp(tickDelta, prevIsOnLadder, isOnLadder));
-		setUniform(program, "isRidingSmooth", MathHelper.lerp(tickDelta, prevIsRiding, isRiding));
-		setUniform(program, "hasPassengersSmooth", MathHelper.lerp(tickDelta, prevHasPassengers, hasPassengers));
-		setUniform(program, "biomeTemperatureSmooth", MathHelper.lerp(tickDelta, prevBiomeTemperature, biomeTemperature));
-		setUniform(program, "alphaSmooth", MathHelper.lerp(tickDelta, prevAlpha, alpha));
+		return MathHelper.lerp(tickDelta, prev, current);
+	}
+	public static Vector3f getSmooth(Vector3f prev, Vector3f current) {
+		return new Vector3f(getSmooth(prev.x, current.x), getSmooth(prev.y, current.y), getSmooth(prev.z, current.z));
 	}
 }

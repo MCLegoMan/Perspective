@@ -1,7 +1,7 @@
 {
 	"blend": {
 		"func": "add",
-		"srcrgb": "one",
+		"srcrgb": "srcalpha",
 		"dstrgb": "1-srcalpha",
 		"srcalpha": "one",
 		"dstalpha": "zero"
@@ -17,6 +17,10 @@
 		{ "name": "ProjMat",          "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
 		{ "name": "InSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
-		{ "name": "lu_alphaSmooth",          "type": "float",     "count": 1,  "values": [ 1.0 ] }
+		{ "name": "lu_alphaSmooth",          "type": "float",     "count": 1,  "values": [ 1.0 ] },
+		{ "name": "lu_timeSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
+		{ "name": "speed",          "type": "float",     "count": 1,  "values": [ 0.5 ] },
+		{ "name": "xAmount",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
+		{ "name": "yAmount",          "type": "float",     "count": 1,  "values": [ 0.0 ] }
 	]
 }

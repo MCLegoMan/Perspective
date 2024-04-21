@@ -19,12 +19,14 @@ import org.joml.Vector3f;
 
 public class Uniforms {
 	private static int alpha = 100;
+	private static float ticks = 0.0F;
 	public static void init() {
 		alpha = (int)ConfigHelper.getConfig("alpha_level");
 		prevAlpha = alpha;
 		SmoothUniforms.init();
 	}
 	public static void tick() {
+		ticks = ticks >= 34560.0F ? 0.0F : ticks + 0.01F;
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
 			if (alpha != prevAlpha) ConfigHelper.setConfig("alpha_level", alpha);
@@ -34,6 +36,8 @@ public class Uniforms {
 	public static void update(JsonEffectShaderProgram program) {
 		setUniform(program, "viewDistance", getViewDistance());
 		setUniform(program, "fov", getFov());
+		setUniform(program, "fps", getFps());
+		setUniform(program, "time", getTime());
 		setUniform(program, "eyePosition", getEyePosition());
 		setUniform(program, "pitch", getPitch());
 		setUniform(program, "yaw", getYaw());
@@ -66,6 +70,12 @@ public class Uniforms {
 	}
 	public static float getFov() {
 		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getFov().getValue() : 70.0F;
+	}
+	public static float getFps() {
+		return ClientData.minecraft.getCurrentFps();
+	}
+	public static float getTime() {
+		return ticks;
 	}
 	public static Vector3f getEyePosition() {
 		return ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F);

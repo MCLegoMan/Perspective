@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.ui;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.DateHelper;
+import com.mclegoman.luminance.common.util.DateHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
