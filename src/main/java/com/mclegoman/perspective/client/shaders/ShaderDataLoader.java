@@ -117,12 +117,11 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.version.sendToLog(Helper.LogType.WARN, "Failed to add shader to registry: " + error);
 		}
 	}
-	private void reset(ResourceManager manager) {
+	private void reset() {
 		try {
 			registry.clear();
 			entityLinkRegistry.clear();
 			duplicatedNames.clear();
-			add$default(manager);
 		} catch (Exception error) {
 			Data.version.getLogger().warn("{} Failed to reset shaders registry: {}", Data.version.getID(), error);
 		}
@@ -143,21 +142,10 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			Data.version.getLogger().warn("{} Failed to remove {} namespace shaders from the shaders registry: {}", Data.version.getID(), namespace, error);
 		}
 	}
-	private void add$default(ResourceManager manager) {
-		try {
-			add("minecraft", "blur", true, true, false, new JsonObject(), manager);
-			add("minecraft", "creeper", true, true, false, new JsonObject(), manager);
-			add("minecraft", "invert", false, true, false, new JsonObject(), manager);
-			add("minecraft", "spider", true, true, false, new JsonObject(), manager);
-			add("perspective", "gaussian", true, true, false, new JsonObject(), manager);
-		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to add default shaders to registry: {}", Data.version.getID(), error);
-		}
-	}
 	@Override
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
-			reset(manager);
+			reset();
 			Shader.releaseShaders();
 			prepared.forEach((identifier, jsonElement) -> layout$perspective(jsonElement, manager));
 			layout$souper_secret_settings(manager);
@@ -210,7 +198,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 			for (Resource resource : shaderLists) {
 				try {
 					JsonObject reader = JsonHelper.deserialize(resource.getReader());
-					if (JsonHelper.getBoolean(reader, "replace", false)) reset(manager);
+					if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 					if (JsonHelper.hasArray(reader, "namespaces") && !JsonHelper.getArray(reader, "namespaces").isEmpty()) {
 						for (JsonElement namespaces : reader.getAsJsonArray("namespaces")) {
 							JsonObject namespaceList = JsonHelper.asObject(namespaces, "namespacelist");

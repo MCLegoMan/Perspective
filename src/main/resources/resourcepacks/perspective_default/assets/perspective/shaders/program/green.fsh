@@ -6,17 +6,17 @@ uniform vec4 ColorModulate;
 in vec2 texCoord;
 out vec4 fragColor;
 
-const vec4 palette[4] = vec4[4](
-    vec4(0.058, 0.219, 0.058, 1.0),
-    vec4(0.188, 0.384, 0.188, 1.0),
-    vec4(0.545, 0.674, 0.058, 1.0),
-    vec4(0.607, 0.737, 0.058, 1.0)
+const vec3 palette[4] = vec3[4](
+    vec3(0.058, 0.219, 0.058),
+    vec3(0.188, 0.384, 0.188),
+    vec3(0.545, 0.674, 0.058),
+    vec3(0.607, 0.737, 0.058)
 );
 
 void main() {
-    vec4 c = texture(DiffuseSampler, texCoord);
+    vec3 c = texture(DiffuseSampler, texCoord).rgb;
     float d = distance(c, palette[0]);
-    vec4 q = palette[0];
+    vec3 q = palette[0];
     for (int i = 1; i < 4; i++) {
         float dtc = distance(c, palette[i]);
         if (dtc < d) {
@@ -24,5 +24,5 @@ void main() {
             q = palette[i];
         }
     }
-    fragColor = q * ColorModulate;
+    fragColor = vec4(q * ColorModulate.rgb, 1.0);
 }

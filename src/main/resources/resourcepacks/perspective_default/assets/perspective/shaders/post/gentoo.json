@@ -5,7 +5,8 @@
     "2",
     "3",
     "4",
-    "5"
+    "5",
+    "6"
   ],
   "passes": [
     {
@@ -48,8 +49,19 @@
       "outtarget": "5"
     },
     {
-      "name": "minecraft:blit",
+      "name": "luminance:merge",
       "intarget": "5",
+      "outtarget": "6",
+      "auxtargets": [
+        {
+          "name": "MergeSampler",
+          "id": "minecraft:main"
+        }
+      ]
+    },
+    {
+      "name": "minecraft:blit",
+      "intarget": "6",
       "outtarget": "minecraft:main"
     }
   ]

@@ -7,7 +7,6 @@ out vec4 fragColor;
 uniform sampler2D DiffuseSampler;
 uniform vec2 AspectRatio;
 uniform vec3 BorderColor;
-uniform float lu_alphaSmooth;
 
 void main() {
     vec2 coord = abs(texCoord - vec2(0.5));
@@ -17,5 +16,5 @@ void main() {
     vec3 inputColor = texture(DiffuseSampler, texCoord).rgb;
     vec3 outputColor = inputColor.rgb;
     if (coord.x > 0.5 || coord.y > 0.5) outputColor.rgb = BorderColor.rgb;
-    fragColor = vec4(mix(inputColor, outputColor, lu_alphaSmooth), 1.0);
+    fragColor = vec4(outputColor, 1.0);
 }

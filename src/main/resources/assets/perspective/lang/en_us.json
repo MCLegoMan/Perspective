@@ -269,8 +269,6 @@
 	"gui.perspective.config.ui_background.type.legacy": "Legacy",
 
 	"gui.perspective.config.title_screen.type.default": "Default",
-	"gui.perspective.config.title_screen.type.blur": "Blur",
-	"gui.perspective.config.title_screen.type.gaussian": "Gaussian",
 	"gui.perspective.config.title_screen.type.dirt": "Dirt",
 
 	"gui.perspective.config.detect_update_channel.release": "Release",
@@ -285,7 +283,7 @@
 
 	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen",
 
-	"shader.perspective.gaussian" : "gaussian",
+	"shader.perspective.gaussian_blur" : "gaussian",
 
 	"splashes.perspective.whered_my_hud_go": "Where'd my HUD go?",
 	"splashes.perspective.also_try_souper_secret_settings": "Also try Souper Secret Settings!",

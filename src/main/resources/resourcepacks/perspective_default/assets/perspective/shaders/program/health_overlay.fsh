@@ -6,7 +6,6 @@ out vec4 fragColor;
 uniform sampler2D DiffuseSampler;
 uniform float lu_currentHealthSmooth;
 uniform float lu_maxHealthSmooth;
-uniform float lu_alphaSmooth;
 
 void main() {
     vec3 inputColor = texture(DiffuseSampler, texCoord).rgb;
@@ -17,5 +16,5 @@ void main() {
     } else {
         outputColor = inputColor;
     }
-    fragColor = vec4(mix(inputColor, outputColor, lu_alphaSmooth), 1.0);
+    fragColor = vec4(outputColor, 1.0);
 }

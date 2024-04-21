@@ -1,0 +1,10 @@
+{
+  "namespace": "minecraft",
+  "shader": "creeper",
+  "disable_screen_mode": true,
+  "translatable": true,
+  "disable_soup": false,
+  "entity_links": [],
+  "custom": {},
+  "enabled": true
+}

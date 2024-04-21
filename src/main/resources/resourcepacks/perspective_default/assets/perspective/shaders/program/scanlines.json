@@ -17,7 +17,6 @@
 		{ "name": "InSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "Amount",          "type": "float",     "count": 1,  "values": [ 800.0 ] },
-		{ "name": "Strength",          "type": "float",     "count": 1,  "values": [ 0.04 ] },
-		{ "name": "lu_alphaSmooth",          "type": "float",     "count": 1,  "values": [ 1.0 ] }
+		{ "name": "Strength",          "type": "float",     "count": 1,  "values": [ 0.04 ] }
 	]
 }

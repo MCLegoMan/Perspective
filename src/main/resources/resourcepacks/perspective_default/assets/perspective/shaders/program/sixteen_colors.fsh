@@ -1,10 +1,11 @@
 #version 150
 
 uniform sampler2D DiffuseSampler;
-uniform vec4 ColorModulate;
 
 in vec2 texCoord;
 out vec4 fragColor;
+
+uniform vec4 ColorModulate;
 
 const vec4 palette[16] = vec4[16](
     vec4(0.0, 0.0, 0.0, 1.0),
@@ -36,5 +37,5 @@ void main() {
             q = palette[i];
         }
     }
-    fragColor = q * ColorModulate;
+    fragColor = vec4((q * ColorModulate).rgb, 1.0);
 }

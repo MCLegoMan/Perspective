@@ -1,7 +1,8 @@
 {
 	"targets": [
 		"0",
-		"swap"
+		"1",
+		"2"
 	],
 	"passes": [
 		{
@@ -12,7 +13,7 @@
 		{
 			"name": "minecraft:color_convolve",
 			"intarget": "0",
-			"outtarget": "swap",
+			"outtarget": "1",
 			"uniforms": [
 				{
 					"name": "RedMatrix",
@@ -29,8 +30,19 @@
 			]
 		},
 		{
+			"name": "luminance:merge",
+			"intarget": "1",
+			"outtarget": "2",
+			"auxtargets": [
+				{
+					"name": "MergeSampler",
+					"id": "minecraft:main"
+				}
+			]
+		},
+		{
 			"name": "minecraft:blit",
-			"intarget": "swap",
+			"intarget": "2",
 			"outtarget": "minecraft:main"
 		}
 	]

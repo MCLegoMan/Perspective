@@ -1,22 +1,22 @@
 {
 	"blend": {
 		"func": "add",
-		"srcrgb": "srcalpha",
+		"srcrgb": "one",
 		"dstrgb": "1-srcalpha",
 		"srcalpha": "one",
 		"dstalpha": "zero"
 	},
 	"vertex": "minecraft:sobel",
-	"fragment": "perspective:health_overlay",
+	"fragment": "luminance:overlay",
 	"attributes": [ "Position" ],
 	"samplers": [
-		{ "name": "DiffuseSampler" }
+		{ "name": "DiffuseSampler" },
+		{ "name": "OverlaySampler" }
 	],
 	"uniforms": [
 		{ "name": "ProjMat",          "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
 		{ "name": "InSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
-		{ "name": "lu_currentHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] },
-		{ "name": "lu_maxHealthSmooth",          "type": "float",     "count": 1,  "values": [ 20.0 ] }
+		{ "name": "lu_alphaSmooth",          "type": "float",     "count": 1,  "values": [ 1.0 ] }
 	]
 }

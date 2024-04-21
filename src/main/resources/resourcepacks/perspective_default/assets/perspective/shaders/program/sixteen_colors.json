@@ -1,8 +1,10 @@
 {
 	"blend": {
 		"func": "add",
-		"srcrgb": "one",
-		"dstrgb": "1-srcalpha"
+		"srcrgb": "srcalpha",
+		"dstrgb": "1-srcalpha",
+		"srcalpha": "one",
+		"dstalpha": "zero"
 	},
 	"vertex": "minecraft:sobel",
 	"fragment": "perspective:sixteen_colors",
