@@ -6,6 +6,7 @@ uniform sampler2D OverlaySampler;
 in vec2 texCoord;
 out vec4 fragColor;
 
+uniform vec2 InSize;
 uniform float lu_alphaSmooth;
 uniform float lu_timeSmooth;
 uniform float xAmount;
