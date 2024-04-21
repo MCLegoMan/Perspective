@@ -9,7 +9,9 @@ package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.client.data.ClientData;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
+import com.mclegoman.luminance.common.data.Data;
 import com.mclegoman.luminance.config.ConfigHelper;
+import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.client.gl.Uniform;
 import net.minecraft.entity.effect.StatusEffect;
@@ -26,7 +28,10 @@ public class Uniforms {
 		SmoothUniforms.init();
 	}
 	public static void tick() {
-		ticks = ticks >= 34560.0F ? 0.0F : ticks + 0.01F;
+		// This will get reset every 48 hours to prevent shader stuttering/freezing on some shaders.
+		// This may still stutter/freeze on weaker systems.
+		ticks = (ticks + 0.01F) % 34560.0F;
+		Data.version.sendToLog(Helper.LogType.INFO, String.valueOf(ticks));
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
 			if (alpha != prevAlpha) ConfigHelper.setConfig("alpha_level", alpha);
