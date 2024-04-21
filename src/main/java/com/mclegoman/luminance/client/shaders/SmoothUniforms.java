@@ -127,8 +127,8 @@ public class SmoothUniforms extends Uniforms {
 		setUniform(program, "yawSmooth", MathHelper.lerp(tickDelta, prevYaw, yaw));
 		setUniform(program, "currentHealthSmooth", MathHelper.lerp(tickDelta, prevCurrentHealth, currentHealth));
 		setUniform(program, "maxHealthSmooth", MathHelper.lerp(tickDelta, prevMaxHealth, maxHealth));
-		setUniform(program, "currentAbsorptionSmooth", getCurrentAbsorption());
-		setUniform(program, "maxAbsorptionSmooth", getMaxAbsorption());
+		setUniform(program, "currentAbsorptionSmooth", MathHelper.lerp(tickDelta, prevCurrentAbsorption, currentAbsorption));
+		setUniform(program, "maxAbsorptionSmooth", MathHelper.lerp(tickDelta, prevMaxAbsorption, maxAbsorption));
 		setUniform(program, "currentHurtTimeSmooth", MathHelper.lerp(tickDelta, prevCurrentHurtTime, currentHurtTime));
 		setUniform(program, "maxHurtTimeSmooth", MathHelper.lerp(tickDelta, prevMaxHurtTime, maxHurtTime));
 		setUniform(program, "currentAirSmooth", MathHelper.lerp(tickDelta, prevCurrentAir, currentAir));
