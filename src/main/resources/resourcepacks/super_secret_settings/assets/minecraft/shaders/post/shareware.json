@@ -1,15 +1,27 @@
 {
     "targets": [
+        "merge",
         "swap"
     ],
     "passes": [
         {
             "name": "minecraft:shareware",
             "intarget": "minecraft:main",
-            "outtarget": "swap"
+            "outtarget": "merge"
         },
         {
-            "name": "blit",
+            "name": "luminance:merge",
+            "intarget": "merge",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "minecraft:blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

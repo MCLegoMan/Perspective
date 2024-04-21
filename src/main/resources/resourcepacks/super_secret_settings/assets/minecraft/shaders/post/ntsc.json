@@ -2,7 +2,9 @@
     "targets": [
         "swap",
         "swap2",
-        "previous"
+        "previous",
+        "merge",
+        "final"
     ],
     "passes": [
         {
@@ -29,7 +31,7 @@
         {
             "name": "minecraft:deconverge",
             "intarget": "swap",
-            "outtarget": "minecraft:main"
+            "outtarget": "merge"
         },
         {
             "name": "minecraft:box_blur",
@@ -49,7 +51,7 @@
         {
             "name": "minecraft:box_blur",
             "intarget": "swap",
-            "outtarget": "minecraft:main",
+            "outtarget": "merge",
             "uniforms": [
                 {
                     "name": "BlurDir",
@@ -69,7 +71,7 @@
         {
             "name": "minecraft:phosphor",
             "intarget": "swap",
-            "outtarget": "minecraft:main",
+            "outtarget": "merge",
             "auxtargets": [
                 {
                     "name": "PrevSampler",
@@ -87,6 +89,27 @@
             "name": "minecraft:blit",
             "intarget": "minecraft:main",
             "outtarget": "previous"
+        },
+        {
+            "name": "minecraft:blit",
+            "intarget": "swap",
+            "outtarget": "merge"
+        },
+        {
+            "name": "luminance:merge",
+            "intarget": "merge",
+            "outtarget": "final",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "minecraft:blit",
+            "intarget": "final",
+            "outtarget": "minecraft:main"
         }
     ]
 }

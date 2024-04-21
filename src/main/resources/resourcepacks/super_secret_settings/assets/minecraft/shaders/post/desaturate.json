@@ -1,16 +1,28 @@
 {
     "targets": [
+        "merge",
         "swap"
     ],
     "passes": [
         {
             "name": "minecraft:color_convolve",
             "intarget": "minecraft:main",
-            "outtarget": "swap",
+            "outtarget": "merge",
             "uniforms": [
                 {
                     "name": "Saturation",
                     "values": [ 0.2 ]
+                }
+            ]
+        },
+        {
+            "name": "luminance:merge",
+            "intarget": "merge",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
                 }
             ]
         },

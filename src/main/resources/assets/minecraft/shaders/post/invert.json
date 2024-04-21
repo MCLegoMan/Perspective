@@ -5,16 +5,13 @@
     ],
     "passes": [
         {
-            "name": "minecraft:notch",
+            "name": "invert",
             "intarget": "minecraft:main",
             "outtarget": "merge",
-            "auxtargets": [
+            "uniforms": [
                 {
-                    "name": "DitherSampler",
-                    "id": "dither",
-                    "width": 4,
-                    "height": 4,
-                    "bilinear": false
+                    "name": "InverseAmount",
+                    "values": [ 0.8 ]
                 }
             ]
         },
@@ -30,7 +27,7 @@
             ]
         },
         {
-            "name": "minecraft:blit",
+            "name": "blit",
             "intarget": "swap",
             "outtarget": "minecraft:main"
         }

@@ -1,12 +1,13 @@
 {
 	"targets": [
+		"merge",
 		"swap"
 	],
 	"passes": [
 		{
 			"name": "minecraft:color_convolve",
 			"intarget": "minecraft:main",
-			"outtarget": "swap",
+			"outtarget": "merge",
 			"uniforms": [
 				{
 					"name": "RedMatrix",
@@ -19,6 +20,17 @@
 				{
 					"name": "BlueMatrix",
 					"values": [ 0.025, 0.025, 0.95 ]
+				}
+			]
+		},
+		{
+			"name": "luminance:merge",
+			"intarget": "merge",
+			"outtarget": "swap",
+			"auxtargets": [
+				{
+					"name": "MergeSampler",
+					"id": "minecraft:main"
 				}
 			]
 		},

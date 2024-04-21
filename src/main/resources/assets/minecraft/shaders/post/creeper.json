@@ -1,13 +1,14 @@
 {
     "targets": [
-        "merge",
-        "swap"
+        "0",
+        "1",
+        "2"
     ],
     "passes": [
         {
-            "name": "minecraft:color_convolve",
+            "name": "color_convolve",
             "intarget": "minecraft:main",
-            "outtarget": "merge",
+            "outtarget": "0",
             "uniforms": [
                 {
                     "name": "RedMatrix",
@@ -24,19 +25,24 @@
             ]
         },
         {
-            "name": "minecraft:bits",
-            "intarget": "merge",
-            "outtarget": "minecraft:main"
-        },
-        {
-            "name": "minecraft:scan_pincushion",
-            "intarget": "minecraft:main",
-            "outtarget": "merge"
+            "name": "bits",
+            "intarget": "0",
+            "outtarget": "1",
+            "uniforms": [
+                {
+                    "name": "Resolution",
+                    "values": [ 16.0 ]
+                },
+                {
+                    "name": "MosaicSize",
+                    "values": [ 4.0 ]
+                }
+            ]
         },
         {
             "name": "luminance:merge",
-            "intarget": "merge",
-            "outtarget": "swap",
+            "intarget": "1",
+            "outtarget": "2",
             "auxtargets": [
                 {
                     "name": "MergeSampler",
@@ -46,7 +52,7 @@
         },
         {
             "name": "minecraft:blit",
-            "intarget": "swap",
+            "intarget": "2",
             "outtarget": "minecraft:main"
         }
     ]

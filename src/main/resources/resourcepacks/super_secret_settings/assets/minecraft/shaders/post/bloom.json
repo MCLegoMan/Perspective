@@ -3,7 +3,8 @@
         "bloom_1",
         "bloom_2",
         "highlights_1",
-        "highlights_2"
+        "highlights_2",
+        "swap"
     ],
     "passes": [
         {
@@ -118,8 +119,19 @@
             ]
         },
         {
-            "name": "minecraft:blit",
+            "name": "luminance:merge",
             "intarget": "bloom_2",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "minecraft:blit",
+            "intarget": "swap",
             "outtarget": "minecraft:main"
         }
     ]
