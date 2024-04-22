@@ -8,8 +8,12 @@
 package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.client.data.ClientData;
+import com.mclegoman.luminance.client.translation.Translation;
+import com.mclegoman.luminance.common.data.Data;
+import com.mclegoman.releasetypeutils.common.version.Helper;
+import net.minecraft.client.gl.JsonEffectShaderProgram;
+import net.minecraft.client.gl.Uniform;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Vector3f;
 
 public class UniformHelper {
 	public static float time = 3455800.0F;
@@ -23,7 +27,23 @@ public class UniformHelper {
 		float tickDelta = ClientData.minecraft.getTickDelta();
 		return MathHelper.lerp(tickDelta, prev, current);
 	}
-	public static Vector3f getSmooth(Vector3f prev, Vector3f current) {
-		return new Vector3f(getSmooth(prev.x, current.x), getSmooth(prev.y, current.y), getSmooth(prev.z, current.z));
+	public static float[] getSmooth(float[] prev, float[] current) {
+		if (prev.length == current.length) {
+			return new float[]{getSmooth(prev[0], current[0]), getSmooth(prev[1], current[1]), getSmooth(prev[2], current[2])};
+		}
+		return new float[]{};
+	}
+	public static Uniform getUniform(JsonEffectShaderProgram program, String prefix, String uniformName) {
+		return program.getUniformByNameOrDummy(getUniformName(prefix, uniformName));
+	}
+	public static String getUniformName(String prefix, String uniformName) {
+		return prefix + "_" + uniformName;
+	}
+	public static void set(JsonEffectShaderProgram program, String prefix, String uniformName, float... values) {
+		try {
+			getUniform(program, prefix, uniformName).set(values);
+		} catch (Exception error) {
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniform: {}_{}: {}", prefix, uniformName, error));
+		}
 	}
 }

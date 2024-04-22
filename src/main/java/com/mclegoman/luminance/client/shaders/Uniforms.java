@@ -10,20 +10,12 @@ package com.mclegoman.luminance.client.shaders;
 import com.mclegoman.luminance.client.data.ClientData;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
 import com.mclegoman.luminance.config.ConfigHelper;
-import net.minecraft.client.gl.JsonEffectShaderProgram;
-import net.minecraft.client.gl.Uniform;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.entry.RegistryEntry;
-import org.joml.Vector3f;
 
 public class Uniforms {
 	private static int alpha = 100;
-	public static void init() {
-		alpha = (int)ConfigHelper.getConfig("alpha_level");
-		prevAlpha = alpha;
-		SmoothUniforms.init();
-	}
 	public static void tick() {
 		UniformHelper.updateTime();
 		if (!updatingAlpha() && updatingAlpha) {
@@ -32,37 +24,40 @@ public class Uniforms {
 		}
 		SmoothUniforms.tick();
 	}
-	public static void update(JsonEffectShaderProgram program) {
-		setUniform(program, "viewDistance", getViewDistance());
-		setUniform(program, "fov", getFov());
-		setUniform(program, "fps", getFps());
-		setUniform(program, "time", getTime());
-		setUniform(program, "eyePosition", getEyePosition());
-		setUniform(program, "pitch", getPitch());
-		setUniform(program, "yaw", getYaw());
-		setUniform(program, "currentHealth", getCurrentHealth());
-		setUniform(program, "maxHealth", getMaxHealth());
-		setUniform(program, "currentAbsorption", getCurrentAbsorption());
-		setUniform(program, "maxAbsorption", getMaxAbsorption());
-		setUniform(program, "currentHurtTime", getCurrentHurtTime());
-		setUniform(program, "maxHurtTime", getMaxHurtTime());
-		setUniform(program, "currentAir", getCurrentAir());
-		setUniform(program, "maxAir", getMaxAir());
-		setUniform(program, "isSprinting", getIsSprinting());
-		setUniform(program, "isSwimming", getIsSwimming());
-		setUniform(program, "isSneaking", getIsSneaking());
-		setUniform(program, "isCrawling", getIsCrawling());
-		setUniform(program, "isInvisible", getIsInvisible());
-		setUniform(program, "isWithered", getHasEffect(StatusEffects.WITHER));
-		setUniform(program, "isPoisoned", getHasEffect(StatusEffects.POISON));
-		setUniform(program, "isBurning", getIsBurning());
-		setUniform(program, "isOnGround", getIsOnGround());
-		setUniform(program, "isOnLadder", getIsOnLadder());
-		setUniform(program, "isRiding", getIsRiding());
-		setUniform(program, "hasPassengers", getHasPassengers());
-		setUniform(program, "biomeTemperature", getBiomeTemperature());
-		setUniform(program, "alpha", getAlpha());
-		SmoothUniforms.update(program);
+	public static void init() {
+		alpha = (int)ConfigHelper.getConfig("alpha_level");
+		prevAlpha = alpha;
+		SmoothUniforms.init();
+		ShaderRenderEvents.BeforeRender.register("lu", "viewDistance", Uniforms::getViewDistance);
+		ShaderRenderEvents.BeforeRender.register("lu", "fov", Uniforms::getFov);
+		ShaderRenderEvents.BeforeRender.register("lu", "fps", Uniforms::getFps);
+		ShaderRenderEvents.BeforeRender.register("lu", "time", Uniforms::getTime);
+		ShaderRenderEvents.BeforeRender.register("lu", "eyePosition", Uniforms::getEyePosition);
+		ShaderRenderEvents.BeforeRender.register("lu", "position", Uniforms::getPosition);
+		ShaderRenderEvents.BeforeRender.register("lu", "pitch", Uniforms::getPitch);
+		ShaderRenderEvents.BeforeRender.register("lu", "yaw", Uniforms::getYaw);
+		ShaderRenderEvents.BeforeRender.register("lu", "currentHealth", Uniforms::getCurrentHealth);
+		ShaderRenderEvents.BeforeRender.register("lu", "maxHealth", Uniforms::getMaxHealth);
+		ShaderRenderEvents.BeforeRender.register("lu", "currentAbsorption", Uniforms::getCurrentAbsorption);
+		ShaderRenderEvents.BeforeRender.register("lu", "maxAbsorption", Uniforms::getMaxAbsorption);
+		ShaderRenderEvents.BeforeRender.register("lu", "currentHurtTime", Uniforms::getCurrentHurtTime);
+		ShaderRenderEvents.BeforeRender.register("lu", "maxHurtTime", Uniforms::getMaxHurtTime);
+		ShaderRenderEvents.BeforeRender.register("lu", "currentAir", Uniforms::getCurrentAir);
+		ShaderRenderEvents.BeforeRender.register("lu", "maxAir", Uniforms::getMaxAir);
+		ShaderRenderEvents.BeforeRender.register("lu", "isSprinting", Uniforms::getIsSprinting);
+		ShaderRenderEvents.BeforeRender.register("lu", "isSwimming", Uniforms::getIsSwimming);
+		ShaderRenderEvents.BeforeRender.register("lu", "isSneaking", Uniforms::getIsSneaking);
+		ShaderRenderEvents.BeforeRender.register("lu", "isCrawling", Uniforms::getIsCrawling);
+		ShaderRenderEvents.BeforeRender.register("lu", "isInvisible", Uniforms::getIsInvisible);
+		ShaderRenderEvents.BeforeRender.register("lu", "isWithered", () -> Uniforms.getHasEffect(StatusEffects.WITHER));
+		ShaderRenderEvents.BeforeRender.register("lu", "isPoisoned", () -> Uniforms.getHasEffect(StatusEffects.POISON));
+		ShaderRenderEvents.BeforeRender.register("lu", "isBurning", Uniforms::getIsBurning);
+		ShaderRenderEvents.BeforeRender.register("lu", "isOnGround", Uniforms::getIsOnGround);
+		ShaderRenderEvents.BeforeRender.register("lu", "isOnLadder", Uniforms::getIsOnLadder);
+		ShaderRenderEvents.BeforeRender.register("lu", "isRiding", Uniforms::getIsRiding);
+		ShaderRenderEvents.BeforeRender.register("lu", "hasPassengers", Uniforms::getHasPassengers);
+		ShaderRenderEvents.BeforeRender.register("lu", "biomeTemperature", Uniforms::getBiomeTemperature);
+		ShaderRenderEvents.BeforeRender.register("lu", "alpha", Uniforms::getAlpha);
 	}
 	public static float getViewDistance() {
 		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12.0F;
@@ -76,8 +71,11 @@ public class Uniforms {
 	public static float getTime() {
 		return UniformHelper.time;
 	}
-	public static Vector3f getEyePosition() {
-		return ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F);
+	public static float[] getEyePosition() {
+		return ClientData.minecraft.player != null ? new float[]{(float) ClientData.minecraft.player.getEyePos().x, (float) ClientData.minecraft.player.getEyePos().y, (float) ClientData.minecraft.player.getEyePos().z} : new float[]{0.0F, 66.0F, 0.0F};
+	}
+	public static float[] getPosition() {
+		return ClientData.minecraft.player != null ? new float[]{(float) ClientData.minecraft.player.getPos().x, (float) ClientData.minecraft.player.getPos().y, (float) ClientData.minecraft.player.getPos().z} : new float[]{0.0F, 64.0F, 0.0F};
 	}
 	public static float getPitch() {
 		return ClientData.minecraft.player != null ? ClientData.minecraft.player.getPitch(ClientData.minecraft.getTickDelta()) % 360.0F : 0.0F;
@@ -168,26 +166,5 @@ public class Uniforms {
 			updatingAlpha = true;
 		}
 		return value;
-	}
-	public static Uniform getUniform(JsonEffectShaderProgram program, String uniformName) {
-		return getUniform(program, "lu", uniformName);
-	}
-	public static Uniform getUniform(JsonEffectShaderProgram program, String prefix, String uniformName) {
-		return program.getUniformByNameOrDummy(getUniformName(prefix, uniformName));
-	}
-	public static String getUniformName(String prefix, String uniformName) {
-		return prefix + "_" + uniformName;
-	}
-	public static void setUniform(JsonEffectShaderProgram program, String prefix, String uniformName, float... value) {
-		getUniform(program, prefix, uniformName).set(value);
-	}
-	public static void setUniform(JsonEffectShaderProgram program, String uniformName, float... value) {
-		getUniform(program, uniformName).set(value);
-	}
-	public static void setUniform(JsonEffectShaderProgram program, String prefix, String uniformName, Vector3f value) {
-		getUniform(program, prefix, uniformName).set(value);
-	}
-	public static void setUniform(JsonEffectShaderProgram program, String uniformName, Vector3f value) {
-		getUniform(program, uniformName).set(value);
 	}
 }

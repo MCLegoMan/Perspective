@@ -7,18 +7,17 @@
 
 package com.mclegoman.perspective.client.shaders;
 
+import com.mclegoman.luminance.client.shaders.ShaderRenderEvents;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
-import net.minecraft.client.gl.JsonEffectShaderProgram;
 
-public class Uniforms extends com.mclegoman.luminance.client.shaders.Uniforms {
+public class Uniforms {
 	public static void init() {
+		SmoothUniforms.init();
+		ShaderRenderEvents.BeforeRender.register(Data.version.getID(), "zoomMultiplier", Uniforms::getZoomMultiplier);
 	}
 	public static void tick() {
 		SmoothUniforms.tick();
-	}
-	public static void update(JsonEffectShaderProgram program) {
-		setUniform(program, Data.version.getID(), "zoomMultiplier", getZoomMultiplier());
 	}
 	public static float getZoomMultiplier() {
 		return (float) Zoom.getMultiplier();

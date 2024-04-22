@@ -73,11 +73,13 @@ public class Shader {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderSoundsDataLoader());
 			addImprovedDepthRendererIncompatibleMod("iris");
 			addImprovedDepthRendererIncompatibleMod("canvas");
+			Uniforms.init();
 		} catch (Exception error) {
 			Data.version.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.version.getLoggerPrefix(), error);
 		}
 	}
 	public static void tick() {
+		Uniforms.tick();
 		if (shouldRenderShader()) {
 			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen")) showToasts();
 			else {

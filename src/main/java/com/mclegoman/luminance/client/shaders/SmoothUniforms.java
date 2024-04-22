@@ -7,9 +7,7 @@
 
 package com.mclegoman.luminance.client.shaders;
 
-import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.entity.effect.StatusEffects;
-import org.joml.Vector3f;
 
 public class SmoothUniforms extends Uniforms {
 	public static float prevViewDistance = getViewDistance();
@@ -20,8 +18,10 @@ public class SmoothUniforms extends Uniforms {
 	public static float fps = getFps();
 	public static float prevTime = getTime();
 	public static float time = getTime();
-	public static Vector3f prevEyePosition = getEyePosition();
-	public static Vector3f eyePosition = getEyePosition();
+	public static float[] prevEyePosition = getEyePosition();
+	public static float[] eyePosition = getEyePosition();
+	public static float[] prevPosition = getPosition();
+	public static float[] position = getPosition();
 	public static float prevPitch = getPitch();
 	public static float pitch = getPitch();
 	public static float prevYaw = getYaw();
@@ -70,8 +70,6 @@ public class SmoothUniforms extends Uniforms {
 	public static float biomeTemperature = getBiomeTemperature();
 	public static float prevAlpha = getAlpha();
 	public static float alpha = getAlpha();
-	public static void init() {
-	}
 	public static void tick() {
 		prevViewDistance = viewDistance;
 		viewDistance = (prevViewDistance + getViewDistance()) * 0.5F;
@@ -87,8 +85,11 @@ public class SmoothUniforms extends Uniforms {
 			time = (prevTime + getTime()) * 0.5F;
 		}
 		prevEyePosition = eyePosition;
-		Vector3f currentEyePosition = getEyePosition();
-		eyePosition = new Vector3f((prevEyePosition.x + currentEyePosition.x) * 0.5F, (prevEyePosition.y + currentEyePosition.y) * 0.5F, (prevEyePosition.z + currentEyePosition.z) * 0.5F);
+		float[] currentEyePosition = getEyePosition();
+		eyePosition = new float[]{((prevEyePosition[0] + currentEyePosition[0]) * 0.5F), ((prevEyePosition[1] + currentEyePosition[1]) * 0.5F), ((prevEyePosition[2] + currentEyePosition[2]) * 0.5F)};
+		prevPosition = position;
+		float[] currentPosition = getPosition();
+		position = new float[]{((prevPosition[0] + currentPosition[0]) * 0.5F), ((prevPosition[1] + currentPosition[1]) * 0.5F), ((prevPosition[2] + currentPosition[2]) * 0.5F)};
 		prevPitch = pitch;
 		pitch = (prevPitch + getPitch()) * 0.5F;
 		prevYaw = yaw;
@@ -138,36 +139,36 @@ public class SmoothUniforms extends Uniforms {
 		prevAlpha = alpha;
 		alpha = (prevAlpha + getAlpha()) * 0.5F;
 	}
-	public static void update(JsonEffectShaderProgram program) {
-		setUniform(program, "viewDistanceSmooth", UniformHelper.getSmooth(prevViewDistance, viewDistance));
-		setUniform(program, "fovSmooth", UniformHelper.getSmooth(prevFov, fov));
-		setUniform(program, "fpsSmooth", UniformHelper.getSmooth(prevFps, fps));
-		setUniform(program, "timeSmooth", getSmoothTime());
-		setUniform(program, "eyePositionSmooth", UniformHelper.getSmooth(prevEyePosition, eyePosition));
-		setUniform(program, "pitchSmooth", UniformHelper.getSmooth(prevPitch, pitch));
-		setUniform(program, "yawSmooth", UniformHelper.getSmooth(prevYaw, yaw));
-		setUniform(program, "currentHealthSmooth", UniformHelper.getSmooth(prevCurrentHealth, currentHealth));
-		setUniform(program, "maxHealthSmooth", UniformHelper.getSmooth(prevMaxHealth, maxHealth));
-		setUniform(program, "currentAbsorptionSmooth", UniformHelper.getSmooth(prevCurrentAbsorption, currentAbsorption));
-		setUniform(program, "maxAbsorptionSmooth", UniformHelper.getSmooth(prevMaxAbsorption, maxAbsorption));
-		setUniform(program, "currentHurtTimeSmooth", UniformHelper.getSmooth(prevCurrentHurtTime, currentHurtTime));
-		setUniform(program, "maxHurtTimeSmooth", UniformHelper.getSmooth(prevMaxHurtTime, maxHurtTime));
-		setUniform(program, "currentAirSmooth", UniformHelper.getSmooth(prevCurrentAir, currentAir));
-		setUniform(program, "maxAirSmooth", UniformHelper.getSmooth(prevMaxAir, maxAir));
-		setUniform(program, "isSprintingSmooth", UniformHelper.getSmooth(prevIsSprinting, isSprinting));
-		setUniform(program, "isSwimmingSmooth", UniformHelper.getSmooth(prevIsSwimming, isSwimming));
-		setUniform(program, "isSneakingSmooth", UniformHelper.getSmooth(prevIsSneaking, isSneaking));
-		setUniform(program, "isCrawlingSmooth", UniformHelper.getSmooth(prevIsCrawling, isCrawling));
-		setUniform(program, "isInvisibleSmooth", UniformHelper.getSmooth(prevIsInvisible, isInvisible));
-		setUniform(program, "isWitheredSmooth", UniformHelper.getSmooth(prevIsWithered, isWithered));
-		setUniform(program, "isPoisonedSmooth", UniformHelper.getSmooth(prevIsPoisoned, isPoisoned));
-		setUniform(program, "isBurningSmooth", UniformHelper.getSmooth(prevIsBurning, isBurning));
-		setUniform(program, "isOnGroundSmooth", UniformHelper.getSmooth(prevIsOnGround, isOnGround));
-		setUniform(program, "isOnLadderSmooth", UniformHelper.getSmooth(prevIsOnLadder, isOnLadder));
-		setUniform(program, "isRidingSmooth", UniformHelper.getSmooth(prevIsRiding, isRiding));
-		setUniform(program, "hasPassengersSmooth", UniformHelper.getSmooth(prevHasPassengers, hasPassengers));
-		setUniform(program, "biomeTemperatureSmooth", UniformHelper.getSmooth(prevBiomeTemperature, biomeTemperature));
-		setUniform(program, "alphaSmooth", UniformHelper.getSmooth(prevAlpha, alpha));
+	public static void init() {
+		ShaderRenderEvents.BeforeRender.register("lu", "viewDistanceSmooth", () -> UniformHelper.getSmooth(prevViewDistance, viewDistance));
+		ShaderRenderEvents.BeforeRender.register("lu", "fovSmooth", () -> UniformHelper.getSmooth(prevFov, fov));
+		ShaderRenderEvents.BeforeRender.register("lu", "timeSmooth", SmoothUniforms::getSmoothTime);
+		ShaderRenderEvents.BeforeRender.register("lu", "eyePositionSmooth", () -> UniformHelper.getSmooth(prevEyePosition, eyePosition));
+		ShaderRenderEvents.BeforeRender.register("lu", "positionSmooth", () -> UniformHelper.getSmooth(prevPosition, position));
+		ShaderRenderEvents.BeforeRender.register("lu", "pitchSmooth", () -> UniformHelper.getSmooth(prevPitch, pitch));
+		ShaderRenderEvents.BeforeRender.register("lu", "yawSmooth", () -> UniformHelper.getSmooth(prevYaw, yaw));
+		ShaderRenderEvents.BeforeRender.register("lu", "currentHealthSmooth", () -> UniformHelper.getSmooth(prevCurrentHealth, currentHealth));
+		ShaderRenderEvents.BeforeRender.register("lu", "maxHealthSmooth", () -> UniformHelper.getSmooth(prevMaxHealth, maxHealth));
+		ShaderRenderEvents.BeforeRender.register("lu", "currentAbsorptionSmooth", () -> UniformHelper.getSmooth(prevCurrentAbsorption, currentAbsorption));
+		ShaderRenderEvents.BeforeRender.register("lu", "maxAbsorptionSmooth", () -> UniformHelper.getSmooth(prevMaxAbsorption, maxAbsorption));
+		ShaderRenderEvents.BeforeRender.register("lu", "currentHurtTimeSmooth", () -> UniformHelper.getSmooth(prevCurrentHurtTime, currentHurtTime));
+		ShaderRenderEvents.BeforeRender.register("lu", "maxHurtTimeSmooth", () -> UniformHelper.getSmooth(prevMaxHurtTime, maxHurtTime));
+		ShaderRenderEvents.BeforeRender.register("lu", "currentAirSmooth", () -> UniformHelper.getSmooth(prevCurrentAir, currentAir));
+		ShaderRenderEvents.BeforeRender.register("lu", "maxAirSmooth", () -> UniformHelper.getSmooth(prevMaxAir, maxAir));
+		ShaderRenderEvents.BeforeRender.register("lu", "isSprintingSmooth", () -> UniformHelper.getSmooth(prevIsSprinting, isSprinting));
+		ShaderRenderEvents.BeforeRender.register("lu", "isSwimmingSmooth", () -> UniformHelper.getSmooth(prevIsSwimming, isSwimming));
+		ShaderRenderEvents.BeforeRender.register("lu", "isSneakingSmooth", () -> UniformHelper.getSmooth(prevIsSneaking, isSneaking));
+		ShaderRenderEvents.BeforeRender.register("lu", "isCrawlingSmooth", () -> UniformHelper.getSmooth(prevIsCrawling, isCrawling));
+		ShaderRenderEvents.BeforeRender.register("lu", "isInvisibleSmooth", () -> UniformHelper.getSmooth(prevIsInvisible, isInvisible));
+		ShaderRenderEvents.BeforeRender.register("lu", "isWitheredSmooth", () -> UniformHelper.getSmooth(prevIsWithered, isWithered));
+		ShaderRenderEvents.BeforeRender.register("lu", "isPoisonedSmooth", () -> UniformHelper.getSmooth(prevIsPoisoned, isPoisoned));
+		ShaderRenderEvents.BeforeRender.register("lu", "isBurningSmooth", () -> UniformHelper.getSmooth(prevIsBurning, isBurning));
+		ShaderRenderEvents.BeforeRender.register("lu", "isOnGroundSmooth", () -> UniformHelper.getSmooth(prevIsOnGround, isOnGround));
+		ShaderRenderEvents.BeforeRender.register("lu", "isOnLadderSmooth", () -> UniformHelper.getSmooth(prevIsOnLadder, isOnLadder));
+		ShaderRenderEvents.BeforeRender.register("lu", "isRidingSmooth", () -> UniformHelper.getSmooth(prevIsRiding, isRiding));
+		ShaderRenderEvents.BeforeRender.register("lu", "hasPassengersSmooth", () -> UniformHelper.getSmooth(prevHasPassengers, hasPassengers));
+		ShaderRenderEvents.BeforeRender.register("lu", "biomeTemperatureSmooth", () -> UniformHelper.getSmooth(prevBiomeTemperature, biomeTemperature));
+		ShaderRenderEvents.BeforeRender.register("lu", "alphaSmooth", () -> UniformHelper.getSmooth(prevAlpha, alpha));
 	}
 	public static float getSmoothTime() {
 		if (getTime() <= 1.0F) return getTime();
