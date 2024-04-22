@@ -17,18 +17,18 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.entry.RegistryEntry;
 
 public class Uniforms {
-	private static int alpha = 100;
+	private static int prevAlpha = (int)ConfigHelper.getConfig("alpha_level");
 	public static void tick() {
 		UniformHelper.updateTime();
+		prevAlpha = (int)ConfigHelper.getConfig("alpha_level");
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
-			if (alpha != prevAlpha) ConfigHelper.setConfig("alpha_level", alpha);
+			if ((int)ConfigHelper.getConfig("alpha_level") != prevAlpha) ConfigHelper.setConfig("alpha_level", prevAlpha);
+			ConfigHelper.saveConfig();
 		}
 		SmoothUniforms.tick();
 	}
 	public static void init() {
-		alpha = (int)ConfigHelper.getConfig("alpha_level");
-		prevAlpha = alpha;
 		ShaderRenderEvents.ShaderUniform.registerFloat("lu", "viewDistance", Uniforms::getViewDistance);
 		ShaderRenderEvents.ShaderUniform.registerFloat("lu", "fov", Uniforms::getFov);
 		ShaderRenderEvents.ShaderUniform.registerFloat("lu", "fps", Uniforms::getFps);
@@ -148,24 +148,23 @@ public class Uniforms {
 		return ClientData.minecraft.world != null && ClientData.minecraft.player != null ? ClientData.minecraft.world.getBiome(ClientData.minecraft.player.getBlockPos()).value().getTemperature() : 1.0F;
 	}
 	public static float getAlpha() {
-		return Math.max(0.0F, Math.min((alpha / 100.0F), 1.0F));
+		return Math.max(0.0F, Math.min(((int)ConfigHelper.getConfig("alpha_level") / 100.0F), 1.0F));
 	}
 	public static void setAlpha(int value) {
-		alpha = Math.max(0, Math.min((value), 100));
+		ConfigHelper.setConfig("alpha_level", Math.max(0, Math.min((value), 100)));
 	}
 	public static void resetAlpha() {
 		setAlpha(100);
 	}
 	public static void adjustAlpha(int amount) {
-		setAlpha(alpha + amount);
+		setAlpha((int)ConfigHelper.getConfig("alpha_level") + amount);
 	}
 	public static boolean updatingAlpha = false;
-	private static int prevAlpha = 100;
 	public static boolean updatingAlpha() {
 		boolean value = Keybindings.adjustAlpha.isPressed();
 		if (value) {
 			if (!updatingAlpha) {
-				prevAlpha = alpha;
+				prevAlpha = (int)ConfigHelper.getConfig("alpha_level");
 			}
 			updatingAlpha = true;
 		}

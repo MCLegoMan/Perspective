@@ -61,7 +61,6 @@ public class ConfigHelper {
 				}
 				default -> Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", id));
 			}
-		if (configChanged) saveConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: {}", id, error));
 		}

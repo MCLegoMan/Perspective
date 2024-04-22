@@ -9,7 +9,7 @@ package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.ui.PerspectiveLogo;
+import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.MinecraftClient;

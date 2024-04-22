@@ -16,7 +16,7 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.ui.PerspectiveLogo;
+import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.ResourcePacks;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;

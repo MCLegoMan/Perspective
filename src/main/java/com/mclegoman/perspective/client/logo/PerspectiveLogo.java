@@ -5,11 +5,13 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.ui;
+package com.mclegoman.perspective.client.logo;
 
+import com.mclegoman.luminance.client.logo.LuminanceLogo;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.luminance.common.util.DateHelper;
+import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -53,12 +55,12 @@ public class PerspectiveLogo {
 		}
 	}
 	public static Logo getLogo(Logo.Type type) {
-		return new Logo(new Identifier(Data.version.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : "perspective")), type);
+		return new Logo(new Identifier(Data.version.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : Data.version.getID())), type);
 	}
 	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
 		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
-		if (Data.version.isDevelopmentBuild()) context.drawTexture(new Identifier(Data.version.getID(), "textures/gui/logo/development.png"), (x + (width / 2)) - ((int) (width * 0.625) / 2), (int) (y + ((height * 0.6875) - 14)), 0.0F, 0.0F, (int) (width * 0.625), height / 4, (int) (width * 0.625), height / 4);
+		LuminanceLogo.renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
 	}
 	public static void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer, Couple<String, Boolean> splashText, float rotation) {
 		if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
