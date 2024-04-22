@@ -21,7 +21,7 @@ import org.joml.Vector3f;
 
 public class Uniforms {
 	private static int alpha = 100;
-	private static float ticks = 0.0F;
+	private static float ticks = 34559.0F;
 	public static void init() {
 		alpha = (int)ConfigHelper.getConfig("alpha_level");
 		prevAlpha = alpha;
@@ -30,7 +30,6 @@ public class Uniforms {
 	public static void tick() {
 		// This will get reset every 48 hours to prevent shader stuttering/freezing on some shaders.
 		// This may still stutter/freeze on weaker systems.
-		// TODO: We need to reset lu_timeSmooth without lerping.
 		ticks = (ticks + 0.01F) % 34560.0F;
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;

@@ -81,8 +81,13 @@ public class SmoothUniforms extends Uniforms {
 		fov = (prevFov + getFov()) * 0.5F;
 		prevFps = fps;
 		fps = (prevFps + getFps()) * 0.5F;
-		prevTime = time;
-		time = (prevTime + getTime()) * 0.5F;
+		if (getTime() < 0.01F) {
+			prevTime = getTime();
+			time = getTime();
+		} else {
+			prevTime = time;
+			time = (prevTime + getTime()) * 0.5F;
+		}
 		prevEyePosition = eyePosition;
 		Vector3f currentEyePosition = getEyePosition();
 		eyePosition = new Vector3f((prevEyePosition.x + currentEyePosition.x) * 0.5F, (prevEyePosition.y + currentEyePosition.y) * 0.5F, (prevEyePosition.z + currentEyePosition.z) * 0.5F);
@@ -139,7 +144,7 @@ public class SmoothUniforms extends Uniforms {
 		setUniform(program, "viewDistanceSmooth", getSmooth(prevViewDistance, viewDistance));
 		setUniform(program, "fovSmooth", getSmooth(prevFov, fov));
 		setUniform(program, "fpsSmooth", getSmooth(prevFps, fps));
-		setUniform(program, "timeSmooth", getSmooth(prevTime, time));
+		setUniform(program, "timeSmooth", getSmoothTime());
 		setUniform(program, "eyePositionSmooth", getSmooth(prevEyePosition, eyePosition));
 		setUniform(program, "pitchSmooth", getSmooth(prevPitch, pitch));
 		setUniform(program, "yawSmooth", getSmooth(prevYaw, yaw));
@@ -165,6 +170,10 @@ public class SmoothUniforms extends Uniforms {
 		setUniform(program, "hasPassengersSmooth", getSmooth(prevHasPassengers, hasPassengers));
 		setUniform(program, "biomeTemperatureSmooth", getSmooth(prevBiomeTemperature, biomeTemperature));
 		setUniform(program, "alphaSmooth", getSmooth(prevAlpha, alpha));
+	}
+	public static float getSmoothTime() {
+		if (getTime() <= 0.01) return getTime();
+		return getSmooth(prevTime, time);
 	}
 	public static float getSmooth(float prev, float current) {
 		float tickDelta = ClientData.minecraft.getTickDelta();
