@@ -65,6 +65,7 @@ public class Uniforms {
 		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12.0F;
 	}
 	public static float getFov() {
+		// This probably should be changed to the one in GameRenderer.
 		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getFov().getValue() : 70.0F;
 	}
 	public static float getFps() {
