@@ -1,5 +1,5 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)  
-## Perspective 1.3.0-alpha.5 for 1.20.5-rc2  
+## Perspective 1.3.0-alpha.5 for 1.20.5-rc3  
 This update focuses on shaders, and now includes **Luminance**!
 
 ## Changelog  
@@ -23,7 +23,9 @@ This update focuses on shaders, and now includes **Luminance**!
 - Added **8-bit** shader.  
   - This shader renders with only four shades of green.  
 ### Experimental
-- No changes in this update, but **Improved Shader Renderer** will come out of experimental next update!  
+- **Improved Shader Renderer**  
+  - Added check for if Iris Shaders are enabled, not just installed.  
+  - Will come out of experimental next update!  
 
 ## Development Build  
 Please help us improve by submitting [bug reports](https://github.com/MCLegoMan/Perspective/issues) if you encounter any issues.  

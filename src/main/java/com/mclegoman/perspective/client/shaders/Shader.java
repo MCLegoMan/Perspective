@@ -15,9 +15,9 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
+import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.releasetypeutils.common.version.Helper;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -71,7 +71,6 @@ public class Shader {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderSoundsDataLoader());
-			addImprovedDepthRendererIncompatibleMod("iris");
 			addImprovedDepthRendererIncompatibleMod("canvas");
 			Uniforms.init();
 		} catch (Exception error) {
@@ -120,7 +119,7 @@ public class Shader {
 		return incompatibleModsFound;
 	}
 	public static boolean shouldDisableImprovedDepthRenderer() {
-		return !((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")) && !getImprovedDepthRendererIncompatibleMods().isEmpty();
+		return !((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")) && !getImprovedDepthRendererIncompatibleMods().isEmpty() && CompatHelper.isIrisShadersEnabled();
 	}
 	public static void checkKeybindings() {
 		if (Keybindings.cycleShaders.wasPressed())
