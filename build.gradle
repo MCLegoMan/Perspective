@@ -111,6 +111,7 @@ modrinth {
 	dependencies {
 		required.project "fabric-api"
 		required.project "qsl"
+		embedded.project "luminance"
 	}
 }
 tasks.register("uploadVersion") {
