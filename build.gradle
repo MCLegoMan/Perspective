@@ -20,6 +20,17 @@ repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 	mavenCentral()
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft}"
@@ -28,6 +39,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 
 	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
+
+	//include(modImplementation "maven.modrinth:luminance:1.0.0-alpha.1")
+	include(modImplementation fileTree(dir: 'libs', include: '*.jar'))
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"

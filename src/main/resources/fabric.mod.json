@@ -22,16 +22,14 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.mclegoman.perspective.client.PerspectiveClient",
-      "com.mclegoman.luminance.client.LuminanceClient"
+      "com.mclegoman.perspective.client.PerspectiveClient"
     ],
     "modmenu": [
 	    "com.mclegoman.perspective.compat.ModMenuCompat"
     ]
   },
   "mixins": [
-    "mclegoman-perspective.mixins.json",
-    "mclegoman-luminance.mixins.json"
+    "mclegoman-perspective.mixins.json"
   ],
   "depends": {
     "minecraft": [
@@ -41,7 +39,8 @@
     "fabric-key-binding-api-v1": "*",
     "fabric-rendering-v1": "*",
     "fabric-lifecycle-events-v1": "*",
-    "java": ">=21"
+    "java": ">=21",
+    "luminance": "*"
   },
   "accessWidener" : "mclegoman-perspective.accesswidener",
   "custom": {
