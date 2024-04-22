@@ -15,10 +15,18 @@ void main() {
     vec3 inputColor = texture(DiffuseSampler, texCoord).rgb;
     float health = lu_currentHealthSmooth / (lu_maxHealthSmooth * 0.5);
     float hurt = 1.0 - (lu_currentHurtTimeSmooth / lu_maxHurtTimeSmooth);
-    vec3 healthColor = inputColor;
-    vec3 overlayColor = mix(vec3(0.87843137254, 0.03921568627, 0.05882352941), vec3(0.41960784313, 0.0, 0.0), lu_isWitheredSmooth);
-    if (health < 1.0) healthColor = mix(mix(inputColor, overlayColor.rgb, smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), inputColor, health);
-    vec3 hurtColor = healthColor;
-    if (hurt < 1.0) hurtColor = mix(mix(healthColor, mix(overlayColor.rgb, overlayColor.grb, lu_isPoisonedSmooth), smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), healthColor, hurt);
-    fragColor = vec4(hurtColor, 1.0);
+    float withered = lu_isWitheredSmooth * 0.5;
+    float poisoned = lu_isPoisonedSmooth * 0.5;
+
+    vec3 color = inputColor;
+    vec3 overlay = vec3(0.87843137254, 0.03921568627, 0.05882352941);
+    vec3 wither = vec3(0.23921568627, 0.03137254901, 0.03137254901);
+    vec3 poison = vec3(0.45882352941, 0.87843137254, 0.03921568627);
+
+    color = mix(color, mix(color, wither, smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), withered);
+    color = mix(color, mix(color, poison, smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), poisoned);
+    color = mix(mix(color, overlay, smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), color, health);
+    if (hurt < 1.0) color = mix(mix(color, overlay, smoothstep(0.0, 0.5, distance(texCoord, vec2(0.5, 0.5)))), color, hurt);
+
+    fragColor = vec4(color, 1.0);
 }
