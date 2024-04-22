@@ -19,7 +19,7 @@ import org.joml.Vector3f;
 
 public class Uniforms {
 	private static int alpha = 100;
-	private static float ticks = 34559.0F;
+	private static float ticks = 0.0F;
 	public static void init() {
 		alpha = (int)ConfigHelper.getConfig("alpha_level");
 		prevAlpha = alpha;
