@@ -14,8 +14,6 @@ public class SmoothUniforms extends Uniforms {
 	public static float viewDistance = getViewDistance();
 	public static float prevFov = getFov();
 	public static float fov = getFov();
-	public static float prevFps = getFps();
-	public static float fps = getFps();
 	public static float prevTime = getTime();
 	public static float time = getTime();
 	public static float[] prevEyePosition = getEyePosition();
@@ -75,8 +73,6 @@ public class SmoothUniforms extends Uniforms {
 		viewDistance = (prevViewDistance + getViewDistance()) * 0.5F;
 		prevFov = fov;
 		fov = (prevFov + getFov()) * 0.5F;
-		prevFps = fps;
-		fps = (prevFps + getFps()) * 0.5F;
 		if (getTime() < 0.01F) {
 			prevTime = getTime();
 			time = getTime();

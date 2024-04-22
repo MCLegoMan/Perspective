@@ -10,6 +10,7 @@ package com.mclegoman.luminance.client.shaders;
 import com.mclegoman.luminance.client.data.ClientData;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
 import com.mclegoman.luminance.config.ConfigHelper;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -58,6 +59,7 @@ public class Uniforms {
 		ShaderRenderEvents.BeforeRender.register("lu", "hasPassengers", Uniforms::getHasPassengers);
 		ShaderRenderEvents.BeforeRender.register("lu", "biomeTemperature", Uniforms::getBiomeTemperature);
 		ShaderRenderEvents.BeforeRender.register("lu", "alpha", Uniforms::getAlpha);
+		ShaderRenderEvents.BeforeRender.register("lu", "perspective", Uniforms::getPerspective);
 	}
 	public static float getViewDistance() {
 		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12.0F;
@@ -166,5 +168,12 @@ public class Uniforms {
 			updatingAlpha = true;
 		}
 		return value;
+	}
+	public static float getPerspective() {
+		if (ClientData.minecraft.options != null) {
+			Perspective perspective = ClientData.minecraft.options.getPerspective();
+			return perspective.equals(Perspective.THIRD_PERSON_FRONT) ? 3.0F : (perspective.equals(Perspective.THIRD_PERSON_BACK) ? 2.0F : (perspective.equals(Perspective.FIRST_PERSON) ? 1.0F : 0.0F));
+		}
+		return 1.0F;
 	}
 }
