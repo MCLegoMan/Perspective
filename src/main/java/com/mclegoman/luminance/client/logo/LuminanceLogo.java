@@ -20,10 +20,7 @@ public class LuminanceLogo {
 	}
 	public static void renderLogo(DrawContext context, int x, int y, int width, int height) {
 		context.drawTexture(getLogo().getTexture(), x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
-		renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
-	}
-	public static void renderDevelopmentOverlay(DrawContext context, int x, int y, int width, int height, boolean shouldRender) {
-		if (shouldRender) context.drawTexture(new Identifier(Data.version.getID(), "textures/gui/logo/development.png"), (x + (width / 2)) - ((int) (width * 0.625) / 2), (int) (y + ((height * 0.6875) - 14)), 0.0F, 0.0F, (int) (width * 0.625), height / 4, (int) (width * 0.625), height / 4);
+		LogoHelper.renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
 	}
 	public record Logo(Identifier id) {
 		public String getNamespace() {

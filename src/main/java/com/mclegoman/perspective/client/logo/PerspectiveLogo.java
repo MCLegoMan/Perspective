@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.logo;
 
+import com.mclegoman.luminance.client.logo.LogoHelper;
 import com.mclegoman.luminance.client.logo.LuminanceLogo;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -60,18 +61,7 @@ public class PerspectiveLogo {
 	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
 		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
-		LuminanceLogo.renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
-	}
-	public static void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer, Couple<String, Boolean> splashText, float rotation) {
-		if (SplashesDataloader.getSplashText() != null && !ClientData.minecraft.options.getHideSplashTexts().getValue()) {
-			context.getMatrices().push();
-			context.getMatrices().translate(x + width, y, 0.0F);
-			context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
-			float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(Translation.getText(splashText)) + 32);
-			context.getMatrices().scale(scale, scale, scale);
-			context.drawCenteredTextWithShadow(textRenderer, Translation.getText(splashText), 0, -8, 0xFFFF00);
-			context.getMatrices().pop();
-		}
+		LogoHelper.renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
 	}
 	public record Logo(Identifier id, Type type) {
 		public String getNamespace() {
@@ -107,7 +97,7 @@ public class PerspectiveLogo {
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
 			renderPerspectiveLogo(context, this.getX(), this.getY() + 7, this.getWidth(), this.getHeight(), experimental);
-			createSplashText(context, this.getWidth(), this.getX(), this.getY() + 41, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
+			LogoHelper.createSplashText(context, this.getWidth(), this.getX(), this.getY() + 41, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		}
 		@Override
 		protected void appendClickableNarrations(NarrationMessageBuilder builder) {
