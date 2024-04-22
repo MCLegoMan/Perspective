@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config;
 
+import com.mclegoman.perspective.client.screen.config.ui.UiBackgroundConfigScreen;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
@@ -20,7 +21,6 @@ import com.mclegoman.perspective.client.screen.config.textured_entity.TexturedEn
 import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
@@ -51,13 +51,13 @@ public class ConfigScreen extends Screen {
 	public void init() {
 		try {
 			grid.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(client, new ConfigScreen(parentScreen, true, page), false, true));
-			if (page == 1) GRID_ADDER.add(createPageOne());
-			else if (page == 2) GRID_ADDER.add(createPageTwo());
+			GridWidget.Adder gridAdder = grid.createAdder(1);
+			gridAdder.add(ScreenHelper.createTitle(client, new ConfigScreen(parentScreen, true, page), false, true));
+			if (page == 1) gridAdder.add(createPageOne());
+			else if (page == 2) gridAdder.add(createPageTwo());
 			else shouldClose = true;
-			GRID_ADDER.add(new EmptyWidget(4, 4));
-			GRID_ADDER.add(createFooter());
+			gridAdder.add(new EmptyWidget(4, 4));
+			gridAdder.add(createFooter());
 			grid.refreshPositions();
 			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
@@ -79,69 +79,63 @@ public class ConfigScreen extends Screen {
 		}
 	}
 	private GridWidget createPageOne() {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders"), (button) -> ClientData.minecraft.setScreen(new ShadersConfigScreen(new ConfigScreen(parentScreen, true, page), false, new Formatting[]{Shader.getRandomColor()}, false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide"), (button) -> ClientData.minecraft.setScreen(new HideConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective"), (button) -> ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information"), (button) -> ClientData.minecraft.setScreen(new InformationScreen(new ConfigScreen(parentScreen, true, page), false))).build());
+		GridWidget grid = new GridWidget();
+		grid.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder gridAdder = grid.createAdder(2);
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders"), (button) -> ClientData.minecraft.setScreen(new ShadersConfigScreen(new ConfigScreen(parentScreen, true, page), false, new Formatting[]{Shader.getRandomColor()}, false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide"), (button) -> ClientData.minecraft.setScreen(new HideConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective"), (button) -> ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information"), (button) -> ClientData.minecraft.setScreen(new InformationScreen(new ConfigScreen(parentScreen, true, page), false))).build());
 		ButtonWidget EXPERIMENTAL = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental"), (button) -> ClientData.minecraft.setScreen(new ExperimentalConfigScreen(new ConfigScreen(parentScreen, true, page), false))).build();
 		EXPERIMENTAL.active = ConfigHelper.experimentsAvailable;
-		GRID_ADDER.add(EXPERIMENTAL);
-		return GRID;
+		gridAdder.add(EXPERIMENTAL);
+		return grid;
 	}
 
 	private GridWidget createPageTwo() {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "version_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"), Translation.Type.ONFF)}), (button) -> {
+		GridWidget grid = new GridWidget();
+		grid.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder gridAdder = grid.createAdder(2);
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "version_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"));
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "position_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"), Translation.Type.ONFF)}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "position_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "title_screen", new Object[]{Translation.getTitleScreenBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen"))}), (button) -> {
-			UIBackground.cycleTitleScreenBackgroundType(!hasShiftDown());
-			this.refresh = true;
-		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background"))}), (button) -> {
-			UIBackground.cycleUIBackgroundType(!hasShiftDown());
-			this.refresh = true;
-		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"), Translation.Type.ONFF)}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background"), (button) -> ClientData.minecraft.setScreen(new UiBackgroundConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "luminance"), (button) -> ClientData.minecraft.setScreen(new com.mclegoman.luminance.client.screen.ConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"));
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "tutorials", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"), Translation.Type.ONFF)}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "tutorials", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "tutorials", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "tutorials", true))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "force_pride", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"), Translation.Type.ONFF)}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "force_pride", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "force_pride", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"));
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"))}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel", Update.nextUpdateChannel());
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", true))).build());
-		return GRID;
+		return grid;
 	}
 
 	private GridWidget createFooter() {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(3);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
+		GridWidget grid = new GridWidget();
+		grid.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder gridAdder = grid.createAdder(3);
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
 			if (ConfigHelper.resetConfig()) this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> {
 			if (page <= 1) {
 				this.shouldClose = true;
 			}
@@ -150,15 +144,15 @@ public class ConfigScreen extends Screen {
 				this.refresh = true;
 			}
 		}).width(74).build());
-		ButtonWidget NEXT = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "next"), (button) -> {
+		ButtonWidget next = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "next"), (button) -> {
 			if (!(page >= 2)) {
 				page += 1;
 				this.refresh = true;
 			}
 		}).width(74).build();
-		if (page >= 2) NEXT.active = false;
-		GRID_ADDER.add(NEXT);
-		return GRID;
+		if (page >= 2) next.active = false;
+		gridAdder.add(next);
+		return grid;
 	}
 
 	public void initTabNavigation() {

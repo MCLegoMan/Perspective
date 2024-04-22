@@ -19,8 +19,7 @@ public class LuminanceLogo {
 		return new Logo(new Identifier(Data.version.getID(), Data.version.getID()));
 	}
 	public static void renderLogo(DrawContext context, int x, int y, int width, int height) {
-		Identifier logoIdentifier = getLogo().getTexture();
-		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
+		context.drawTexture(getLogo().getTexture(), x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
 		renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
 	}
 	public static void renderDevelopmentOverlay(DrawContext context, int x, int y, int width, int height, boolean shouldRender) {

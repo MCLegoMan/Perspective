@@ -137,9 +137,13 @@
 	"gui.perspective.config.tutorials": "Tutorials: %s",
 	"gui.perspective.config.tutorials.hover": "Toggle Perspective Tutorial Toasts",
 
-	"gui.perspective.config.title_screen": "Title Screen: %s",
+	"gui.perspective.config.ui_background": "UI Background",
 
-	"gui.perspective.config.ui_background": "UI Background: %s",
+	"gui.perspective.config.ui_background.title_screen": "Title Screen: %s",
+
+	"gui.perspective.config.ui_background.ui_background": "UI Background: %s",
+
+	"gui.perspective.config.luminance": "Luminance",
 
 	"gui.perspective.config.hide": "Hide",
 
