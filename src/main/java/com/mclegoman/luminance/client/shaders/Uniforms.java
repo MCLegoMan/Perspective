@@ -19,16 +19,13 @@ import org.joml.Vector3f;
 
 public class Uniforms {
 	private static int alpha = 100;
-	private static float ticks = 0.0F;
 	public static void init() {
 		alpha = (int)ConfigHelper.getConfig("alpha_level");
 		prevAlpha = alpha;
 		SmoothUniforms.init();
 	}
 	public static void tick() {
-		// This will get reset every 48 hours to prevent shader stuttering/freezing on some shaders.
-		// This may still stutter/freeze on weaker systems.
-		ticks = (ticks + 0.01F) % 34560.0F;
+		UniformHelper.updateTime();
 		if (!updatingAlpha() && updatingAlpha) {
 			updatingAlpha = false;
 			if (alpha != prevAlpha) ConfigHelper.setConfig("alpha_level", alpha);
@@ -77,7 +74,7 @@ public class Uniforms {
 		return ClientData.minecraft.getCurrentFps();
 	}
 	public static float getTime() {
-		return ticks;
+		return UniformHelper.time;
 	}
 	public static Vector3f getEyePosition() {
 		return ClientData.minecraft.cameraEntity != null ? ClientData.minecraft.cameraEntity.getEyePos().toVector3f() : new Vector3f(0.0F, 0.0F, 0.0F);

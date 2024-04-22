@@ -19,7 +19,7 @@
 		{ "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
 		{ "name": "lu_alphaSmooth",          "type": "float",     "count": 1,  "values": [ 1.0 ] },
 		{ "name": "lu_timeSmooth",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
-		{ "name": "speed",          "type": "float",     "count": 1,  "values": [ 0.5 ] },
+		{ "name": "speed",          "type": "float",     "count": 1,  "values": [ 0.005 ] },
 		{ "name": "xAmount",          "type": "float",     "count": 1,  "values": [ 0.0 ] },
 		{ "name": "yAmount",          "type": "float",     "count": 1,  "values": [ 0.0 ] }
 	]

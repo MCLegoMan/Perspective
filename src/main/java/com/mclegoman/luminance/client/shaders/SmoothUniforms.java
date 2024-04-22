@@ -7,10 +7,8 @@
 
 package com.mclegoman.luminance.client.shaders;
 
-import com.mclegoman.luminance.client.data.ClientData;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 
 public class SmoothUniforms extends Uniforms {
@@ -141,45 +139,38 @@ public class SmoothUniforms extends Uniforms {
 		alpha = (prevAlpha + getAlpha()) * 0.5F;
 	}
 	public static void update(JsonEffectShaderProgram program) {
-		setUniform(program, "viewDistanceSmooth", getSmooth(prevViewDistance, viewDistance));
-		setUniform(program, "fovSmooth", getSmooth(prevFov, fov));
-		setUniform(program, "fpsSmooth", getSmooth(prevFps, fps));
+		setUniform(program, "viewDistanceSmooth", UniformHelper.getSmooth(prevViewDistance, viewDistance));
+		setUniform(program, "fovSmooth", UniformHelper.getSmooth(prevFov, fov));
+		setUniform(program, "fpsSmooth", UniformHelper.getSmooth(prevFps, fps));
 		setUniform(program, "timeSmooth", getSmoothTime());
-		setUniform(program, "eyePositionSmooth", getSmooth(prevEyePosition, eyePosition));
-		setUniform(program, "pitchSmooth", getSmooth(prevPitch, pitch));
-		setUniform(program, "yawSmooth", getSmooth(prevYaw, yaw));
-		setUniform(program, "currentHealthSmooth", getSmooth(prevCurrentHealth, currentHealth));
-		setUniform(program, "maxHealthSmooth", getSmooth(prevMaxHealth, maxHealth));
-		setUniform(program, "currentAbsorptionSmooth", getSmooth(prevCurrentAbsorption, currentAbsorption));
-		setUniform(program, "maxAbsorptionSmooth", getSmooth(prevMaxAbsorption, maxAbsorption));
-		setUniform(program, "currentHurtTimeSmooth", getSmooth(prevCurrentHurtTime, currentHurtTime));
-		setUniform(program, "maxHurtTimeSmooth", getSmooth(prevMaxHurtTime, maxHurtTime));
-		setUniform(program, "currentAirSmooth", getSmooth(prevCurrentAir, currentAir));
-		setUniform(program, "maxAirSmooth", getSmooth(prevMaxAir, maxAir));
-		setUniform(program, "isSprintingSmooth", getSmooth(prevIsSprinting, isSprinting));
-		setUniform(program, "isSwimmingSmooth", getSmooth(prevIsSwimming, isSwimming));
-		setUniform(program, "isSneakingSmooth", getSmooth(prevIsSneaking, isSneaking));
-		setUniform(program, "isCrawlingSmooth", getSmooth(prevIsCrawling, isCrawling));
-		setUniform(program, "isInvisibleSmooth", getSmooth(prevIsInvisible, isInvisible));
-		setUniform(program, "isWitheredSmooth", getSmooth(prevIsWithered, isWithered));
-		setUniform(program, "isPoisonedSmooth", getSmooth(prevIsPoisoned, isPoisoned));
-		setUniform(program, "isBurningSmooth", getSmooth(prevIsBurning, isBurning));
-		setUniform(program, "isOnGroundSmooth", getSmooth(prevIsOnGround, isOnGround));
-		setUniform(program, "isOnLadderSmooth", getSmooth(prevIsOnLadder, isOnLadder));
-		setUniform(program, "isRidingSmooth", getSmooth(prevIsRiding, isRiding));
-		setUniform(program, "hasPassengersSmooth", getSmooth(prevHasPassengers, hasPassengers));
-		setUniform(program, "biomeTemperatureSmooth", getSmooth(prevBiomeTemperature, biomeTemperature));
-		setUniform(program, "alphaSmooth", getSmooth(prevAlpha, alpha));
+		setUniform(program, "eyePositionSmooth", UniformHelper.getSmooth(prevEyePosition, eyePosition));
+		setUniform(program, "pitchSmooth", UniformHelper.getSmooth(prevPitch, pitch));
+		setUniform(program, "yawSmooth", UniformHelper.getSmooth(prevYaw, yaw));
+		setUniform(program, "currentHealthSmooth", UniformHelper.getSmooth(prevCurrentHealth, currentHealth));
+		setUniform(program, "maxHealthSmooth", UniformHelper.getSmooth(prevMaxHealth, maxHealth));
+		setUniform(program, "currentAbsorptionSmooth", UniformHelper.getSmooth(prevCurrentAbsorption, currentAbsorption));
+		setUniform(program, "maxAbsorptionSmooth", UniformHelper.getSmooth(prevMaxAbsorption, maxAbsorption));
+		setUniform(program, "currentHurtTimeSmooth", UniformHelper.getSmooth(prevCurrentHurtTime, currentHurtTime));
+		setUniform(program, "maxHurtTimeSmooth", UniformHelper.getSmooth(prevMaxHurtTime, maxHurtTime));
+		setUniform(program, "currentAirSmooth", UniformHelper.getSmooth(prevCurrentAir, currentAir));
+		setUniform(program, "maxAirSmooth", UniformHelper.getSmooth(prevMaxAir, maxAir));
+		setUniform(program, "isSprintingSmooth", UniformHelper.getSmooth(prevIsSprinting, isSprinting));
+		setUniform(program, "isSwimmingSmooth", UniformHelper.getSmooth(prevIsSwimming, isSwimming));
+		setUniform(program, "isSneakingSmooth", UniformHelper.getSmooth(prevIsSneaking, isSneaking));
+		setUniform(program, "isCrawlingSmooth", UniformHelper.getSmooth(prevIsCrawling, isCrawling));
+		setUniform(program, "isInvisibleSmooth", UniformHelper.getSmooth(prevIsInvisible, isInvisible));
+		setUniform(program, "isWitheredSmooth", UniformHelper.getSmooth(prevIsWithered, isWithered));
+		setUniform(program, "isPoisonedSmooth", UniformHelper.getSmooth(prevIsPoisoned, isPoisoned));
+		setUniform(program, "isBurningSmooth", UniformHelper.getSmooth(prevIsBurning, isBurning));
+		setUniform(program, "isOnGroundSmooth", UniformHelper.getSmooth(prevIsOnGround, isOnGround));
+		setUniform(program, "isOnLadderSmooth", UniformHelper.getSmooth(prevIsOnLadder, isOnLadder));
+		setUniform(program, "isRidingSmooth", UniformHelper.getSmooth(prevIsRiding, isRiding));
+		setUniform(program, "hasPassengersSmooth", UniformHelper.getSmooth(prevHasPassengers, hasPassengers));
+		setUniform(program, "biomeTemperatureSmooth", UniformHelper.getSmooth(prevBiomeTemperature, biomeTemperature));
+		setUniform(program, "alphaSmooth", UniformHelper.getSmooth(prevAlpha, alpha));
 	}
 	public static float getSmoothTime() {
-		if (getTime() <= 0.01) return getTime();
-		return getSmooth(prevTime, time);
-	}
-	public static float getSmooth(float prev, float current) {
-		float tickDelta = ClientData.minecraft.getTickDelta();
-		return MathHelper.lerp(tickDelta, prev, current);
-	}
-	public static Vector3f getSmooth(Vector3f prev, Vector3f current) {
-		return new Vector3f(getSmooth(prev.x, current.x), getSmooth(prev.y, current.y), getSmooth(prev.z, current.z));
+		if (getTime() <= 1.0F) return getTime();
+		return UniformHelper.getSmooth(prevTime, time);
 	}
 }
