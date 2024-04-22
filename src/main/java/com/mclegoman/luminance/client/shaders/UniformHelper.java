@@ -14,20 +14,28 @@ import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.client.gl.Uniform;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Vector3f;
 
 public class UniformHelper {
 	public static float time = 3455800.0F;
 	public static void init() {
 		ShaderRenderEvents.BeforeRender.register(new ShaderRenderEvents.ShaderRunnable() {
 			public void run(JsonEffectShaderProgram program) {
-				ShaderRenderEvents.ShaderUniform.registry.forEach((uniform, callable) -> {
+				ShaderRenderEvents.ShaderUniform.registryFloat.forEach((uniform, callable) -> {
 					try {
 						set(program, uniform.first(), uniform.second(), callable.call());
 					} catch (Exception error) {
 						Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
 					}
 				});
-				ShaderRenderEvents.ShaderUniform.registryArray.forEach((uniform, callable) -> {
+				ShaderRenderEvents.ShaderUniform.registryFloatArray.forEach((uniform, callable) -> {
+					try {
+						set(program, uniform.first(), uniform.second(), callable.call());
+					} catch (Exception error) {
+						Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
+					}
+				});
+				ShaderRenderEvents.ShaderUniform.registryVector3f.forEach((uniform, callable) -> {
 					try {
 						set(program, uniform.first(), uniform.second(), callable.call());
 					} catch (Exception error) {
@@ -60,6 +68,13 @@ public class UniformHelper {
 		return prefix + "_" + uniformName;
 	}
 	public static void set(JsonEffectShaderProgram program, String prefix, String uniformName, float... values) {
+		try {
+			getUniform(program, prefix, uniformName).set(values);
+		} catch (Exception error) {
+			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniform: {}_{}: {}", prefix, uniformName, error));
+		}
+	}
+	public static void set(JsonEffectShaderProgram program, String prefix, String uniformName, Vector3f values) {
 		try {
 			getUniform(program, prefix, uniformName).set(values);
 		} catch (Exception error) {
