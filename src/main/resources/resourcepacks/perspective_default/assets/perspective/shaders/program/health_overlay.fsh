@@ -6,6 +6,8 @@ out vec4 fragColor;
 uniform sampler2D DiffuseSampler;
 uniform float lu_currentHealthSmooth;
 uniform float lu_maxHealthSmooth;
+uniform float lu_currentAbsorptionSmooth;
+uniform float lu_maxAbsorptionSmooth;
 uniform float lu_currentHurtTimeSmooth;
 uniform float lu_maxHurtTimeSmooth;
 uniform float lu_isWitheredSmooth;
@@ -13,7 +15,7 @@ uniform float lu_isPoisonedSmooth;
 
 void main() {
     vec3 inputColor = texture(DiffuseSampler, texCoord).rgb;
-    float health = lu_currentHealthSmooth / (lu_maxHealthSmooth * 0.5);
+    float health = (lu_currentHealthSmooth + lu_currentAbsorptionSmooth) / ((lu_maxHealthSmooth + lu_maxAbsorptionSmooth) * 0.5);
     float hurt = 1.0 - (lu_currentHurtTimeSmooth / lu_maxHurtTimeSmooth);
     float withered = lu_isWitheredSmooth * 0.5;
     float poisoned = lu_isPoisonedSmooth * 0.5;

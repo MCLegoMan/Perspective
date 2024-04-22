@@ -9,6 +9,7 @@ package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.client.data.ClientData;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
+import com.mclegoman.luminance.client.util.Accessors;
 import com.mclegoman.luminance.config.ConfigHelper;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.entity.effect.StatusEffect;
@@ -66,8 +67,7 @@ public class Uniforms {
 		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getViewDistance().getValue() : 12.0F;
 	}
 	public static float getFov() {
-		// This probably should be changed to the one in GameRenderer.
-		return ClientData.minecraft.options != null ? ClientData.minecraft.options.getFov().getValue() : 70.0F;
+		return Accessors.getGameRenderer() != null ? (float) Accessors.getGameRenderer().invokeGetFov(ClientData.minecraft.gameRenderer.getCamera(), ClientData.minecraft.getTickDelta(), false) : 70.0F;
 	}
 	public static float getFps() {
 		return ClientData.minecraft.getCurrentFps();
