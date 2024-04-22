@@ -9,9 +9,7 @@ package com.mclegoman.luminance.client.shaders;
 
 import com.mclegoman.luminance.client.data.ClientData;
 import com.mclegoman.luminance.client.keybindings.Keybindings;
-import com.mclegoman.luminance.common.data.Data;
 import com.mclegoman.luminance.config.ConfigHelper;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.client.gl.Uniform;
 import net.minecraft.entity.effect.StatusEffect;
