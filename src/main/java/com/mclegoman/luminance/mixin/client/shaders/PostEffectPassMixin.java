@@ -8,10 +8,6 @@
 package com.mclegoman.luminance.mixin.client.shaders;
 
 import com.mclegoman.luminance.client.shaders.ShaderRenderEvents;
-import com.mclegoman.luminance.client.shaders.UniformHelper;
-import com.mclegoman.luminance.client.translation.Translation;
-import com.mclegoman.luminance.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.gl.JsonEffectShaderProgram;
 import net.minecraft.client.gl.PostEffectPass;
 import org.spongepowered.asm.mixin.Final;
@@ -26,19 +22,6 @@ public abstract class PostEffectPassMixin {
 	@Shadow @Final private JsonEffectShaderProgram program;
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/JsonEffectShaderProgram;enable()V"))
 	private void perspective$updateUniforms(float time, CallbackInfo ci) {
-		ShaderRenderEvents.BeforeRender.registry.forEach((uniform, callable) -> {
-			try {
-				UniformHelper.set(program, uniform.first(), uniform.second(), callable.call());
-			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
-			}
-		});
-		ShaderRenderEvents.BeforeRender.registryArray.forEach((uniform, callable) -> {
-			try {
-				UniformHelper.set(program, uniform.first(), uniform.second(), callable.call());
-			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
-			}
-		});
+		ShaderRenderEvents.BeforeRender.registry.forEach((runnable -> runnable.run(program)));
 	}
 }

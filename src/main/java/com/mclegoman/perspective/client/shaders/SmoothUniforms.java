@@ -15,7 +15,7 @@ public class SmoothUniforms extends Uniforms {
 	public static float prevZoom = getZoomMultiplier();
 	public static float zoom = getZoomMultiplier();
 	public static void init() {
-		ShaderRenderEvents.BeforeRender.register(Data.version.getID(), "zoomMultiplierSmooth", () -> UniformHelper.getSmooth(prevZoom, zoom));
+		ShaderRenderEvents.ShaderUniform.registerFloat(Data.version.getID(), "zoomMultiplierSmooth", () -> UniformHelper.getSmooth(prevZoom, zoom));
 	}
 	public static void tick() {
 		prevZoom = zoom;

@@ -17,6 +17,26 @@ import net.minecraft.util.math.MathHelper;
 
 public class UniformHelper {
 	public static float time = 3455800.0F;
+	public static void init() {
+		ShaderRenderEvents.BeforeRender.register(new ShaderRenderEvents.ShaderRunnable() {
+			public void run(JsonEffectShaderProgram program) {
+				ShaderRenderEvents.ShaderUniform.registry.forEach((uniform, callable) -> {
+					try {
+						set(program, uniform.first(), uniform.second(), callable.call());
+					} catch (Exception error) {
+						Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
+					}
+				});
+				ShaderRenderEvents.ShaderUniform.registryArray.forEach((uniform, callable) -> {
+					try {
+						set(program, uniform.first(), uniform.second(), callable.call());
+					} catch (Exception error) {
+						Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set shader uniforms: {}", error));
+					}
+				});
+			}
+		});
+	}
 	public static void updateTime() {
 		// This will get reset every 48 hours to prevent shader stuttering/freezing on some shaders.
 		// This may still stutter/freeze on weaker systems.
