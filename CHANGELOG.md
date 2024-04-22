@@ -24,7 +24,7 @@ This update focuses on shaders, and now includes **Luminance**!
   - This shader renders with only four shades of green.  
 ### Experimental
 - **Improved Shader Renderer**  
-  - Added check for if Iris Shaders are enabled, not just installed.  
+  - Added check for if Iris Shaders are enabled, instead of just installed.  
   - Will come out of experimental next update!  
 
 ## Development Build  
