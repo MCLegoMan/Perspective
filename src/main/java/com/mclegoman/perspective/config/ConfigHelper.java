@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConfigHelper {
-	public static final boolean experimentsAvailable = true;
+	public static final boolean experimentsAvailable = false;
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
@@ -518,10 +518,6 @@ public class ConfigHelper {
 				}
 				case EXPERIMENTAL -> {
 					switch (ID) {
-						case "improved_shader_renderer" -> {
-							ExperimentalConfig.improvedShaderRenderer = (boolean) VALUE;
-							configChanged = true;
-						}
 						default -> {
 							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
 						}
@@ -692,9 +688,6 @@ public class ConfigHelper {
 			}
 			case EXPERIMENTAL -> {
 				switch (ID) {
-					case "improved_shader_renderer" -> {
-						return ExperimentalConfig.improvedShaderRenderer;
-					}
 					default -> {
 						Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", ID));
 						return new Object();

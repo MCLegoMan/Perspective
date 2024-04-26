@@ -18,7 +18,6 @@ public class ExperimentalConfig {
 	protected static final String id = Data.version.getID() + "-experimental";
 	protected static SimpleConfig config;
 	protected static ConfigProvider configProvider;
-	protected static boolean improvedShaderRenderer;
 
 	protected static void init() {
 		try {
@@ -36,13 +35,11 @@ public class ExperimentalConfig {
 	}
 
 	protected static void assign() {
-		improvedShaderRenderer = config.getOrDefault("improved_shader_renderer", false);
 	}
 
 	protected static void save() {
 		if (ConfigHelper.experimentsAvailable) {
 			Data.version.sendToLog(Helper.LogType.INFO,"Writing experimental config to file.");
-			configProvider.setConfig("improved_shader_renderer", improvedShaderRenderer);
 			configProvider.saveConfig(Data.version, id);
 		}
 	}

@@ -17,7 +17,6 @@ import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -81,10 +80,10 @@ public class ExperimentalConfigScreen extends Screen {
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
 		GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.textRenderer).setCentered(true));
 		GRID_ADDER.add(new EmptyWidget(4, 4));
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental.improved_shader_renderer", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"));
-			this.refresh = true;
-		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "experimental.improved_shader_renderer", true))).build());
+//		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental.improved_shader_renderer", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"), Translation.Type.ONFF)}), (button) -> {
+//			ConfigHelper.setConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer"));
+//			this.refresh = true;
+//		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "experimental.improved_shader_renderer", true))).build());
 		return GRID;
 	}
 

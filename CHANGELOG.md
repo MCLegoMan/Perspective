@@ -1,10 +1,10 @@
 ![](https://mclegoman.com/images/a/a7/Perspective_Development_Logo.png)  
-## Perspective 1.3.0-alpha.5 for 1.20.5-rc3  
-This update focuses on shaders, and now includes **Luminance**!
+## Perspective 1.3.0-alpha.6 for 1.20.5/1.20.6-rc1
+
 
 ## Changelog  
-### Technical Changes
-- Perspective now includes **Luminance**.
+### Technical Changes  
+- Perspective now includes **Luminance**.  
   - This library mod was created from Perspective, and allows for **Dynamic Shader Uniforms**.  
     - The **Dynamic Shader Uniforms** found in 1.3.0-alpha.4 have been moved to Luminance.  
 ### Config Version 18  

@@ -40,8 +40,7 @@ dependencies {
 
 	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
 
-	//include(modImplementation "maven.modrinth:luminance:1.0.0-alpha.1")
-	include(modImplementation fileTree(dir: 'libs', include: '*.jar'))
+	include(modImplementation "maven.modrinth:luminance:${project.luminance}")
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"

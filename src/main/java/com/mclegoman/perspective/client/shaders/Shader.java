@@ -119,7 +119,7 @@ public class Shader {
 		return incompatibleModsFound;
 	}
 	public static boolean shouldDisableImprovedDepthRenderer() {
-		return !((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")) && !getImprovedDepthRendererIncompatibleMods().isEmpty() && CompatHelper.isIrisShadersEnabled();
+		return !getImprovedDepthRendererIncompatibleMods().isEmpty() && CompatHelper.isIrisShadersEnabled();
 	}
 	public static void checkKeybindings() {
 		if (Keybindings.cycleShaders.wasPressed())
@@ -417,7 +417,7 @@ public class Shader {
 		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !shouldDisableScreenMode();
 	}
 	public static boolean shouldUseDepthGameRenderer() {
-		return shouldUseGameRenderer() && !shouldDisableImprovedDepthRenderer() && ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer") && useDepth);
+		return shouldUseGameRenderer() && !shouldDisableImprovedDepthRenderer() && useDepth;
 	}
 	public static boolean shouldUseEntityLink() {
 		return canUseEntityLink() && entityPostProcessor != null && !entityPostProcessor.isEmpty();
@@ -426,7 +426,7 @@ public class Shader {
 		return shouldUseEntityLink() && useDepth;
 	}
 	public static boolean canUseEntityLink() {
-		return ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.EXPERIMENTAL, "improved_shader_renderer")) && !Data.isModInstalled("souper_secret_settings");
+		return !Data.isModInstalled("souper_secret_settings");
 	}
 	public static boolean shouldDisableScreenMode() {
 		return (boolean) get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;

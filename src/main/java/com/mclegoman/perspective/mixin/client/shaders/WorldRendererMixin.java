@@ -41,7 +41,7 @@ public abstract class WorldRendererMixin {
 			@At(value = "INVOKE", target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal = 1, shift = At.Shift.AFTER),
 			@At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderWorldBorder(Lnet/minecraft/client/render/Camera;)V", ordinal = 1, shift = At.Shift.AFTER)
 	}, method = "render")
-	public void perspective$renderGameExperimental(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
+	public void perspective$renderGameDepth(float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
 		try {
 			if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
 				Shader.renderEntityLink(tickDelta, true);
@@ -49,7 +49,7 @@ public abstract class WorldRendererMixin {
 					if (Shader.shouldRenderShader()) Shader.render(Shader.postProcessor, tickDelta, "world_renderer:game");
 				}
 			}
-		} catch (Exception error) {
+		} catch (Exception ignored) {
 		}
 	}
 	@Inject(at = {
