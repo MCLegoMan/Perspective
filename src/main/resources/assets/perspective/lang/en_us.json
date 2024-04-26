@@ -123,9 +123,13 @@
 
 	"gui.perspective.config.april_fools_prank.force": "Force Prank: %s",
 
-	"gui.perspective.config.version_overlay": "Version Overlay: %s",
+	"gui.perspective.config.overlays": "Overlays",
 
-	"gui.perspective.config.position_overlay": "Position Overlay: %s",
+	"gui.perspective.config.overlays.version_overlay": "Version Overlay: %s",
+
+	"gui.perspective.config.overlays.position_overlay": "Position Overlay: %s",
+
+	"gui.perspective.config.overlays.day_overlay": "Day Overlay: %s",
 
 	"gui.perspective.config.force_pride": "Force Pride: %s",
 
@@ -237,7 +241,11 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_players": "Toggle Players",
 
+	"gui.perspective.keybindings.keybinding.toggle_version_overlay": "Toggle Version Overlay",
+
 	"gui.perspective.keybindings.keybinding.toggle_position_overlay": "Toggle Position Overlay",
+
+	"gui.perspective.keybindings.keybinding.toggle_day_overlay": "Toggle Day Overlay",
 
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 
@@ -282,6 +290,7 @@
 
 	"gui.perspective.version_overlay": "Minecraft %s",
 	"gui.perspective.position_overlay": "Position: %s, %s, %s",
+	"gui.perspective.day_overlay": "Days played: %s",
 
 	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s",
 

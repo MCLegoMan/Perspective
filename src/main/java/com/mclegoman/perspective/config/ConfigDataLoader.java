@@ -41,8 +41,9 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean texturedRandomEntity;
 	public static boolean allowAprilFools;
 	public static boolean forceAprilFools;
-	public static boolean positionOverlay;
 	public static boolean versionOverlay;
+	public static boolean positionOverlay;
+	public static boolean dayOverlay;
 	public static boolean forcePride;
 	public static boolean forcePrideType;
 	public static int forcePrideTypeIndex;
@@ -88,8 +89,9 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				texturedRandomEntity = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "textured_random_entity", false);
 				allowAprilFools = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "allow_april_fools", true);
 				forceAprilFools = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_april_fools", false);
-				positionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "position_overlay", false);
 				versionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "version_overlay", false);
+				positionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "position_overlay", false);
+				dayOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "day_overlay", false);
 				forcePride = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride", false);
 				forcePrideType = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", false);
 				forcePrideTypeIndex = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type_index", 0);

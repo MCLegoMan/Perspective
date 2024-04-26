@@ -20,8 +20,16 @@ public class HUDHelper {
 			DebugOverlay.shaderColor = Shader.getRandomColor();
 			DebugOverlay.debugType = ClientData.minecraft.options.sneakKey.isPressed() ? DebugOverlay.debugType.prev() : DebugOverlay.debugType.next();
 		}
+		if (Keybindings.toggleVerOverlay.wasPressed()) {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"));
+			ConfigHelper.saveConfig();
+		}
 		if (Keybindings.togglePosOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay"));
+			ConfigHelper.saveConfig();
+		}
+		if (Keybindings.toggleDayOverlay.wasPressed()) {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "day_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "day_overlay"));
 			ConfigHelper.saveConfig();
 		}
 	}

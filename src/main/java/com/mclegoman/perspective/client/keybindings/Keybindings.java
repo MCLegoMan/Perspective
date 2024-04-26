@@ -32,7 +32,9 @@ public class Keybindings {
 	public static final KeyBinding toggleBlockOutline;
 	public static final KeyBinding toggleNametags;
 	public static final KeyBinding togglePlayers;
+	public static final KeyBinding toggleVerOverlay;
 	public static final KeyBinding togglePosOverlay;
+	public static final KeyBinding toggleDayOverlay;
 	public static final KeyBinding toggleShaders;
 	public static final KeyBinding toggleZoom;
 	public static final KeyBinding[] allKeybindings;
@@ -55,7 +57,9 @@ public class Keybindings {
 				toggleBlockOutline = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_block_outline", GLFW.GLFW_KEY_UNKNOWN),
 				toggleNametags = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_nametags", GLFW.GLFW_KEY_UNKNOWN),
 				togglePlayers = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_players", GLFW.GLFW_KEY_UNKNOWN),
+				toggleVerOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_version_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				togglePosOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				toggleDayOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_day_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleShaders = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
 				toggleZoom = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN)
 		};

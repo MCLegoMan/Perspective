@@ -40,7 +40,7 @@ public class ConfigHelper {
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
-	protected static final int defaultConfigVersion = 18;
+	protected static final int defaultConfigVersion = 19;
 	protected static boolean saveViaTick = false;
 	protected static int saveViaTickTicks = 0;
 	private static boolean seenDevelopmentWarning = false;
@@ -317,8 +317,9 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.NORMAL, "textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 			configChanged.add(setConfig(ConfigType.NORMAL, "allow_april_fools", ConfigDataLoader.allowAprilFools));
 			configChanged.add(setConfig(ConfigType.NORMAL, "force_april_fools", ConfigDataLoader.forceAprilFools));
-			configChanged.add(setConfig(ConfigType.NORMAL, "position_overlay", ConfigDataLoader.positionOverlay));
 			configChanged.add(setConfig(ConfigType.NORMAL, "version_overlay", ConfigDataLoader.versionOverlay));
+			configChanged.add(setConfig(ConfigType.NORMAL, "position_overlay", ConfigDataLoader.positionOverlay));
+			configChanged.add(setConfig(ConfigType.NORMAL, "day_overlay", ConfigDataLoader.dayOverlay));
 			configChanged.add(setConfig(ConfigType.NORMAL, "force_pride", ConfigDataLoader.forcePride));
 			configChanged.add(setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.forcePrideType));
 			configChanged.add(setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.forcePrideTypeIndex, 0, PerspectiveLogo.prideTypes.length)));
@@ -352,162 +353,166 @@ public class ConfigHelper {
 		}
 		return configChanged.contains(true);
 	}
-	public static boolean setConfig(ConfigType CONFIG_TYPE, String ID, Object VALUE) {
+	public static boolean setConfig(ConfigType CONFIG_TYPE, String ID, Object value) {
 		boolean configChanged = false;
 		try {
 			switch (CONFIG_TYPE) {
 				case NORMAL -> {
 					switch (ID) {
 						case "zoom_level" -> {
-							Config.zoomLevel = MathHelper.clamp((int) VALUE, 0, 100);
+							Config.zoomLevel = MathHelper.clamp((int) value, 0, 100);
 							configChanged = true;
 						}
 						case "zoom_increment_size" -> {
-							Config.zoomIncrementSize = MathHelper.clamp((int) VALUE, 1, 10);
+							Config.zoomIncrementSize = MathHelper.clamp((int) value, 1, 10);
 							configChanged = true;
 						}
 						case "zoom_transition" -> {
-							Config.zoomTransition = (String) VALUE;
+							Config.zoomTransition = (String) value;
 							configChanged = true;
 						}
 						case "zoom_scale_mode" -> {
-							Config.zoomScaleMode = (String) VALUE;
+							Config.zoomScaleMode = (String) value;
 							configChanged = true;
 						}
 						case "zoom_hide_hud" -> {
-							Config.zoomHideHud = (boolean) VALUE;
+							Config.zoomHideHud = (boolean) value;
 							configChanged = true;
 						}
 						case "zoom_show_percentage" -> {
-							Config.zoomShowPercentage = (boolean) VALUE;
+							Config.zoomShowPercentage = (boolean) value;
 							configChanged = true;
 						}
 						case "zoom_type" -> {
-							Config.zoomType = (String) VALUE;
+							Config.zoomType = (String) value;
 							configChanged = true;
 						}
 						case "hold_perspective_hide_hud" -> {
-							Config.holdPerspectiveHideHud = (boolean) VALUE;
+							Config.holdPerspectiveHideHud = (boolean) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_shader" -> {
-							Config.superSecretSettingsShader = (String) VALUE;
+							Config.superSecretSettingsShader = (String) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_mode" -> {
-							Config.superSecretSettingsMode = (String) VALUE;
+							Config.superSecretSettingsMode = (String) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_enabled" -> {
-							Config.superSecretSettingsEnabled = (boolean) VALUE;
+							Config.superSecretSettingsEnabled = (boolean) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_sound" -> {
-							Config.superSecretSettingsSound = (boolean) VALUE;
+							Config.superSecretSettingsSound = (boolean) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_show_name" -> {
-							Config.superSecretSettingsShowName = (boolean) VALUE;
+							Config.superSecretSettingsShowName = (boolean) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_selection_blur" -> {
-							Config.superSecretSettingsSelectionBlur = (boolean) VALUE;
+							Config.superSecretSettingsSelectionBlur = (boolean) value;
 							configChanged = true;
 						}
 						case "textured_named_entity" -> {
-							Config.texturedNamedEntity = (boolean) VALUE;
+							Config.texturedNamedEntity = (boolean) value;
 							configChanged = true;
 						}
 						case "textured_random_entity" -> {
-							Config.texturedRandomEntity = (boolean) VALUE;
+							Config.texturedRandomEntity = (boolean) value;
 							configChanged = true;
 						}
 						case "allow_april_fools" -> {
-							Config.allowAprilFools = (boolean) VALUE;
+							Config.allowAprilFools = (boolean) value;
 							configChanged = true;
 						}
 						case "force_april_fools" -> {
-							Config.forceAprilFools = (boolean) VALUE;
-							configChanged = true;
-						}
-						case "position_overlay" -> {
-							Config.positionOverlay = (boolean) VALUE;
+							Config.forceAprilFools = (boolean) value;
 							configChanged = true;
 						}
 						case "version_overlay" -> {
-							Config.versionOverlay = (boolean) VALUE;
+							Config.versionOverlay = (boolean) value;
+							configChanged = true;
+						}
+						case "position_overlay" -> {
+							Config.positionOverlay = (boolean) value;
+							configChanged = true;
+						}
+						case "day_overlay" -> {
+							Config.dayOverlay = (boolean) value;
 							configChanged = true;
 						}
 						case "force_pride" -> {
-							Config.forcePride = (boolean) VALUE;
+							Config.forcePride = (boolean) value;
 							configChanged = true;
 						}
 						case "force_pride_type" -> {
-							Config.forcePrideType = (boolean) VALUE;
+							Config.forcePrideType = (boolean) value;
 							configChanged = true;
 						}
 						case "force_pride_type_index" -> {
-							Config.forcePrideTypeIndex = MathHelper.clamp((int) VALUE, 0, PerspectiveLogo.prideTypes.length);
+							Config.forcePrideTypeIndex = MathHelper.clamp((int) value, 0, PerspectiveLogo.prideTypes.length);
 							configChanged = true;
 						}
 						case "show_death_coordinates" -> {
-							Config.showDeathCoordinates = (boolean) VALUE;
+							Config.showDeathCoordinates = (boolean) value;
 							configChanged = true;
 						}
 						case "title_screen" -> {
-							Config.titleScreen = (String) VALUE;
+							Config.titleScreen = (String) value;
 							configChanged = true;
 						}
 						case "ui_background" -> {
-							Config.uiBackground = (String) VALUE;
+							Config.uiBackground = (String) value;
 							configChanged = true;
 						}
 						case "ui_background_texture" -> {
-							Config.uiBackgroundTexture = VALUE instanceof Identifier ? IdentifierHelper.stringFromIdentifier((Identifier) VALUE) : (String) VALUE;
+							Config.uiBackgroundTexture = value instanceof Identifier ? IdentifierHelper.stringFromIdentifier((Identifier) value) : (String) value;
 							configChanged = true;
 						}
 						case "hide_block_outline" -> {
-							Config.hideBlockOutline = (boolean) VALUE;
+							Config.hideBlockOutline = (boolean) value;
 							configChanged = true;
 						}
 						case "hide_crosshair" -> {
-							Config.hideCrosshair = (String) VALUE;
+							Config.hideCrosshair = (String) value;
 							configChanged = true;
 						}
 						case "hide_armor" -> {
-							Config.hideArmor = (boolean) VALUE;
+							Config.hideArmor = (boolean) value;
 							configChanged = true;
 						}
 						case "hide_nametags" -> {
-							Config.hideNametags = (boolean) VALUE;
+							Config.hideNametags = (boolean) value;
 							configChanged = true;
 						}
 						case "hide_players" -> {
-							Config.hidePlayers = (boolean) VALUE;
+							Config.hidePlayers = (boolean) value;
 							configChanged = true;
 						}
 						case "hide_show_message" -> {
-							Config.hideShowMessage = (boolean) VALUE;
+							Config.hideShowMessage = (boolean) value;
 							configChanged = true;
 						}
 						case "tutorials" -> {
-							Config.tutorials = (boolean) VALUE;
+							Config.tutorials = (boolean) value;
 							configChanged = true;
 						}
 						case "detect_update_channel" -> {
-							Config.detectUpdateChannel = (String) VALUE;
+							Config.detectUpdateChannel = (String) value;
 							configChanged = true;
 						}
 						case "debug" -> {
-							Config.debug = (boolean) VALUE;
+							Config.debug = (boolean) value;
 							configChanged = true;
 						}
 						case "test_resource_pack" -> {
-							Config.testResourcePack = (boolean) VALUE;
+							Config.testResourcePack = (boolean) value;
 							configChanged = true;
 						}
 						case "config_version" -> {
-							Config.configVersion = (int) VALUE;
+							Config.configVersion = (int) value;
 							configChanged = true;
 						}
 						default -> {
@@ -527,7 +532,7 @@ public class ConfigHelper {
 				case TUTORIAL -> {
 					switch (ID) {
 						case "super_secret_settings" -> {
-							TutorialsConfig.superSecretSettings = (Boolean) VALUE;
+							TutorialsConfig.superSecretSettings = (Boolean) value;
 							configChanged = true;
 						}
 						default -> {
@@ -539,11 +544,11 @@ public class ConfigHelper {
 				case WARNING -> {
 					switch (ID) {
 						case "photosensitivity" -> {
-							WarningsConfig.photosensitivity = (boolean) VALUE;
+							WarningsConfig.photosensitivity = (boolean) value;
 							configChanged = true;
 						}
 						case "prank" -> {
-							WarningsConfig.prank = (boolean) VALUE;
+							WarningsConfig.prank = (boolean) value;
 							configChanged = true;
 						}
 						default -> {
@@ -620,11 +625,14 @@ public class ConfigHelper {
 					case "force_april_fools" -> {
 						return Config.forceAprilFools;
 					}
+					case "version_overlay" -> {
+						return Config.versionOverlay;
+					}
 					case "position_overlay" -> {
 						return Config.positionOverlay;
 					}
-					case "version_overlay" -> {
-						return Config.versionOverlay;
+					case "day_overlay" -> {
+						return Config.dayOverlay;
 					}
 					case "force_pride" -> {
 						return Config.forcePride;

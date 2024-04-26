@@ -36,8 +36,9 @@ public class Config {
 	protected static boolean texturedRandomEntity;
 	protected static boolean allowAprilFools;
 	protected static boolean forceAprilFools;
-	protected static boolean positionOverlay;
 	protected static boolean versionOverlay;
+	protected static boolean positionOverlay;
+	protected static boolean dayOverlay;
 	protected static boolean forcePride;
 	protected static boolean forcePrideType;
 	protected static int forcePrideTypeIndex;
@@ -87,8 +88,9 @@ public class Config {
 		configProvider.add(new Couple<>("textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 		configProvider.add(new Couple<>("allow_april_fools", ConfigDataLoader.allowAprilFools));
 		configProvider.add(new Couple<>("force_april_fools", ConfigDataLoader.forceAprilFools));
-		configProvider.add(new Couple<>("position_overlay", ConfigDataLoader.positionOverlay));
 		configProvider.add(new Couple<>("version_overlay", ConfigDataLoader.versionOverlay));
+		configProvider.add(new Couple<>("position_overlay", ConfigDataLoader.positionOverlay));
+		configProvider.add(new Couple<>("day_overlay", ConfigDataLoader.dayOverlay));
 		configProvider.add(new Couple<>("force_pride", ConfigDataLoader.forcePride));
 		configProvider.add(new Couple<>("force_pride_type", ConfigDataLoader.forcePrideType));
 		configProvider.add(new Couple<>("force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex));
@@ -130,6 +132,7 @@ public class Config {
 		forceAprilFools = config.getOrDefault("force_april_fools", ConfigDataLoader.forceAprilFools);
 		versionOverlay = config.getOrDefault("version_overlay", ConfigDataLoader.versionOverlay);
 		positionOverlay = config.getOrDefault("position_overlay", ConfigDataLoader.positionOverlay);
+		dayOverlay = config.getOrDefault("day_overlay", ConfigDataLoader.dayOverlay);
 		forcePride = config.getOrDefault("force_pride", ConfigDataLoader.forcePride);
 		forcePrideType = config.getOrDefault("force_pride_type", ConfigDataLoader.forcePrideType);
 		forcePrideTypeIndex = config.getOrDefault("force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex);
@@ -170,8 +173,9 @@ public class Config {
 		configProvider.setConfig("textured_random_entity", texturedRandomEntity);
 		configProvider.setConfig("allow_april_fools", allowAprilFools);
 		configProvider.setConfig("force_april_fools", forceAprilFools);
-		configProvider.setConfig("position_overlay", positionOverlay);
 		configProvider.setConfig("version_overlay", versionOverlay);
+		configProvider.setConfig("position_overlay", positionOverlay);
+		configProvider.setConfig("day_overlay", dayOverlay);
 		configProvider.setConfig("force_pride", forcePride);
 		configProvider.setConfig("force_pride_type", forcePrideType);
 		configProvider.setConfig("force_pride_type_index", forcePrideTypeIndex);
