@@ -35,7 +35,7 @@ import java.util.Random;
 
 public class PerspectiveLogo {
 	// Pride Logos will be re-worked in the near future.
-	public static final String[] prideTypes = new String[]{"rainbow", "bi"};
+	public static final String[] prideTypes = new String[]{"rainbow", "bi", "trans"};
 	// Whilst currently there are only two types, there will be more in the near future as they are re-worked.
 	private static final int prideIndex = new Random().nextInt(prideTypes.length);
 	public static void init() {

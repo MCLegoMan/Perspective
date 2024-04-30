@@ -8,6 +8,8 @@
 ![](./assets/logo/rainbow.png)
 #### Pride Logo: Bi
 ![](./assets/logo/bi.png)
+#### Pride Logo: Trans
+![](./assets/logo/trans.png)
 #### Development Overlay
 ![](./assets/logo/development.png)
 #### Main Font
