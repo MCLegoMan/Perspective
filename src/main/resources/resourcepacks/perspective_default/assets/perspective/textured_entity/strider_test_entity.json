@@ -1,0 +1,5 @@
+{
+  "entity": "minecraft:strider",
+  "name": "TEST_ENTITY",
+  "enabled": true
+}

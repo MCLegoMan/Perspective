@@ -1,0 +1,12 @@
+{
+  "namespace": "perspective",
+  "shader": "silhouette",
+  "disable_screen_mode": true,
+  "translatable": true,
+  "disable_soup": false,
+  "entity_links": [
+    "entity.minecraft.warden"
+  ],
+  "custom": {},
+  "enabled": true
+}

@@ -1,0 +1,35 @@
+{
+  "targets": [
+    "0",
+    "1"
+  ],
+  "passes": [
+    {
+      "name": "minecraft:color_convolve",
+      "intarget": "minecraft:main",
+      "outtarget": "0",
+      "uniforms": [
+        {
+          "name": "Saturation",
+          "values": [ 0.0 ]
+        }
+      ]
+    },
+    {
+      "name": "luminance:merge",
+      "intarget": "0",
+      "outtarget": "1",
+      "auxtargets": [
+        {
+          "name": "MergeSampler",
+          "id": "minecraft:main"
+        }
+      ]
+    },
+    {
+      "name": "minecraft:blit",
+      "intarget": "1",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

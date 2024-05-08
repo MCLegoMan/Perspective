@@ -1,0 +1,29 @@
+{
+    "targets": [
+        "0",
+        "1"
+    ],
+    "passes": [
+        {
+            "name": "perspective:sixteen_colors",
+            "intarget": "minecraft:main",
+            "outtarget": "0"
+        },
+        {
+            "name": "luminance:merge",
+            "intarget": "0",
+            "outtarget": "1",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "minecraft:blit",
+            "intarget": "1",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}

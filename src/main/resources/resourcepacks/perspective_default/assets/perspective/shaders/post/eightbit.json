@@ -1,0 +1,56 @@
+{
+    "targets": [
+        "0",
+        "1",
+        "2",
+        "3"
+    ],
+    "passes": [
+        {
+            "name": "perspective:green",
+            "intarget": "minecraft:main",
+            "outtarget": "0"
+        },
+        {
+            "name": "perspective:pixelated",
+            "intarget": "0",
+            "outtarget": "1",
+            "uniforms": [
+                {
+                    "name": "Amount",
+                    "values": [ 4.0 ]
+                }
+            ]
+        },
+        {
+            "name": "minecraft:notch",
+            "intarget": "1",
+            "outtarget": "2",
+            "auxtargets": [
+                {
+                    "name": "DitherSampler",
+                    "id": "dither",
+                    "width": 4,
+                    "height": 4,
+                    "bilinear": false
+                }
+            ]
+        },
+        {
+            "name": "luminance:merge",
+            "intarget": "2",
+            "outtarget": "3",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "minecraft:blit",
+            "intarget": "3",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}
