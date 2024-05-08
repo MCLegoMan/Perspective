@@ -48,6 +48,18 @@
 					]
 				},
 				{
+					"subtitle": "Luminance",
+					"subsections": [
+						{
+							"subtitle": "A library mod that helps other mods with shaders.",
+							"subsections": [
+								"Author: MCLegoMan",
+								"License: LGPL-3.0-or-later"
+							]
+						}
+					]
+				},
+				{
 					"subtitle": "SimpleConfig",
 					"subsections": [
 						{
