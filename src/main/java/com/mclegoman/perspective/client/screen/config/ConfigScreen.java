@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.screen.config.overlays.OverlaysConfigScreen;
 import com.mclegoman.perspective.client.screen.config.ui.UiBackgroundConfigScreen;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -63,7 +64,7 @@ public class ConfigScreen extends Screen {
 			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to initialize config screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config screen: {}", error));
 		}
 	}
 	public void tick() {
@@ -76,7 +77,7 @@ public class ConfigScreen extends Screen {
 				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to tick perspective$config screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick perspective$config screen: {}", error));
 		}
 	}
 	private GridWidget createPageOne() {

@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config.hide;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
@@ -50,7 +51,7 @@ public class HideConfigScreen extends Screen {
 			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config$hide screen: {}", error));
 		}
 	}
 	public void tick() {
@@ -62,7 +63,7 @@ public class HideConfigScreen extends Screen {
 				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick config$hide screen: {}", error));
 		}
 	}
 	private GridWidget createHide() {

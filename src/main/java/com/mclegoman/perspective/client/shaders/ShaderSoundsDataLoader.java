@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.registry.Registries;
@@ -38,7 +40,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 		try {
 			if (!SOUNDS.contains(SOUND)) SOUNDS.add(SOUND);
 		} catch (Exception error) {
-			Data.version.getLogger().error("{} Failed to add shader sound to registry: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add shader sound to registry: {}", error));
 		}
 	}
 
@@ -47,7 +49,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 			SOUNDS.clear();
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.version.getLogger().error("{} Failed to reset shader sound registry: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset shader sound registry: {}", error));
 		}
 	}
 
@@ -73,7 +75,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 				}
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to load shader sound values: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load shader sound values: {}", error));
 		}
 	}
 

@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config.shaders;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -54,7 +55,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 				ClientData.minecraft.setScreen(new ShaderSelectionConfigScreen(parent, formattings, widget.getScrollAmount(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur")));
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to tick perspective$config$shaders$select screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick perspective$config$shaders$select screen: {}", error));
 		}
 	}
 

@@ -7,11 +7,11 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.luminance.config.ConfigProvider;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.darktree.simplelibs.config.SimpleConfig;
 
 public class Config {
@@ -65,7 +65,7 @@ public class Config {
 			config = SimpleConfig.of(id).provider(configProvider).request();
 			assign();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to initialize {} config: {}", id, error));
+			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to initialize {} config: {}", id, error));
 		}
 	}
 
@@ -154,7 +154,7 @@ public class Config {
 	}
 
 	protected static void save() {
-		Data.version.sendToLog(Helper.LogType.INFO,"Writing config to file.");
+		Data.version.sendToLog(LogType.INFO,"Writing config to file.");
 		configProvider.setConfig("zoom_level", zoomLevel);
 		configProvider.setConfig("zoom_increment_size", zoomIncrementSize);
 		configProvider.setConfig("zoom_transition", zoomTransition);

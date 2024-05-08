@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config.zoom;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
@@ -49,7 +50,7 @@ public class ZoomConfigScreen extends Screen {
 			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to initialize config$zoom screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config$zoom screen: {}", error));
 		}
 	}
 
@@ -62,7 +63,7 @@ public class ZoomConfigScreen extends Screen {
 				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to tick config$zoom screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick config$zoom screen: {}", error));
 		}
 	}
 

@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
@@ -38,7 +40,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 			Couple<Identifier, Boolean> skin = new Couple<>(id, isSlim);
 			if (!registry.contains(skin)) registry.add(skin);
 		} catch (Exception error) {
-			Data.version.getLogger().error("{} Failed to add april fools prank to registry: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add april fools prank to registry: {}", error));
 		}
 	}
 	private void addSkin(String id, boolean isSlim) {
@@ -55,7 +57,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 		try {
 			registry.clear();
 		} catch (Exception error) {
-			Data.version.getLogger().error("{} Failed to reset april fools prank registry: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset april fools prank registry: {}", error));
 		}
 	}
 	@Override
@@ -73,7 +75,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 				contributor = JsonHelper.getString(reader, "contributor", "772eb47b-a24e-4d43-a685-6ca9e9e132f7");
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to load prank values: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load prank values: {}", error));
 		}
 	}
 	@Override

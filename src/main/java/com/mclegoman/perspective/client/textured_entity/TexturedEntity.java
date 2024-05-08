@@ -8,6 +8,8 @@
 package com.mclegoman.perspective.client.textured_entity;
 
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -25,7 +27,7 @@ public class TexturedEntity {
 			TexturedEntityModels.init();
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TexturedEntityDataLoader());
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to initialize textured entity texture: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize textured entity texture: {}", error));
 		}
 	}
 	public static Identifier getTexture(Entity entity, String namespace, String entity_type, String prefix, String suffix, Identifier default_identifier) {
@@ -54,7 +56,7 @@ public class TexturedEntity {
 				}
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to set textured entity texture: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set textured entity texture: {}", error));
 		}
 		return default_identifier;
 	}
@@ -83,7 +85,7 @@ public class TexturedEntity {
 				if (entityNamespace.equals(namespace) && entityType.equals(entity_type)) entityRegistry.add(name);
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to get textured entity string registry: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to get textured entity string registry: {}", error));
 		}
 		return entityRegistry;
 	}
@@ -104,7 +106,7 @@ public class TexturedEntity {
 				}
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to get textured entity entity specific data: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to get textured entity entity specific data: {}", error));
 		}
 		return null;
 	}
@@ -113,7 +115,7 @@ public class TexturedEntity {
 			List<Object> registry = getRegistry(namespace, type, name);
 			return registry.size() >= index ? registry.get(index) : null;
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to get textured entity registry (via index): {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to get textured entity registry (via index): {}", error));
 		}
 		return null;
 	}
@@ -134,7 +136,7 @@ public class TexturedEntity {
 
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to get textured entity registry: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to get textured entity registry: {}", error));
 		}
 		return entityRegistry;
 	}

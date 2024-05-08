@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
@@ -23,7 +24,6 @@ import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
@@ -58,20 +58,20 @@ public class ConfigHelper {
 		try {
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ConfigDataLoader());
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to initialize config!: {}", error));
+			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to initialize config!: {}", error));
 		}
 	}
 	protected static void loadConfig() {
 		try {
 			reloadConfig(false);
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to load configs!");
+			Data.version.sendToLog(LogType.WARN, "Failed to load configs!");
 		}
 		if (!ClientData.getFinishedInitializingAfterConfig()) afterConfig();
 	}
 	public static void reloadConfig(boolean log) {
 		if (log) {
-			Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Reloading Config!"));
+			Data.version.sendToLog(LogType.INFO, Translation.getString("Reloading Config!"));
 			showReloadOverlay = true;
 			showReloadOverlayTicks = 20;
 		}
@@ -86,7 +86,7 @@ public class ConfigHelper {
 			Update.checkForUpdates(Data.version);
 			ClientData.setFinishedInitializingAfterConfig(true);
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to init afterConfig.");
+			Data.version.sendToLog(LogType.WARN, "Failed to init afterConfig.");
 		}
 	}
 	public static void tick() {
@@ -116,22 +116,22 @@ public class ConfigHelper {
 			}
 			showToasts();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to tick config!");
+			Data.version.sendToLog(LogType.WARN, "Failed to tick config!");
 		}
 	}
 	private static void showToasts() {
 		if (Data.version.isDevelopmentBuild() && !seenDevelopmentWarning) {
-			Data.version.sendToLog(Helper.LogType.INFO, "Development Build: Please help us improve by submitting bug reports if you encounter any issues.");
+			Data.version.sendToLog(LogType.INFO, "Development Build: Please help us improve by submitting bug reports if you encounter any issues.");
 			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.development_warning.title")}), Translation.getTranslation(Data.version.getID(), "toasts.development_warning.description"), 320, Toast.Type.WARNING));
 			seenDevelopmentWarning = true;
 		}
 		if (showDowngradeWarning && !seenDowngradeWarning) {
-			Data.version.sendToLog(Helper.LogType.INFO, "Downgrading is not supported: You may experience configuration related issues.");
+			Data.version.sendToLog(LogType.INFO, "Downgrading is not supported: You may experience configuration related issues.");
 			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.downgrade_warning.title")}), Translation.getTranslation(Data.version.getID(), "toasts.downgrade_warning.description"), 320, Toast.Type.WARNING));
 			seenDowngradeWarning = true;
 		}
 		if (showLicenseUpdateNotice && !seenLicenseUpdateNotice) {
-			Data.version.sendToLog(Helper.LogType.INFO, "License Update: Perspective is now licensed under LGPL-3.0-or-later.");
+			Data.version.sendToLog(LogType.INFO, "License Update: Perspective is now licensed under LGPL-3.0-or-later.");
 			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.license_update.title")}), Translation.getTranslation(Data.version.getID(), "toasts.license_update.description"), 320, Toast.Type.INFO));
 			seenLicenseUpdateNotice = true;
 		}
@@ -141,7 +141,7 @@ public class ConfigHelper {
 			boolean shouldSaveConfig = false;
 			if (Config.config.getOrDefault("config_version", defaultConfigVersion) != defaultConfigVersion) {
 				if (Config.config.getOrDefault("config_version", defaultConfigVersion) < defaultConfigVersion) {
-					Data.version.getLogger().info("{} Attempting to update config to the latest version.", Data.version.getLoggerPrefix());
+					Data.version.sendToLog(LogType.ERROR, Translation.getString("Attempting to update config to the latest version."));
 					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 3) {
 						setConfig(ConfigType.NORMAL, "zoom_level", 100 - (int) getConfig(ConfigType.NORMAL, "zoom_level"));
 					}
@@ -179,10 +179,10 @@ public class ConfigHelper {
 						setConfig(ConfigType.NORMAL, "title_screen", Config.config.getOrDefault("dirt_title_screen", false) ? "dirt" : "default");
 					}
 					setConfig(ConfigType.NORMAL, "config_version", defaultConfigVersion);
-					Data.version.getLogger().info("{} Successfully updated config to the latest version.", Data.version.getLoggerPrefix());
+					Data.version.sendToLog(LogType.ERROR, Translation.getString("Successfully updated config to the latest version."));
 				} else if (Config.config.getOrDefault("config_version", defaultConfigVersion) > defaultConfigVersion) {
 					if (!seenDowngradeWarning) {
-						Data.version.getLogger().warn("{} Downgrading is not supported. You may experience configuration related issues.", Data.version.getLoggerPrefix());
+						Data.version.sendToLog(LogType.ERROR, Translation.getString("Downgrading is not supported. You may experience configuration related issues."));
 						showDowngradeWarning = true;
 					}
 				}
@@ -191,7 +191,7 @@ public class ConfigHelper {
 			if (fixConfig()) shouldSaveConfig = true;
 			if (shouldSaveConfig) saveConfig();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to update config!");
+			Data.version.sendToLog(LogType.WARN, "Failed to update config!");
 		}
 		updatedConfig = true;
 	}
@@ -207,7 +207,7 @@ public class ConfigHelper {
 			}
 			savingConfig = false;
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to save config!");
+			Data.version.sendToLog(LogType.WARN, "Failed to save config!");
 		}
 	}
 	private static void addSaveConfig(boolean shouldSave, ConfigType... configTypes) {
@@ -225,68 +225,68 @@ public class ConfigHelper {
 				}
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to add save config!");
+			Data.version.sendToLog(LogType.WARN, "Failed to add save config!");
 		}
 	}
 	public static void saveConfig() {
 		try {
 			saveViaTick = true;
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to set config tick save!");
+			Data.version.sendToLog(LogType.WARN, "Failed to set config tick save!");
 		}
 	}
 	public static boolean fixConfig() {
 		if (ClientData.isFinishedInitializing()) {
 			ArrayList<Boolean> hasFixedConfig = new ArrayList<>();
 			if ((int) getConfig(ConfigType.NORMAL, "zoom_level") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_level") > 100) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: zoom_level was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_level") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_level was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_level") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "zoom_level", ConfigDataLoader.zoomLevel));
 			}
 			if ((int) getConfig(ConfigType.NORMAL, "zoom_increment_size") < 0 || (int) getConfig(ConfigType.NORMAL, "zoom_increment_size") > 10) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: zoom_increment_size was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_increment_size") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_increment_size was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_increment_size") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "zoom_increment_size", ConfigDataLoader.zoomIncrementSize));
 			}
 			if (!Arrays.stream(Zoom.zoomTransitions).toList().contains((String) getConfig(ConfigType.NORMAL, "zoom_transition"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: zoom_transition was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_transition") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_transition was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_transition") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "zoom_transition", ConfigDataLoader.zoomTransition));
 			}
 			if (!Arrays.stream(Zoom.zoomScaleModes).toList().contains((String) getConfig(ConfigType.NORMAL, "zoom_scale_mode"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: zoom_scale_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_scale_mode") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_scale_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_scale_mode") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "zoom_scale_mode", ConfigDataLoader.zoomScaleMode));
 			}
 			if (!Zoom.isValidZoomType(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigType.NORMAL, "zoom_type")))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_type") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_type") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.zoomType));
 			}
 			if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
 				Shader.superSecretSettingsIndex = (!Shader.isShaderAvailable(ConfigDataLoader.superSecretSettingsShader)) ? Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1) : Shader.getShaderValue(ConfigDataLoader.superSecretSettingsShader);
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex)));
 				// We also disable super secret settings as it's unlikely to be a shader they want anyway (e.g blur).
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", false));
 			}
 			if (!Arrays.stream(Shader.shaderModes).toList().contains((String) getConfig(ConfigType.NORMAL, "super_secret_settings_mode"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
 			}
 			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > PerspectiveLogo.prideTypes.length) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: force_pride_type_index was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type_index") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: force_pride_type_index was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type_index") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex));
 			}
 			if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.NORMAL, "hide_crosshair"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "hide_crosshair") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "hide_crosshair") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "hide_crosshair", ConfigDataLoader.hideCrosshair));
 			}
 			if (!Arrays.stream(Update.detectUpdateChannels).toList().contains((String) getConfig(ConfigType.NORMAL, "detect_update_channel"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "detect_update_channel") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 			}
 			if (!UIBackground.isValidTitleScreenBackgroundType((String) getConfig(ConfigType.NORMAL, "title_screen"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: title_screen was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "title_screen") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: title_screen was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "title_screen") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "title_screen", UIBackground.isValidTitleScreenBackgroundType(ConfigDataLoader.titleScreen) ? ConfigDataLoader.titleScreen : "default"));
 			}
 			if (!UIBackground.isValidUIBackgroundType((String) getConfig(ConfigType.NORMAL, "ui_background"))) {
-				Data.version.sendToLog(Helper.LogType.WARN, "Config: ui_background was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "ui_background") + ")");
+				Data.version.sendToLog(LogType.WARN, "Config: ui_background was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "ui_background") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "ui_background", UIBackground.isValidUIBackgroundType(ConfigDataLoader.uiBackground) ? ConfigDataLoader.uiBackground : "default"));
 			}
 			return hasFixedConfig.contains(true);
@@ -340,7 +340,7 @@ public class ConfigHelper {
 			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
 			fixConfig();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to reset config!");
+			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
 		}
 		return configChanged.contains(true);
 	}
@@ -349,7 +349,7 @@ public class ConfigHelper {
 		try {
 			configChanged.add(setConfig(ConfigType.EXPERIMENTAL, "improved_shader_renderer", false));
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, "Failed to reset experiments!");
+			Data.version.sendToLog(LogType.WARN, "Failed to reset experiments!");
 		}
 		return configChanged.contains(true);
 	}
@@ -516,7 +516,7 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						default -> {
-							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", ID));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.NORMAL);
@@ -524,7 +524,7 @@ public class ConfigHelper {
 				case EXPERIMENTAL -> {
 					switch (ID) {
 						default -> {
-							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.EXPERIMENTAL);
@@ -536,7 +536,7 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						default -> {
-							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", ID));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.TUTORIAL);
@@ -552,18 +552,18 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						default -> {
-							Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.WARNING);
 				}
 				default -> {
-					Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", ID));
+					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", ID));
 					return false;
 				}
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to set {} config value!: {}", ID, error));
+			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", ID, error));
 		}
 		return configChanged;
 	}
@@ -689,7 +689,7 @@ public class ConfigHelper {
 						return Config.configVersion;
 					}
 					default -> {
-						Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", ID));
 						return new Object();
 					}
 				}
@@ -697,7 +697,7 @@ public class ConfigHelper {
 			case EXPERIMENTAL -> {
 				switch (ID) {
 					default -> {
-						Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", ID));
 						return new Object();
 					}
 				}
@@ -706,7 +706,7 @@ public class ConfigHelper {
 				switch (ID) {
 					case "super_secret_settings" -> {return TutorialsConfig.superSecretSettings;}
 					default -> {
-						Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get tutorial {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get tutorial {} config value!: Invalid Key", ID));
 						return new Object();
 					}
 				}
@@ -720,13 +720,13 @@ public class ConfigHelper {
 						return WarningsConfig.prank;
 					}
 					default -> {
-						Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get warning {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get warning {} config value!: Invalid Key", ID));
 						return new Object();
 					}
 				}
 			}
 			default -> {
-				Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Config", ID));
+				Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Config", ID));
 				return new Object();
 			}
 		}

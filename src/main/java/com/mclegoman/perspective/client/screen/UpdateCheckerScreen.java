@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
@@ -41,7 +42,7 @@ public class UpdateCheckerScreen extends Screen {
 			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to initialize config$hide screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config$hide screen: {}", error));
 		}
 	}
 	public void tick() {
@@ -49,7 +50,7 @@ public class UpdateCheckerScreen extends Screen {
 			if (Update.updateCheckerComplete) this.shouldClose = true;
 			if (this.shouldClose) ClientData.minecraft.setScreen(parentScreen);
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to tick config$hide screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick config$hide screen: {}", error));
 		}
 	}
 	public void initTabNavigation() {

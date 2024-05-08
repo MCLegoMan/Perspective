@@ -8,11 +8,11 @@
 package com.mclegoman.perspective.client.ui;
 
 import com.mclegoman.luminance.common.util.IdentifierHelper;
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gui.DrawContext;
@@ -80,7 +80,7 @@ public class UIBackground {
 				postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), ClientData.minecraft.getFramebuffer(), new Identifier("perspective", "shaders/post/gaussian.json"));
 				postProcessor.setupDimensions(ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error loading blur shader: {}", error));
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error loading blur shader: {}", error));
 			}
 		}
 		public static void render(float tickDelta) {
@@ -90,7 +90,7 @@ public class UIBackground {
 				postProcessor.render(tickDelta);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering blur ui background: {}", error));
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error rendering blur ui background: {}", error));
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class UIBackground {
 				context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
 			}
 		}
 		public static void renderMenu(DrawContext context) {
@@ -111,7 +111,7 @@ public class UIBackground {
 				context.drawTexture(new Identifier(Data.version.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 				RenderSystem.disableBlend();
 			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error rendering legacy ui background: {}", error));
 			}
 		}
 	}

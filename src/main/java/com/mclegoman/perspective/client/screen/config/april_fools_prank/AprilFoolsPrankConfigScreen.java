@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config.april_fools_prank;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
@@ -48,7 +49,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 			grid.forEachChild(this::addDrawableChild);
 			initTabNavigation();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to initialize config>april fools prank screen: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config>april fools prank screen: {}", error));
 		}
 	}
 	public void tick() {
@@ -60,7 +61,7 @@ public class AprilFoolsPrankConfigScreen extends Screen {
 				ClientData.minecraft.setScreen(parentScreen);
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to tick perspective$config$april_fools screen: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick perspective$config$april_fools screen: {}", error));
 		}
 	}
 	private GridWidget createAprilFools() {

@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.zoom;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigDataLoader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
@@ -15,7 +16,6 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -43,7 +43,7 @@ public class Zoom {
 			addZoomType(Logarithmic.getIdentifier());
 			addZoomType(Linear.getIdentifier());
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to init zoom: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to init zoom: {}", error));
 		}
 	}
 	public static void tick() {
@@ -54,7 +54,7 @@ public class Zoom {
 				hasUpdated = false;
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
 		}
 	}
 	public static boolean isZooming() {
@@ -71,7 +71,7 @@ public class Zoom {
 			multiplier = Multiplier.getMultiplier();
 			updateTransition();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to update zoom multiplier: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to update zoom multiplier: {}", error));
 		}
 	}
 	public static void updateTransition() {
@@ -80,7 +80,7 @@ public class Zoom {
 				multiplier = (prevMultiplier + multiplier) * 0.5;
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to update zoom transition: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to update zoom transition: {}", error));
 		}
 	}
 	public static double getPrevMultiplier() {
@@ -109,7 +109,7 @@ public class Zoom {
 			}
 			if (updated) setOverlay();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom level: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set zoom level: {}", error));
 		}
 	}
 	public static void reset() {
@@ -120,7 +120,7 @@ public class Zoom {
 				hasUpdated = true;
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to reset zoom level: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset zoom level: {}", error));
 		}
 	}
 	private static void setOverlay() {
@@ -128,7 +128,7 @@ public class Zoom {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")).formatted(Formatting.GOLD));
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
 		}
 	}
 	public static String cycleZoomType() {
@@ -140,7 +140,7 @@ public class Zoom {
 			String zoomType = IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size()));
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", zoomType);
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
 		}
 		return null;
 	}
@@ -186,7 +186,7 @@ public class Zoom {
 			try {
 				currentMultiplier = multiplier;
 			} catch (Exception error) {
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to set Zoom Multiplier: {}", error));
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set Zoom Multiplier: {}", error));
 			}
 		}
 	}

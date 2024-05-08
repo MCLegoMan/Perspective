@@ -11,12 +11,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.Resource;
@@ -52,14 +52,14 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 			Couple<String, Boolean> splash = new Couple<>(text, translatable);
 			if (!registry.contains(splash)) registry.add(splash);
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to add splash text to registry: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add splash text to registry: {}", error));
 		}
 	}
 	private void reset() {
 		try {
 			registry.clear();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to reset splash text registry: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset splash text registry: {}", error));
 		}
 	}
 	@Override
@@ -76,7 +76,7 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 			}
 			randomizeSplashText();
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Failed to load splash text from dataloader: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load splash text from dataloader: {}", error));
 		}
 	}
 	@Override

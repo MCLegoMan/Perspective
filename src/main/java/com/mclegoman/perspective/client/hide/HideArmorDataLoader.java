@@ -9,6 +9,8 @@ package com.mclegoman.perspective.client.hide;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
@@ -34,7 +36,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 		try {
 			if (!REGISTRY.contains(value)) REGISTRY.add(value);
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to add hide armor to registry: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add hide armor to registry: {}", error));
 		}
 	}
 
@@ -42,7 +44,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 		try {
 			REGISTRY.clear();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to reset hide armor registry: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset hide armor registry: {}", error));
 		}
 	}
 
@@ -52,7 +54,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 			reset();
 			layout$perspective(manager);
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to apply hide armor dataloader: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to apply hide armor dataloader: {}", Data.version.getID(), error));
 		}
 	}
 
@@ -69,7 +71,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 					add(value.getAsString());
 				}
 			} catch (Exception error) {
-				Data.version.getLogger().warn("{} Failed to load perspective hide armor list: {}", Data.version.getID(), error);
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load perspective hide armor list: {}", error));
 			}
 		}
 	}

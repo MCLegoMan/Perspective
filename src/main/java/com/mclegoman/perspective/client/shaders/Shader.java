@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.toasts.Toast;
@@ -17,7 +18,6 @@ import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -74,7 +74,7 @@ public class Shader {
 			addImprovedDepthRendererIncompatibleMod("canvas");
 			Uniforms.init();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Caught an error whilst initializing Super Secret Settings", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Caught an error whilst initializing Super Secret Settings: {}", error));
 		}
 	}
 	public static void tick() {
@@ -219,7 +219,7 @@ public class Shader {
 		if (SAVE_CONFIG) ConfigHelper.saveConfig();
 	}
 
-	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
+	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean saveConfig) {
 		try {
 			if (shouldCycle && isShaderButtonsEnabled()) {
 				if (forwards) {
@@ -232,36 +232,36 @@ public class Shader {
 					else superSecretSettingsIndex = (ShaderDataLoader.getShaderAmount() - 1);
 				}
 			}
-			set(forwards, false, showShaderName, SAVE_CONFIG);
+			set(forwards, false, showShaderName, saveConfig);
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"))
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
-				Data.version.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.version.getLoggerPrefix(), error);
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to play random Super Secret Settings sound: {}", error));
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} An error occurred whilst trying to cycle Super Secret Settings.", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to cycle Super Secret Settings: {}", error));
 		}
 	}
 
-	public static void random(boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
+	public static void random(boolean playSound, boolean showShaderName, boolean saveConfig) {
 		try {
 			if (isShaderButtonsEnabled()) {
 				int SHADER = superSecretSettingsIndex;
 				while (SHADER == superSecretSettingsIndex)
 					SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
 				superSecretSettingsIndex = SHADER - 1;
-				set(true, playSound, showShaderName, SAVE_CONFIG);
+				set(true, playSound, showShaderName, saveConfig);
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} An error occurred whilst trying to randomize Super Secret Settings.", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to randomize Super Secret Settings: {}", error));
 		}
 	}
-	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG) {
-		set(forwards, playSound, showShaderName, SAVE_CONFIG, ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
+	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean saveConfig) {
+		set(forwards, playSound, showShaderName, saveConfig, ClientData.minecraft.getFramebuffer(), ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 	}
-	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean SAVE_CONFIG, Framebuffer framebuffer, int framebufferWidth, int framebufferHeight) {
+	public static void set(Boolean forwards, boolean playSound, boolean showShaderName, boolean saveConfig, Framebuffer framebuffer, int framebufferWidth, int framebufferHeight) {
 		useDepth = false;
 		depthFix = true;
 		try {
@@ -285,7 +285,7 @@ public class Shader {
 						cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
 					}
 				} catch (Exception error) {
-					Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
+					Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 				}
 			} catch (FileNotFoundException ignored) {
 				// We ignore this error as we would have already caught errors with the post json on load.
@@ -299,14 +299,14 @@ public class Shader {
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
-				Data.version.getLogger().warn("{} An error occurred whilst trying to play random Super Secret Settings sound.", Data.version.getLoggerPrefix(), error);
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to play random Super Secret Settings sound: {}", error));
 			}
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				toggle(true, false, true, false);
-			if (SAVE_CONFIG) ConfigHelper.saveConfig();
+			if (saveConfig) ConfigHelper.saveConfig();
 
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} An error occurred whilst trying to set Super Secret Settings.", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set Super Secret Settings.", error));
 			try {
 				// If there's an issue, we always save the config.
 				cycle(true, forwards, false, true, true);
@@ -351,7 +351,7 @@ public class Shader {
 									entityCloudsFramebuffer.add(postProcessor.getSecondaryTarget("clouds"));
 								}
 							} catch (Exception error) {
-								Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
+								Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
 							}
 						} catch (FileNotFoundException ignored) {
 							// We ignore this error as we would have already caught errors with the post json on load.
@@ -361,7 +361,7 @@ public class Shader {
 				}
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} An error occurred whilst trying to set entity link shader.", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set entity link shader.", error));
 		}
 		entityDepthFix = false;
 	}
@@ -457,7 +457,7 @@ public class Shader {
 				}
 			}
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to release shaders: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to release shaders: {}", error));
 		}
 	}
 }

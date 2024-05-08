@@ -10,9 +10,9 @@ package com.mclegoman.perspective.client.textured_entity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
@@ -43,7 +43,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			if (enabled) registry.add(texturedEntity);
 			else registry.remove(texturedEntity);
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to add textured entity to registry: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add textured entity to registry: {}", error));
 		}
 	}
 
@@ -157,7 +157,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 					"zombie_villager"
 			});
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.WARN, Translation.getString("Failed to reset Textured Entity registry: {}", error));
+			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to reset Textured Entity registry: {}", error));
 		}
 	}
 	public void addDefaultTexturedEntities(String namespace, String[] entityTypes) {
@@ -173,7 +173,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			prepared.forEach(this::layout$perspective);
 			isReady = true;
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to apply textured entity dataloader: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to apply textured entity dataloader: {}", error));
 		}
 	}
 
@@ -193,7 +193,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			Boolean enabled = JsonHelper.getBoolean(reader, "enabled", true);
 			add(namespace, type, name, entity_specific, enabled);
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to load perspective textured entity: {}", Data.version.getID(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load perspective textured entity: {}", error));
 		}
 	}
 }

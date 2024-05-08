@@ -7,11 +7,11 @@
 
 package com.mclegoman.perspective.client.keybindings;
 
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
@@ -65,12 +65,12 @@ public class Keybindings {
 		};
 	}
 	public static void init() {
-		Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Initializing keybindings!"));
+		Data.version.sendToLog(LogType.INFO, Translation.getString("Initializing keybindings!"));
 	}
 	public static void tick() {
 		if (!KeybindingHelper.seenConflictingKeybindingToasts) {
 			if (KeybindingHelper.hasKeybindingConflicts()) {
-				Data.version.sendToLog(Helper.LogType.INFO, Translation.getString("Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed."));
+				Data.version.sendToLog(LogType.INFO, Translation.getString("Conflicting Keybinding. Keybinding conflicts have been detected that could affect Perspective. Please take a moment to review and adjust your keybindings as needed."));
 				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.keybinding_conflicts.title")}), Translation.getTranslation(Data.version.getID(), "toasts.keybinding_conflicts.description"), 320, Toast.Type.WARNING));
 			}
 			KeybindingHelper.seenConflictingKeybindingToasts = true;

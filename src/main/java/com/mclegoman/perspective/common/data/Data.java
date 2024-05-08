@@ -7,9 +7,9 @@
 
 package com.mclegoman.perspective.common.data;
 
-import com.mclegoman.luminance.common.data.Version;
-import com.mclegoman.releasetypeutils.common.version.Helper;
+import com.mclegoman.luminance.common.util.ReleaseType;
+import com.mclegoman.luminance.common.util.Version;
 
 public class Data extends com.mclegoman.luminance.common.data.Data {
-	public static final Version version = Version.create("Perspective", "perspective", 1, 3, 0, Helper.ReleaseType.ALPHA, 7, "6CTGnrNg");
+	public static final Version version = Version.create("Perspective", "perspective", 1, 3, 0, ReleaseType.ALPHA, 7, "6CTGnrNg");
 }

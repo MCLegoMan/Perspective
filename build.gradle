@@ -41,16 +41,12 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
-
-	include(modImplementation "com.github.MCLegoMan:releasetypeutils:${project.releasetypeutils}")
-
 	include(modImplementation "maven.modrinth:luminance:${project.luminance}")
-
-	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
-	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
 
 	// Development Environment Only
 	modImplementation "com.ptsmods:devlogin:3.4.1"
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
 }
 processResources {
 	inputs.property "version", project.mod_version

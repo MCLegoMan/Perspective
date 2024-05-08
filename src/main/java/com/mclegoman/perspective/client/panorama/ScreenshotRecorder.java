@@ -7,6 +7,8 @@
 
 package com.mclegoman.perspective.client.panorama;
 
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gl.Framebuffer;
@@ -29,7 +31,7 @@ public class ScreenshotRecorder {
 			try {
 				nativeImage.writeTo(file2);
 			} catch (Exception error) {
-				Data.version.getLogger().warn("{} Failed to save screenshot: ", Data.version.getLoggerPrefix(), error);
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to save screenshot: ", error));
 			}
 			nativeImage.close();
 		});

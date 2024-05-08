@@ -9,6 +9,8 @@ package com.mclegoman.perspective.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
@@ -112,7 +114,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {
-			Data.version.getLogger().warn("{} Failed to load default config values: {}", Data.version.getLoggerPrefix(), error);
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load default config values: {}", error));
 		}
 	}
 

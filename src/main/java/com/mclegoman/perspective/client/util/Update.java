@@ -10,14 +10,16 @@ package com.mclegoman.perspective.client.util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.Helper;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.luminance.common.util.ReleaseType;
+import com.mclegoman.luminance.common.util.Version;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.UpdateCheckerScreen;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.luminance.common.data.Version;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import net.minecraft.SharedConstants;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Util;
@@ -44,10 +46,10 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 			newerVersionFound = false;
 			try {
 				if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("none") && currentVersion.hasModrinthID()) {
-					currentVersion.sendToLog(Helper.LogType.INFO, "Checking for new updates...");
-					currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("Current Version: {}", currentVersion.getFriendlyString()));
-					currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("Update Channel: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")));
-					currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("Minecraft Version: {}", SharedConstants.getGameVersion().getName()));
+					currentVersion.sendToLog(LogType.INFO, "Checking for new updates...");
+					currentVersion.sendToLog(LogType.INFO, Translation.getString("Current Version: {}", currentVersion.getFriendlyString()));
+					currentVersion.sendToLog(LogType.INFO, Translation.getString("Update Channel: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")));
+					currentVersion.sendToLog(LogType.INFO, Translation.getString("Minecraft Version: {}", SharedConstants.getGameVersion().getName()));
 					JsonArray apiDataVersion = (JsonArray) getModrinthData(currentVersion.getModrinthID(), "version");
 					if (apiDataVersion != null) {
 						boolean compatible_version = false;
@@ -68,12 +70,12 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 								int major = Integer.parseInt(version_number.substring(0, 1));
 								int minor = Integer.parseInt(version_number.substring(2, 3));
 								int patch = Integer.parseInt(version_number.substring(4, 5));
-								Helper.ReleaseType type = Helper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
+								ReleaseType type = Helper.stringToType(version_number.substring(6, version_number.lastIndexOf(".")));
 								int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
 								apiVersion = Version.create(currentVersion.getName(), currentVersion.getID(), major, minor, patch, type, build, currentVersion.getModrinthID());
 								if (apiVersion.compareTo(currentVersion) > 0) {
 									if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("alpha")) {
-										if (apiVersion.getType().equals(Helper.ReleaseType.ALPHA) || apiVersion.getType().equals(Helper.ReleaseType.BETA) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
+										if (apiVersion.getType().equals(ReleaseType.ALPHA) || apiVersion.getType().equals(ReleaseType.BETA) || apiVersion.getType().equals(ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(ReleaseType.RELEASE)) {
 											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
 											if (!version_id.contains("-"))
@@ -82,7 +84,7 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 											downloadLink = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										}
 									} else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("beta")) {
-										if (apiVersion.getType().equals(Helper.ReleaseType.BETA) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
+										if (apiVersion.getType().equals(ReleaseType.BETA) || apiVersion.getType().equals(ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(ReleaseType.RELEASE)) {
 											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
 											if (!version_id.contains("-"))
@@ -91,7 +93,7 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 											downloadLink = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										}
 									} else {
-										if (apiVersion.getType().equals(Helper.ReleaseType.RELEASE)) {
+										if (apiVersion.getType().equals(ReleaseType.RELEASE)) {
 											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
 											if (!version_id.contains("-"))
@@ -102,20 +104,20 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 									}
 								}
 								if (newerVersionFound) {
-									currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("A newer version of {} was found using Modrinth API: {}", currentVersion.getName(), apiVersion.getFriendlyString()));
+									currentVersion.sendToLog(LogType.INFO, Translation.getString("A newer version of {} was found using Modrinth API: {}", currentVersion.getName(), apiVersion.getFriendlyString()));
 									break;
 								}
 							}
 						}
 						if (!compatible_version) {
-							currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("Could not find a compatible version of {} using Modrinth API.", currentVersion.getName()));
+							currentVersion.sendToLog(LogType.INFO, Translation.getString("Could not find a compatible version of {} using Modrinth API.", currentVersion.getName()));
 						} else {
-							if (!newerVersionFound) currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("You are already running the latest version of {}: {}", currentVersion.getName(), currentVersion.getFriendlyString()));
+							if (!newerVersionFound) currentVersion.sendToLog(LogType.INFO, Translation.getString("You are already running the latest version of {}: {}", currentVersion.getName(), currentVersion.getFriendlyString()));
 						}
 					}
 				}
 			} catch (Exception error) {
-				currentVersion.sendToLog(Helper.LogType.INFO, Translation.getString("Failed to check for updates using Modrinth API: {}", error));
+				currentVersion.sendToLog(LogType.INFO, Translation.getString("Failed to check for updates using Modrinth API: {}", error));
 			}
 			updateCheckerComplete = true;
 		});

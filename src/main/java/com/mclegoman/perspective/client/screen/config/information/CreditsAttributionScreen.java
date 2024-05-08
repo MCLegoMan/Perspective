@@ -11,12 +11,12 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.releasetypeutils.common.version.Helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -70,10 +70,10 @@ public class CreditsAttributionScreen extends Screen {
 				reader1.read(reader2);
 			} catch (Exception error) {
 				reader2.close();
-				Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
 		}
 	}
 	private void readCredits(Reader reader1) {
@@ -109,7 +109,7 @@ public class CreditsAttributionScreen extends Screen {
 				this.addEmptyLine();
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(Helper.LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to load credits! {}", error));
 		}
 	}
 	private void addEmptyLine() {
