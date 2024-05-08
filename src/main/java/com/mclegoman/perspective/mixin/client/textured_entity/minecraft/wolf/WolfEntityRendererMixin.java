@@ -25,7 +25,7 @@ public class WolfEntityRendererMixin {
 	private void perspective$getTexture(WolfEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:wolf");
+			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "wolf");
 			if (entitySpecific != null) {
 				if (entitySpecific.has("variants")) {
 					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

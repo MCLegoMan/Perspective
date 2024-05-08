@@ -8,16 +8,12 @@
 package com.mclegoman.perspective.client.logo;
 
 import com.mclegoman.luminance.client.logo.LogoHelper;
-import com.mclegoman.luminance.client.logo.LuminanceLogo;
-import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.luminance.common.util.DateHelper;
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -25,9 +21,6 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
 
 import java.time.LocalDate;
 import java.time.Month;

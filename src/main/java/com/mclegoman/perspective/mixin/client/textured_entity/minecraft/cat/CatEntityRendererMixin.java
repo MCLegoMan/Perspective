@@ -24,7 +24,7 @@ public class CatEntityRendererMixin {
 	private void perspective$getTexture(CatEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:cat");
+			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "cat");
 			if (entitySpecific != null) {
 				if (entitySpecific.has("variants")) {
 					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

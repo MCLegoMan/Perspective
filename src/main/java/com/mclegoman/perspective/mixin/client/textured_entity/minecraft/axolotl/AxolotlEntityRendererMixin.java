@@ -23,7 +23,7 @@ public class AxolotlEntityRendererMixin {
 	private void perspective$getTexture(AxolotlEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:axolotl");
+			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "axolotl");
 			if (entitySpecific != null) {
 				if (entitySpecific.has("variants")) {
 					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

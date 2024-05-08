@@ -7,9 +7,9 @@
 
 package com.mclegoman.perspective.mixin.client.zoom;
 
-import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.zoom.Zoom;
+import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -52,7 +52,15 @@ public abstract class MouseMixin {
 	}
 	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
 	private void perspective$updateMouse(double timeDelta, CallbackInfo ci) {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled")) {
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled") && ClientData.minecraft.player != null) {
+			/* more zoom options #8
+			     3: a change in yaw has less effect at extreme pitches
+			       when really zoomed in and looking steeply up or down, moving your mouse in a circle moves the camera in a 0 shape, this works fine in normal gameplay, but when youre really zoomed in it feels a bit bad
+			       the solution is yaw_delta /= cos(pitch), however this causes a division by 0 when looking directly up or down (which is expected if you think about it - its impossible to get lateral movment from yaw at this point, you can only change roll)
+			       so a reasonable solution is just to do max(cos(pitch), 0.1)
+			       this corrected yaw effect should "fade in" as you get more zoomed in, this can be done by raising the clamp, but a lerp may be more reasonable
+			       solution: probably add it onto the 2nd button */
+			// We should use Zoom.getMultiplier to "fade in" the yaw correction.
 			this.cursorDeltaX *= Math.max(Zoom.getMultiplier(), 0.001);
 			this.cursorDeltaY *= Math.max(Zoom.getMultiplier(), 0.001);
 		}

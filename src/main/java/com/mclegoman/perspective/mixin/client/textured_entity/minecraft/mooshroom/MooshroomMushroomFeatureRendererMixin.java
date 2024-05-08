@@ -31,7 +31,7 @@ public class MooshroomMushroomFeatureRendererMixin {
 	private BlockState perspective$getMushroom(MooshroomEntity.Type mooshroomType) {
 		try {
 			if (entity != null) {
-				JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
+				JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "mooshroom");
 				if (entitySpecific != null) {
 					if (entitySpecific.has("variants")) {
 						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

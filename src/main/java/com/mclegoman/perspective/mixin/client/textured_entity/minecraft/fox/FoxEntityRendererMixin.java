@@ -23,7 +23,7 @@ public class FoxEntityRendererMixin {
 	private void perspective$getTexture(FoxEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:fox");
+			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "fox");
 			if (entitySpecific != null) {
 				if (entitySpecific.has("variants")) {
 					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

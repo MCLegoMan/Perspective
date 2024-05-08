@@ -26,7 +26,7 @@ public class GoatEntityRendererMixin {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
 			boolean isScreaming = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:goat");
+			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "goat");
 			if (entitySpecific != null) {
 				if (entitySpecific.has("variants")) {
 					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

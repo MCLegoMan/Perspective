@@ -42,7 +42,7 @@ public abstract class MooshroomEntityRendererMixin extends MobEntityRenderer<Moo
 	@Inject(method = "getTexture", at = @At("RETURN"), cancellable = true)
 	public void perspective$getTexture(MooshroomEntity mooshroomEntity, CallbackInfoReturnable<Identifier> cir) {
 		boolean isTexturedEntity = true;
-		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(mooshroomEntity, "minecraft:mooshroom");
+		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(mooshroomEntity, "minecraft", "mooshroom");
 		if (entitySpecific != null) {
 			if (entitySpecific.has("variants")) {
 				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");

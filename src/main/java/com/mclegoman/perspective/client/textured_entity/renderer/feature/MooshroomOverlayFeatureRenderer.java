@@ -39,7 +39,7 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 	}
 	public Identifier getFinalTexture(Entity entity) {
 		boolean isTexturedEntity = true;
-		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft:mooshroom");
+		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "mooshroom");
 		if (entitySpecific != null) {
 				String type = String.valueOf(((MooshroomEntity)entity).getVariant()).toLowerCase();
 				if (entitySpecific.has(type)) {
