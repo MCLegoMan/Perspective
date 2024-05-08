@@ -6,7 +6,7 @@ plugins {
 }
 group = project.maven_group
 version = project.mod_version + project.mc_version
-loom.mixin.useLegacyMixinAp = false
+
 base {
 	archivesName = project.archives_base_name
 }
@@ -14,7 +14,11 @@ runClient.doFirst {
 	args += ['--username', "Perspective${new Random().nextInt(1000)}"]
 }
 loom {
-	accessWidenerPath = file("src/main/resources/mclegoman-perspective.accesswidener")
+	mods {
+		"perspective" {
+			sourceSet("main")
+		}
+	}
 }
 repositories {
 	maven { url 'https://jitpack.io' }
