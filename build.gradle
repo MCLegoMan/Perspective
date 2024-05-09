@@ -114,12 +114,12 @@ if (rootProject.file(".env").exists()) {
 			embedded.project "luminance"
 		}
 	}
-}
-tasks.register("uploadVersion") {
-	group = 'perspective'
-	description = 'Upload project to both GitHub and Modrinth.'
-	dependsOn(tasks.githubRelease)
-	dependsOn(tasks.modrinth)
+	tasks.register("uploadVersion") {
+		group = 'perspective'
+		description = 'Upload project to both GitHub and Modrinth.'
+		dependsOn(tasks.githubRelease)
+		dependsOn(tasks.modrinth)
+	}
 }
 tasks.register("quickPlaySingleplayer") {
 	group = 'perspective'
