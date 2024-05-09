@@ -14,12 +14,9 @@ import com.mclegoman.perspective.common.data.Data;
 public class Uniforms {
 	public static void init() {
 		SmoothUniforms.init();
-		ShaderRenderEvents.ShaderUniform.registerFloat(Data.version.getID(), "zoomMultiplier", Uniforms::getZoomMultiplier);
+		ShaderRenderEvents.ShaderUniform.registerFloat(Data.version.getID(), "zoomMultiplier", () -> (float) Zoom.getMultiplier());
 	}
 	public static void tick() {
 		SmoothUniforms.tick();
-	}
-	public static float getZoomMultiplier() {
-		return (float) Zoom.getMultiplier();
 	}
 }

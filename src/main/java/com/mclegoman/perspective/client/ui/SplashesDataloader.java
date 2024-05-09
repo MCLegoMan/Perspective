@@ -40,9 +40,14 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 		else return splashText;
 	}
 	public static void randomizeSplashText() {
-		List<Couple<String, Boolean>> splashes = new ArrayList<>(registry);
-		if (getSplashText() != null) splashes.remove(getSplashText());
-		splashText = splashes.get(new Random().nextInt(splashes.size()));
+		if (registry.size() > 1) {
+			List<Couple<String, Boolean>> splashes = new ArrayList<>(registry);
+			if (getSplashText() != null) splashes.remove(getSplashText());
+			splashText = splashes.get(new Random().nextInt(splashes.size()));
+		} else {
+			if (registry.size() == 1) splashText = registry.get(0);
+			else splashText = new Couple<>("", false);
+		}
 	}
 	public SplashesDataloader() {
 		super(new Gson(), id);
