@@ -78,39 +78,41 @@ publishing {
 	repositories {
 	}
 }
-githubRelease {
-	token rootProject.file(".env").text.readLines().get(1).replace("GITHUB=", "").replace("\"", "")
-	owner "MCLegoMan"
-	repo "Perspective"
-	tagName "${project.github_tag}"
-	targetCommitish "${project.github_branch}"
-	releaseName "${project.title}"
-	generateReleaseNotes false
-	body rootProject.file("CHANGELOG.md").text
-	draft false
-	if (project.version_type == "release") prerelease false
-	else prerelease true
-	releaseAssets tasks.remapJar
-	allowUploadToExisting.set false
-	overwrite false
-	dryRun false
-	apiEndpoint "https://api.github.com"
-	client
-}
-modrinth {
-	token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
-	projectId = "${project.modrinth_id}"
-	versionName = "${project.title}"
-	versionNumber = "${project.mod_version}${project.mc_version}"
-	versionType = "${project.version_type}"
-	uploadFile = tasks.remapJar
-	gameVersions = List.of(project.mc_versions.split(", "))
-	loaders = ["fabric", "quilt"]
-	changelog = rootProject.file("CHANGELOG.md").text
-	dependencies {
-		required.project "fabric-api"
-		required.project "qsl"
-		embedded.project "luminance"
+if (rootProject.file(".env").exists()) {
+	githubRelease {
+		token rootProject.file(".env").text.readLines().get(1).replace("GITHUB=", "").replace("\"", "")
+		owner "MCLegoMan"
+		repo "Perspective"
+		tagName "${project.github_tag}"
+		targetCommitish "${project.github_branch}"
+		releaseName "${project.title}"
+		generateReleaseNotes false
+		body rootProject.file("CHANGELOG.md").text
+		draft false
+		if (project.version_type == "release") prerelease false
+		else prerelease true
+		releaseAssets tasks.remapJar
+		allowUploadToExisting.set false
+		overwrite false
+		dryRun false
+		apiEndpoint "https://api.github.com"
+		client
+	}
+	modrinth {
+		token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
+		projectId = "${project.modrinth_id}"
+		versionName = "${project.title}"
+		versionNumber = "${project.mod_version}${project.mc_version}"
+		versionType = "${project.version_type}"
+		uploadFile = tasks.remapJar
+		gameVersions = List.of(project.mc_versions.split(", "))
+		loaders = ["fabric", "quilt"]
+		changelog = rootProject.file("CHANGELOG.md").text
+		dependencies {
+			required.project "fabric-api"
+			required.project "qsl"
+			embedded.project "luminance"
+		}
 	}
 }
 tasks.register("uploadVersion") {
