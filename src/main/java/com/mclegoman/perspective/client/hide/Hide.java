@@ -7,9 +7,9 @@
 
 package com.mclegoman.perspective.client.hide;
 
+import com.mclegoman.luminance.client.util.MessageOverlay;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;

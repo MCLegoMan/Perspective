@@ -7,11 +7,11 @@
 
 package com.mclegoman.perspective.client.zoom;
 
+import com.mclegoman.luminance.client.util.MessageOverlay;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigDataLoader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.common.data.Data;

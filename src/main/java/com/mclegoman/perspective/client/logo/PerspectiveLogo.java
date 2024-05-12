@@ -8,6 +8,8 @@
 package com.mclegoman.perspective.client.logo;
 
 import com.mclegoman.luminance.client.logo.LogoHelper;
+import com.mclegoman.luminance.client.util.CompatHelper;
+import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.luminance.common.util.DateHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.ui.SplashesDataloader;
@@ -22,30 +24,35 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
-import java.time.LocalDate;
-import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PerspectiveLogo {
 	// Pride Logos will be re-worked in the near future.
-	public static final String[] prideTypes = new String[]{"rainbow", "bi", "trans"};
+	public static final List<String> prideTypes = new ArrayList<>();
 	// Whilst currently there are only two types, there will be more in the near future as they are re-worked.
-	private static final int prideIndex = new Random().nextInt(prideTypes.length);
+	private static int prideIndex;
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
+		prideTypes.add("rainbow");
+		prideTypes.add("bi");
+		prideTypes.add("trans");
+		prideIndex = new Random().nextInt(prideTypes.size());
+		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), "assets/" + Data.version.getID() + "/icon_pride.png", PerspectiveLogo::isPride);
+		CompatHelper.addLuminanceModMenuBadge(Data.version.getID());
 	}
 	public static boolean isPride() {
-		LocalDate date = DateHelper.getDate();
-		return isForcePride() || date.getMonth() == Month.JUNE || date.getMonth() == Month.JULY && date.getDayOfMonth() <= 2;
+		return DateHelper.isPride() || isForcePride();
 	}
 	public static boolean isForcePride() {
 		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride");
 	}
 	private static String getPrideType() {
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type")) {
-			return prideTypes[(int)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type_index")];
+		if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type").equals("random")) {
+			return prideTypes.get(prideTypes.indexOf((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type")));
 		} else {
-			return prideTypes[prideIndex];
+			return prideTypes.get(prideIndex);
 		}
 	}
 	public static Logo getLogo(Logo.Type type) {
@@ -54,7 +61,7 @@ public class PerspectiveLogo {
 	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
 		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
-		LogoHelper.renderDevelopmentOverlay(context, x, y, width, height, Data.version.isDevelopmentBuild());
+		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + (width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.version.isDevelopmentBuild(), 0, 0);
 	}
 	public record Logo(Identifier id, Type type) {
 		public String getNamespace() {
@@ -89,8 +96,8 @@ public class PerspectiveLogo {
 			this.experimental = experimental;
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderPerspectiveLogo(context, this.getX(), this.getY() + 7, this.getWidth(), this.getHeight(), experimental);
-			LogoHelper.createSplashText(context, this.getWidth(), this.getX(), this.getY() + 41, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
+			renderPerspectiveLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
+			LogoHelper.createSplashText(context, this.getWidth(), this.getX(), this.getY() + 32, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		}
 		@Override
 		protected void appendClickableNarrations(NarrationMessageBuilder builder) {

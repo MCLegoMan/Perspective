@@ -8,8 +8,10 @@
 package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.screen.config.overlays.OverlaysConfigScreen;
 import com.mclegoman.perspective.client.screen.config.ui.UiBackgroundConfigScreen;
+import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
@@ -103,7 +105,7 @@ public class ConfigScreen extends Screen {
 		GridWidget.Adder gridAdder = grid.createAdder(2);
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays"), (button) -> ClientData.minecraft.setScreen(new OverlaysConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background"), (button) -> ClientData.minecraft.setScreen(new UiBackgroundConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "luminance"), (button) -> ClientData.minecraft.setScreen(new com.mclegoman.luminance.client.screen.config.ConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "luminance"), (button) -> ClientData.minecraft.setScreen(new com.mclegoman.luminance.client.screen.config.ConfigScreen(new ConfigScreen(parentScreen, false, page), false, SplashesDataloader.getSplashText(), PerspectiveLogo.isPride()))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"));
 			this.refresh = true;

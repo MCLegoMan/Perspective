@@ -20,7 +20,6 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.TimeZone;
 
 public class AprilFoolsPrank {
@@ -52,8 +51,7 @@ public class AprilFoolsPrank {
 		if (shouldSave) ConfigHelper.saveConfig();
 	}
 	public static boolean isAprilFools() {
-		LocalDate date = DateHelper.getDate();
-		return isForceAprilFools() || (date.getMonth() == Month.APRIL && date.getDayOfMonth() <= 2);
+		return DateHelper.isAprilFools() || isForceAprilFools();
 	}
 	public static boolean isForceAprilFools() {
 		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools");

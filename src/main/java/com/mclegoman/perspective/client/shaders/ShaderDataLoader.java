@@ -22,9 +22,10 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
+
 import java.util.*;
 
-// To be moved to Luminance in the near future.
+@Deprecated(forRemoval = true)
 
 public class ShaderDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	protected static boolean isReloading;
@@ -54,7 +55,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 		return shaderMap;
 	}
 	protected static Object get(int SHADER, RegistryValue VALUE) {
-		List<Object> SHADER_MAP = SHADER <= registry.size() ? registry.get(SHADER) : getFallbackShader();
+		List<Object> SHADER_MAP = (SHADER <= registry.size() || registry.size() == 0) ? registry.get(SHADER) : getFallbackShader();
 		if (VALUE.equals(RegistryValue.id)) return SHADER_MAP.get(0);
 		if (VALUE.equals(RegistryValue.namespace)) return SHADER_MAP.get(1);
 		if (VALUE.equals(RegistryValue.shaderName)) return SHADER_MAP.get(2);
@@ -149,7 +150,7 @@ public class ShaderDataLoader extends JsonDataLoader implements IdentifiableReso
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			Shader.releaseShaders();
+			//Shader.releaseShaders();
 			prepared.forEach((identifier, jsonElement) -> layout$perspective(jsonElement, manager));
 			layout$souper_secret_settings(manager);
 			layout$souper_secret_settings$entity_links(manager);

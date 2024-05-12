@@ -47,8 +47,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean positionOverlay;
 	public static boolean dayOverlay;
 	public static boolean forcePride;
-	public static boolean forcePrideType;
-	public static int forcePrideTypeIndex;
+	public static String forcePrideType;
 	public static boolean showDeathCoordinates;
 	public static String titleScreen;
 	public static String uiBackground;
@@ -95,8 +94,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				positionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "position_overlay", false);
 				dayOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "day_overlay", false);
 				forcePride = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride", false);
-				forcePrideType = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", false);
-				forcePrideTypeIndex = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type_index", 0);
+				forcePrideType = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", "random");
 				showDeathCoordinates = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "show_death_coordinates", false);
 				titleScreen = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "title_screen", "default");
 				uiBackground = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "ui_background", "default");

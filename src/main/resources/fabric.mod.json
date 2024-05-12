@@ -43,6 +43,11 @@
     "luminance": "*"
   },
   "custom": {
+    "modmenu": {
+      "links": {
+        "mclegoman.donate": "https://buymeacoffee.com/mclegoman"
+      }
+    },
     "catalogue": {
       "configFactory": "com.mclegoman.perspective.compat.CatalogueCompat"
     }

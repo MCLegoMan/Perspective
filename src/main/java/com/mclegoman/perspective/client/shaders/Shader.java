@@ -8,9 +8,10 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.client.shaders.ShaderDataloader;
+import com.mclegoman.luminance.client.util.MessageOverlay;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
@@ -86,7 +87,7 @@ public class Shader {
 			}
 		}
 		checkKeybindings();
-		if (ShaderDataLoader.isReloading && ClientData.isFinishedInitializing()) {
+		if (ClientData.isFinishedInitializing()) {
 			boolean saveConfig;
 			saveConfig = ConfigHelper.fixConfig();
 			if (updateLegacyConfig) {
@@ -100,7 +101,6 @@ public class Shader {
 				set(true, false, false, false);
 			prepEntityShader(ClientData.minecraft.getCameraEntity());
 			if (saveConfig) ConfigHelper.saveConfig();
-			ShaderDataLoader.isReloading = false;
 		}
 		entityShaderEntityPrev = entityShaderEntity;
 		entityShaderEntity = ClientData.minecraft.getCameraEntity();
@@ -306,7 +306,7 @@ public class Shader {
 			if (saveConfig) ConfigHelper.saveConfig();
 
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set Super Secret Settings.", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set Super Secret Settings: {}", error));
 			try {
 				// If there's an issue, we always save the config.
 				cycle(true, forwards, false, true, true);
@@ -361,7 +361,7 @@ public class Shader {
 				}
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set entity link shader.", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set entity link shader: {}", error));
 		}
 		entityDepthFix = false;
 	}
@@ -387,7 +387,7 @@ public class Shader {
 	}
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta, String type) {
 		renderType = type + (useDepth ? ":depth" : "");
-		render(postEffectProcessor, tickDelta);
+		//render(postEffectProcessor, tickDelta);
 	}
 	public static void render(PostEffectProcessor postEffectProcessor, float tickDelta) {
 		try {
@@ -438,26 +438,5 @@ public class Shader {
 	public static boolean isShaderButtonsEnabled() {
 		return ShaderDataLoader.getShaderAmount() > 1;
 	}
-	// Nettakrim:Souper-Secret-Settings:ShaderResourceLoader.releaseFromType(ShaderStage.Type type);
-	// https://github.com/Nettakrim/Souper-Secret-Settings/blob/main/src/main/java/com/nettakrim/souper_secret_settings/ShaderResourceLoader.java
-	protected static void releaseShaders() {
-		try {
-			List<ShaderStage.Type> shaderTypes = new ArrayList<>();
-			shaderTypes.add(ShaderStage.Type.VERTEX);
-			shaderTypes.add(ShaderStage.Type.FRAGMENT);
-			for (ShaderStage.Type type : shaderTypes) {
-				List<Map.Entry<String, ShaderStage>> loadedShaders = type.getLoadedShaders().entrySet().stream().toList();
-				for (int index = loadedShaders.size() - 1; index > -1; index--) {
-					Map.Entry<String, ShaderStage> loadedShader = loadedShaders.get(index);
-					String name = loadedShader.getKey();
-					if (name.startsWith("rendertype_")) continue;
-					if (name.startsWith("position_")) continue;
-					if (name.equals("position") || name.equals("particle")) continue;
-					loadedShader.getValue().release();
-				}
-			}
-		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to release shaders: {}", error));
-		}
-	}
+
 }

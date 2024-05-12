@@ -9,11 +9,11 @@ package com.mclegoman.perspective.client.util;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
+import com.mclegoman.perspective.client.shaders.Shaders;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.hud.HUDHelper;
-import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.perspective.Perspective;
 import com.mclegoman.perspective.client.shaders.Shader;
@@ -31,8 +31,8 @@ public class Tick {
 				Perspective.tick();
 				Zoom.tick();
 				Shader.tick();
+				Shaders.tick();
 				Panorama.tick();
-				MessageOverlay.tick();
 				Hide.tick();
 			}
 		});

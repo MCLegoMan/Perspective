@@ -7,14 +7,13 @@
 
 package com.mclegoman.perspective.mixin.client.hud;
 
-import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.DebugOverlay;
 import com.mclegoman.perspective.client.hud.HUDHelper;
-import com.mclegoman.perspective.client.hud.MessageOverlay;
 import com.mclegoman.perspective.client.hud.Overlays;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
+import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -28,20 +27,6 @@ public abstract class InGameHudMixin {
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
 	private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHUD()) ci.cancel();
-		if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
-			float h = MessageOverlay.remaining - tickDelta;
-			int l = (int) (h * 255.0F / 20.0F);
-			if (l > 255) l = 255;
-			if (l > 10) {
-				context.getMatrices().push();
-				context.getMatrices().translate((float) (ClientData.minecraft.getWindow().getScaledWidth() / 2), 27, 0.0F);
-				int k = 16777215;
-				int m = l << 24 & -16777216;
-				int n = ClientData.minecraft.textRenderer.getWidth(MessageOverlay.message);
-				context.drawTextWithShadow(ClientData.minecraft.textRenderer, MessageOverlay.message, -n / 2, -4, k | m);
-				context.getMatrices().pop();
-			}
-		}
 	}
 
 	@Inject(at = @At("RETURN"), method = "render")

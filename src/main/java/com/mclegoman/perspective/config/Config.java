@@ -40,8 +40,7 @@ public class Config {
 	protected static boolean positionOverlay;
 	protected static boolean dayOverlay;
 	protected static boolean forcePride;
-	protected static boolean forcePrideType;
-	protected static int forcePrideTypeIndex;
+	protected static String forcePrideType;
 	protected static boolean showDeathCoordinates;
 	protected static String titleScreen;
 	protected static String uiBackground;
@@ -93,7 +92,6 @@ public class Config {
 		configProvider.add(new Couple<>("day_overlay", ConfigDataLoader.dayOverlay));
 		configProvider.add(new Couple<>("force_pride", ConfigDataLoader.forcePride));
 		configProvider.add(new Couple<>("force_pride_type", ConfigDataLoader.forcePrideType));
-		configProvider.add(new Couple<>("force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex));
 		configProvider.add(new Couple<>("show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
 		configProvider.add(new Couple<>("title_screen", ConfigDataLoader.titleScreen));
 		configProvider.add(new Couple<>("ui_background", ConfigDataLoader.uiBackground));
@@ -135,7 +133,6 @@ public class Config {
 		dayOverlay = config.getOrDefault("day_overlay", ConfigDataLoader.dayOverlay);
 		forcePride = config.getOrDefault("force_pride", ConfigDataLoader.forcePride);
 		forcePrideType = config.getOrDefault("force_pride_type", ConfigDataLoader.forcePrideType);
-		forcePrideTypeIndex = config.getOrDefault("force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex);
 		showDeathCoordinates = config.getOrDefault("show_death_coordinates", ConfigDataLoader.showDeathCoordinates);
 		titleScreen = config.getOrDefault("title_screen", ConfigDataLoader.titleScreen);
 		uiBackground = config.getOrDefault("ui_background", ConfigDataLoader.uiBackground);
@@ -178,7 +175,6 @@ public class Config {
 		configProvider.setConfig("day_overlay", dayOverlay);
 		configProvider.setConfig("force_pride", forcePride);
 		configProvider.setConfig("force_pride_type", forcePrideType);
-		configProvider.setConfig("force_pride_type_index", forcePrideTypeIndex);
 		configProvider.setConfig("show_death_coordinates", showDeathCoordinates);
 		configProvider.setConfig("title_screen", titleScreen);
 		configProvider.setConfig("ui_background", uiBackground);

@@ -41,7 +41,8 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
-	include(modImplementation "maven.modrinth:luminance:${project.luminance}")
+	modImplementation fileTree(dir: 'libs', include: '*.jar')
+	//include(modImplementation "maven.modrinth:luminance:${project.luminance}")
 
 	// Development Environment Only
 	modImplementation "com.ptsmods:devlogin:3.4.1"
@@ -115,34 +116,34 @@ if (rootProject.file(".env").exists()) {
 		}
 	}
 	tasks.register("uploadVersion") {
-		group = 'perspective'
+		group = project.archives_base_name
 		description = 'Upload project to both GitHub and Modrinth.'
 		dependsOn(tasks.githubRelease)
 		dependsOn(tasks.modrinth)
 	}
 }
 tasks.register("quickPlaySingleplayer") {
-	group = 'perspective'
+	group = project.archives_base_name
 	description = 'Uses Quick Play to join singleplayer world `New World` on launch.'
 	dependsOn(tasks.runClient.args(['--quickPlaySingleplayer', 'New World']))
 }
 tasks.register("quickPlayMultiplayer") {
-	group = 'perspective'
+	group = project.archives_base_name
 	description = 'Uses Quick Play to join multiplayer server `localhost:25565` on launch.'
 	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', 'localhost:25565']))
 }
 tasks.register("runClientLoggedIn") {
-	group = 'perspective'
+	group = project.archives_base_name
 	description = 'Uses DevLogin to login to your Minecraft Account'
 	dependsOn(tasks.runClient.args(['--msa']))
 }
 tasks.register("quickPlaySingleplayerLoggedIn") {
-	group = 'perspective'
+	group = project.archives_base_name
 	description = 'Uses Quick Play to join singleplayer world `New World` on launch and uses DevLogin to login to your Minecraft Account.'
 	dependsOn(tasks.runClient.args(['--quickPlaySingleplayer', 'New World', '--msa']))
 }
 tasks.register("quickPlayMultiplayerLoggedIn") {
-	group = 'perspective'
+	group = project.archives_base_name
 	description = 'Uses Quick Play to join multiplayer server `localhost:25565` on launch and uses DevLogin to login to your Minecraft Account.'
 	dependsOn(tasks.runClient.args(['--quickPlayMultiplayer', 'localhost:25565', '--msa']))
 }

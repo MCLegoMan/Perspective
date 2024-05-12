@@ -8,11 +8,13 @@
 package com.mclegoman.perspective.config;
 
 import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
+import com.mclegoman.perspective.client.shaders.Shaders;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
@@ -67,7 +69,7 @@ public class ConfigHelper {
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to load configs!");
 		}
-		if (!ClientData.getFinishedInitializingAfterConfig()) afterConfig();
+		if (!ClientData.getFinishedInitializingAfterConfig()) PerspectiveClient.afterInitializeConfig();
 	}
 	public static void reloadConfig(boolean log) {
 		if (log) {
@@ -79,15 +81,6 @@ public class ConfigHelper {
 		ExperimentalConfig.init();
 		TutorialsConfig.init();
 		WarningsConfig.init();
-	}
-	protected static void afterConfig() {
-		try {
-			ResourcePacks.initAfterConfig();
-			Update.checkForUpdates(Data.version);
-			ClientData.setFinishedInitializingAfterConfig(true);
-		} catch (Exception error) {
-			Data.version.sendToLog(LogType.WARN, "Failed to init afterConfig.");
-		}
 	}
 	public static void tick() {
 		try {
@@ -141,7 +134,7 @@ public class ConfigHelper {
 			boolean shouldSaveConfig = false;
 			if (Config.config.getOrDefault("config_version", defaultConfigVersion) != defaultConfigVersion) {
 				if (Config.config.getOrDefault("config_version", defaultConfigVersion) < defaultConfigVersion) {
-					Data.version.sendToLog(LogType.ERROR, Translation.getString("Attempting to update config to the latest version."));
+					Data.version.sendToLog(LogType.INFO, Translation.getString("Attempting to update config to the latest version."));
 					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 3) {
 						setConfig(ConfigType.NORMAL, "zoom_level", 100 - (int) getConfig(ConfigType.NORMAL, "zoom_level"));
 					}
@@ -178,8 +171,13 @@ public class ConfigHelper {
 						setConfig(ConfigType.NORMAL, "zoom_type", Data.version.getID() + ":" + Config.config.getOrDefault("zoom_type", ConfigDataLoader.zoomType.replace((Data.version.getID() + ":"), "")));
 						setConfig(ConfigType.NORMAL, "title_screen", Config.config.getOrDefault("dirt_title_screen", false) ? "dirt" : "default");
 					}
+					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 19) {
+						boolean forcePrideType = Config.config.getOrDefault("force_pride_type", false);
+						int prideIndex = Config.config.getOrDefault("force_pride_type_index", 0);
+						setConfig(ConfigType.NORMAL, "force_pride_type", forcePrideType ? (prideIndex == 0 ? "rainbow" : (prideIndex == 1 ? "bi" : "trans")) : "none");
+					}
 					setConfig(ConfigType.NORMAL, "config_version", defaultConfigVersion);
-					Data.version.sendToLog(LogType.ERROR, Translation.getString("Successfully updated config to the latest version."));
+					Data.version.sendToLog(LogType.INFO, Translation.getString("Successfully updated config to the latest version."));
 				} else if (Config.config.getOrDefault("config_version", defaultConfigVersion) > defaultConfigVersion) {
 					if (!seenDowngradeWarning) {
 						Data.version.sendToLog(LogType.ERROR, Translation.getString("Downgrading is not supported. You may experience configuration related issues."));
@@ -258,20 +256,20 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "zoom_type") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.zoomType));
 			}
-			if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) {
-				Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
-				Shader.superSecretSettingsIndex = (!Shader.isShaderAvailable(ConfigDataLoader.superSecretSettingsShader)) ? Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1) : Shader.getShaderValue(ConfigDataLoader.superSecretSettingsShader);
-				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex)));
+			//if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) {
+				//Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
+				//Shader.superSecretSettingsIndex = (!Shader.isShaderAvailable(ConfigDataLoader.superSecretSettingsShader)) ? Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1) : Shader.getShaderValue(ConfigDataLoader.superSecretSettingsShader);
+				//hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_shader", Shader.getFullShaderName(Shader.superSecretSettingsIndex)));
 				// We also disable super secret settings as it's unlikely to be a shader they want anyway (e.g blur).
-				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", false));
-			}
+				//hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", false));
+			//}
 			if (!Arrays.stream(Shader.shaderModes).toList().contains((String) getConfig(ConfigType.NORMAL, "super_secret_settings_mode"))) {
 				Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "super_secret_settings_mode") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
 			}
-			if ((int) getConfig(ConfigType.NORMAL, "force_pride_type_index") < 0 || (int) getConfig(ConfigType.NORMAL, "force_pride_type_index") > PerspectiveLogo.prideTypes.length) {
-				Data.version.sendToLog(LogType.WARN, "Config: force_pride_type_index was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type_index") + ")");
-				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "force_pride_type_index", ConfigDataLoader.forcePrideTypeIndex));
+			if (!(PerspectiveLogo.prideTypes.contains((String)getConfig(ConfigType.NORMAL, "force_pride_type")) || getConfig(ConfigType.NORMAL, "force_pride_type").equals("random"))) {
+				Data.version.sendToLog(LogType.WARN, "Config: force_pride_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "force_pride_type") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.forcePrideType));
 			}
 			if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.NORMAL, "hide_crosshair"))) {
 				Data.version.sendToLog(LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.NORMAL, "hide_crosshair") + ")");
@@ -322,7 +320,6 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.NORMAL, "day_overlay", ConfigDataLoader.dayOverlay));
 			configChanged.add(setConfig(ConfigType.NORMAL, "force_pride", ConfigDataLoader.forcePride));
 			configChanged.add(setConfig(ConfigType.NORMAL, "force_pride_type", ConfigDataLoader.forcePrideType));
-			configChanged.add(setConfig(ConfigType.NORMAL, "force_pride_type_index", MathHelper.clamp(ConfigDataLoader.forcePrideTypeIndex, 0, PerspectiveLogo.prideTypes.length)));
 			configChanged.add(setConfig(ConfigType.NORMAL, "show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
 			configChanged.add(setConfig(ConfigType.NORMAL, "title_screen", ConfigDataLoader.titleScreen));
 			configChanged.add(setConfig(ConfigType.NORMAL, "ui_background", ConfigDataLoader.uiBackground));
@@ -448,11 +445,7 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						case "force_pride_type" -> {
-							Config.forcePrideType = (boolean) value;
-							configChanged = true;
-						}
-						case "force_pride_type_index" -> {
-							Config.forcePrideTypeIndex = MathHelper.clamp((int) value, 0, PerspectiveLogo.prideTypes.length);
+							Config.forcePrideType = (String) value;
 							configChanged = true;
 						}
 						case "show_death_coordinates" -> {
@@ -639,9 +632,6 @@ public class ConfigHelper {
 					}
 					case "force_pride_type" -> {
 						return Config.forcePrideType;
-					}
-					case "force_pride_type_index" -> {
-						return MathHelper.clamp(Config.forcePrideTypeIndex, 0, PerspectiveLogo.prideTypes.length);
 					}
 					case "show_death_coordinates" -> {
 						return Config.showDeathCoordinates;

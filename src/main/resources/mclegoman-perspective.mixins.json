@@ -2,7 +2,6 @@
 	"required": true,
 	"package": "com.mclegoman.perspective.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"plugin": "com.mclegoman.perspective.mixin.MixinPlugin",
 	"client": [
 		"client.contributor.AbstractClientPlayerEntityMixin",
 		"client.contributor.LivingEntityRendererMixin",
@@ -17,8 +16,6 @@
 		"client.shaders.GameRendererMixin",
 		"client.shaders.PostEffectProcessorMixin",
 		"client.shaders.RenderPhaseMixin",
-		"client.shaders.ShaderNamespaceFix",
-		"client.shaders.ShaderTextureFix",
 		"client.shaders.WorldRendererMixin",
 		"client.show_death_coordinates.DeathScreenMixin",
 		"client.textured_entity.minecraft.EyesFeatureRendererMixin",
