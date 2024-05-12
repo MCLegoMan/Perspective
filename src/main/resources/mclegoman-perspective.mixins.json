@@ -14,7 +14,6 @@
 		"client.hud.HeldItemRendererMixin",
 		"client.hud.InGameHudMixin",
 		"client.shaders.GameRendererMixin",
-		"client.shaders.PostEffectProcessorMixin",
 		"client.shaders.RenderPhaseMixin",
 		"client.shaders.WorldRendererMixin",
 		"client.show_death_coordinates.DeathScreenMixin",

@@ -7,24 +7,24 @@
 
 package com.mclegoman.perspective.client.shaders;
 
-import com.google.gson.JsonObject;
 import com.mclegoman.luminance.client.shaders.ShaderDataloader;
+import com.mclegoman.luminance.client.shaders.ShaderRegistry;
+import com.mclegoman.luminance.client.shaders.Shaders;
+import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.luminance.client.util.MessageOverlay;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.common.data.Data;
-import com.mclegoman.luminance.common.util.IdentifierHelper;
-import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
-import net.minecraft.client.gl.ShaderStage;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -32,11 +32,13 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
@@ -51,9 +53,6 @@ public class Shader {
 	public static boolean updateLegacyConfig;
 	public static int legacyIndex;
 	private static Formatting lastColor;
-	@Nullable
-	public static PostEffectProcessor postProcessor;
-	public static Framebuffer depthFramebuffer;
 	public static Framebuffer translucentFramebuffer;
 	public static Framebuffer entityFramebuffer;
 	public static Framebuffer particlesFramebuffer;
@@ -68,9 +67,9 @@ public class Shader {
 	public static List<Framebuffer> entityCloudsFramebuffer;
 	public static Entity entityShaderEntityPrev;
 	public static Entity entityShaderEntity;
+	public static boolean finishedAfterInit;
 	public static void init() {
 		try {
-			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderDataLoader());
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ShaderSoundsDataLoader());
 			addImprovedDepthRendererIncompatibleMod("canvas");
 			Uniforms.init();
@@ -80,27 +79,28 @@ public class Shader {
 	}
 	public static void tick() {
 		Uniforms.tick();
-		if (shouldRenderShader()) {
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
 			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen")) showToasts();
 			else {
 				if (ClientData.minecraft.world != null) showToasts();
 			}
 		}
 		checkKeybindings();
-		if (ClientData.isFinishedInitializing()) {
+		if (ClientData.isFinishedInitializing() && !finishedAfterInit) {
 			boolean saveConfig;
 			saveConfig = ConfigHelper.fixConfig();
 			if (updateLegacyConfig) {
-				if (getFullShaderName(legacyIndex) != null && isShaderAvailable(legacyIndex)) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getFullShaderName(legacyIndex));
+				if (Shaders.getShaderName(legacyIndex) != null && Shaders.get(legacyIndex) != null) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shaders.getShaderName(legacyIndex, true));
 				}
 				updateLegacyConfig = false;
 			}
-			superSecretSettingsIndex = getShaderValue((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
+			superSecretSettingsIndex = Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 				set(true, false, false, false);
 			prepEntityShader(ClientData.minecraft.getCameraEntity());
 			if (saveConfig) ConfigHelper.saveConfig();
+			finishedAfterInit = true;
 		}
 		entityShaderEntityPrev = entityShaderEntity;
 		entityShaderEntity = ClientData.minecraft.getCameraEntity();
@@ -144,74 +144,12 @@ public class Shader {
 		}
 		if (save) ConfigHelper.saveConfig();
 	}
-	public static MutableText getTranslatedShaderName(int shaderIndex) {
-		if ((boolean)get(shaderIndex, ShaderDataLoader.RegistryValue.translatable)) {
-			String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.namespace);
-			String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.shaderName);
-			if (namespace != null && shaderName != null)
-				return Translation.getShaderTranslation(namespace, shaderName);
-		} else {
-			return Translation.getText(getShaderName(shaderIndex), false);
-		}
-		return null;
-	}
-	public static String getShaderName(int shaderIndex) {
-		String namespace = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.namespace);
-		String shaderName = (String) get(shaderIndex, ShaderDataLoader.RegistryValue.shaderName);
-		if (namespace != null && shaderName != null)
-			return ShaderDataLoader.isDuplicatedShaderName(shaderName) ? namespace + ":" + shaderName : shaderName;
-		return null;
-	}
-	public static String getFullShaderName(int SHADER) {
-		String NAMESPACE = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.namespace);
-		String SHADER_NAME = (String) ShaderDataLoader.get(SHADER, ShaderDataLoader.RegistryValue.shaderName);
-		if (NAMESPACE != null && SHADER_NAME != null) return NAMESPACE + ":" + SHADER_NAME;
-		return null;
-	}
-
-	public static boolean isShaderAvailable(String id) {
-		for (int shader = 0; shader < ShaderDataLoader.registry.size(); shader++) {
-			if (id.contains(":") && id.equals(getFullShaderName(shader))) return true;
-			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return true;
-		}
-		return false;
-	}
-	public static boolean isShaderAvailable(int id) {
-		return id <= (ShaderDataLoader.getShaderAmount() - 1);
-	}
-
-	public static int getShaderValue(String id) {
-		for (int shader = 0; shader < ShaderDataLoader.registry.size(); shader++) {
-			if (id.contains(":") && id.equals(getFullShaderName(shader))) return shader;
-			else if ((!id.contains(":")) && id.equals(getShaderName(shader))) return shader;
-		}
-		return 0;
-	}
-	public static Object get(ShaderDataLoader.RegistryValue shaderRegistryValue) {
-		return ShaderDataLoader.get(superSecretSettingsIndex, shaderRegistryValue);
-	}
-	public static Object get(int shaderIndex, ShaderDataLoader.RegistryValue shaderRegistryValue) {
-		return ShaderDataLoader.get(shaderIndex, shaderRegistryValue);
-	}
-	@SuppressWarnings("unused")
-	public static JsonObject getCustom(String namespace) {
-		return ShaderDataLoader.getCustom(superSecretSettingsIndex, namespace);
-	}
-	@SuppressWarnings("unused")
-	public static JsonObject getCustom(int shaderIndex, String namespace) {
-		return ShaderDataLoader.getCustom(shaderIndex, namespace);
-	}
 	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"));
 		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
 			set(true, playSound, showShaderName, true);
-			if (skipDisableScreenModeWhenWorldNull && (ClientData.minecraft.world == null && (useDepth || !shouldDisableScreenMode())))
+			if (skipDisableScreenModeWhenWorldNull && ClientData.minecraft.world == null)
 				cycle(true, true, false, true, SAVE_CONFIG);
-		} else {
-			if (postProcessor != null) {
-				postProcessor.close();
-				postProcessor = null;
-			}
 		}
 		if (showShaderName) {
 			setOverlay(Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"), Translation.Type.ENDISABLE));
@@ -223,13 +161,13 @@ public class Shader {
 		try {
 			if (shouldCycle && isShaderButtonsEnabled()) {
 				if (forwards) {
-					if (superSecretSettingsIndex < (ShaderDataLoader.getShaderAmount() - 1))
+					if (superSecretSettingsIndex < (ShaderDataloader.getShaderAmount() - 1))
 						superSecretSettingsIndex++;
 					else superSecretSettingsIndex = 0;
 				} else {
 					if (superSecretSettingsIndex > 0)
 						superSecretSettingsIndex--;
-					else superSecretSettingsIndex = (ShaderDataLoader.getShaderAmount() - 1);
+					else superSecretSettingsIndex = (ShaderDataloader.getShaderAmount() - 1);
 				}
 			}
 			set(forwards, false, showShaderName, saveConfig);
@@ -250,7 +188,7 @@ public class Shader {
 			if (isShaderButtonsEnabled()) {
 				int SHADER = superSecretSettingsIndex;
 				while (SHADER == superSecretSettingsIndex)
-					SHADER = Math.max(1, new Random().nextInt(ShaderDataLoader.getShaderAmount()));
+					SHADER = Math.max(1, new Random().nextInt(ShaderDataloader.getShaderAmount()));
 				superSecretSettingsIndex = SHADER - 1;
 				set(true, playSound, showShaderName, saveConfig);
 			}
@@ -265,35 +203,26 @@ public class Shader {
 		useDepth = false;
 		depthFix = true;
 		try {
-			if (postProcessor != null) postProcessor.close();
-			Identifier shaderId = ShaderDataLoader.getPostShader((String) get(ShaderDataLoader.RegistryValue.id));
+			Data.version.sendToLog(LogType.INFO, Translation.getString("Shadering shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
 			try {
-				ClientData.minecraft.getResourceManager().getResourceOrThrow(shaderId);
-				postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), framebuffer, shaderId);
-				postProcessor.setupDimensions(framebufferWidth, framebufferHeight);
-				try {
-					if (postProcessor != null) {
-						if (translucentFramebuffer != null) translucentFramebuffer.delete();
-						translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");
-						if (entityFramebuffer != null) entityFramebuffer.delete();
-						entityFramebuffer = postProcessor.getSecondaryTarget("itemEntity");
-						if (particlesFramebuffer != null) particlesFramebuffer.delete();
-						particlesFramebuffer = postProcessor.getSecondaryTarget("particles");
-						if (weatherFramebuffer != null) weatherFramebuffer.delete();
-						weatherFramebuffer = postProcessor.getSecondaryTarget("weather");
-						if (cloudsFramebuffer != null) cloudsFramebuffer.delete();
-						cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
-					}
-				} catch (Exception error) {
-					Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
-				}
-			} catch (FileNotFoundException ignored) {
-				// We ignore this error as we would have already caught errors with the post json on load.
-				// Errors related to the shader program will still be logged.
+//				if (postProcessor != null) {
+//					if (translucentFramebuffer != null) translucentFramebuffer.delete();
+//					translucentFramebuffer = postProcessor.getSecondaryTarget("translucent");
+//					if (entityFramebuffer != null) entityFramebuffer.delete();
+//					entityFramebuffer = postProcessor.getSecondaryTarget("itemEntity");
+//					if (particlesFramebuffer != null) particlesFramebuffer.delete();
+//					particlesFramebuffer = postProcessor.getSecondaryTarget("particles");
+//					if (weatherFramebuffer != null) weatherFramebuffer.delete();
+//					weatherFramebuffer = postProcessor.getSecondaryTarget("weather");
+//					if (cloudsFramebuffer != null) cloudsFramebuffer.delete();
+//					cloudsFramebuffer = postProcessor.getSecondaryTarget("clouds");
+//				}
+			} catch (Exception error) {
+				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 			}
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", getFullShaderName(superSecretSettingsIndex));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex, ShaderRegistry.ID));
 			if (showShaderName)
-				setOverlay(getTranslatedShaderName(superSecretSettingsIndex));
+				setOverlay((MutableText) Shaders.getShaderName(superSecretSettingsIndex));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"))
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
@@ -313,15 +242,13 @@ public class Shader {
 			} catch (Exception ignored) {
 				superSecretSettingsIndex = 0;
 				try {
-					if (postProcessor != null) postProcessor.close();
-					postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), ClientData.minecraft.getFramebuffer(), (Identifier) Objects.requireNonNull(get(ShaderDataLoader.RegistryValue.id)));
-					postProcessor.setupDimensions(ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
 						toggle(false, true, true, true);
 				} catch (Exception ignored2) {
 				}
 			}
 		}
+		com.mclegoman.perspective.client.shaders.Shaders.set();
 		depthFix = false;
 	}
 	public static void setEntityShader(Framebuffer framebuffer, int framebufferWidth, int framebufferHeight, String entityType) {
@@ -330,35 +257,35 @@ public class Shader {
 		try {
 			if (entityPostProcessor != null) {
 				if (!entityPostProcessor.isEmpty()) entityPostProcessor.clear();
-				for (List<Object> shader : ShaderDataLoader.entityLinkRegistry) {
-					if (entityType.equalsIgnoreCase((String) shader.get(0))) {
-						try {
-							Identifier shaderId = ((String) shader.get(1)).contains(":") ? ShaderDataLoader.getPostShader((String) shader.get(1)): ShaderDataLoader.getPostShader(ShaderDataLoader.guessPostShaderNamespace((String) shader.get(1)), (String) shader.get(1));
-							PostEffectProcessor shaderProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), framebuffer, shaderId);
-							shaderProcessor.setupDimensions(framebufferWidth, framebufferHeight);
-							entityPostProcessor.add(shaderProcessor);
-							try {
-								if (entityTranslucentFramebuffer == null) entityTranslucentFramebuffer = new ArrayList<>();
-								if (entityEntityFramebuffer == null) entityEntityFramebuffer = new ArrayList<>();
-								if (entityParticlesFramebuffer == null) entityParticlesFramebuffer = new ArrayList<>();
-								if (entityWeatherFramebuffer == null) entityWeatherFramebuffer = new ArrayList<>();
-								if (entityCloudsFramebuffer == null) entityCloudsFramebuffer = new ArrayList<>();
-								for (PostEffectProcessor postProcessor : entityPostProcessor) {
-									entityTranslucentFramebuffer.add(postProcessor.getSecondaryTarget("translucent"));
-									entityEntityFramebuffer.add(postProcessor.getSecondaryTarget("itemEntity"));
-									entityParticlesFramebuffer.add(postProcessor.getSecondaryTarget("particles"));
-									entityWeatherFramebuffer.add(postProcessor.getSecondaryTarget("weather"));
-									entityCloudsFramebuffer.add(postProcessor.getSecondaryTarget("clouds"));
-								}
-							} catch (Exception error) {
-								Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
-							}
-						} catch (FileNotFoundException ignored) {
-							// We ignore this error as we would have already caught errors with the post json on load.
-							// Errors related to the shader program will still be logged.
-						}
-					}
-				}
+//				for (List<Object> shader : ShaderDataLoader.entityLinkRegistry) {
+//					if (entityType.equalsIgnoreCase((String) shader.get(0))) {
+//						try {
+//							Identifier shaderId = ((String) shader.get(1)).contains(":") ? ShaderDataLoader.getPostShader((String) shader.get(1)): ShaderDataLoader.getPostShader(ShaderDataLoader.guessPostShaderNamespace((String) shader.get(1)), (String) shader.get(1));
+//							PostEffectProcessor shaderProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), framebuffer, shaderId);
+//							shaderProcessor.setupDimensions(framebufferWidth, framebufferHeight);
+//							entityPostProcessor.add(shaderProcessor);
+//							try {
+//								if (entityTranslucentFramebuffer == null) entityTranslucentFramebuffer = new ArrayList<>();
+//								if (entityEntityFramebuffer == null) entityEntityFramebuffer = new ArrayList<>();
+//								if (entityParticlesFramebuffer == null) entityParticlesFramebuffer = new ArrayList<>();
+//								if (entityWeatherFramebuffer == null) entityWeatherFramebuffer = new ArrayList<>();
+//								if (entityCloudsFramebuffer == null) entityCloudsFramebuffer = new ArrayList<>();
+//								for (PostEffectProcessor postProcessor : entityPostProcessor) {
+//									entityTranslucentFramebuffer.add(postProcessor.getSecondaryTarget("translucent"));
+//									entityEntityFramebuffer.add(postProcessor.getSecondaryTarget("itemEntity"));
+//									entityParticlesFramebuffer.add(postProcessor.getSecondaryTarget("particles"));
+//									entityWeatherFramebuffer.add(postProcessor.getSecondaryTarget("weather"));
+//									entityCloudsFramebuffer.add(postProcessor.getSecondaryTarget("clouds"));
+//								}
+//							} catch (Exception error) {
+//								Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting entity link shader framebuffers: {}", error));
+//							}
+//						} catch (FileNotFoundException ignored) {
+//							// We ignore this error as we would have already caught errors with the post json on load.
+//							// Errors related to the shader program will still be logged.
+//						}
+//					}
+//				}
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set entity link shader: {}", error));
@@ -376,9 +303,6 @@ public class Shader {
 		while (COLOR == lastColor) COLOR = colors[(random.nextInt(colors.length))];
 		lastColor = COLOR;
 		return COLOR;
-	}
-	public static boolean shouldRenderShader() {
-		return postProcessor != null && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled");
 	}
 	public static void prepEntityShader(@Nullable Entity entity) {
 		String entityType = entity != null ? entity.getType().toString() : EntityType.PLAYER.toString();
@@ -411,10 +335,10 @@ public class Shader {
 		}
 	}
 	public static boolean shouldUseGameRenderer() {
-		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game") || shouldDisableScreenMode();
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game");
 	}
 	public static boolean shouldUseScreenRenderer() {
-		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen") && !shouldDisableScreenMode();
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen");
 	}
 	public static boolean shouldUseDepthGameRenderer() {
 		return shouldUseGameRenderer() && !shouldDisableImprovedDepthRenderer() && useDepth;
@@ -428,15 +352,12 @@ public class Shader {
 	public static boolean canUseEntityLink() {
 		return !Data.isModInstalled("souper_secret_settings");
 	}
-	public static boolean shouldDisableScreenMode() {
-		return (boolean) get(ShaderDataLoader.RegistryValue.disableScreenMode) || useDepth;
-	}
 	public static void cycleShaderModes() {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
 	}
 	public static boolean isShaderButtonsEnabled() {
-		return ShaderDataLoader.getShaderAmount() > 1;
+		return ShaderDataloader.getShaderAmount() > 1;
 	}
 
 }

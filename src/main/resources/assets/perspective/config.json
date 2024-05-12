@@ -21,7 +21,7 @@
 	"position_overlay": false,
 	"day_overlay": false,
 	"force_pride": false,
-	"force_pride_type": false,
+	"force_pride_type": "random",
 	"force_pride_type_index": 0,
 	"show_death_coordinates": false,
 	"title_screen": "default",

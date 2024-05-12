@@ -92,7 +92,7 @@ public class Panorama {
 					ClientData.minecraft.getWindow().setFramebufferWidth(resolution);
 					ClientData.minecraft.getWindow().setFramebufferHeight(resolution);
 
-					if (Shader.shouldRenderShader()) Shader.set(true, false, false, true, framebuffer, resolution, resolution);
+					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) Shader.set(true, false, false, true, framebuffer, resolution, resolution);
 
 					Perspective playerPerspective = ClientData.minecraft.options.getPerspective();
 					if (!playerPerspective.isFirstPerson()) ClientData.minecraft.options.setPerspective(Perspective.FIRST_PERSON);
@@ -156,7 +156,7 @@ public class Panorama {
 
 					ClientData.minecraft.getWindow().setFramebufferWidth(framebufferWidth);
 					ClientData.minecraft.getWindow().setFramebufferHeight(framebufferHeight);
-					if (Shader.shouldRenderShader()) Shader.set(true, false, false, true);
+					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) Shader.set(true, false, false, true);
 					framebuffer.delete();
 
 					ClientData.minecraft.player.setPitch(playerPitch);

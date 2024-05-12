@@ -7,14 +7,14 @@
 
 package com.mclegoman.perspective.config;
 
+import com.mclegoman.luminance.client.shaders.ShaderDataloader;
+import com.mclegoman.luminance.client.shaders.Shaders;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
-import com.mclegoman.perspective.client.shaders.Shaders;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
@@ -303,8 +303,8 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.NORMAL, "zoom_type", ConfigDataLoader.zoomType));
 			configChanged.add(setConfig(ConfigType.NORMAL, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 			configChanged.add(setConfig(ConfigType.NORMAL, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
-			if (Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) Shader.superSecretSettingsIndex = Shader.getShaderValue((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
-			else Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1);
+			if (ShaderDataloader.isValidIndex(com.mclegoman.luminance.client.shaders.Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader")))) Shader.superSecretSettingsIndex = Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
+			else Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataloader.registry.size() - 1);
 			configChanged.add(setConfig(ConfigType.NORMAL, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
 			configChanged.add(setConfig(ConfigType.NORMAL, "super_secret_settings_enabled", ConfigDataLoader.superSecretSettingsEnabled));
 			if ((boolean) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_enabled")) Shader.set(true, false, false, false);
@@ -334,7 +334,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.NORMAL, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 			configChanged.add(setConfig(ConfigType.NORMAL, "debug", ConfigDataLoader.debug));
 			configChanged.add(setConfig(ConfigType.NORMAL, "test_resource_pack", ConfigDataLoader.testResourcePack));
-			Shader.superSecretSettingsIndex = Shader.getShaderValue((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
+			Shader.superSecretSettingsIndex = Shaders.getShaderIndex((String) getConfig(ConfigType.NORMAL, "super_secret_settings_shader"));
 			fixConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");

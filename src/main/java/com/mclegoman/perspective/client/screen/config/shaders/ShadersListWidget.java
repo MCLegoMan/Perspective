@@ -7,16 +7,16 @@
 
 package com.mclegoman.perspective.client.screen.config.shaders;
 
+import com.mclegoman.luminance.client.shaders.ShaderDataloader;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import org.jetbrains.annotations.Nullable;
 
 public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>> extends AlwaysSelectedEntryListWidget<ShaderListEntry> {
 	protected ShadersListWidget(int width, int height, int top, int bottom, int itemHeight, double scrollAmount) {
 		super(ClientData.minecraft, width, height - top - bottom, top, itemHeight);
-		for (int i = 0; i <= (ShaderDataLoader.getShaderAmount() - 1); i++) {
+		for (int i = 0; i <= (ShaderDataloader.getShaderAmount() - 1); i++) {
 			this.addEntry(new ShaderListEntry(i));
 		}
 		this.setSelected(getEntry(Shader.superSecretSettingsIndex));

@@ -9,6 +9,7 @@ package com.mclegoman.perspective.mixin.client.shaders;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
+import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.render.RenderPhase;
 import org.spongepowered.asm.mixin.Final;
@@ -24,30 +25,30 @@ public abstract class RenderPhaseMixin {
 	@Inject(at = @At(value = "RETURN"), method = "startDrawing")
 	public void perspective$startDrawing(CallbackInfo ci) {
 		if (this.name.equals("translucent_target")) {
-			if (Shader.shouldRenderShader() && Shader.translucentFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled") && Shader.translucentFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
 			if (Shader.shouldUseEntityLink() && Shader.entityTranslucentFramebuffer != null) for (Framebuffer framebuffer : Shader.entityTranslucentFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
 		}
 		if (this.name.equals("item_entity_target")) {
-			if (Shader.shouldRenderShader() && Shader.entityFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled") && Shader.entityFramebuffer != null) Shader.translucentFramebuffer.beginWrite(false);
 			if (Shader.shouldUseEntityLink() && Shader.entityEntityFramebuffer != null) for (Framebuffer framebuffer : Shader.entityEntityFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
 		}
 		if (this.name.equals("particles_target")) {
-			if (Shader.shouldRenderShader() && Shader.particlesFramebuffer != null) Shader.particlesFramebuffer.beginWrite(false);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled") && Shader.particlesFramebuffer != null) Shader.particlesFramebuffer.beginWrite(false);
 			if (Shader.shouldUseEntityLink() && Shader.entityParticlesFramebuffer != null) for (Framebuffer framebuffer : Shader.entityParticlesFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
 		}
 		if (this.name.equals("weather_target")) {
-			if (Shader.shouldRenderShader() && Shader.weatherFramebuffer != null) Shader.weatherFramebuffer.beginWrite(false);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled") && Shader.weatherFramebuffer != null) Shader.weatherFramebuffer.beginWrite(false);
 			if (Shader.shouldUseEntityLink() && Shader.entityWeatherFramebuffer != null) for (Framebuffer framebuffer : Shader.entityWeatherFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
 		}
 		if (this.name.equals("clouds_target")) {
-			if (Shader.shouldRenderShader() && Shader.cloudsFramebuffer != null) Shader.cloudsFramebuffer.beginWrite(false);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled") && Shader.cloudsFramebuffer != null) Shader.cloudsFramebuffer.beginWrite(false);
 			if (Shader.shouldUseEntityLink() && Shader.entityCloudsFramebuffer != null) for (Framebuffer framebuffer : Shader.entityCloudsFramebuffer) if (framebuffer != null) framebuffer.beginWrite(false);
 		}
 	}
 	@Inject(at = @At(value = "RETURN"), method = "endDrawing")
 	public void perspective$endDrawing(CallbackInfo ci) {
 		if (ClientData.minecraft.getFramebuffer() != null) {
-			if (Shader.shouldRenderShader() || Shader.shouldUseEntityLink()) ClientData.minecraft.getFramebuffer().beginWrite(false);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled") || Shader.shouldUseEntityLink()) ClientData.minecraft.getFramebuffer().beginWrite(false);
 		}
 	}
 }

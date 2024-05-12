@@ -10,8 +10,6 @@ package com.mclegoman.perspective.client.hud;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.shaders.Shader;
-import com.mclegoman.perspective.client.shaders.ShaderDataLoader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
@@ -46,14 +44,14 @@ public class DebugOverlay {
 			debugText.add(Translation.getCombinedText(Text.literal("getZoomType(): "), Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath())));
 			debugText.add(Text.literal("Newer Version Found: " + Update.newerVersionFound));
 			debugText.add("\n");
-			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
-			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
-			debugText.add(Text.literal("disable_screen_mode: " + Shader.get(ShaderDataLoader.RegistryValue.disableScreenMode)));
-			debugText.add(Text.literal("render_type: " + Shader.renderType));
-			debugText.add(Text.literal("use_depth: " + Shader.useDepth));
-			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));
-			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
-			debugText.add(Text.literal("shouldDisableImprovedDepthRenderer(): " + Shader.shouldDisableImprovedDepthRenderer()));
+//			debugText.add(Text.literal("Super Secret Settings").formatted(Formatting.BOLD, shaderColor));
+//			debugText.add(Text.literal("shader: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
+//			debugText.add(Text.literal("disable_screen_mode: " + Shader.get(ShaderDataLoader.RegistryValue.disableScreenMode)));
+//			debugText.add(Text.literal("render_type: " + Shader.renderType));
+//			debugText.add(Text.literal("use_depth: " + Shader.useDepth));
+//			debugText.add(Text.literal("shouldDisableScreenMode(): " + Shader.shouldDisableScreenMode()));
+//			debugText.add(Text.literal("shouldRenderShader(): " + Shader.shouldRenderShader()));
+//			debugText.add(Text.literal("shouldDisableImprovedDepthRenderer(): " + Shader.shouldDisableImprovedDepthRenderer()));
 		}
 		if (debugType.equals(Type.config) || debugType.equals(Type.experimentalConfig) || debugType.equals(Type.tutorialsConfig) || debugType.equals(Type.warningsConfig)) {
 			debugText.add("\n");

@@ -1,12 +1,20 @@
 {
   "namespace": "perspective",
-  "shader": "silhouette",
-  "disable_screen_mode": true,
+  "name": "silhouette",
+  "enabled": true,
   "translatable": true,
-  "disable_soup": false,
-  "entity_links": [
-    "entity.minecraft.warden"
-  ],
-  "custom": {},
-  "enabled": true
+  "disable_game_rendertype": true,
+  "custom": {
+    "perspective": {
+      "entity_links": [
+        "entity.minecraft.warden"
+      ]
+    },
+    "souper_secret_settings": {
+      "disable_soup": false,
+      "entity_links": [
+        "entity.minecraft.warden"
+      ]
+    }
+  }
 }
