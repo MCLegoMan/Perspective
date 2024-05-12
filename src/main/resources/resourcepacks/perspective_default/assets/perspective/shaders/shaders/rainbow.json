@@ -1,10 +1,16 @@
 {
   "namespace": "perspective",
-  "shader": "rainbow",
-  "disable_screen_mode": false,
+  "name": "rainbow",
+  "enabled": true,
   "translatable": true,
-  "disable_soup": false,
-  "entity_links": [],
-  "custom": {},
-  "enabled": true
+  "disable_game_rendertype": false,
+  "custom": {
+    "perspective": {
+      "entity_links": []
+    },
+    "souper_secret_settings": {
+      "disable_soup": false,
+      "entity_links": []
+    }
+  }
 }
