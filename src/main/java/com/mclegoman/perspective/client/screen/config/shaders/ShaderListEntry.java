@@ -25,7 +25,7 @@ public class ShaderListEntry extends AlwaysSelectedEntryListWidget.Entry<ShaderL
 	}
 	@Override
 	public void render(DrawContext context, int index, int y, int x, int rowWidth, int rowHeight, int mouseX, int mouseY, boolean hovered, float delta) {
-		context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, Translation.getConfigTranslation(Data.version.getID(), "shaders.list.shader", new Object[]{Shaders.getShaderName(this.shader), ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation(Data.version.getID(), (boolean) Shaders.get(this.shader, ShaderRegistry.DISABLE_GAME_RENDERTYPE), Translation.Type.DISABLE_SCREEN_MODE) : ""}), ClientData.minecraft.getWindow().getScaledWidth() / 2, y + (rowHeight / 2) - (9 / 2), 0xFFFFFF);
+		context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, Translation.getConfigTranslation(Data.version.getID(), "shaders.list.shader", new Object[]{Shaders.getShaderName(this.shader), ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation(Data.version.getID(), (boolean) Shaders.get(this.shader).getDisableGameRendertype(), Translation.Type.DISABLE_SCREEN_MODE) : ""}), ClientData.minecraft.getWindow().getScaledWidth() / 2, y + (rowHeight / 2) - (9 / 2), 0xFFFFFF);
 	}
 	@Override
 	public Text getNarration() {

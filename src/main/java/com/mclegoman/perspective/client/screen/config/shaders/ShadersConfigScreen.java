@@ -102,7 +102,7 @@ public class ShadersConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders.mode", new Object[]{Translation.getShaderModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")), ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation(Data.version.getID(), (boolean) Shaders.get(Shader.superSecretSettingsIndex, ShaderRegistry.DISABLE_GAME_RENDERTYPE), Translation.Type.DISABLE_SCREEN_MODE) : ""}), (button) -> {
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders.mode", new Object[]{Translation.getShaderModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")), ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen") ? Translation.getVariableTranslation(Data.version.getID(), (boolean) Shaders.get(Shader.superSecretSettingsIndex).getDisableGameRendertype(), Translation.Type.DISABLE_SCREEN_MODE) : ""}), (button) -> {
 			Shader.cycleShaderModes();
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "shaders.mode", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "shaders.mode." + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode"), true)}, true))).build());

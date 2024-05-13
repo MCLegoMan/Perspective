@@ -220,7 +220,7 @@ public class Shader {
 			} catch (Exception error) {
 				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 			}
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex, ShaderRegistry.ID));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex).getId());
 			if (showShaderName)
 				setOverlay((MutableText) Shaders.getShaderName(superSecretSettingsIndex));
 			try {
