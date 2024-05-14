@@ -71,6 +71,7 @@
 		"client.textured_entity.minecraft.magma_cube.MagmaCubeEntityRendererMixin",
 		"client.textured_entity.minecraft.minecart.MinecartEntityRendererMixin",
 		"client.textured_entity.minecraft.mooshroom.MooshroomEntityRendererMixin",
+		"client.textured_entity.minecraft.mooshroom.MooshroomMushroomFeatureRendererMixin",
 		"client.textured_entity.minecraft.ocelot.OcelotEntityRendererMixin",
 		"client.textured_entity.minecraft.panda.PandaEntityRendererMixin",
 		"client.textured_entity.minecraft.parrot.ParrotEntityRendererMixin",
@@ -126,8 +127,7 @@
 		"client.ui.ScreenMixin",
 		"client.ui.TitleScreenMixin",
 		"client.zoom.GameRendererMixin",
-		"client.zoom.MouseMixin",
-		"client.textured_entity.minecraft.mooshroom.MooshroomMushroomFeatureRendererMixin"
+		"client.zoom.MouseMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

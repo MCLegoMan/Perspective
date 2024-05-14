@@ -37,6 +37,7 @@ public class PerspectiveLogo {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
 		prideTypes.add("rainbow");
 		prideTypes.add("bi");
+		prideTypes.add("pan");
 		prideTypes.add("trans");
 		prideIndex = new Random().nextInt(prideTypes.size());
 		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), () -> "assets/" + Data.version.getID() + "/icons/" + getPrideType() + ".png", PerspectiveLogo::isPride);

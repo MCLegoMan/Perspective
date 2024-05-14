@@ -89,10 +89,17 @@ public class DebugOverlay {
 		warningsConfig;
 		private static final Type[] values = values();
 		public Type prev() {
-			return values[(this.ordinal() - 1) < 0 ? values.length - 1 : this.ordinal() - 1];
+			return values[getIndex(false)];
 		}
 		public Type next() {
-			return values[(this.ordinal() + 1) % values.length];
+			return values[getIndex(true)];
+		}
+		private int getIndex(boolean forwards) {
+			if (!ConfigHelper.experimentsAvailable && values[nextIndex(true)].equals(Type.experimentalConfig)) return values[nextIndex(forwards)].nextIndex(forwards);
+			return nextIndex(forwards);
+		}
+		private int nextIndex(boolean forwards) {
+			return forwards ? (this.ordinal() + 1) % values.length : (this.ordinal() - 1) < 0 ? values.length - 1 : this.ordinal() - 1;
 		}
 	}
 }
