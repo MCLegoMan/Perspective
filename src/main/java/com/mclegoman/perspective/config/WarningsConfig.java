@@ -20,6 +20,7 @@ public class WarningsConfig {
 	protected static ConfigProvider configProvider;
 	protected static boolean photosensitivity;
 	protected static boolean prank;
+	protected static final Object[] options;
 
 	protected static void init() {
 		try {
@@ -47,5 +48,11 @@ public class WarningsConfig {
 		configProvider.setConfig("photosensitivity", photosensitivity);
 		configProvider.setConfig("prank", prank);
 		configProvider.saveConfig(Data.version, id);
+	}
+	static {
+		options = new Object[]{
+				photosensitivity,
+				prank
+		};
 	}
 }

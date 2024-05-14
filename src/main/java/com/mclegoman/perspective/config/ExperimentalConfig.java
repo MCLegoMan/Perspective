@@ -18,6 +18,7 @@ public class ExperimentalConfig {
 	protected static final String id = Data.version.getID() + "-experimental";
 	protected static SimpleConfig config;
 	protected static ConfigProvider configProvider;
+	protected static final Object[] options;
 
 	protected static void init() {
 		try {
@@ -42,5 +43,9 @@ public class ExperimentalConfig {
 			Data.version.sendToLog(LogType.INFO,"Writing experimental config to file.");
 			configProvider.saveConfig(Data.version, id);
 		}
+	}
+	static {
+		options = new Object[]{
+		};
 	}
 }

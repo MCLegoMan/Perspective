@@ -56,6 +56,7 @@ public class Config {
 	protected static boolean debug;
 	protected static boolean testResourcePack;
 	protected static int configVersion;
+	protected static final Object[] options;
 
 	protected static void init() {
 		try {
@@ -191,5 +192,47 @@ public class Config {
 		configProvider.setConfig("test_resource_pack", testResourcePack);
 		configProvider.setConfig("config_version", ConfigHelper.defaultConfigVersion);
 		configProvider.saveConfig(Data.version, id);
+	}
+	static {
+		options = new Object[]{
+			zoomLevel,
+			zoomIncrementSize,
+			zoomTransition,
+			zoomScaleMode,
+			zoomHideHud,
+			zoomShowPercentage,
+			zoomType,
+			holdPerspectiveHideHud,
+			superSecretSettingsShader,
+			superSecretSettingsMode,
+			superSecretSettingsEnabled,
+			superSecretSettingsSound,
+			superSecretSettingsShowName,
+			superSecretSettingsSelectionBlur,
+			texturedNamedEntity,
+			texturedRandomEntity,
+			allowAprilFools,
+			forceAprilFools,
+			versionOverlay,
+			positionOverlay,
+			dayOverlay,
+			forcePride,
+			forcePrideType,
+			showDeathCoordinates,
+			titleScreen,
+			uiBackground,
+			uiBackgroundTexture,
+			hideCrosshair,
+			hideBlockOutline,
+			hideArmor,
+			hideNametags,
+			hidePlayers,
+			hideShowMessage,
+			detectUpdateChannel,
+			tutorials,
+			debug,
+			testResourcePack,
+			configVersion
+		};
 	}
 }

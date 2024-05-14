@@ -19,6 +19,7 @@ public class TutorialsConfig {
 	protected static SimpleConfig config;
 	protected static ConfigProvider configProvider;
 	protected static boolean superSecretSettings;
+	protected static final Object[] options;
 
 	protected static void init() {
 		try {
@@ -43,5 +44,10 @@ public class TutorialsConfig {
 		Data.version.sendToLog(LogType.INFO,"Writing tutorial config to file.");
 		configProvider.setConfig("super_secret_settings", superSecretSettings);
 		configProvider.saveConfig(Data.version, id);
+	}
+	static {
+		options = new Object[]{
+				superSecretSettings
+		};
 	}
 }

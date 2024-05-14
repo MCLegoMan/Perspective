@@ -38,7 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConfigHelper {
-	public static final boolean experimentsAvailable = false;
+	public static final boolean experimentsAvailable = ExperimentalConfig.options.length > 0;
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
