@@ -42,7 +42,6 @@ public class PerspectiveClient implements ClientModInitializer {
 			Hide.init();
 			Keybindings.init();
 			Panorama.init();
-			PerspectiveLogo.init();
 			Shader.init();
 			TexturedEntity.init();
 			Tick.init();
@@ -57,6 +56,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			ResourcePacks.initAfterConfig();
 			Update.checkForUpdates(Data.version);
 			Shaders.init();
+			PerspectiveLogo.init();
 			ClientData.setFinishedInitializingAfterConfig(true);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to run afterInitializeConfig: {}", error));

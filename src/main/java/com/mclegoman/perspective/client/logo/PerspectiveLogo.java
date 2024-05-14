@@ -39,7 +39,7 @@ public class PerspectiveLogo {
 		prideTypes.add("bi");
 		prideTypes.add("trans");
 		prideIndex = new Random().nextInt(prideTypes.size());
-		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), "assets/" + Data.version.getID() + "/icon_pride.png", PerspectiveLogo::isPride);
+		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), () -> "assets/" + Data.version.getID() + "/icons/" + getPrideType() + ".png", PerspectiveLogo::isPride);
 		CompatHelper.addLuminanceModMenuBadge(Data.version.getID());
 	}
 	public static boolean isPride() {
