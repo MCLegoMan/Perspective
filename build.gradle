@@ -24,6 +24,7 @@ repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 	mavenCentral()
+	mavenLocal()
 	exclusiveContent {
 		forRepository {
 			maven {
@@ -40,8 +41,10 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft}"
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 	//include(modImplementation "maven.modrinth:luminance:${project.luminance}")
+	include(modImplementation "com.mclegoman:luminance:${project.luminance}")
 
 	// Compatibility
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
@@ -49,7 +52,6 @@ dependencies {
 	// Development Environment Only
 	modImplementation "com.ptsmods:devlogin:3.4.1"
 	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
-	modImplementation fileTree(dir: 'libs', include: '*.jar')
 }
 processResources {
 	inputs.property "version", project.mod_version
