@@ -6,5 +6,5 @@
 	"type": "developer",
 	"shouldFlipUpsideDown": true,
 	"shouldReplaceCape": true,
-	"capeTexture": "perspective:developer"
+	"capeTexture": "perspective:perspective"
 }

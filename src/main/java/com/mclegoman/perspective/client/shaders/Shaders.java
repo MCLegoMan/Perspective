@@ -23,7 +23,7 @@ public class Shaders {
 		ShaderRegistry shader = com.mclegoman.luminance.client.shaders.Shaders.get((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 		if (shader != null) {
 			if (Events.ShaderRender.Shaders.exists(superSecretSettingsId, "main")) set(shader);
-			else set(new Shader(shader, () -> getRenderType(), getShouldRender()));
+			else set(new Shader(shader, Shaders::getRenderType, getShouldRender()));
 		}
 		else Data.version.sendToLog(LogType.WARN, Translation.getString("Cannot find specified shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
 	}
