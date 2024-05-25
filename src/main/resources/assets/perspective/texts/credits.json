@@ -3,11 +3,11 @@
 		{
 			"sections": [
 				{
-					"title": "Lead Developer",
-					"color": "white",
+					"text": "Lead Developer",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "  MCLegoMan"
+							"text": "  MCLegoMan"
 						}
 					]
 				}
@@ -19,11 +19,11 @@
 		{
 			"sections": [
 				{
-					"title": "Contributors",
-					"color": "white",
+					"text": "Contributors",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "  Nettakrim"
+							"text": "  Nettakrim"
 						}
 					]
 				}
@@ -33,35 +33,35 @@
 			"spaced": true
 		},
 		{
-			"title": "Attributions",
-			"color": "gold",
+			"text": "Attributions",
+			"formatting": "gold",
 			"centered": true,
 			"sections": [
 				{
-					"title": "  Perspective",
-					"color": "white",
+					"text": "  Perspective",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "    Perspective",
+							"text": "    Perspective",
 							"sections": [
 								{
-									"title": "      Client-side features for Fabric and Quilt.",
+									"text": "      Client-side features for Fabric and Quilt.",
 									"sections": [
 										{
-											"title": "      Licence: LGPL-3.0-or-later"
+											"text": "      Licence: LGPL-3.0-or-later"
 										}
 									]
 								}
 							]
 						},
 						{
-							"title": "    Perspective: Default",
+							"text": "    Perspective: Default",
 							"sections": [
 								{
-									"title": "      The default look of Perspective.",
+									"text": "      The default look of Perspective.",
 									"sections": [
 										{
-											"title": "      Licence: LGPL-3.0-or-later"
+											"text": "      Licence: LGPL-3.0-or-later"
 										}
 									]
 								}
@@ -73,35 +73,35 @@
 					"spaced": true
 				},
 				{
-					"title": "  Luminance",
-					"color": "white",
+					"text": "  Luminance",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "    A library mod that helps other mods with shaders.",
+							"text": "    A library mod that helps other mods with shaders.",
 							"sections": [
 								{
-									"title": "    Author: MCLegoMan"
+									"text": "    Author: MCLegoMan"
 								},
 								{
-									"title": "    Licence: LGPL-3.0-or-later"
+									"text": "    Licence: LGPL-3.0-or-later"
 								},
 								{
-									"title": "    Contributors:",
+									"text": "    Contributors:",
 									"sections": [
 										{
-											"title": "      Nettakrim",
+											"text": "      Nettakrim",
 											"sections": [
 												{
-													"title": "        Vanilla Shader Fixes"
+													"text": "        Vanilla Shader Fixes"
 												},
 												{
-													"title": "        Shader Namespace Fix"
+													"text": "        Shader Namespace Fix"
 												},
 												{
-													"title": "        Shader Texture Namespace Fix"
+													"text": "        Shader Texture Namespace Fix"
 												},
 												{
-													"title": "        Depth Shader Support"
+													"text": "        Depth Shader Support"
 												}
 											]
 										}
@@ -115,17 +115,17 @@
 					"spaced": true
 				},
 				{
-					"title": "  SimpleConfig",
-					"color": "white",
+					"text": "  SimpleConfig",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "    Simple and small, single file, configuration library.",
+							"text": "    Simple and small, single file, configuration library.",
 							"sections": [
 								{
-									"title": "    Author: magistermaks"
+									"text": "    Author: magistermaks"
 								},
 								{
-									"title": "    Licence: MIT"
+									"text": "    Licence: MIT"
 								}
 							]
 						}
@@ -135,17 +135,17 @@
 					"spaced": true
 				},
 				{
-					"title": "  Fabric API",
-					"color": "white",
+					"text": "  Fabric API",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "    Essential hooks for modding with Fabric.",
+							"text": "    Essential hooks for modding with Fabric.",
 							"sections": [
 								{
-									"title": "    Author: FabricMC"
+									"text": "    Author: FabricMC"
 								},
 								{
-									"title": "    Licence: Apache-2.0"
+									"text": "    Licence: Apache-2.0"
 								}
 							]
 						}
@@ -155,17 +155,17 @@
 					"spaced": true
 				},
 				{
-					"title": "  Fabric Loader",
-					"color": "white",
+					"text": "  Fabric Loader",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "    Fabric is a modular, lightweight mod loader for Minecraft.",
+							"text": "    Fabric is a modular, lightweight mod loader for Minecraft.",
 							"sections": [
 								{
-									"title": "    Author: FabricMC"
+									"text": "    Author: FabricMC"
 								},
 								{
-									"title": "    Licence: Apache-2.0"
+									"text": "    Licence: Apache-2.0"
 								}
 							]
 						}
@@ -175,26 +175,23 @@
 					"spaced": true
 				},
 				{
-					"title": "  Minecraft",
-					"color": "white",
+					"text": "  Minecraft",
+					"formatting": "white",
 					"sections": [
 						{
-							"title": "    The base game.",
+							"text": "    The base game.",
 							"sections": [
 								{
-									"title": "    Author: Mojang Studios"
+									"text": "    Author: Mojang Studios"
 								},
 								{
-									"title": "    Licence: Minecraft EULA"
+									"text": "    Licence: Minecraft EULA"
 								}
 							]
 						}
 					]
 				}
 			]
-		},
-		{
-			"spaced": true
 		}
 	]
 }
