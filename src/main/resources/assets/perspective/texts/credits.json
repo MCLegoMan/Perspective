@@ -38,22 +38,32 @@
 			"centered": true,
 			"subsections": [
 				{
-					"subtitle": "  Perspective:",
+					"subtitle": "  Perspective",
 					"color": "white",
 					"subsections": [
 						{
 							"subtitle": "    Perspective",
 							"subsections": [
 								{
-									"subtitle": "    Licence: LGPL-3.0-or-later"
+									"subtitle": "       Client-side features for Fabric and Quilt.",
+									"subsections": [
+										{
+											"subtitle": "      Licence: LGPL-3.0-or-later"
+										}
+									]
 								}
 							]
 						},
 						{
-							"subtitle": "  Perspective: Default",
+							"subtitle": "    Perspective: Default",
 							"subsections": [
 								{
-									"subtitle": "    Licence: LGPL-3.0-or-later"
+									"subtitle": "      The default look of Perspective.",
+									"subsections": [
+										{
+											"subtitle": "      Licence: LGPL-3.0-or-later"
+										}
+									]
 								}
 							]
 						}
