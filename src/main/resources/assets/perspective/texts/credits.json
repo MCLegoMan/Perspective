@@ -4,121 +4,169 @@
 			"subsections": [
 				{
 					"subtitle": "Lead Developer",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "MCLegoMan"
+							"subtitle": "  MCLegoMan"
 						}
 					]
 				},
 				{
-					"subtitle": "Contributors",
-					"subsections": [
-						{
-							"subtitle": "Nettakrim",
-							"subsections": [
-								"Super Secret Settings:",
-								" - Vanilla Shader Fixes",
-								" - Shader Namespace Fix",
-								" - Shader Texture Namespace Fix",
-								" - Depth Shader Support"
-							]
-						}
-					]
+					"spaced": true
 				}
 			]
 		},
 		{
-			"title": "Licenses",
+			"subtitle": "Attributions",
+			"color": "gold",
+			"centered": true,
 			"subsections": [
 				{
-					"subtitle": "Perspective:",
+					"subtitle": "  Perspective:",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "Perspective",
+							"subtitle": "    Perspective",
 							"subsections": [
-								"License: LGPL-3.0-or-later"
+								{
+									"subtitle": "    Licence: LGPL-3.0-or-later"
+								}
 							]
 						},
 						{
-							"subtitle": "Perspective: Default",
+							"subtitle": "  Perspective: Default",
 							"subsections": [
-								"License: LGPL-3.0-or-later"
+								{
+									"subtitle": "    Licence: LGPL-3.0-or-later"
+								}
 							]
 						}
 					]
 				},
 				{
-					"subtitle": "Luminance",
+					"spaced": true
+				},
+				{
+					"subtitle": "  Luminance",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "A library mod that helps other mods with shaders.",
+							"subtitle": "    A library mod that helps other mods with shaders.",
 							"subsections": [
-								"Author: MCLegoMan",
-								"License: LGPL-3.0-or-later"
+								{
+									"subtitle": "    Author: MCLegoMan"
+								},
+								{
+									"subtitle": "    Licence: LGPL-3.0-or-later"
+								},
+								{
+									"subtitle": "    Contributors:",
+									"subsections": [
+										{
+											"subtitle": "      Nettakrim",
+											"subsections": [
+												{
+													"subtitle": "        Vanilla Shader Fixes"
+												},
+												{
+													"subtitle": "        Shader Namespace Fix"
+												},
+												{
+													"subtitle": "        Shader Texture Namespace Fix"
+												},
+												{
+													"subtitle": "        Depth Shader Support"
+												}
+											]
+										}
+									]
+								}
 							]
 						}
 					]
 				},
 				{
-					"subtitle": "SimpleConfig",
+					"spaced": true
+				},
+				{
+					"subtitle": "  SimpleConfig",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "Simple and small, single file, configuration library.",
+							"subtitle": "    Simple and small, single file, configuration library.",
 							"subsections": [
-								"Author: magistermaks",
-								"License: MIT"
+								{
+									"subtitle": "    Author: magistermaks"
+								},
+								{
+									"subtitle": "    Licence: MIT"
+								}
 							]
 						}
 					]
 				},
 				{
-					"subtitle": "Fabric API",
+					"spaced": true
+				},
+				{
+					"subtitle": "  Fabric API",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "Essential hooks for modding with Fabric.",
+							"subtitle": "    Essential hooks for modding with Fabric.",
 							"subsections": [
-								"Author: FabricMC",
-								"License: Apache-2.0"
+								{
+									"subtitle": "    Author: FabricMC"
+								},
+								{
+									"subtitle": "    Licence: Apache-2.0"
+								}
 							]
 						}
 					]
 				},
 				{
-					"subtitle": "Fabric Loader",
+					"spaced": true
+				},
+				{
+					"subtitle": "  Fabric Loader",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "Fabric is a modular, lightweight mod loader for Minecraft.",
+							"subtitle": "    Fabric is a modular, lightweight mod loader for Minecraft.",
 							"subsections": [
-								"Author: FabricMC",
-								"License: Apache-2.0"
+								{
+									"subtitle": "    Author: FabricMC"
+								},
+								{
+									"subtitle": "    Licence: Apache-2.0"
+								}
 							]
 						}
 					]
 				},
 				{
-					"subtitle": "Minecraft",
+					"spaced": true
+				},
+				{
+					"subtitle": "  Minecraft",
+					"color": "white",
 					"subsections": [
 						{
-							"subtitle": "The base game.",
+							"subtitle": "    The base game.",
 							"subsections": [
-								"Author: Mojang Studios",
-								"License: Minecraft EULA"
+								{
+									"subtitle": "    Author: Mojang Studios"
+								},
+								{
+									"subtitle": "    Licence: Minecraft EULA"
+								}
 							]
 						}
 					]
-				}
-			]
-		},
-		{
-			"title": "Special Thanks",
-			"subsections": [
+				},
 				{
-					"subtitle": "Nettakrim",
-					"subsections": [
-						{
-							"subtitle": "Thank you for your help with fixing bugs and making our resource packs cross-compatible."
-						}
-					]
+					"spaced": true
 				}
 			]
 		}

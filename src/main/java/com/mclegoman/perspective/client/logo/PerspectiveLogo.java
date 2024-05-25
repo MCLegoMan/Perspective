@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Random;
 
 public class PerspectiveLogo {
-	// Pride Logos will be re-worked in the near future.
+	// Pride Logos will be re-worked soon.
 	public static final List<String> prideTypes = new ArrayList<>();
-	// Whilst currently there are only two types, there will be more in the near future as they are re-worked.
+	// Whilst currently there are only two types, there will be more soon as they are re-worked.
 	private static int prideIndex;
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
@@ -59,10 +59,10 @@ public class PerspectiveLogo {
 	public static Logo getLogo(Logo.Type type) {
 		return new Logo(new Identifier(Data.version.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : Data.version.getID())), type);
 	}
-	public static void renderPerspectiveLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
+	public static void renderLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
 		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
-		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + (width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.version.isDevelopmentBuild(), 0, 0);
+		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + ((float) width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.version.isDevelopmentBuild(), 0, 0);
 	}
 	public record Logo(Identifier id, Type type) {
 		public String getNamespace() {
@@ -97,7 +97,7 @@ public class PerspectiveLogo {
 			this.experimental = experimental;
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderPerspectiveLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
+			renderLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
 			LogoHelper.createSplashText(context, this.getWidth(), this.getX(), this.getY() + 32, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		}
 		@Override
