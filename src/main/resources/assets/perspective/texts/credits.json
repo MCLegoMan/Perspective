@@ -10,11 +10,27 @@
 							"subtitle": "  MCLegoMan"
 						}
 					]
-				},
-				{
-					"spaced": true
 				}
 			]
+		},
+		{
+			"spaced": true
+		},
+		{
+			"subsections": [
+				{
+					"subtitle": "Contributors",
+					"color": "white",
+					"subsections": [
+						{
+							"subtitle": "  Nettakrim"
+						}
+					]
+				}
+			]
+		},
+		{
+			"spaced": true
 		},
 		{
 			"subtitle": "Attributions",
@@ -164,11 +180,11 @@
 							]
 						}
 					]
-				},
-				{
-					"spaced": true
 				}
 			]
+		},
+		{
+			"spaced": true
 		}
 	]
 }
