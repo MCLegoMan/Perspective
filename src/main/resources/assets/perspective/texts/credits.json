@@ -1,13 +1,13 @@
 {
 	"sections": [
 		{
-			"subsections": [
+			"sections": [
 				{
-					"subtitle": "Lead Developer",
+					"title": "Lead Developer",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "  MCLegoMan"
+							"title": "  MCLegoMan"
 						}
 					]
 				}
@@ -17,13 +17,13 @@
 			"spaced": true
 		},
 		{
-			"subsections": [
+			"sections": [
 				{
-					"subtitle": "Contributors",
+					"title": "Contributors",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "  Nettakrim"
+							"title": "  Nettakrim"
 						}
 					]
 				}
@@ -33,35 +33,35 @@
 			"spaced": true
 		},
 		{
-			"subtitle": "Attributions",
+			"title": "Attributions",
 			"color": "gold",
 			"centered": true,
-			"subsections": [
+			"sections": [
 				{
-					"subtitle": "  Perspective",
+					"title": "  Perspective",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "    Perspective",
-							"subsections": [
+							"title": "    Perspective",
+							"sections": [
 								{
-									"subtitle": "      Client-side features for Fabric and Quilt.",
-									"subsections": [
+									"title": "      Client-side features for Fabric and Quilt.",
+									"sections": [
 										{
-											"subtitle": "      Licence: LGPL-3.0-or-later"
+											"title": "      Licence: LGPL-3.0-or-later"
 										}
 									]
 								}
 							]
 						},
 						{
-							"subtitle": "    Perspective: Default",
-							"subsections": [
+							"title": "    Perspective: Default",
+							"sections": [
 								{
-									"subtitle": "      The default look of Perspective.",
-									"subsections": [
+									"title": "      The default look of Perspective.",
+									"sections": [
 										{
-											"subtitle": "      Licence: LGPL-3.0-or-later"
+											"title": "      Licence: LGPL-3.0-or-later"
 										}
 									]
 								}
@@ -73,35 +73,35 @@
 					"spaced": true
 				},
 				{
-					"subtitle": "  Luminance",
+					"title": "  Luminance",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "    A library mod that helps other mods with shaders.",
-							"subsections": [
+							"title": "    A library mod that helps other mods with shaders.",
+							"sections": [
 								{
-									"subtitle": "    Author: MCLegoMan"
+									"title": "    Author: MCLegoMan"
 								},
 								{
-									"subtitle": "    Licence: LGPL-3.0-or-later"
+									"title": "    Licence: LGPL-3.0-or-later"
 								},
 								{
-									"subtitle": "    Contributors:",
-									"subsections": [
+									"title": "    Contributors:",
+									"sections": [
 										{
-											"subtitle": "      Nettakrim",
-											"subsections": [
+											"title": "      Nettakrim",
+											"sections": [
 												{
-													"subtitle": "        Vanilla Shader Fixes"
+													"title": "        Vanilla Shader Fixes"
 												},
 												{
-													"subtitle": "        Shader Namespace Fix"
+													"title": "        Shader Namespace Fix"
 												},
 												{
-													"subtitle": "        Shader Texture Namespace Fix"
+													"title": "        Shader Texture Namespace Fix"
 												},
 												{
-													"subtitle": "        Depth Shader Support"
+													"title": "        Depth Shader Support"
 												}
 											]
 										}
@@ -115,17 +115,17 @@
 					"spaced": true
 				},
 				{
-					"subtitle": "  SimpleConfig",
+					"title": "  SimpleConfig",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "    Simple and small, single file, configuration library.",
-							"subsections": [
+							"title": "    Simple and small, single file, configuration library.",
+							"sections": [
 								{
-									"subtitle": "    Author: magistermaks"
+									"title": "    Author: magistermaks"
 								},
 								{
-									"subtitle": "    Licence: MIT"
+									"title": "    Licence: MIT"
 								}
 							]
 						}
@@ -135,17 +135,17 @@
 					"spaced": true
 				},
 				{
-					"subtitle": "  Fabric API",
+					"title": "  Fabric API",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "    Essential hooks for modding with Fabric.",
-							"subsections": [
+							"title": "    Essential hooks for modding with Fabric.",
+							"sections": [
 								{
-									"subtitle": "    Author: FabricMC"
+									"title": "    Author: FabricMC"
 								},
 								{
-									"subtitle": "    Licence: Apache-2.0"
+									"title": "    Licence: Apache-2.0"
 								}
 							]
 						}
@@ -155,17 +155,17 @@
 					"spaced": true
 				},
 				{
-					"subtitle": "  Fabric Loader",
+					"title": "  Fabric Loader",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "    Fabric is a modular, lightweight mod loader for Minecraft.",
-							"subsections": [
+							"title": "    Fabric is a modular, lightweight mod loader for Minecraft.",
+							"sections": [
 								{
-									"subtitle": "    Author: FabricMC"
+									"title": "    Author: FabricMC"
 								},
 								{
-									"subtitle": "    Licence: Apache-2.0"
+									"title": "    Licence: Apache-2.0"
 								}
 							]
 						}
@@ -175,17 +175,17 @@
 					"spaced": true
 				},
 				{
-					"subtitle": "  Minecraft",
+					"title": "  Minecraft",
 					"color": "white",
-					"subsections": [
+					"sections": [
 						{
-							"subtitle": "    The base game.",
-							"subsections": [
+							"title": "    The base game.",
+							"sections": [
 								{
-									"subtitle": "    Author: Mojang Studios"
+									"title": "    Author: Mojang Studios"
 								},
 								{
-									"subtitle": "    Licence: Minecraft EULA"
+									"title": "    Licence: Minecraft EULA"
 								}
 							]
 						}
