@@ -18,9 +18,9 @@ public class TextureHelper {
 			if (texture.contains(":")) {
 				String cape_namespace = texture.substring(0, texture.indexOf(":"));
 				String cape_texture = texture.substring(texture.indexOf(":") + 1);
-				return new Identifier(cape_namespace, "textures/entity/player/cape/" + cape_texture + ".png");
+				return Identifier.of(cape_namespace, "textures/entity/player/cape/" + cape_texture + ".png");
 			} else {
-				return new Identifier(Data.version.getID(), "textures/entity/player/cape/" + texture + ".png");
+				return Identifier.of(Data.version.getID(), "textures/entity/player/cape/" + texture + ".png");
 			}
 		}
 	}

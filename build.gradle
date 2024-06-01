@@ -5,7 +5,7 @@ plugins {
 	id 'maven-publish'
 }
 group = project.maven_group
-version = project.mod_version + project.mc_version
+version = project.mod_version + project.mc_version.replace("/", "-")
 
 base {
 	archivesName = project.mod_name.toLowerCase()
@@ -44,10 +44,10 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 	//include(modImplementation "maven.modrinth:luminance:${project.luminance}")
-	include(modImplementation "com.mclegoman:luminance:${project.luminance}")
+	modImplementation fileTree(dir: 'libs', include: '*.jar')
 
 	// Compatibility
-	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+	//modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 
 	// Development Environment Only
 	modImplementation "com.ptsmods:devlogin:3.4.1"
@@ -88,7 +88,7 @@ if (rootProject.file(".env").exists()) {
 		token rootProject.file(".env").text.readLines().get(1).replace("GITHUB=", "").replace("\"", "")
 		owner "MCLegoMan"
 		repo "${project.mod_name}"
-		tagName "${project.mod_version}-${project.mc_version.replace("/", "-")}"
+		tagName "${project.mod_version}+${project.mc_version.replace("/", "-")}"
 		targetCommitish "${(project.version_type == "release" ? "release" : "development")}-${project.mc_version.replace("/", "-")}"
 		releaseName "[${project.mc_version}] ${project.mod_name} ${project.mod_version}"
 		generateReleaseNotes false
@@ -107,7 +107,7 @@ if (rootProject.file(".env").exists()) {
 		token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
 		projectId = "${project.modrinth_id}"
 		versionName = "[${project.mc_version}] ${project.mod_name} ${project.mod_version}"
-		versionNumber = "${project.mod_version}${project.mc_version}"
+		versionNumber = "${project.mod_version}+${project.mc_version.replace("/", "-")}"
 		versionType = "${project.version_type}"
 		uploadFile = tasks.remapJar
 		gameVersions = List.of(project.mc_versions.split(", "))

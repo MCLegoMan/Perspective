@@ -12,7 +12,6 @@ import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.luminance.common.util.DateHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.ui.SplashesDataloader;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -44,7 +43,10 @@ public class PerspectiveLogo {
 		CompatHelper.addLuminanceModMenuBadge(Data.version.getID());
 	}
 	public static boolean isPride() {
-		return DateHelper.isPride() || isForcePride();
+		return isActuallyPride() || isForcePride();
+	}
+	public static boolean isActuallyPride() {
+		return DateHelper.isPride();
 	}
 	public static boolean isForcePride() {
 		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride");
@@ -57,7 +59,7 @@ public class PerspectiveLogo {
 		}
 	}
 	public static Logo getLogo(Logo.Type type) {
-		return new Logo(new Identifier(Data.version.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : Data.version.getID())), type);
+		return new Logo(Identifier.of(Data.version.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : Data.version.getID())), type);
 	}
 	public static void renderLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
 		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
@@ -72,7 +74,7 @@ public class PerspectiveLogo {
 			return this.id.getPath();
 		}
 		public Identifier getTexture() {
-			return new Identifier(getNamespace(), "textures/gui/logo/" + type().toString() + "/" + getName() + ".png");
+			return Identifier.of(getNamespace(), "textures/gui/logo/" + type().toString() + "/" + getName() + ".png");
 		}
 		public enum Type implements StringIdentifiable {
 			DEFAULT("default"),

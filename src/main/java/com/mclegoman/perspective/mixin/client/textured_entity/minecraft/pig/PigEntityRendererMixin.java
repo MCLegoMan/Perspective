@@ -31,7 +31,7 @@ public abstract class PigEntityRendererMixin extends MobEntityRenderer<PigEntity
 
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new PigEntityModel<>(context.getPart(TexturedEntityModels.pigOverlay)), "minecraft:pig", new Identifier("textures/entity/pig/pig_overlay.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new PigEntityModel<>(context.getPart(TexturedEntityModels.pigOverlay)), "minecraft:pig", Identifier.of("textures/entity/pig/pig_overlay.png")));
 	}
 
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)

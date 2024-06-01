@@ -7,9 +7,11 @@
 
 package com.mclegoman.perspective.client.screen.config.information;
 
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.ui.UIBackground;
+import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
@@ -37,7 +39,7 @@ public class CreditsAttributionScreen extends com.mclegoman.luminance.client.scr
 				this.backgroundFade = MathHelper.lerp((this.time / 48) * 0.25F, this.backgroundFade, 0.25F);
 			}
 			context.setShaderColor(this.backgroundFade, this.backgroundFade, this.backgroundFade, 1.0F);
-			context.drawTexture(new Identifier("minecraft", "textures/block/dirt.png"), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 16, 16);
+			context.drawTexture(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background_texture")), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 16, 16);
 			context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			this.renderDarkening(context);
 		} else super.renderBackground(context, mouseX, mouseY, tickDelta);

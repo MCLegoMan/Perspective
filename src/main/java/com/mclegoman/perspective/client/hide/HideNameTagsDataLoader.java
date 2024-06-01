@@ -55,10 +55,10 @@ public class HideNameTagsDataLoader extends JsonDataLoader implements Identifiab
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), ID);
+		return Identifier.of(Data.version.getID(), ID);
 	}
 	private void layout$perspective(ResourceManager manager) {
-		List<Resource> HIDE_LISTS = manager.getAllResources(new Identifier("perspective", "hide_nametags.json"));
+		List<Resource> HIDE_LISTS = manager.getAllResources(Identifier.of("perspective", "hide_nametags.json"));
 		for (Resource resource : HIDE_LISTS) {
 			try {
 				for (JsonElement value : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("values")) {

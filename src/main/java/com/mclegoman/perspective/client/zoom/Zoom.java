@@ -157,7 +157,7 @@ public class Zoom {
 	}
 	public static class Logarithmic {
 		public static Identifier getIdentifier() {
-			return new Identifier(Data.version.getID(), "logarithmic");
+			return Identifier.of(Data.version.getID(), "logarithmic");
 		}
 		public static double getLimitFOV(double input) {
 			return MathHelper.clamp(input, 0.01, 179.99);
@@ -168,7 +168,7 @@ public class Zoom {
 	}
 	public static class Linear {
 		public static Identifier getIdentifier() {
-			return new Identifier(Data.version.getID(), "linear");
+			return Identifier.of(Data.version.getID(), "linear");
 		}
 		public static double getLimitFOV(double input) {
 			return MathHelper.clamp(input, 0.01, 179.99);

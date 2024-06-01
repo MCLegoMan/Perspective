@@ -17,6 +17,7 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.RenderTickCounter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,12 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 100, value = InGameHud.class)
 public abstract class InGameHudMixin {
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
-	private void perspective$render(DrawContext context, float tickDelta, CallbackInfo ci) {
+	private void perspective$render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHUD()) ci.cancel();
 	}
 
 	@Inject(at = @At("RETURN"), method = "render")
-	private void perspective$renderOverlays(DrawContext context, float tickDelta, CallbackInfo ci) {
+	private void perspective$renderOverlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
 				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);

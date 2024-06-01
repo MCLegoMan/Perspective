@@ -21,6 +21,7 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.client.option.Perspective;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
@@ -108,7 +109,7 @@ public class Panorama {
 						// Pre-render world
 						for (int l = 0; l < 100; ++l) {
 							framebuffer.beginWrite(true);
-							ClientData.minecraft.gameRenderer.renderWorld(0.0F, 0L);
+							ClientData.minecraft.gameRenderer.renderWorld(RenderTickCounter.ONE);
 						}
 						// Create panoramic screenshots
 						for (int l = 0; l < 6; ++l) {
@@ -139,7 +140,7 @@ public class Panorama {
 								}
 							}
 							framebuffer.beginWrite(true);
-							ClientData.minecraft.gameRenderer.renderWorld(0.0F, 0L);
+							ClientData.minecraft.gameRenderer.renderWorld(RenderTickCounter.ONE);
 							ScreenshotRecorder.saveScreenshot(screenshotsDir, "panorama_" + l + ".png", framebuffer);
 						}
 

@@ -31,6 +31,6 @@ public class DrownedOverlayFeatureRendererMixin {
 	@Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("RETURN"))
 	private void perspective$render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
 		if (entity instanceof DrownedEntity)
-			SKIN = TexturedEntity.getTexture(entity, "minecraft:drowned", TexturedEntity.Affix.SUFFIX, "_outer_layer", new Identifier("textures/entity/zombie/drowned_outer_layer.png"));
+			SKIN = TexturedEntity.getTexture(entity, "minecraft:drowned", TexturedEntity.Affix.SUFFIX, "_outer_layer", Identifier.of("textures/entity/zombie/drowned_outer_layer.png"));
 	}
 }

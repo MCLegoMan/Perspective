@@ -79,6 +79,6 @@ public class ContributorDataloader extends JsonDataLoader implements Identifiabl
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), id);
+		return Identifier.of(Data.version.getID(), id);
 	}
 }

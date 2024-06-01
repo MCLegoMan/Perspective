@@ -57,7 +57,7 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.version.getID(), ID + ".json"))) {
+			for (Resource resource : manager.getAllResources(Identifier.of(Data.version.getID(), ID + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
 				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonArray defaultSounds = new JsonArray();
@@ -81,6 +81,6 @@ public class ShaderSoundsDataLoader extends JsonDataLoader implements Identifiab
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), ID);
+		return Identifier.of(Data.version.getID(), ID);
 	}
 }

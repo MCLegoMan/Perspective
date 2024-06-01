@@ -21,11 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TitleScreenMixin {
 	@Inject(method = "renderPanoramaBackground", at = @At(value = "HEAD"), cancellable = true)
 	private void perspective$disablePanorama(DrawContext context, float delta, CallbackInfo ci) {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen") == "dirt") ci.cancel();
-	}
-	@Inject(method = "renderBackground", at = @At(value = "TAIL"))
-	private void perspective$renderBackground(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		// This needs to be moved to the panorama renderer class with a check if the screen is instance of title screen.
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen").equals("dirt")) UIBackground.Legacy.renderMenu(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen").equals("dirt")) {
+			UIBackground.Legacy.renderMenu(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
+			ci.cancel();
+		}
 	}
 }

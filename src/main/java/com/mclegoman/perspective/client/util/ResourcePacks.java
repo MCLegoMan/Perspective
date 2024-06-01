@@ -27,12 +27,12 @@ public class ResourcePacks extends com.mclegoman.luminance.client.util.ResourceP
             Perspective: Default
             Contributor(s): MCLegoMan
         */
-		register(new Identifier("perspective_default"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
+		register(Identifier.of("perspective_default"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_default"), ResourcePackActivationType.DEFAULT_ENABLED);
 		/*
             Perspective: Developer Config
             Contributor(s): MCLegoMan
         */
-		register(new Identifier("dev_config"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
+		register(Identifier.of("dev_config"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
 	}
 	/**
 	 * Resource Packs that require the config to be loaded can be registered in the following function.
@@ -48,6 +48,6 @@ public class ResourcePacks extends com.mclegoman.luminance.client.util.ResourceP
             Perspective: Test
             Contributor(s): MCLegoMan
         */
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) register(new Identifier("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) register(Identifier.of("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
 	}
 }

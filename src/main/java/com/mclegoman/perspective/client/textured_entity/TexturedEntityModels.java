@@ -17,12 +17,12 @@ import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.util.Identifier;
 
 public class TexturedEntityModels {
-	public static final EntityModelLayer pigOverlay = new EntityModelLayer(new Identifier("minecraft", "pig"), "outer");
-	public static final EntityModelLayer mooshroomOverlay = new EntityModelLayer(new Identifier("minecraft", "mooshroom"), "outer");
-	public static final EntityModelLayer skeletonOverlay = new EntityModelLayer(new Identifier("minecraft", "skeleton"), "outer");
-	public static final EntityModelLayer witherSkeletonOverlay = new EntityModelLayer(new Identifier("minecraft", "wither_skeleton"), "outer");
-	public static final EntityModelLayer huskOverlay = new EntityModelLayer(new Identifier("minecraft", "husk"), "outer");
-	public static final EntityModelLayer zombieOverlay = new EntityModelLayer(new Identifier("minecraft", "zombie"), "outer");
+	public static final EntityModelLayer pigOverlay = new EntityModelLayer(Identifier.of("minecraft", "pig"), "outer");
+	public static final EntityModelLayer mooshroomOverlay = new EntityModelLayer(Identifier.of("minecraft", "mooshroom"), "outer");
+	public static final EntityModelLayer skeletonOverlay = new EntityModelLayer(Identifier.of("minecraft", "skeleton"), "outer");
+	public static final EntityModelLayer witherSkeletonOverlay = new EntityModelLayer(Identifier.of("minecraft", "wither_skeleton"), "outer");
+	public static final EntityModelLayer huskOverlay = new EntityModelLayer(Identifier.of("minecraft", "husk"), "outer");
+	public static final EntityModelLayer zombieOverlay = new EntityModelLayer(Identifier.of("minecraft", "zombie"), "outer");
 	public static void init() {
 		EntityModelLayerRegistry.registerModelLayer(pigOverlay, () -> PigEntityModel.getTexturedModelData(new Dilation(0.499F)));
 		EntityModelLayerRegistry.registerModelLayer(mooshroomOverlay, CowOverlayEntityModel::getTexturedOverlayModelData);

@@ -37,7 +37,7 @@ public class HorseMarkingFeatureRendererMixin {
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void perspective$init(FeatureRendererContext<HorseEntity, HorseEntityModel<HorseEntity>> featureRendererContext, CallbackInfo ci) {
 		TEXTURES.remove(HorseMarking.NONE, null);
-		TEXTURES.putIfAbsent(HorseMarking.NONE, new Identifier("textures/entity/horse/horse_markings_none.png"));
+		TEXTURES.putIfAbsent(HorseMarking.NONE, Identifier.of("textures/entity/horse/horse_markings_none.png"));
 	}
 	@Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/HorseEntity;FFFFFF)V", at = @At(value = "HEAD"))
 	public void perspective$render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, HorseEntity horseEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {

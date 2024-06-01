@@ -27,6 +27,6 @@ public abstract class ZombieEntityRendererMixin extends MobEntityRenderer<Zombie
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new ZombieEntityModel<>(context.getPart(TexturedEntityModels.zombieOverlay)), "minecraft:zombie", new Identifier("textures/entity/zombie/zombie_overlay.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new ZombieEntityModel<>(context.getPart(TexturedEntityModels.zombieOverlay)), "minecraft:zombie", Identifier.of("textures/entity/zombie/zombie_overlay.png")));
 	}
 }

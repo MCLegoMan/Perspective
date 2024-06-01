@@ -23,7 +23,7 @@ public class Shaders {
 		ShaderRegistry shader = com.mclegoman.luminance.client.shaders.Shaders.get((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
 		if (shader != null) {
 			if (Events.ShaderRender.Shaders.exists(superSecretSettingsId, "main")) set(shader);
-			else set(new Shader(shader, Shaders::getRenderType, getShouldRender()));
+			else set(new Shader(shader, Shaders::getRenderType, Shaders::getShouldRender));
 		}
 		else Data.version.sendToLog(LogType.WARN, Translation.getString("Cannot find specified shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
 	}
@@ -35,14 +35,13 @@ public class Shaders {
 		Data.version.sendToLog(LogType.INFO, Translation.getString("Setting super secret settings shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
 		Shader shader = Events.ShaderRender.Shaders.get(superSecretSettingsId, "main").getSecond();
 		shader.setShaderData(shaderData);
-		shader.setShouldRender(getShouldRender());
 	}
 	public static Shader.RenderType getRenderType() {
 		Object renderMode = ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode");
 		if (renderMode.equals("screen")) return Shader.RenderType.GAME;
 		return Shader.RenderType.WORLD;
 	}
-	public static boolean getShouldRender() {
+	public static Boolean getShouldRender() {
 		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled");
 	}
 	static {

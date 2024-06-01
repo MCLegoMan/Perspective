@@ -12,6 +12,7 @@ import com.mclegoman.perspective.client.data.ClientData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -38,7 +39,7 @@ public abstract class InGameHudMixin {
 	private static Identifier CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE;
 
 	@Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
-	private void perspective$renderCrosshair(DrawContext context, float tickDelta, CallbackInfo ci) {
+	private void perspective$renderCrosshair(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 		if (ClientData.minecraft.world != null) {
 			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("true")) || (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair").equals("dynamic"))) {
 				HitResult crosshairTarget = ClientData.minecraft.crosshairTarget;

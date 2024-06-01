@@ -32,6 +32,6 @@ public class SheepWoolFeatureRendererMixin {
 	@Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V", at = @At("RETURN"))
 	private void perspective$render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
 		if (entity instanceof SheepEntity)
-			SKIN = TexturedEntity.getTexture(entity, "minecraft:sheep", TexturedEntity.Affix.SUFFIX, "_fur", new Identifier("textures/entity/sheep/sheep_fur.png"));
+			SKIN = TexturedEntity.getTexture(entity, "minecraft:sheep", TexturedEntity.Affix.SUFFIX, "_fur", Identifier.of("textures/entity/sheep/sheep_fur.png"));
 	}
 }

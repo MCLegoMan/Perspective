@@ -179,7 +179,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), identifier);
+		return Identifier.of(Data.version.getID(), identifier);
 	}
 
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {

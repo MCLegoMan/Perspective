@@ -40,7 +40,7 @@ public class TexturedEntity {
 						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && registry.contains(entity.getCustomName().getString())) {
 							if (!registry.get(registry.indexOf(entity.getCustomName().getString())).equalsIgnoreCase("default")) {
 								String texture = prefix + registry.get(registry.indexOf(entity.getCustomName().getString())).toLowerCase() + suffix;
-								return new Identifier(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+								return Identifier.of(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
 							}
 						}
 					}
@@ -49,7 +49,7 @@ public class TexturedEntity {
 							int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
 							if (!registry.get(index).equalsIgnoreCase("default")) {
 								String texture = prefix + registry.get(index).toLowerCase() + suffix;
-								return new Identifier(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+								return Identifier.of(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
 							}
 						}
 					}

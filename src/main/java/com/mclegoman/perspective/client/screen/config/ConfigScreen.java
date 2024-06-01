@@ -11,7 +11,7 @@ import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.screen.config.overlays.OverlaysConfigScreen;
 import com.mclegoman.perspective.client.screen.config.ui.UiBackgroundConfigScreen;
-import com.mclegoman.perspective.client.ui.SplashesDataloader;
+import com.mclegoman.perspective.client.logo.SplashesDataloader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;

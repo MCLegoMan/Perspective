@@ -35,7 +35,7 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(getFinalTexture(entity)));
-		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F));
 	}
 	public Identifier getFinalTexture(Entity entity) {
 		boolean isTexturedEntity = true;
@@ -49,7 +49,7 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 					}
 				}
 		}
-		Identifier defaultId = new Identifier("minecraft", "textures/entity/mooshroom/" + ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_mooshroom_overlay.png");
+		Identifier defaultId = Identifier.of("minecraft", "textures/entity/mooshroom/" + ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_mooshroom_overlay.png");
 		return isTexturedEntity ? TexturedEntity.getTexture(entity, "minecraft:mooshroom", ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_", "_overlay", defaultId) : defaultId;
 	}
 }

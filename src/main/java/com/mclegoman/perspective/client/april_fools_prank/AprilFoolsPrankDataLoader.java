@@ -44,13 +44,13 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 		}
 	}
 	private void addSkin(String id, boolean isSlim) {
-		String namespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, id, Data.version.getID());
+		String namespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, id);
 		String texture = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, id);
 		if (namespace != null && texture != null) {
 			texture = texture.toLowerCase();
 			texture = !texture.startsWith("textures/") ? "textures/" + texture : texture;
 			texture = !texture.endsWith(".png") ? texture + ".png" : texture;
-			add(new Identifier(namespace, texture), isSlim);
+			add(Identifier.of(namespace, texture), isSlim);
 		}
 	}
 	private void reset() {
@@ -64,7 +64,7 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.version.getID(), ID + ".json"))) {
+			for (Resource resource : manager.getAllResources(Identifier.of(Data.version.getID(), ID + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
 				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonObject skins = JsonHelper.getObject(reader, "skins", new JsonObject());
@@ -80,6 +80,6 @@ public class AprilFoolsPrankDataLoader extends JsonDataLoader implements Identif
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), ID);
+		return Identifier.of(Data.version.getID(), ID);
 	}
 }

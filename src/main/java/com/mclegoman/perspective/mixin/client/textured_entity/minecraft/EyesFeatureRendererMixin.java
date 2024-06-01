@@ -35,13 +35,13 @@ public class EyesFeatureRendererMixin {
 	@ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/feature/EyesFeatureRenderer;getEyesTexture()Lnet/minecraft/client/render/RenderLayer;"))
 	public RenderLayer perspective$render(RenderLayer renderLayer) {
 		if (this.entity instanceof EndermanEntity) {
-			return RenderLayer.getEyes(TexturedEntity.getTexture(this.entity, "minecraft", "enderman", TexturedEntity.Affix.SUFFIX, "_eyes", new Identifier("textures/entity/enderman/enderman_eyes.png")));
+			return RenderLayer.getEyes(TexturedEntity.getTexture(this.entity, "minecraft", "enderman", TexturedEntity.Affix.SUFFIX, "_eyes", Identifier.of("textures/entity/enderman/enderman_eyes.png")));
 		}
 		else if (this.entity instanceof SpiderEntity) {
-			return RenderLayer.getEyes(TexturedEntity.getTexture(this.entity, "minecraft", "spider", TexturedEntity.Affix.SUFFIX, "_eyes", new Identifier("textures/entity/spider_eyes.png")));
+			return RenderLayer.getEyes(TexturedEntity.getTexture(this.entity, "minecraft", "spider", TexturedEntity.Affix.SUFFIX, "_eyes", Identifier.of("textures/entity/spider_eyes.png")));
 		}
 		else if (this.entity instanceof PhantomEntity) {
-			return RenderLayer.getEyes(TexturedEntity.getTexture(this.entity, "minecraft", "phantom", TexturedEntity.Affix.SUFFIX, "_eyes", new Identifier("textures/entity/phantom_eyes.png")));
+			return RenderLayer.getEyes(TexturedEntity.getTexture(this.entity, "minecraft", "phantom", TexturedEntity.Affix.SUFFIX, "_eyes", Identifier.of("textures/entity/phantom_eyes.png")));
 		}
 		return renderLayer;
 	}

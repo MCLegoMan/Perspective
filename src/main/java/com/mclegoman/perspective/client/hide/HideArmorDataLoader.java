@@ -60,11 +60,11 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), ID);
+		return Identifier.of(Data.version.getID(), ID);
 	}
 
 	private void layout$perspective(ResourceManager manager) {
-		List<Resource> HIDE_LISTS = manager.getAllResources(new Identifier("perspective", "hide_armor.json"));
+		List<Resource> HIDE_LISTS = manager.getAllResources(Identifier.of("perspective", "hide_armor.json"));
 		for (Resource resource : HIDE_LISTS) {
 			try {
 				for (JsonElement value : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("values")) {

@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.ui;
+package com.mclegoman.perspective.client.logo;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,7 +13,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
-import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;
@@ -35,7 +34,7 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 	public static final String id = "splashes";
 	private static Couple<String, Boolean> splashText;
 	public static Couple<String, Boolean> getSplashText() {
-		if (PerspectiveLogo.isPride() && !PerspectiveLogo.isForcePride()) return new Couple<>("splashes.perspective.special.pride_month", true);
+		if (PerspectiveLogo.isActuallyPride()) return new Couple<>("splashes.perspective.special.pride_month", true);
 		else if (AprilFoolsPrank.isAprilFools() && !AprilFoolsPrank.isForceAprilFools()) return new Couple<>("splashes.perspective.special.april_fools", true);
 		else return splashText;
 	}
@@ -71,7 +70,7 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		try {
 			reset();
-			for (Resource resource : manager.getAllResources(new Identifier(Data.version.getID(), id + ".json"))) {
+			for (Resource resource : manager.getAllResources(Identifier.of(Data.version.getID(), id + ".json"))) {
 				JsonObject reader = JsonHelper.deserialize(resource.getReader());
 				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
 				JsonArray translatableTexts = JsonHelper.getArray(reader, "translatable");
@@ -86,6 +85,6 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 	}
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier(Data.version.getID(), id);
+		return Identifier.of(Data.version.getID(), id);
 	}
 }

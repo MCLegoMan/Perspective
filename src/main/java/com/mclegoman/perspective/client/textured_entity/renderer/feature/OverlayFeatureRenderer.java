@@ -35,6 +35,6 @@ public class OverlayFeatureRenderer<T extends LivingEntity, M extends EntityMode
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(entity, this.entityType, TexturedEntity.Affix.SUFFIX, "_overlay", this.texture)));
-		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F));
 	}
 }

@@ -32,10 +32,10 @@ public class WindChargeEntityRendererMixin {
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/entity/projectile/AbstractWindChargeEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
 	private void perspective$render(AbstractWindChargeEntity windChargeEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
 		if (windChargeEntity instanceof BreezeWindChargeEntity) {
-			TEXTURE = TexturedEntity.getTexture(windChargeEntity, "minecraft:breeze_wind_charge", new Identifier("textures/entity/projectiles/wind_charge.png"));
+			TEXTURE = TexturedEntity.getTexture(windChargeEntity, "minecraft:breeze_wind_charge", Identifier.of("textures/entity/projectiles/wind_charge.png"));
 		}
 		else if (windChargeEntity instanceof WindChargeEntity) {
-			TEXTURE = TexturedEntity.getTexture(windChargeEntity, "minecraft:wind_charge", new Identifier("textures/entity/projectiles/wind_charge.png"));
+			TEXTURE = TexturedEntity.getTexture(windChargeEntity, "minecraft:wind_charge", Identifier.of("textures/entity/projectiles/wind_charge.png"));
 		}
 	}
 }
