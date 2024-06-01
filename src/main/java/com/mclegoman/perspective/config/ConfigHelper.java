@@ -302,14 +302,12 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "zoom_type", ConfigDataLoader.zoomType));
 			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
-			if (ShaderDataloader.isValidIndex(com.mclegoman.luminance.client.shaders.Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigType.normal, "super_secret_settings_shader")))) Shader.superSecretSettingsIndex = Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigType.normal, "super_secret_settings_shader"));
-			else Shader.superSecretSettingsIndex = Math.min(Shader.superSecretSettingsIndex, ShaderDataloader.registry.size() - 1);
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_enabled", ConfigDataLoader.superSecretSettingsEnabled));
-			if ((boolean) ConfigHelper.getConfig(ConfigType.normal, "super_secret_settings_enabled")) Shader.set(true, false, false, false);
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_sound", ConfigDataLoader.superSecretSettingsSound));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_show_name", ConfigDataLoader.superSecretSettingsShowName));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_selection_blur", ConfigDataLoader.superSecretSettingsSelectionBlur));
+			com.mclegoman.perspective.client.shaders.Shaders.set();
 			configChanged.add(setConfig(ConfigType.normal, "textured_named_entity", ConfigDataLoader.texturedNamedEntity));
 			configChanged.add(setConfig(ConfigType.normal, "textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 			configChanged.add(setConfig(ConfigType.normal, "allow_april_fools", ConfigDataLoader.allowAprilFools));

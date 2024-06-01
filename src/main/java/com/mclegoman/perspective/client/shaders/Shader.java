@@ -318,7 +318,7 @@ public class Shader {
 				ClientData.minecraft.getResourceManager().getResourceOrThrow(IdentifierHelper.identifierFromString(postEffectProcessor.getName()));
 				RenderSystem.enableBlend();
 				RenderSystem.defaultBlendFunc();
-				postEffectProcessor.render(tickDelta);
+				//postEffectProcessor.render(tickDelta);
 				RenderSystem.disableBlend();
 				ClientData.minecraft.getFramebuffer().beginWrite(true);
 			}
@@ -329,7 +329,7 @@ public class Shader {
 		// This could possibly be changed to have isFirstPerson configurable (first person / all perspective)??.
 		if ((isDepth ? shouldUseDepthEntityLink() : (shouldUseEntityLink() && !shouldUseDepthEntityLink())) && ClientData.minecraft.options.getPerspective().isFirstPerson()) {
 			for (PostEffectProcessor postProcessor : entityPostProcessor) {
-				render(postProcessor, tickDelta);
+				//render(postProcessor, tickDelta);
 			}
 		}
 	}

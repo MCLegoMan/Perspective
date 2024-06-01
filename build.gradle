@@ -5,7 +5,8 @@ plugins {
 	id 'maven-publish'
 }
 group = project.maven_group
-version = project.mod_version + project.mc_version.replace("/", "-")
+version = "${project.mod_version}+${project.mc_version.replace("/", "-")}"
+if (project.isDirty) version += "+dirty." + System.currentTimeSeconds()
 
 base {
 	archivesName = project.mod_name.toLowerCase()
@@ -54,10 +55,10 @@ dependencies {
 	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
 }
 processResources {
-	inputs.property "version", project.mod_version
+	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.mod_version
+		expand "version": project.version
 	}
 }
 tasks.withType(JavaCompile).configureEach {
