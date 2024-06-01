@@ -7,7 +7,7 @@
 	"zoom_type": "perspective:logarithmic",
 	"zoom_show_percentage": false,
 	"hold_perspective_hide_hud": true,
-	"super_secret_settings_shader": "minecraft:blur",
+	"super_secret_settings_shader": "minecraft:box_blur",
 	"super_secret_settings_mode": "game",
 	"super_secret_settings_enabled": false,
 	"super_secret_settings_sound": true,

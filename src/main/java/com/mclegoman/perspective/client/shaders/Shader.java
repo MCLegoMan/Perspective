@@ -222,7 +222,7 @@ public class Shader {
 			}
 			if (ShaderDataloader.isValidIndex(superSecretSettingsIndex)) ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex).getId());
 			if (showShaderName)
-				setOverlay((MutableText) Shaders.getShaderName(superSecretSettingsIndex));
+				setOverlay((MutableText) Shaders.getShaderName(Shaders.getShaderIndex((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader"))));
 			try {
 				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_sound"))
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
