@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/* This class will be removed in a future version, after everything that is required has been moved to the Shaders class. */
 public class Shader {
 	public static final String[] shaderModes = new String[]{"game", "screen"};
 	private static final List<String> improvedDepthRendererIncompatibleMods = new ArrayList<>();
@@ -219,7 +220,7 @@ public class Shader {
 			} catch (Exception error) {
 				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 			}
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex).getId());
+			if (ShaderDataloader.isValidIndex(superSecretSettingsIndex)) ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex).getId());
 			if (showShaderName)
 				setOverlay((MutableText) Shaders.getShaderName(superSecretSettingsIndex));
 			try {

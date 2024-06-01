@@ -16,10 +16,8 @@ import org.jetbrains.annotations.Nullable;
 public class ShadersListWidget<E extends AlwaysSelectedEntryListWidget.Entry<E>> extends AlwaysSelectedEntryListWidget<ShaderListEntry> {
 	protected ShadersListWidget(int width, int height, int top, int bottom, int itemHeight, double scrollAmount) {
 		super(ClientData.minecraft, width, height - top - bottom, top, itemHeight);
-		for (int i = 0; i <= (ShaderDataloader.getShaderAmount() - 1); i++) {
-			this.addEntry(new ShaderListEntry(i));
-		}
-		this.setSelected(getEntry(Shader.superSecretSettingsIndex));
+		for (int i = 0; i <= (ShaderDataloader.getShaderAmount() - 1); i++) this.addEntry(new ShaderListEntry(i));
+		if (ShaderDataloader.isValidIndex(Shader.superSecretSettingsIndex)) this.setSelected(getEntry(Shader.superSecretSettingsIndex));
 		this.setFocused(true);
 		this.setScrollAmount(scrollAmount >= 0 ? scrollAmount : Shader.superSecretSettingsIndex * 27);
 	}
