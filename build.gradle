@@ -108,7 +108,7 @@ if (rootProject.file(".env").exists()) {
 		token = rootProject.file(".env").text.readLines().get(0).replace("MODRINTH=", "").replace("\"", "")
 		projectId = "${project.modrinth_id}"
 		versionName = "[${project.mc_version}] ${project.mod_name} ${project.mod_version}"
-		versionNumber = "${project.mod_version}${project.mc_version}"
+		versionNumber = "${project.mod_version}+${project.mc_version}"
 		versionType = "${project.version_type}"
 		uploadFile = tasks.remapJar
 		gameVersions = List.of(project.mc_versions.split(", "))
