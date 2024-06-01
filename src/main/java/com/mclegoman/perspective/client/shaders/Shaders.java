@@ -34,7 +34,7 @@ public class Shaders {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled", ConfigDataLoader.superSecretSettingsEnabled);
 			}
 			else if (ShaderDataloader.isValidIndex(0)) {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", com.mclegoman.luminance.client.shaders.Shaders.get(0));
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", com.mclegoman.luminance.client.shaders.Shaders.get(0).getId());
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled", false);
 			}
 		}
