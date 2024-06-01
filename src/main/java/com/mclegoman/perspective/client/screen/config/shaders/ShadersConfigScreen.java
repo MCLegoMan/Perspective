@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.screen.config.shaders;
 
+import com.mclegoman.luminance.client.events.Events;
 import com.mclegoman.luminance.client.shaders.Shaders;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -38,12 +39,12 @@ public class ShadersConfigScreen extends Screen {
 	private boolean refresh;
 	private boolean reverse;
 	private Formatting[] formattings;
-	public ShadersConfigScreen(Screen PARENT, boolean SAVE_ON_CLOSE, Formatting[] formattings, boolean REFRESH) {
+	public ShadersConfigScreen(Screen parent, boolean saveOnClose, Formatting[] formattings, boolean refresh) {
 		super(Text.literal(""));
 		this.grid = new GridWidget();
-		this.parentScreen = PARENT;
-		this.saveOnClose = SAVE_ON_CLOSE;
-		this.refresh = REFRESH;
+		this.parentScreen = parent;
+		this.saveOnClose = saveOnClose;
+		this.refresh = refresh;
 		this.formattings = formattings;
 	}
 	public void init() {
@@ -79,7 +80,7 @@ public class ShadersConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(3);
-		ButtonWidget cycleShaders = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders.cycle", new Object[]{Shaders.getShaderName(Shader.superSecretSettingsIndex)}, formattings), (button) -> {
+		ButtonWidget cycleShaders = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders.cycle", new Object[]{Events.ShaderRender.Shaders.exists(com.mclegoman.perspective.client.shaders.Shaders.superSecretSettingsId, "main") ?  Shaders.getShaderName(Shader.superSecretSettingsIndex) : Translation.getShaderTranslation(Data.version.getID(), "shader.not_loaded")}, formattings), (button) -> {
 			Shader.cycle(true, !this.reverse, true, false, false);
 			this.formattings = new Formatting[]{Shader.getRandomColor()};
 			this.refresh = true;

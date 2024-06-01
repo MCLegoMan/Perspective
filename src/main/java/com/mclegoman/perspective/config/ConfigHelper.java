@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.config;
 
-import com.mclegoman.luminance.client.shaders.ShaderDataloader;
 import com.mclegoman.luminance.client.shaders.Shaders;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.PerspectiveClient;
@@ -307,7 +306,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_sound", ConfigDataLoader.superSecretSettingsSound));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_show_name", ConfigDataLoader.superSecretSettingsShowName));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_selection_blur", ConfigDataLoader.superSecretSettingsSelectionBlur));
-			com.mclegoman.perspective.client.shaders.Shaders.set();
+			com.mclegoman.perspective.client.shaders.Shaders.setSuperSecretSettings();
 			configChanged.add(setConfig(ConfigType.normal, "textured_named_entity", ConfigDataLoader.texturedNamedEntity));
 			configChanged.add(setConfig(ConfigType.normal, "textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 			configChanged.add(setConfig(ConfigType.normal, "allow_april_fools", ConfigDataLoader.allowAprilFools));

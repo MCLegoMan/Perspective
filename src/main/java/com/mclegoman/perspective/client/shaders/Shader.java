@@ -248,7 +248,7 @@ public class Shader {
 				}
 			}
 		}
-		com.mclegoman.perspective.client.shaders.Shaders.set();
+		com.mclegoman.perspective.client.shaders.Shaders.setSuperSecretSettings();
 		depthFix = false;
 	}
 	public static void setEntityShader(Framebuffer framebuffer, int framebufferWidth, int framebufferHeight, String entityType) {
