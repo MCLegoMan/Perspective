@@ -71,48 +71,48 @@ public class ZoomConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		double ZOOM_LEVEL = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level")) / 100;
-		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")}, false), ZOOM_LEVEL) {
+		double ZOOM_LEVEL = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level")) / 100;
+		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") + "%")}, false), ZOOM_LEVEL) {
 			@Override
 			protected void updateMessage() {
-				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")}, false));
+				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") + "%")}, false));
 			}
 
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", (int) ((value) * 100));
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_level", (int) ((value) * 100));
 			}
 		}, 1);
-		double ZOOM_INCREMENT_SIZE = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size") - 1) / 9;
-		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size")))}, false), ZOOM_INCREMENT_SIZE) {
+		double ZOOM_INCREMENT_SIZE = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size") - 1) / 9;
+		GRID_ADDER.add(new SliderWidget(GRID_ADDER.getGridWidget().getX(), GRID_ADDER.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false), ZOOM_INCREMENT_SIZE) {
 			@Override
 			protected void updateMessage() {
-				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size")))}, false));
+				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false));
 			}
 
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size", (int) ((value) * 9) + 1);
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size", (int) ((value) * 9) + 1);
 			}
 		}, 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath())}), (button) -> {
 			Zoom.cycleZoomType(!hasShiftDown());
 			this.refresh = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.transition", new Object[]{Translation.getZoomTransitionTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition", Zoom.nextTransition());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.transition", new Object[]{Translation.getZoomTransitionTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_transition", Zoom.nextTransition());
 			this.refresh = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode", new Object[]{Translation.getZoomScaleModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode", Zoom.nextScaleMode());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode", new Object[]{Translation.getZoomScaleModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode", Zoom.nextScaleMode());
 			this.refresh = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode." + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode"), true)}, true))).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_hide_hud"));
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode." + ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode"), true)}, true))).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_hide_hud"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_hide_hud"));
 			this.refresh = true;
 		}).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.show_percentage", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.show_percentage", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage"));
 			this.refresh = true;
 		}).build(), 2);
 		return GRID;

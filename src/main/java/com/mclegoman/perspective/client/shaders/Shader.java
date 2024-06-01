@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.shaders;
 
 import com.mclegoman.luminance.client.shaders.ShaderDataloader;
-import com.mclegoman.luminance.client.shaders.ShaderRegistry;
 import com.mclegoman.luminance.client.shaders.Shaders;
 import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.luminance.client.util.MessageOverlay;
@@ -79,8 +78,8 @@ public class Shader {
 	}
 	public static void tick() {
 		Uniforms.tick();
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
-			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode").equals("screen")) showToasts();
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled")) {
+			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode").equals("screen")) showToasts();
 			else {
 				if (ClientData.minecraft.world != null) showToasts();
 			}
@@ -91,12 +90,12 @@ public class Shader {
 			saveConfig = ConfigHelper.fixConfig();
 			if (updateLegacyConfig) {
 				if (Shaders.getShaderName(legacyIndex) != null && Shaders.get(legacyIndex) != null) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shaders.getShaderName(legacyIndex, true));
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", Shaders.getShaderName(legacyIndex, true));
 				}
 				updateLegacyConfig = false;
 			}
-			superSecretSettingsIndex = Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
+			superSecretSettingsIndex = Shaders.getShaderIndex((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader"));
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"))
 				set(true, false, false, false);
 			prepEntityShader(ClientData.minecraft.getCameraEntity());
 			if (saveConfig) ConfigHelper.saveConfig();
@@ -130,29 +129,29 @@ public class Shader {
 
 	private static void showToasts() {
 		boolean save = false;
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials")) {
-			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings")) {
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "tutorials")) {
+			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.tutorial, "super_secret_settings")) {
 				ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.tutorial.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.super_secret_settings.title")}), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.super_secret_settings.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.cycleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.toggleShaders).getLocalizedText(), KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.TUTORIAL, "super_secret_settings", true);
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.tutorial, "super_secret_settings", true);
 				save = true;
 			}
 		}
-		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity")) {
+		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.warning, "photosensitivity")) {
 			ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.warning.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.warning.photosensitivity.title")}), Translation.getTranslation(Data.version.getID(), "toasts.warning.photosensitivity.description"), 280, Toast.Type.TUTORIAL));
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "photosensitivity", true);
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.warning, "photosensitivity", true);
 			save = true;
 		}
 		if (save) ConfigHelper.saveConfig();
 	}
 	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
-		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"));
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled")) {
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"));
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled")) {
 			set(true, playSound, showShaderName, true);
 			if (skipDisableScreenModeWhenWorldNull && ClientData.minecraft.world == null)
 				cycle(true, true, false, true, SAVE_CONFIG);
 		}
 		if (showShaderName) {
-			setOverlay(Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"), Translation.Type.ENDISABLE));
+			setOverlay(Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"), Translation.Type.ENDISABLE));
 		}
 		if (SAVE_CONFIG) ConfigHelper.saveConfig();
 	}
@@ -172,7 +171,7 @@ public class Shader {
 			}
 			set(forwards, false, showShaderName, saveConfig);
 			try {
-				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"))
+				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_sound"))
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
@@ -203,7 +202,7 @@ public class Shader {
 		useDepth = false;
 		depthFix = true;
 		try {
-			Data.version.sendToLog(LogType.INFO, Translation.getString("Shadering shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
+			Data.version.sendToLog(LogType.INFO, Translation.getString("Shadering shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader")));
 			try {
 //				if (postProcessor != null) {
 //					if (translucentFramebuffer != null) translucentFramebuffer.delete();
@@ -220,17 +219,17 @@ public class Shader {
 			} catch (Exception error) {
 				Data.version.sendToLog(LogType.ERROR, Translation.getString("Error setting shader framebuffers: {}", error));
 			}
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex).getId());
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader", Shaders.get(superSecretSettingsIndex).getId());
 			if (showShaderName)
 				setOverlay((MutableText) Shaders.getShaderName(superSecretSettingsIndex));
 			try {
-				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_sound"))
+				if (playSound && (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_sound"))
 					ClientData.minecraft.getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(ShaderSoundsDataLoader.REGISTRY.get(new Random().nextInt(ShaderSoundsDataLoader.REGISTRY.size()))), new Random().nextFloat(0.5F, 1.5F), 1.0F));
 
 			} catch (Exception error) {
 				Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to play random Super Secret Settings sound: {}", error));
 			}
-			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
+			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"))
 				toggle(true, false, true, false);
 			if (saveConfig) ConfigHelper.saveConfig();
 
@@ -242,7 +241,7 @@ public class Shader {
 			} catch (Exception ignored) {
 				superSecretSettingsIndex = 0;
 				try {
-					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled"))
+					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"))
 						toggle(false, true, true, true);
 				} catch (Exception ignored2) {
 				}
@@ -293,7 +292,7 @@ public class Shader {
 		entityDepthFix = false;
 	}
 	private static void setOverlay(MutableText message) {
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_show_name"))
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_show_name"))
 			MessageOverlay.setOverlay(Translation.getText("gui.perspective.message.shader", true, new Object[]{message}, new Formatting[]{getRandomColor()}));
 	}
 
@@ -335,10 +334,10 @@ public class Shader {
 		}
 	}
 	public static boolean shouldUseGameRenderer() {
-		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("game");
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode")).equalsIgnoreCase("game");
 	}
 	public static boolean shouldUseScreenRenderer() {
-		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")).equalsIgnoreCase("screen");
+		return String.valueOf(ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode")).equalsIgnoreCase("screen");
 	}
 	public static boolean shouldUseDepthGameRenderer() {
 		return shouldUseGameRenderer() && !shouldDisableImprovedDepthRenderer() && useDepth;
@@ -354,7 +353,7 @@ public class Shader {
 	}
 	public static void cycleShaderModes() {
 		List<String> shaderRenderModes = Arrays.stream(shaderModes).toList();
-		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode", shaderRenderModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode")) ? shaderModes[(shaderRenderModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode")) + 1) % shaderModes.length] : shaderModes[0]);
 	}
 	public static boolean isShaderButtonsEnabled() {
 		return ShaderDataloader.getShaderAmount() > 1;

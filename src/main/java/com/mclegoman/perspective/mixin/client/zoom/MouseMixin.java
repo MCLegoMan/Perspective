@@ -36,7 +36,7 @@ public abstract class MouseMixin {
 			int scrollAmount = (int) this.eventDeltaVerticalWheel;
 			this.eventDeltaVerticalWheel -= scrollAmount;
 			if (scrollAmount != 0) {
-				Zoom.zoom(scrollAmount, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_increment_size"));
+				Zoom.zoom(scrollAmount, (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size"));
 				ci.cancel();
 			}
 		}
@@ -52,7 +52,7 @@ public abstract class MouseMixin {
 	}
 	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
 	private void perspective$updateMouse(double timeDelta, CallbackInfo ci) {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode").equals("scaled") && ClientData.minecraft.player != null) {
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode").equals("scaled") && ClientData.minecraft.player != null) {
 			/* more zoom options #8
 			     3: a change in yaw has less effect at extreme pitches
 			       when really zoomed in and looking steeply up or down, moving your mouse in a circle moves the camera in a 0 shape, this works fine in normal gameplay, but when youre really zoomed in it feels a bit bad

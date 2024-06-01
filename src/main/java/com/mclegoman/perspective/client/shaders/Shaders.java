@@ -20,29 +20,29 @@ public class Shaders {
 		Uniforms.tick();
 	}
 	public static void set() {
-		ShaderRegistry shader = com.mclegoman.luminance.client.shaders.Shaders.get((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader"));
+		ShaderRegistry shader = com.mclegoman.luminance.client.shaders.Shaders.get((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader"));
 		if (shader != null) {
 			if (Events.ShaderRender.Shaders.exists(superSecretSettingsId, "main")) set(shader);
 			else set(new Shader(shader, Shaders::getRenderType, Shaders::getShouldRender));
 		}
-		else Data.version.sendToLog(LogType.WARN, Translation.getString("Cannot find specified shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
+		else Data.version.sendToLog(LogType.WARN, Translation.getString("Cannot find specified shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader")));
 	}
 	private static void set(Shader shader) {
-		Data.version.sendToLog(LogType.INFO, Translation.getString("Setting super secret settings shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
+		Data.version.sendToLog(LogType.INFO, Translation.getString("Setting super secret settings shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader")));
 		Events.ShaderRender.Shaders.set(superSecretSettingsId, "main", shader);
 	}
 	private static void set(ShaderRegistry shaderData) {
-		Data.version.sendToLog(LogType.INFO, Translation.getString("Setting super secret settings shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_shader")));
+		Data.version.sendToLog(LogType.INFO, Translation.getString("Setting super secret settings shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader")));
 		Shader shader = Events.ShaderRender.Shaders.get(superSecretSettingsId, "main").getSecond();
 		shader.setShaderData(shaderData);
 	}
 	public static Shader.RenderType getRenderType() {
-		Object renderMode = ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_mode");
+		Object renderMode = ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_mode");
 		if (renderMode.equals("screen")) return Shader.RenderType.GAME;
 		return Shader.RenderType.WORLD;
 	}
 	public static Boolean getShouldRender() {
-		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_enabled");
+		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled");
 	}
 	static {
 		superSecretSettingsId = new Couple<>(Data.version.getID(), "super_secret_settings");

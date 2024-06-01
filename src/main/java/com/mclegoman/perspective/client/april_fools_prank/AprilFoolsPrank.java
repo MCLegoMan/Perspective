@@ -34,16 +34,16 @@ public class AprilFoolsPrank {
 	public static void tick() {
 		boolean shouldSave = false;
 		if (!seenWarning && ClientData.minecraft.world != null) {
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") && isAprilFools()) {
-				if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "prank")) {
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_april_fools") && isAprilFools()) {
+				if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.warning, "prank")) {
 					ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.prank.title")}), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "prank", true);
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.warning, "prank", true);
 					shouldSave = true;
 					seenWarning = true;
 				}
 			} else {
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.WARNING, "prank")) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.WARNING, "prank", false);
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.warning, "prank")) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.warning, "prank", false);
 					shouldSave = true;
 				}
 			}
@@ -54,7 +54,7 @@ public class AprilFoolsPrank {
 		return DateHelper.isAprilFools() || isForceAprilFools();
 	}
 	public static boolean isForceAprilFools() {
-		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_april_fools");
+		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_april_fools");
 	}
 	public static int getAprilFoolsIndex(long getLeastSignificantBits, int registrySize) {
 		// We add the current year to the player's uuid, so they get a different skin each year.

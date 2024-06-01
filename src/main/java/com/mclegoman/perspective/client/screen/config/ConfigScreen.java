@@ -106,20 +106,20 @@ public class ConfigScreen extends Screen {
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays"), (button) -> ClientData.minecraft.setScreen(new OverlaysConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background"), (button) -> ClientData.minecraft.setScreen(new UiBackgroundConfigScreen(new ConfigScreen(parentScreen, false, page), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "luminance"), (button) -> ClientData.minecraft.setScreen(new com.mclegoman.luminance.client.screen.config.ConfigScreen(new ConfigScreen(parentScreen, false, page), false, SplashesDataloader.getSplashText(), PerspectiveLogo.isPride()))).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "show_death_coordinates"));
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates"));
 			this.refresh = true;
 		}).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "tutorials", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "tutorials", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "tutorials"));
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "tutorials", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "tutorials"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "tutorials", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "tutorials"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "tutorials", true))).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "force_pride", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "force_pride", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride"));
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "force_pride", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "force_pride", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride"));
 			this.refresh = true;
 		}).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel", Update.nextUpdateChannel());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", new Object[]{Translation.getDetectUpdateChannelTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "detect_update_channel", Update.nextUpdateChannel());
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", true))).width(304).build(), 2);
 		return grid;

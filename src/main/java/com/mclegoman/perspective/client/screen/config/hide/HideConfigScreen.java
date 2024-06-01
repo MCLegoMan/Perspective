@@ -70,28 +70,28 @@ public class HideConfigScreen extends Screen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_block_outline", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_block_outline"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_block_outline", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"));
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_crosshair", new Object[]{Translation.getHideCrosshairModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_crosshair", Hide.nextCrosshairMode());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_crosshair", new Object[]{Translation.getHideCrosshairModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_crosshair", Hide.nextCrosshairMode());
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_armor", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_armor", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_armor"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_armor", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_armor"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_armor", true))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_nametags", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_nametags"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_nametags", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_nametags"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_nametags", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_nametags"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_nametags", true))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_players", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_players"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_players", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_players"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_players", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_players"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_players", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_players"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_players", true))).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.show_message", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_show_message"));
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.show_message", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_show_message", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"));
 			this.refresh = true;
 		}).build());
 		return GRID;

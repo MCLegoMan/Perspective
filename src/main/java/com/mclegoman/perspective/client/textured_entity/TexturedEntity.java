@@ -37,15 +37,15 @@ public class TexturedEntity {
 				if (!registry.isEmpty()) {
 					String typeName = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type);
 					if (entity.hasCustomName() && entity.getCustomName() != null) {
-						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && registry.contains(entity.getCustomName().getString())) {
+						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity") && registry.contains(entity.getCustomName().getString())) {
 							if (!registry.get(registry.indexOf(entity.getCustomName().getString())).equalsIgnoreCase("default")) {
 								String texture = prefix + registry.get(registry.indexOf(entity.getCustomName().getString())).toLowerCase() + suffix;
 								return Identifier.of(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
 							}
 						}
 					}
-					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
-						if ((!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity") && !registry.contains(String.valueOf(entity.getCustomName())))) {
+					if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_random_entity")) {
+						if ((!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity")) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity") && !registry.contains(String.valueOf(entity.getCustomName())))) {
 							int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
 							if (!registry.get(index).equalsIgnoreCase("default")) {
 								String texture = prefix + registry.get(index).toLowerCase() + suffix;
@@ -92,12 +92,12 @@ public class TexturedEntity {
 	public static JsonObject getEntitySpecific(Entity entity, String namespace, String entity_type) {
 		try {
 			if (TexturedEntityDataLoader.isReady) {
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_named_entity")) {
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity")) {
 					if (entity.hasCustomName() && !entity.getCustomName().getString().equalsIgnoreCase("default")) {
 						return (JsonObject)TexturedEntity.getRegistry(namespace, entity_type, entity.getCustomName().getString(), 3);
 					}
 				}
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "textured_random_entity")) {
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_random_entity")) {
 					List<String> registry = getNameRegistry(IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, entity_type), IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type));
 					int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
 					if (!registry.get(index).equalsIgnoreCase("default")) {

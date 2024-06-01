@@ -69,11 +69,11 @@ public class UiBackgroundConfigScreen extends Screen {
 		GridWidget grid = new GridWidget();
 		grid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder gridAdder = grid.createAdder(1);
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background.title_screen", new Object[]{Translation.getTitleScreenBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen"))}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background.title_screen", new Object[]{Translation.getTitleScreenBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen"))}), (button) -> {
 			UIBackground.cycleTitleScreenBackgroundType(!hasShiftDown());
 			this.refresh = true;
 		}).width(304).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background.ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background"))}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background.ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background"))}), (button) -> {
 			UIBackground.cycleUIBackgroundType(!hasShiftDown());
 			this.refresh = true;
 		}).width(304).build());

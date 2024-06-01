@@ -7,8 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.hide;
 
-import com.mclegoman.perspective.config.ConfigHelper;
-import com.mclegoman.perspective.client.hide.HideArmorDataLoader;
+import com.mclegoman.perspective.client.hide.Hide;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -25,9 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {
 	@Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
 	private void perspective$hide_armor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
-		if (entity instanceof PlayerEntity) {
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "hide_armor") || HideArmorDataLoader.REGISTRY.contains(String.valueOf((((PlayerEntity) entity).getGameProfile().getId()))))
-				ci.cancel();
-		}
+		if (entity instanceof PlayerEntity && Hide.shouldHideArmor((PlayerEntity)entity)) ci.cancel();
 	}
 }

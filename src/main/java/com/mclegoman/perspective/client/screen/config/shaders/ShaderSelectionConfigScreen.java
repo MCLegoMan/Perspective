@@ -41,8 +41,8 @@ public class ShaderSelectionConfigScreen extends Screen {
 		this.widget = new ShadersListWidget<>(ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32, 27, scrollAmount);
 		addDrawableChild(widget);
 		addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).dimensions(ClientData.minecraft.getWindow().getScaledWidth() / 2 - 75, ClientData.minecraft.getWindow().getScaledHeight() - 26, 150, 20).build());
-		if (ClientData.minecraft.world != null) addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders.toggle_blur", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"), Translation.Type.BLUR)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"));
+		if (ClientData.minecraft.world != null) addDrawableChild(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders.toggle_blur", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_selection_blur"), Translation.Type.BLUR)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_selection_blur", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_selection_blur"));
 			this.refresh = true;
 		}).dimensions(ClientData.minecraft.getWindow().getScaledWidth() - 42, ClientData.minecraft.getWindow().getScaledHeight() - 26, 20, 20).build());
 	}
@@ -52,7 +52,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 				ClientData.minecraft.setScreen(parent);
 			}
 			if (this.refresh) {
-				ClientData.minecraft.setScreen(new ShaderSelectionConfigScreen(parent, formattings, widget.getScrollAmount(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur")));
+				ClientData.minecraft.setScreen(new ShaderSelectionConfigScreen(parent, formattings, widget.getScrollAmount(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_selection_blur")));
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick perspective$config$shaders$select screen: {}", error));
@@ -77,7 +77,7 @@ public class ShaderSelectionConfigScreen extends Screen {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
 			this.shouldClose = true;
 		if (keyCode == GLFW.GLFW_KEY_F1) {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "super_secret_settings_selection_blur"));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_selection_blur", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_selection_blur"));
 			this.refresh = true;
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);

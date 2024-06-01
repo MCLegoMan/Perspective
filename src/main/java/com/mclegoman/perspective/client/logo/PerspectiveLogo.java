@@ -49,11 +49,11 @@ public class PerspectiveLogo {
 		return DateHelper.isPride();
 	}
 	public static boolean isForcePride() {
-		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride");
+		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride");
 	}
 	private static String getPrideType() {
-		if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type").equals("random")) {
-			return prideTypes.get(prideTypes.indexOf((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "force_pride_type")));
+		if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride_type").equals("random")) {
+			return prideTypes.get(prideTypes.indexOf((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride_type")));
 		} else {
 			return prideTypes.get(prideIndex);
 		}

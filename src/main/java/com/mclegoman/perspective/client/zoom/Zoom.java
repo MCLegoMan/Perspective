@@ -76,7 +76,7 @@ public class Zoom {
 	}
 	public static void updateTransition() {
 		try {
-			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition").equals("smooth")) {
+			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition").equals("smooth")) {
 				multiplier = (prevMultiplier + multiplier) * 0.5;
 			}
 		} catch (Exception error) {
@@ -90,19 +90,19 @@ public class Zoom {
 		return multiplier;
 	}
 	public static Identifier getZoomType() {
-		Identifier zoomTypeIdentifier = IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type"));
+		Identifier zoomTypeIdentifier = IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_type"));
 		while (zoomTypeIdentifier == null && !isValidZoomType(zoomTypeIdentifier)) zoomTypeIdentifier = IdentifierHelper.identifierFromString(cycleZoomType());
 		return zoomTypeIdentifier;
 	}
 	public static int getZoomLevel() {
-		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level");
+		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level");
 	}
 	public static void zoom(int amount, int multiplier) {
 		try {
 			boolean updated = false;
 			for (int i = 0; i < multiplier; i++) {
 				if (!(getZoomLevel() <= 0) || !(getZoomLevel() >= 100)) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", getZoomLevel() + amount);
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_level", getZoomLevel() + amount);
 					updated = true;
 					hasUpdated = true;
 				}
@@ -114,8 +114,8 @@ public class Zoom {
 	}
 	public static void reset() {
 		try {
-			if ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") != ConfigDataLoader.zoomLevel) {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level", ConfigDataLoader.zoomLevel);
+			if ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") != ConfigDataLoader.zoomLevel) {
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_level", ConfigDataLoader.zoomLevel);
 				setOverlay();
 				hasUpdated = true;
 			}
@@ -125,8 +125,8 @@ public class Zoom {
 	}
 	private static void setOverlay() {
 		try {
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_show_percentage"))
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_level") + "%")).formatted(Formatting.GOLD));
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage"))
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") + "%")).formatted(Formatting.GOLD));
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
 		}
@@ -138,7 +138,7 @@ public class Zoom {
 		try {
 			int currentIndex = zoomTypes.indexOf(getZoomType());
 			String zoomType = IdentifierHelper.stringFromIdentifier(zoomTypes.get(direction ? (currentIndex + 1) % zoomTypes.size() : (currentIndex - 1 + zoomTypes.size()) % zoomTypes.size()));
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "zoom_type", zoomType);
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_type", zoomType);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to cycle zoom type: {}", error));
 		}
@@ -149,11 +149,11 @@ public class Zoom {
 	}
 	public static String nextTransition() {
 		List<String> transitions = Arrays.stream(zoomTransitions).toList();
-		return transitions.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) ? zoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_transition")) + 1) % zoomTransitions.length] : zoomTransitions[0];
+		return transitions.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition")) ? zoomTransitions[(transitions.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition")) + 1) % zoomTransitions.length] : zoomTransitions[0];
 	}
 	public static String nextScaleMode() {
 		List<String> scaleModes = Arrays.stream(zoomScaleModes).toList();
-		return scaleModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) ? zoomScaleModes[(scaleModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "zoom_scale_mode")) + 1) % zoomScaleModes.length] : zoomScaleModes[0];
+		return scaleModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode")) ? zoomScaleModes[(scaleModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode")) + 1) % zoomScaleModes.length] : zoomScaleModes[0];
 	}
 	public static class Logarithmic {
 		public static Identifier getIdentifier() {

@@ -48,6 +48,6 @@ public class ResourcePacks extends com.mclegoman.luminance.client.util.ResourceP
             Perspective: Test
             Contributor(s): MCLegoMan
         */
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "test_resource_pack")) register(Identifier.of("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "test_resource_pack")) register(Identifier.of("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
 	}
 }

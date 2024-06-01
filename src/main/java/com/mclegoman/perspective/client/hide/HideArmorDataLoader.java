@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-	public static final List<String> REGISTRY = new ArrayList<>();
+	public static final List<String> registry = new ArrayList<>();
 	public static final String ID = "hide/armor";
 
 	public HideArmorDataLoader() {
@@ -34,7 +34,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 
 	private void add(String value) {
 		try {
-			if (!REGISTRY.contains(value)) REGISTRY.add(value);
+			if (!registry.contains(value)) registry.add(value);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add hide armor to registry: {}", error));
 		}
@@ -42,7 +42,7 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 
 	private void reset() {
 		try {
-			REGISTRY.clear();
+			registry.clear();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset hide armor registry: {}", error));
 		}

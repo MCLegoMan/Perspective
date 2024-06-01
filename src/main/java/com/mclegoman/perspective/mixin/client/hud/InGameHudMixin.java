@@ -33,10 +33,10 @@ public abstract class InGameHudMixin {
 	@Inject(at = @At("RETURN"), method = "render")
 	private void perspective$renderOverlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay"))
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay"))
 				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "position_overlay")) Overlays.renderPositionOverlay(context);
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "day_overlay")) Overlays.renderDayOverlay(context);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "position_overlay")) Overlays.renderPositionOverlay(context);
+			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay")) Overlays.renderDayOverlay(context);
 			if (!DebugOverlay.debugType.equals(DebugOverlay.Type.none)) {
 				DebugOverlay.renderDebugHUD(context);
 			}

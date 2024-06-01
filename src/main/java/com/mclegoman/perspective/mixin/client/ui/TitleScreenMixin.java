@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TitleScreenMixin {
 	@Inject(method = "renderPanoramaBackground", at = @At(value = "HEAD"), cancellable = true)
 	private void perspective$disablePanorama(DrawContext context, float delta, CallbackInfo ci) {
-		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen").equals("dirt")) {
+		if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen").equals("dirt")) {
 			UIBackground.Legacy.renderMenu(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
 			ci.cancel();
 		}

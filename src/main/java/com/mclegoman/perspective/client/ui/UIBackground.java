@@ -33,22 +33,22 @@ public class UIBackground {
 		titleScreenBackgroundTypes.add("dirt");
 	}
 	public static String getUIBackgroundType() {
-		if (!isValidUIBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background"))) cycleUIBackgroundType();
-		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background");
+		if (!isValidUIBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background"))) cycleUIBackgroundType();
+		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background");
 	}
 	public static void cycleUIBackgroundType() {
 		cycleUIBackgroundType(true);
 	}
 	public static void cycleUIBackgroundType(boolean direction) {
 		int currentIndex = uiBackgroundTypes.indexOf(getUIBackgroundType());
-		ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "ui_background", uiBackgroundTypes.get(direction ? (currentIndex + 1) % uiBackgroundTypes.size() : (currentIndex - 1 + uiBackgroundTypes.size()) % uiBackgroundTypes.size()));
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ui_background", uiBackgroundTypes.get(direction ? (currentIndex + 1) % uiBackgroundTypes.size() : (currentIndex - 1 + uiBackgroundTypes.size()) % uiBackgroundTypes.size()));
 	}
 	public static boolean isValidUIBackgroundType(String UIBackgroundType) {
 		return uiBackgroundTypes.contains(UIBackgroundType.toLowerCase());
 	}
 	public static String getTitleScreenBackgroundType() {
-		if (!isValidTitleScreenBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen"))) cycleTitleScreenBackgroundType();
-		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "title_screen");
+		if (!isValidTitleScreenBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen"))) cycleTitleScreenBackgroundType();
+		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen");
 	}
 	public static void cycleTitleScreenBackgroundType() {
 		cycleTitleScreenBackgroundType(true);
@@ -57,16 +57,16 @@ public class UIBackground {
 		String titleScreenBackgroundType = getTitleScreenBackgroundType();
 		if (isValidTitleScreenBackgroundType(titleScreenBackgroundType)) {
 			int currentIndex = titleScreenBackgroundTypes.indexOf(titleScreenBackgroundType);
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
 		} else {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.NORMAL, "title_screen", titleScreenBackgroundTypes.get(0));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.get(0));
 		}
 	}
 	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {
 		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType);
 	}
 	public static Identifier getUiBackgroundTextureFromConfig() {
-		String uiBackgroundTexture = (String)ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background_texture");
+		String uiBackgroundTexture = (String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background_texture");
 		String namespace = IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, uiBackgroundTexture);
 		String key = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, uiBackgroundTexture);
 		return (namespace != null && key != null) ? Identifier.of(namespace, (!key.startsWith("textures/") ? "textures/" : "") + key + (!key.endsWith(".png") ? ".png" : "")) : Identifier.of("minecraft", "textures/block/dirt.png");

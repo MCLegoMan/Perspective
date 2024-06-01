@@ -30,13 +30,13 @@ public class DebugOverlay {
 		int y = 2;
 		int x = 2;
 		List<Object> debugText = new ArrayList<>();
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "version_overlay")) {
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay")) {
 			debugText.add("\n");
 		}
 		debugText.add(Text.literal(Data.version.getName() + " " + Data.version.getFriendlyString(false)));
 		if (debugType.equals(Type.misc)) {
 			debugText.add("\n");
-			debugText.add(Text.literal("debug: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "debug")));
+			debugText.add(Text.literal("debug: " + ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "debug")));
 			debugText.add(Text.literal("isAprilFools(): " + AprilFoolsPrank.isAprilFools()));
 			debugText.add(Text.literal("isSaving(): " + ConfigHelper.isSaving()));
 			debugText.add(Text.literal("isZooming(): " + Zoom.isZooming()));
@@ -56,10 +56,10 @@ public class DebugOverlay {
 		if (debugType.equals(Type.config) || debugType.equals(Type.experimentalConfig) || debugType.equals(Type.tutorialsConfig) || debugType.equals(Type.warningsConfig)) {
 			debugText.add("\n");
 			debugText.add(Text.literal("Latest Saved Config Values").formatted(Formatting.BOLD));
-			if (debugType.equals(Type.config)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.NORMAL));
-			if (debugType.equals(Type.experimentalConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.EXPERIMENTAL));
-			if (debugType.equals(Type.tutorialsConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.TUTORIAL));
-			if (debugType.equals(Type.warningsConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.WARNING));
+			if (debugType.equals(Type.config)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.normal));
+			if (debugType.equals(Type.experimentalConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.experimental));
+			if (debugType.equals(Type.tutorialsConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.tutorial));
+			if (debugType.equals(Type.warningsConfig)) debugText.addAll(ConfigHelper.getDebugConfigText(ConfigHelper.ConfigType.warning));
 		}
 		for (Object item : debugText) {
 			if (item instanceof Text text) {

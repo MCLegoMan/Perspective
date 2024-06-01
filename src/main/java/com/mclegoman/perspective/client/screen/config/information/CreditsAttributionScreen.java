@@ -39,7 +39,7 @@ public class CreditsAttributionScreen extends com.mclegoman.luminance.client.scr
 				this.backgroundFade = MathHelper.lerp((this.time / 48) * 0.25F, this.backgroundFade, 0.25F);
 			}
 			context.setShaderColor(this.backgroundFade, this.backgroundFade, this.backgroundFade, 1.0F);
-			context.drawTexture(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "ui_background_texture")), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 16, 16);
+			context.drawTexture(IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background_texture")), 0, 0, 0, 0.0F, this.time * 0.5F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 16, 16);
 			context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			this.renderDarkening(context);
 		} else super.renderBackground(context, mouseX, mouseY, tickDelta);

@@ -45,10 +45,10 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 			updateCheckerComplete = false;
 			newerVersionFound = false;
 			try {
-				if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("none") && currentVersion.hasModrinthID()) {
+				if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel").equals("none") && currentVersion.hasModrinthID()) {
 					currentVersion.sendToLog(LogType.INFO, "Checking for new updates...");
 					currentVersion.sendToLog(LogType.INFO, Translation.getString("Current Version: {}", currentVersion.getFriendlyString()));
-					currentVersion.sendToLog(LogType.INFO, Translation.getString("Update Channel: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")));
+					currentVersion.sendToLog(LogType.INFO, Translation.getString("Update Channel: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel")));
 					currentVersion.sendToLog(LogType.INFO, Translation.getString("Minecraft Version: {}", SharedConstants.getGameVersion().getName()));
 					JsonArray apiDataVersion = (JsonArray) getModrinthData(currentVersion.getModrinthID(), "version");
 					if (apiDataVersion != null) {
@@ -74,7 +74,7 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 								int build = Integer.parseInt(version_number.substring((version_number.lastIndexOf(".") + 1)));
 								apiVersion = Version.create(currentVersion.getName(), currentVersion.getID(), major, minor, patch, type, build, currentVersion.getModrinthID());
 								if (apiVersion.compareTo(currentVersion) > 0) {
-									if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("alpha")) {
+									if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel").equals("alpha")) {
 										if (apiVersion.getType().equals(ReleaseType.ALPHA) || apiVersion.getType().equals(ReleaseType.BETA) || apiVersion.getType().equals(ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(ReleaseType.RELEASE)) {
 											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
@@ -83,7 +83,7 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 											latestVersionFound = version_id;
 											downloadLink = "https://modrinth.com/mod/mclegoman-perspective/version/" + JsonHelper.getString(version_obj, "version_number");
 										}
-									} else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel").equals("beta")) {
+									} else if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel").equals("beta")) {
 										if (apiVersion.getType().equals(ReleaseType.BETA) || apiVersion.getType().equals(ReleaseType.RELEASE_CANDIDATE) || apiVersion.getType().equals(ReleaseType.RELEASE)) {
 											newerVersionFound = true;
 											String version_id = JsonHelper.getString(version_obj, "version_number");
@@ -130,6 +130,6 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 	}
 	public static String nextUpdateChannel() {
 		List<String> updateChannels = Arrays.stream(detectUpdateChannels).toList();
-		return updateChannels.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];
+		return updateChannels.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel")) ? detectUpdateChannels[(updateChannels.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "detect_update_channel")) + 1) % detectUpdateChannels.length] : detectUpdateChannels[0];
 	}
 }

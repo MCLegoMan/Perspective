@@ -27,10 +27,8 @@ uniform vec3 SilhouetteColor;
 uniform float lu_viewDistance;
 uniform float lu_alphaSmooth;
 
-#define NUM_LAYERS 6
-
-vec4 color_layers[NUM_LAYERS];
-float depth_layers[NUM_LAYERS];
+vec4 color_layers[6];
+float depth_layers[6];
 int active_layers = 0;
 
 out vec4 fragColor;
@@ -70,18 +68,18 @@ void try_insert( vec4 color, sampler2D DepthSampler ) {
     color_layers[active_layers] = color;
     depth_layers[active_layers] = depth;
 
-    int jj = active_layers++;
-    int ii = jj - 1;
-    while ( jj > 0 && depth_layers[jj] > depth_layers[ii] ) {
-        float depthTemp = depth_layers[ii];
-        depth_layers[ii] = depth_layers[jj];
-        depth_layers[jj] = depthTemp;
+    int next_layer = active_layers++;
+    int current_layer = next_layer - 1;
+    while ( next_layer > 0 && depth_layers[next_layer] > depth_layers[current_layer] ) {
+        float depthTemp = depth_layers[current_layer];
+        depth_layers[current_layer] = depth_layers[next_layer];
+        depth_layers[next_layer] = depthTemp;
 
-        vec4 colorTemp = color_layers[ii];
-        color_layers[ii] = color_layers[jj];
-        color_layers[jj] = colorTemp;
+        vec4 colorTemp = color_layers[current_layer];
+        color_layers[current_layer] = color_layers[next_layer];
+        color_layers[next_layer] = colorTemp;
 
-        jj = ii--;
+        next_layer = current_layer--;
     }
 }
 

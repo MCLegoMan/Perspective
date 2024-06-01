@@ -28,7 +28,7 @@ public abstract class LivingEntityRendererMixin {
 		if (entity instanceof PlayerEntity) {
 			boolean shouldFlipUpsideDown = false;
 			for (List<Object> contributor : ContributorDataloader.registry) {
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.NORMAL, "allow_april_fools") &&
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_april_fools") &&
 						AprilFoolsPrank.isAprilFools() && contributor.get(0).equals(AprilFoolsPrankDataLoader.contributor) && (boolean) contributor.get(2)) shouldFlipUpsideDown = true;
 				if (contributor.get(0).equals(((PlayerEntity) entity).getGameProfile().getId().toString()) &&
 						(boolean) contributor.get(2)) shouldFlipUpsideDown = !shouldFlipUpsideDown;
