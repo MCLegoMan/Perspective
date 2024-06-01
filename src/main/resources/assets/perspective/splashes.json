@@ -1,0 +1,18 @@
+{
+	"replace": false,
+	"translatable": [
+		"splashes.perspective.whered_my_hud_go",
+		"splashes.perspective.also_try_souper_secret_settings",
+		"splashes.perspective.waffel_is_the_goat",
+		"splashes.perspective.mooshroom_moobloom",
+		"splashes.perspective.thousands_of_downloads_on_modrinth",
+		"splashes.perspective.uses_simpleconfig",
+		"splashes.perspective.its_a_mod",
+		"splashes.perspective.takes_panoramic_screenshots",
+		"splashes.perspective.open_source",
+		"splashes.perspective.this_is_a_splash_text",
+		"splashes.perspective.uses_luminance"
+	],
+	"literal": [
+	]
+}

@@ -1,0 +1,10 @@
+{
+  "namespace": "perspective",
+  "shader": "sixteen_colors",
+  "disable_screen_mode": false,
+  "translatable": true,
+  "disable_soup": false,
+  "entity_links": [],
+  "custom": {},
+  "enabled": true
+}
