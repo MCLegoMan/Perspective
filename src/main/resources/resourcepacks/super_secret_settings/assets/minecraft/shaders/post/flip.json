@@ -1,0 +1,29 @@
+{
+    "targets": [
+        "merge",
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "minecraft:flip",
+            "intarget": "minecraft:main",
+            "outtarget": "merge"
+        },
+        {
+            "name": "luminance:merge",
+            "intarget": "merge",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "MergeSampler",
+                    "id": "minecraft:main"
+                }
+            ]
+        },
+        {
+            "name": "minecraft:blit",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+	"shader.perspective.crt" : "crt",
+	"shader.perspective.gentoo" : "gentoo",
+	"shader.perspective.golden" : "golden",
+	"shader.perspective.grayscale" : "greyscale",
+	"shader.perspective.mirror" : "mirror",
+	"shader.perspective.outlined" : "outlined",
+	"shader.perspective.outlined2" : "darkened outline",
+	"shader.perspective.pixelated" : "pixelated",
+	"shader.perspective.tiltshift" : "tiltshift",
+	"shader.perspective.rainbow" : "rainbow",
+	"shader.perspective.saturated" : "saturated",
+	"shader.perspective.silhouette" : "silhouette",
+	"shader.perspective.silhouette2" : "inverted silhouette",
+	"shader.perspective.sixteen_colors": "sixteen colours",
+	"shader.perspective.depth_dither": "depth-based dither",
+	"shader.perspective.eightbit": "8-bit"
+}

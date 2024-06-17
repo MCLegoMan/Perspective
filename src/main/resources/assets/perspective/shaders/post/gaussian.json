@@ -1,0 +1,55 @@
+{
+    "targets": [
+        "0",
+        "1"
+    ],
+    "passes": [
+        {
+            "name": "perspective:gaussian",
+            "intarget": "minecraft:main",
+            "outtarget": "0",
+            "use_linear_filter": true,
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [
+                        1.0,
+                        0.0
+                    ]
+                },
+                {
+                    "name": "Radius",
+                    "values": [
+                        20.0
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "perspective:gaussian",
+            "intarget": "0",
+            "outtarget": "1",
+            "use_linear_filter": true,
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "name": "Radius",
+                    "values": [
+                        20.0
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "1",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}
