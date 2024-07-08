@@ -30,7 +30,7 @@ public class TexturedEntity {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize textured entity texture: {}", error));
 		}
 	}
-	public static Identifier getTexture(Entity entity, String namespace, String entity_type, String prefix, String suffix, Identifier default_identifier) {
+	public static Identifier getTexture(Entity entity, String namespace, String entity_type, String prefix, String suffix, String textureNamespace, Identifier default_identifier) {
 		try {
 			if (TexturedEntityDataLoader.isReady) {
 				List<String> registry = getNameRegistry(namespace, entity_type);
@@ -40,7 +40,7 @@ public class TexturedEntity {
 						if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity") && registry.contains(entity.getCustomName().getString())) {
 							if (!registry.get(registry.indexOf(entity.getCustomName().getString())).equalsIgnoreCase("default")) {
 								String texture = prefix + registry.get(registry.indexOf(entity.getCustomName().getString())).toLowerCase() + suffix;
-								return Identifier.of(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+								return Identifier.of(textureNamespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
 							}
 						}
 					}
@@ -49,7 +49,7 @@ public class TexturedEntity {
 							int index = Math.floorMod(entity.getUuid().getLeastSignificantBits(), registry.size());
 							if (!registry.get(index).equalsIgnoreCase("default")) {
 								String texture = prefix + registry.get(index).toLowerCase() + suffix;
-								return Identifier.of(namespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
+								return Identifier.of(textureNamespace, "textures/textured_entity/" + typeName + "/" + texture + ".png");
 							}
 						}
 					}
@@ -59,6 +59,9 @@ public class TexturedEntity {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set textured entity texture: {}", error));
 		}
 		return default_identifier;
+	}
+	public static Identifier getTexture(Entity entity, String namespace, String entity_type, String prefix, String suffix, Identifier default_identifier) {
+		return getTexture(entity, namespace, entity_type, prefix, suffix, default_identifier.getNamespace(), default_identifier);
 	}
 	public static Identifier getTexture(Entity entity, String entity_type, String prefix, String suffix, Identifier default_identifier) {
 		return getTexture(entity, IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, entity_type), IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type), prefix, suffix, default_identifier);
