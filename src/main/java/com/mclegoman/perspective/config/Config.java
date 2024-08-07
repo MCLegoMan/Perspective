@@ -18,6 +18,7 @@ public class Config {
 	protected static final String id = Data.version.getID();
 	protected static SimpleConfig config;
 	protected static ConfigProvider configProvider;
+	protected static boolean zoomEnabled;
 	protected static int zoomLevel;
 	protected static int zoomIncrementSize;
 	protected static String zoomTransition;
@@ -70,6 +71,7 @@ public class Config {
 	}
 
 	protected static void create() {
+		configProvider.add(new Couple<>("zoom_enabled", ConfigDataLoader.zoomEnabled));
 		configProvider.add(new Couple<>("zoom_level", ConfigDataLoader.zoomLevel));
 		configProvider.add(new Couple<>("zoom_increment_size", ConfigDataLoader.zoomIncrementSize));
 		configProvider.add(new Couple<>("zoom_transition", ConfigDataLoader.zoomTransition));
@@ -111,6 +113,7 @@ public class Config {
 	}
 
 	protected static void assign() {
+		zoomEnabled = config.getOrDefault("zoom_enabled", ConfigDataLoader.zoomEnabled);
 		zoomLevel = config.getOrDefault("zoom_level", ConfigDataLoader.zoomLevel);
 		zoomIncrementSize = config.getOrDefault("zoom_increment_size", ConfigDataLoader.zoomIncrementSize);
 		zoomTransition = config.getOrDefault("zoom_transition", ConfigDataLoader.zoomTransition);
@@ -153,6 +156,7 @@ public class Config {
 
 	protected static void save() {
 		Data.version.sendToLog(LogType.INFO,"Writing config to file.");
+		configProvider.setConfig("zoom_enabled", zoomEnabled);
 		configProvider.setConfig("zoom_level", zoomLevel);
 		configProvider.setConfig("zoom_increment_size", zoomIncrementSize);
 		configProvider.setConfig("zoom_transition", zoomTransition);

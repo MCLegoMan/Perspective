@@ -75,6 +75,11 @@
 
 	"gui.perspective.config.zoom.show_percentage": "Show Percentage: %s",
 
+	"gui.perspective.config.zoom.enabled": "%s",
+	"gui.perspective.config.zoom.enabled.hover": "%s",
+	"gui.perspective.config.zoom.enabled.true.hover": "§rZoom is §a§lenabled§r and will function normally.",
+	"gui.perspective.config.zoom.enabled.false.hover": "§rZoom is §c§ldisabled§r and will not function unless re-enabled.",
+
 	"gui.perspective.config.hold_perspective": "Hold Perspective",
 	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",
 

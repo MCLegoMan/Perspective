@@ -25,6 +25,7 @@ import java.util.Optional;
 
 public class ConfigDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final String ID = "config";
+	public static boolean zoomEnabled;
 	public static int zoomLevel;
 	public static int zoomIncrementSize;
 	public static String zoomTransition;
@@ -72,6 +73,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 		try {
 			Optional<Resource> resource = manager.getResource(Identifier.of(Data.version.getID(), ID + ".json"));
 			if (resource.isPresent()) {
+				zoomEnabled = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_enabled", true);
 				zoomLevel = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "zoom_level", 40);
 				zoomIncrementSize = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "zoom_increment_size", 1);
 				zoomTransition = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "zoom_transition", "smooth");

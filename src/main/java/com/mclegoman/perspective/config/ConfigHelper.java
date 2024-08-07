@@ -40,7 +40,7 @@ public class ConfigHelper {
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
-	protected static final int defaultConfigVersion = 19;
+	protected static final int defaultConfigVersion = 20;
 	protected static boolean saveViaTick = false;
 	protected static int saveViaTickTicks = 0;
 	private static boolean seenDevelopmentWarning = false;
@@ -292,6 +292,7 @@ public class ConfigHelper {
 	public static boolean resetConfig() {
 		List<Boolean> configChanged = new ArrayList<>();
 		try {
+			configChanged.add(setConfig(ConfigType.normal, "zoom_enabled", ConfigDataLoader.zoomEnabled));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_level", MathHelper.clamp(ConfigDataLoader.zoomLevel, 0, 100)));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_increment_size", MathHelper.clamp(ConfigDataLoader.zoomIncrementSize, 1, 10)));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_transition", ConfigDataLoader.zoomTransition));
@@ -352,6 +353,10 @@ public class ConfigHelper {
 			switch (CONFIG_TYPE) {
 				case normal -> {
 					switch (ID) {
+						case "zoom_enabled" -> {
+							Config.zoomEnabled = (boolean) value;
+							configChanged = true;
+						}
 						case "zoom_level" -> {
 							Config.zoomLevel = MathHelper.clamp((int) value, 0, 100);
 							configChanged = true;
@@ -560,6 +565,9 @@ public class ConfigHelper {
 		switch (CONFIG_TYPE) {
 			case normal -> {
 				switch (ID) {
+					case "zoom_enabled" -> {
+						return Config.zoomEnabled;
+					}
 					case "zoom_level" -> {
 						return MathHelper.clamp(Config.zoomLevel, 0, 100);
 					}
