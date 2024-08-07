@@ -1,3 +1,10 @@
+/*
+    Perspective
+    Contributor(s): MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    Licence: GNU LGPLv3
+*/
+
 package com.mclegoman.perspective.client.textured_entity.renderer.feature;
 
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
@@ -22,35 +29,35 @@ public class PiglinCapeFeatureRenderer extends FeatureRenderer<MobEntity, Piglin
 	public PiglinCapeFeatureRenderer(FeatureRendererContext<MobEntity, PiglinEntityModel<MobEntity>> featureRendererContext) {
 		super(featureRendererContext);
 	}
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, MobEntity piglinEntity, float f, float g, float h, float j, float k, float l) {
+	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, MobEntity piglinEntity, float a, float b, float delta, float c, float d, float e) {
 		matrixStack.push();
 		if (piglinEntity.isBaby()) {
 			matrixStack.scale(0.5F, 0.5F, 0.5F);
 			matrixStack.translate(0.0F, 1.5F, 0.0F);
 		}
 		matrixStack.translate(0.0F, 0.0F, 0.125F);
-		double d = 0.0F;
-		double e = (Math.cos(TexturedEntityModels.getPiglinCapeY(piglinEntity) * (2.0F * 3.141592653589793F / 80.0F)) + 1.0F) * 0.48F;
-		double m = 0.0F;
-		float n = MathHelper.lerpAngleDegrees(h, piglinEntity.prevBodyYaw, piglinEntity.bodyYaw);
-		double o = MathHelper.sin(n * 0.017453292F);
-		double p = -MathHelper.cos(n * 0.017453292F);
-		float q = (float)e * 10.0F;
-		q = MathHelper.clamp(q, -6.0F, 32.0F);
-		float r = (float)(d * o + m * p) * 100.0F;
-		r = MathHelper.clamp(r, 0.0F, 150.0F);
-		float s = (float)(d * p - m * o) * 100.0F;
-		s = MathHelper.clamp(s, -20.0F, 20.0F);
-		if (r < 0.0F) {
-			r = 0.0F;
+		double f = 0.0F;
+		double g = (Math.cos(TexturedEntityModels.getPiglinCapeY(piglinEntity) * (2.0F * 3.141592653589793F / 80.0F)) + 1.0F) * 0.48F;
+		double h = 0.0F;
+		float i = MathHelper.lerpAngleDegrees(delta, piglinEntity.prevBodyYaw, piglinEntity.bodyYaw);
+		double j = MathHelper.sin(i * 0.017453292F);
+		double k = -MathHelper.cos(i * 0.017453292F);
+		float l = (float)g * 10.0F;
+		l = MathHelper.clamp(l, -6.0F, 32.0F);
+		float m = (float)(f * j + h * k) * 100.0F;
+		m = MathHelper.clamp(m, 0.0F, 150.0F);
+		float n = (float)(f * k - h * j) * 100.0F;
+		n = MathHelper.clamp(n, -20.0F, 20.0F);
+		if (m < 0.0F) {
+			m = 0.0F;
 		}
-		q += MathHelper.sin(MathHelper.lerp(h, piglinEntity.prevHorizontalSpeed, piglinEntity.horizontalSpeed) * 6.0F) * 32.0F;// * t;
+		l += MathHelper.sin(MathHelper.lerp(delta, piglinEntity.prevHorizontalSpeed, piglinEntity.horizontalSpeed) * 6.0F) * 32.0F;
 		if (piglinEntity.isInSneakingPose()) {
-			q += 25.0F;
+			l += 25.0F;
 		}
-		matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(6.0F + r / 2.0F + q));
-		matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(s / 2.0F));
-		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - s / 2.0F));
+		matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(6.0F + m / 2.0F + l));
+		matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(n / 2.0F));
+		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - n / 2.0F));
 
 		Identifier texture;
 		switch (piglinEntity) {
@@ -61,7 +68,7 @@ public class PiglinCapeFeatureRenderer extends FeatureRenderer<MobEntity, Piglin
 		}
 
 		VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(texture));
-		(this.getContextModel()).renderCape(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+		(this.getContextModel()).renderCape(matrixStack, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
 		matrixStack.pop();
 	}
 }
