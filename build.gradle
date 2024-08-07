@@ -41,11 +41,11 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft}"
 	mappings "net.fabricmc:yarn:${project.mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+	include(modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}")
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
+	//modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
 	//include(modImplementation "maven.modrinth:luminance:${project.luminance}")
-	modImplementation fileTree(dir: 'libs', include: '*.jar')
+	include(modImplementation fileTree(dir: 'libs', include: '*.jar'))
 
 	// Compatibility
 	//modImplementation "com.terraformersmc:modmenu:${project.modmenu}"

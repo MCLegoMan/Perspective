@@ -9,6 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.mooshro
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
 import com.mclegoman.perspective.client.textured_entity.renderer.feature.MooshroomOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -42,23 +43,26 @@ public abstract class MooshroomEntityRendererMixin extends MobEntityRenderer<Moo
 	@Inject(method = "getTexture", at = @At("RETURN"), cancellable = true)
 	public void perspective$getTexture(MooshroomEntity mooshroomEntity, CallbackInfoReturnable<Identifier> cir) {
 		boolean isTexturedEntity = true;
-		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(mooshroomEntity, "minecraft", "mooshroom");
-		if (entitySpecific != null) {
-			if (entitySpecific.has("variants")) {
-				JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-				if (variants != null) {
-					if (entitySpecific.has(mooshroomEntity.getVariant().asString().toLowerCase())) {
-						JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomEntity.getVariant().asString().toLowerCase());
-						if (typeRegistry != null) {
-							isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+		TexturedEntityData entityData = TexturedEntity.getEntity(mooshroomEntity, "minecraft", "mooshroom");
+		if (entityData != null) {
+			JsonObject entitySpecific = entityData.getEntitySpecific();
+			if (entitySpecific != null) {
+				if (entitySpecific.has("variants")) {
+					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+					if (variants != null) {
+						if (entitySpecific.has(mooshroomEntity.getVariant().asString().toLowerCase())) {
+							JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomEntity.getVariant().asString().toLowerCase());
+							if (typeRegistry != null) {
+								isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+							}
 						}
 					}
 				}
 			}
-		}
-		if (isTexturedEntity) {
-			String variant = mooshroomEntity.getVariant() != null ? mooshroomEntity.getVariant().asString().toLowerCase() + "_" : "";
-			cir.setReturnValue(TexturedEntity.getTexture(mooshroomEntity, "minecraft:mooshroom", TexturedEntity.Affix.PREFIX, variant, TEXTURES.get(mooshroomEntity.getVariant())));
+			if (isTexturedEntity) {
+				String variant = mooshroomEntity.getVariant() != null ? mooshroomEntity.getVariant().asString().toLowerCase() + "_" : "";
+				cir.setReturnValue(TexturedEntity.getTexture(mooshroomEntity, "minecraft:mooshroom", TexturedEntity.Affix.PREFIX, variant, TEXTURES.get(mooshroomEntity.getVariant())));
+			}
 		}
 	}
 }

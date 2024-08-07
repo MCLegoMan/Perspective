@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.textured_entity.renderer.feature;
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -39,8 +40,11 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 	}
 	public Identifier getFinalTexture(Entity entity) {
 		boolean isTexturedEntity = true;
-		JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "mooshroom");
-		if (entitySpecific != null) {
+		TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "mooshroom");
+		Identifier defaultId = Identifier.of("minecraft", "textures/entity/mooshroom/" + ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_mooshroom_overlay.png");
+		if (entityData != null) {
+			JsonObject entitySpecific = entityData.getEntitySpecific();
+			if (entitySpecific != null) {
 				String type = String.valueOf(((MooshroomEntity)entity).getVariant()).toLowerCase();
 				if (entitySpecific.has(type)) {
 					JsonObject typeRegistry = JsonHelper.getObject(entitySpecific, String.valueOf(((MooshroomEntity)entity).getVariant()).toLowerCase());
@@ -48,8 +52,9 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 						isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
 					}
 				}
+			}
+			if (isTexturedEntity) return TexturedEntity.getTexture(entity, "minecraft:mooshroom", ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_", "_overlay", defaultId);
 		}
-		Identifier defaultId = Identifier.of("minecraft", "textures/entity/mooshroom/" + ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_mooshroom_overlay.png");
-		return isTexturedEntity ? TexturedEntity.getTexture(entity, "minecraft:mooshroom", ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_", "_overlay", defaultId) : defaultId;
+		return defaultId;
 	}
 }

@@ -9,8 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.goat;
 
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.AxolotlEntity;
+import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
 import net.minecraft.entity.passive.GoatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -26,25 +25,29 @@ public class GoatEntityRendererMixin {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
 			boolean isScreaming = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "goat");
-			if (entitySpecific != null) {
-				if (entitySpecific.has("variants")) {
-					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-					if (variants != null) {
-						if (variants.has("normal")) {
-							JsonObject normal = JsonHelper.getObject(variants, "normal");
-							if (normal != null) isTexturedEntity = JsonHelper.getBoolean(normal, "enabled", true);
-						}
-						if (variants.has("screaming")) {
-							JsonObject screaming = JsonHelper.getObject(variants, "screaming");
-							if (screaming != null) isTexturedEntity = JsonHelper.getBoolean(screaming, "enabled", true);
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "goat");
+			if (entityData != null) {
+				JsonObject entitySpecific = entityData.getEntitySpecific();
+				if (entitySpecific != null) {
+					if (entitySpecific.has("variants")) {
+						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+						if (variants != null) {
+							if (variants.has("normal")) {
+								JsonObject normal = JsonHelper.getObject(variants, "normal");
+								if (normal != null) isTexturedEntity = JsonHelper.getBoolean(normal, "enabled", true);
+							}
+							if (variants.has("screaming")) {
+								JsonObject screaming = JsonHelper.getObject(variants, "screaming");
+								if (screaming != null)
+									isTexturedEntity = JsonHelper.getBoolean(screaming, "enabled", true);
+							}
 						}
 					}
 				}
-			}
-			if (isTexturedEntity) {
-				String variant = isScreaming && entity.isScreaming() ? "_screaming" : "";
-				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
+				if (isTexturedEntity) {
+					String variant = isScreaming && entity.isScreaming() ? "_screaming" : "";
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
+				}
 			}
 		}
 	}

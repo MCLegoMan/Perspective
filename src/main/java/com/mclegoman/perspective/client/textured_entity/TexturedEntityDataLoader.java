@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.textured_entity;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.LogType;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TexturedEntityDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-	public static final List<List<Object>> registry = new ArrayList<>();
+	public static final List<TexturedEntityData> registry = new ArrayList<>();
 	public static final String identifier = "textured_entity";
 	public static boolean isReady;
 
@@ -33,13 +34,9 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 		super(new Gson(), identifier);
 	}
 
-	private void add(String namespace, String type, String name, JsonObject entity_specific, Boolean enabled) {
+	private void add(String namespace, String type, String name, JsonObject entity_specific, JsonArray overrides, Boolean enabled) {
 		try {
-			List<Object> texturedEntity = new ArrayList<>();
-			texturedEntity.add(namespace);
-			texturedEntity.add(type);
-			texturedEntity.add(name);
-			texturedEntity.add(entity_specific);
+			TexturedEntityData texturedEntity = new TexturedEntityData(namespace, type, name, entity_specific, overrides);
 			if (enabled) registry.add(texturedEntity);
 			else registry.remove(texturedEntity);
 		} catch (Exception error) {
@@ -162,7 +159,7 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 	}
 	public void addDefaultTexturedEntities(String namespace, String[] entityTypes) {
 		for (String entity : entityTypes) {
-			add(namespace, entity, "default", new JsonObject(), true);
+			add(namespace, entity, "default", new JsonObject(), new JsonArray(), true);
 		}
 	}
 	@Override
@@ -190,8 +187,9 @@ public class TexturedEntityDataLoader extends JsonDataLoader implements Identifi
 			String type = entity.contains(":") ? entity.substring(entity.lastIndexOf(":") + 1) : entity;
 			String name = JsonHelper.getString(reader, "name");
 			JsonObject entity_specific = JsonHelper.getObject(reader, "entity_specific", new JsonObject());
+			JsonArray overrides = JsonHelper.getArray(reader, "overrides", new JsonArray());
 			Boolean enabled = JsonHelper.getBoolean(reader, "enabled", true);
-			add(namespace, type, name, entity_specific, enabled);
+			add(namespace, type, name, entity_specific, overrides, enabled);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load perspective textured entity: {}", error));
 		}

@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.mooshro
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
+import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.MooshroomMushroomFeatureRenderer;
@@ -31,21 +32,25 @@ public class MooshroomMushroomFeatureRendererMixin {
 	private BlockState perspective$getMushroom(MooshroomEntity.Type mooshroomType) {
 		try {
 			if (entity != null) {
-				JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "mooshroom");
-				if (entitySpecific != null) {
-					if (entitySpecific.has("variants")) {
-						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-						if (variants != null) {
-							if (variants.has(mooshroomType.asString().toLowerCase())) {
-								JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomType.asString().toLowerCase());
-								if (typeRegistry != null) {
-									boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
-									if (enabled) {
-										if (typeRegistry.has("mushroom")) {
-											JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
-											if (mushroom.has("identifier")) {
-												Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
-												if (Registries.BLOCK.containsId(blockId)) return Registries.BLOCK.get(blockId).getDefaultState();
+				TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "mooshroom");
+				if (entityData != null) {
+					JsonObject entitySpecific = entityData.getEntitySpecific();
+					if (entitySpecific != null) {
+						if (entitySpecific.has("variants")) {
+							JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+							if (variants != null) {
+								if (variants.has(mooshroomType.asString().toLowerCase())) {
+									JsonObject typeRegistry = JsonHelper.getObject(variants, mooshroomType.asString().toLowerCase());
+									if (typeRegistry != null) {
+										boolean enabled = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+										if (enabled) {
+											if (typeRegistry.has("mushroom")) {
+												JsonObject mushroom = JsonHelper.getObject(typeRegistry, "mushroom");
+												if (mushroom.has("identifier")) {
+													Identifier blockId = IdentifierHelper.identifierFromString(JsonHelper.getString(mushroom, "identifier", IdentifierHelper.stringFromIdentifier(Registries.BLOCK.getId(mooshroomType.getMushroomState().getBlock()))));
+													if (Registries.BLOCK.containsId(blockId))
+														return Registries.BLOCK.get(blockId).getDefaultState();
+												}
 											}
 										}
 									}

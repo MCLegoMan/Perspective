@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.wolf;
 import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
+import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
 import net.minecraft.client.render.entity.WolfEntityRenderer;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
@@ -25,25 +26,28 @@ public class WolfEntityRendererMixin {
 	private void perspective$getTexture(WolfEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			JsonObject entitySpecific = TexturedEntity.getEntitySpecific(entity, "minecraft", "wolf");
-			if (entitySpecific != null) {
-				if (entitySpecific.has("variants")) {
-					JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-					if (variants != null) {
-						if (entitySpecific.has(entity.getVariant().getIdAsString().toLowerCase())) {
-							JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getIdAsString().toLowerCase());
-							if (typeRegistry != null) {
-								isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "wolf");
+			if (entityData != null) {
+				JsonObject entitySpecific = entityData.getEntitySpecific();
+				if (entitySpecific != null) {
+					if (entitySpecific.has("variants")) {
+						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
+						if (variants != null) {
+							if (entitySpecific.has(entity.getVariant().getIdAsString().toLowerCase())) {
+								JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getIdAsString().toLowerCase());
+								if (typeRegistry != null) {
+									isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+								}
 							}
 						}
 					}
 				}
-			}
-			if (isTexturedEntity) {
-				String variant = entity.getVariant().getIdAsString();
-				String variantNamespace = entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : "minecraft";
-				String variantKey = entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : "";
-				cir.setReturnValue(entity.isTamed() ? TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, variantKey + "_tame", cir.getReturnValue()) : (entity.hasAngerTime() ? TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, variantKey + "_angry", cir.getReturnValue()) : TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, variantKey, cir.getReturnValue())));
+				if (isTexturedEntity) {
+					String variant = entity.getVariant().getIdAsString();
+					String variantNamespace = entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : "minecraft";
+					String variantKey = entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : "";
+					cir.setReturnValue(entity.isTamed() ? TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, variantKey + "_tame", cir.getReturnValue()) : (entity.hasAngerTime() ? TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, variantKey + "_angry", cir.getReturnValue()) : TexturedEntity.getTexture(entity, variantNamespace, "minecraft:wolf", TexturedEntity.Affix.SUFFIX, variantKey, cir.getReturnValue())));
+				}
 			}
 		}
 	}
