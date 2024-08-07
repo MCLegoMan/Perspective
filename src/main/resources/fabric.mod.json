@@ -18,7 +18,7 @@
   "license": [
     "LGPL-3.0-or-later"
   ],
-  "icon": "assets/perspective/icons/icon.png",
+  "icon": "assets/perspective/textures/icons/default/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [

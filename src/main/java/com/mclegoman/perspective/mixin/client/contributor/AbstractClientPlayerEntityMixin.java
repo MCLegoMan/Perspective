@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.config.ConfigHelper;
-import com.mclegoman.perspective.client.contributor.ContributorDataloader;
+import com.mclegoman.perspective.client.contributor.ContributorDataLoader;
 import com.mclegoman.perspective.client.util.TextureHelper;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
@@ -47,10 +47,10 @@ public class AbstractClientPlayerEntityMixin {
 				model = skin.getSecond() ? SkinTextures.Model.SLIM : SkinTextures.Model.WIDE;
 				uuid = AprilFoolsPrankDataLoader.contributor;
 			}
-			for (List<Object> DEVELOPER : ContributorDataloader.registry) {
-				if (DEVELOPER.get(0).equals(uuid)) {
-					if ((boolean) DEVELOPER.get(3)) {
-						capeTexture = TextureHelper.getCapeTexture((String) DEVELOPER.get(4), capeTexture);
+			for (List<Object> developer : ContributorDataLoader.registry) {
+				if (developer.get(0).equals(uuid)) {
+					if ((boolean) developer.get(3)) {
+						capeTexture = TextureHelper.getCapeTexture((String) developer.get(4), capeTexture);
 					}
 				}
 			}

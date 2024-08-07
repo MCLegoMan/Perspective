@@ -1,4 +1,5 @@
 {
+	"zoom_enabled": true,
 	"zoom_level": 40,
 	"zoom_increment_size": 1,
 	"zoom_transition": "smooth",

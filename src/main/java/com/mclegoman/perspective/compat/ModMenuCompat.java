@@ -8,13 +8,13 @@
 package com.mclegoman.perspective.compat;
 
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
-//import com.terraformersmc.modmenu.api.ConfigScreenFactory;
-//import com.terraformersmc.modmenu.api.ModMenuApi;
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.minecraft.client.MinecraftClient;
 
-public class ModMenuCompat {// implements ModMenuApi {
-	//@Override
-	//public ConfigScreenFactory<?> getModConfigScreenFactory() {
-	//	return parent -> new ConfigScreen(MinecraftClient.getInstance().currentScreen, false, 1);
-	//}
+public class ModMenuCompat implements ModMenuApi {
+	@Override
+	public ConfigScreenFactory<?> getModConfigScreenFactory() {
+		return parent -> new ConfigScreen(MinecraftClient.getInstance().currentScreen, false, 1);
+	}
 }

@@ -11,7 +11,7 @@ public class Contributor {
 	public static void init() {
 		// Whilst players still could technically use this through the april fools' prank, it would set all players not specific players.
 		initAllowedUuids();
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ContributorDataloader());
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ContributorDataLoader());
 	}
 	private static void initAllowedUuids() {
 		// MCLegoMan

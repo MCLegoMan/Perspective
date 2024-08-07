@@ -12,6 +12,7 @@ import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
+import com.mclegoman.perspective.client.logo.PrideLogoDataLoader;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.toasts.Toast;
@@ -79,6 +80,7 @@ public class ConfigHelper {
 		ExperimentalConfig.init();
 		TutorialsConfig.init();
 		WarningsConfig.init();
+		fixConfig();
 	}
 	public static void tick() {
 		try {
@@ -265,9 +267,11 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_mode was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "super_secret_settings_mode") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
 			}
-			if (!(PerspectiveLogo.prideTypes.contains((String)getConfig(ConfigType.normal, "force_pride_type")) || getConfig(ConfigType.normal, "force_pride_type").equals("random"))) {
-				Data.version.sendToLog(LogType.WARN, "Config: force_pride_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "force_pride_type") + ")");
-				hasFixedConfig.add(setConfig(ConfigType.normal, "force_pride_type", ConfigDataLoader.forcePrideType));
+			if (!getConfig(ConfigType.normal, "force_pride_type").equals("random")) {
+				if (!PrideLogoDataLoader.getLogoNames().contains((String) getConfig(ConfigType.normal, "force_pride_type"))) {
+					Data.version.sendToLog(LogType.WARN, "Config: force_pride_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "force_pride_type") + ")");
+					hasFixedConfig.add(setConfig(ConfigType.normal, "force_pride_type", ConfigDataLoader.forcePrideType));
+				}
 			}
 			if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.normal, "hide_crosshair"))) {
 				Data.version.sendToLog(LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "hide_crosshair") + ")");

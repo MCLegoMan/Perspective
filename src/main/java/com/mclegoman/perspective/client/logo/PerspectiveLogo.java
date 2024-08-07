@@ -11,6 +11,7 @@ import com.mclegoman.luminance.client.logo.LogoHelper;
 import com.mclegoman.luminance.client.util.CompatHelper;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.luminance.common.util.DateHelper;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -23,24 +24,24 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class PerspectiveLogo {
-	// Pride Logos will be re-worked soon.
-	public static final List<String> prideTypes = new ArrayList<>();
-	// Whilst currently there are only two types, there will be more soon as they are re-worked.
-	private static int prideIndex;
 	public static void init() {
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PrideLogoDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
-		prideTypes.add("rainbow");
-		prideTypes.add("bi");
-		prideTypes.add("pan");
-		prideTypes.add("trans");
-		prideIndex = new Random().nextInt(prideTypes.size());
-		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), () -> "assets/" + Data.version.getID() + "/icons/" + getPrideType() + ".png", PerspectiveLogo::isPride);
+		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), () -> "assets/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, IdentifierHelper.stringFromIdentifier(getPrideLogo().getIconTexture())) + "/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, IdentifierHelper.stringFromIdentifier(getPrideLogo().getIconTexture())), PerspectiveLogo::isPride);
 		CompatHelper.addLuminanceModMenuBadge(Data.version.getID());
+	}
+	public static LogoData getDefaultLogo() {
+		return new LogoData("default", "perspective", IdentifierHelper.identifierFromString(getLogoTexture("default", "perspective")), IdentifierHelper.identifierFromString(getLogoTexture("default", "perspective")));
+	}
+	public static LogoData getExperimentalLogo() {
+		return new LogoData("experimental", "perspective", IdentifierHelper.identifierFromString(getLogoTexture("experimental", "perspective")), IdentifierHelper.identifierFromString(getLogoTexture("experimental", "perspective")));
+	}
+	public static String getLogoTexture(String type, String id) {
+		return "perspective:textures/logos/" + type + "/" + id + ".png";
+	}
+	public static String getIconTexture(String type, String id) {
+		return "perspective:textures/icons/" + type + "/" + id + ".png";
 	}
 	public static boolean isPride() {
 		return isActuallyPride() || isForcePride();
@@ -51,30 +52,43 @@ public class PerspectiveLogo {
 	public static boolean isForcePride() {
 		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride");
 	}
-	private static String getPrideType() {
+	private static LogoData getPrideLogo() {
 		if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride_type").equals("random")) {
-			return prideTypes.get(prideTypes.indexOf((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride_type")));
+			return getPrideLogoFromId((String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_pride_type"));
 		} else {
-			return prideTypes.get(prideIndex);
+			return PrideLogoDataLoader.getLogo();
 		}
 	}
+	public static LogoData getPrideLogoFromId(String id) {
+		for (LogoData logoData : PrideLogoDataLoader.registry) {
+			if (id.equals(logoData.getId())) return logoData;
+		}
+		return getDefaultLogo();
+	}
 	public static Logo getLogo(Logo.Type type) {
-		return new Logo(Identifier.of(Data.version.getID(), (type.equals(Logo.Type.PRIDE) ? getPrideType() : Data.version.getID())), type);
+		switch (type) {
+			case PRIDE -> {
+				return new Logo(getPrideLogo());
+			}
+			case EXPERIMENTAL -> {
+				return new Logo(getExperimentalLogo());
+			}
+			default -> {
+				return new Logo(getDefaultLogo());
+			}
+		}
 	}
 	public static void renderLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
-		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getTexture();
+		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getLogoTexture();
 		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
 		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + ((float) width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.version.isDevelopmentBuild(), 0, 0);
 	}
-	public record Logo(Identifier id, Type type) {
-		public String getNamespace() {
-			return this.id.getNamespace();
+	public record Logo(LogoData data) {
+		public Identifier getIconTexture() {
+			return data.getIconTexture();
 		}
-		public String getName() {
-			return this.id.getPath();
-		}
-		public Identifier getTexture() {
-			return Identifier.of(getNamespace(), "textures/gui/logo/" + type().toString() + "/" + getName() + ".png");
+		public Identifier getLogoTexture() {
+			return data.getLogoTexture();
 		}
 		public enum Type implements StringIdentifiable {
 			DEFAULT("default"),

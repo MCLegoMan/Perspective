@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ContributorDataloader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class ContributorDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	public static final List<List<Object>> registry = new ArrayList<>();
 	public static final String id = "contributors";
-	public ContributorDataloader() {
+	public ContributorDataLoader() {
 		super(new Gson(), id);
 	}
 	private void add(String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture) {

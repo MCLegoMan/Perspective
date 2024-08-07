@@ -48,7 +48,7 @@ dependencies {
 	include(modImplementation fileTree(dir: 'libs', include: '*.jar'))
 
 	// Compatibility
-	//modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
 
 	// Development Environment Only
 	modImplementation "com.ptsmods:devlogin:3.4.1"

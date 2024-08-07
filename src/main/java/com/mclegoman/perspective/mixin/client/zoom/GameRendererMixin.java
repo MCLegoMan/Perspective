@@ -38,22 +38,19 @@ public abstract class GameRendererMixin {
 	}
 	@ModifyReturnValue(method = "getFov", at = @At("RETURN"))
 	private double perspective$getFov(double fov, Camera camera, float tickDelta, boolean changingFov) {
-		if (Zoom.canZoom()) {
-			Zoom.fov = fov;
-			double newFOV = fov;
-			if (!this.isRenderingPanorama()) {
-				if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition").equals("instant")) {
-					newFOV *= Zoom.getMultiplier();
-				}
-				if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition").equals("smooth")) {
-					newFOV *= MathHelper.lerp(tickDelta, Zoom.getPrevMultiplier(), Zoom.getMultiplier());
-				}
+		Zoom.fov = fov;
+		double newFOV = fov;
+		if (!this.isRenderingPanorama()) {
+			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition").equals("instant")) {
+				newFOV *= Zoom.getMultiplier();
 			}
-			if (Zoom.getZoomType().equals(Zoom.Logarithmic.getIdentifier())) Zoom.zoomFOV = Zoom.Logarithmic.getLimitFOV(newFOV);
-			if (Zoom.getZoomType().equals(Zoom.Linear.getIdentifier())) Zoom.zoomFOV = Zoom.Linear.getLimitFOV(newFOV);
-			return Zoom.zoomFOV;
+			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition").equals("smooth")) {
+				newFOV *= MathHelper.lerp(tickDelta, Zoom.getPrevMultiplier(), Zoom.getMultiplier());
+			}
 		}
-		return fov;
+		if (Zoom.getZoomType().equals(Zoom.Logarithmic.getIdentifier())) Zoom.zoomFOV = Zoom.Logarithmic.getLimitFOV(newFOV);
+		if (Zoom.getZoomType().equals(Zoom.Linear.getIdentifier())) Zoom.zoomFOV = Zoom.Linear.getLimitFOV(newFOV);
+		return Zoom.canZoom() ? Zoom.zoomFOV : fov;
 	}
 	@ModifyExpressionValue(method = "tiltViewWhenHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;"))
 	private Object perspective$getDamageTiltStrength(Object value) {
