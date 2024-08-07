@@ -30,7 +30,7 @@ public class PiglinCapeFeatureRenderer extends FeatureRenderer<MobEntity, Piglin
 		}
 		matrixStack.translate(0.0F, 0.0F, 0.125F);
 		double d = 0.0F;
-		double e = Math.cos(TexturedEntityModels.getPiglinCapeY(piglinEntity) * (2.0F * 3.141592653589793F / 80.0F)) * 0.64F;
+		double e = (Math.cos(TexturedEntityModels.getPiglinCapeY(piglinEntity) * (2.0F * 3.141592653589793F / 80.0F)) + 1.0F) * 0.48F;
 		double m = 0.0F;
 		float n = MathHelper.lerpAngleDegrees(h, piglinEntity.prevBodyYaw, piglinEntity.bodyYaw);
 		double o = MathHelper.sin(n * 0.017453292F);
