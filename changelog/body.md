@@ -11,4 +11,9 @@ This update completely changes how shaders are rendered, making use of Luminance
       - Luminance will also load `disable_screen_mode` for backwards-compatibility, but it is recommended to use `disable_game_rendertype` in your shaders.
     - `entity_links` has been moved to `"custom: {"perspective":{"entity_links": []}}`
       - Perspective will also load entity links from the `souper_secret_settings` namespace.
-        - Entity Links will be disabled if Souper Secret Settings is detected so shaders aren't rendered twice.   
+        - Entity Links will be disabled if Souper Secret Settings is detected so shaders aren't rendered twice.
+
+- The TexturedEntity registry now stores data in TexturedEntityData format.
+- Textured Entities can now have texture overrides.
+  - This was added for entities that don't change some of their textures, so we aren't redistributing textures owned by Mojang Studios.
+  - 

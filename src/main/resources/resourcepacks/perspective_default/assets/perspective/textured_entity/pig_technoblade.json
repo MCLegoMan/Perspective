@@ -2,7 +2,7 @@
   "entity": "minecraft:pig",
   "name": "Technoblade",
   "overrides": [
-    { "prefix": "", "suffix": "", "identifier": "minecraft:textures/entity/pig/pig" }
+    { "prefix": "", "suffix": "", "texture": "minecraft:textures/entity/pig/pig" }
   ],
   "enabled": true
 }

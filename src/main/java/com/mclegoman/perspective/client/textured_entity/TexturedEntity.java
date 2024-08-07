@@ -39,12 +39,12 @@ public class TexturedEntity {
 	private static Identifier getOverrideTexture(String prefix, String suffix, JsonArray overrides, Identifier fallback) {
 		if (!overrides.isEmpty()) {
 			for (JsonElement element : overrides) {
-				String entityPrefix = JsonHelper.getString((JsonObject) element, "prefix");
-				String entitySuffix = JsonHelper.getString((JsonObject) element, "suffix");
-				String entityIdentifier = JsonHelper.getString((JsonObject) element, "identifier");
-				String entityIdentifierNamespace = entityIdentifier.contains(":") ? entityIdentifier.substring(0, entityIdentifier.lastIndexOf(":")) : "minecraft";
-				String entityIdentifierPath = entityIdentifier.contains(":") ? entityIdentifier.substring(entityIdentifier.lastIndexOf(":") + 1) : entityIdentifier;
-				if (prefix.equals(entityPrefix) && suffix.equals(entitySuffix)) return Identifier.of(entityIdentifierNamespace, entityIdentifierPath.endsWith(".png") ? entityIdentifierPath : entityIdentifierPath + ".png");
+				String entityPrefix = JsonHelper.getString((JsonObject) element, "prefix", "");
+				String entitySuffix = JsonHelper.getString((JsonObject) element, "suffix", "");
+				String entityTexture = JsonHelper.getString((JsonObject) element, "texture", IdentifierHelper.stringFromIdentifier(fallback));
+				String entityTextureNamespace = entityTexture.contains(":") ? entityTexture.substring(0, entityTexture.lastIndexOf(":")) : "minecraft";
+				String entityTexturePath = entityTexture.contains(":") ? entityTexture.substring(entityTexture.lastIndexOf(":") + 1) : entityTexture;
+				if (prefix.equals(entityPrefix) && suffix.equals(entitySuffix)) return Identifier.of(entityTextureNamespace, entityTexturePath.endsWith(".png") ? entityTexturePath : entityTexturePath + ".png");
 			}
 		}
 		return fallback;
