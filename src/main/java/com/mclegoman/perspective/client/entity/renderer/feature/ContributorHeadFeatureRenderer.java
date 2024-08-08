@@ -26,14 +26,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LimbAnimator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.RotationAxis;
-
 import java.util.Map;
 
 public class ContributorHeadFeatureRenderer<T extends PlayerEntity, M extends EntityModel<T> & ModelWithHead> extends FeatureRenderer<T, M> {
@@ -42,11 +40,9 @@ public class ContributorHeadFeatureRenderer<T extends PlayerEntity, M extends En
 	private final float scaleZ;
 	private final Map<SkullBlock.SkullType, SkullBlockEntityModel> headModels;
 	private final HeldItemRenderer heldItemRenderer;
-
 	public ContributorHeadFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader, HeldItemRenderer heldItemRenderer) {
 		this(context, loader, 1.0F, 1.0F, 1.0F, heldItemRenderer);
 	}
-
 	public ContributorHeadFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader, float scaleX, float scaleY, float scaleZ, HeldItemRenderer heldItemRenderer) {
 		super(context);
 		this.scaleX = scaleX;
@@ -55,64 +51,36 @@ public class ContributorHeadFeatureRenderer<T extends PlayerEntity, M extends En
 		this.headModels = SkullBlockEntityRenderer.getModels(loader);
 		this.heldItemRenderer = heldItemRenderer;
 	}
-
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T player, float f, float g, float h, float j, float k, float l) {
+	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		for (ContributorData contributor : ContributorDataLoader.registry) {
-			if (contributor.getUuid().equals(player.getGameProfile().getId().toString())) {
+			if (contributor.getUuid().equals(entity.getGameProfile().getId().toString())) {
 				if (contributor.getShouldRenderHeadItem()) {
 					ItemStack itemStack = Registries.ITEM.get(contributor.getHeadItem()).getDefaultStack();
 					if (!itemStack.isEmpty()) {
 						Item item = itemStack.getItem();
-						matrixStack.push();
-						matrixStack.scale(this.scaleX, this.scaleY, this.scaleZ);
-						float n;
-						this.getContextModel().getHead().rotate(matrixStack);
+						matrices.push();
+						matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
+						this.getContextModel().getHead().rotate(matrices);
 						if (item instanceof BlockItem && ((BlockItem)item).getBlock() instanceof AbstractSkullBlock) {
-							n = 1.1875F;
-							matrixStack.scale(1.1875F, -1.1875F, -1.1875F);
-
+							matrices.scale(1.1875F, -1.1875F, -1.1875F);
 							ProfileComponent profileComponent = itemStack.get(DataComponentTypes.PROFILE);
-							matrixStack.translate(-0.5, 0.0, -0.5);
+							matrices.translate(-0.5, 0.0, -0.5);
 							SkullBlock.SkullType skullType = ((AbstractSkullBlock)((BlockItem)item).getBlock()).getSkullType();
 							SkullBlockEntityModel skullBlockEntityModel = this.headModels.get(skullType);
 							RenderLayer renderLayer = SkullBlockEntityRenderer.getRenderLayer(skullType, profileComponent);
-							Entity var22 = player.getVehicle();
-							LimbAnimator limbAnimator;
-							if (var22 instanceof LivingEntity) {
-								LivingEntity livingEntity2 = (LivingEntity)var22;
-								limbAnimator = livingEntity2.limbAnimator;
-							} else {
-								limbAnimator = player.limbAnimator;
-							}
-
-							float o = limbAnimator.getPos(h);
-							SkullBlockEntityRenderer.renderSkull(null, 180.0F, o, matrixStack, vertexConsumerProvider, i, skullBlockEntityModel, renderLayer);
+							Entity vehicle = entity.getVehicle();
+							LimbAnimator limbAnimator = vehicle instanceof LivingEntity vehicleEntity ? vehicleEntity.limbAnimator : entity.limbAnimator;
+							SkullBlockEntityRenderer.renderSkull(null, 180.0F, limbAnimator.getPos(tickDelta), matrices, vertexConsumers, light, skullBlockEntityModel, renderLayer);
 						} else {
-							label54: {
-								if (item instanceof ArmorItem) {
-									ArmorItem armorItem = (ArmorItem)item;
-									if (armorItem.getSlotType() == EquipmentSlot.HEAD) {
-										break label54;
-									}
-								}
-
-								translate(matrixStack);
-								this.heldItemRenderer.renderItem(player, itemStack, ModelTransformationMode.HEAD, false, matrixStack, vertexConsumerProvider, i);
-							}
+							matrices.translate(0.0F, -0.25F, 0.0F);
+							matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
+							matrices.scale(0.625F, -0.625F, -0.625F);
+							this.heldItemRenderer.renderItem(entity, itemStack, ModelTransformationMode.HEAD, false, matrices, vertexConsumers, light);
 						}
-
-						matrixStack.pop();
+						matrices.pop();
 					}
 				}
 			}
 		}
-	}
-
-	public static void translate(MatrixStack matrices) {
-		float f = 0.625F;
-		matrices.translate(0.0F, -0.25F, 0.0F);
-		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
-		matrices.scale(0.625F, -0.625F, -0.625F);
-
 	}
 }
