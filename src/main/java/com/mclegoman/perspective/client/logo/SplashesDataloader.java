@@ -34,7 +34,8 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 	public static final String id = "splashes";
 	private static Couple<String, Boolean> splashText;
 	public static Couple<String, Boolean> getSplashText() {
-		if (PerspectiveLogo.isActuallyPride()) return new Couple<>("splashes.perspective.special.pride_month", true);
+		if (PerspectiveLogo.isPerspectiveBirthday()) return new Couple<>("splashes.perspective.special.birthday", true);
+		else if (PerspectiveLogo.isActuallyPride()) return new Couple<>("splashes.perspective.special.pride_month", true);
 		else if (AprilFoolsPrank.isAprilFools() && !AprilFoolsPrank.isForceAprilFools()) return new Couple<>("splashes.perspective.special.april_fools", true);
 		else return splashText;
 	}
@@ -44,7 +45,7 @@ public class SplashesDataloader extends JsonDataLoader implements IdentifiableRe
 			if (getSplashText() != null) splashes.remove(getSplashText());
 			splashText = splashes.get(new Random().nextInt(splashes.size()));
 		} else {
-			if (registry.size() == 1) splashText = registry.get(0);
+			if (registry.size() == 1) splashText = registry.getFirst();
 			else splashText = new Couple<>("", false);
 		}
 	}

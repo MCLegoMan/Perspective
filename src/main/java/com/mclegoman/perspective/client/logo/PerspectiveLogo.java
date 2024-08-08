@@ -24,12 +24,20 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 public class PerspectiveLogo {
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new PrideLogoDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SplashesDataloader());
 		CompatHelper.addOverrideModMenuIcon(new Couple<>(Data.version.getID(), "pride"), () -> "assets/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, IdentifierHelper.stringFromIdentifier(getPrideLogo().getIconTexture())) + "/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, IdentifierHelper.stringFromIdentifier(getPrideLogo().getIconTexture())), PerspectiveLogo::isPride);
 		CompatHelper.addLuminanceModMenuBadge(Data.version.getID());
+	}
+	public static boolean isPerspectiveBirthday() {
+		// Perspective's official birthday is June 14th.
+		LocalDate date = DateHelper.getDate();
+		return date.getMonth() == Month.JUNE && date.getDayOfMonth() >= 14 && date.getDayOfMonth() <= 15;
 	}
 	public static LogoData getDefaultLogo() {
 		return new LogoData("default", "perspective", IdentifierHelper.identifierFromString(getLogoTexture("default", "perspective")), IdentifierHelper.identifierFromString(getLogoTexture("default", "perspective")));
