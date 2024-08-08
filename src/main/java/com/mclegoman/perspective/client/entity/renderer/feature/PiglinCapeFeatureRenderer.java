@@ -61,10 +61,10 @@ public class PiglinCapeFeatureRenderer extends FeatureRenderer<MobEntity, Piglin
 
 		Identifier texture;
 		switch (piglinEntity) {
-			case PiglinEntity entity -> texture = TexturedEntity.getTexture(entity, "minecraft:piglin", "", "_cape", Identifier.of("perspective", "textures/entity/empty/empty_cape.png"));
-			case ZombifiedPiglinEntity entity -> texture = TexturedEntity.getTexture(entity, "minecraft:zombified_piglin", "", "_cape", Identifier.of("perspective", "textures/entity/empty/empty_cape.png"));
-			case PiglinBruteEntity entity -> texture = TexturedEntity.getTexture(entity, "minecraft:piglin_brute", "", "_cape", Identifier.of("perspective", "textures/entity/empty/empty_cape.png"));
-			default -> texture = Identifier.of("perspective", "textures/entity/empty/empty_cape.png");
+			case PiglinEntity entity -> texture = TexturedEntity.getTexture(entity, "minecraft:piglin", "", "_cape", Identifier.of("perspective", "textures/entity/piglin/piglin_cape.png"));
+			case ZombifiedPiglinEntity entity -> texture = TexturedEntity.getTexture(entity, "minecraft:zombified_piglin", "", "_cape", Identifier.of("perspective", "textures/entity/piglin/piglin_cape.png"));
+			case PiglinBruteEntity entity -> texture = TexturedEntity.getTexture(entity, "minecraft:piglin_brute", "", "_cape", Identifier.of("perspective", "textures/entity/piglin/piglin_cape.png"));
+			default -> texture = Identifier.of("perspective", "textures/entity/piglin/piglin_cape.png");
 		}
 
 		VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(texture));
