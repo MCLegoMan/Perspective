@@ -1,7 +1,10 @@
 {
 	"replace": false,
 	"translatable": [
-		"splashes.perspective.now_with_more_shaders"
+		"splashes.perspective.now_with_more_shaders",
+		"splashes.perspective.waffel_is_the_goat",
+		"splashes.perspective.mooshroom_moobloom",
+		"splashes.perspective.giant_jester"
 	],
 	"literal": [
 	]

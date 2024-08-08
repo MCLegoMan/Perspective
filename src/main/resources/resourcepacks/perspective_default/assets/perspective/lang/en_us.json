@@ -18,5 +18,8 @@
 	"shader.perspective.eightbit": "8-bit",
 	"shader.perspective.health_overlay": "health overlay",
 
-	"splashes.perspective.now_with_more_shaders": "Now with more shaders!"
+	"splashes.perspective.now_with_more_shaders": "Now with more shaders!",
+	"splashes.perspective.waffel_is_the_goat": "Waffel is the Goat!",
+	"splashes.perspective.mooshroom_moobloom": "Mooshroom? Moobloom!",
+	"splashes.perspective.giant_jester": "Jester is a Giant!"
 }
