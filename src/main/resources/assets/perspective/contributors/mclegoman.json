@@ -7,6 +7,6 @@
 	"shouldFlipUpsideDown": true,
 	"shouldReplaceCape": true,
 	"capeTexture": "perspective:textures/contributors/cape/developer",
-	"shouldRenderHeadItem": true,
+	"shouldRenderHeadItem": false,
 	"headItem": "minecraft:air"
 }

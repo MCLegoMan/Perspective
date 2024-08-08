@@ -14,10 +14,12 @@ public class Contributor {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ContributorDataLoader());
 	}
 	private static void initAllowedUuids() {
-		// MCLegoMan
+		// MCLegoMan; Developer
 		addAllowedUuid("772eb47b-a24e-4d43-a685-6ca9e9e132f7", "3445ebd7-25f8-41a6-8118-0d19d7f5559e");
-		// Nettakrim
+		// Nettakrim; Contributor
 		addAllowedUuid("9c3adf8d-a723-40c9-845b-c6e78c3ac460");
+		// Phantazap; Attribution for "Jester" Giant Textured Entity Texture.
+		addAllowedUuid("1f7a5ac1-664b-479d-9e2d-15ed891b080c");
 	}
 	protected static void addAllowedUuid(String... uuids) {
 		for (String uuid : uuids) {
