@@ -1,4 +1,5 @@
 {
+	"zoom_enabled": true,
 	"zoom_level": 40,
 	"zoom_increment_size": 2,
 	"zoom_transition": "smooth",
@@ -20,6 +21,7 @@
 	"force_april_fools": false,
 	"position_overlay": true,
 	"version_overlay": false,
+	"day_overlay": true,
 	"force_pride": true,
 	"force_pride_type": "trans",
 	"show_death_coordinates": true,
