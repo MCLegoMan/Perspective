@@ -1,4 +1,4 @@
-package com.mclegoman.perspective.client.textured_entity.model;
+package com.mclegoman.perspective.client.entity.model;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.CowEntityModel;

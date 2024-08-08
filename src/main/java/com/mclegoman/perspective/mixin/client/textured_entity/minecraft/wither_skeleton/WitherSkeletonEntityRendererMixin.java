@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.wither_skeleton;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntityModels;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.WitherSkeletonEntityRenderer;

@@ -9,6 +9,7 @@ package com.mclegoman.perspective.mixin.client.contributor;
 
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
+import com.mclegoman.perspective.client.contributor.ContributorData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataLoader;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -19,19 +20,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
-
 @Mixin(priority = 100, value = LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
 	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {		
 		if (entity instanceof PlayerEntity) {
 			boolean shouldFlipUpsideDown = false;
-			for (List<Object> contributor : ContributorDataLoader.registry) {
+			for (ContributorData contributor : ContributorDataLoader.registry) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_april_fools") &&
-						AprilFoolsPrank.isAprilFools() && contributor.get(0).equals(AprilFoolsPrankDataLoader.contributor) && (boolean) contributor.get(2)) shouldFlipUpsideDown = true;
-				if (contributor.get(0).equals(((PlayerEntity) entity).getGameProfile().getId().toString()) &&
-						(boolean) contributor.get(2)) shouldFlipUpsideDown = !shouldFlipUpsideDown;
+						AprilFoolsPrank.isAprilFools() && contributor.getUuid().equals(AprilFoolsPrankDataLoader.contributor) && contributor.getShouldFlipUpsideDown()) shouldFlipUpsideDown = true;
+				if (contributor.getUuid().equals(((PlayerEntity) entity).getGameProfile().getId().toString()) &&
+						contributor.getShouldFlipUpsideDown()) shouldFlipUpsideDown = !shouldFlipUpsideDown;
 			}
 			cir.setReturnValue(shouldFlipUpsideDown);
 		}

@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.zombie;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
-import com.mclegoman.perspective.client.textured_entity.renderer.feature.OverlayFeatureRenderer;
+import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.renderer.feature.OverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.ZombieEntityRenderer;

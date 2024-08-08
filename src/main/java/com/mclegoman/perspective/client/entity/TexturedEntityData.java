@@ -1,4 +1,4 @@
-package com.mclegoman.perspective.client.textured_entity;
+package com.mclegoman.perspective.client.entity;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:giant",
+  "name": "Jester",
+  "overrides": [
+  ],
+  "enabled": true
+}

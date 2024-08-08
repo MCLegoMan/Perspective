@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.sheep;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.SheepWoolFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;

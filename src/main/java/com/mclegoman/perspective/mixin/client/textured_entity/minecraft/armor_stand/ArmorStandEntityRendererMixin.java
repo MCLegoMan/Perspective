@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.armor_stand;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.util.Identifier;

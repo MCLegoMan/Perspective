@@ -8,10 +8,10 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.mooshroom;
 
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
-import com.mclegoman.perspective.client.textured_entity.renderer.feature.MooshroomOverlayFeatureRenderer;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntityData;
+import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.renderer.feature.MooshroomOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.MooshroomEntityRenderer;

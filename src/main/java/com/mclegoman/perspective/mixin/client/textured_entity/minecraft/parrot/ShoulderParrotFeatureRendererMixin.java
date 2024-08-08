@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.parrot;
 
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

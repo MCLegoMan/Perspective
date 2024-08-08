@@ -10,6 +10,7 @@ package com.mclegoman.perspective.mixin.client.contributor;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
 import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
 import com.mclegoman.luminance.common.util.Couple;
+import com.mclegoman.perspective.client.contributor.ContributorData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataLoader;
 import com.mclegoman.perspective.client.util.TextureHelper;
@@ -23,8 +24,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 @Mixin(priority = 100, value = AbstractClientPlayerEntity.class)
 public class AbstractClientPlayerEntityMixin {
@@ -47,10 +46,10 @@ public class AbstractClientPlayerEntityMixin {
 				model = skin.getSecond() ? SkinTextures.Model.SLIM : SkinTextures.Model.WIDE;
 				uuid = AprilFoolsPrankDataLoader.contributor;
 			}
-			for (List<Object> developer : ContributorDataLoader.registry) {
-				if (developer.get(0).equals(uuid)) {
-					if ((boolean) developer.get(3)) {
-						capeTexture = TextureHelper.getCapeTexture((String) developer.get(4), capeTexture);
+			for (ContributorData developer : ContributorDataLoader.registry) {
+				if (developer.getUuid().equals(uuid)) {
+					if (developer.getShouldReplaceCape()) {
+						capeTexture = TextureHelper.getCapeTexture(developer.getCapeTexture(), capeTexture);
 					}
 				}
 			}

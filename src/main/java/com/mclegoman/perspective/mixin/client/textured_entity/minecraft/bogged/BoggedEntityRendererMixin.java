@@ -7,12 +7,10 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.bogged;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.BoggedEntityRenderer;
-import net.minecraft.client.render.entity.StrayEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.BoggedEntity;
-import net.minecraft.entity.mob.StrayEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

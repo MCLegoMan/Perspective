@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.horse;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;

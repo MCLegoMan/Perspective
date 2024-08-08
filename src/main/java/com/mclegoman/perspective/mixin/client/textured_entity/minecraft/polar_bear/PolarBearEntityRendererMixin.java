@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.polar_bear;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.PolarBearEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.PolarBearEntity;

@@ -1,6 +1,19 @@
 {
 	"sections": [
 		{
+			"text": "Client-side features for Fabric and Quilt.",
+			"centered": true,
+			"sections": [
+				{
+					"text": "Licence: LGPL-3.0-or-later",
+					"centered": true
+				}
+			]
+		},
+		{
+			"spaced": true
+		},
+		{
 			"sections": [
 				{
 					"text": "Lead Developer",
@@ -38,30 +51,33 @@
 			"centered": true,
 			"sections": [
 				{
-					"text": "  Perspective",
+					"text": "  Perspective: Default",
 					"formatting": "white",
 					"sections": [
 						{
-							"text": "    Perspective",
+							"text": "    The default look of Perspective.",
 							"sections": [
 								{
-									"text": "      Client-side features for Fabric and Quilt.",
+									"text": "    Licence: LGPL-3.0-or-later"
+								},
+								{
+									"text": "    Contributors:",
 									"sections": [
 										{
-											"text": "      Licence: LGPL-3.0-or-later"
+											"text": "      MCLegoMan"
 										}
 									]
-								}
-							]
-						},
-						{
-							"text": "    Perspective: Default",
-							"sections": [
+								},
 								{
-									"text": "      The default look of Perspective.",
+									"text": "    Attributions:",
 									"sections": [
 										{
-											"text": "      Licence: LGPL-3.0-or-later"
+											"text": "      Phantazap:",
+											"sections": [
+												{
+													"text": "        'Jester' Giant Textured Entity Texture"
+												}
+											]
 										}
 									]
 								}
@@ -89,7 +105,7 @@
 									"text": "    Contributors:",
 									"sections": [
 										{
-											"text": "      Nettakrim",
+											"text": "      Nettakrim:",
 											"sections": [
 												{
 													"text": "        Vanilla Shader Fixes"

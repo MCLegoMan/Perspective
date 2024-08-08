@@ -5,11 +5,11 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.textured_entity.renderer.feature;
+package com.mclegoman.perspective.client.entity.renderer.feature;
 
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntityData;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

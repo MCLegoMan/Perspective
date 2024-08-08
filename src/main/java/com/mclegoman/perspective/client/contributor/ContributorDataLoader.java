@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
@@ -26,21 +27,16 @@ import java.util.List;
 import java.util.Map;
 
 public class ContributorDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-	public static final List<List<Object>> registry = new ArrayList<>();
+	public static final List<ContributorData> registry = new ArrayList<>();
 	public static final String id = "contributors";
 	public ContributorDataLoader() {
 		super(new Gson(), id);
 	}
-	private void add(String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture) {
+	private void add(String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture, boolean shouldRenderHeadItem, String headItem) {
 		try {
 			if (Contributor.isAllowedUuid(uuid)) {
-				List<Object> contributor = new ArrayList<>();
-				contributor.add(uuid);
-				contributor.add(type);
-				contributor.add(shouldFlipUpsideDown);
-				contributor.add(shouldReplaceCape);
-				contributor.add(capeTexture);
-				if (!registry.contains(contributor)) registry.add(contributor);
+				ContributorData contributorData = new ContributorData(uuid, type, shouldFlipUpsideDown, shouldReplaceCape, IdentifierHelper.identifierFromString(capeTexture), shouldRenderHeadItem, IdentifierHelper.identifierFromString(headItem));
+				if (!registry.contains(contributorData)) registry.add(contributorData);
 			} else {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
 			}
@@ -71,8 +67,10 @@ public class ContributorDataLoader extends JsonDataLoader implements Identifiabl
 			String type = JsonHelper.getString(reader, "type");
 			boolean shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown", false);
 			boolean shouldReplaceCape = JsonHelper.getBoolean(reader, "shouldReplaceCape", false);
-			String capeTexture = JsonHelper.getString(reader, "capeTexture", "perspective:developer");
-			for (JsonElement uuid : uuids) add(uuid.getAsString(), type, shouldFlipUpsideDown, shouldReplaceCape, capeTexture);
+			String capeTexture = JsonHelper.getString(reader, "capeTexture", "perspective:textures/contributors/cape/developer");
+			boolean shouldRenderHeadItem = JsonHelper.getBoolean(reader, "shouldRenderHeadItem", false);
+			String headItem = JsonHelper.getString(reader, "headItem", "minecraft:air");
+			for (JsonElement uuid : uuids) add(uuid.getAsString(), type, shouldFlipUpsideDown, shouldReplaceCape, capeTexture, shouldRenderHeadItem, headItem);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
 		}

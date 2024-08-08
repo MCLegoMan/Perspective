@@ -5,5 +5,7 @@
 	"type": "contributor",
 	"shouldFlipUpsideDown": false,
 	"shouldReplaceCape": false,
-	"capeTexture": "none"
+	"capeTexture": "none",
+	"shouldRenderHeadItem": false,
+	"headItem": "minecraft:air"
 }

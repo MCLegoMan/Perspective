@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.witch;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.WitchEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.WitchEntity;

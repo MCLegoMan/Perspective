@@ -8,8 +8,8 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.fox;
 
 import com.google.gson.JsonObject;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityData;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntityData;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;

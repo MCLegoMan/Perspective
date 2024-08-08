@@ -5,10 +5,10 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.textured_entity.renderer.feature;
+package com.mclegoman.perspective.client.entity.renderer.feature;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
-import com.mclegoman.perspective.client.textured_entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntityModels;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;

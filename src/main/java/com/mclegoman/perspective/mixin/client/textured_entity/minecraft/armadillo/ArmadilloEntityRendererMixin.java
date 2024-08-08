@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.armadillo;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.ArmadilloEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.ArmadilloEntity;

@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.breeze;
 
-import com.mclegoman.perspective.client.textured_entity.TexturedEntity;
+import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.BreezeEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.BreezeEntity;

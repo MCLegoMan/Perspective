@@ -1,5 +1,8 @@
 {
   "entity": "minecraft:bee",
   "name": "Tee",
+  "overrides": [
+    { "prefix": "", "suffix": "_overlay", "texture": "minecraft:textures/entity/bee/bee_overlay" }
+  ],
   "enabled": true
 }
