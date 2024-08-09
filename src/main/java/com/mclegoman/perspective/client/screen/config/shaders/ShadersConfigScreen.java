@@ -39,6 +39,7 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 			this.gridAdder.add(ScreenHelper.createTitle(ClientData.minecraft, getRefreshScreen(), "zoom", false, true));
 			this.gridAdder.add(createShaders());
 			this.gridAdder.add(createShaderOptions());
+			this.gridAdder.add(new EmptyWidget(20, 20));
 			postInit();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize shaders config screen: {}", error));
@@ -87,7 +88,6 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 			Shader.toggle(true, false, false, false);
 			this.refresh = true;
 		}).build());
-		shaderOptionsGridAdder.add(new EmptyWidget(20, 20));
 		return shaderOptionsGrid;
 	}
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {

@@ -52,6 +52,8 @@
 
 	"gui.perspective.config.reload": "Reloaded Config!",
 
+	"gui.perspective.config.config": "Config",
+
 	"gui.perspective.config.zoom": "Zoom",
 
 	"gui.perspective.config.zoom.level": "Zoom Level: %s",
