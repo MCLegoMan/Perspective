@@ -1,5 +1,7 @@
 {
 	"gui.perspective.name": "Perspective",
+	"gui.perspective.version": "%s %s",
+	"gui.perspective.license": "Licensed under LGPL-3.0-or-later.",
 
 	"gui.perspective.toasts.title": "%s: %s",
 
@@ -52,13 +54,17 @@
 
 	"gui.perspective.config.zoom": "Zoom",
 
-	"gui.perspective.config.zoom.level": "Zoom: %s",
+	"gui.perspective.config.zoom.level": "Zoom Level: %s",
 
 	"gui.perspective.config.zoom.increment_size": "Increment Multiplier: %s",
+	"gui.perspective.config.zoom.increment_size.hover": "Sets the multiplier of zoom adjustment when using the scroll wheel.",
 
 	"gui.perspective.config.zoom.type": "Scale: %s",
+	"gui.perspective.config.zoom.type.hover": "%s",
 	"gui.perspective.config.zoom.type.linear": "Linear",
+	"gui.perspective.config.zoom.type.linear.hover": "Uniform difference between zoom levels.",
 	"gui.perspective.config.zoom.type.logarithmic": "Logarithmic",
+	"gui.perspective.config.zoom.type.logarithmic.hover": "Proportional difference between zoom levels.",
 
 	"gui.perspective.config.zoom.transition": "Transition: %s",
 	"gui.perspective.config.zoom.transition.smooth": "Smooth",
@@ -69,7 +75,7 @@
 	"gui.perspective.config.zoom.scale_mode.vanilla": "Unscaled",
 	"gui.perspective.config.zoom.scale_mode.hover": "%s",
 	"gui.perspective.config.zoom.scale_mode.scaled.hover": "Mouse movements and some visual effects scale when zooming.",
-	"gui.perspective.config.zoom.scale_mode.vanilla.hover": "Mouse movements and some visual effects remain unscaled when zooming.",
+	"gui.perspective.config.zoom.scale_mode.vanilla.hover": "Mouse movements and visual effects remain unscaled when zooming.",
 
 	"gui.perspective.config.zoom.hide_hud": "Hide HUD: %s",
 

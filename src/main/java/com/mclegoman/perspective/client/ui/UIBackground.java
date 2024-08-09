@@ -59,7 +59,7 @@ public class UIBackground {
 			int currentIndex = titleScreenBackgroundTypes.indexOf(titleScreenBackgroundType);
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
 		} else {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.get(0));
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.getFirst());
 		}
 	}
 	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {

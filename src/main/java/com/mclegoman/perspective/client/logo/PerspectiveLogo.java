@@ -116,9 +116,12 @@ public class PerspectiveLogo {
 	}
 	public static class Widget extends ClickableWidget {
 		private final boolean experimental;
-		public Widget(boolean experimental) {
-			super(0, 0, 256, 64, Text.empty());
+		public Widget(int x, int y, boolean experimental) {
+			super(x, y, 256, 64, Text.empty());
 			this.experimental = experimental;
+		}
+		public Widget(boolean experimental) {
+			this(0, 0, experimental);
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
 			renderLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);

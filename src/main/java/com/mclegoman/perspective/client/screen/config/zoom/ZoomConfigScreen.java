@@ -8,52 +8,33 @@
 package com.mclegoman.perspective.client.screen.config.zoom;
 
 import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.screen.AbstractConfigScreen;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
 
-public class ZoomConfigScreen extends Screen {
-	private final Screen parentScreen;
-	private final GridWidget grid;
-	private boolean refresh;
-	private boolean shouldClose;
-
-	public ZoomConfigScreen(Screen PARENT, boolean REFRESH) {
-		super(Text.literal(""));
-		this.grid = new GridWidget();
-		this.parentScreen = PARENT;
-		this.refresh = REFRESH;
+public class ZoomConfigScreen extends AbstractConfigScreen {
+	public ZoomConfigScreen(Screen parentScreen, boolean refresh) {
+		super(parentScreen, refresh, false);
 	}
-
 	public void init() {
 		try {
-			grid.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new ZoomConfigScreen(parentScreen, true), "zoom", false, true));
-			GRID_ADDER.add(createZoom());
-			GRID_ADDER.add(new EmptyWidget(4, 4));
-			GRID_ADDER.add(createFooter());
-			grid.refreshPositions();
-			grid.forEachChild(this::addDrawableChild);
-			initTabNavigation();
+			super.init();
+			this.gridAdder.add(ScreenHelper.createTitle(ClientData.minecraft, getRefreshScreen(), "zoom", false, true));
+			this.gridAdder.add(createZoom());
+			postInit();
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config$zoom screen: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config screen: {}", error));
+			ClientData.minecraft.setScreen(this.parentScreen);
 		}
 	}
-
 	public void tick() {
 		try {
 			if (this.refresh) {
@@ -66,7 +47,6 @@ public class ZoomConfigScreen extends Screen {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick config$zoom screen: {}", error));
 		}
 	}
-
 	private GridWidget createZoom() {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
@@ -83,22 +63,21 @@ public class ZoomConfigScreen extends Screen {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_level", (int) ((value) * 100));
 			}
 		}, 1);
-		double ZOOM_INCREMENT_SIZE = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size") - 1) / 9;
-		gridAdder.add(new SliderWidget(gridAdder.getGridWidget().getX(), gridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false), ZOOM_INCREMENT_SIZE) {
-			@Override
+		double zoomIncrementSize = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size") - 1) / 9;
+		SliderWidget zoomIncrementSizeWidget = new SliderWidget(gridAdder.getGridWidget().getX(), gridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false), zoomIncrementSize) {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false));
 			}
-
-			@Override
 			protected void applyValue() {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size", (int) ((value) * 9) + 1);
 			}
-		}, 1);
+		};
+		zoomIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", true)));
+		gridAdder.add(zoomIncrementSizeWidget, 1);
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath())}), (button) -> {
 			Zoom.cycleZoomType(!hasShiftDown());
 			this.refresh = true;
-		}).build(), 1);
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath(), true)}, true))).build(), 1);
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.transition", new Object[]{Translation.getZoomTransitionTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_transition", Zoom.nextTransition());
 			this.refresh = true;
@@ -121,49 +100,10 @@ public class ZoomConfigScreen extends Screen {
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled." + ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled"), true)}, true))).build(), 1);
 		return GRID;
 	}
-
-	private GridWidget createFooter() {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(2);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
-			if (ConfigHelper.resetConfig()) this.refresh = true;
-		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).build());
-		return GRID;
+	public Screen getRefreshScreen() {
+		return new ZoomConfigScreen(this.parentScreen, this.refresh);
 	}
-
-	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(grid, getNavigationFocus());
-	}
-
-	public Text getNarratedTitle() {
-		return ScreenTexts.joinSentences();
-	}
-
-	public boolean shouldCloseOnEsc() {
-		return false;
-	}
-
-	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.shouldClose = true;
-		return super.keyPressed(keyCode, scanCode, modifiers);
-	}
-	@Override
-	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_F5) {
-			if (hasControlDown()) ConfigHelper.reloadConfig(true);
-			else Update.checkForUpdates(Data.version, true);
-			this.refresh = true;
-		}
-		return super.keyReleased(keyCode, scanCode, modifiers);
-	}
-
-	@Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		super.render(context, mouseX, mouseY, delta);
-		if (ConfigHelper.showReloadOverlay) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "reload"), 2, 2, 0xFFFFFF);
+	public Text getPageTitle() {
+		return Translation.getConfigTranslation(Data.version.getID(), "zoom");
 	}
 }

@@ -86,7 +86,7 @@ public class ConfigHelper {
 		try {
 			if (!updatedConfig) ConfigHelper.updateConfig();
 			if (Keybindings.openConfig.wasPressed())
-				ClientData.minecraft.setScreen(new ConfigScreen(ClientData.minecraft.currentScreen, false, 1));
+				ClientData.minecraft.setScreen(new ConfigScreen(ClientData.minecraft.currentScreen, false, true, 1));
 			if (saveViaTickTicks < saveViaTickSaveTick) saveViaTickTicks += 1;
 			else {
 				if (saveViaTick) {

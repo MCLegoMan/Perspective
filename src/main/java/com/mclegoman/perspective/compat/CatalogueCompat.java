@@ -14,6 +14,6 @@ import net.minecraft.client.gui.screen.Screen;
 
 public class CatalogueCompat {
 	public static Screen createConfigScreen(Screen currentScreen, ModContainer container) {
-		return new ConfigScreen(MinecraftClient.getInstance().currentScreen, false, 1);
+		return new ConfigScreen(MinecraftClient.getInstance().currentScreen, false, true, 1);
 	}
 }

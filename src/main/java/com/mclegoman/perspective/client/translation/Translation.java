@@ -34,11 +34,14 @@ public class Translation extends com.mclegoman.luminance.client.translation.Tran
 		else if (key.equalsIgnoreCase("vanilla")) return getConfigTranslation(namespace, "zoom.scale_mode.vanilla");
 		else return getErrorTranslation(namespace);
 	}
-	public static MutableText getZoomTypeTranslation(String namespace, String zoomType) {
+	public static MutableText getZoomTypeTranslation(String namespace, String zoomType, boolean hover) {
 		if (Zoom.isValidZoomType(Zoom.getZoomType())) {
-			return getConfigTranslation(namespace, "zoom.type." + zoomType);
+			return getConfigTranslation(namespace, "zoom.type." + zoomType + (hover ? ".hover" : ""));
 		}
 		return getErrorTranslation(namespace);
+	}
+	public static MutableText getZoomTypeTranslation(String namespace, String zoomType) {
+		return getZoomTypeTranslation(namespace, zoomType, false);
 	}
 	public static MutableText getHideCrosshairModeTranslation(String namespace, String key) {
 		if (key.equalsIgnoreCase("false")) return getTranslation(namespace, "variable.onff.off");

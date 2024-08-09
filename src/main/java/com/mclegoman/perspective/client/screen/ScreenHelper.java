@@ -28,17 +28,14 @@ public class ScreenHelper {
 		return createTitle(client, parentScreen, false, null, experimental, updateMsg);
 	}
 	public static GridWidget createTitle(MinecraftClient client, Screen parentScreen, boolean showPageName, @Nullable String pageName, boolean experimental, boolean updateMsg) {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter();
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(new PerspectiveLogo.Widget(experimental));
+		GridWidget titleGrid = new GridWidget();
+		titleGrid.getMainPositioner().alignHorizontalCenter();
+		GridWidget.Adder titleGridAdder = titleGrid.createAdder(1);
 		if (Update.newerVersionFound && updateMsg) {
-			GRID_ADDER.add(new TextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
+			titleGridAdder.add(new TextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
 			Text NEW_VERSION_TEXT = Translation.getConfigTranslation(Data.version.getID(), "update.description", new Object[]{Update.latestVersionFound}, new Formatting[]{Formatting.YELLOW});
-			GRID_ADDER.add(new PressableTextWidget(GRID.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), GRID.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(parentScreen, Update.downloadLink)), client.textRenderer));
+			titleGridAdder.add(new PressableTextWidget(titleGrid.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), titleGrid.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(parentScreen, Update.downloadLink)), client.textRenderer));
 		}
-		if (showPageName && pageName != null) GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), pageName), ClientData.minecraft.textRenderer).setCentered(true));
-		GRID_ADDER.add(new EmptyWidget(4, 4));
-		return GRID;
+		return titleGrid;
 	}
 }
