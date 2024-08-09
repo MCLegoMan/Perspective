@@ -54,7 +54,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 		GridWidget grid = new GridWidget();
 		grid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder gridAdder = grid.createAdder(2);
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(getRefreshScreen(), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(getRefreshScreen(), false, false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders"), (button) -> ClientData.minecraft.setScreen(new ShadersConfigScreen(getRefreshScreen(), false, false, new Formatting[]{Shader.getRandomColor()}))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(getRefreshScreen(), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(getRefreshScreen(), false))).build());
@@ -85,7 +85,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "detect_update_channel", Update.nextUpdateChannel());
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", true))).width(304).build(), 2);
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information"), (button) -> ClientData.minecraft.setScreen(new InformationScreen(new ConfigScreen(parentScreen, true, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information"), (button) -> ClientData.minecraft.setScreen(new InformationScreen(getRefreshScreen(), false, false))).build());
 		ButtonWidget experimental = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental"), (button) -> ClientData.minecraft.setScreen(new ExperimentalConfigScreen(new ConfigScreen(parentScreen, true, true, page), false))).build();
 		experimental.active = ConfigHelper.experimentsAvailable;
 		gridAdder.add(experimental);

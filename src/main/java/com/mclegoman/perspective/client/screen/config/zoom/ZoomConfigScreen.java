@@ -9,9 +9,9 @@ package com.mclegoman.perspective.client.screen.config.zoom;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
+import com.mclegoman.perspective.client.screen.widget.ConfigSliderWidget;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
@@ -21,8 +21,8 @@ import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.Text;
 
 public class ZoomConfigScreen extends AbstractConfigScreen {
-	public ZoomConfigScreen(Screen parentScreen, boolean refresh) {
-		super(parentScreen, refresh, false, 1);
+	public ZoomConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose) {
+		super(parentScreen, refresh, saveOnClose, 1);
 	}
 	public void init() {
 		try {
@@ -39,7 +39,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 		zoomGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder zoomGridAdder = zoomGrid.createAdder(2);
 		double zoomLevel = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level")) / 100;
-		zoomGridAdder.add(new SliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") + "%")}, false), zoomLevel) {
+		zoomGridAdder.add(new ConfigSliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") + "%")}, false), zoomLevel) {
 			@Override
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level") + "%")}, false));
@@ -50,7 +50,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			}
 		}, 1);
 		double zoomIncrementSize = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size") - 1) / 9;
-		SliderWidget zoomIncrementSizeWidget = new SliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false), zoomIncrementSize) {
+		SliderWidget zoomIncrementSizeWidget = new ConfigSliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false), zoomIncrementSize) {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_increment_size")))}, false));
 			}
@@ -87,7 +87,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 		return zoomGrid;
 	}
 	public Screen getRefreshScreen() {
-		return new ZoomConfigScreen(this.parentScreen, false);
+		return new ZoomConfigScreen(this.parentScreen, false, false);
 	}
 	public Text getPageTitle() {
 		return Translation.getConfigTranslation(Data.version.getID(), "zoom");
