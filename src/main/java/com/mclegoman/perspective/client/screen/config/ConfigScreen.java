@@ -137,7 +137,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	public Screen getRefreshScreen() {
-		return new ConfigScreen(this.parentScreen, this.refresh, this.saveOnClose, this.page);
+		return new ConfigScreen(this.parentScreen, false, this.saveOnClose, this.page);
 	}
 	public Text getPageTitle() {
 		return Translation.getConfigTranslation(Data.version.getID(), "config");

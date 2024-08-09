@@ -101,7 +101,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 		return GRID;
 	}
 	public Screen getRefreshScreen() {
-		return new ZoomConfigScreen(this.parentScreen, this.refresh);
+		return new ZoomConfigScreen(this.parentScreen, false);
 	}
 	public Text getPageTitle() {
 		return Translation.getConfigTranslation(Data.version.getID(), "zoom");
