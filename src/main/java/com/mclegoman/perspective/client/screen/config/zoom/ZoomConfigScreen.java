@@ -31,7 +31,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			this.gridAdder.add(createZoom());
 			postInit();
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config screen: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize zoom config screen: {}", error));
 			ClientData.minecraft.setScreen(this.parentScreen);
 		}
 	}
@@ -94,7 +94,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage"));
 			this.refresh = true;
 		}).build(), 1);
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled"), Translation.Type.ENDISABLE)}), (button) -> {
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled." + ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled"), true)}, true))).build(), 1);
