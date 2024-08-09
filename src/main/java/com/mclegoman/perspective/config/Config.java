@@ -26,6 +26,7 @@ public class Config {
 	protected static boolean zoomHideHud;
 	protected static boolean zoomShowPercentage;
 	protected static String zoomType;
+	protected static boolean zoomReset;
 	protected static boolean holdPerspectiveHideHud;
 	protected static String superSecretSettingsShader;
 	protected static String superSecretSettingsMode;
@@ -79,6 +80,7 @@ public class Config {
 		configProvider.add(new Couple<>("zoom_hide_hud", ConfigDataLoader.zoomHideHud));
 		configProvider.add(new Couple<>("zoom_show_percentage", ConfigDataLoader.zoomShowPercentage));
 		configProvider.add(new Couple<>("zoom_type", ConfigDataLoader.zoomType));
+		configProvider.add(new Couple<>("zoom_reset", ConfigDataLoader.zoomReset));
 		configProvider.add(new Couple<>("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 		configProvider.add(new Couple<>("super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
 		configProvider.add(new Couple<>("super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
@@ -121,6 +123,7 @@ public class Config {
 		zoomHideHud = config.getOrDefault("zoom_hide_hud", ConfigDataLoader.zoomHideHud);
 		zoomShowPercentage = config.getOrDefault("zoom_show_percentage", ConfigDataLoader.zoomShowPercentage);
 		zoomType = config.getOrDefault("zoom_type", ConfigDataLoader.zoomType);
+		zoomReset = config.getOrDefault("zoom_reset", ConfigDataLoader.zoomReset);
 		holdPerspectiveHideHud = config.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud);
 		superSecretSettingsShader = config.getOrDefault("super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader);
 		superSecretSettingsMode = config.getOrDefault("super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode);
@@ -164,6 +167,7 @@ public class Config {
 		configProvider.setConfig("zoom_hide_hud", zoomHideHud);
 		configProvider.setConfig("zoom_show_percentage", zoomShowPercentage);
 		configProvider.setConfig("zoom_type", zoomType);
+		configProvider.setConfig("zoom_reset", zoomReset);
 		configProvider.setConfig("hold_perspective_hide_hud", holdPerspectiveHideHud);
 		configProvider.setConfig("super_secret_settings_shader", superSecretSettingsShader);
 		configProvider.setConfig("super_secret_settings_mode", superSecretSettingsMode);

@@ -9,67 +9,37 @@ package com.mclegoman.perspective.client.screen;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.MultilineTextWidget;
-import net.minecraft.client.gui.widget.SimplePositioningWidget;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
 
-public class UpdateCheckerScreen extends Screen {
-	private final Screen parentScreen;
-	private final GridWidget grid;
-	private boolean shouldClose;
-	public UpdateCheckerScreen(Screen PARENT) {
-		super(Text.literal(""));
-		this.grid = new GridWidget();
-		this.parentScreen = PARENT;
+public class UpdateCheckerScreen extends AbstractConfigScreen {
+	public UpdateCheckerScreen(Screen parentScreen) {
+		super(parentScreen, false, false, 1);
 	}
 	public void init() {
 		try {
-			grid.getMainPositioner().alignHorizontalCenter().margin(0);
-			GridWidget.Adder GRID_ADDER = grid.createAdder(1);
-			GRID_ADDER.add(ScreenHelper.createTitle(ClientData.minecraft, new UpdateCheckerScreen(parentScreen), false, false));
-			GRID_ADDER.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.checking"), ClientData.minecraft.textRenderer).setCentered(true));
-			grid.refreshPositions();
-			grid.forEachChild(this::addDrawableChild);
-			initTabNavigation();
+			super.init();
+			if (this.page == 1) this.gridAdder.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.checking"), ClientData.minecraft.textRenderer).setCentered(true));
+			postInit();
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize config$hide screen: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize zoom config screen: {}", error));
+			ClientData.minecraft.setScreen(this.parentScreen);
 		}
 	}
 	public void tick() {
-		try {
-			if (Update.updateCheckerComplete) this.shouldClose = true;
-			if (this.shouldClose) ClientData.minecraft.setScreen(parentScreen);
-		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick config$hide screen: {}", error));
-		}
+		super.tick();
+		if (Update.updateCheckerComplete) this.shouldClose = true;
 	}
-	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(grid, getNavigationFocus());
+	protected GridWidget createFooter() {
+		return new GridWidget();
 	}
-	public Text getNarratedTitle() {
-		return ScreenTexts.joinSentences();
-	}
-	public boolean shouldCloseOnEsc() {
-		return false;
-	}
-	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.shouldClose = true;
-		return super.keyPressed(keyCode, scanCode, modifiers);
-	}
-	@Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		super.render(context, mouseX, mouseY, delta);
+		if (Update.updateCheckerComplete) return super.keyPressed(keyCode, scanCode, modifiers);
+		else return false;
 	}
 }

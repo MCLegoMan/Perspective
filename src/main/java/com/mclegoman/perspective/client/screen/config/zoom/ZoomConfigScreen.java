@@ -21,20 +21,22 @@ import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.Text;
 
 public class ZoomConfigScreen extends AbstractConfigScreen {
-	public ZoomConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose) {
-		super(parentScreen, refresh, saveOnClose, 1);
+	public ZoomConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {
+		super(parentScreen, refresh, saveOnClose, page);
 	}
 	public void init() {
 		try {
 			super.init();
-			if (this.page == 1) this.gridAdder.add(createZoom());
+			if (this.page == 1) this.gridAdder.add(createPageOne());
+			else if (this.page == 2) this.gridAdder.add(createPageTwo());
+			else shouldClose = true;
 			postInit();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize zoom config screen: {}", error));
 			ClientData.minecraft.setScreen(this.parentScreen);
 		}
 	}
-	private GridWidget createZoom() {
+	private GridWidget createPageOne() {
 		GridWidget zoomGrid = new GridWidget();
 		zoomGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder zoomGridAdder = zoomGrid.createAdder(2);
@@ -86,10 +88,23 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled." + ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled"), true)}, true))).build(), 1);
 		return zoomGrid;
 	}
+	private GridWidget createPageTwo() {
+		GridWidget zoomGrid = new GridWidget();
+		zoomGrid.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder zoomGridAdder = zoomGrid.createAdder(2);
+		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.reset", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_reset", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset"));
+			this.refresh = true;
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.reset", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.reset." + ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset"), true)}, true))).build(), 1);
+		return zoomGrid;
+	}
 	public Screen getRefreshScreen() {
-		return new ZoomConfigScreen(this.parentScreen, false, false);
+		return new ZoomConfigScreen(this.parentScreen, false, false, this.page);
 	}
 	public Text getPageTitle() {
 		return Translation.getConfigTranslation(Data.version.getID(), "zoom");
+	}
+	public int getMaxPage() {
+		return 2;
 	}
 }

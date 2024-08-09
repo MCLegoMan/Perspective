@@ -40,7 +40,6 @@ public class ConfigScreen extends AbstractConfigScreen {
 	public void init() {
 		try {
 			super.init();
-			this.gridAdder.add(ScreenHelper.createTitle(client, getRefreshScreen(), false, true));
 			if (this.page == 1) this.gridAdder.add(createPageOne());
 			else if (this.page == 2) this.gridAdder.add(createPageTwo());
 			else shouldClose = true;
@@ -54,7 +53,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 		GridWidget grid = new GridWidget();
 		grid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder gridAdder = grid.createAdder(2);
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(getRefreshScreen(), false, false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(getRefreshScreen(), false, false, 1))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders"), (button) -> ClientData.minecraft.setScreen(new ShadersConfigScreen(getRefreshScreen(), false, false, new Formatting[]{Shader.getRandomColor()}))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(getRefreshScreen(), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(getRefreshScreen(), false))).build());

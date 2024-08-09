@@ -6,6 +6,7 @@
 	"zoom_scale_mode": "scaled",
 	"zoom_hide_hud": false,
 	"zoom_type": "perspective:logarithmic",
+	"zoom_reset": false,
 	"zoom_show_percentage": false,
 	"hold_perspective_hide_hud": true,
 	"super_secret_settings_shader": "minecraft:box_blur",

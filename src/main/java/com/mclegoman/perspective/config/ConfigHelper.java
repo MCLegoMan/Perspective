@@ -304,6 +304,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "zoom_hide_hud", ConfigDataLoader.zoomHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_show_percentage", ConfigDataLoader.zoomShowPercentage));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_type", ConfigDataLoader.zoomType));
+			configChanged.add(setConfig(ConfigType.normal, "zoom_reset", ConfigDataLoader.zoomReset));
 			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
@@ -387,6 +388,10 @@ public class ConfigHelper {
 						}
 						case "zoom_type" -> {
 							Config.zoomType = (String) value;
+							configChanged = true;
+						}
+						case "zoom_reset" -> {
+							Config.zoomReset = (boolean) value;
 							configChanged = true;
 						}
 						case "hold_perspective_hide_hud" -> {
@@ -592,6 +597,9 @@ public class ConfigHelper {
 					}
 					case "zoom_type" -> {
 						return Config.zoomType;
+					}
+					case "zoom_reset" -> {
+						return Config.zoomReset;
 					}
 					case "hold_perspective_hide_hud" -> {
 						return Config.holdPerspectiveHideHud;

@@ -50,6 +50,7 @@ public class Zoom {
 		try {
 			if (Keybindings.toggleZoom.wasPressed()) isZooming = !isZooming;
 			if (!isZooming() && hasUpdated) {
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset")) reset();
 				ConfigHelper.saveConfig();
 				hasUpdated = false;
 			}
