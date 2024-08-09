@@ -9,7 +9,6 @@ package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.logo.PerspectiveLogo;
-import com.mclegoman.perspective.client.screen.AbstractConfigScreen;
 import com.mclegoman.perspective.client.screen.config.overlays.OverlaysConfigScreen;
 import com.mclegoman.perspective.client.screen.config.ui.UiBackgroundConfigScreen;
 import com.mclegoman.perspective.client.logo.SplashesDataloader;
@@ -26,29 +25,24 @@ import com.mclegoman.perspective.client.screen.config.textured_entity.TexturedEn
 import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.lwjgl.glfw.GLFW;
 
 public class ConfigScreen extends AbstractConfigScreen {
-	private int page;
 	public ConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {
-		super(parentScreen, refresh, saveOnClose);
-		this.page = page;
+		super(parentScreen, refresh, saveOnClose, page);
 	}
 	public void init() {
 		try {
 			super.init();
 			this.gridAdder.add(ScreenHelper.createTitle(client, getRefreshScreen(), false, true));
-			if (page == 1) this.gridAdder.add(createPageOne());
-			else if (page == 2) this.gridAdder.add(createPageTwo());
+			if (this.page == 1) this.gridAdder.add(createPageOne());
+			else if (this.page == 2) this.gridAdder.add(createPageTwo());
 			else shouldClose = true;
 			postInit();
 		} catch (Exception error) {
@@ -60,12 +54,12 @@ public class ConfigScreen extends AbstractConfigScreen {
 		GridWidget grid = new GridWidget();
 		grid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder gridAdder = grid.createAdder(2);
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(new ConfigScreen(parentScreen, true, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(getRefreshScreen(), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "shaders"), (button) -> ClientData.minecraft.setScreen(new ShadersConfigScreen(getRefreshScreen(), false, false, new Formatting[]{Shader.getRandomColor()}))).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(new ConfigScreen(parentScreen, true, true, page), false))).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(new ConfigScreen(parentScreen, true, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "textured_entity"), (button) -> ClientData.minecraft.setScreen(new TexturedEntityConfigScreen(getRefreshScreen(), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank"), (button) -> ClientData.minecraft.setScreen(new AprilFoolsPrankConfigScreen(getRefreshScreen(), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide"), (button) -> ClientData.minecraft.setScreen(new HideConfigScreen(getRefreshScreen(), false))).build());
-		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective"), (button) -> ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(new ConfigScreen(parentScreen, true, true, page), false))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective"), (button) -> ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(getRefreshScreen(), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays"), (button) -> ClientData.minecraft.setScreen(new OverlaysConfigScreen(getRefreshScreen(), false))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background"), (button) -> ClientData.minecraft.setScreen(new UiBackgroundConfigScreen(getRefreshScreen(), false))).build());
 		return grid;
@@ -97,49 +91,13 @@ public class ConfigScreen extends AbstractConfigScreen {
 		gridAdder.add(experimental);
 		return grid;
 	}
-	protected GridWidget createFooter() {
-		GridWidget footerGrid = new GridWidget();
-		footerGrid.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder footerGridAdder = footerGrid.createAdder(3);
-		footerGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
-			if (ConfigHelper.resetConfig()) this.refresh = true;
-		}).build());
-		footerGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> {
-			if (this.page <= 1) {
-				this.shouldClose = true;
-			}
-			else {
-				this.page -= 1;
-				this.refresh = true;
-			}
-		}).width(74).build());
-		ButtonWidget nextButtonWidget = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "next"), (button) -> {
-			if (!(this.page >= 2)) {
-				this.page += 1;
-				this.refresh = true;
-			}
-		}).width(74).build();
-		if (this.page >= 2) nextButtonWidget.active = false;
-		footerGridAdder.add(nextButtonWidget);
-		return footerGrid;
-	}
-	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode()) {
-			if (page <= 1) {
-				this.shouldClose = true;
-			}
-			else {
-				this.page -= 1;
-				this.refresh = true;
-			}
-		}
-		return super.keyPressed(keyCode, scanCode, modifiers);
-	}
 	public Screen getRefreshScreen() {
 		return new ConfigScreen(this.parentScreen, false, this.saveOnClose, this.page);
 	}
 	public Text getPageTitle() {
 		return Translation.getConfigTranslation(Data.version.getID(), "config");
+	}
+	public int getMaxPage() {
+		return 2;
 	}
 }

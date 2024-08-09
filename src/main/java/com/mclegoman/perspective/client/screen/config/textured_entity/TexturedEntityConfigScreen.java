@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client.screen.config.textured_entity;
 
 import com.mclegoman.luminance.common.util.LogType;
-import com.mclegoman.perspective.client.screen.AbstractConfigScreen;
+import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
@@ -21,14 +21,15 @@ import net.minecraft.text.Text;
 
 public class TexturedEntityConfigScreen extends AbstractConfigScreen {
 	public TexturedEntityConfigScreen(Screen parentScreen, boolean refresh) {
-		super(parentScreen, refresh, false);
+		super(parentScreen, refresh, false, 1);
 	}
 	public void init() {
 		try {
 			super.init();
-			this.gridAdder.add(createTexturedEntity());
-			this.gridAdder.add(new EmptyWidget(20, 20));
-			this.gridAdder.add(new EmptyWidget(20, 20));
+			if (this.page == 1) {
+				this.gridAdder.add(createTexturedEntity());
+				this.gridAdder.add(new EmptyWidget(48, 48));
+			}
 			postInit();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize textured entity config screen: {}", error));

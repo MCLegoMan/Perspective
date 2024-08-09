@@ -1,4 +1,11 @@
-package com.mclegoman.perspective.client.screen;
+/*
+    Perspective
+    Contributor(s): MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    Licence: GNU LGPLv3
+*/
+
+package com.mclegoman.perspective.client.screen.config;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
@@ -18,18 +25,20 @@ import net.minecraft.util.Formatting;
 import org.lwjgl.glfw.GLFW;
 
 public abstract class AbstractConfigScreen extends Screen {
+	protected int page;
 	protected final Screen parentScreen;
 	protected final GridWidget grid;
 	protected GridWidget.Adder gridAdder;
 	protected boolean refresh;
 	protected boolean shouldClose;
 	protected boolean saveOnClose;
-	public AbstractConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose) {
+	public AbstractConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {
 		super(Text.literal(""));
 		this.grid = new GridWidget();
 		this.parentScreen = parentScreen;
 		this.refresh = refresh;
 		this.saveOnClose = saveOnClose;
+		this.page = page;
 	}
 	public void init() {
 		grid.getMainPositioner().alignHorizontalCenter().margin(0);
@@ -45,9 +54,7 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public void tick() {
 		try {
-			if (this.refresh) {
-				ClientData.minecraft.setScreen(getRefreshScreen());
-			}
+			if (this.refresh) ClientData.minecraft.setScreen(getRefreshScreen());
 			if (this.shouldClose) {
 				if (this.saveOnClose) ConfigHelper.saveConfig();
 				ClientData.minecraft.setScreen(this.parentScreen);
@@ -59,15 +66,31 @@ public abstract class AbstractConfigScreen extends Screen {
 	protected GridWidget createFooter() {
 		GridWidget footerGrid = new GridWidget();
 		footerGrid.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder footerGridAdder = footerGrid.createAdder(2);
+		GridWidget.Adder footerGridAdder = footerGrid.createAdder(3);
 		footerGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "reset"), (button) -> {
 			if (ConfigHelper.resetConfig()) this.refresh = true;
 		}).build());
-		footerGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> this.shouldClose = true).build());
+		footerGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "back"), (button) -> {
+			if (this.page <= 1) {
+				this.shouldClose = true;
+			}
+			else {
+				this.page -= 1;
+				this.refresh = true;
+			}
+		}).width(73).build());
+		ButtonWidget nextButtonWidget = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "next"), (button) -> {
+			if (!(this.page >= getMaxPage())) {
+				this.page += 1;
+				this.refresh = true;
+			}
+		}).width(73).build();
+		if (this.page >= getMaxPage()) nextButtonWidget.active = false;
+		footerGridAdder.add(nextButtonWidget);
 		return footerGrid;
 	}
 	public void initTabNavigation() {
-		SimplePositioningWidget.setPos(grid, getNavigationFocus());
+		SimplePositioningWidget.setPos(this.grid, getNavigationFocus());
 	}
 	public Text getNarratedTitle() {
 		return ScreenTexts.joinSentences();
@@ -76,8 +99,15 @@ public abstract class AbstractConfigScreen extends Screen {
 		return false;
 	}
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode())
-			this.shouldClose = true;
+		if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getCode()) {
+			if (page <= 1) {
+				this.shouldClose = true;
+			}
+			else {
+				this.page -= 1;
+				this.refresh = true;
+			}
+		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
@@ -102,5 +132,8 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public Text getPageTitle() {
 		return Text.empty();
+	}
+	public int getMaxPage() {
+		return 1;
 	}
 }
