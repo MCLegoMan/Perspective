@@ -8,7 +8,9 @@
 package com.mclegoman.perspective.client.hide;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
@@ -64,12 +66,12 @@ public class HideArmorDataLoader extends JsonDataLoader implements IdentifiableR
 	}
 
 	private void layout$perspective(ResourceManager manager) {
-		List<Resource> HIDE_LISTS = manager.getAllResources(Identifier.of("perspective", "hide_armor.json"));
-		for (Resource resource : HIDE_LISTS) {
+		List<Resource> hideLists = manager.getAllResources(Identifier.of("perspective", "hide_armor.json"));
+		for (Resource resource : hideLists) {
 			try {
-				for (JsonElement value : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("values")) {
-					add(value.getAsString());
-				}
+				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+				if (JsonHelper.getBoolean(reader, "replace")) reset();
+				for (JsonElement value : JsonHelper.getArray(reader, "values", new JsonArray())) add(value.getAsString());
 			} catch (Exception error) {
 				Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load perspective hide armor list: {}", error));
 			}
