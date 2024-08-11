@@ -13,7 +13,11 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -40,13 +44,22 @@ public abstract class InGameHudMixin {
 
 	@Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
 	private void perspective$renderCrosshair(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-		if (ClientData.minecraft.world != null) {
+		if (ClientData.minecraft.world != null && ClientData.minecraft.player != null) {
 			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("true")) || (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic"))) {
 				HitResult crosshairTarget = ClientData.minecraft.crosshairTarget;
 				boolean hide_crosshair = (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("true"));
 				if (crosshairTarget != null) {
-					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic")))
+					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic"))) {
 						hide_crosshair = (crosshairTarget.getType() == HitResult.Type.BLOCK) ? ClientData.minecraft.world.getBlockState(((BlockHitResult) crosshairTarget).getBlockPos()).isAir() : crosshairTarget.getType() != HitResult.Type.ENTITY;
+						if (ClientData.minecraft.player.getActiveItem().isOf(Items.BOW) || ClientData.minecraft.player.getActiveItem().isOf(Items.CROSSBOW)) hide_crosshair = false;
+						for (ItemStack itemStack : ClientData.minecraft.player.getHandItems()) {
+							ChargedProjectilesComponent chargedProjectilesComponent = itemStack.get(DataComponentTypes.CHARGED_PROJECTILES);
+							if (chargedProjectilesComponent != null && !chargedProjectilesComponent.isEmpty()) {
+								hide_crosshair = false;
+								break;
+							}
+						}
+					}
 					if (hide_crosshair) {
 						if (ClientData.minecraft.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
 							if (ClientData.minecraft.player != null) {
