@@ -8,7 +8,9 @@
 package com.mclegoman.perspective.client.hide;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
@@ -27,24 +29,30 @@ import java.util.List;
 import java.util.Map;
 
 public class DynamicCrosshairItemsDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-	public static final List<Item> registry = new ArrayList<>();
+	public static final List<Item> activeRegistry = new ArrayList<>();
+	public static final List<Item> heldRegistry = new ArrayList<>();
 	public static final String ID = "hide/dynamic_crosshair";
-
 	public DynamicCrosshairItemsDataLoader() {
 		super(new Gson(), ID);
 	}
-
-	private void add(Item value) {
+	private void add(Item value, ItemType itemType) {
 		try {
-			if (!registry.contains(value)) registry.add(value);
+			switch (itemType) {
+				case ACTIVE -> {
+					if (!activeRegistry.contains(value)) activeRegistry.add(value);
+				}
+				case HELD -> {
+					if (!heldRegistry.contains(value)) heldRegistry.add(value);
+				}
+			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to add dynamic crosshair item to registry: {}", error));
 		}
 	}
-
 	private void reset() {
 		try {
-			registry.clear();
+			activeRegistry.clear();
+			heldRegistry.clear();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to reset dynamic crosshair item registry: {}", error));
 		}
@@ -69,12 +77,17 @@ public class DynamicCrosshairItemsDataLoader extends JsonDataLoader implements I
 		List<Resource> hideLists = manager.getAllResources(Identifier.of("perspective", "dynamic_crosshair.json"));
 		for (Resource resource : hideLists) {
 			try {
-				for (JsonElement value : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("values")) {
-					add(Registries.ITEM.get(Identifier.of(value.getAsString())));
-				}
+				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+				if (JsonHelper.getBoolean(reader, "replace")) reset();
+				for (JsonElement value : JsonHelper.getArray(JsonHelper.getObject(reader, "active", new JsonObject()), "values", new JsonArray())) add(Registries.ITEM.get(Identifier.of(value.getAsString())), ItemType.ACTIVE);
+				for (JsonElement value : JsonHelper.getArray(JsonHelper.getObject(reader, "held", new JsonObject()), "values", new JsonArray())) add(Registries.ITEM.get(Identifier.of(value.getAsString())), ItemType.HELD);
 			} catch (Exception error) {
 				Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to load perspective dynamic crosshair item list: {}", error));
 			}
 		}
+	}
+	private enum ItemType {
+		ACTIVE,
+		HELD
 	}
 }

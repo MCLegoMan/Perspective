@@ -18,7 +18,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -52,8 +51,9 @@ public abstract class InGameHudMixin {
 				if (crosshairTarget != null) {
 					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic"))) {
 						hide_crosshair = (crosshairTarget.getType() == HitResult.Type.BLOCK) ? ClientData.minecraft.world.getBlockState(((BlockHitResult) crosshairTarget).getBlockPos()).isAir() : crosshairTarget.getType() != HitResult.Type.ENTITY;
-						if (DynamicCrosshairItemsDataLoader.registry.contains(ClientData.minecraft.player.getActiveItem().getItem())) hide_crosshair = false;
+						if (DynamicCrosshairItemsDataLoader.activeRegistry.contains(ClientData.minecraft.player.getActiveItem().getItem())) hide_crosshair = false;
 						for (ItemStack itemStack : ClientData.minecraft.player.getHandItems()) {
+							if (DynamicCrosshairItemsDataLoader.heldRegistry.contains(itemStack.getItem())) hide_crosshair = false;
 							ChargedProjectilesComponent chargedProjectilesComponent = itemStack.get(DataComponentTypes.CHARGED_PROJECTILES);
 							if (chargedProjectilesComponent != null && !chargedProjectilesComponent.isEmpty()) {
 								hide_crosshair = false;

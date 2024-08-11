@@ -64,8 +64,8 @@ public class HidePlayerDataLoader extends JsonDataLoader implements Identifiable
 	}
 
 	private void layout$perspective(ResourceManager manager) {
-		List<Resource> HIDE_LISTS = manager.getAllResources(Identifier.of("perspective", "hide_player.json"));
-		for (Resource resource : HIDE_LISTS) {
+		List<Resource> hideLists = manager.getAllResources(Identifier.of("perspective", "hide_player.json"));
+		for (Resource resource : hideLists) {
 			try {
 				for (JsonElement value : JsonHelper.deserialize(resource.getReader()).getAsJsonArray("values")) {
 					add(value.getAsString());

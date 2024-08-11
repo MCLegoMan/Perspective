@@ -1,6 +1,13 @@
 {
-	"values": [
-		"minecraft:bow",
-		"minecraft:crossbow"
-	]
+	"replace": false,
+	"active": {
+		"values": [
+			"minecraft:bow",
+			"minecraft:crossbow"
+		]
+	},
+	"held": {
+		"values": [
+		]
+	}
 }
