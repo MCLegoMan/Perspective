@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.hide;
 
+import com.mclegoman.perspective.client.hide.DynamicCrosshairItemsDataLoader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import net.minecraft.client.gui.DrawContext;
@@ -51,7 +52,7 @@ public abstract class InGameHudMixin {
 				if (crosshairTarget != null) {
 					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic"))) {
 						hide_crosshair = (crosshairTarget.getType() == HitResult.Type.BLOCK) ? ClientData.minecraft.world.getBlockState(((BlockHitResult) crosshairTarget).getBlockPos()).isAir() : crosshairTarget.getType() != HitResult.Type.ENTITY;
-						if (ClientData.minecraft.player.getActiveItem().isOf(Items.BOW) || ClientData.minecraft.player.getActiveItem().isOf(Items.CROSSBOW)) hide_crosshair = false;
+						if (DynamicCrosshairItemsDataLoader.registry.contains(ClientData.minecraft.player.getActiveItem().getItem())) hide_crosshair = false;
 						for (ItemStack itemStack : ClientData.minecraft.player.getHandItems()) {
 							ChargedProjectilesComponent chargedProjectilesComponent = itemStack.get(DataComponentTypes.CHARGED_PROJECTILES);
 							if (chargedProjectilesComponent != null && !chargedProjectilesComponent.isEmpty()) {
