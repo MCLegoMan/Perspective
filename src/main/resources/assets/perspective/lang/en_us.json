@@ -310,7 +310,7 @@
 	"gui.perspective.position_overlay": "Position: %s, %s, %s",
 	"gui.perspective.day_overlay": "Days played: %s",
 
-	"gui.perspective.show_death_coordinates.message": "Death Location: %s %s %s",
+	"gui.perspective.show_death_coordinates.message": "Position: %s, %s, %s",
 
 	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen",
 

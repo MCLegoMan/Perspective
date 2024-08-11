@@ -120,9 +120,6 @@ public class PerspectiveLogo {
 			super(x, y, 256, 64, Text.empty());
 			this.experimental = experimental;
 		}
-		public Widget(boolean experimental) {
-			this(0, 0, experimental);
-		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
 			renderLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
 			LogoHelper.createSplashText(context, this.getWidth(), this.getX(), this.getY() + 32, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);

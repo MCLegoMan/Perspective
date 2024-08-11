@@ -21,7 +21,7 @@ public class LogoData {
 		this.iconTexture = iconTexture;
 	}
 	public String getType() {
-		return this.id;
+		return this.type;
 	}
 	public String getId() {
 		return this.id;

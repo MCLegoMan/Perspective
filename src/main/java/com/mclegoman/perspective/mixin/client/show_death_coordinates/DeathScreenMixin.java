@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DeathScreenMixin {
 	@Inject(method = "render", at = @At("TAIL"))
 	private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates") && ClientData.minecraft.player != null)
-			context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, Text.translatable("gui.perspective.show_death_coordinates.message", ClientData.minecraft.player.getBlockX(), ClientData.minecraft.player.getBlockY(), ClientData.minecraft.player.getBlockZ()), ClientData.minecraft.getWindow().getScaledWidth() / 2, 115, 16777215);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates") && ClientData.minecraft.player != null) context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, Text.translatable("gui.perspective.show_death_coordinates.message", (int) ClientData.minecraft.player.getPos().getX(), (int) ClientData.minecraft.player.getPos().getY(), (int) ClientData.minecraft.player.getPos().getZ()), ClientData.minecraft.getWindow().getScaledWidth() / 2, 115, 16777215);
 	}
 }
