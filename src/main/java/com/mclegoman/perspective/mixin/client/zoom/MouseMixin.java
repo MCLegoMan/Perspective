@@ -57,7 +57,7 @@ public abstract class MouseMixin {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
 		if (Zoom.isZooming() && Zoom.isScaled() && ClientData.minecraft.player != null) {
 			double angle = MathHelper.cos((ClientData.minecraft.player.getPitch() / 180.0F) * MathHelper.PI);
-			return x * Zoom.getMultiplier() * (1.0F / Math.max((angle < 0) ? angle * -1 : angle, (Math.max(Zoom.getMultiplier(), 0.0F) + 1.0F) / 11.0F));
+			return x * Zoom.getMultiplier() * (1.0F / Math.max((angle < 0) ? angle * -1.0F : angle, (Math.max(Zoom.getMultiplier(), 0.0F) + 1.0F) / 11.0F));
 		}
 		return x;
 	}
