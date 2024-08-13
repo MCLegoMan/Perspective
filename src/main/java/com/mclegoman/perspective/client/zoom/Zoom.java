@@ -37,8 +37,8 @@ public class Zoom {
 	public static double fov;
 	public static double zoomFOV;
 	public static double timeDelta = Double.MIN_VALUE;
-	public static final Smoother smoothX = new Smoother();
-	public static final Smoother smoothY = new Smoother();
+	public static Smoother smoothX = new Smoother();
+	public static Smoother smoothY = new Smoother();
 	public static void addZoomType(Identifier identifier) {
 		if (!zoomTypes.contains(identifier)) zoomTypes.add(identifier);
 	}
@@ -53,7 +53,10 @@ public class Zoom {
 	public static void tick() {
 		try {
 			if (Keybindings.toggleZoom.wasPressed()) isZooming = !isZooming;
-			if (Keybindings.toggleZoomCinematic.wasPressed()) ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic"));
+			if (Keybindings.toggleZoomCinematic.wasPressed()) {
+				resetCinematicZoom();
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic"));
+			}
 			if (!isZooming()) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset")) {
 					if (getZoomLevel() != getDefaultZoomLevel()) {
@@ -65,10 +68,15 @@ public class Zoom {
 					ConfigHelper.saveConfig();
 					hasUpdated = false;
 				}
+				resetCinematicZoom();
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
 		}
+	}
+	public static void resetCinematicZoom() {
+		smoothX = new Smoother();
+		smoothY = new Smoother();
 	}
 	public static double getMouseSensitivity() {
 		return Math.pow(ClientData.minecraft.options.getMouseSensitivity().getValue() * 0.6000000238418579F + 0.20000000298023224F, 3.0F) * 8.0F;

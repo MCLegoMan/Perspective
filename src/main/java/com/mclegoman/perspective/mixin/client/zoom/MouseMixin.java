@@ -54,7 +54,7 @@ public abstract class MouseMixin {
 
 	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
 	private void perspective$updateTime(double timeDelta, CallbackInfo ci) {
-		if (Zoom.canZoom()) Zoom.timeDelta = timeDelta;
+		if (Zoom.canZoom() && Zoom.isSmoothCamera()) Zoom.timeDelta = timeDelta;
 	}
 	@ModifyVariable(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/tutorial/TutorialManager;onUpdateMouse(DD)V"), ordinal = 1)
 	private double perspective$updateXSensitivity(double x) {
