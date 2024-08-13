@@ -20,6 +20,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Smoother;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,9 @@ public class Zoom {
 	private static double multiplier;
 	public static double fov;
 	public static double zoomFOV;
+	public static double timeDelta = Double.MIN_VALUE;
+	public static final Smoother smoothX = new Smoother();
+	public static final Smoother smoothY = new Smoother();
 	public static void addZoomType(Identifier identifier) {
 		if (!zoomTypes.contains(identifier)) zoomTypes.add(identifier);
 	}
@@ -49,14 +53,24 @@ public class Zoom {
 	public static void tick() {
 		try {
 			if (Keybindings.toggleZoom.wasPressed()) isZooming = !isZooming;
-			if (!isZooming() && hasUpdated) {
-				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset")) reset();
-				ConfigHelper.saveConfig();
-				hasUpdated = false;
+			if (!isZooming()) {
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset")) {
+					if (getZoomLevel() != getDefaultZoomLevel()) {
+						reset();
+						hasUpdated = true;
+					}
+				}
+				if (hasUpdated) {
+					ConfigHelper.saveConfig();
+					hasUpdated = false;
+				}
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
 		}
+	}
+	public static double getMouseSensitivity() {
+		return Math.pow(ClientData.minecraft.options.getMouseSensitivity().getValue() * 0.6000000238418579F + 0.20000000298023224F, 3.0F) * 8.0F;
 	}
 	public static boolean isZooming() {
 		return canZoom() && ClientData.minecraft.player != null && (isZooming != Keybindings.holdZoom.isPressed());
@@ -66,6 +80,9 @@ public class Zoom {
 	}
 	public static boolean isScaled() {
 		return ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode").equals("scaled");
+	}
+	public static boolean isSmoothCamera() {
+		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic");
 	}
 	public static void updateMultiplier() {
 		try {
@@ -98,11 +115,14 @@ public class Zoom {
 	}
 	public static Identifier getZoomType() {
 		Identifier zoomTypeIdentifier = IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_type"));
-		while (zoomTypeIdentifier == null && !isValidZoomType(zoomTypeIdentifier)) zoomTypeIdentifier = IdentifierHelper.identifierFromString(cycleZoomType());
+		while (!isValidZoomType(zoomTypeIdentifier)) zoomTypeIdentifier = IdentifierHelper.identifierFromString(cycleZoomType());
 		return zoomTypeIdentifier;
 	}
 	public static int getZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level");
+	}
+	public static int getDefaultZoomLevel() {
+		return ConfigDataLoader.zoomLevel;
 	}
 	public static void zoom(int amount, int multiplier) {
 		try {

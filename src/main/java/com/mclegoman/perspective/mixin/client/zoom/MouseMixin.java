@@ -21,8 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 100, value = Mouse.class)
 public abstract class MouseMixin {
-	@Shadow
-	private double eventDeltaVerticalWheel;
+	@Shadow private double eventDeltaVerticalWheel;
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
@@ -52,18 +51,32 @@ public abstract class MouseMixin {
 			}
 		}
 	}
+
+	@Inject(method = "updateMouse", at = @At(value = "HEAD"))
+	private void perspective$updateTime(double timeDelta, CallbackInfo ci) {
+		if (Zoom.canZoom()) Zoom.timeDelta = timeDelta;
+	}
 	@ModifyVariable(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/tutorial/TutorialManager;onUpdateMouse(DD)V"), ordinal = 1)
 	private double perspective$updateXSensitivity(double x) {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
-		if (Zoom.isZooming() && Zoom.isScaled() && ClientData.minecraft.player != null) {
-			double angle = MathHelper.cos((ClientData.minecraft.player.getPitch() / 180.0F) * MathHelper.PI);
-			return x * Zoom.getMultiplier() * (1.0F / Math.max((angle < 0) ? angle * -1.0F : angle, (Math.max(Zoom.getMultiplier(), 0.0F) + 1.0F) / 11.0F));
+		if (Zoom.isZooming()) {
+			if (Zoom.isSmoothCamera()) x = Zoom.smoothX.smooth(x * Zoom.getMouseSensitivity(), Zoom.timeDelta * Zoom.getMouseSensitivity());
+			if (Zoom.isScaled() && ClientData.minecraft.player != null) {
+				double angle = MathHelper.cos((ClientData.minecraft.player.getPitch() / 180.0F) * MathHelper.PI);
+				x *= Zoom.getMultiplier() * (1.0F / Math.max((angle < 0) ? angle * -1.0F : angle, (Math.max(Zoom.getMultiplier(), 0.0F) + 1.0F) / 11.0F));
+			}
 		}
 		return x;
 	}
 	@ModifyVariable(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/tutorial/TutorialManager;onUpdateMouse(DD)V"), ordinal = 2)
 	private double perspective$updateYSensitivity(double y) {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
-		return (Zoom.isZooming() && Zoom.isScaled()) ? y * Zoom.getMultiplier() : y;
+		if (Zoom.isZooming()) {
+			if (Zoom.isSmoothCamera()) y = Zoom.smoothY.smooth(y * Zoom.getMouseSensitivity(), Zoom.timeDelta * Zoom.getMouseSensitivity());
+			if (Zoom.isScaled()) {
+				return y * Zoom.getMultiplier();
+			}
+		}
+		return y;
 	}
 }

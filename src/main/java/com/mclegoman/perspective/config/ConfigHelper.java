@@ -19,7 +19,6 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.logo.PerspectiveLogo;
 import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
@@ -305,6 +304,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "zoom_show_percentage", ConfigDataLoader.zoomShowPercentage));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_type", ConfigDataLoader.zoomType));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_reset", ConfigDataLoader.zoomReset));
+			configChanged.add(setConfig(ConfigType.normal, "zoom_cinematic", ConfigDataLoader.zoomCinematic));
 			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
@@ -392,6 +392,10 @@ public class ConfigHelper {
 						}
 						case "zoom_reset" -> {
 							Config.zoomReset = (boolean) value;
+							configChanged = true;
+						}
+						case "zoom_cinematic" -> {
+							Config.zoomCinematic = (boolean) value;
 							configChanged = true;
 						}
 						case "hold_perspective_hide_hud" -> {
@@ -600,6 +604,9 @@ public class ConfigHelper {
 					}
 					case "zoom_reset" -> {
 						return Config.zoomReset;
+					}
+					case "zoom_cinematic" -> {
+						return Config.zoomCinematic;
 					}
 					case "hold_perspective_hide_hud" -> {
 						return Config.holdPerspectiveHideHud;

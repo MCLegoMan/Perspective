@@ -34,6 +34,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean zoomShowPercentage;
 	public static String zoomType;
 	public static boolean zoomReset;
+	public static boolean zoomCinematic;
 	public static boolean holdPerspectiveHideHud;
 	public static String superSecretSettingsShader;
 	public static String superSecretSettingsMode;
@@ -82,6 +83,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				zoomHideHud = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_hide_hud", false);
 				zoomType = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "zoom_type", "perspective:logarithmic");
 				zoomReset = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_reset", false);
+				zoomCinematic = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_cinematic", false);
 				zoomShowPercentage = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_show_percentage", false);
 				holdPerspectiveHideHud = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_hide_hud", true);
 				superSecretSettingsShader = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_shader", "minecraft:blur");
