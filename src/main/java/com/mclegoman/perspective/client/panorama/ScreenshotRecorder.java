@@ -19,21 +19,21 @@ import java.io.File;
 
 public class ScreenshotRecorder {
 	public static void saveScreenshot(File gameDirectory, String fileName, Framebuffer framebuffer) {
-		if (!RenderSystem.isOnRenderThread())
-			RenderSystem.recordRenderCall(() -> saveScreenshotInner(gameDirectory, fileName, framebuffer));
+		if (!RenderSystem.isOnRenderThread()) RenderSystem.recordRenderCall(() -> saveScreenshotInner(gameDirectory, fileName, framebuffer));
 		else saveScreenshotInner(gameDirectory, fileName, framebuffer);
 	}
-
 	private static void saveScreenshotInner(File screenshotDir, String fileName, Framebuffer framebuffer) {
-		NativeImage nativeImage = net.minecraft.client.util.ScreenshotRecorder.takeScreenshot(framebuffer);
-		File file2 = new File(screenshotDir, fileName);
-		Util.getIoWorkerExecutor().execute(() -> {
-			try {
-				nativeImage.writeTo(file2);
-			} catch (Exception error) {
-				Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to save screenshot: ", error));
-			}
-			nativeImage.close();
-		});
+		try(NativeImage nativeImage = net.minecraft.client.util.ScreenshotRecorder.takeScreenshot(framebuffer)) {
+			Util.getIoWorkerExecutor().execute(() -> {
+				try {
+					nativeImage.writeTo(new File(screenshotDir, fileName));
+				} catch (Exception error) {
+					Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to write screenshot: ", error));
+				}
+				nativeImage.close();
+			});
+		} catch (Exception error) {
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to take screenshot: ", error));
+		}
 	}
 }

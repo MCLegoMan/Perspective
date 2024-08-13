@@ -306,11 +306,14 @@
 	"gui.perspective.config.detect_update_channel.alpha": "Alpha",
 	"gui.perspective.config.detect_update_channel.none": "None",
 
+	"gui.perspective.position.title": "Position",
+	"gui.perspective.position.description": "%s, %s, %s",
+
 	"gui.perspective.version_overlay": "Minecraft %s",
-	"gui.perspective.position_overlay": "Position: %s, %s, %s",
+	"gui.perspective.position_overlay": "%s: %s",
 	"gui.perspective.day_overlay": "Days played: %s",
 
-	"gui.perspective.show_death_coordinates.message": "Position: %s, %s, %s",
+	"gui.perspective.show_death_coordinates": "%s: %s",
 
 	"gui.perspective.experimental.super_secret_settings_list": "Super Secret Settings Shader Selection Screen",
 

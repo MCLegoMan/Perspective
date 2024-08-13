@@ -64,6 +64,9 @@ public class Zoom {
 	public static boolean canZoom() {
 		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled");
 	}
+	public static boolean isScaled() {
+		return ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode").equals("scaled");
+	}
 	public static void updateMultiplier() {
 		try {
 			prevMultiplier = multiplier;
