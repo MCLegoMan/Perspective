@@ -53,6 +53,7 @@ public class Zoom {
 	public static void tick() {
 		try {
 			if (Keybindings.toggleZoom.wasPressed()) isZooming = !isZooming;
+			if (Keybindings.toggleZoomCinematic.wasPressed()) ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_cinematic"));
 			if (!isZooming()) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset")) {
 					if (getZoomLevel() != getDefaultZoomLevel()) {

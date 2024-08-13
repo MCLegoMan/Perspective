@@ -271,6 +271,8 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
 
+	"gui.perspective.keybindings.keybinding.toggle_zoom_cinematic": "Toggle Cinematic Zoom",
+
 	"gui.perspective.resource_pack.perspective_default": "Perspective: Default",
 	"gui.perspective.resource_pack.perspective_default.description": "The default look of Perspective",
 
