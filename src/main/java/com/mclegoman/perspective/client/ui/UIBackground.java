@@ -98,10 +98,10 @@ public class UIBackground {
 		String key = IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, uiBackgroundTexture);
 		return (namespace != null && key != null) ? Identifier.of(namespace, (!key.startsWith("textures/") ? "textures/" : "") + key + (!key.endsWith(".png") ? ".png" : "")) : Identifier.of("minecraft", "textures/block/dirt.png");
 	}
-	private static void loadShader(UIBackgroundData data) {
+	public static void loadShader(UIBackgroundData data) {
 		try {
+			if (postProcessor != null) postProcessor.close();
 			if (data.getRenderShader() && data.getShaderId() != null) {
-				if (postProcessor != null) postProcessor.close();
 				postProcessor = new PostEffectProcessor(ClientData.minecraft.getTextureManager(), ClientData.minecraft.getResourceManager(), ClientData.minecraft.getFramebuffer(), data.getShaderId());
 				postProcessor.setupDimensions(ClientData.minecraft.getWindow().getFramebufferWidth(), ClientData.minecraft.getWindow().getFramebufferHeight());
 			}

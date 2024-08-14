@@ -325,6 +325,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
 			configChanged.add(setConfig(ConfigType.normal, "title_screen", ConfigDataLoader.titleScreen));
 			configChanged.add(setConfig(ConfigType.normal, "ui_background", ConfigDataLoader.uiBackground));
+			UIBackground.loadShader(UIBackground.getCurrentUIBackground());
 			configChanged.add(setConfig(ConfigType.normal, "ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
 			configChanged.add(setConfig(ConfigType.normal, "hide_block_outline", ConfigDataLoader.hideBlockOutline));
 			configChanged.add(setConfig(ConfigType.normal, "hide_crosshair", ConfigDataLoader.hideCrosshair));
