@@ -54,7 +54,6 @@ public class PerspectiveClient implements ClientModInitializer {
 	public static void afterInitializeConfig() {
 		try {
 			Data.version.sendToLog(LogType.INFO, Translation.getString("AfterConfiging {}", Data.version.getName()));
-			ResourcePacks.initAfterConfig();
 			Update.checkForUpdates(Data.version);
 			Shaders.init();
 			ClientData.setFinishedInitializingAfterConfig(true);

@@ -57,7 +57,6 @@ public class Config {
 	protected static String detectUpdateChannel;
 	protected static boolean tutorials;
 	protected static boolean debug;
-	protected static boolean testResourcePack;
 	protected static int configVersion;
 	protected static final Object[] options;
 
@@ -111,8 +110,7 @@ public class Config {
 		configProvider.add(new Couple<>("hide_show_message", ConfigDataLoader.hideShowMessage));
 		configProvider.add(new Couple<>("tutorials", ConfigDataLoader.tutorials));
 		configProvider.add(new Couple<>("detect_update_channel", ConfigDataLoader.detectUpdateChannel));
-		configProvider.add(new Couple<>("debug", ConfigDataLoader.debug));
-		configProvider.add(new Couple<>("test_resource_pack", ConfigDataLoader.testResourcePack));
+		configProvider.add(new Couple<>("debug", ConfigHelper.defaultDebug));
 		configProvider.add(new Couple<>("config_version", ConfigHelper.defaultConfigVersion));
 	}
 
@@ -155,8 +153,7 @@ public class Config {
 		hideShowMessage = config.getOrDefault("hide_show_message", ConfigDataLoader.hideShowMessage);
 		tutorials = config.getOrDefault("tutorials", ConfigDataLoader.tutorials);
 		detectUpdateChannel = config.getOrDefault("detect_update_channel", ConfigDataLoader.detectUpdateChannel);
-		debug = config.getOrDefault("debug", ConfigDataLoader.debug);
-		testResourcePack = config.getOrDefault("test_resource_pack", ConfigDataLoader.testResourcePack);
+		debug = config.getOrDefault("debug", ConfigHelper.defaultDebug);
 		configVersion = config.getOrDefault("config_version", ConfigHelper.defaultConfigVersion);
 	}
 
@@ -201,7 +198,6 @@ public class Config {
 		configProvider.setConfig("tutorials", tutorials);
 		configProvider.setConfig("detect_update_channel", detectUpdateChannel);
 		configProvider.setConfig("debug", debug);
-		configProvider.setConfig("test_resource_pack", testResourcePack);
 		configProvider.setConfig("config_version", ConfigHelper.defaultConfigVersion);
 		configProvider.saveConfig(Data.version, id);
 	}
@@ -245,7 +241,6 @@ public class Config {
 				detectUpdateChannel,
 				tutorials,
 				debug,
-				testResourcePack,
 				configVersion
 		};
 	}

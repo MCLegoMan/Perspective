@@ -63,8 +63,6 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean hideShowMessage;
 	public static boolean tutorials;
 	public static String detectUpdateChannel;
-	public static boolean debug;
-	public static boolean testResourcePack;
 
 	public ConfigDataLoader() {
 		super(new Gson(), ID);
@@ -113,8 +111,6 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				hideShowMessage = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_show_message", true);
 				tutorials = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "tutorials", true);
 				detectUpdateChannel = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "detect_update_channel", "release");
-				debug = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "debug", false);
-				testResourcePack = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "test_resource_pack", false);
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {

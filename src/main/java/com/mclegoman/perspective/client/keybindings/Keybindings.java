@@ -43,7 +43,7 @@ public class Keybindings {
 	static {
 		allKeybindings = new KeyBinding[]{
 				cycleCrosshair = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
-				cycleDebug = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN),
+				cycleDebug = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "debug", GLFW.GLFW_KEY_UNKNOWN, Data.version.isDevelopmentBuild()),
 				cycleShaders = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
 				holdPerspectiveThirdPersonBack = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
 				holdPerspectiveThirdPersonFront = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_V),

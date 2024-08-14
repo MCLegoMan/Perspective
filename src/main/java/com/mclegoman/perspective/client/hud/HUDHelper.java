@@ -16,9 +16,11 @@ import com.mclegoman.perspective.client.keybindings.Keybindings;
 
 public class HUDHelper {
 	public static void tick() {
-		if (Keybindings.cycleDebug.wasPressed()) {
-			DebugOverlay.shaderColor = Shader.getRandomColor();
-			DebugOverlay.debugType = ClientData.minecraft.options.sneakKey.isPressed() ? DebugOverlay.debugType.prev() : DebugOverlay.debugType.next();
+		if (Keybindings.cycleDebug != null) {
+			if (Keybindings.cycleDebug.wasPressed()) {
+				DebugOverlay.shaderColor = Shader.getRandomColor();
+				DebugOverlay.debugType = ClientData.minecraft.options.sneakKey.isPressed() ? DebugOverlay.debugType.prev() : DebugOverlay.debugType.next();
+			}
 		}
 		if (Keybindings.toggleVerOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "version_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay"));

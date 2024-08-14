@@ -41,6 +41,7 @@ public class ConfigHelper {
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
 	protected static final int defaultConfigVersion = 20;
+	protected static final boolean defaultDebug = false;
 	protected static boolean saveViaTick = false;
 	protected static int saveViaTickTicks = 0;
 	private static boolean seenDevelopmentWarning = false;
@@ -335,8 +336,6 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "hide_show_message", ConfigDataLoader.hideShowMessage));
 			configChanged.add(setConfig(ConfigType.normal, "tutorials", ConfigDataLoader.tutorials));
 			configChanged.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
-			configChanged.add(setConfig(ConfigType.normal, "debug", ConfigDataLoader.debug));
-			configChanged.add(setConfig(ConfigType.normal, "test_resource_pack", ConfigDataLoader.testResourcePack));
 			Shader.superSecretSettingsIndex = Shaders.getShaderIndex((String) getConfig(ConfigType.normal, "super_secret_settings_shader"));
 			fixConfig();
 		} catch (Exception error) {
@@ -515,10 +514,6 @@ public class ConfigHelper {
 							Config.debug = (boolean) value;
 							configChanged = true;
 						}
-						case "test_resource_pack" -> {
-							Config.testResourcePack = (boolean) value;
-							configChanged = true;
-						}
 						case "config_version" -> {
 							Config.configVersion = (int) value;
 							configChanged = true;
@@ -695,9 +690,6 @@ public class ConfigHelper {
 					}
 					case "debug" -> {
 						return Config.debug;
-					}
-					case "test_resource_pack" -> {
-						return Config.testResourcePack;
 					}
 					case "config_version" -> {
 						return Config.configVersion;

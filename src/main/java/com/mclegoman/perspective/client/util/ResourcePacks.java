@@ -34,20 +34,4 @@ public class ResourcePacks extends com.mclegoman.luminance.client.util.ResourceP
         */
 		register(Identifier.of("dev_config"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.dev_config"), ResourcePackActivationType.NORMAL);
 	}
-	/**
-	 * Resource Packs that require the config to be loaded can be registered in the following function.
-	 * Please follow these guidelines when adding a resource pack:
-	 * 1. When registering your resource pack, ensure you include the resource pack's name, and the contributor(s) in the following format:
-	 * - Resource Pack Name
-	 * - Contributor(s): _________
-	 * 2. Your resource pack must use the GNU LGPLv3 licence.
-	 * - This only applies to resource packs that are included with Perspective.
-	 */
-	public static void initAfterConfig() {
-		/*
-            Perspective: Test
-            Contributor(s): MCLegoMan
-        */
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "test_resource_pack")) register(Identifier.of("perspective_test"), Data.version.getModContainer(), Translation.getTranslation(Data.version.getID(), "resource_pack.perspective_test"), ResourcePackActivationType.NORMAL);
-	}
 }
