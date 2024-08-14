@@ -67,6 +67,12 @@ public class UIBackground {
 		}
 		return new UIBackgroundData("fallback", null, true, null, true, null);
 	}
+	public static boolean isRegisteredUIBackgroundType(String type) {
+		for (UIBackgroundData data : uiBackgroundTypes) {
+			if (data.getId().equals(type)) return true;
+		}
+		return false;
+	}
 	public static String getTitleScreenBackgroundType() {
 		if (!isValidTitleScreenBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen"))) cycleTitleScreenBackgroundType();
 		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen");

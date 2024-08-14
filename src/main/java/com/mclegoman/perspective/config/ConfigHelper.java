@@ -284,10 +284,10 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: title_screen was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "title_screen") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "title_screen", UIBackground.isValidTitleScreenBackgroundType(ConfigDataLoader.titleScreen) ? ConfigDataLoader.titleScreen : "default"));
 			}
-//			if (!UIBackground.isValidUIBackgroundType((String) getConfig(ConfigType.normal, "ui_background"))) {
-//				Data.version.sendToLog(LogType.WARN, "Config: ui_background was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "ui_background") + ")");
-//				hasFixedConfig.add(setConfig(ConfigType.normal, "ui_background", UIBackground.isValidUIBackgroundType(ConfigDataLoader.uiBackground) ? ConfigDataLoader.uiBackground : "default"));
-//			}
+			if (!UIBackground.isRegisteredUIBackgroundType((String) getConfig(ConfigType.normal, "ui_background"))) {
+				Data.version.sendToLog(LogType.WARN, "Config: ui_background was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "ui_background") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "ui_background", UIBackground.isRegisteredUIBackgroundType(ConfigDataLoader.uiBackground) ? ConfigDataLoader.uiBackground : "default"));
+			}
 			return hasFixedConfig.contains(true);
 		}
 		return false;
