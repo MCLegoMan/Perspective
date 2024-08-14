@@ -19,9 +19,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 
-import java.time.LocalDate;
-import java.util.TimeZone;
-
 public class AprilFoolsPrank {
 	private static boolean seenWarning;
 	public static void init() {
@@ -58,6 +55,6 @@ public class AprilFoolsPrank {
 	}
 	public static int getAprilFoolsIndex(long getLeastSignificantBits, int registrySize) {
 		// We add the current year to the player's uuid, so they get a different skin each year.
-		return Math.floorMod(getLeastSignificantBits + LocalDate.now(TimeZone.getTimeZone("GMT+12").toZoneId()).getYear(), registrySize);
+		return Math.floorMod(getLeastSignificantBits + DateHelper.getDate().getYear(), registrySize);
 	}
 }

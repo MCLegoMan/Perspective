@@ -25,8 +25,5 @@ public abstract class GameRendererMixin {
 				postProcessor.setupDimensions(width, height);
 			}
 		}
-		if (UIBackground.Gaussian.postProcessor != null) {
-			UIBackground.Gaussian.postProcessor.setupDimensions(width, height);
-		}
 	}
 }

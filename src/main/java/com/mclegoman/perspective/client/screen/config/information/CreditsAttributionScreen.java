@@ -30,7 +30,7 @@ public class CreditsAttributionScreen extends com.mclegoman.luminance.client.scr
 	}
 	@Override
 	public void renderBackground(DrawContext context, int mouseX, int mouseY, float tickDelta) {
-		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy")) {
+		if (UIBackground.getCurrentUIBackground().getId().equalsIgnoreCase("legacy")) {
 			if (this.time > (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 48)) {
 				float fadeStart = (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 48);
 				float fadeEnd = (this.creditsHeight + ClientData.minecraft.getWindow().getScaledHeight() + 92);

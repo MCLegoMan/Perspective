@@ -9,6 +9,7 @@ package com.mclegoman.perspective.mixin.client.ui;
 
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.ui.UIBackground;
+import com.mclegoman.perspective.client.ui.UIBackgroundData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,13 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ScreenMixin {
 	@Inject(method = "renderBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;applyBlur(F)V"))
 	private void perspective$renderBackground(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy") && ClientData.minecraft.world != null) UIBackground.Legacy.renderWorld(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
+		UIBackgroundData data = UIBackground.getCurrentUIBackground();
+		if (ClientData.minecraft.world != null && data.getRenderWorld() != null) data.getRenderWorld().run(context);
 	}
 	@Inject(method = "renderPanoramaBackground", at = @At(value = "HEAD"), cancellable = true)
 	private void perspective$renderPanoramaBackground(DrawContext context, float delta, CallbackInfo ci) {
-		if (UIBackground.getUIBackgroundType().equalsIgnoreCase("legacy")) {
-			ci.cancel();
-			UIBackground.Legacy.renderMenu(new DrawContext(ClientData.minecraft, ClientData.minecraft.getBufferBuilders().getEntityVertexConsumers()));
-		}
+		UIBackgroundData data = UIBackground.getCurrentUIBackground();
+		if (data.getRenderMenu() != null) data.getRenderMenu().run(context);
+		if (!data.getRenderPanorama()) ci.cancel();
 	}
 }

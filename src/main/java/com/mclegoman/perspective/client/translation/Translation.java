@@ -50,8 +50,7 @@ public class Translation extends com.mclegoman.luminance.client.translation.Tran
 		else return getErrorTranslation(namespace);
 	}
 	public static MutableText getUIBackgroundTranslation(String namespace, String key) {
-		if (UIBackground.isValidUIBackgroundType(UIBackground.getUIBackgroundType())) return getConfigTranslation(namespace, "ui_background.type." + key);
-		return getErrorTranslation(namespace);
+		return getConfigTranslation(namespace, "ui_background.type." + key);
 	}
 	public static MutableText getTitleScreenBackgroundTranslation(String namespace, String key) {
 		if (UIBackground.isValidTitleScreenBackgroundType(UIBackground.getTitleScreenBackgroundType())) return getConfigTranslation(namespace, "title_screen.type." + key);
