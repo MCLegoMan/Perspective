@@ -43,7 +43,7 @@ public class UiBackgroundConfigScreen extends AbstractConfigScreen {
 			UIBackground.cycleTitleScreenBackgroundType(!hasShiftDown());
 			this.refresh = true;
 		}).width(304).build());
-		uiGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background.ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background"))}), (button) -> {
+		uiGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background.ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.version.getID(), UIBackground.getCurrentUIBackground().getId())}), (button) -> {
 			UIBackground.cycleUIBackgroundType(!hasShiftDown());
 			this.refresh = true;
 		}).width(304).build());
