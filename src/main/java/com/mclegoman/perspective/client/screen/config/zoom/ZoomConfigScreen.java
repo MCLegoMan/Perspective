@@ -100,6 +100,9 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_show_percentage"));
 			this.refresh = true;
 		}).build(), 1);
+		zoomGridAdder.add(new EmptyWidget(20, 20), 2);
+		zoomGridAdder.add(new EmptyWidget(20, 20), 2);
+		zoomGridAdder.add(new EmptyWidget(20, 20), 2);
 		return zoomGrid;
 	}
 	public Screen getRefreshScreen() {

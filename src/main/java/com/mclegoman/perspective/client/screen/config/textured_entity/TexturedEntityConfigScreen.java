@@ -28,7 +28,6 @@ public class TexturedEntityConfigScreen extends AbstractConfigScreen {
 			super.init();
 			if (this.page == 1) {
 				this.gridAdder.add(createTexturedEntity());
-				this.gridAdder.add(new EmptyWidget(48, 48));
 			}
 			postInit();
 		} catch (Exception error) {
@@ -48,6 +47,8 @@ public class TexturedEntityConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "textured_random_entity", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_random_entity"));
 			refresh = true;
 		}).width(304).build(), 1);
+		texturedEntityGridAdder.add(new EmptyWidget(20, 20));
+		texturedEntityGridAdder.add(new EmptyWidget(20, 20));
 		return texturedEntityGrid;
 	}
 	public Screen getRefreshScreen() {
