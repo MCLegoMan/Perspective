@@ -46,7 +46,7 @@ public class CreditsAttributionScreen extends com.mclegoman.luminance.client.scr
 	}
 	@Override
 	protected void renderLogo(DrawContext context) {
-		if (this.overrideLogo) PerspectiveLogo.renderLogo(context, ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 2, 256, 64, false);
+		if (this.overrideLogo) PerspectiveLogo.renderLogo(context, ClientData.minecraft.getWindow().getScaledWidth() / 2 - 128, ClientData.minecraft.getWindow().getScaledHeight() + 2, 256, 64, PerspectiveLogo.getLogoTexture(false));
 		else super.renderLogo(context);
 	}
 }

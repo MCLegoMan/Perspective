@@ -346,7 +346,7 @@ public class ConfigHelper {
 	public static boolean resetExperiments() {
 		ArrayList<Boolean> configChanged = new ArrayList<>();
 		try {
-			configChanged.add(setConfig(ConfigType.experimental, "improved_shader_renderer", false));
+			configChanged.add(false);//setConfig(ConfigType.experimental, "key", false));
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset experiments!");
 		}

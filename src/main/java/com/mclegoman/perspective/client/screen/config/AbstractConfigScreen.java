@@ -124,7 +124,7 @@ public abstract class AbstractConfigScreen extends Screen {
 		context.drawTextWithShadow(textRenderer, Translation.getTranslation(Data.version.getID(), "version", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(), false, new Formatting[]{Formatting.WHITE})}), 2, this.height - 10, 0xFFFFFF);
 		Text licenceText = Translation.getTranslation(Data.version.getID(), "license", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(false), false, new Formatting[]{Formatting.WHITE})});
 		context.drawTextWithShadow(textRenderer, licenceText, this.width - this.textRenderer.getWidth(licenceText) - 2, this.height - 10, 0xFFFFFF);
-		new PerspectiveLogo.Widget(this.width / 2 - 128, 30, false).renderWidget(context, mouseX, mouseY, delta);
+		getLogoWidget(this.width / 2 - 128, 30, getExperimental()).renderWidget(context, mouseX, mouseY, delta);
 		context.drawCenteredTextWithShadow(textRenderer, getPageTitle(), this.width / 2, 78, 0xFFFFFF);
 	}
 	public Screen getRefreshScreen() {
@@ -135,5 +135,11 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public int getMaxPage() {
 		return 1;
+	}
+	public boolean getExperimental() {
+		return false;
+	}
+	public PerspectiveLogo.Widget getLogoWidget(int x, int y, boolean experimental) {
+		return new PerspectiveLogo.Widget(x, y, experimental);
 	}
 }

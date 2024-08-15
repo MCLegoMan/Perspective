@@ -85,7 +85,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "detect_update_channel", true))).width(304).build(), 2);
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information"), (button) -> ClientData.minecraft.setScreen(new InformationScreen(getRefreshScreen(), false, false))).build());
-		ButtonWidget experimental = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental"), (button) -> ClientData.minecraft.setScreen(new ExperimentalConfigScreen(new ConfigScreen(parentScreen, true, true, page), false))).build();
+		ButtonWidget experimental = ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental"), (button) -> ClientData.minecraft.setScreen(new ExperimentalConfigScreen(getRefreshScreen(), false, false, 1))).build();
 		experimental.active = ConfigHelper.experimentsAvailable;
 		gridAdder.add(experimental);
 		return grid;

@@ -86,9 +86,11 @@ public class PerspectiveLogo {
 			}
 		}
 	}
-	public static void renderLogo(DrawContext context, int x, int y, int width, int height, boolean experimental) {
-		Identifier logoIdentifier = getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getLogoTexture();
-		context.drawTexture(logoIdentifier, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
+	public static Identifier getLogoTexture(boolean experimental) {
+		return getLogo((experimental ? Logo.Type.EXPERIMENTAL : (isPride() ? Logo.Type.PRIDE : Logo.Type.DEFAULT))).getLogoTexture();
+	}
+	public static void renderLogo(DrawContext context, int x, int y, int width, int height, Identifier logoTexture) {
+		context.drawTexture(logoTexture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
 		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + ((float) width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.version.isDevelopmentBuild(), 0, 0);
 	}
 	public record Logo(LogoData data) {
@@ -121,7 +123,7 @@ public class PerspectiveLogo {
 			this.experimental = experimental;
 		}
 		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), experimental);
+			renderLogo(context, this.getX(), this.getY(), this.getWidth(), this.getHeight(), getLogoTexture(experimental));
 			LogoHelper.createSplashText(context, this.getWidth(), this.getX(), this.getY() + 32, ClientData.minecraft.textRenderer, SplashesDataloader.getSplashText(), -20.0F);
 		}
 		@Override
