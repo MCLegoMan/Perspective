@@ -10,6 +10,8 @@ package com.mclegoman.perspective.mixin.client.hide;
 import com.mclegoman.perspective.client.hide.DynamicCrosshairItemsDataLoader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
@@ -62,6 +64,8 @@ public abstract class InGameHudMixin {
 						}
 					}
 					if (hide_crosshair) {
+						RenderSystem.enableBlend();
+						RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 						if (ClientData.minecraft.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
 							if (ClientData.minecraft.player != null) {
 								if (!ClientData.minecraft.gameRenderer.isRenderingPanorama()) {
@@ -83,6 +87,8 @@ public abstract class InGameHudMixin {
 								}
 							}
 						}
+						RenderSystem.defaultBlendFunc();
+						RenderSystem.disableBlend();
 						ci.cancel();
 					}
 				}
