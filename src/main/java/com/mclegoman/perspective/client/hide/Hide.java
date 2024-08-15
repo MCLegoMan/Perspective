@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client.hide;
 
 import com.mclegoman.luminance.client.util.MessageOverlay;
+import com.mclegoman.luminance.common.util.Triple;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.perspective.Perspective;
@@ -21,12 +22,13 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class Hide {
 	public static final String[] hideCrosshairModes = new String[]{"vanilla", "dynamic", "hidden"};
+	public static float rainbowTime = 0.0F;
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideArmorDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
@@ -59,6 +61,7 @@ public class Hide {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"))
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_nametags"), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
+		rainbowTime += 1.0F % 20.0F;
 	}
 	public static boolean shouldHidePlayer(PlayerEntity player) {
 		if (ClientData.minecraft.player != null) {
@@ -83,5 +86,12 @@ public class Hide {
 	}
 	public static float getBlockOutlineLevel() {
 		return ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "block_outline")) / 100.0F;
+	}
+	public static boolean getRainbowBlockOutline() {
+		return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "rainbow_block_outline");
+	}
+	public static Triple<Float, Float, Float> getRainbowOutline() {
+		Color color = Color.getHSBColor(rainbowTime / 20.0F, 1.0F, 1.0F);
+		return new Triple<>(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F);
 	}
 }

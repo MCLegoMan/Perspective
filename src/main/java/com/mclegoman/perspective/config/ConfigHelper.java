@@ -340,6 +340,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
 			configChanged.add(setConfig(ConfigType.normal, "hide_block_outline", ConfigDataLoader.hideBlockOutline));
 			configChanged.add(setConfig(ConfigType.normal, "block_outline", MathHelper.clamp(ConfigDataLoader.blockOutline, 0, 100)));
+			configChanged.add(setConfig(ConfigType.normal, "rainbow_block_outline", ConfigDataLoader.rainbowBlockOutline));
 			configChanged.add(setConfig(ConfigType.normal, "crosshair_type", ConfigDataLoader.crosshairType));
 			configChanged.add(setConfig(ConfigType.normal, "hide_armor", ConfigDataLoader.hideArmor));
 			configChanged.add(setConfig(ConfigType.normal, "hide_nametags", ConfigDataLoader.hideNametags));
@@ -495,6 +496,10 @@ public class ConfigHelper {
 						}
 						case "block_outline" -> {
 							Config.blockOutline = MathHelper.clamp((int) value, 0, 100);
+							configChanged = true;
+						}
+						case "rainbow_block_outline" -> {
+							Config.rainbowBlockOutline = (boolean)value;
 							configChanged = true;
 						}
 						case "crosshair_type" -> {
@@ -684,6 +689,9 @@ public class ConfigHelper {
 					}
 					case "block_outline" -> {
 						return MathHelper.clamp(Config.blockOutline, 0, 100);
+					}
+					case "rainbow_block_outline" -> {
+						return Config.rainbowBlockOutline;
 					}
 					case "crosshair_type" -> {
 						String crosshairType = Config.crosshairType;

@@ -32,6 +32,7 @@
 	"ui_background_texture": "minecraft:block/dirt",
 	"hide_block_outline": false,
 	"block_outline": 40,
+	"rainbow_block_outline": false,
 	"crosshair": "vanilla",
 	"hide_armor": false,
 	"hide_nametags": false,

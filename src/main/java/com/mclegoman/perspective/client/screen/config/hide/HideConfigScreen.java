@@ -55,7 +55,11 @@ public class HideConfigScreen extends AbstractConfigScreen {
 			protected void applyValue() {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "block_outline", (int) ((value) * 100));
 			}
-		}, 1);
+		});
+		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.rainbow_block_outline", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "rainbow_block_outline"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "rainbow_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "rainbow_block_outline"));
+			this.refresh = true;
+		}).build());
 		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.crosshair", new Object[]{Translation.getCrosshairTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "crosshair_type", Hide.nextCrosshairMode());
 			this.refresh = true;
@@ -75,7 +79,7 @@ public class HideConfigScreen extends AbstractConfigScreen {
 		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.show_message", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_show_message", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"));
 			this.refresh = true;
-		}).width(304).build(), 2);
+		}).build());
 		return hideGrid;
 	}
 	public Screen getRefreshScreen() {

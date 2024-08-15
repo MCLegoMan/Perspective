@@ -173,6 +173,7 @@
 
 	"gui.perspective.config.hide.block_outline": "Block Outline: %s",
 	"gui.perspective.config.hide.block_outline.level": "Block Outline: %s",
+	"gui.perspective.config.hide.rainbow_block_outline": "Rainbow Block Outline: %s",
 
 	"gui.perspective.config.hide.crosshair": "Crosshair Type: %s",
 

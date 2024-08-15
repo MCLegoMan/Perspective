@@ -23,8 +23,10 @@ public abstract class WorldRendererMixin {
 		if (Hide.getBlockOutlineLevel() != 0.4F) args.set(args.size() - 1, Hide.getBlockOutlineLevel());
 		// These values change what colour the outline is.
 		// We use args.size() - (4,3,2), as these are the values for r,g,b.
-		//args.set(args.size() - 4, 1.0F);
-		//args.set(args.size() - 3, 1.0F);
-		//args.set(args.size() - 2, 1.0F);
+		if (Hide.getRainbowBlockOutline()) {
+			args.set(args.size() - 4, Hide.getRainbowOutline().getFirst());
+			args.set(args.size() - 3, Hide.getRainbowOutline().getSecond());
+			args.set(args.size() - 2, Hide.getRainbowOutline().getThird());
+		}
 	}
 }
