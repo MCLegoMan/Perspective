@@ -74,8 +74,8 @@ public class HideConfigScreen extends Screen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"));
 			this.refresh = true;
 		}).build());
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_crosshair", new Object[]{Translation.getHideCrosshairModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair"))}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_crosshair", Hide.nextCrosshairMode());
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.crosshair", new Object[]{Translation.getCrosshairTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type"))}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "crosshair_type", Hide.nextCrosshairMode());
 			this.refresh = true;
 		}).build());
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_armor", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_armor"), Translation.Type.ONFF)}), (button) -> {

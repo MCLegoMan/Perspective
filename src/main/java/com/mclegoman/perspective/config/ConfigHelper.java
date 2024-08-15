@@ -176,6 +176,12 @@ public class ConfigHelper {
 						int prideIndex = Config.config.getOrDefault("force_pride_type_index", 0);
 						setConfig(ConfigType.normal, "force_pride_type", forcePrideType ? (prideIndex == 0 ? "rainbow" : (prideIndex == 1 ? "bi" : "trans")) : "none");
 					}
+					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 20) {
+						String crosshairType = Config.config.getOrDefault("hide_crosshair", ConfigDataLoader.crosshairType);
+						if (crosshairType.equals("false")) crosshairType = "vanilla";
+						else if (crosshairType.equals("true")) crosshairType = "hidden";
+						setConfig(ConfigType.normal, "crosshair_type", crosshairType);
+					}
 					setConfig(ConfigType.normal, "config_version", defaultConfigVersion);
 					Data.version.sendToLog(LogType.INFO, Translation.getString("Successfully updated config to the latest version."));
 				} else if (Config.config.getOrDefault("config_version", defaultConfigVersion) > defaultConfigVersion) {
@@ -273,9 +279,9 @@ public class ConfigHelper {
 					hasFixedConfig.add(setConfig(ConfigType.normal, "force_pride_type", ConfigDataLoader.forcePrideType));
 				}
 			}
-			if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.normal, "hide_crosshair"))) {
-				Data.version.sendToLog(LogType.WARN, "Config: hide_crosshair was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "hide_crosshair") + ")");
-				hasFixedConfig.add(setConfig(ConfigType.normal, "hide_crosshair", ConfigDataLoader.hideCrosshair));
+			if (!Arrays.stream(Hide.hideCrosshairModes).toList().contains((String) getConfig(ConfigType.normal, "crosshair_type"))) {
+				Data.version.sendToLog(LogType.WARN, "Config: crosshair_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "crosshair_type") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "crosshair_type", ConfigDataLoader.crosshairType));
 			}
 			if (!Arrays.stream(Update.detectUpdateChannels).toList().contains((String) getConfig(ConfigType.normal, "detect_update_channel"))) {
 				Data.version.sendToLog(LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "detect_update_channel") + ")");
@@ -329,7 +335,7 @@ public class ConfigHelper {
 			UIBackground.loadShader(UIBackground.getCurrentUIBackground());
 			configChanged.add(setConfig(ConfigType.normal, "ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
 			configChanged.add(setConfig(ConfigType.normal, "hide_block_outline", ConfigDataLoader.hideBlockOutline));
-			configChanged.add(setConfig(ConfigType.normal, "hide_crosshair", ConfigDataLoader.hideCrosshair));
+			configChanged.add(setConfig(ConfigType.normal, "crosshair_type", ConfigDataLoader.crosshairType));
 			configChanged.add(setConfig(ConfigType.normal, "hide_armor", ConfigDataLoader.hideArmor));
 			configChanged.add(setConfig(ConfigType.normal, "hide_nametags", ConfigDataLoader.hideNametags));
 			configChanged.add(setConfig(ConfigType.normal, "hide_players", ConfigDataLoader.hidePlayers));
@@ -482,8 +488,8 @@ public class ConfigHelper {
 							Config.hideBlockOutline = (boolean) value;
 							configChanged = true;
 						}
-						case "hide_crosshair" -> {
-							Config.hideCrosshair = (String) value;
+						case "crosshair_type" -> {
+							Config.crosshairType = (String) value;
 							configChanged = true;
 						}
 						case "hide_armor" -> {
@@ -667,8 +673,11 @@ public class ConfigHelper {
 					case "hide_block_outline" -> {
 						return Config.hideBlockOutline;
 					}
-					case "hide_crosshair" -> {
-						return Config.hideCrosshair;
+					case "crosshair_type" -> {
+						String crosshairType = Config.crosshairType;
+						if (crosshairType.equals("true")) return "hidden";
+						else if (crosshairType.equals("false")) return "vanilla";
+						return crosshairType;
 					}
 					case "hide_armor" -> {
 						return Config.hideArmor;

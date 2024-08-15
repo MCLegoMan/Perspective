@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Hide {
-	public static final String[] hideCrosshairModes = new String[]{"false", "dynamic", "true"};
+	public static final String[] hideCrosshairModes = new String[]{"vanilla", "dynamic", "hidden"};
 	public static void init() {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideArmorDataLoader());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new HideNameTagsDataLoader());
@@ -45,9 +45,9 @@ public class Hide {
 				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.cycleCrosshair.wasPressed()) {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_crosshair", nextCrosshairMode());
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "crosshair_type", nextCrosshairMode());
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"))
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.crosshair", Translation.getHideCrosshairModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair"))).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.crosshair", Translation.getCrosshairTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type"))).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.toggleNametags.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_nametags", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_nametags"));
@@ -62,15 +62,14 @@ public class Hide {
 	}
 	public static boolean shouldHidePlayer(PlayerEntity player) {
 		if (ClientData.minecraft.player != null) {
-			UUID uuid = player.getGameProfile().getId();
-			if (!uuid.equals(ClientData.minecraft.player.getGameProfile().getId()))
+			if (!player.getGameProfile().getId().equals(ClientData.minecraft.player.getGameProfile().getId()))
 				return (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_players") || HidePlayerDataLoader.REGISTRY.contains(String.valueOf(player.getGameProfile().getId()));
 		}
 		return false;
 	}
 	public static String nextCrosshairMode() {
 		List<String> crosshairModes = Arrays.stream(hideCrosshairModes).toList();
-		return crosshairModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair")) ? hideCrosshairModes[(crosshairModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair")) + 1) % hideCrosshairModes.length] : hideCrosshairModes[0];
+		return crosshairModes.contains((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type")) ? hideCrosshairModes[(crosshairModes.indexOf((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type")) + 1) % hideCrosshairModes.length] : hideCrosshairModes[0];
 	}
 	public static boolean shouldHideHud(HideHudTypes type) {
 		switch (type) {

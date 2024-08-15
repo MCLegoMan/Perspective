@@ -7,10 +7,13 @@
 
 package com.mclegoman.perspective.client.translation;
 
+import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.StringIdentifiable;
+
+import java.util.Arrays;
 
 public class Translation extends com.mclegoman.luminance.client.translation.Translation {
 	public static MutableText getVariableTranslation(String namespace, boolean toggle, Type type) {
@@ -43,14 +46,12 @@ public class Translation extends com.mclegoman.luminance.client.translation.Tran
 	public static MutableText getZoomTypeTranslation(String namespace, String zoomType) {
 		return getZoomTypeTranslation(namespace, zoomType, false);
 	}
-	public static MutableText getHideCrosshairModeTranslation(String namespace, String key) {
-		if (key.equalsIgnoreCase("false")) return getTranslation(namespace, "variable.onff.off");
-		else if (key.equalsIgnoreCase("dynamic")) return getTranslation(namespace, "variable.dynamic");
-		else if (key.equalsIgnoreCase("true")) return getTranslation(namespace, "variable.onff.on");
-		else return getErrorTranslation(namespace);
-	}
 	public static MutableText getUIBackgroundTranslation(String namespace, String key) {
 		return getConfigTranslation(namespace, "ui_background.type." + key);
+	}
+	public static MutableText getCrosshairTranslation(String namespace, String key) {
+		if (Arrays.stream(Hide.hideCrosshairModes).toList().contains(key)) return getConfigTranslation(namespace, "crosshair.type." + key);
+		else return getErrorTranslation(namespace);
 	}
 	public static MutableText getTitleScreenBackgroundTranslation(String namespace, String key) {
 		if (UIBackground.isValidTitleScreenBackgroundType(UIBackground.getTitleScreenBackgroundType())) return getConfigTranslation(namespace, "title_screen.type." + key);

@@ -173,7 +173,7 @@
 
 	"gui.perspective.config.hide.hide_block_outline": "Hide Block Outline: %s",
 
-	"gui.perspective.config.hide.hide_crosshair": "Hide Crosshair: %s",
+	"gui.perspective.config.hide.crosshair": "Crosshair Type: %s",
 
 	"gui.perspective.config.hide.hide_armor": "Global Hide Armor: %s",
 	"gui.perspective.config.hide.hide_armor.hover": "Toggles whether player armor should be rendered.",
@@ -221,7 +221,7 @@
 
 	"gui.perspective.message.hide.block_outline": "Hide Block Outline: %s",
 
-	"gui.perspective.message.hide.crosshair": "Hide Crosshair: %s",
+	"gui.perspective.message.hide.crosshair": "Crosshair Type: %s",
 
 	"gui.perspective.message.hide.nametags": "Hide Nametags: %s",
 
@@ -229,7 +229,7 @@
 
 	"gui.perspective.keybindings.category.perspective": "Perspective",
 
-	"gui.perspective.keybindings.keybinding.cycle_crosshair": "Cycle Crosshair Mode",
+	"gui.perspective.keybindings.keybinding.cycle_crosshair": "Cycle Crosshair Type",
 
 	"gui.perspective.keybindings.keybinding.cycle_shaders": "Cycle Super Secret Settings",
 
@@ -291,8 +291,6 @@
 	"gui.perspective.variable.blur.on": "\uD83D\uDE48",
 	"gui.perspective.variable.blur.off": "\uD83D\uDC35",
 
-	"gui.perspective.variable.dynamic": "DYNAMIC",
-
 	"gui.perspective.variable.disable_screen_mode.on": "*",
 	"gui.perspective.variable.disable_screen_mode.off": "",
 
@@ -302,6 +300,10 @@
 	"gui.perspective.config.ui_background.type.gaussian": "Gaussian",
 	"gui.perspective.config.ui_background.type.legacy": "Legacy",
 	"gui.perspective.config.ui_background.type.fallback": "§4ERROR",
+
+	"gui.perspective.config.crosshair.type.vanilla": "Vanilla",
+	"gui.perspective.config.crosshair.type.dynamic": "Dynamic",
+	"gui.perspective.config.crosshair.type.hidden": "Hidden",
 
 	"gui.perspective.config.title_screen.type.default": "Default",
 	"gui.perspective.config.title_screen.type.dirt": "Dirt",

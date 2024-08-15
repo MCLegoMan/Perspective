@@ -31,7 +31,7 @@
 	"ui_background": "default",
 	"ui_background_texture": "minecraft:block/dirt",
 	"hide_block_outline": false,
-	"hide_crosshair": "false",
+	"crosshair": "vanilla",
 	"hide_armor": false,
 	"hide_nametags": false,
 	"hide_players": false,

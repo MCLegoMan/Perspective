@@ -48,7 +48,7 @@ public class Config {
 	protected static String titleScreen;
 	protected static String uiBackground;
 	protected static String uiBackgroundTexture;
-	protected static String hideCrosshair;
+	protected static String crosshairType;
 	protected static boolean hideBlockOutline;
 	protected static boolean hideArmor;
 	protected static boolean hideNametags;
@@ -103,7 +103,7 @@ public class Config {
 		configProvider.add(new Couple<>("ui_background", ConfigDataLoader.uiBackground));
 		configProvider.add(new Couple<>("ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
 		configProvider.add(new Couple<>("hide_block_outline", ConfigDataLoader.hideBlockOutline));
-		configProvider.add(new Couple<>("hide_crosshair", ConfigDataLoader.hideCrosshair));
+		configProvider.add(new Couple<>("crosshair_type", ConfigDataLoader.crosshairType));
 		configProvider.add(new Couple<>("hide_armor", ConfigDataLoader.hideArmor));
 		configProvider.add(new Couple<>("hide_nametags", ConfigDataLoader.hideNametags));
 		configProvider.add(new Couple<>("hide_players", ConfigDataLoader.hidePlayers));
@@ -146,7 +146,7 @@ public class Config {
 		uiBackground = config.getOrDefault("ui_background", ConfigDataLoader.uiBackground);
 		uiBackgroundTexture = config.getOrDefault("ui_background_texture", ConfigDataLoader.uiBackgroundTexture);
 		hideBlockOutline = config.getOrDefault("hide_block_outline", ConfigDataLoader.hideBlockOutline);
-		hideCrosshair = config.getOrDefault("hide_crosshair", ConfigDataLoader.hideCrosshair);
+		crosshairType = config.getOrDefault("crosshair_type", ConfigDataLoader.crosshairType);
 		hideArmor = config.getOrDefault("hide_armor", ConfigDataLoader.hideArmor);
 		hideNametags = config.getOrDefault("hide_nametags", ConfigDataLoader.hideNametags);
 		hidePlayers = config.getOrDefault("hide_nametags", ConfigDataLoader.hidePlayers);
@@ -190,7 +190,7 @@ public class Config {
 		configProvider.setConfig("ui_background", uiBackground);
 		configProvider.setConfig("ui_background_texture", uiBackgroundTexture);
 		configProvider.setConfig("hide_block_outline", hideBlockOutline);
-		configProvider.setConfig("hide_crosshair", hideCrosshair);
+		configProvider.setConfig("crosshair_type", crosshairType);
 		configProvider.setConfig("hide_armor", hideArmor);
 		configProvider.setConfig("hide_nametags", hideNametags);
 		configProvider.setConfig("hide_players", hidePlayers);
@@ -232,7 +232,7 @@ public class Config {
 				titleScreen,
 				uiBackground,
 				uiBackgroundTexture,
-				hideCrosshair,
+				crosshairType,
 				hideBlockOutline,
 				hideArmor,
 				hideNametags,

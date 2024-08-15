@@ -45,11 +45,11 @@ public abstract class InGameHudMixin {
 	@Inject(at = @At("HEAD"), method = "renderCrosshair", cancellable = true)
 	private void perspective$renderCrosshair(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 		if (ClientData.minecraft.world != null && ClientData.minecraft.player != null) {
-			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("true")) || (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic"))) {
+			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type").equals("hidden")) || (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type").equals("dynamic"))) {
 				HitResult crosshairTarget = ClientData.minecraft.crosshairTarget;
-				boolean hide_crosshair = (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("true"));
+				boolean hide_crosshair = (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type").equals("hidden"));
 				if (crosshairTarget != null) {
-					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_crosshair").equals("dynamic"))) {
+					if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type").equals("dynamic"))) {
 						hide_crosshair = (crosshairTarget.getType() == HitResult.Type.BLOCK) ? ClientData.minecraft.world.getBlockState(((BlockHitResult) crosshairTarget).getBlockPos()).isAir() : crosshairTarget.getType() != HitResult.Type.ENTITY;
 						if (DynamicCrosshairItemsDataLoader.activeRegistry.contains(ClientData.minecraft.player.getActiveItem().getItem())) hide_crosshair = false;
 						for (ItemStack itemStack : ClientData.minecraft.player.getHandItems()) {
