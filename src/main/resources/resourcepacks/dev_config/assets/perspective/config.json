@@ -30,6 +30,7 @@
 	"title_screen": "default",
 	"ui_background": "gaussian",
 	"hide_block_outline": false,
+	"block_outline": 40,
 	"hide_crosshair": "dynamic",
 	"hide_armor": true,
 	"hide_nametags": false,

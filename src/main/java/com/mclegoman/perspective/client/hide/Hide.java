@@ -42,7 +42,7 @@ public class Hide {
 		if (Keybindings.toggleBlockOutline.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"));
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"))
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation(Data.version.getID(), !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.cycleCrosshair.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "crosshair_type", nextCrosshairMode());
@@ -80,5 +80,8 @@ public class Hide {
 	}
 	public static boolean shouldHideArmor(PlayerEntity player) {
 		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_armor") || HideArmorDataLoader.registry.contains(String.valueOf(player.getGameProfile().getId()));
+	}
+	public static float getBlockOutlineLevel() {
+		return ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "block_outline")) / 100.0F;
 	}
 }

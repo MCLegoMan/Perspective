@@ -171,7 +171,8 @@
 
 	"gui.perspective.config.hide": "Hide",
 
-	"gui.perspective.config.hide.hide_block_outline": "Hide Block Outline: %s",
+	"gui.perspective.config.hide.block_outline": "Block Outline: %s",
+	"gui.perspective.config.hide.block_outline.level": "Block Outline: %s",
 
 	"gui.perspective.config.hide.crosshair": "Crosshair Type: %s",
 
@@ -219,7 +220,7 @@
 
 	"gui.perspective.message.hide.armor": "Hide Armor: %s",
 
-	"gui.perspective.message.hide.block_outline": "Hide Block Outline: %s",
+	"gui.perspective.message.hide.block_outline": "Block Outline: %s",
 
 	"gui.perspective.message.hide.crosshair": "Crosshair Type: %s",
 

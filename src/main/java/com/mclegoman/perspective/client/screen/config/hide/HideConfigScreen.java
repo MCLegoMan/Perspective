@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.screen.config.hide;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
+import com.mclegoman.perspective.client.screen.widget.ConfigSliderWidget;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
@@ -40,10 +41,21 @@ public class HideConfigScreen extends AbstractConfigScreen {
 		GridWidget hideGrid = new GridWidget();
 		hideGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder hideGridAdder = hideGrid.createAdder(2);
-		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.hide_block_outline", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"), Translation.Type.ONFF)}), (button) -> {
+		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.block_outline", new Object[]{Translation.getVariableTranslation(Data.version.getID(), !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_block_outline", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_block_outline"));
 			this.refresh = true;
 		}).build());
+		double blockOutlineLevel = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "block_outline")) / 100;
+		hideGridAdder.add(new ConfigSliderWidget(hideGridAdder.getGridWidget().getX(), hideGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hide.block_outline", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "block_outline") + "%")}, false), blockOutlineLevel) {
+			@Override
+			protected void updateMessage() {
+				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "hide.block_outline.level", new Object[]{Text.literal((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "block_outline") + "%")}, false));
+			}
+			@Override
+			protected void applyValue() {
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "block_outline", (int) ((value) * 100));
+			}
+		}, 1);
 		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.crosshair", new Object[]{Translation.getCrosshairTranslation(Data.version.getID(), (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "crosshair_type"))}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "crosshair_type", Hide.nextCrosshairMode());
 			this.refresh = true;
@@ -63,8 +75,7 @@ public class HideConfigScreen extends AbstractConfigScreen {
 		hideGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide.show_message", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hide_show_message", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hide_show_message"));
 			this.refresh = true;
-		}).build());
-		hideGridAdder.add(new EmptyWidget(20, 20), 2);
+		}).width(304).build(), 2);
 		return hideGrid;
 	}
 	public Screen getRefreshScreen() {

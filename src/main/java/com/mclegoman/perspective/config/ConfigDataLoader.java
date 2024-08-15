@@ -56,6 +56,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static String uiBackground;
 	public static String uiBackgroundTexture;
 	public static boolean hideBlockOutline;
+	public static int blockOutline;
 	public static String crosshairType;
 	public static boolean hideArmor;
 	public static boolean hideNametags;
@@ -104,6 +105,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				uiBackground = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "ui_background", "default");
 				uiBackgroundTexture = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "ui_background_texture", "minecraft:block/dirt");
 				hideBlockOutline = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_block_outline", false);
+				blockOutline = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "block_outline", 40);
 				crosshairType = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "crosshair_type", "false");
 				hideArmor = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_armor", false);
 				hideNametags = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_nametags", false);

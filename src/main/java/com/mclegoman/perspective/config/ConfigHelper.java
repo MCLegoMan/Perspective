@@ -295,6 +295,10 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: ui_background was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "ui_background") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "ui_background", UIBackground.isRegisteredUIBackgroundType(ConfigDataLoader.uiBackground) ? ConfigDataLoader.uiBackground : "default"));
 			}
+			if ((int) getConfig(ConfigType.normal, "block_outline") < 0 || (int) getConfig(ConfigType.normal, "block_outline") > 100) {
+				Data.version.sendToLog(LogType.WARN, "Config: block_outline was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "block_outline") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "block_outline", ConfigDataLoader.blockOutline));
+			}
 			return hasFixedConfig.contains(true);
 		}
 		return false;
@@ -335,6 +339,7 @@ public class ConfigHelper {
 			UIBackground.loadShader(UIBackground.getCurrentUIBackground());
 			configChanged.add(setConfig(ConfigType.normal, "ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
 			configChanged.add(setConfig(ConfigType.normal, "hide_block_outline", ConfigDataLoader.hideBlockOutline));
+			configChanged.add(setConfig(ConfigType.normal, "block_outline", MathHelper.clamp(ConfigDataLoader.blockOutline, 0, 100)));
 			configChanged.add(setConfig(ConfigType.normal, "crosshair_type", ConfigDataLoader.crosshairType));
 			configChanged.add(setConfig(ConfigType.normal, "hide_armor", ConfigDataLoader.hideArmor));
 			configChanged.add(setConfig(ConfigType.normal, "hide_nametags", ConfigDataLoader.hideNametags));
@@ -486,6 +491,10 @@ public class ConfigHelper {
 						}
 						case "hide_block_outline" -> {
 							Config.hideBlockOutline = (boolean) value;
+							configChanged = true;
+						}
+						case "block_outline" -> {
+							Config.blockOutline = MathHelper.clamp((int) value, 0, 100);
 							configChanged = true;
 						}
 						case "crosshair_type" -> {
@@ -672,6 +681,9 @@ public class ConfigHelper {
 					}
 					case "hide_block_outline" -> {
 						return Config.hideBlockOutline;
+					}
+					case "block_outline" -> {
+						return MathHelper.clamp(Config.blockOutline, 0, 100);
 					}
 					case "crosshair_type" -> {
 						String crosshairType = Config.crosshairType;
