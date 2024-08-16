@@ -14,7 +14,6 @@ import com.mclegoman.perspective.client.screen.config.ui.UiBackgroundConfigScree
 import com.mclegoman.perspective.client.logo.SplashesDataloader;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.screen.config.april_fools_prank.AprilFoolsPrankConfigScreen;
 import com.mclegoman.perspective.client.screen.config.experimental.ExperimentalConfigScreen;
 import com.mclegoman.perspective.client.screen.config.hide.HideConfigScreen;
@@ -30,7 +29,6 @@ import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class ConfigScreen extends AbstractConfigScreen {

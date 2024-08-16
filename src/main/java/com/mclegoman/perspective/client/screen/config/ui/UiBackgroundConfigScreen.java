@@ -18,7 +18,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.text.Text;
 
 public class UiBackgroundConfigScreen extends AbstractConfigScreen {
 	public UiBackgroundConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {

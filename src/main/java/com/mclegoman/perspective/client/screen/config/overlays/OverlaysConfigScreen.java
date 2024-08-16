@@ -9,24 +9,14 @@ package com.mclegoman.perspective.client.screen.config.overlays;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
-import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.screen.ScreenHelper;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
-import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.Update;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.SimplePositioningWidget;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
 
 public class OverlaysConfigScreen extends AbstractConfigScreen {
 	public OverlaysConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {
