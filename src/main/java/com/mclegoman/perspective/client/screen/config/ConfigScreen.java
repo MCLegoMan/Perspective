@@ -93,8 +93,8 @@ public class ConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new ConfigScreen(this.parentScreen, false, this.saveOnClose, this.page);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "config");
+	public String getPageId() {
+		return "config";
 	}
 	public int getMaxPage() {
 		return 2;

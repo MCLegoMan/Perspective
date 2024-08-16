@@ -131,7 +131,10 @@ public abstract class AbstractConfigScreen extends Screen {
 		return this;
 	}
 	public Text getPageTitle() {
-		return Text.empty();
+		return !getPageId().isEmpty() ? Translation.getConfigTranslation(Data.version.getID(), getPageId()) : Text.empty();
+	}
+	public String getPageId() {
+		return "";
 	}
 	public int getMaxPage() {
 		return 1;

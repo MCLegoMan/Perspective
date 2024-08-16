@@ -54,7 +54,7 @@ public class UiBackgroundConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new UiBackgroundConfigScreen(this.parentScreen, false, false, this.page);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "ui_background");
+	public String getPageId() {
+		return "ui_background";
 	}
 }

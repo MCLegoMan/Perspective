@@ -91,7 +91,7 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new ShadersConfigScreen(parentScreen, false, saveOnClose, formattings);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "shaders");
+	public String getPageId() {
+		return "shaders";
 	}
 }

@@ -82,7 +82,7 @@ public class ExperimentalConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new ExperimentalConfigScreen(this.parentScreen, false, false, this.page);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "experimental");
+	public String getPageId() {
+		return "experimental";
 	}
 }

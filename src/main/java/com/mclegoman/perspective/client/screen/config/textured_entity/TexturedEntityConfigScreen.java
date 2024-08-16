@@ -54,7 +54,7 @@ public class TexturedEntityConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new TexturedEntityConfigScreen(this.parentScreen, false);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "textured_entity");
+	public String getPageId() {
+		return "textured_entity";
 	}
 }

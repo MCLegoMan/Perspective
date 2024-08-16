@@ -85,7 +85,7 @@ public class HideConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new HideConfigScreen(this.parentScreen, false, false, this.page);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "hide");
+	public String getPageId() {
+		return "hide";
 	}
 }

@@ -16,6 +16,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.text.Text;
 
@@ -42,12 +43,15 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"));
 			this.refresh = true;
 		}).width(304).build());
+		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
+		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
+		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
 		return holdPerspectiveGrid;
 	}
 	public Screen getRefreshScreen() {
 		return new HoldPerspectiveConfigScreen(this.parentScreen, false, false, this.page);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "hold_perspective");
+	public String getPageId() {
+		return "hold_perspective";
 	}
 }

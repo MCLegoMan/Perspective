@@ -16,7 +16,6 @@ import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class InformationScreen extends AbstractConfigScreen {
@@ -68,7 +67,7 @@ public class InformationScreen extends AbstractConfigScreen {
 		}
 		return footerGrid;
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "information");
+	public String getPageId() {
+		return "information";
 	}
 }

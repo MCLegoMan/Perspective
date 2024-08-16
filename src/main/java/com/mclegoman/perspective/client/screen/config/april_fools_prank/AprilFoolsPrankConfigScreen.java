@@ -30,7 +30,7 @@ public class AprilFoolsPrankConfigScreen extends AbstractConfigScreen {
 			else shouldClose = true;
 			postInit();
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize zoom config screen: {}", error));
+			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize {} config screen: {}", getPageTitle(), error));
 			ClientData.minecraft.setScreen(this.parentScreen);
 		}
 	}
@@ -53,7 +53,7 @@ public class AprilFoolsPrankConfigScreen extends AbstractConfigScreen {
 	public Screen getRefreshScreen() {
 		return new AprilFoolsPrankConfigScreen(this.parentScreen, false, false, this.page);
 	}
-	public Text getPageTitle() {
-		return Translation.getConfigTranslation(Data.version.getID(), "april_fools_prank");
+	public String getPageId() {
+		return "april_fools_prank";
 	}
 }
