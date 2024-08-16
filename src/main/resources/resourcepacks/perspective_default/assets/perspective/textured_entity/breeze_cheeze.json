@@ -1,5 +1,17 @@
 {
   "entity": "minecraft:breeze",
   "name": "Cheeze",
+  "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    }
+  },
+  "overrides": [
+  ],
   "enabled": true
 }

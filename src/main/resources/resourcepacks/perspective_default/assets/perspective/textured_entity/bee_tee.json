@@ -1,6 +1,16 @@
 {
   "entity": "minecraft:bee",
   "name": "Tee",
+  "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    }
+  },
   "overrides": [
     { "prefix": "", "suffix": "_overlay", "texture": "minecraft:textures/entity/bee/bee_overlay" }
   ],

@@ -2,6 +2,14 @@
   "entity": "minecraft:fox",
   "name": "Strawberry",
   "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    },
     "variants": {
       "red": {
         "enabled": true
@@ -11,5 +19,7 @@
       }
     }
   },
+  "overrides": [
+  ],
   "enabled": true
 }

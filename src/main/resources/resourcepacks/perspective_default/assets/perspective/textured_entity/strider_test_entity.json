@@ -1,5 +1,17 @@
 {
   "entity": "minecraft:strider",
   "name": "TEST_ENTITY",
+  "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    }
+  },
+  "overrides": [
+  ],
   "enabled": true
 }

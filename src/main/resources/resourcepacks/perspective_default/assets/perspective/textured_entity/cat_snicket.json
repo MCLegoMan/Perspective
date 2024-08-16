@@ -2,6 +2,14 @@
   "entity": "minecraft:cat",
   "name": "Snicket",
   "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    },
     "variants": {
       "minecraft:tabby": {
         "enabled": true
@@ -38,5 +46,7 @@
       }
     }
   },
+  "overrides": [
+  ],
   "enabled": true
 }

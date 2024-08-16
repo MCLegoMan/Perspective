@@ -2,6 +2,14 @@
   "entity": "minecraft:goat",
   "name": "Waffel",
   "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    },
     "variants": {
       "normal": {
         "enabled": true
@@ -11,5 +19,7 @@
       }
     }
   },
+  "overrides": [
+  ],
   "enabled": true
 }

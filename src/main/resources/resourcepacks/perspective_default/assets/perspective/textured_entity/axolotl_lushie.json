@@ -2,6 +2,14 @@
   "entity": "minecraft:axolotl",
   "name": "Lushie",
   "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    },
     "variants": {
       "lucy": {
         "enabled": true
@@ -20,5 +28,7 @@
       }
     }
   },
+  "overrides": [
+  ],
   "enabled": true
 }

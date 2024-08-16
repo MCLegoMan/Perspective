@@ -1,6 +1,16 @@
 {
   "entity": "minecraft:pig",
   "name": "Technoblade",
+  "entity_specific": {
+    "ages": {
+      "baby": {
+        "enabled": true
+      },
+      "adult": {
+        "enabled": true
+      }
+    }
+  },
   "overrides": [
     { "prefix": "", "suffix": "", "texture": "minecraft:textures/entity/pig/pig" }
   ],

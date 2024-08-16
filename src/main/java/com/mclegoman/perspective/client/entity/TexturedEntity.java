@@ -17,6 +17,7 @@ import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -56,7 +57,29 @@ public class TexturedEntity {
 		try {
 			if (TexturedEntityDataLoader.isReady) {
 				TexturedEntityData entityData = getEntity(entity, namespace, entity_type);
-				if (entityData != null) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(default_identifier.getNamespace(), "textures/textured_entity/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type) + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
+				if (entityData != null) {
+					boolean shouldReplaceTexture = true;
+						if (entity instanceof LivingEntity) {
+							JsonObject entitySpecific = entityData.getEntitySpecific();
+							if (entitySpecific != null) {
+								if (entitySpecific.has("ages")) {
+									JsonObject ages = JsonHelper.getObject(entitySpecific, "ages", new JsonObject());
+									if (((LivingEntity)entity).isBaby()) {
+										if (ages.has("baby")) {
+											JsonObject typeRegistry = JsonHelper.getObject(ages, "baby", new JsonObject());
+											shouldReplaceTexture = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+										}
+									} else {
+										if (ages.has("adult")) {
+											JsonObject typeRegistry = JsonHelper.getObject(ages, "adult", new JsonObject());
+											shouldReplaceTexture = JsonHelper.getBoolean(typeRegistry, "enabled", true);
+										}
+									}
+								}
+							}
+						}
+					if (shouldReplaceTexture) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(default_identifier.getNamespace(), "textures/textured_entity/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type) + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
+				}
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set textured entity texture: {}", error));
