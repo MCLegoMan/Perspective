@@ -50,7 +50,7 @@
 | `minecraft:frog`                   | ✔️              |  
 | `minecraft:furnace_minecart`       | ❓               |  
 | `minecraft:ghast`                  | ❓               |  
-| `minecraft:giant`                  | ❓               |  
+| `minecraft:giant`                  | ✔️              |  
 | `minecraft:glow_squid`             | ❓               |  
 | `minecraft:goat`                   | ✔️              |  
 | `minecraft:guardian`               | ❓               |  
