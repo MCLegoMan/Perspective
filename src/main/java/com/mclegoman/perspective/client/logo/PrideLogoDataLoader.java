@@ -74,7 +74,7 @@ public class PrideLogoDataLoader extends JsonDataLoader implements IdentifiableR
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
 		try {
 			JsonObject reader = jsonElement.getAsJsonObject();
-			String id = JsonHelper.getString(reader, "id");
+			String id = JsonHelper.getString(reader, "id", identifier.getPath());
 			String logoTexture = JsonHelper.getString(reader, "logo_texture", getDefaultLogoTexture(id));
 			String iconTexture = JsonHelper.getString(reader, "icon_texture", getDefaultIconTexture(id));
 			add(id, IdentifierHelper.identifierFromString(logoTexture.endsWith(".png") ? logoTexture : logoTexture + ".png"), IdentifierHelper.identifierFromString(iconTexture.endsWith(".png") ? iconTexture : iconTexture + ".png"));
