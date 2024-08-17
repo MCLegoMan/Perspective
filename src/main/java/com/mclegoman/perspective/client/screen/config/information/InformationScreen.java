@@ -10,9 +10,9 @@ package com.mclegoman.perspective.client.screen.config.information;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
+import com.mclegoman.perspective.client.screen.config.LinkScreen;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -36,9 +36,9 @@ public class InformationScreen extends AbstractConfigScreen {
 		GridWidget GRID = new GridWidget();
 		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.documentation"), ConfirmLinkScreen.opening(this, "https://mclegoman.com/Perspective")).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.source_code"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective")).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.report"), ConfirmLinkScreen.opening(this, "https://github.com/MCLegoMan/Perspective/issues")).width(304).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.documentation"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://mclegoman.com/Perspective"))).width(304).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.source_code"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://github.com/MCLegoMan/Perspective"))).width(304).build(), 1);
+		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.report"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://github.com/MCLegoMan/Perspective/issues"))).width(304).build(), 1);
 		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.credits"), button -> ClientData.minecraft.setScreen(new CreditsAttributionScreen(ClientData.minecraft.currentScreen, Identifier.of(Data.version.getID(), "texts/credits.json")))).width(304).build(), 1);
 		return GRID;
 	}
@@ -69,5 +69,8 @@ public class InformationScreen extends AbstractConfigScreen {
 	}
 	public String getPageId() {
 		return "information";
+	}
+	public Screen getRefreshScreen() {
+		return new InformationScreen(this.parentScreen, false, false);
 	}
 }

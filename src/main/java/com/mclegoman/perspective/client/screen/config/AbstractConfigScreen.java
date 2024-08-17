@@ -41,15 +41,16 @@ public abstract class AbstractConfigScreen extends Screen {
 		this.page = page;
 	}
 	public void init() {
-		grid.getMainPositioner().alignHorizontalCenter().margin(0);
-		gridAdder = grid.createAdder(1);
-		gridAdder.add(new EmptyWidget(64, 64));
+		this.grid.getMainPositioner().alignHorizontalCenter().margin(2);
+		this.gridAdder = grid.createAdder(1);
+		this.gridAdder.add(new EmptyWidget(20, 20), 1);
+		this.gridAdder.add(new EmptyWidget(20, 20), 1);
+		this.gridAdder.add(new EmptyWidget(20, 20), 1);
 	}
 	public void postInit() {
-		gridAdder.add(new EmptyWidget(4, 4));
-		gridAdder.add(createFooter());
-		grid.refreshPositions();
-		grid.forEachChild(this::addDrawableChild);
+		this.gridAdder.add(createFooter());
+		this.grid.refreshPositions();
+		this.grid.forEachChild(this::addDrawableChild);
 		initTabNavigation();
 	}
 	public void tick() {
