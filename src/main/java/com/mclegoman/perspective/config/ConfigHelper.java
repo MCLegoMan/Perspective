@@ -40,7 +40,7 @@ public class ConfigHelper {
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
-	protected static final int defaultConfigVersion = 20;
+	protected static final int defaultConfigVersion = 21;
 	protected static final boolean defaultDebug = false;
 	protected static boolean saveViaTick = false;
 	protected static int saveViaTickTicks = 0;
@@ -331,6 +331,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "version_overlay", ConfigDataLoader.versionOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "position_overlay", ConfigDataLoader.positionOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "day_overlay", ConfigDataLoader.dayOverlay));
+			configChanged.add(setConfig(ConfigType.normal, "biome_overlay", ConfigDataLoader.biomeOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "force_pride", ConfigDataLoader.forcePride));
 			configChanged.add(setConfig(ConfigType.normal, "force_pride_type", ConfigDataLoader.forcePrideType));
 			configChanged.add(setConfig(ConfigType.normal, "show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
@@ -463,6 +464,10 @@ public class ConfigHelper {
 						}
 						case "day_overlay" -> {
 							Config.dayOverlay = (boolean) value;
+							configChanged = true;
+						}
+						case "biome_overlay" -> {
+							Config.biomeOverlay = (boolean) value;
 							configChanged = true;
 						}
 						case "force_pride" -> {
@@ -665,6 +670,9 @@ public class ConfigHelper {
 					case "day_overlay" -> {
 						return Config.dayOverlay;
 					}
+					case "biome_overlay" -> {
+						return Config.biomeOverlay;
+					}
 					case "force_pride" -> {
 						return Config.forcePride;
 					}
@@ -765,35 +773,35 @@ public class ConfigHelper {
 			}
 		}
 	}
-	public static List<Object> getDebugConfigText(ConfigType... types) {
-		List<Object> text = new ArrayList<>();
+	public static List<Text> getDebugConfigText(ConfigType... types) {
+		List<Text> text = new ArrayList<>();
 		int typeAmount = 0;
 		if (Arrays.stream(types).toList().contains(ConfigType.normal)) {
 			typeAmount += 1;
-			text.add(Text.literal("Normal Config").formatted(Formatting.BOLD));
+			text.add(Translation.getTranslation(Data.version.getID(), "debug.config.normal", new Formatting[]{Formatting.BOLD}));
 			for (Couple<String, ?> couple : Config.configProvider.getConfigList())
 				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}
 		if (Arrays.stream(types).toList().contains(ConfigType.experimental)) {
 			if (experimentsAvailable) {
 				typeAmount += 1;
-				if (typeAmount > 1) text.add("\n");
-				text.add(Text.literal("Experimental Config").formatted(Formatting.BOLD));
+				if (typeAmount > 1) text.add(Text.empty());
+				text.add(Translation.getTranslation(Data.version.getID(), "debug.config.experimental", new Formatting[]{Formatting.BOLD}));
 				for (Couple<String, ?> couple : ExperimentalConfig.configProvider.getConfigList())
 					text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 			}
 		}
 		if (Arrays.stream(types).toList().contains(ConfigType.tutorial)) {
 			typeAmount += 1;
-			if (typeAmount > 1) text.add("\n");
-			text.add(Text.literal("Tutorial Config").formatted(Formatting.BOLD));
+			if (typeAmount > 1) text.add(Text.empty());
+			text.add(Translation.getTranslation(Data.version.getID(), "debug.config.tutorial", new Formatting[]{Formatting.BOLD}));
 			for (Couple<String, ?> couple : TutorialsConfig.configProvider.getConfigList())
 				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}
 		if (Arrays.stream(types).toList().contains(ConfigType.warning)) {
 			typeAmount += 1;
-			if (typeAmount > 1) text.add("\n");
-			text.add(Text.literal("Warning Config").formatted(Formatting.BOLD));
+			if (typeAmount > 1) text.add(Text.empty());
+			text.add(Translation.getTranslation(Data.version.getID(), "debug.config.warning", new Formatting[]{Formatting.BOLD}));
 			for (Couple<String, ?> couple : WarningsConfig.configProvider.getConfigList())
 				text.add(Text.literal(couple.getFirst() + ": " + couple.getSecond()));
 		}

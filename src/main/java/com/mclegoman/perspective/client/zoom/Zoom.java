@@ -59,7 +59,7 @@ public class Zoom {
 			}
 			if (!isZooming()) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_reset")) {
-					if (getZoomLevel() != getDefaultZoomLevel()) {
+					if (getRawZoomLevel() != getDefaultZoomLevel()) {
 						reset();
 						hasUpdated = true;
 					}
@@ -127,7 +127,10 @@ public class Zoom {
 		while (!isValidZoomType(zoomTypeIdentifier)) zoomTypeIdentifier = IdentifierHelper.identifierFromString(cycleZoomType());
 		return zoomTypeIdentifier;
 	}
-	public static int getZoomLevel() {
+	public static float getZoomLevel() {
+		return MathHelper.clamp(getRawZoomLevel(), 0.0F, 99.9F);
+	}
+	public static int getRawZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level");
 	}
 	public static int getDefaultZoomLevel() {
@@ -137,8 +140,8 @@ public class Zoom {
 		try {
 			boolean updated = false;
 			for (int i = 0; i < multiplier; i++) {
-				if (!(getZoomLevel() <= 0) || !(getZoomLevel() >= 100)) {
-					ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_level", getZoomLevel() + amount);
+				if (!(getRawZoomLevel() <= 0) || !(getRawZoomLevel() >= 100)) {
+					ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "zoom_level", getRawZoomLevel() + amount);
 					updated = true;
 					hasUpdated = true;
 				}

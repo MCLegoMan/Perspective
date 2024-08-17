@@ -34,11 +34,15 @@ public class HUDHelper {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "day_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay"));
 			ConfigHelper.saveConfig();
 		}
+		if (Keybindings.toggleBiomeOverlay.wasPressed()) {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
+			ConfigHelper.saveConfig();
+		}
 	}
 	public static boolean shouldHideHUD() {
 		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspective);
 	}
 	public static int addY(int y) {
-		return y + 1 + 9;
+		return y + 12;
 	}
 }

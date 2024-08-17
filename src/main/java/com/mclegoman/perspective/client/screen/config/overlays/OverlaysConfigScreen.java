@@ -49,7 +49,10 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "day_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay"));
 			this.refresh = true;
 		}).width(304).build());
-		overlaysGridAdder.add(new EmptyWidget(20, 20));
+		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.biome_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
+			this.refresh = true;
+		}).width(304).build());
 		return overlaysGrid;
 	}
 	public Screen getRefreshScreen() {

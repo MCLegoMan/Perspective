@@ -42,6 +42,7 @@ public class Config {
 	protected static boolean versionOverlay;
 	protected static boolean positionOverlay;
 	protected static boolean dayOverlay;
+	protected static boolean biomeOverlay;
 	protected static boolean forcePride;
 	protected static String forcePrideType;
 	protected static boolean showDeathCoordinates;
@@ -98,6 +99,7 @@ public class Config {
 		configProvider.add(new Couple<>("version_overlay", ConfigDataLoader.versionOverlay));
 		configProvider.add(new Couple<>("position_overlay", ConfigDataLoader.positionOverlay));
 		configProvider.add(new Couple<>("day_overlay", ConfigDataLoader.dayOverlay));
+		configProvider.add(new Couple<>("biome_overlay", ConfigDataLoader.biomeOverlay));
 		configProvider.add(new Couple<>("force_pride", ConfigDataLoader.forcePride));
 		configProvider.add(new Couple<>("force_pride_type", ConfigDataLoader.forcePrideType));
 		configProvider.add(new Couple<>("show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
@@ -143,6 +145,7 @@ public class Config {
 		versionOverlay = config.getOrDefault("version_overlay", ConfigDataLoader.versionOverlay);
 		positionOverlay = config.getOrDefault("position_overlay", ConfigDataLoader.positionOverlay);
 		dayOverlay = config.getOrDefault("day_overlay", ConfigDataLoader.dayOverlay);
+		biomeOverlay = config.getOrDefault("biome_overlay", ConfigDataLoader.biomeOverlay);
 		forcePride = config.getOrDefault("force_pride", ConfigDataLoader.forcePride);
 		forcePrideType = config.getOrDefault("force_pride_type", ConfigDataLoader.forcePrideType);
 		showDeathCoordinates = config.getOrDefault("show_death_coordinates", ConfigDataLoader.showDeathCoordinates);
@@ -189,6 +192,7 @@ public class Config {
 		configProvider.setConfig("version_overlay", versionOverlay);
 		configProvider.setConfig("position_overlay", positionOverlay);
 		configProvider.setConfig("day_overlay", dayOverlay);
+		configProvider.setConfig("biome_overlay", biomeOverlay);
 		configProvider.setConfig("force_pride", forcePride);
 		configProvider.setConfig("force_pride_type", forcePrideType);
 		configProvider.setConfig("show_death_coordinates", showDeathCoordinates);
@@ -234,6 +238,7 @@ public class Config {
 				versionOverlay,
 				positionOverlay,
 				dayOverlay,
+				biomeOverlay,
 				forcePride,
 				forcePrideType,
 				showDeathCoordinates,

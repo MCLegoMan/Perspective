@@ -32,10 +32,12 @@ public class Update extends com.mclegoman.luminance.client.util.Update {
 	public static Version apiVersion;
 	public static boolean seenUpdateToast;
 	public static boolean updateCheckerComplete;
-	public static boolean newerVersionFound;
+	private static boolean newerVersionFound;
 	public static String latestVersionFound = Data.version.getFriendlyString();
 	public static String downloadLink;
-
+	public static boolean isNewerVersionFound() {
+		return newerVersionFound;
+	}
 	public static void checkForUpdates(Version currentVersion, boolean showScreen) {
 		if (showScreen) ClientData.minecraft.setScreen(new UpdateCheckerScreen(ClientData.minecraft.currentScreen));
 		checkForUpdates(currentVersion);

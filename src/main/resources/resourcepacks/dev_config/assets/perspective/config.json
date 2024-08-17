@@ -24,6 +24,7 @@
 	"position_overlay": true,
 	"version_overlay": false,
 	"day_overlay": true,
+	"biome_overlay": true,
 	"force_pride": true,
 	"force_pride_type": "trans",
 	"show_death_coordinates": true,

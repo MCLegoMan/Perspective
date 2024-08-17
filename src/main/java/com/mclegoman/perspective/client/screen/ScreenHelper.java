@@ -31,7 +31,7 @@ public class ScreenHelper {
 		GridWidget titleGrid = new GridWidget();
 		titleGrid.getMainPositioner().alignHorizontalCenter();
 		GridWidget.Adder titleGridAdder = titleGrid.createAdder(1);
-		if (Update.newerVersionFound && updateMsg) {
+		if (Update.isNewerVersionFound() && updateMsg) {
 			titleGridAdder.add(new TextWidget(Translation.getConfigTranslation(Data.version.getID(), "update.title", new Formatting[]{Formatting.BOLD, Formatting.RED}), client.textRenderer));
 			Text NEW_VERSION_TEXT = Translation.getConfigTranslation(Data.version.getID(), "update.description", new Object[]{Update.latestVersionFound}, new Formatting[]{Formatting.YELLOW});
 			titleGridAdder.add(new PressableTextWidget(titleGrid.getX() - (client.textRenderer.getWidth(NEW_VERSION_TEXT) / 2), titleGrid.getY(), client.textRenderer.getWidth(NEW_VERSION_TEXT), 9, NEW_VERSION_TEXT, (button -> ConfirmLinkScreen.open(parentScreen, Update.downloadLink)), client.textRenderer));

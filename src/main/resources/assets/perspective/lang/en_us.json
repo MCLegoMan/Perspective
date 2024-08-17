@@ -151,6 +151,8 @@
 
 	"gui.perspective.config.overlays.day_overlay": "Day Overlay: %s",
 
+	"gui.perspective.config.overlays.biome_overlay": "Biome Overlay: %s",
+
 	"gui.perspective.config.force_pride": "Force Pride: %s",
 
 	"gui.perspective.config.show_death_coordinates": "Death Coordinates: %s",
@@ -269,6 +271,8 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_day_overlay": "Toggle Day Overlay",
 
+	"gui.perspective.keybindings.keybinding.toggle_biome_overlay": "Toggle Biome Overlay",
+
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
@@ -321,6 +325,7 @@
 	"gui.perspective.version_overlay": "Minecraft %s",
 	"gui.perspective.position_overlay": "%s: %s",
 	"gui.perspective.day_overlay": "Days played: %s",
+	"gui.perspective.biome_overlay": "Biome: %s",
 
 	"gui.perspective.show_death_coordinates": "%s: %s",
 
@@ -343,6 +348,12 @@
 	"splashes.perspective.special.april_fools": "April Fools'!",
 
 	"shader.perspective.shader.not_loaded" : "No Shader Selected!",
+
+	"gui.perspective.debug.config": "Current Config Values",
+	"gui.perspective.debug.config.normal": "Normal Config",
+	"gui.perspective.debug.config.experimental": "Experimental Config",
+	"gui.perspective.debug.config.tutorial": "Tutorial Config",
+	"gui.perspective.debug.config.warning": "Warning Config",
 
 	"gui.perspective.config.shaders.update_warning": "Shaders are currently being re-worked. Expect bugs."
 }
