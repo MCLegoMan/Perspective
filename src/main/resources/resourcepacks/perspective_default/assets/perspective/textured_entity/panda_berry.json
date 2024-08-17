@@ -9,9 +9,39 @@
       "adult": {
         "enabled": true
       }
+    },
+    "variants": {
+      "normal": {
+        "enabled": true
+      },
+      "lazy": {
+        "enabled": true
+      },
+      "worried": {
+        "enabled": true
+      },
+      "playful": {
+        "enabled": true
+      },
+      "brown": {
+        "enabled": true
+      },
+      "weak": {
+        "enabled": true
+      },
+      "aggressive": {
+        "enabled": true
+      }
     }
   },
   "overrides": [
+    { "prefix": "", "suffix": "_normal", "texture": "minecraft:textures/textured_entity/panda/berry" },
+    { "prefix": "", "suffix": "_lazy", "texture": "minecraft:textures/textured_entity/panda/berry" },
+    { "prefix": "", "suffix": "_worried", "texture": "minecraft:textures/textured_entity/panda/berry" },
+    { "prefix": "", "suffix": "_playful", "texture": "minecraft:textures/textured_entity/panda/berry" },
+    { "prefix": "", "suffix": "_brown", "texture": "minecraft:textures/textured_entity/panda/berry" },
+    { "prefix": "", "suffix": "_weak", "texture": "minecraft:textures/textured_entity/panda/berry" },
+    { "prefix": "", "suffix": "_aggressive", "texture": "minecraft:textures/textured_entity/panda/berry" }
   ],
   "enabled": true
 }

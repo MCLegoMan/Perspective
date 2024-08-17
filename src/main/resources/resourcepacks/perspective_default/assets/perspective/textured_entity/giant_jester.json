@@ -2,14 +2,6 @@
   "entity": "minecraft:giant",
   "name": "Jester",
   "entity_specific": {
-    "ages": {
-      "baby": {
-        "enabled": true
-      },
-      "adult": {
-        "enabled": true
-      }
-    }
   },
   "overrides": [
   ],

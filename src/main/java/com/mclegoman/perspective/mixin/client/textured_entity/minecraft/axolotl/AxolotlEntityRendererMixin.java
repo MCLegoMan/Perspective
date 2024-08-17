@@ -29,21 +29,17 @@ public class AxolotlEntityRendererMixin {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
 					if (entitySpecific.has("variants")) {
-						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants");
-						if (variants != null) {
-							if (variants.has(entity.getVariant().getName().toLowerCase())) {
-								JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getName().toLowerCase());
-								if (typeRegistry != null) {
-									isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
-								}
-							}
+						JsonObject variants = JsonHelper.getObject(entitySpecific, "variants", new JsonObject());
+						if (variants.has(entity.getVariant().getName().toLowerCase())) {
+							JsonObject typeRegistry = JsonHelper.getObject(variants, entity.getVariant().getName().toLowerCase(), new JsonObject());
+							isTexturedEntity = JsonHelper.getBoolean(typeRegistry, "enabled", true);
 						}
 					}
 				}
-				if (isTexturedEntity) {
-					String variant = entity.getVariant() != null ? "_" + entity.getVariant().getName().toLowerCase() : "";
-					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:axolotl", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
-				}
+			}
+			if (isTexturedEntity) {
+				String variant = entity.getVariant().getName() != null ? "_" + entity.getVariant().getName().toLowerCase() : "";
+				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:axolotl", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
 			}
 		}
 	}

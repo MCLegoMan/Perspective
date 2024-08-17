@@ -20,6 +20,10 @@
     }
   },
   "overrides": [
+    { "prefix": "", "suffix": "_red", "texture": "minecraft:textures/textured_entity/fox/strawberry" },
+    { "prefix": "", "suffix": "_red_sleep", "texture": "minecraft:textures/textured_entity/fox/strawberry_sleep" },
+    { "prefix": "", "suffix": "_snow", "texture": "minecraft:textures/textured_entity/fox/strawberry" },
+    { "prefix": "", "suffix": "_snow_sleep", "texture": "minecraft:textures/textured_entity/fox/strawberry_sleep" }
   ],
   "enabled": true
 }

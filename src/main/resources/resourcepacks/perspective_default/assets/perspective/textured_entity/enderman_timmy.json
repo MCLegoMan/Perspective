@@ -2,14 +2,6 @@
   "entity": "minecraft:enderman",
   "name": "Timmy",
   "entity_specific": {
-    "ages": {
-      "baby": {
-        "enabled": true
-      },
-      "adult": {
-        "enabled": true
-      }
-    }
   },
   "overrides": [
   ],

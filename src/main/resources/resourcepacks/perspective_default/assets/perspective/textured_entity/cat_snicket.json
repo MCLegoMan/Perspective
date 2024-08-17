@@ -47,6 +47,17 @@
     }
   },
   "overrides": [
+    { "prefix": "", "suffix": "_tabby", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_black", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_red", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_siamese", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_british_shorthair", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_calico", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_persian", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_ragdoll", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_white", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_jellie", "texture": "minecraft:textures/textured_entity/cat/snicket" },
+    { "prefix": "", "suffix": "_all_black", "texture": "minecraft:textures/textured_entity/cat/snicket" }
   ],
   "enabled": true
 }

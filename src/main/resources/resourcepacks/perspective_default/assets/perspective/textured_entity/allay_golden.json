@@ -2,14 +2,6 @@
   "entity": "minecraft:allay",
   "name": "Golden",
   "entity_specific": {
-    "ages": {
-      "baby": {
-        "enabled": true
-      },
-      "adult": {
-        "enabled": true
-      }
-    }
   },
   "overrides": [
   ],
