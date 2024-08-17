@@ -14,26 +14,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Contributor {
-	private static final List<String> allowedUuids = new ArrayList<>();
+	/**
+	 * Developers Notes:
+	 * 1. Having contributor features be set and obtained through an api would be pretty cool,
+	 * but as this would require a connection to a server, dataloaders are best for now.
+	 * 2. Players could technically use this through the April Fools' Prank,
+	 * but it would set all players, not specific ones.
+	**/
+	private static final List<ContributorLockData> allowedUuids = new ArrayList<>();
 	public static void init() {
-		// Whilst players still could technically use this through the april fools' prank, it would set all players not specific players.
 		initAllowedUuids();
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ContributorDataLoader());
 	}
 	private static void initAllowedUuids() {
-		// MCLegoMan; Developer
-		addAllowedUuid("772eb47b-a24e-4d43-a685-6ca9e9e132f7", "3445ebd7-25f8-41a6-8118-0d19d7f5559e");
-		// Nettakrim; Contributor
-		addAllowedUuid("9c3adf8d-a723-40c9-845b-c6e78c3ac460");
-		// Phantazap; Attribution for "Jester" Giant Textured Entity Texture.
-		addAllowedUuid("1f7a5ac1-664b-479d-9e2d-15ed891b080c");
+		initDeveloperUuids();
+		initContributorUuids();
+		initAttributionUuids();
 	}
-	protected static void addAllowedUuid(String... uuids) {
+	private static void initDeveloperUuids() {
+		addAllowedUuid(Type.DEVELOPER, "772eb47b-a24e-4d43-a685-6ca9e9e132f7", "3445ebd7-25f8-41a6-8118-0d19d7f5559e"); // MCLegoMan
+	}
+	private static void initContributorUuids() {
+		addAllowedUuid(Type.CONTRIBUTOR, "9c3adf8d-a723-40c9-845b-c6e78c3ac460"); // Nettakrim
+	}
+	private static void initAttributionUuids() {
+		addAllowedUuid(Type.ATTRIBUTION, "1f7a5ac1-664b-479d-9e2d-15ed891b080c"); // Phantazap: "Jester" Giant Textured Entity Texture.
+	}
+	protected static void addAllowedUuid(Type type, String... uuids) {
 		for (String uuid : uuids) {
-			if (!allowedUuids.contains(uuid)) allowedUuids.add(uuid);
+			if (getUuid(uuid) == null) allowedUuids.add(new ContributorLockData(type, uuid));
 		}
 	}
-	protected static boolean isAllowedUuid(String uuid) {
-		return allowedUuids.contains(uuid);
+	protected static ContributorLockData getUuid(String uuid) {
+		for (ContributorLockData user : allowedUuids) {
+			if (user.getUuids().contains(uuid)) return user;
+		}
+		return null;
+	}
+	public enum Type {
+		DEVELOPER("developer"),
+		CONTRIBUTOR("contributor"),
+		ATTRIBUTION("attribution");
+		private final String name;
+		Type(String name) {
+			this.name = name;
+		}
+		public String getName() {
+			return this.name;
+		}
 	}
 }
