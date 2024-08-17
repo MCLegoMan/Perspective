@@ -1,6 +1,5 @@
 This update completely changes how shaders are rendered, making use of Luminance's shader rendering. Expect bugs.  
 
-
 ## Changelog  
 - Updated Config Version to `20`.  
 - Updated to Minecraft 1.21(.1).  
@@ -14,7 +13,7 @@ This update completely changes how shaders are rendered, making use of Luminance
       - Luminance will also load `disable_screen_mode` for backwards-compatibility, but it is recommended to use `disable_game_rendertype` in your shaders.
     - `entity_links` has been moved to `"custom: {"perspective":{"entity_links": []}}`
       - Perspective will also load entity links from the `souper_secret_settings` namespace.
-        - Entity Links will be disabled if Souper Secret Settings is detected so shaders aren't rendered twice.  
+        - Entity Links will be disabled if `Souper Secret Settings` is detected so shaders aren't rendered twice.  
 ### Textured Entity  
 - Updated how textured entities are stored in the registry.  
 - Added `overrides` to the dataloader.  
@@ -52,5 +51,5 @@ This update completely changes how shaders are rendered, making use of Luminance
   - Located at `namespace:pride_logos/identifier.json`  
   - Contains an `id` string, and `logo_texture`, and `icon_texture` stringified-identifiers.  
 ### Resource Packs  
-- #### Perspective: Default
+- #### Perspective: Default  
   - Added `Jester` Giant Textured Entity.  
