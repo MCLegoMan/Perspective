@@ -41,7 +41,7 @@ public abstract class AbstractConfigScreen extends Screen {
 		this.page = page;
 	}
 	public void init() {
-		this.grid.getMainPositioner().alignHorizontalCenter().margin(2);
+		this.grid.getMainPositioner().alignHorizontalCenter().margin(getGridMargin());
 		this.gridAdder = grid.createAdder(1);
 		this.gridAdder.add(new EmptyWidget(20, 20), 1);
 		this.gridAdder.add(new EmptyWidget(20, 20), 1);
@@ -139,6 +139,9 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public int getMaxPage() {
 		return 1;
+	}
+	public int getGridMargin() {
+		return 2;
 	}
 	public boolean getExperimental() {
 		return false;

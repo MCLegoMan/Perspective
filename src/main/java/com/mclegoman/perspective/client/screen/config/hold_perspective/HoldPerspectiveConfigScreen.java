@@ -36,14 +36,14 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 	private GridWidget createPageOne() {
 		GridWidget holdPerspectiveGrid = new GridWidget();
 		holdPerspectiveGrid.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder holdPerspectiveGridAdder = holdPerspectiveGrid.createAdder(2);
+		GridWidget.Adder holdPerspectiveGridAdder = holdPerspectiveGrid.createAdder(1);
 		holdPerspectiveGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"));
 			this.refresh = true;
 		}).width(304).build());
-		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
-		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
-		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
+		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20));
+		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20));
+		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20));
 		return holdPerspectiveGrid;
 	}
 	public Screen getRefreshScreen() {

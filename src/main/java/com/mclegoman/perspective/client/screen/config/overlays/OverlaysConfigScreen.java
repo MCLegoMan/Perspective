@@ -49,7 +49,7 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "day_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay"));
 			this.refresh = true;
 		}).width(304).build());
-		overlaysGridAdder.add(new EmptyWidget(20, 20), 2);
+		overlaysGridAdder.add(new EmptyWidget(20, 20));
 		return overlaysGrid;
 	}
 	public Screen getRefreshScreen() {

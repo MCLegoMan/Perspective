@@ -342,5 +342,7 @@
 	"splashes.perspective.special.birthday": "Happy Birthday Perspective!",
 	"splashes.perspective.special.april_fools": "April Fools'!",
 
-	"shader.perspective.shader.not_loaded" : "No Shader Selected!"
+	"shader.perspective.shader.not_loaded" : "No Shader Selected!",
+
+	"gui.perspective.config.shaders.update_warning": "Shaders are currently being re-worked. Expect bugs."
 }

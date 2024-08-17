@@ -19,16 +19,18 @@ import net.minecraft.util.Util;
 
 public class LinkScreen extends AbstractConfigScreen {
 	private final String url;
-	public LinkScreen(Screen parentScreen, String url) {
+	private final boolean trusted;
+	public LinkScreen(Screen parentScreen, String url, boolean trusted) {
 		super(parentScreen, false, false, 1);
 		this.url = url;
+		this.trusted = trusted;
 	}
 	public void init() {
 		try {
 			this.grid.getMainPositioner().alignHorizontalCenter().margin(2);
 			this.gridAdder = grid.createAdder(3);
 			this.gridAdder.add(new EmptyWidget(20, 20), 3);
-			this.gridAdder.add(new MultilineTextWidget(Translation.getText("chat.link.confirmTrusted", true), ClientData.minecraft.textRenderer).setCentered(true), 3);
+			this.gridAdder.add(new MultilineTextWidget(Translation.getText(this.trusted ? "chat.link.confirmTrusted" : "chat.link.confirm", true), ClientData.minecraft.textRenderer).setCentered(true), 3);
 			this.gridAdder.add(new MultilineTextWidget(Translation.getText(this.url, false), ClientData.minecraft.textRenderer).setCentered(true), 3);
 			this.gridAdder.add(new EmptyWidget(20, 20), 3);
 			this.gridAdder.add(ButtonWidget.builder(Translation.getText("chat.link.open", true), (button) -> {

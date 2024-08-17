@@ -16,6 +16,7 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -34,8 +35,8 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 			super.init();
 			if (this.page == 1) {
 				this.gridAdder.add(createShaders());
-				this.gridAdder.add(createShaderOptions());
-				this.gridAdder.add(new EmptyWidget(24, 24));
+				this.gridAdder.add(createPageOne());
+				this.gridAdder.add(new EmptyWidget(16, 16));
 			}
 			postInit();
 		} catch (Exception error) {
@@ -65,7 +66,7 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 		shadersGridAdder.add(randomShader);
 		return shadersGrid;
 	}
-	private GridWidget createShaderOptions() {
+	private GridWidget createPageOne() {
 		GridWidget shaderOptionsGrid = new GridWidget();
 		shaderOptionsGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder shaderOptionsGridAdder = shaderOptionsGrid.createAdder(2);
@@ -92,5 +93,9 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 	}
 	public String getPageId() {
 		return "shaders";
+	}
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		super.render(context, mouseX, mouseY, delta);
+		context.drawCenteredTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "shaders.update_warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 10, 0xFFFFFF);
 	}
 }
