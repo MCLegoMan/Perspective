@@ -12,7 +12,6 @@ import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hud.Overlays;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -59,6 +58,7 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
 			this.refresh = true;
 		}).width(304).build(), 2);
+		overlaysGridAdder.add(new EmptyWidget(20, 20), 2);
 		return overlaysGrid;
 	}
 	public Screen getRefreshScreen() {
