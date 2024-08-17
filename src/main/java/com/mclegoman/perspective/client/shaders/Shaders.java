@@ -48,6 +48,7 @@ public class Shaders {
 			if (Events.ShaderRender.Shaders.exists(superSecretSettingsId, "main")) {
 				Couple<String, Shader> shader = Events.ShaderRender.Shaders.get(superSecretSettingsId, "main");
 				if (shader.getSecond() != null) {
+					/* TODO: Move this check into luminance itself.*/
 					if (!com.mclegoman.luminance.client.shaders.Shaders.getPostShader(shaderData.getId()).toString().equals(shader.getSecond().getShaderId().toString())) {
 						Data.version.sendToLog(LogType.INFO, logMessage);
 						shader.getSecond().setShaderData(shaderData);
