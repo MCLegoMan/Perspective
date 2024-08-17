@@ -7,7 +7,6 @@
 
 package com.mclegoman.perspective.config;
 
-import com.mclegoman.luminance.client.shaders.Shaders;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
@@ -15,6 +14,7 @@ import com.mclegoman.perspective.client.hide.Hide;
 import com.mclegoman.perspective.client.logo.PrideLogoDataLoader;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
+import com.mclegoman.perspective.client.shaders.Shaders;
 import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
@@ -323,7 +323,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_sound", ConfigDataLoader.superSecretSettingsSound));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_show_name", ConfigDataLoader.superSecretSettingsShowName));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_selection_blur", ConfigDataLoader.superSecretSettingsSelectionBlur));
-			com.mclegoman.perspective.client.shaders.Shaders.setSuperSecretSettings();
+			Shaders.setSuperSecretSettings();
 			configChanged.add(setConfig(ConfigType.normal, "textured_named_entity", ConfigDataLoader.texturedNamedEntity));
 			configChanged.add(setConfig(ConfigType.normal, "textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 			configChanged.add(setConfig(ConfigType.normal, "allow_april_fools", ConfigDataLoader.allowAprilFools));
@@ -348,7 +348,6 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "hide_show_message", ConfigDataLoader.hideShowMessage));
 			configChanged.add(setConfig(ConfigType.normal, "tutorials", ConfigDataLoader.tutorials));
 			configChanged.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
-			Shader.superSecretSettingsIndex = Shaders.getShaderIndex((String) getConfig(ConfigType.normal, "super_secret_settings_shader"));
 			fixConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");

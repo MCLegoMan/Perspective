@@ -203,7 +203,7 @@ public class Shader {
 		useDepth = false;
 		depthFix = true;
 		try {
-			Data.version.sendToLog(LogType.INFO, Translation.getString("Shadering shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader")));
+			//Data.version.sendToLog(LogType.INFO, Translation.getString("Shadering shader: {}", ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_shader")));
 			try {
 //				if (postProcessor != null) {
 //					if (translucentFramebuffer != null) translucentFramebuffer.delete();
