@@ -33,14 +33,14 @@ public class InformationScreen extends AbstractConfigScreen {
 		}
 	}
 	private GridWidget createInformation() {
-		GridWidget GRID = new GridWidget();
-		GRID.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder GRID_ADDER = GRID.createAdder(1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.documentation"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://mclegoman.com/Perspective"))).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.source_code"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://github.com/MCLegoMan/Perspective"))).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.report"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://github.com/MCLegoMan/Perspective/issues"))).width(304).build(), 1);
-		GRID_ADDER.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.credits"), button -> ClientData.minecraft.setScreen(new CreditsAttributionScreen(ClientData.minecraft.currentScreen, Identifier.of(Data.version.getID(), "texts/credits.json")))).width(304).build(), 1);
-		return GRID;
+		GridWidget infoGrid = new GridWidget();
+		infoGrid.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder infoGridAdder = infoGrid.createAdder(1);
+		infoGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.documentation"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://mclegoman.com/Perspective"))).width(304).build(), 1);
+		infoGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.source_code"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://github.com/MCLegoMan/Perspective"))).width(304).build(), 1);
+		infoGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.report"), button -> ClientData.minecraft.setScreen(new LinkScreen(ClientData.minecraft.currentScreen, "https://github.com/MCLegoMan/Perspective/issues"))).width(304).build(), 1);
+		infoGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "information.credits"), button -> ClientData.minecraft.setScreen(new CreditsAttributionScreen(ClientData.minecraft.currentScreen, Identifier.of(Data.version.getID(), "texts/credits.json")))).width(304).build(), 1);
+		return infoGrid;
 	}
 	protected GridWidget createFooter() {
 		GridWidget footerGrid = new GridWidget();
