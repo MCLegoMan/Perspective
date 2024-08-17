@@ -11,6 +11,7 @@ import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.PerspectiveClient;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
+import com.mclegoman.perspective.client.hud.Overlays;
 import com.mclegoman.perspective.client.logo.PrideLogoDataLoader;
 import com.mclegoman.perspective.client.screen.config.ConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
@@ -299,6 +300,10 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: block_outline was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "block_outline") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "block_outline", ConfigDataLoader.blockOutline));
 			}
+			if (!Overlays.isValidTimeOverlay((String) getConfig(ConfigType.normal, "time_overlay"))) {
+				Data.version.sendToLog(LogType.WARN, "Config: time_overlay was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "time_overlay") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "time_overlay", ConfigDataLoader.timeOverlay));
+			}
 			return hasFixedConfig.contains(true);
 		}
 		return false;
@@ -330,6 +335,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "force_april_fools", ConfigDataLoader.forceAprilFools));
 			configChanged.add(setConfig(ConfigType.normal, "version_overlay", ConfigDataLoader.versionOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "position_overlay", ConfigDataLoader.positionOverlay));
+			configChanged.add(setConfig(ConfigType.normal, "time_overlay", ConfigDataLoader.timeOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "day_overlay", ConfigDataLoader.dayOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "biome_overlay", ConfigDataLoader.biomeOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "force_pride", ConfigDataLoader.forcePride));
@@ -460,6 +466,10 @@ public class ConfigHelper {
 						}
 						case "position_overlay" -> {
 							Config.positionOverlay = (boolean) value;
+							configChanged = true;
+						}
+						case "time_overlay" -> {
+							Config.timeOverlay = (String) value;
 							configChanged = true;
 						}
 						case "day_overlay" -> {
@@ -666,6 +676,9 @@ public class ConfigHelper {
 					}
 					case "position_overlay" -> {
 						return Config.positionOverlay;
+					}
+					case "time_overlay" -> {
+						return Config.timeOverlay;
 					}
 					case "day_overlay" -> {
 						return Config.dayOverlay;

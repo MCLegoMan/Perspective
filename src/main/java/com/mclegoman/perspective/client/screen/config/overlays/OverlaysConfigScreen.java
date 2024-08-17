@@ -9,8 +9,10 @@ package com.mclegoman.perspective.client.screen.config.overlays;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
+import com.mclegoman.perspective.client.hud.Overlays;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -36,23 +38,27 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 	private GridWidget createPageOne() {
 		GridWidget overlaysGrid = new GridWidget();
 		overlaysGrid.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder overlaysGridAdder = overlaysGrid.createAdder(1);
+		GridWidget.Adder overlaysGridAdder = overlaysGrid.createAdder(2);
 		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.version_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "version_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay"));
 			this.refresh = true;
-		}).width(304).build());
+		}).build());
 		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.position_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "position_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "position_overlay"));
 			this.refresh = true;
-		}).width(304).build());
+		}).build());
+		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.time_overlay", new Object[]{Translation.getTimeOverlayTranslation(Data.version.getID(), Overlays.getCurrentTimeOverlay())}), (button) -> {
+			Overlays.cycleTimeOverlay(!hasShiftDown());
+			this.refresh = true;
+		}).build());
 		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.day_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "day_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay"));
 			this.refresh = true;
-		}).width(304).build());
+		}).build());
 		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.biome_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
 			this.refresh = true;
-		}).width(304).build());
+		}).width(304).build(), 2);
 		return overlaysGrid;
 	}
 	public Screen getRefreshScreen() {

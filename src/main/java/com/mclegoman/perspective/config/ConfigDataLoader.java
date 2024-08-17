@@ -48,6 +48,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean forceAprilFools;
 	public static boolean versionOverlay;
 	public static boolean positionOverlay;
+	public static String timeOverlay;
 	public static boolean dayOverlay;
 	public static boolean biomeOverlay;
 	public static boolean forcePride;
@@ -99,6 +100,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				forceAprilFools = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_april_fools", false);
 				versionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "version_overlay", false);
 				positionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "position_overlay", false);
+				timeOverlay = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "time_overlay", "false");
 				dayOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "day_overlay", false);
 				biomeOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "biome_overlay", false);
 				forcePride = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride", false);

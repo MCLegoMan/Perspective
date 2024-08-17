@@ -21,6 +21,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Overlays {
+	private static final List<String> timeOverlayTypes = new ArrayList<>();
+	public static void init() {
+		timeOverlayTypes.add("false");
+		timeOverlayTypes.add("twelve_hour");
+		timeOverlayTypes.add("twenty_four_hour");
+	}
+	public static String getCurrentTimeOverlay() {
+		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay");
+	}
+	public static boolean isValidTimeOverlay(String timeOverlay) {
+		return timeOverlayTypes.contains(timeOverlay);
+	}
+	public static void cycleTimeOverlay(boolean direction) {
+		int currentIndex = timeOverlayTypes.indexOf(getCurrentTimeOverlay());
+		ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "time_overlay", timeOverlayTypes.get(direction ? (currentIndex + 1) % timeOverlayTypes.size() : (currentIndex - 1 + timeOverlayTypes.size()) % timeOverlayTypes.size()));
+	}
 	public static Text getEntityPositionTextTitle() {
 		return Translation.getTranslation(Data.version.getID(), "position.title");
 	}
@@ -37,7 +53,7 @@ public class Overlays {
 				// Version Overlay
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay"))
 					context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
-				// Position and Day Overlays
+				// Other Overlays
 				int y = 40;
 				List<Text> overlayTexts = new ArrayList<>();
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "position_overlay")) {
@@ -45,6 +61,19 @@ public class Overlays {
 						overlayTexts.add(Translation.getTranslation(Data.version.getID(), "position_overlay", new Object[]{
 								getEntityPositionTextTitle(),
 								getEntityPositionTextDescription(ClientData.minecraft.player.getPos())
+						}));
+					}
+				}
+				if (!ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay").equals("false")) {
+					if (ClientData.minecraft.world != null) {
+						long time = ClientData.minecraft.world.getTimeOfDay() % 24000L;
+						int rawHour = (int)(time / 1000 + 6) % 24;
+						int rawMinute = (int)(time / 16.666666) % 60;
+						String hour = ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay").equals("twelve_hour") ? String.valueOf(rawHour == 0 || rawHour == 12 ? 12 : rawHour % 12) : String.valueOf(rawHour);
+						if (rawHour < 10) hour = "0" + hour;
+						Text timePeriod = ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay").equals("twelve_hour") ? (rawHour < 12 ? Translation.getTranslation(Data.version.getID(), "time_overlay.am") : Translation.getTranslation(Data.version.getID(), "time_overlay.pm")) : Text.empty();
+						overlayTexts.add(Translation.getTranslation(Data.version.getID(), "time_overlay", new Object[]{
+								hour, (rawMinute < 10 ? "0" + rawMinute : String.valueOf(rawMinute)), timePeriod
 						}));
 					}
 				}

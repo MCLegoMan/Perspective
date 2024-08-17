@@ -41,6 +41,7 @@ public class Config {
 	protected static boolean forceAprilFools;
 	protected static boolean versionOverlay;
 	protected static boolean positionOverlay;
+	protected static String timeOverlay;
 	protected static boolean dayOverlay;
 	protected static boolean biomeOverlay;
 	protected static boolean forcePride;
@@ -98,6 +99,7 @@ public class Config {
 		configProvider.add(new Couple<>("force_april_fools", ConfigDataLoader.forceAprilFools));
 		configProvider.add(new Couple<>("version_overlay", ConfigDataLoader.versionOverlay));
 		configProvider.add(new Couple<>("position_overlay", ConfigDataLoader.positionOverlay));
+		configProvider.add(new Couple<>("time_overlay", ConfigDataLoader.timeOverlay));
 		configProvider.add(new Couple<>("day_overlay", ConfigDataLoader.dayOverlay));
 		configProvider.add(new Couple<>("biome_overlay", ConfigDataLoader.biomeOverlay));
 		configProvider.add(new Couple<>("force_pride", ConfigDataLoader.forcePride));
@@ -144,6 +146,7 @@ public class Config {
 		forceAprilFools = config.getOrDefault("force_april_fools", ConfigDataLoader.forceAprilFools);
 		versionOverlay = config.getOrDefault("version_overlay", ConfigDataLoader.versionOverlay);
 		positionOverlay = config.getOrDefault("position_overlay", ConfigDataLoader.positionOverlay);
+		timeOverlay = config.getOrDefault("time_overlay", ConfigDataLoader.timeOverlay);
 		dayOverlay = config.getOrDefault("day_overlay", ConfigDataLoader.dayOverlay);
 		biomeOverlay = config.getOrDefault("biome_overlay", ConfigDataLoader.biomeOverlay);
 		forcePride = config.getOrDefault("force_pride", ConfigDataLoader.forcePride);
@@ -191,6 +194,7 @@ public class Config {
 		configProvider.setConfig("force_april_fools", forceAprilFools);
 		configProvider.setConfig("version_overlay", versionOverlay);
 		configProvider.setConfig("position_overlay", positionOverlay);
+		configProvider.setConfig("time_overlay", timeOverlay);
 		configProvider.setConfig("day_overlay", dayOverlay);
 		configProvider.setConfig("biome_overlay", biomeOverlay);
 		configProvider.setConfig("force_pride", forcePride);
@@ -237,6 +241,7 @@ public class Config {
 				forceAprilFools,
 				versionOverlay,
 				positionOverlay,
+				timeOverlay,
 				dayOverlay,
 				biomeOverlay,
 				forcePride,

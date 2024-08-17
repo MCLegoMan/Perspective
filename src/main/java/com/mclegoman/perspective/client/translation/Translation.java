@@ -49,6 +49,9 @@ public class Translation extends com.mclegoman.luminance.client.translation.Tran
 	public static MutableText getUIBackgroundTranslation(String namespace, String key) {
 		return getConfigTranslation(namespace, "ui_background.type." + key);
 	}
+	public static MutableText getTimeOverlayTranslation(String namespace, String key) {
+		return getConfigTranslation(namespace, "time_overlay.type." + key);
+	}
 	public static MutableText getCrosshairTranslation(String namespace, String key) {
 		if (Arrays.stream(Hide.hideCrosshairModes).toList().contains(key)) return getConfigTranslation(namespace, "crosshair.type." + key);
 		else return getErrorTranslation(namespace);
