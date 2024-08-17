@@ -6,7 +6,7 @@
 	"type": "developer",
 	"shouldFlipUpsideDown": true,
 	"shouldReplaceCape": true,
-	"capeTexture": "perspective:textures/contributors/cape/developer",
+	"capeTexture": "perspective:textures/contributors/cape/dev_oneyear",
 	"shouldRenderHeadItem": false,
 	"headItem": "minecraft:air"
 }
