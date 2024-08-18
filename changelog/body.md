@@ -36,7 +36,7 @@
       - If set to false, menu darkening is disabled.  
       - Defaults to true.  
   - Make sure to finish with `.build();`.  
-  - Don't forget to add it to the registry: `UIBackground.uiBackgroundTypes.add(new UIBackgroundData.Builder("example").build());`  
+  - Don't forget to add it to the registry: `UIBackground.registerUIBackground(new UIBackgroundData.Builder("example").build());`  
   - You should also name your ui background in the translation files with this key: `"gui.perspective.config.ui_background.type.example"`  
 ### Shaders  
 - Updated `perspective:gaussian` shader.  

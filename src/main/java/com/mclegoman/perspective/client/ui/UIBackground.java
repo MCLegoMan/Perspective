@@ -28,9 +28,9 @@ public class UIBackground {
 	private static final List<UIBackgroundData> uiBackgroundTypes = new ArrayList<>();
 	private static final List<String> titleScreenBackgroundTypes = new ArrayList<>();
 	public static void init() {
-		uiBackgroundTypes.add(new UIBackgroundData.Builder("default").build());
-		uiBackgroundTypes.add(new UIBackgroundData.Builder("gaussian").shaderId(Identifier.of("perspective", "shaders/post/gaussian.json")).build());
-		uiBackgroundTypes.add(new UIBackgroundData.Builder("legacy").renderWorld(new Runnable() {
+		registerUIBackground(new UIBackgroundData.Builder("default").build());
+		registerUIBackground(new UIBackgroundData.Builder("gaussian").shaderId(Identifier.of("perspective", "shaders/post/gaussian.json")).build());
+		registerUIBackground(new UIBackgroundData.Builder("legacy").renderWorld(new Runnable() {
 					public void run(DrawContext context) {
 						RenderSystem.enableBlend();
 						context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
@@ -44,9 +44,20 @@ public class UIBackground {
 						RenderSystem.disableBlend();
 					}
 				}).renderPanorama(false).renderShader(false).build());
-		uiBackgroundTypes.add(new UIBackgroundData.Builder("none").renderShader(false).renderDarkening(false).build());
+		registerUIBackground(new UIBackgroundData.Builder("none").renderShader(false).renderDarkening(false).build());
 		titleScreenBackgroundTypes.add("default");
 		titleScreenBackgroundTypes.add("dirt");
+	}
+	public static void registerUIBackground(UIBackgroundData data) {
+		boolean alreadyRegistered = isValidUIBackground(data.getId());
+		if (!alreadyRegistered) uiBackgroundTypes.add(data);
+		else Data.version.sendToLog(LogType.WARN, Translation.getString("UI Background with id '{}' is already registered!", data.getId()));
+	}
+	public static boolean isValidUIBackground(String id) {
+		for (UIBackgroundData uiData : uiBackgroundTypes) {
+			if (id.equalsIgnoreCase(uiData.getId())) return true;
+		}
+		return false;
 	}
 	public static void cycleUIBackgroundType() {
 		cycleUIBackgroundType(true);
