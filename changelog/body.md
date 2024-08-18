@@ -12,9 +12,11 @@
 ### UI Background  
 - Added `none` UI Background.  
   - This will not render anything in menu backgrounds (except for the panorama).  
+- Added `UIBackground.registerUIBackground(UIBackgroundData data)` function.
+  - This function was added to allow third-party mods to add UI Backgrounds without having to use mixins.  
 - Replaced `new UIBackgroundData();` with `new UIBackgroundData.Builder().build();`.  
   - ***NOTE: This feature is for third-party mod developers.***  
-    - This feature currently doesn't support namespacing, and will break if more than one ui background uses the same name.  
+    - This feature currently doesn't support namespacing, and will only register the first registered instance of a ui background with the same name.  
       - This will be fixed in a future update.  
   - This new builder simplifies the process of making new UI Backgrounds.    
   - This builder contains the following functions:  
