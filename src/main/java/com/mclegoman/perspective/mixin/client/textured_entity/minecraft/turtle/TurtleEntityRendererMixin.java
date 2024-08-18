@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.turtle;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.TurtleEntityRenderer.class)
 public class TurtleEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof TurtleEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:turtle", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/TurtleEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(TurtleEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.snow_go
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.SnowGolemEntityRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = SnowGolemEntityRenderer.class)
 public class SnowGolemEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof SnowGolemEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:snow_golem", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/SnowGolemEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(SnowGolemEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

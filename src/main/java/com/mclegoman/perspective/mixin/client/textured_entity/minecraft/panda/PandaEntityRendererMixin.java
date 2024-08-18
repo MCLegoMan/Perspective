@@ -25,7 +25,7 @@ public class PandaEntityRendererMixin {
 	private void perspective$getTexture(PandaEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "panda");
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 			if (entityData != null) {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
@@ -40,7 +40,7 @@ public class PandaEntityRendererMixin {
 			}
 			if (isTexturedEntity) {
 				String variant = entity.getProductGene().asString() != null ? "_" + entity.getProductGene().asString().toLowerCase() : "";
-				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:panda", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
+				cir.setReturnValue(TexturedEntity.getTexture(entity, "", variant, cir.getReturnValue()));
 			}
 		}
 	}

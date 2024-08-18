@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.perspective.client.entity.TexturedEntityData;
 import net.minecraft.entity.passive.AxolotlEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +25,7 @@ public class AxolotlEntityRendererMixin {
 	private void perspective$getTexture(AxolotlEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "axolotl");
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 			if (entityData != null) {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
@@ -39,7 +40,7 @@ public class AxolotlEntityRendererMixin {
 			}
 			if (isTexturedEntity) {
 				String variant = entity.getVariant().getName() != null ? "_" + entity.getVariant().getName().toLowerCase() : "";
-				cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:axolotl", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
+				cir.setReturnValue(TexturedEntity.getTexture(entity, "", variant, cir.getReturnValue()));
 			}
 		}
 	}

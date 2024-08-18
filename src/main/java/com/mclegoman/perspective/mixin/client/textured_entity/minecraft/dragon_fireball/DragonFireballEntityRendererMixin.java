@@ -23,15 +23,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.DragonFireballEntityRenderer.class)
 public class DragonFireballEntityRendererMixin {
-	@Shadow
-	@Final
-	private static Identifier TEXTURE;
-	@Mutable
-	@Shadow
-	@Final
-	private static RenderLayer LAYER;
+	@Shadow @Final private static Identifier TEXTURE;
+	@Mutable @Shadow @Final private static RenderLayer LAYER;
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/entity/projectile/DragonFireballEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
-	private void perspective$render(DragonFireballEntity dragonFireballEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-		LAYER = RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(dragonFireballEntity, "minecraft:dragon_fireball", TEXTURE));
+	private void perspective$render(DragonFireballEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+		LAYER = RenderLayer.getEntityCutoutNoCull(TexturedEntity.getTexture(entity, TEXTURE));
 	}
 }

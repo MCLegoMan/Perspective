@@ -25,7 +25,7 @@ public class FrogEntityRendererMixin {
 	private void perspective$getTexture(FrogEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "frog");
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 			if (entityData != null) {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
@@ -43,9 +43,7 @@ public class FrogEntityRendererMixin {
 				}
 				if (isTexturedEntity) {
 					String variant = entity.getVariant().getIdAsString();
-					String variantNamespace = entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : "minecraft";
-					String variantKey = entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : "";
-					cir.setReturnValue(TexturedEntity.getTexture(entity, variantNamespace, "minecraft:frog", TexturedEntity.Affix.SUFFIX, variantKey, cir.getReturnValue()));
+					cir.setReturnValue(TexturedEntity.getTexture(entity, (entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : ""), "", (entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : ""), cir.getReturnValue()));
 				}
 			}
 		}

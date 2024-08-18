@@ -20,6 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class TridentEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/projectile/TridentEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(TridentEntity entity, CallbackInfoReturnable<Identifier> cir) {
-		cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:trident", cir.getReturnValue()));
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

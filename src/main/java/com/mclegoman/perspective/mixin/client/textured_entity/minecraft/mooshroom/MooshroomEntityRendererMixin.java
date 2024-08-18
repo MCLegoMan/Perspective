@@ -40,10 +40,10 @@ public abstract class MooshroomEntityRendererMixin extends MobEntityRenderer<Moo
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
 		this.addFeature(new MooshroomOverlayFeatureRenderer<>(this, new CowEntityModel<>(context.getPart(TexturedEntityModels.mooshroomOverlay))));
 	}
-	@Inject(method = "getTexture", at = @At("RETURN"), cancellable = true)
+	@Inject(method = "getTexture(Lnet/minecraft/entity/passive/MooshroomEntity;)Lnet/minecraft/util/Identifier;", at = @At("RETURN"), cancellable = true)
 	public void perspective$getTexture(MooshroomEntity mooshroomEntity, CallbackInfoReturnable<Identifier> cir) {
 		boolean isTexturedEntity = true;
-		TexturedEntityData entityData = TexturedEntity.getEntity(mooshroomEntity, "minecraft", "mooshroom");
+		TexturedEntityData entityData = TexturedEntity.getEntity(mooshroomEntity);
 		if (entityData != null) {
 			JsonObject entitySpecific = entityData.getEntitySpecific();
 			if (entitySpecific != null) {
@@ -61,7 +61,7 @@ public abstract class MooshroomEntityRendererMixin extends MobEntityRenderer<Moo
 			}
 			if (isTexturedEntity) {
 				String variant = mooshroomEntity.getVariant() != null ? mooshroomEntity.getVariant().asString().toLowerCase() + "_" : "";
-				cir.setReturnValue(TexturedEntity.getTexture(mooshroomEntity, "minecraft:mooshroom", TexturedEntity.Affix.PREFIX, variant, TEXTURES.get(mooshroomEntity.getVariant())));
+				cir.setReturnValue(TexturedEntity.getTexture(mooshroomEntity, variant, "", TEXTURES.get(mooshroomEntity.getVariant())));
 			}
 		}
 	}

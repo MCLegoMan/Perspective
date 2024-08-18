@@ -7,6 +7,7 @@
 
 package com.mclegoman.perspective.client.ui;
 
+import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.util.Identifier;
 
 public class UIBackgroundData {
@@ -49,15 +50,15 @@ public class UIBackgroundData {
 	}
 
 	public static class Builder {
-		private final String id;
+		private final Identifier identifier;
 		private UIBackground.Runnable renderWorld;
 		private boolean renderPanorama;
 		private UIBackground.Runnable renderMenu;
 		private boolean renderShader;
 		private Identifier shaderId;
 		private boolean renderDarkening;
-		public Builder(String id) {
-			this.id = id;
+		public Builder(Identifier identifier) {
+			this.identifier = identifier;
 			this.renderWorld = null;
 			this.renderPanorama = true;
 			this.renderMenu = null;
@@ -66,7 +67,7 @@ public class UIBackgroundData {
 			this.renderDarkening = true;
 		}
 		public static UIBackgroundData getFallback() {
-			return new Builder("fallback").build();
+			return new Builder(Identifier.of(Data.version.getID(), "fallback")).build();
 		}
 		public Builder renderWorld(UIBackground.Runnable renderWorld) {
 			this.renderWorld = renderWorld;
@@ -93,7 +94,7 @@ public class UIBackgroundData {
 			return this;
 		}
 		public UIBackgroundData build() {
-			return new UIBackgroundData(this.id, this.renderWorld, this.renderPanorama, this.renderMenu, this.renderShader, this.shaderId, this.renderDarkening);
+			return new UIBackgroundData(this.identifier.getPath(), this.renderWorld, this.renderPanorama, this.renderMenu, this.renderShader, this.shaderId, this.renderDarkening);
 		}
 	}
 }

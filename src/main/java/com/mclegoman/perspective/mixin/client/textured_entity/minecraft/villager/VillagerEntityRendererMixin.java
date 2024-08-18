@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.village
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.VillagerEntityRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = VillagerEntityRenderer.class)
 public class VillagerEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof VillagerEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:villager", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/VillagerEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(VillagerEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
+	//TODO: Add entity specific for professions and variants.
 }

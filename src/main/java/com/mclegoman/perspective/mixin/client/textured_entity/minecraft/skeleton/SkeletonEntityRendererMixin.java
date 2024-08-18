@@ -14,9 +14,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.render.entity.feature.SkeletonOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.model.SkeletonEntityModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
-import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,9 +31,8 @@ public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<Ab
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
 		this.addFeature(new SkeletonOverlayFeatureRenderer<>(this, context.getModelLoader(), TexturedEntityModels.skeletonOverlay, Identifier.of("textures/entity/skeleton/skeleton_overlay.png")));
 	}
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof SkeletonEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:skeleton", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/AbstractSkeletonEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(AbstractSkeletonEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

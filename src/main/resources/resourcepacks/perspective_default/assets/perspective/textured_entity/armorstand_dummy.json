@@ -1,0 +1,11 @@
+{
+  "entity": "minecraft:armor_stand",
+  "name": "Dummy",
+  "entity_specific": {
+  },
+  "overrides": [
+    { "prefix": "", "suffix": "", "texture": "minecraft:textures/entity/armorstand/wood" },
+    { "prefix": "", "suffix": "_cape", "texture": "perspective:textures/contributors/cape/dev_oneyear" }
+  ],
+  "enabled": true
+}

@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.illusio
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.IllusionerEntityRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.IllusionerEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = IllusionerEntityRenderer.class)
 public class IllusionerEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof IllusionerEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:illusioner", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/IllusionerEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(IllusionerEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

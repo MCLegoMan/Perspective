@@ -14,7 +14,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.GiantEntityModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,11 +29,10 @@ public abstract class GiantEntityRendererMixin extends MobEntityRenderer<GiantEn
 	}
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, float scale, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new GiantEntityModel(context.getPart(TexturedEntityModels.giantOverlay)), "minecraft:giant", Identifier.of("textures/entity/zombie/zombie_overlay.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new GiantEntityModel(context.getPart(TexturedEntityModels.zombieOverlay)), Identifier.of("textures/entity/zombie/zombie_overlay.png")));
 	}
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof GiantEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:giant", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/GiantEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(GiantEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

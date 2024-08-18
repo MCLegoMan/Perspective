@@ -24,7 +24,7 @@ public class FoxEntityRendererMixin {
 	private void perspective$getTexture(FoxEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "fox");
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 			if (entityData != null) {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
@@ -42,7 +42,7 @@ public class FoxEntityRendererMixin {
 				}
 				if (isTexturedEntity) {
 					String variant = entity.getVariant() != null ? "_" + entity.getVariant().asString() : "";
-					cir.setReturnValue(entity.isSleeping() ? TexturedEntity.getTexture(entity, "minecraft:fox", TexturedEntity.Affix.SUFFIX, variant + "_sleep", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "minecraft:fox", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
+					cir.setReturnValue(entity.isSleeping() ? TexturedEntity.getTexture(entity, "", variant + "_sleep", cir.getReturnValue()) : TexturedEntity.getTexture(entity, "", variant, cir.getReturnValue()));
 				}
 			}
 		}

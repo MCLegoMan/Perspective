@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.tadpole
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.TadpoleEntityRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.TadpoleEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = TadpoleEntityRenderer.class)
 public class TadpoleEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof TadpoleEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:tadpole", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/TadpoleEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(TadpoleEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.evoker_fangs;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.EvokerFangsEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.EvokerFangsEntityRenderer.class)
 public class EvokerFangsEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof EvokerFangsEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:evoker_fangs", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/EvokerFangsEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(EvokerFangsEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

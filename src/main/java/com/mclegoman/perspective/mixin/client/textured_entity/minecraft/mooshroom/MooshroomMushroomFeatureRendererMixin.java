@@ -32,7 +32,7 @@ public class MooshroomMushroomFeatureRendererMixin {
 	private BlockState perspective$getMushroom(MooshroomEntity.Type mooshroomType) {
 		try {
 			if (entity != null) {
-				TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "mooshroom");
+				TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 				if (entityData != null) {
 					JsonObject entitySpecific = entityData.getEntitySpecific();
 					if (entitySpecific != null) {

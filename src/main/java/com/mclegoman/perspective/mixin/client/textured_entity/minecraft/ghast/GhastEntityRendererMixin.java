@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.ghast;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.GhastEntityRenderer.class)
 public class GhastEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof GhastEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:ghast", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/GhastEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(GhastEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

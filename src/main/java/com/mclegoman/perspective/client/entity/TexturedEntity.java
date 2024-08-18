@@ -18,6 +18,7 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -53,10 +54,22 @@ public class TexturedEntity {
 	private static Identifier getOverrideTexture(JsonArray overrides, Identifier fallback) {
 		return getOverrideTexture("", "", overrides, fallback);
 	}
-	public static Identifier getTexture(Entity entity, String namespace, String entity_type, String prefix, String suffix, Identifier default_identifier) {
+	public static Identifier getTexture(Entity entity, Identifier defaultIdentifier) {
+		return getTexture(entity, "", "", "", defaultIdentifier);
+	}
+	public static Identifier getTexture(Entity entity, String overrideNamespace, Identifier defaultIdentifier) {
+		return getTexture(entity, overrideNamespace, "", "", defaultIdentifier);
+	}
+	public static Identifier getTexture(Entity entity, String prefix, String suffix, Identifier defaultIdentifier) {
+		return getTexture(entity, "", prefix, suffix, defaultIdentifier);
+	}
+	public static Identifier getTexture(Entity entity, String overrideNamespace, String prefix, String suffix, Identifier defaultIdentifier) {
 		try {
 			if (TexturedEntityDataLoader.isReady) {
-				TexturedEntityData entityData = getEntity(entity, namespace, entity_type);
+				Identifier entityType = Registries.ENTITY_TYPE.getId(entity.getType());
+				String namespace = defaultIdentifier.getNamespace();
+				if (!overrideNamespace.isEmpty()) namespace = overrideNamespace;
+				TexturedEntityData entityData = getEntity(entity);
 				if (entityData != null) {
 					boolean shouldReplaceTexture = true;
 						if (entity instanceof LivingEntity) {
@@ -78,28 +91,13 @@ public class TexturedEntity {
 								}
 							}
 						}
-					if (shouldReplaceTexture) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(default_identifier.getNamespace(), "textures/textured_entity/" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type) + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
+					if (shouldReplaceTexture) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(namespace, "textures/textured_entity/" + entityType.getPath() + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
 				}
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set textured entity texture: {}", error));
 		}
-		return default_identifier;
-	}
-	public static Identifier getTexture(Entity entity, String entity_type, String prefix, String suffix, Identifier default_identifier) {
-		return getTexture(entity, IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, entity_type), IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type), prefix, suffix, default_identifier);
-	}
-	public static Identifier getTexture(Entity entity, String entity_type, Identifier default_identifier) {
-		return getTexture(entity, entity_type, "", "", default_identifier);
-	}
-	public static Identifier getTexture(Entity entity, String namespace, String entity_type, Identifier default_identifier) {
-		return getTexture(entity, namespace, entity_type, "", "", default_identifier);
-	}
-	public static Identifier getTexture(Entity entity, String entity_type, Affix affixType, String affix, Identifier default_identifier) {
-		return getTexture(entity, entity_type, affixType.equals(Affix.PREFIX) ? affix : "", affixType.equals(Affix.SUFFIX) ? affix : "", default_identifier);
-	}
-	public static Identifier getTexture(Entity entity, String namespace, String entity_type, Affix affixType, String affix, Identifier default_identifier) {
-		return getTexture(entity, namespace, entity_type, affixType.equals(Affix.PREFIX) ? affix : "", affixType.equals(Affix.SUFFIX) ? affix : "", default_identifier);
+		return defaultIdentifier;
 	}
 	private static List<TexturedEntityData> getRegistry(String namespace, String entity_type) {
 		List<TexturedEntityData> entityRegistry = new ArrayList<>();
@@ -112,9 +110,12 @@ public class TexturedEntity {
 		}
 		return entityRegistry;
 	}
-	public static TexturedEntityData getEntity(Entity entity, String namespace, String entity_type) {
+	public static TexturedEntityData getEntity(Entity entity) {
+		return getEntity(entity, Registries.ENTITY_TYPE.getId(entity.getType()));
+	}
+	private static TexturedEntityData getEntity(Entity entity, Identifier entityId) {
 		try {
-			List<TexturedEntityData> registry = getRegistry(IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, entity_type), IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, entity_type));
+			List<TexturedEntityData> registry = getRegistry(IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, IdentifierHelper.stringFromIdentifier(entityId)), IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, IdentifierHelper.stringFromIdentifier(entityId)));
 			if (TexturedEntityDataLoader.isReady) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity")) {
 					if (entity.hasCustomName() && !entity.getCustomName().getString().equalsIgnoreCase("default")) {
@@ -137,9 +138,5 @@ public class TexturedEntity {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to get textured entity entity specific data: {}", error));
 		}
 		return null;
-	}
-	public enum Affix {
-		PREFIX,
-		SUFFIX
 	}
 }

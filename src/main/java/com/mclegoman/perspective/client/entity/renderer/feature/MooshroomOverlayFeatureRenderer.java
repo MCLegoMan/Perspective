@@ -40,7 +40,7 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 	}
 	public Identifier getFinalTexture(Entity entity) {
 		boolean isTexturedEntity = true;
-		TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "mooshroom");
+		TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 		Identifier defaultId = Identifier.of("minecraft", "textures/entity/mooshroom/" + ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_mooshroom_overlay.png");
 		if (entityData != null) {
 			JsonObject entitySpecific = entityData.getEntitySpecific();
@@ -53,7 +53,7 @@ public class MooshroomOverlayFeatureRenderer<T extends CowEntity, M extends Enti
 					}
 				}
 			}
-			if (isTexturedEntity) return TexturedEntity.getTexture(entity, "minecraft:mooshroom", ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_", "_overlay", defaultId);
+			if (isTexturedEntity) return TexturedEntity.getTexture(entity, ((MooshroomEntity)entity).getVariant().asString().toLowerCase() + "_", "_overlay", defaultId);
 		}
 		return defaultId;
 	}

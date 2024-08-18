@@ -12,6 +12,7 @@ import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.entity.TexturedEntityData;
 import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +26,7 @@ public class CatEntityRendererMixin {
 	private void perspective$getTexture(CatEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "cat");
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 			if (entityData != null) {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
@@ -43,9 +44,7 @@ public class CatEntityRendererMixin {
 				}
 				if (isTexturedEntity) {
 					String variant = entity.getVariant().getIdAsString();
-					String variantNamespace = entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : "minecraft";
-					String variantKey = entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : "";
-					cir.setReturnValue(TexturedEntity.getTexture(entity, variantNamespace, "minecraft:cat", TexturedEntity.Affix.SUFFIX, variantKey, cir.getReturnValue()));
+					cir.setReturnValue(TexturedEntity.getTexture(entity, (entity.getVariant() != null ? IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, variant) : ""), "", (entity.getVariant() != null ? "_" + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, variant) : ""), cir.getReturnValue()));
 				}
 			}
 		}

@@ -21,20 +21,18 @@ import net.minecraft.util.Identifier;
 
 public class OverlayFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	private final M model;
-	private final String entityType;
 	private final Identifier texture;
 
-	public OverlayFeatureRenderer(FeatureRendererContext<T, M> context, M model, String entityType, Identifier texture) {
+	public OverlayFeatureRenderer(FeatureRendererContext<T, M> context, M model, Identifier texture) {
 		super(context);
 		this.model = model;
-		this.entityType = entityType;
 		this.texture = texture;
 	}
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		this.getContextModel().copyStateTo(this.model);
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, this.entityType, TexturedEntity.Affix.SUFFIX, "_overlay", this.texture)));
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "", "_overlay", this.texture)));
 		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F));
 	}
 }

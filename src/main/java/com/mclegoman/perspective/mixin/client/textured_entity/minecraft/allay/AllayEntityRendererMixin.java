@@ -20,6 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AllayEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/AllayEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(AllayEntity entity, CallbackInfoReturnable<Identifier> cir) {
-		cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:allay", cir.getReturnValue()));
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

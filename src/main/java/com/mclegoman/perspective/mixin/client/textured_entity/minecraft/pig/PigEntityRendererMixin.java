@@ -14,7 +14,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.PigEntityRenderer;
 import net.minecraft.client.render.entity.model.PigEntityModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,15 +27,12 @@ public abstract class PigEntityRendererMixin extends MobEntityRenderer<PigEntity
 	public PigEntityRendererMixin(EntityRendererFactory.Context context, PigEntityModel<PigEntity> entityModel, float f) {
 		super(context, entityModel, f);
 	}
-
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new PigEntityModel<>(context.getPart(TexturedEntityModels.pigOverlay)), "minecraft:pig", Identifier.of("textures/entity/pig/pig_overlay.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new PigEntityModel<>(context.getPart(TexturedEntityModels.pigOverlay)), Identifier.of("textures/entity/pig/pig_overlay.png")));
 	}
-
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof PigEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:pig", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/PigEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(PigEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

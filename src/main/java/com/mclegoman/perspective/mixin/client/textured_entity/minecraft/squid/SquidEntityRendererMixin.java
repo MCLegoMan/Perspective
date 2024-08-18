@@ -9,7 +9,6 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.squid;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.client.render.entity.SquidEntityRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = SquidEntityRenderer.class)
 public class SquidEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof SquidEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:squid", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/SquidEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(SquidEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

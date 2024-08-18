@@ -9,6 +9,7 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.firewor
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.FireworkRocketEntityRenderer.class)
 public class FireworkRocketEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof FireworkRocketEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:firework_rocket", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/projectile/FireworkRocketEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(FireworkRocketEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }

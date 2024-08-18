@@ -14,10 +14,8 @@
   - This will not render anything in menu backgrounds (except for the panorama).  
 - Added `UIBackground.registerUIBackground(UIBackgroundData data)` function.
   - This function was added to allow third-party mods to add UI Backgrounds without having to use mixins.  
-- Replaced `new UIBackgroundData();` with `new UIBackgroundData.Builder().build();`.  
+- Replaced `new UIBackgroundData(...);` with `new UIBackgroundData.Builder(Identifier identifier).build();`.  
   - ***NOTE: This feature is for third-party mod developers.***  
-    - This feature currently doesn't support namespacing, and will only register the first registered instance of a ui background with the same name.  
-      - This will be fixed in a future update.  
   - This new builder simplifies the process of making new UI Backgrounds.    
   - This builder contains the following functions:  
     - `.renderWorld(UIBackground.Runnable renderWorld)`  
@@ -43,3 +41,10 @@
 ### Shaders  
 - Updated `perspective:gaussian` shader.  
   - The shader was not blending correctly before.  
+### Entities  
+- Armor Stands can now have capes.  
+  - By default, this texture is blank.  
+  - This can also be set via the textured entity system.  
+### Resource Packs  
+- #### Perspective: Default  
+  - Added `Dummy` Armor Stand Textured Entity.  

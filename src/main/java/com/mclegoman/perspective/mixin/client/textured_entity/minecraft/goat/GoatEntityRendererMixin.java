@@ -24,8 +24,7 @@ public class GoatEntityRendererMixin {
 	private void perspective$getTexture(GoatEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		if (entity != null) {
 			boolean isTexturedEntity = true;
-			boolean isScreaming = true;
-			TexturedEntityData entityData = TexturedEntity.getEntity(entity, "minecraft", "goat");
+			TexturedEntityData entityData = TexturedEntity.getEntity(entity);
 			if (entityData != null) {
 				JsonObject entitySpecific = entityData.getEntitySpecific();
 				if (entitySpecific != null) {
@@ -45,8 +44,8 @@ public class GoatEntityRendererMixin {
 					}
 				}
 				if (isTexturedEntity) {
-					String variant = isScreaming && entity.isScreaming() ? "_screaming" : "";
-					cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:goat", TexturedEntity.Affix.SUFFIX, variant, cir.getReturnValue()));
+					String variant = entity.isScreaming() ? "_screaming" : "";
+					cir.setReturnValue(TexturedEntity.getTexture(entity, "", variant, cir.getReturnValue()));
 				}
 			}
 		}

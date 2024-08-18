@@ -23,18 +23,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.EndCrystalEntityRenderer.class)
 public class EndCrystalEntityRendererMixin {
-	@Mutable
-	@Shadow
-	@Final
-	private static Identifier TEXTURE;
-	@Mutable
-	@Shadow
-	@Final
-	private static RenderLayer END_CRYSTAL;
-
+	@Mutable @Shadow @Final private static Identifier TEXTURE;
+	@Mutable @Shadow @Final private static RenderLayer END_CRYSTAL;
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/entity/decoration/EndCrystalEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
 	private void perspective$render(EndCrystalEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-		TEXTURE = TexturedEntity.getTexture(entity, "minecraft:end_crystal", Identifier.of("textures/entity/end_crystal/end_crystal.png"));
+		TEXTURE = TexturedEntity.getTexture(entity, Identifier.of("textures/entity/end_crystal/end_crystal.png"));
 		END_CRYSTAL = RenderLayer.getEntityCutoutNoCull(TEXTURE);
 	}
 }

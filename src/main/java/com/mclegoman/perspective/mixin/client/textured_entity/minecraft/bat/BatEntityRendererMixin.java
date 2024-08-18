@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.bat;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.BatEntityRenderer.class)
 public class BatEntityRendererMixin {
-	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/Identifier;", cancellable = true)
-	private void perspective$getTexture(Entity entity, CallbackInfoReturnable<Identifier> cir) {
-		if (entity instanceof BatEntity)
-			cir.setReturnValue(TexturedEntity.getTexture(entity, "minecraft:bat", cir.getReturnValue()));
+	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/BatEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
+	private void perspective$getTexture(BatEntity entity, CallbackInfoReturnable<Identifier> cir) {
+		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));
 	}
 }
