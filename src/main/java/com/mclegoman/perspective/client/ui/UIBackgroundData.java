@@ -17,46 +17,7 @@ public class UIBackgroundData {
 	private final boolean renderShader;
 	private final Identifier shaderId;
 	private final boolean renderDarkening;
-	public UIBackgroundData(String id, UIBackground.Runnable renderWorld, boolean renderPanorama, UIBackground.Runnable renderMenu, boolean renderShader, Identifier shaderId) {
-		this(id, renderWorld, renderPanorama, renderMenu, renderShader, shaderId, true);
-	}
-	public UIBackgroundData(String id, UIBackground.Runnable renderWorld, boolean renderPanorama, UIBackground.Runnable renderMenu, boolean renderShader) {
-		this(id, renderWorld, renderPanorama, renderMenu, renderShader, null, true);
-	}
-	public UIBackgroundData(String id, UIBackground.Runnable renderWorld, boolean renderPanorama, UIBackground.Runnable renderMenu) {
-		this(id, renderWorld, renderPanorama, renderMenu, true, null, true);
-	}
-	public UIBackgroundData(String id, UIBackground.Runnable renderWorld, boolean renderPanorama) {
-		this(id, renderWorld, renderPanorama, null, true, null, true);
-	}
-	public UIBackgroundData(String id, UIBackground.Runnable renderWorld) {
-		this(id, renderWorld, true, null, true, null, true);
-	}
-	public UIBackgroundData(String id) {
-		this(id, null, true, null, true, null, true);
-	}
-	public UIBackgroundData(String id, Identifier shaderId) {
-		this(id, null, true, null, true, shaderId, true);
-	}
-	public UIBackgroundData(String id, boolean renderPanorama, Identifier shaderId, boolean renderDarkening) {
-		this(id, null, renderPanorama, null, true, shaderId, renderDarkening);
-	}
-	public UIBackgroundData(String id, boolean renderPanorama, Identifier shaderId) {
-		this(id, null, renderPanorama, null, true, shaderId, true);
-	}
-	public UIBackgroundData(String id, Identifier shaderId, boolean renderDarkening) {
-		this(id, null, true, null, true, shaderId, renderDarkening);
-	}
-	public UIBackgroundData(String id, boolean renderPanorama, boolean renderDarkening) {
-		this(id, null, renderPanorama, null, true, null, renderDarkening);
-	}
-	public UIBackgroundData(String id, boolean renderDarkening) {
-		this(id, null, true, null, true, null, renderDarkening);
-	}
-	public UIBackgroundData() {
-		this("fallback", null, true, null, true, null, true);
-	}
-	public UIBackgroundData(String id, UIBackground.Runnable renderWorld, boolean renderPanorama, UIBackground.Runnable renderMenu, boolean renderShader, Identifier shaderId, boolean renderDarkening) {
+	private UIBackgroundData(String id, UIBackground.Runnable renderWorld, boolean renderPanorama, UIBackground.Runnable renderMenu, boolean renderShader, Identifier shaderId, boolean renderDarkening) {
 		this.id = id;
 		this.renderWorld = renderWorld;
 		this.renderPanorama = renderPanorama;
@@ -85,5 +46,54 @@ public class UIBackgroundData {
 	}
 	public boolean getRenderDarkening() {
 		return this.renderDarkening;
+	}
+
+	public static class Builder {
+		private final String id;
+		private UIBackground.Runnable renderWorld;
+		private boolean renderPanorama;
+		private UIBackground.Runnable renderMenu;
+		private boolean renderShader;
+		private Identifier shaderId;
+		private boolean renderDarkening;
+		public Builder(String id) {
+			this.id = id;
+			this.renderWorld = null;
+			this.renderPanorama = true;
+			this.renderMenu = null;
+			this.renderShader = true;
+			this.shaderId = null;
+			this.renderDarkening = true;
+		}
+		public static UIBackgroundData getFallback() {
+			return new Builder("fallback").build();
+		}
+		public Builder renderWorld(UIBackground.Runnable renderWorld) {
+			this.renderWorld = renderWorld;
+			return this;
+		}
+		public Builder renderPanorama(boolean renderPanorama) {
+			this.renderPanorama = renderPanorama;
+			return this;
+		}
+		public Builder renderMenu(UIBackground.Runnable renderMenu) {
+			this.renderMenu = renderMenu;
+			return this;
+		}
+		public Builder renderShader(boolean renderShader) {
+			this.renderShader = renderShader;
+			return this;
+		}
+		public Builder shaderId(Identifier shaderId) {
+			this.shaderId = shaderId;
+			return this;
+		}
+		public Builder renderDarkening(boolean renderDarkening) {
+			this.renderDarkening = renderDarkening;
+			return this;
+		}
+		public UIBackgroundData build() {
+			return new UIBackgroundData(this.id, this.renderWorld, this.renderPanorama, this.renderMenu, this.renderShader, this.shaderId, this.renderDarkening);
+		}
 	}
 }

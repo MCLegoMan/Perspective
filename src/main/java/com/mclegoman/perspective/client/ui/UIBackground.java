@@ -28,26 +28,23 @@ public class UIBackground {
 	private static final List<UIBackgroundData> uiBackgroundTypes = new ArrayList<>();
 	private static final List<String> titleScreenBackgroundTypes = new ArrayList<>();
 	public static void init() {
-		uiBackgroundTypes.add(new UIBackgroundData("default"));
-		uiBackgroundTypes.add(new UIBackgroundData("gaussian", Identifier.of("perspective", "shaders/post/gaussian.json")));
-		uiBackgroundTypes.add(new UIBackgroundData("legacy",
-				new Runnable() {
+		uiBackgroundTypes.add(new UIBackgroundData.Builder("default").build());
+		uiBackgroundTypes.add(new UIBackgroundData.Builder("gaussian").shaderId(Identifier.of("perspective", "shaders/post/gaussian.json")).build());
+		uiBackgroundTypes.add(new UIBackgroundData.Builder("legacy").renderWorld(new Runnable() {
 					public void run(DrawContext context) {
 						RenderSystem.enableBlend();
 						context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
 						RenderSystem.disableBlend();
 					}
-				},false,
-				new Runnable() {
+				}).renderMenu(new Runnable() {
 					public void run(DrawContext context) {
 						RenderSystem.enableBlend();
 						context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 						context.drawTexture(Identifier.of(Data.version.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 						RenderSystem.disableBlend();
 					}
-				},
-				false));
-		uiBackgroundTypes.add(new UIBackgroundData("none", false));
+				}).renderPanorama(false).renderShader(false).build());
+		uiBackgroundTypes.add(new UIBackgroundData.Builder("none").renderShader(false).renderDarkening(false).build());
 		titleScreenBackgroundTypes.add("default");
 		titleScreenBackgroundTypes.add("dirt");
 	}
@@ -66,7 +63,7 @@ public class UIBackground {
 		for (UIBackgroundData data : uiBackgroundTypes) {
 			if (data.getId().equals(type)) return data;
 		}
-		return new UIBackgroundData();
+		return UIBackgroundData.Builder.getFallback();
 	}
 	public static boolean isRegisteredUIBackgroundType(String type) {
 		for (UIBackgroundData data : uiBackgroundTypes) {
