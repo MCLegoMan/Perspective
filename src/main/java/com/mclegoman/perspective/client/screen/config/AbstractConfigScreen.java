@@ -127,7 +127,7 @@ public abstract class AbstractConfigScreen extends Screen {
 		context.drawTextWithShadow(textRenderer, licenceText, this.width - this.textRenderer.getWidth(licenceText) - 2, this.height - 10, 0xFFFFFF);
 		getLogoWidget(this.width / 2 - 128, 30, getExperimental()).renderWidget(context, mouseX, mouseY, delta);
 		context.drawCenteredTextWithShadow(textRenderer, getPageTitle(), this.width / 2, 78, 0xFFFFFF);
-		if (isBeingReworked()) context.drawCenteredTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "warning.reworked", new Object[]{Translation.getConfigTranslation(Data.version.getID(), getPageId())}, new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 10, 0xFFFFFF);
+		if (isBeingReworked()) context.drawCenteredTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "warning.reworked", new Object[]{Translation.getConfigTranslation(Data.version.getID(), getReworkedId())}, new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 10, 0xFFFFFF);
 	}
 	public Screen getRefreshScreen() {
 		return this;
@@ -152,5 +152,8 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public boolean isBeingReworked() {
 		return false;
+	}
+	public String getReworkedId() {
+		return getPageId();
 	}
 }
