@@ -365,5 +365,5 @@
 	"gui.perspective.debug.config.tutorial": "Tutorial Config",
 	"gui.perspective.debug.config.warning": "Warning Config",
 
-	"gui.perspective.config.shaders.update_warning": "Shaders are currently being re-worked. Expect bugs."
+	"gui.perspective.config.warning.reworked": "%s is currently being re-worked. Expect bugs."
 }

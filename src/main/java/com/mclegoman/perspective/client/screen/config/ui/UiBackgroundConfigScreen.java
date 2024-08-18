@@ -56,4 +56,7 @@ public class UiBackgroundConfigScreen extends AbstractConfigScreen {
 	public String getPageId() {
 		return "ui_background";
 	}
+	public boolean isBeingReworked() {
+		return true;
+	}
 }

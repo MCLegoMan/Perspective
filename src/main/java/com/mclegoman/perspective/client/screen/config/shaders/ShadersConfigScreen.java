@@ -94,8 +94,7 @@ public class ShadersConfigScreen extends AbstractConfigScreen {
 	public String getPageId() {
 		return "shaders";
 	}
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		super.render(context, mouseX, mouseY, delta);
-		context.drawCenteredTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "shaders.update_warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 10, 0xFFFFFF);
+	public boolean isBeingReworked() {
+		return true;
 	}
 }
