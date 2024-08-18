@@ -307,6 +307,7 @@
 	"gui.perspective.config.ui_background.type.default": "Default",
 	"gui.perspective.config.ui_background.type.gaussian": "Gaussian",
 	"gui.perspective.config.ui_background.type.legacy": "Legacy",
+	"gui.perspective.config.ui_background.type.none": "None",
 	"gui.perspective.config.ui_background.type.fallback": "§4ERROR",
 
 	"gui.perspective.config.time_overlay.type.false": "OFF",

@@ -30,4 +30,8 @@ public abstract class ScreenMixin {
 		if (data.getRenderMenu() != null) data.getRenderMenu().run(context);
 		if (!data.getRenderPanorama()) ci.cancel();
 	}
+	@Inject(method = "renderDarkening(Lnet/minecraft/client/gui/DrawContext;IIII)V", at = @At(value = "HEAD"), cancellable = true)
+	private void perspective$renderDarkening(DrawContext context, int x, int y, int width, int height, CallbackInfo ci) {
+		if (!UIBackground.getCurrentUIBackground().getRenderDarkening()) ci.cancel();
+	}
 }

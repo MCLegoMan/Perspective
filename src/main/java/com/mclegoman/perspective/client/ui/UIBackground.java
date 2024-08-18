@@ -28,8 +28,8 @@ public class UIBackground {
 	private static final List<UIBackgroundData> uiBackgroundTypes = new ArrayList<>();
 	private static final List<String> titleScreenBackgroundTypes = new ArrayList<>();
 	public static void init() {
-		uiBackgroundTypes.add(new UIBackgroundData("default", null, true, null, true, null));
-		uiBackgroundTypes.add(new UIBackgroundData("gaussian", null, true, null, true, Identifier.of("perspective", "shaders/post/gaussian.json")));
+		uiBackgroundTypes.add(new UIBackgroundData("default"));
+		uiBackgroundTypes.add(new UIBackgroundData("gaussian", Identifier.of("perspective", "shaders/post/gaussian.json")));
 		uiBackgroundTypes.add(new UIBackgroundData("legacy",
 				new Runnable() {
 					public void run(DrawContext context) {
@@ -46,7 +46,8 @@ public class UIBackground {
 						RenderSystem.disableBlend();
 					}
 				},
-				false, null));
+				false));
+		uiBackgroundTypes.add(new UIBackgroundData("none", false));
 		titleScreenBackgroundTypes.add("default");
 		titleScreenBackgroundTypes.add("dirt");
 	}
@@ -65,7 +66,7 @@ public class UIBackground {
 		for (UIBackgroundData data : uiBackgroundTypes) {
 			if (data.getId().equals(type)) return data;
 		}
-		return new UIBackgroundData("fallback", null, true, null, true, null);
+		return new UIBackgroundData();
 	}
 	public static boolean isRegisteredUIBackgroundType(String type) {
 		for (UIBackgroundData data : uiBackgroundTypes) {
