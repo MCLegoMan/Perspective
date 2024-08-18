@@ -121,13 +121,14 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);
-		if (ConfigHelper.showReloadOverlay) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "reload"), 2, 2, 0xFFFFFF);
+		if (ConfigHelper.showReloadOverlay) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "reload"), this.width - textRenderer.getWidth(Translation.getConfigTranslation(Data.version.getID(), "reload")) - 2, 2, 0xFFFFFF);
 		context.drawTextWithShadow(textRenderer, Translation.getTranslation(Data.version.getID(), "version", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(), false, new Formatting[]{Formatting.WHITE})}), 2, this.height - 10, 0xFFFFFF);
 		Text licenceText = Translation.getTranslation(Data.version.getID(), "license", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(false), false, new Formatting[]{Formatting.WHITE})});
 		context.drawTextWithShadow(textRenderer, licenceText, this.width - this.textRenderer.getWidth(licenceText) - 2, this.height - 10, 0xFFFFFF);
 		getLogoWidget(this.width / 2 - 128, 30, getExperimental()).renderWidget(context, mouseX, mouseY, delta);
 		context.drawCenteredTextWithShadow(textRenderer, getPageTitle(), this.width / 2, 78, 0xFFFFFF);
 		if (isBeingReworked()) context.drawCenteredTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "warning.reworked", new Object[]{Translation.getConfigTranslation(Data.version.getID(), getReworkedId())}, new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 10, 0xFFFFFF);
+		if (canShowUpdate() && isUpdateAvailable()) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "update.title"), 2, 2, 0xFFAA00);
 	}
 	public Screen getRefreshScreen() {
 		return this;
@@ -155,5 +156,11 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public String getReworkedId() {
 		return getPageId();
+	}
+	public boolean canShowUpdate() {
+		return true;
+	}
+	public boolean isUpdateAvailable() {
+		return Update.isNewerVersionFound();
 	}
 }

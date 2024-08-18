@@ -45,8 +45,7 @@
 	"gui.perspective.toasts.experimental.title": "Experimental Feature",
 	"gui.perspective.toasts.experimental.description": "%s is currently experimental. You may experience bugs and/or issues.",
 
-	"gui.perspective.config.update.title": "Update Available",
-	"gui.perspective.config.update.description": "%s is now available on Modrinth!",
+	"gui.perspective.config.update.title": "Update Available!",
 
 	"gui.perspective.config.update.checking": "Checking for updates...",
 
