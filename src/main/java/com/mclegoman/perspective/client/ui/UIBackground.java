@@ -114,9 +114,9 @@ public class UIBackground {
 		try {
 			if (data.getRenderShader()) {
 				if (postProcessor == null) loadShader(data);
-				RenderSystem.enableBlend();
+				float blurriness = ClientData.minecraft.options.getMenuBackgroundBlurrinessValue();
+				if (blurriness >= 1.0F) postProcessor.setUniforms("Radius", blurriness);
 				postProcessor.render(tickDelta);
-				RenderSystem.disableBlend();
 				ClientData.minecraft.getFramebuffer().beginWrite(false);
 			}
 		} catch (Exception error) {

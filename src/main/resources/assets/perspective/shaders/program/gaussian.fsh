@@ -9,7 +9,7 @@ uniform vec2 InSize;
 
 uniform vec2 BlurDir;
 uniform float Radius;
-uniform float Alpha;
+uniform float RadiusMultiplier;
 
 out vec4 fragColor;
 
@@ -22,7 +22,7 @@ void main() {
     float totalStrength = 0.0;
     float totalAlpha = 0.0;
     for(float r = -Radius; r <= Radius; r += 1.0) {
-        vec4 sampleValue = texture(DiffuseSampler, texCoord + oneTexel * r * Alpha * BlurDir);
+        vec4 sampleValue = texture(DiffuseSampler, texCoord + oneTexel * r * RadiusMultiplier * BlurDir);
         totalAlpha += sampleValue.a * gaussian(r);
         blurred += sampleValue * gaussian(r);
         totalStrength += gaussian(r);

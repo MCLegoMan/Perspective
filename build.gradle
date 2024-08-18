@@ -43,8 +43,8 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
-	include(modImplementation "maven.modrinth:luminance:${project.luminance}")
-	//include(modImplementation fileTree(dir: 'libs', include: '*.jar'))
+	//include(modImplementation "maven.modrinth:luminance:${project.luminance}")
+	include(modImplementation fileTree(dir: 'libs', include: '*.jar'))
 
 	// Compatibility
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"

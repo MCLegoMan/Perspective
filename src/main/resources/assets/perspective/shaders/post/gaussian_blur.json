@@ -1,56 +1,88 @@
 {
     "targets": [
-        "0",
-        "1",
-        "2"
+        "swap",
+        "merge",
+        "final"
     ],
     "passes": [
         {
-            "name": "perspective:gaussian",
+            "name": "perspective:gaussian_blur",
             "intarget": "minecraft:main",
-            "outtarget": "0",
+            "outtarget": "swap",
             "use_linear_filter": true,
             "uniforms": [
                 {
                     "name": "BlurDir",
-                    "values": [
-                        1.0,
-                        0.0
-                    ]
-                },
-                {
-                    "name": "Radius",
-                    "values": [
-                        20.0
-                    ]
+                    "values": [ 1.0, 0.0 ]
                 }
             ]
         },
         {
-            "name": "perspective:gaussian",
-            "intarget": "0",
-            "outtarget": "1",
+            "name": "perspective:gaussian_blur",
+            "intarget": "swap",
+            "outtarget": "merge",
             "use_linear_filter": true,
             "uniforms": [
                 {
                     "name": "BlurDir",
-                    "values": [
-                        0.0,
-                        1.0
-                    ]
-                },
+                    "values": [ 0.0, 1.0 ]
+                }
+            ]
+        }, {
+            "name": "perspective:gaussian_blur",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "use_linear_filter": true,
+            "uniforms": [
                 {
-                    "name": "Radius",
-                    "values": [
-                        20.0
-                    ]
+                    "name": "BlurDir",
+                    "values": [ 1.0, 0.0 ],
+                    "RadiusMultiplier" : 0.5
+                }
+            ]
+        },
+        {
+            "name": "perspective:gaussian_blur",
+            "intarget": "swap",
+            "outtarget": "merge",
+            "use_linear_filter": true,
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [ 0.0, 1.0 ],
+                    "RadiusMultiplier" : 0.5
+                }
+            ]
+        }, {
+            "name": "perspective:gaussian_blur",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "use_linear_filter": true,
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [ 1.0, 0.0 ],
+                    "RadiusMultiplier" : 0.25
+                }
+            ]
+        },
+        {
+            "name": "perspective:gaussian_blur",
+            "intarget": "swap",
+            "outtarget": "merge",
+            "use_linear_filter": true,
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [ 0.0, 1.0 ],
+                    "RadiusMultiplier" : 0.25
                 }
             ]
         },
         {
             "name": "luminance:merge",
-            "intarget": "1",
-            "outtarget": "2",
+            "intarget": "merge",
+            "outtarget": "final",
             "auxtargets": [
                 {
                     "name": "MergeSampler",
@@ -59,8 +91,8 @@
             ]
         },
         {
-            "name": "blit",
-            "intarget": "2",
+            "name": "minecraft:blit",
+            "intarget": "final",
             "outtarget": "minecraft:main"
         }
     ]
