@@ -10,12 +10,34 @@
   - Valid Options: `false`, `twelve_hour`, `twenty_four_hour`.  
   - When set to `twelve_hour` or `twenty_four_hour`, the current game time will be added to the overlays in the set format.  
 ### UI Background  
-- Updated UI Background registration.
-  - `new UIBackground()` will now return the fallback uiBackground.
-  - `new UIBackground(...)` now has more options for registration, allowing developers to register ui backgrounds without having to add null to some options.  
-  - Added `renderDarkening` option to `new UIBackground(...)`.  
 - Added `none` UI Background.  
   - This will not render anything in menu backgrounds (except for the panorama).  
+- Replaced `new UIBackgroundData();` with `new UIBackgroundData.Builder().build();`.  
+  - ***NOTE: This feature is for third-party mod developers.***  
+    - This feature currently doesn't support namespacing, and will break if more than one ui background uses the same name.  
+      - This will be fixed in a future update.  
+  - This new builder simplifies the process of making new UI Backgrounds.    
+  - This builder contains the following functions:  
+    - `.renderWorld(UIBackground.Runnable renderWorld)`  
+      - This optional runnable will be executed when a menu is opened if in a world.  
+    - `.renderMenu(UIBackground.Runnable renderMenu)`  
+      - This optional runnable will be executed when a menu is opened if not in a world.  
+    - `.renderPanorama(boolean renderPanorama)`  
+      - If set to false, the panorama will not be rendered on menu screens. (NOTE: This doesn't include the Title Screen.)
+      - Defaults to true.
+    - `.renderShader(boolean renderShader)`
+      - If set to false, the shaderId shader will not be rendered on menu screens.  
+      - Defaults to true.
+    - `.shaderId(Identifier shaderId)`  
+      - This sets the shader that replaces the menu blur shader.  
+      - Defaults to null.
+        - When set to null, the game uses the default blur shader.  
+    - `.renderDarkening(boolean renderDarkening)`
+      - If set to false, menu darkening is disabled.  
+      - Defaults to true.  
+  - Make sure to finish with `.build();`.  
+  - Don't forget to add it to the registry: `UIBackground.uiBackgroundTypes.add(new UIBackgroundData.Builder("example").build());`  
+  - You should also name your ui background in the translation files with this key: `"gui.perspective.config.ui_background.type.example"`  
 ### Shaders  
 - Updated `perspective:gaussian` shader.  
   - The shader was not blending correctly before.  
