@@ -42,9 +42,12 @@
 - Updated `perspective:gaussian` shader.  
   - The shader was not blending correctly before.  
 ### Entities  
-- Armor Stands can now have capes.  
+- Armor Stands and Zombies can now have capes.  
   - By default, this texture is blank.  
   - This can also be set via the textured entity system.  
+- #### Textured Entity  
+  - Textured Entities will now get their type from their entity.  
+  - This means the entity type provided in the dataloader must match that of what the game loads the entity as. (You can check these using the `/summon` command.)  
 ### Resource Packs  
 - #### Perspective: Default  
   - Added `Dummy` Armor Stand Textured Entity.  
