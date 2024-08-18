@@ -16,3 +16,6 @@
   - Added `renderDarkening` option to `new UIBackground(...)`.  
 - Added `none` UI Background.  
   - This will not render anything in menu backgrounds (except for the panorama).  
+### Shaders  
+- Updated `perspective:gaussian` shader.  
+  - The shader was not blending correctly before.  
