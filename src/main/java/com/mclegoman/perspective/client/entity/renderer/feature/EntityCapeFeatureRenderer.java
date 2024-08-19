@@ -25,11 +25,12 @@ import org.joml.Quaternionf;
 public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<T, LivingEntityCapeModel<T>> {
 	private final LivingEntityCapeModel<T> model;
 	private final Identifier capeTexture;
+	private final float scale;
 	private final float offsetX;
 	private final float offsetY;
 	private final float offsetZ;
 	private final Quaternionf rotation;
-	private EntityCapeFeatureRenderer(FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext, LivingEntityCapeModel<T> model, Identifier capeTexture, float offsetX, float offsetY, float offsetZ, Quaternionf rotation) {
+	private EntityCapeFeatureRenderer(FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext, LivingEntityCapeModel<T> model, Identifier capeTexture, float offsetX, float offsetY, float offsetZ, Quaternionf rotation, float scale) {
 		super(featureRendererContext);
 		this.model = model;
 		this.capeTexture = capeTexture;
@@ -37,11 +38,13 @@ public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRe
 		this.offsetY = offsetY;
 		this.offsetZ = offsetZ;
 		this.rotation = rotation;
+		this.scale = scale;
 	}
 	public static class Builder<T extends LivingEntity> {
 		FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext;
 		LivingEntityCapeModel<T> model;
 		Identifier capeTexture;
+		float scale = 1.0F;
 		float offsetX = 0.0F;
 		float offsetY = 0.0F;
 		float offsetZ = 0.125F;
@@ -50,6 +53,10 @@ public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRe
 			this.featureRendererContext = featureRendererContext;
 			this.model = model;
 			this.capeTexture = capeTexture;
+		}
+		public Builder scale(float scale) {
+			this.scale = scale;
+			return this;
 		}
 		public Builder offsetX(float x) {
 			this.offsetX = x;
@@ -68,17 +75,16 @@ public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRe
 			return this;
 		}
 		public EntityCapeFeatureRenderer<T> build() {
-			return new EntityCapeFeatureRenderer<>(this.featureRendererContext, this.model, this.capeTexture, offsetX, offsetY, offsetZ, rotation);
+			return new EntityCapeFeatureRenderer<>(this.featureRendererContext, this.model, this.capeTexture, offsetX, offsetY, offsetZ, rotation, scale);
 		}
 	}
-
-
 	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, T livingEntity, float a, float b, float delta, float c, float d, float e) {
 		matrixStack.push();
 		if (livingEntity.isBaby()) {
 			matrixStack.scale(0.5F, 0.5F, 0.5F);
 			matrixStack.translate(0.0F, 1.5F, 0.0F);
 		}
+		matrixStack.scale(this.scale, this.scale, this.scale);
 		matrixStack.translate(this.offsetX, this.offsetY, this.offsetZ);
 		matrixStack.multiply(rotation);
 		double f = 0.0F;
