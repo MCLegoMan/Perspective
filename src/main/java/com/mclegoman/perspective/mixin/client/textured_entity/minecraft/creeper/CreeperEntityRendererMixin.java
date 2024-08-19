@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = net.minecraft.client.render.entity.CreeperEntityRenderer.class)
-public class CreeperEntityRendererMixin {
+public abstract class CreeperEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/CreeperEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(CreeperEntity entity, CallbackInfoReturnable<Identifier> cir) {
 		cir.setReturnValue(TexturedEntity.getTexture(entity, cir.getReturnValue()));

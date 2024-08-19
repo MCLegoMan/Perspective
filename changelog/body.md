@@ -54,7 +54,7 @@ This alpha release revamps overlays, adds more ui background customizability, im
 - Updated `perspective:gaussian` shader.  
   - The shader was not blending correctly before.  
 ### Entities  
-- Added capes to the following entities: `minecraft:armor_stand`, `minecraft:zombie`, `minecraft:drowned`, `minecraft:husk`, `minecraft:zombie_villager`, `minecraft:skeleton`, `minecraft:wither_skeleton`, `minecraft:bogged`, `minecraft:stray`, `minecraft:witch`, `minecraft:villager`, `minecraft:giant`, `minecraft:pillager`, `minecraft:evoker`, `minecraft:illusioner`, `minecraft:wandering_trader`.  
+- Added capes to the following entities: `minecraft:armor_stand`, `minecraft:zombie`, `minecraft:drowned`, `minecraft:husk`, `minecraft:zombie_villager`, `minecraft:skeleton`, `minecraft:wither_skeleton`, `minecraft:bogged`, `minecraft:stray`, `minecraft:witch`, `minecraft:villager`, `minecraft:giant`, `minecraft:pillager`, `minecraft:evoker`, `minecraft:illusioner`, `minecraft:wandering_trader`, `minecraft:cow`.  
   - By default, their texture is blank.  
   - This can also be set via the textured entity system.  
   - This will be rendered separately from elytras.  
