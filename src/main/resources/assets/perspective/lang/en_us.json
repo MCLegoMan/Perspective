@@ -37,6 +37,9 @@
 	"gui.perspective.toasts.tutorial.prank.title": "April Fools!",
 	"gui.perspective.toasts.tutorial.prank.description": "This prank is only visible to users with Perspective installed. You can disable it in the Perspective config using [%s].",
 
+	"gui.perspective.toasts.tutorial.halloween.title": "Trick or Treat",
+	"gui.perspective.toasts.tutorial.halloween.description": "Witch Hats are only visible to users with Perspective installed. You can disable it in the Perspective config using [%s].",
+
 	"gui.perspective.toasts.warning.title": "%s Warning: %s",
 
 	"gui.perspective.toasts.warning.photosensitivity.title": "Super Secret Settings",

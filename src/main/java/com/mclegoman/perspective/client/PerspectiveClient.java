@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.client;
 
 import com.mclegoman.luminance.common.util.LogType;
-import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
+import com.mclegoman.perspective.client.events.AprilFoolsPrank;
 import com.mclegoman.perspective.client.contributor.Contributor;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;

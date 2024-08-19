@@ -1,8 +1,14 @@
+/*
+    Perspective
+    Contributor(s): MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    Licence: GNU LGPLv3
+*/
+
 package com.mclegoman.perspective.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mclegoman.luminance.common.util.DateHelper;
-import com.mclegoman.perspective.config.ConfigHelper;
+import com.mclegoman.perspective.client.events.Halloween;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
@@ -18,8 +24,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.function.Function;
 
 public class HalloweenHatModel<T extends PlayerEntity> extends AnimalModel<T> {
@@ -49,13 +53,10 @@ public class HalloweenHatModel<T extends PlayerEntity> extends AnimalModel<T> {
 	public void setAngles(T livingEntity, float f, float g, float h, float i, float j) {
 	}
 	public void renderHalloween(MatrixStack matrixStack, VertexConsumer vertices, int light, int overlay, PlayerEntityModel<?> playerEntityModel) {
-		LocalDate date = DateHelper.getDate();
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_halloween")) {
-			if ((date.getMonth() == Month.OCTOBER && date.getDayOfMonth() == 31) || (date.getMonth() == Month.NOVEMBER && date.getDayOfMonth() == 1) || ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "force_halloween"))) {
-				this.halloween.copyTransform(playerEntityModel.head);
-				matrixStack.scale(1.25F, 1.25F, 1.25F);
-				this.halloween.render(matrixStack, vertices, light, overlay);
-			}
+		if (Halloween.isHalloween()) {
+			this.halloween.copyTransform(playerEntityModel.head);
+			matrixStack.scale(1.25F, 1.25F, 1.25F);
+			this.halloween.render(matrixStack, vertices, light, overlay);
 		}
 	}
 }

@@ -20,6 +20,7 @@ public class WarningsConfig {
 	protected static ConfigProvider configProvider;
 	protected static boolean photosensitivity;
 	protected static boolean prank;
+	protected static boolean halloween;
 	protected static final Object[] options;
 
 	protected static void init() {
@@ -36,23 +37,27 @@ public class WarningsConfig {
 	protected static void create() {
 		configProvider.add(new Couple<>("photosensitivity", false));
 		configProvider.add(new Couple<>("prank", false));
+		configProvider.add(new Couple<>("halloween", false));
 	}
 
 	protected static void assign() {
 		photosensitivity = config.getOrDefault("photosensitivity", false);
 		prank = config.getOrDefault("prank", false);
+		prank = config.getOrDefault("halloween", false);
 	}
 
 	protected static void save() {
 		Data.version.sendToLog(LogType.INFO,"Writing warning config to file.");
 		configProvider.setConfig("photosensitivity", photosensitivity);
 		configProvider.setConfig("prank", prank);
+		configProvider.setConfig("halloween", prank);
 		configProvider.saveConfig(Data.version, id);
 	}
 	static {
 		options = new Object[]{
 				photosensitivity,
-				prank
+				prank,
+				halloween
 		};
 	}
 }

@@ -5,7 +5,7 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.client.april_fools_prank;
+package com.mclegoman.perspective.client.events;
 
 import com.mclegoman.luminance.common.util.DateHelper;
 import com.mclegoman.luminance.common.util.LogType;

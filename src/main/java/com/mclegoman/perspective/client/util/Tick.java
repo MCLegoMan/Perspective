@@ -7,7 +7,8 @@
 
 package com.mclegoman.perspective.client.util;
 
-import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
+import com.mclegoman.perspective.client.events.AprilFoolsPrank;
+import com.mclegoman.perspective.client.events.Halloween;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.shaders.Shaders;
 import com.mclegoman.perspective.client.entity.TexturedEntity;
@@ -28,6 +29,7 @@ public class Tick {
 				ConfigHelper.tick();
 				HUDHelper.tick();
 				AprilFoolsPrank.tick();
+				Halloween.tick();
 				Keybindings.tick();
 				Perspective.tick();
 				Zoom.tick();

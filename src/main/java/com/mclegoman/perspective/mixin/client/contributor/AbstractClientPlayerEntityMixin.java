@@ -7,8 +7,8 @@
 
 package com.mclegoman.perspective.mixin.client.contributor;
 
-import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrank;
-import com.mclegoman.perspective.client.april_fools_prank.AprilFoolsPrankDataLoader;
+import com.mclegoman.perspective.client.events.AprilFoolsPrank;
+import com.mclegoman.perspective.client.events.AprilFoolsPrankDataLoader;
 import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.client.contributor.ContributorData;
 import com.mclegoman.perspective.config.ConfigHelper;

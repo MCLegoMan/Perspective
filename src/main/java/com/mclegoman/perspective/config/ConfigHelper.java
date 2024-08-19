@@ -598,6 +598,10 @@ public class ConfigHelper {
 							WarningsConfig.prank = (boolean) value;
 							configChanged = true;
 						}
+						case "halloween" -> {
+							WarningsConfig.halloween = (boolean) value;
+							configChanged = true;
+						}
 						default -> {
 							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
 						}
@@ -789,6 +793,9 @@ public class ConfigHelper {
 					}
 					case "prank" -> {
 						return WarningsConfig.prank;
+					}
+					case "halloween" -> {
+						return WarningsConfig.halloween;
 					}
 					default -> {
 						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get warning {} config value!: Invalid Key", ID));
