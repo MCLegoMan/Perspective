@@ -104,7 +104,7 @@ public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRe
 		matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(n / 2.0F));
 		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - n / 2.0F));
 
-		this.model.renderCape(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(livingEntity, "", "_cape", capeTexture))), light, OverlayTexture.DEFAULT_UV);
+		this.model.renderCape(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(livingEntity, "", "_cape", capeTexture))), livingEntity, light, OverlayTexture.DEFAULT_UV);
 		matrixStack.pop();
 	}
 }

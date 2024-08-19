@@ -34,22 +34,7 @@ public class LivingEntityCapeModel<T extends LivingEntity> extends AnimalModel<T
 		modelPartData.addChild("cloak", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, 0.0F, -1.0F, 10.0F, 16.0F, 1.0F, dilation, 1.0F, 0.5F), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 		return modelData;
 	}
-	public void setAngles(T armorStandEntity, float a, float b, float c, float d, float e) {
-		if (armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
-			if (armorStandEntity.isInSneakingPose()) {
-				this.cloak.pivotZ = 1.4F;
-				this.cloak.pivotY = 1.85F;
-			} else {
-				this.cloak.pivotZ = 0.0F;
-				this.cloak.pivotY = 0.0F;
-			}
-		} else if (armorStandEntity.isInSneakingPose()) {
-			this.cloak.pivotZ = 0.3F;
-			this.cloak.pivotY = 0.8F;
-		} else {
-			this.cloak.pivotZ = -1.1F;
-			this.cloak.pivotY = -0.85F;
-		}
+	public void setAngles(T livingEntity, float a, float b, float c, float d, float e) {
 	}
 	protected Iterable<ModelPart> getHeadParts() {
 		return ImmutableList.of();
@@ -57,7 +42,22 @@ public class LivingEntityCapeModel<T extends LivingEntity> extends AnimalModel<T
 	protected Iterable<ModelPart> getBodyParts() {
 		return ImmutableList.of();
 	}
-	public void renderCape(MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
+	public void renderCape(MatrixStack matrices, VertexConsumer vertices, LivingEntity livingEntity, int light, int overlay) {
+		if (livingEntity.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
+			if (livingEntity.isInSneakingPose()) {
+				this.cloak.pivotZ = 1.4F;
+				this.cloak.pivotY = 1.85F;
+			} else {
+				this.cloak.pivotZ = 0.0F;
+				this.cloak.pivotY = 0.0F;
+			}
+		} else if (livingEntity.isInSneakingPose()) {
+			this.cloak.pivotZ = 0.3F;
+			this.cloak.pivotY = 0.8F;
+		} else {
+			this.cloak.pivotZ = -1.1F;
+			this.cloak.pivotY = -0.85F;
+		}
 		this.cloak.render(matrices, vertices, light, overlay);
 	}
 }
