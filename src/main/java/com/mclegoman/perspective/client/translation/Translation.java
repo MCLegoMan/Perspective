@@ -46,7 +46,10 @@ public class Translation extends com.mclegoman.luminance.client.translation.Tran
 		return getZoomTypeTranslation(namespace, zoomType, false);
 	}
 	public static MutableText getUIBackgroundTranslation(String namespace, String key) {
-		return getConfigTranslation(namespace, "ui_background.type." + key);
+		return getUIBackgroundTranslation(namespace, key, false);
+	}
+	public static MutableText getUIBackgroundTranslation(String namespace, String key, boolean hover) {
+		return getConfigTranslation(namespace, "ui_background.type." + key + (hover ? ".hover" : ""));
 	}
 	public static MutableText getTimeOverlayTranslation(String namespace, String key) {
 		return getConfigTranslation(namespace, "time_overlay.type." + key);

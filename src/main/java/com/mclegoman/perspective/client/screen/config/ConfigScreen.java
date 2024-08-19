@@ -68,7 +68,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ui_background", new Object[]{Translation.getUIBackgroundTranslation(Data.version.getID(), UIBackground.getCurrentUIBackground().getId())}), (button) -> {
 			UIBackground.cycleUIBackgroundType(!hasShiftDown());
 			this.refresh = true;
-		}).build());
+		}).tooltip(Tooltip.of(Translation.getUIBackgroundTranslation(Data.version.getID(), UIBackground.getCurrentUIBackground().getId(), true))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates"));
 			this.refresh = true;

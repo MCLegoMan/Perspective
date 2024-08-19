@@ -308,11 +308,17 @@
 	"gui.perspective.config.error": "ERROR",
 
 	"gui.perspective.config.ui_background.type.default": "Default",
+	"gui.perspective.config.ui_background.type.default.hover": "Renders a box blur over menu backgrounds.",
 	"gui.perspective.config.ui_background.type.gaussian": "Gaussian",
+	"gui.perspective.config.ui_background.type.gaussian.hover": "Renders a gaussian blur over menu backgrounds.",
 	"gui.perspective.config.ui_background.type.legacy": "Legacy",
+	"gui.perspective.config.ui_background.type.legacy.hover": "Darkens menu backgrounds when in world, renders dirt background on menu screens when not in a world.",
 	"gui.perspective.config.ui_background.type.classic": "Classic",
+	"gui.perspective.config.ui_background.type.classic.hover": "Darkens menu backgrounds when in world, renders dirt background on menu screens - including the title screen - when not in a world.",
 	"gui.perspective.config.ui_background.type.none": "None",
+	"gui.perspective.config.ui_background.type.none.hover": "Nothing will be rendered over the menu backgrounds.",
 	"gui.perspective.config.ui_background.type.fallback": "§4ERROR",
+	"gui.perspective.config.ui_background.type.fallback.hover": "An error occurred. UI Background is currently disabled.",
 
 	"gui.perspective.config.time_overlay.type.false": "OFF",
 	"gui.perspective.config.time_overlay.type.twelve_hour": "12 Hour",
