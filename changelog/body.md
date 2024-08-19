@@ -54,4 +54,4 @@
 ### Resource Packs  
 - #### Perspective: Default
   - Added `Dummy` Armor Stand Textured Entity.  
-  - Added `Cloak` Pillager Textured Entity.  
+  - Added `Cloak` Pillager, Evoker, and Witch Textured Entities.  
