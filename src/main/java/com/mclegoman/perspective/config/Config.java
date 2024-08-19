@@ -49,7 +49,6 @@ public class Config {
 	protected static boolean forcePride;
 	protected static String forcePrideType;
 	protected static boolean showDeathCoordinates;
-	protected static String titleScreen;
 	protected static String uiBackground;
 	protected static String uiBackgroundTexture;
 	protected static String crosshairType;
@@ -109,7 +108,6 @@ public class Config {
 		configProvider.add(new Couple<>("force_pride", ConfigDataLoader.forcePride));
 		configProvider.add(new Couple<>("force_pride_type", ConfigDataLoader.forcePrideType));
 		configProvider.add(new Couple<>("show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
-		configProvider.add(new Couple<>("title_screen", ConfigDataLoader.titleScreen));
 		configProvider.add(new Couple<>("ui_background", ConfigDataLoader.uiBackground));
 		configProvider.add(new Couple<>("ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
 		configProvider.add(new Couple<>("hide_block_outline", ConfigDataLoader.hideBlockOutline));
@@ -158,7 +156,6 @@ public class Config {
 		forcePride = config.getOrDefault("force_pride", ConfigDataLoader.forcePride);
 		forcePrideType = config.getOrDefault("force_pride_type", ConfigDataLoader.forcePrideType);
 		showDeathCoordinates = config.getOrDefault("show_death_coordinates", ConfigDataLoader.showDeathCoordinates);
-		titleScreen = config.getOrDefault("title_screen", ConfigDataLoader.titleScreen);
 		uiBackground = config.getOrDefault("ui_background", ConfigDataLoader.uiBackground);
 		uiBackgroundTexture = config.getOrDefault("ui_background_texture", ConfigDataLoader.uiBackgroundTexture);
 		hideBlockOutline = config.getOrDefault("hide_block_outline", ConfigDataLoader.hideBlockOutline);
@@ -208,7 +205,6 @@ public class Config {
 		configProvider.setConfig("force_pride", forcePride);
 		configProvider.setConfig("force_pride_type", forcePrideType);
 		configProvider.setConfig("show_death_coordinates", showDeathCoordinates);
-		configProvider.setConfig("title_screen", titleScreen);
 		configProvider.setConfig("ui_background", uiBackground);
 		configProvider.setConfig("ui_background_texture", uiBackgroundTexture);
 		configProvider.setConfig("hide_block_outline", hideBlockOutline);
@@ -257,7 +253,6 @@ public class Config {
 				forcePride,
 				forcePrideType,
 				showDeathCoordinates,
-				titleScreen,
 				uiBackground,
 				uiBackgroundTexture,
 				crosshairType,

@@ -26,27 +26,46 @@ public class UIBackground {
 	@Nullable
 	public static PostEffectProcessor postProcessor;
 	private static final List<UIBackgroundData> uiBackgroundTypes = new ArrayList<>();
-	private static final List<String> titleScreenBackgroundTypes = new ArrayList<>();
 	public static void init() {
 		registerUIBackground(new UIBackgroundData.Builder(Identifier.of(Data.version.getID(), "default")).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifier.of(Data.version.getID(), "gaussian")).shaderId(Identifier.of("perspective", "shaders/post/gaussian.json")).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifier.of(Data.version.getID(), "legacy")).renderWorld(new Runnable() {
-					public void run(DrawContext context) {
-						RenderSystem.enableBlend();
-						context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
-						RenderSystem.disableBlend();
-					}
-				}).renderMenu(new Runnable() {
-					public void run(DrawContext context) {
-						RenderSystem.enableBlend();
-						context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
-						context.drawTexture(Identifier.of(Data.version.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
-						RenderSystem.disableBlend();
-					}
-				}).renderPanorama(false).renderShader(false).build());
+			public void run(DrawContext context) {
+				RenderSystem.enableBlend();
+				context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
+				RenderSystem.disableBlend();
+			}
+		}).renderMenu(new Runnable() {
+			public void run(DrawContext context) {
+				RenderSystem.enableBlend();
+				context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(Identifier.of(Data.version.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				RenderSystem.disableBlend();
+			}
+		}).renderPanorama(false).renderShader(false).build());
+		registerUIBackground(new UIBackgroundData.Builder(Identifier.of(Data.version.getID(), "classic")).renderWorld(
+			new Runnable() {
+				public void run(DrawContext context) {
+					RenderSystem.enableBlend();
+					context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
+					RenderSystem.disableBlend();
+				}
+			}).renderMenu(new Runnable() {
+				public void run(DrawContext context) {
+					RenderSystem.enableBlend();
+					context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+					context.drawTexture(Identifier.of(Data.version.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+					RenderSystem.disableBlend();
+				}
+			}).renderTitleScreen(new Runnable() {
+				public void run(DrawContext context) {
+					RenderSystem.enableBlend();
+					context.drawTexture(getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+					context.drawTexture(Identifier.of(Data.version.getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+					RenderSystem.disableBlend();
+				}
+			}).renderPanorama(false).renderTitleScreenPanorama(false).renderShader(false).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifier.of(Data.version.getID(), "none")).renderShader(false).renderDarkening(false).build());
-		titleScreenBackgroundTypes.add("default");
-		titleScreenBackgroundTypes.add("dirt");
 	}
 	public static void registerUIBackground(UIBackgroundData data) {
 		if (!ClientData.isFinishedInitializing()) {
@@ -83,25 +102,6 @@ public class UIBackground {
 			if (data.getId().equals(type)) return true;
 		}
 		return false;
-	}
-	public static String getTitleScreenBackgroundType() {
-		if (!isValidTitleScreenBackgroundType((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen"))) cycleTitleScreenBackgroundType();
-		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "title_screen");
-	}
-	public static void cycleTitleScreenBackgroundType() {
-		cycleTitleScreenBackgroundType(true);
-	}
-	public static void cycleTitleScreenBackgroundType(boolean direction) {
-		String titleScreenBackgroundType = getTitleScreenBackgroundType();
-		if (isValidTitleScreenBackgroundType(titleScreenBackgroundType)) {
-			int currentIndex = titleScreenBackgroundTypes.indexOf(titleScreenBackgroundType);
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.get(direction ? (currentIndex + 1) % titleScreenBackgroundTypes.size() : (currentIndex - 1 + titleScreenBackgroundTypes.size()) % titleScreenBackgroundTypes.size()));
-		} else {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "title_screen", titleScreenBackgroundTypes.getFirst());
-		}
-	}
-	public static boolean isValidTitleScreenBackgroundType(String TitleScreenBackgroundType) {
-		return titleScreenBackgroundTypes.contains(TitleScreenBackgroundType);
 	}
 	public static Identifier getUiBackgroundTextureFromConfig() {
 		String uiBackgroundTexture = (String)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ui_background_texture");

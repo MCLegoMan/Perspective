@@ -8,7 +8,6 @@
 package com.mclegoman.perspective.client.translation;
 
 import com.mclegoman.perspective.client.hide.Hide;
-import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.StringIdentifiable;
@@ -55,10 +54,6 @@ public class Translation extends com.mclegoman.luminance.client.translation.Tran
 	public static MutableText getCrosshairTranslation(String namespace, String key) {
 		if (Arrays.stream(Hide.hideCrosshairModes).toList().contains(key)) return getConfigTranslation(namespace, "crosshair.type." + key);
 		else return getErrorTranslation(namespace);
-	}
-	public static MutableText getTitleScreenBackgroundTranslation(String namespace, String key) {
-		if (UIBackground.isValidTitleScreenBackgroundType(UIBackground.getTitleScreenBackgroundType())) return getConfigTranslation(namespace, "title_screen.type." + key);
-		return getErrorTranslation(namespace);
 	}
 	public static MutableText getDetectUpdateChannelTranslation(String namespace, String key) {
 		if (key.equalsIgnoreCase("none")) return getConfigTranslation(namespace, "detect_update_channel.none");

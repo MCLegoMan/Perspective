@@ -10,8 +10,11 @@
   - Valid Options: `false`, `twelve_hour`, `twenty_four_hour`.  
   - When set to `twelve_hour` or `twenty_four_hour`, the current game time will be added to the overlays in the set format.  
 ### UI Background  
+- Merged UI Background and Title Screen Background.  
 - Added `none` UI Background.  
   - This will not render anything in menu backgrounds (except for the panorama).  
+- Added `classic` UI Background.  
+  - This ui background is almost identical to `legacy`, but also changes the title screen to have a dirt background.  
 - Added `UIBackground.registerUIBackground(UIBackgroundData data)` function.
   - This function was added to allow third-party mods to add UI Backgrounds without having to use mixins.  
 - Replaced `new UIBackgroundData(...);` with `new UIBackgroundData.Builder(Identifier identifier).build();`.  
@@ -19,9 +22,14 @@
   - This new builder simplifies the process of making new UI Backgrounds.    
   - This builder contains the following functions:  
     - `.renderWorld(UIBackground.Runnable renderWorld)`  
-      - This optional runnable will be executed when a menu is opened if in a world.  
-    - `.renderMenu(UIBackground.Runnable renderMenu)`  
+      - This optional runnable will be executed when a menu is opened if in a world.
+    - `.renderMenu(UIBackground.Runnable renderMenu)`
       - This optional runnable will be executed when a menu is opened if not in a world.  
+    - `.renderTitleScreen(UIBackground.Runnable renderTitleScreen)`  
+      - This optional runnable will be executed when on the title screen.  
+    - `.renderTitleScreenPanorama(boolean renderPanorama)`  
+      - If set to false, the panorama will not be rendered on the title screen.  
+      - Defaults to true.  
     - `.renderPanorama(boolean renderPanorama)`  
       - If set to false, the panorama will not be rendered on menu screens. (NOTE: This doesn't include the Title Screen.)
       - Defaults to true.

@@ -56,7 +56,6 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean forcePride;
 	public static String forcePrideType;
 	public static boolean showDeathCoordinates;
-	public static String titleScreen;
 	public static String uiBackground;
 	public static String uiBackgroundTexture;
 	public static boolean hideBlockOutline;
@@ -110,7 +109,6 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				forcePride = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride", false);
 				forcePrideType = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", "random");
 				showDeathCoordinates = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "show_death_coordinates", false);
-				titleScreen = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "title_screen", "default");
 				uiBackground = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "ui_background", "default");
 				uiBackgroundTexture = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "ui_background_texture", "minecraft:block/dirt");
 				hideBlockOutline = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_block_outline", false);

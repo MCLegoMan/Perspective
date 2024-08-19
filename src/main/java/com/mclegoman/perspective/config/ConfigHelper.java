@@ -168,10 +168,7 @@ public class ConfigHelper {
 							case "spyglass" -> setConfig(ConfigType.normal, "zoom_scale_mode", "scaled");
 						}
 					}
-					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 17) {
-						setConfig(ConfigType.normal, "zoom_type", Data.version.getID() + ":" + Config.config.getOrDefault("zoom_type", ConfigDataLoader.zoomType.replace((Data.version.getID() + ":"), "")));
-						setConfig(ConfigType.normal, "title_screen", Config.config.getOrDefault("dirt_title_screen", false) ? "dirt" : "default");
-					}
+					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 17) setConfig(ConfigType.normal, "zoom_type", Data.version.getID() + ":" + Config.config.getOrDefault("zoom_type", ConfigDataLoader.zoomType.replace((Data.version.getID() + ":"), "")));
 					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 19) {
 						boolean forcePrideType = Config.config.getOrDefault("force_pride_type", false);
 						int prideIndex = Config.config.getOrDefault("force_pride_type_index", 0);
@@ -288,10 +285,6 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: detect_update_channel was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "detect_update_channel") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 			}
-			if (!UIBackground.isValidTitleScreenBackgroundType((String) getConfig(ConfigType.normal, "title_screen"))) {
-				Data.version.sendToLog(LogType.WARN, "Config: title_screen was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "title_screen") + ")");
-				hasFixedConfig.add(setConfig(ConfigType.normal, "title_screen", UIBackground.isValidTitleScreenBackgroundType(ConfigDataLoader.titleScreen) ? ConfigDataLoader.titleScreen : "default"));
-			}
 			if (!UIBackground.isRegisteredUIBackgroundType((String) getConfig(ConfigType.normal, "ui_background"))) {
 				Data.version.sendToLog(LogType.WARN, "Config: ui_background was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "ui_background") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "ui_background", UIBackground.isRegisteredUIBackgroundType(ConfigDataLoader.uiBackground) ? ConfigDataLoader.uiBackground : "default"));
@@ -343,7 +336,6 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "force_pride", ConfigDataLoader.forcePride));
 			configChanged.add(setConfig(ConfigType.normal, "force_pride_type", ConfigDataLoader.forcePrideType));
 			configChanged.add(setConfig(ConfigType.normal, "show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
-			configChanged.add(setConfig(ConfigType.normal, "title_screen", ConfigDataLoader.titleScreen));
 			configChanged.add(setConfig(ConfigType.normal, "ui_background", ConfigDataLoader.uiBackground));
 			UIBackground.loadShader(UIBackground.getCurrentUIBackground());
 			configChanged.add(setConfig(ConfigType.normal, "ui_background_texture", ConfigDataLoader.uiBackgroundTexture));
@@ -500,10 +492,6 @@ public class ConfigHelper {
 						}
 						case "show_death_coordinates" -> {
 							Config.showDeathCoordinates = (boolean) value;
-							configChanged = true;
-						}
-						case "title_screen" -> {
-							Config.titleScreen = (String) value;
 							configChanged = true;
 						}
 						case "ui_background" -> {
@@ -714,9 +702,6 @@ public class ConfigHelper {
 					}
 					case "show_death_coordinates" -> {
 						return Config.showDeathCoordinates;
-					}
-					case "title_screen" -> {
-						return Config.titleScreen;
 					}
 					case "ui_background" -> {
 						return Config.uiBackground;

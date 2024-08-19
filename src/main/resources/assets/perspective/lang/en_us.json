@@ -172,13 +172,9 @@
 	"gui.perspective.config.tutorials": "Tutorials: %s",
 	"gui.perspective.config.tutorials.hover": "Toggle Perspective Tutorial Toasts",
 
-	"gui.perspective.config.ui_background": "UI Background",
-
-	"gui.perspective.config.ui_background.title_screen": "Title Screen: %s",
-
-	"gui.perspective.config.ui_background.ui_background": "UI Background: %s",
-
 	"gui.perspective.config.luminance": "Luminance",
+
+	"gui.perspective.config.ui_background": "UI Background: %s",
 
 	"gui.perspective.config.hide": "Hide",
 
@@ -314,6 +310,7 @@
 	"gui.perspective.config.ui_background.type.default": "Default",
 	"gui.perspective.config.ui_background.type.gaussian": "Gaussian",
 	"gui.perspective.config.ui_background.type.legacy": "Legacy",
+	"gui.perspective.config.ui_background.type.classic": "Classic",
 	"gui.perspective.config.ui_background.type.none": "None",
 	"gui.perspective.config.ui_background.type.fallback": "§4ERROR",
 
