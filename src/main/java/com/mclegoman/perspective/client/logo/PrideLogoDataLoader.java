@@ -52,6 +52,7 @@ public class PrideLogoDataLoader extends JsonDataLoader implements IdentifiableR
 		super(new Gson(), identifier);
 	}
 	private void add(String id, Identifier logoTexture, Identifier iconTexture) {
+		registry.removeIf(logoData -> logoData.getId().equals(id));
 		registry.add(new LogoData("pride", id, logoTexture, iconTexture));
 	}
 	private void reset() {
