@@ -31,7 +31,7 @@ public class AprilFoolsPrank {
 	public static void tick() {
 		boolean shouldSave = false;
 		if (!seenWarning && ClientData.minecraft.world != null) {
-			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_april_fools") && isAprilFools()) {
+			if (isAprilFools()) {
 				if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.warning, "prank")) {
 					ClientData.minecraft.getToastManager().add(new Toast(Translation.getTranslation(Data.version.getID(), "toasts.title", new Object[]{Translation.getTranslation(Data.version.getID(), "name"), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.prank.title")}), Translation.getTranslation(Data.version.getID(), "toasts.tutorial.prank.description", new Object[]{KeyBindingHelper.getBoundKeyOf(Keybindings.openConfig).getLocalizedText()}), 280, Toast.Type.TUTORIAL));
 					ConfigHelper.setConfig(ConfigHelper.ConfigType.warning, "prank", true);
@@ -48,6 +48,7 @@ public class AprilFoolsPrank {
 		if (shouldSave) ConfigHelper.saveConfig();
 	}
 	public static boolean isAprilFools() {
+		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_april_fools")) return false;
 		return DateHelper.isAprilFools() || isForceAprilFools();
 	}
 	public static boolean isForceAprilFools() {
