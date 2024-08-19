@@ -70,7 +70,7 @@ This alpha release revamps overlays, adds more ui background customizability, im
 ### Resource Packs  
 - #### Perspective: Default
   - Added `Dummy` Armor Stand Textured Entity.  
-  - Added `Cloak` Pillager, Evoker, Illusioner, and Witch Textured Entities.  
+  - Added `Cloak` Pillager, Evoker, Illusioner, Vindicator, and Witch Textured Entities.  
 ### Bug Fixes  
 - Hide Players config option would be set to true on startup if Hide Nametags was true.  
   - If you experienced this bug, make sure to reset your config (or turn Hide Players off) if desired.  
