@@ -1,3 +1,6 @@
+This alpha release revamps overlays, adds more ui background customizability, improves textured entity, and adds a new Halloween event!  
+
+**Important: If you use the Hide Nametags option, this release fixes a bug that would set Hide Players to true alongside Hide Nametags on startup. Reset your config or adjust Hide Players if desired.**  
 
 ## Changelog  
 - Updated Config Version to `21`.  
