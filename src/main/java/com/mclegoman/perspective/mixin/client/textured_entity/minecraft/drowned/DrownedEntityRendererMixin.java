@@ -31,7 +31,7 @@ public abstract class DrownedEntityRendererMixin extends ZombieBaseEntityRendere
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/zombie/drowned_cape.png")).build());
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/minecraft/zombie/drowned_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture", cancellable = true)
 	private void perspective$getTexture(ZombieEntity entity, CallbackInfoReturnable<Identifier> cir) {

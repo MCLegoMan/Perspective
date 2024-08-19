@@ -29,7 +29,7 @@ public abstract class StrayEntityRendererMixin extends SkeletonEntityRenderer<St
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/skeleton/stray_cape.png")).build());
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/minecraft/skeleton/stray_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/StrayEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(StrayEntity entity, CallbackInfoReturnable<Identifier> cir) {

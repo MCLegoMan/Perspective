@@ -1,0 +1,11 @@
+{
+  "entity": "minecraft:vindicator",
+  "name": "Cloak",
+  "entity_specific": {
+  },
+  "overrides": [
+    { "prefix": "", "suffix": "", "texture": "minecraft:textures/entity/illager/vindicator" },
+    { "prefix": "", "suffix": "_cape", "texture": "perspective:textures/textured_entity/minecraft/illager/cloak_cape" }
+  ],
+  "enabled": true
+}

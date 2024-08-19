@@ -29,7 +29,7 @@ public abstract class EvokerEntityRendererMixin<T extends SpellcastingIllagerEnt
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/evoker/evoker_cape.png")).offsetZ(0.18F).offsetY(-0.025F).build());
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/minecraft/evoker/evoker_cape.png")).offsetZ(0.18F).offsetY(-0.025F).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/SpellcastingIllagerEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(SpellcastingIllagerEntity entity, CallbackInfoReturnable<Identifier> cir) {

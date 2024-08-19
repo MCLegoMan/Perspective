@@ -29,7 +29,7 @@ public abstract class BoggedEntityRendererMixin extends SkeletonEntityRenderer<B
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/skeleton/bogged_cape.png")).build());
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/minecraft/skeleton/bogged_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/BoggedEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(BoggedEntity entity, CallbackInfoReturnable<Identifier> cir) {

@@ -30,7 +30,7 @@ public abstract class WanderingTraderEntityRendererMixin extends MobEntityRender
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/wandering_trader/wandering_trader_cape.png")).offsetZ(0.18F).offsetY(-0.025F).build());
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/minecraft/wandering_trader/wandering_trader_cape.png")).offsetZ(0.18F).offsetY(-0.025F).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/WanderingTraderEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(WanderingTraderEntity entity, CallbackInfoReturnable<Identifier> cir) {

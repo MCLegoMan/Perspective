@@ -2,10 +2,10 @@
 	"replace": false,
 	"skins": {
 		"slim": [
-			"perspective:entity/player/slim/mclegoman",
-			"perspective:entity/player/slim/mclegoman_pride",
-			"perspective:entity/player/slim/mclegoman_suit",
-			"perspective:entity/player/slim/mclegoman_trans"
+			"perspective:entity/minecraft/player/slim/mclegoman",
+			"perspective:entity/minecraft/player/slim/mclegoman_pride",
+			"perspective:entity/minecraft/player/slim/mclegoman_suit",
+			"perspective:entity/minecraft/player/slim/mclegoman_trans"
 		]
 	},
 	"contributor": "772eb47b-a24e-4d43-a685-6ca9e9e132f7"
