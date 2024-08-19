@@ -9,7 +9,10 @@ package com.mclegoman.perspective.client.contributor;
 
 import net.minecraft.util.Identifier;
 
+import java.util.List;
+
 public class ContributorData {
+	private final List<String> ids;
 	private final String uuid;
 	private final String type;
 	private final boolean shouldFlipUpsideDown;
@@ -17,7 +20,8 @@ public class ContributorData {
 	private final Identifier capeTexture;
 	private final boolean shouldRenderHeadItem;
 	private final Identifier headItem;
-	public ContributorData(String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, Identifier capeTexture, boolean shouldRenderHeadItem, Identifier headItem) {
+	public ContributorData(List<String> ids, String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, Identifier capeTexture, boolean shouldRenderHeadItem, Identifier headItem) {
+		this.ids = ids;
 		this.uuid = uuid;
 		this.type = type;
 		this.shouldFlipUpsideDown = shouldFlipUpsideDown;
@@ -25,6 +29,9 @@ public class ContributorData {
 		this.capeTexture = capeTexture;
 		this.shouldRenderHeadItem = shouldRenderHeadItem;
 		this.headItem = headItem;
+	}
+	public List<String> getIds() {
+		return this.ids;
 	}
 	public String getUuid() {
 		return this.uuid;

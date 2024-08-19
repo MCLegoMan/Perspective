@@ -32,11 +32,13 @@ public class ContributorDataLoader extends JsonDataLoader implements Identifiabl
 	public ContributorDataLoader() {
 		super(new Gson(), id);
 	}
-	private void add(String uuid, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture, boolean shouldRenderHeadItem, String headItem) {
+	private void add(List<JsonElement> inputIds, String uuid, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture, boolean shouldRenderHeadItem, String headItem) {
 		try {
 			ContributorLockData lockData = Contributor.getUuid(uuid);
 			if (lockData != null) {
-				ContributorData contributorData = new ContributorData(uuid, lockData.getType().getName(), shouldFlipUpsideDown, shouldReplaceCape, IdentifierHelper.identifierFromString(capeTexture), shouldRenderHeadItem, IdentifierHelper.identifierFromString(headItem));
+				List<String> outputIds = new ArrayList<>();
+				for (JsonElement id : inputIds) outputIds.add(id.getAsString());
+				ContributorData contributorData = new ContributorData(outputIds, uuid, lockData.getType().getName(), shouldFlipUpsideDown, shouldReplaceCape, IdentifierHelper.identifierFromString(capeTexture), shouldRenderHeadItem, IdentifierHelper.identifierFromString(headItem));
 				if (!registry.contains(contributorData)) registry.add(contributorData);
 			} else {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
@@ -64,13 +66,17 @@ public class ContributorDataLoader extends JsonDataLoader implements Identifiabl
 	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
 		try {
 			JsonObject reader = jsonElement.getAsJsonObject();
+			JsonArray defaultIds = new JsonArray();
+			defaultIds.add(identifier.getPath());
+			JsonArray ids = JsonHelper.getArray(reader, "ids", defaultIds);
+			List<JsonElement> id = ids.asList();
 			JsonArray uuids = JsonHelper.getArray(reader, "uuids");
 			boolean shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown", false);
 			boolean shouldReplaceCape = JsonHelper.getBoolean(reader, "shouldReplaceCape", false);
 			String capeTexture = JsonHelper.getString(reader, "capeTexture", "perspective:textures/contributors/cape/developer");
 			boolean shouldRenderHeadItem = JsonHelper.getBoolean(reader, "shouldRenderHeadItem", false);
 			String headItem = JsonHelper.getString(reader, "headItem", "minecraft:air");
-			for (JsonElement uuid : uuids) add(uuid.getAsString(), shouldFlipUpsideDown, shouldReplaceCape, capeTexture, shouldRenderHeadItem, headItem);
+			for (JsonElement uuid : uuids) add(id, uuid.getAsString(), shouldFlipUpsideDown, shouldReplaceCape, capeTexture, shouldRenderHeadItem, headItem);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
 		}
