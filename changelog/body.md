@@ -51,7 +51,14 @@
   - This means the entity type provided in the dataloader must match that of what the game loads the entity as. (You can check these using the `/summon` command.)  
   - The default texture location has changed to `namespace:textures/textured_entity/entity_namespace/entity_type/texture.png`  
     - Whilst this will break backwards compatibility, this allows us to replace textures in different namespaces.  
+### Events  
+- Added Halloween Event.  
+  - Renders a witch hat on all players if it is Halloween or Force Halloween is enabled.  
+    - Requires Allow Halloween to be enabled.  
 ### Resource Packs  
 - #### Perspective: Default
   - Added `Dummy` Armor Stand Textured Entity.  
   - Added `Cloak` Pillager, Evoker, and Witch Textured Entities.  
+### Bug Fixes  
+- Hide Players config option would be set to true on startup if Hide Nametags was true.  
+  - If you experienced this bug, make sure to reset your config (or turn Hide Players off) if desired.  

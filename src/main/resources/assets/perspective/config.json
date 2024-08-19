@@ -20,6 +20,8 @@
 	"textured_random_entity": false,
 	"allow_april_fools": true,
 	"force_april_fools": false,
+	"allow_halloween": true,
+	"force_halloween": false,
 	"version_overlay": false,
 	"position_overlay": false,
 	"time_overlay": "false",

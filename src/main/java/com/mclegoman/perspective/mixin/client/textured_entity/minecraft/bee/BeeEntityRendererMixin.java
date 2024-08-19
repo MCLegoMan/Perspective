@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.bee;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.EntityModels;
 import com.mclegoman.perspective.client.entity.renderer.feature.OverlayFeatureRenderer;
 import net.minecraft.client.render.entity.BeeEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -48,7 +48,7 @@ public abstract class BeeEntityRendererMixin extends MobEntityRenderer<BeeEntity
 
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new BeeEntityModel<>(context.getPart(TexturedEntityModels.beeOverlay)), Identifier.of("textures/entity/bee/bee_overlay.png")));
+		this.addFeature(new OverlayFeatureRenderer<>(this, new BeeEntityModel<>(context.getPart(EntityModels.beeOverlay)), Identifier.of("textures/entity/bee/bee_overlay.png")));
 	}
 
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/BeeEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)

@@ -29,14 +29,14 @@ import java.util.List;
 public class TexturedEntity {
 	public static void init() {
 		try {
-			TexturedEntityModels.init();
+			EntityModels.init();
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TexturedEntityDataLoader());
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize textured entity texture: {}", error));
 		}
 	}
 	public static void tick() {
-		TexturedEntityModels.tick();
+		EntityModels.tick();
 	}
 	private static Identifier getOverrideTexture(String prefix, String suffix, JsonArray overrides, Identifier fallback) {
 		if (!overrides.isEmpty()) {
@@ -116,7 +116,7 @@ public class TexturedEntity {
 	private static TexturedEntityData getEntity(Entity entity, Identifier entityId) {
 		try {
 			List<TexturedEntityData> registry = getRegistry(IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, IdentifierHelper.stringFromIdentifier(entityId)), IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, IdentifierHelper.stringFromIdentifier(entityId)));
-			if (TexturedEntityDataLoader.isReady) {
+			if (TexturedEntityDataLoader.isReady && !registry.isEmpty()) {
 				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "textured_named_entity")) {
 					if (entity.hasCustomName() && !entity.getCustomName().getString().equalsIgnoreCase("default")) {
 						for (TexturedEntityData entityData : registry) {

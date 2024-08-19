@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.giant;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.EntityModels;
 import com.mclegoman.perspective.client.entity.model.LivingEntityCapeModel;
 import com.mclegoman.perspective.client.entity.renderer.feature.EntityCapeFeatureRenderer;
 import com.mclegoman.perspective.client.entity.renderer.feature.OverlayFeatureRenderer;
@@ -31,8 +31,8 @@ public abstract class GiantEntityRendererMixin extends MobEntityRenderer<GiantEn
 	}
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, float scale, CallbackInfo ci) {
-		this.addFeature(new OverlayFeatureRenderer<>(this, new GiantEntityModel(context.getPart(TexturedEntityModels.zombieOverlay)), Identifier.of("textures/entity/zombie/zombie_overlay.png")));
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/zombie/zombie_cape.png")).build());
+		this.addFeature(new OverlayFeatureRenderer<>(this, new GiantEntityModel(context.getPart(EntityModels.zombieOverlay)), Identifier.of("textures/entity/zombie/zombie_overlay.png")));
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/zombie/zombie_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/GiantEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(GiantEntity entity, CallbackInfoReturnable<Identifier> cir) {

@@ -22,17 +22,21 @@ import net.minecraft.util.Identifier;
 public class ModelOverlayFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	private final EntityModel<T> model;
 	private final Identifier texture;
-
+	private final boolean canTexturedEntity;
 	public ModelOverlayFeatureRenderer(FeatureRendererContext<T, M> context, EntityModel<T> model, Identifier texture) {
+		this(context, model, texture, true);
+	}
+	public ModelOverlayFeatureRenderer(FeatureRendererContext<T, M> context, EntityModel<T> model, Identifier texture, boolean canTexturedEntity) {
 		super(context);
 		this.model = model;
 		this.texture = texture;
+		this.canTexturedEntity = canTexturedEntity;
 	}
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		this.getContextModel().copyStateTo(this.model);
 		this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(TexturedEntity.getTexture(entity, "", "_overlay", this.texture)));
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(this.canTexturedEntity ? TexturedEntity.getTexture(entity, "", "_overlay", this.texture) : this.texture));
 		this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(entity, 0.0F));
 	}
 }

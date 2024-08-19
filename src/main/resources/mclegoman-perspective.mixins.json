@@ -6,6 +6,7 @@
 		"client.contributor.AbstractClientPlayerEntityMixin",
 		"client.contributor.LivingEntityRendererMixin",
 		"client.contributor.PlayerEntityRendererMixin",
+		"client.events.PlayerEntityRendererMixin",
 		"client.hide.ArmorFeatureRendererMixin",
 		"client.hide.GameRendererMixin",
 		"client.hide.InGameHudMixin",

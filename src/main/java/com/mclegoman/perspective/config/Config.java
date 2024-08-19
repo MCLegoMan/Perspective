@@ -39,6 +39,8 @@ public class Config {
 	protected static boolean texturedRandomEntity;
 	protected static boolean allowAprilFools;
 	protected static boolean forceAprilFools;
+	protected static boolean allowHalloween;
+	protected static boolean forceHalloween;
 	protected static boolean versionOverlay;
 	protected static boolean positionOverlay;
 	protected static String timeOverlay;
@@ -97,6 +99,8 @@ public class Config {
 		configProvider.add(new Couple<>("textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 		configProvider.add(new Couple<>("allow_april_fools", ConfigDataLoader.allowAprilFools));
 		configProvider.add(new Couple<>("force_april_fools", ConfigDataLoader.forceAprilFools));
+		configProvider.add(new Couple<>("allow_halloween", ConfigDataLoader.allowHalloween));
+		configProvider.add(new Couple<>("force_halloween", ConfigDataLoader.forceHalloween));
 		configProvider.add(new Couple<>("version_overlay", ConfigDataLoader.versionOverlay));
 		configProvider.add(new Couple<>("position_overlay", ConfigDataLoader.positionOverlay));
 		configProvider.add(new Couple<>("time_overlay", ConfigDataLoader.timeOverlay));
@@ -144,6 +148,8 @@ public class Config {
 		texturedRandomEntity = config.getOrDefault("textured_random_entity", ConfigDataLoader.texturedRandomEntity);
 		allowAprilFools = config.getOrDefault("allow_april_fools", ConfigDataLoader.allowAprilFools);
 		forceAprilFools = config.getOrDefault("force_april_fools", ConfigDataLoader.forceAprilFools);
+		allowHalloween = config.getOrDefault("allow_halloween", ConfigDataLoader.allowHalloween);
+		forceHalloween = config.getOrDefault("force_halloween", ConfigDataLoader.forceHalloween);
 		versionOverlay = config.getOrDefault("version_overlay", ConfigDataLoader.versionOverlay);
 		positionOverlay = config.getOrDefault("position_overlay", ConfigDataLoader.positionOverlay);
 		timeOverlay = config.getOrDefault("time_overlay", ConfigDataLoader.timeOverlay);
@@ -161,7 +167,7 @@ public class Config {
 		crosshairType = config.getOrDefault("crosshair_type", ConfigDataLoader.crosshairType);
 		hideArmor = config.getOrDefault("hide_armor", ConfigDataLoader.hideArmor);
 		hideNametags = config.getOrDefault("hide_nametags", ConfigDataLoader.hideNametags);
-		hidePlayers = config.getOrDefault("hide_nametags", ConfigDataLoader.hidePlayers);
+		hidePlayers = config.getOrDefault("hide_players", ConfigDataLoader.hidePlayers);
 		hideShowMessage = config.getOrDefault("hide_show_message", ConfigDataLoader.hideShowMessage);
 		tutorials = config.getOrDefault("tutorials", ConfigDataLoader.tutorials);
 		detectUpdateChannel = config.getOrDefault("detect_update_channel", ConfigDataLoader.detectUpdateChannel);
@@ -192,6 +198,8 @@ public class Config {
 		configProvider.setConfig("textured_random_entity", texturedRandomEntity);
 		configProvider.setConfig("allow_april_fools", allowAprilFools);
 		configProvider.setConfig("force_april_fools", forceAprilFools);
+		configProvider.setConfig("allow_halloween", allowHalloween);
+		configProvider.setConfig("force_halloween", forceHalloween);
 		configProvider.setConfig("version_overlay", versionOverlay);
 		configProvider.setConfig("position_overlay", positionOverlay);
 		configProvider.setConfig("time_overlay", timeOverlay);
@@ -239,6 +247,8 @@ public class Config {
 				texturedRandomEntity,
 				allowAprilFools,
 				forceAprilFools,
+				allowHalloween,
+				forceHalloween,
 				versionOverlay,
 				positionOverlay,
 				timeOverlay,

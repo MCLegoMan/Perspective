@@ -333,6 +333,8 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "textured_random_entity", ConfigDataLoader.texturedRandomEntity));
 			configChanged.add(setConfig(ConfigType.normal, "allow_april_fools", ConfigDataLoader.allowAprilFools));
 			configChanged.add(setConfig(ConfigType.normal, "force_april_fools", ConfigDataLoader.forceAprilFools));
+			configChanged.add(setConfig(ConfigType.normal, "allow_halloween", ConfigDataLoader.allowHalloween));
+			configChanged.add(setConfig(ConfigType.normal, "force_halloween", ConfigDataLoader.forceHalloween));
 			configChanged.add(setConfig(ConfigType.normal, "version_overlay", ConfigDataLoader.versionOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "position_overlay", ConfigDataLoader.positionOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "time_overlay", ConfigDataLoader.timeOverlay));
@@ -458,6 +460,14 @@ public class ConfigHelper {
 						}
 						case "force_april_fools" -> {
 							Config.forceAprilFools = (boolean) value;
+							configChanged = true;
+						}
+						case "allow_halloween" -> {
+							Config.allowHalloween = (boolean) value;
+							configChanged = true;
+						}
+						case "force_halloween" -> {
+							Config.forceHalloween = (boolean) value;
 							configChanged = true;
 						}
 						case "version_overlay" -> {
@@ -670,6 +680,12 @@ public class ConfigHelper {
 					}
 					case "force_april_fools" -> {
 						return Config.forceAprilFools;
+					}
+					case "allow_halloween" -> {
+						return Config.allowHalloween;
+					}
+					case "force_halloween" -> {
+						return Config.forceHalloween;
 					}
 					case "version_overlay" -> {
 						return Config.versionOverlay;

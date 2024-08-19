@@ -46,6 +46,8 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean texturedRandomEntity;
 	public static boolean allowAprilFools;
 	public static boolean forceAprilFools;
+	public static boolean allowHalloween;
+	public static boolean forceHalloween;
 	public static boolean versionOverlay;
 	public static boolean positionOverlay;
 	public static String timeOverlay;
@@ -98,6 +100,8 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				texturedRandomEntity = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "textured_random_entity", false);
 				allowAprilFools = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "allow_april_fools", true);
 				forceAprilFools = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_april_fools", false);
+				allowHalloween = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "allow_halloween", true);
+				forceHalloween = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_halloween", false);
 				versionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "version_overlay", false);
 				positionOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "position_overlay", false);
 				timeOverlay = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "time_overlay", "false");

@@ -137,11 +137,15 @@
 
 	"gui.perspective.config.textured_entity.random": "Random Entity: %s",
 
-	"gui.perspective.config.april_fools_prank": "April Fools' Prank",
+	"gui.perspective.config.events": "Events",
 
-	"gui.perspective.config.april_fools_prank.allow": "Allow Prank: %s",
+	"gui.perspective.config.events.april_fools_prank.allow": "April Fools' Prank: %s",
 
-	"gui.perspective.config.april_fools_prank.force": "Force Prank: %s",
+	"gui.perspective.config.events.april_fools_prank.force": "Force April Fools': %s",
+
+	"gui.perspective.config.events.halloween.allow": "Halloween: %s",
+
+	"gui.perspective.config.events.halloween.force": "Force Halloween: %s",
 
 	"gui.perspective.config.overlays": "Overlays",
 

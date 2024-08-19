@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.perspective.client.entity.TexturedEntityData;
-import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.EntityModels;
 import com.mclegoman.perspective.client.entity.model.LivingEntityCapeModel;
 import com.mclegoman.perspective.client.entity.renderer.feature.EntityCapeFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -35,7 +35,7 @@ public abstract class VillagerEntityRendererMixin extends MobEntityRenderer<Vill
 	}
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/villager/villager_cape.png")).offsetZ(0.18F).offsetY(-0.025F).build());
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/villager/villager_cape.png")).offsetZ(0.18F).offsetY(-0.025F).build());
 	}
 	// TODO: Add textured entity to villager clothes and levels.
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/passive/VillagerEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)

@@ -9,6 +9,7 @@ package com.mclegoman.perspective.client.entity;
 
 import com.mclegoman.perspective.client.entity.model.ArmorStandOverlayEntityModel;
 import com.mclegoman.perspective.client.entity.model.CowOverlayEntityModel;
+import com.mclegoman.perspective.client.entity.model.HalloweenHatModel;
 import com.mclegoman.perspective.client.entity.model.LivingEntityCapeModel;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -19,7 +20,7 @@ import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class TexturedEntityModels {
+public class EntityModels {
 	public static double piglinCapeY = 0.0F;
 	public static final EntityModelLayer entityCape = new EntityModelLayer(Identifier.of(Data.version.getID(), "entity"), "cape");
 	public static final EntityModelLayer pigOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "pig"), "outer");
@@ -28,6 +29,7 @@ public class TexturedEntityModels {
 	public static final EntityModelLayer skeletonOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "skeleton"), "outer");
 	public static final EntityModelLayer zombieOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "zombie"), "outer");
 	public static final EntityModelLayer armorStandOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "armor_stand"), "outer");
+	public static final EntityModelLayer halloweenHat = new EntityModelLayer(Identifier.of(Data.version.getID(), "player"), "halloween_hat");
 	public static void init() {
 		EntityModelLayerRegistry.registerModelLayer(entityCape, () -> TexturedModelData.of(LivingEntityCapeModel.getModelData(new Dilation(0.0F)), 64, 64));
 		EntityModelLayerRegistry.registerModelLayer(pigOverlay, () -> PigEntityModel.getTexturedModelData(new Dilation(0.499F)));
@@ -36,6 +38,7 @@ public class TexturedEntityModels {
 		EntityModelLayerRegistry.registerModelLayer(skeletonOverlay, () -> getBipedEntityModelData(new Dilation(0.5F), 64, 32));
 		EntityModelLayerRegistry.registerModelLayer(zombieOverlay, () -> getBipedEntityModelData(new Dilation(0.5F), 64, 64));
 		EntityModelLayerRegistry.registerModelLayer(armorStandOverlay, () -> TexturedModelData.of(ArmorStandOverlayEntityModel.getModelData(new Dilation(0.01F), 0.0F), 64, 64));
+		EntityModelLayerRegistry.registerModelLayer(halloweenHat, HalloweenHatModel::getTexturedModelData);
 	}
 	public static void tick() {
 		piglinCapeY = (piglinCapeY + 0.5F) % 80.0F;

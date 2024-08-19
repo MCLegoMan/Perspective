@@ -8,7 +8,7 @@
 package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.armor_stand;
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
-import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.EntityModels;
 import com.mclegoman.perspective.client.entity.model.ArmorStandOverlayEntityModel;
 import com.mclegoman.perspective.client.entity.model.LivingEntityCapeModel;
 import com.mclegoman.perspective.client.entity.renderer.feature.EntityCapeFeatureRenderer;
@@ -31,8 +31,8 @@ public abstract class ArmorStandEntityRendererMixin extends LivingEntityRenderer
 	}
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
-		this.addFeature(new ModelOverlayFeatureRenderer(this, new ArmorStandOverlayEntityModel<>(context.getPart(TexturedEntityModels.armorStandOverlay)), Identifier.of("textures/entity/armorstand/overlay.png")));
-		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/armorstand/armor_stand_cape.png")).build());
+		this.addFeature(new ModelOverlayFeatureRenderer(this, new ArmorStandOverlayEntityModel<>(context.getPart(EntityModels.armorStandOverlay)), Identifier.of("textures/entity/armorstand/overlay.png")));
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(EntityModels.entityCape)), Identifier.of("perspective", "textures/entity/armorstand/armor_stand_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/decoration/ArmorStandEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(ArmorStandEntity entity, CallbackInfoReturnable<Identifier> cir) {
