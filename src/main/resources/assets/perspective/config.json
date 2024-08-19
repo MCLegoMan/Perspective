@@ -31,7 +31,6 @@
 	"force_pride_type": "random",
 	"force_pride_type_index": 0,
 	"show_death_coordinates": false,
-	"title_screen": "default",
 	"ui_background": "default",
 	"ui_background_texture": "minecraft:block/dirt",
 	"hide_block_outline": false,

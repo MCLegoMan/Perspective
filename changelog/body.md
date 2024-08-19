@@ -11,6 +11,7 @@
   - When set to `twelve_hour` or `twenty_four_hour`, the current game time will be added to the overlays in the set format.  
 ### UI Background  
 - Merged UI Background and Title Screen Background.  
+  - **Developer Note: Whilst this does remove the option to only have a dirt screen, this functionality can be re-added through use of third-party mods.**  
 - Added `none` UI Background.  
   - This will not render anything in menu backgrounds (except for the panorama).  
 - Added `classic` UI Background.  

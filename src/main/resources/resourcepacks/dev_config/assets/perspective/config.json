@@ -31,7 +31,6 @@
 	"force_pride": true,
 	"force_pride_type": "trans",
 	"show_death_coordinates": true,
-	"title_screen": "default",
 	"ui_background": "gaussian",
 	"hide_block_outline": false,
 	"block_outline": 40,
