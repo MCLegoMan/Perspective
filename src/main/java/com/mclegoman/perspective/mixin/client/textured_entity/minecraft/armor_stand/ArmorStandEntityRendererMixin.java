@@ -32,7 +32,7 @@ public abstract class ArmorStandEntityRendererMixin extends LivingEntityRenderer
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
 		this.addFeature(new ModelOverlayFeatureRenderer(this, new ArmorStandOverlayEntityModel<>(context.getPart(TexturedEntityModels.armorStandOverlay)), Identifier.of("textures/entity/armorstand/overlay.png")));
-		this.addFeature(new EntityCapeFeatureRenderer(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/armorstand/armor_stand_cape.png")));
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/armorstand/armor_stand_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/decoration/ArmorStandEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(ArmorStandEntity entity, CallbackInfoReturnable<Identifier> cir) {

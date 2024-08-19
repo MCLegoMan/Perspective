@@ -9,6 +9,8 @@ package com.mclegoman.perspective.mixin.client.textured_entity.minecraft.wither_
 
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.model.LivingEntityCapeModel;
+import com.mclegoman.perspective.client.entity.renderer.feature.EntityCapeFeatureRenderer;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.WitherSkeletonEntityRenderer;
@@ -31,6 +33,7 @@ public abstract class WitherSkeletonEntityRendererMixin extends BipedEntityRende
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
 		this.addFeature(new SkeletonOverlayFeatureRenderer<>(this, context.getModelLoader(), TexturedEntityModels.skeletonOverlay, Identifier.of("textures/entity/skeleton/wither_skeleton_overlay.png")));
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/skeleton/skeleton_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/WitherSkeletonEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(WitherSkeletonEntity entity, CallbackInfoReturnable<Identifier> cir) {

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:pillager",
+  "name": "Cloak",
+  "entity_specific": {
+  },
+  "overrides": [
+    { "prefix": "", "suffix": "", "texture": "minecraft:textures/entity/illager/pillager" }
+  ],
+  "enabled": true
+}

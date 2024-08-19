@@ -42,12 +42,16 @@
 - Updated `perspective:gaussian` shader.  
   - The shader was not blending correctly before.  
 ### Entities  
-- Armor Stands and Zombies can now have capes.  
-  - By default, this texture is blank.  
+- Added capes to the following entities: `minecraft:armor_stand`, `minecraft:zombie`, `minecraft:drowned`, `minecraft:husk`, `minecraft:zombie_villager`, `minecraft:skeleton`, `minecraft:wither_skeleton`, `minecraft:bogged`, `minecraft:stray`, `minecraft:witch`, `minecraft:villager`, `minecraft:giant`, `minecraft:pillager`, `minecraft:evoker`.  
+  - By default, their texture is blank.  
   - This can also be set via the textured entity system.  
+  - This will be rendered separately from elytras.  
 - #### Textured Entity  
   - Textured Entities will now get their type from their entity.  
   - This means the entity type provided in the dataloader must match that of what the game loads the entity as. (You can check these using the `/summon` command.)  
+  - The default texture location has changed to `namespace:textures/textured_entity/entity_namespace/entity_type/texture.png`  
+    - Whilst this will break backwards compatibility, this allows us to replace textures in different namespaces.  
 ### Resource Packs  
-- #### Perspective: Default  
+- #### Perspective: Default
   - Added `Dummy` Armor Stand Textured Entity.  
+  - Added `Cloak` Pillager Textured Entity.  

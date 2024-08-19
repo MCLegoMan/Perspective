@@ -17,6 +17,7 @@ import net.minecraft.client.render.entity.PiglinEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.PiglinEntityModel;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,7 @@ public abstract class PiglinEntityRendererMixin extends BipedEntityRenderer<MobE
 	}
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, EntityModelLayer mainLayer, EntityModelLayer innerArmorLayer, EntityModelLayer outerArmorLayer, boolean zombie, CallbackInfo ci) {
-		this.addFeature(new EntityCapeFeatureRenderer(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/piglin/piglin_cape.png")));
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/piglin/piglin_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/MobEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(MobEntity entity, CallbackInfoReturnable<Identifier> cir) {

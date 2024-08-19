@@ -11,7 +11,13 @@ import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.perspective.client.entity.TexturedEntityData;
+import com.mclegoman.perspective.client.entity.TexturedEntityModels;
+import com.mclegoman.perspective.client.entity.model.LivingEntityCapeModel;
+import com.mclegoman.perspective.client.entity.renderer.feature.EntityCapeFeatureRenderer;
+import net.minecraft.client.render.entity.BipedEntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ZombieVillagerEntityRenderer;
+import net.minecraft.client.render.entity.model.ZombieVillagerEntityModel;
 import net.minecraft.entity.mob.ZombieVillagerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -19,10 +25,18 @@ import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = ZombieVillagerEntityRenderer.class)
-public class ZombieVillagerEntityRendererMixin {
+public abstract class ZombieVillagerEntityRendererMixin extends BipedEntityRenderer<ZombieVillagerEntity, ZombieVillagerEntityModel<ZombieVillagerEntity>> {
+	public ZombieVillagerEntityRendererMixin(EntityRendererFactory.Context ctx, ZombieVillagerEntityModel<ZombieVillagerEntity> model, float shadowRadius) {
+		super(ctx, model, shadowRadius);
+	}
+	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
+	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/zombie_villager/zombie_villager_cape.png")).build());
+	}
 	// TODO: Add textured entity to villager clothes and levels.
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/ZombieVillagerEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(ZombieVillagerEntity entity, CallbackInfoReturnable<Identifier> cir) {

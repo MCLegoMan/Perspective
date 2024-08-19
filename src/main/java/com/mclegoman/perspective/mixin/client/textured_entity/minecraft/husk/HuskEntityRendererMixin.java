@@ -32,7 +32,7 @@ public abstract class HuskEntityRendererMixin extends MobEntityRenderer<ZombieEn
 	@Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRendererFactory$Context;)V", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, CallbackInfo ci) {
 		this.addFeature(new OverlayFeatureRenderer<>(this, new ZombieEntityModel<>(context.getPart(TexturedEntityModels.zombieOverlay)), Identifier.of("textures/entity/zombie/husk_overlay.png")));
-		this.addFeature(new EntityCapeFeatureRenderer(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/zombie/zombie_cape.png")));
+		this.addFeature(new EntityCapeFeatureRenderer.Builder(this, new LivingEntityCapeModel(context.getPart(TexturedEntityModels.entityCape)), Identifier.of("perspective", "textures/entity/zombie/husk_cape.png")).build());
 	}
 	@Inject(at = @At("RETURN"), method = "getTexture(Lnet/minecraft/entity/mob/ZombieEntity;)Lnet/minecraft/util/Identifier;", cancellable = true)
 	private void perspective$getTexture(ZombieEntity entity, CallbackInfoReturnable<Identifier> cir) {

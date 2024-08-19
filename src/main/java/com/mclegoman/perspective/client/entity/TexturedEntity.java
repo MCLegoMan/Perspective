@@ -91,7 +91,7 @@ public class TexturedEntity {
 								}
 							}
 						}
-					if (shouldReplaceTexture) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(namespace, "textures/textured_entity/" + entityType.getPath() + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
+					if (shouldReplaceTexture) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(namespace, "textures/textured_entity/" + entityType.getNamespace() + "/" + entityType.getPath() + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
 				}
 			}
 		} catch (Exception error) {

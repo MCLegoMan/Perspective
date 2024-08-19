@@ -20,22 +20,67 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Quaternionf;
 
 public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<T, LivingEntityCapeModel<T>> {
 	private final LivingEntityCapeModel<T> model;
 	private final Identifier capeTexture;
-	public EntityCapeFeatureRenderer(FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext, LivingEntityCapeModel<T> model, Identifier capeTexture) {
+	private final float offsetX;
+	private final float offsetY;
+	private final float offsetZ;
+	private final Quaternionf rotation;
+	private EntityCapeFeatureRenderer(FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext, LivingEntityCapeModel<T> model, Identifier capeTexture, float offsetX, float offsetY, float offsetZ, Quaternionf rotation) {
 		super(featureRendererContext);
 		this.model = model;
 		this.capeTexture = capeTexture;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		this.offsetZ = offsetZ;
+		this.rotation = rotation;
 	}
+	public static class Builder<T extends LivingEntity> {
+		FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext;
+		LivingEntityCapeModel<T> model;
+		Identifier capeTexture;
+		float offsetX = 0.0F;
+		float offsetY = 0.0F;
+		float offsetZ = 0.125F;
+		Quaternionf rotation = new Quaternionf();
+		public Builder(FeatureRendererContext<T, LivingEntityCapeModel<T>> featureRendererContext, LivingEntityCapeModel<T> model, Identifier capeTexture) {
+			this.featureRendererContext = featureRendererContext;
+			this.model = model;
+			this.capeTexture = capeTexture;
+		}
+		public Builder offsetX(float x) {
+			this.offsetX = x;
+			return this;
+		}
+		public Builder offsetY(float y) {
+			this.offsetY = y;
+			return this;
+		}
+		public Builder offsetZ(float z) {
+			this.offsetZ = z;
+			return this;
+		}
+		public Builder rotation(Quaternionf rotation) {
+			this.rotation = rotation;
+			return this;
+		}
+		public EntityCapeFeatureRenderer<T> build() {
+			return new EntityCapeFeatureRenderer<>(this.featureRendererContext, this.model, this.capeTexture, offsetX, offsetY, offsetZ, rotation);
+		}
+	}
+
+
 	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, T livingEntity, float a, float b, float delta, float c, float d, float e) {
 		matrixStack.push();
 		if (livingEntity.isBaby()) {
 			matrixStack.scale(0.5F, 0.5F, 0.5F);
 			matrixStack.translate(0.0F, 1.5F, 0.0F);
 		}
-		matrixStack.translate(0.0F, 0.0F, 0.125F);
+		matrixStack.translate(this.offsetX, this.offsetY, this.offsetZ);
+		matrixStack.multiply(rotation);
 		double f = 0.0F;
 		double g = (Math.cos(TexturedEntityModels.getPiglinCapeY(livingEntity) * (2.0F * 3.141592653589793F / 80.0F)) + 1.0F) * 0.48F;
 		double h = 0.0F;

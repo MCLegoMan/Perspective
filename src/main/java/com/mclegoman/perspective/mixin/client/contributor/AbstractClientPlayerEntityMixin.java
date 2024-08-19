@@ -49,7 +49,7 @@ public class AbstractClientPlayerEntityMixin {
 			for (ContributorData developer : ContributorDataLoader.registry) {
 				if (developer.getUuid().equals(uuid)) {
 					if (developer.getShouldReplaceCape()) {
-						capeTexture = TextureHelper.getCapeTexture(developer.getCapeTexture(), capeTexture);
+						capeTexture = TextureHelper.getTexture(developer.getCapeTexture(), capeTexture);
 					}
 				}
 			}
