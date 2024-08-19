@@ -58,6 +58,8 @@ This alpha release revamps overlays, adds more ui background customizability, im
   - By default, their texture is blank.  
   - This can also be set via the textured entity system.  
   - This will be rendered separately from elytras.  
+- Entities named `MCLegoMan`, `MCLegoBlock`, `DanielTayden`, or `DannyTaylor` will be flipped upside down.  
+  - This has been linked to the "contributors" system, so any contributor that is upside down's id will flip mobs.  
 - #### Textured Entity  
   - Textured Entities will now get their type from their entity.  
   - This means the entity type provided in the dataloader must match that of what the game loads the entity as. (You can check these using the `/summon` command.)  
