@@ -7,11 +7,11 @@
 
 package com.mclegoman.perspective.client.util;
 
+import com.mclegoman.perspective.client.entity.Entity;
 import com.mclegoman.perspective.client.events.AprilFoolsPrank;
 import com.mclegoman.perspective.client.events.Halloween;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.shaders.Shaders;
-import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.hide.Hide;
@@ -35,7 +35,7 @@ public class Tick {
 				Zoom.tick();
 				Shader.tick();
 				Shaders.tick();
-				TexturedEntity.tick();
+				Entity.tick();
 				Panorama.tick();
 				Hide.tick();
 			}

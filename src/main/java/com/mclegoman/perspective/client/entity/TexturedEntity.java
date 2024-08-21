@@ -29,14 +29,10 @@ import java.util.List;
 public class TexturedEntity {
 	public static void init() {
 		try {
-			EntityModels.init();
 			ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TexturedEntityDataLoader());
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize textured entity texture: {}", error));
 		}
-	}
-	public static void tick() {
-		EntityModels.tick();
 	}
 	private static Identifier getOverrideTexture(String prefix, String suffix, JsonArray overrides, Identifier fallback) {
 		if (!overrides.isEmpty()) {

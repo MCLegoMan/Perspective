@@ -20,10 +20,11 @@
     }
   },
   "overrides": [
-    { "prefix": "", "suffix": "_red", "texture": "minecraft:textures/textured_entity/fox/strawberry" },
-    { "prefix": "", "suffix": "_red_sleep", "texture": "minecraft:textures/textured_entity/fox/strawberry_sleep" },
-    { "prefix": "", "suffix": "_snow", "texture": "minecraft:textures/textured_entity/fox/strawberry" },
-    { "prefix": "", "suffix": "_snow_sleep", "texture": "minecraft:textures/textured_entity/fox/strawberry_sleep" }
+    { "prefix": "", "suffix": "_red", "texture": "minecraft:textures/textured_entity/minecraft/fox/strawberry" },
+    { "prefix": "", "suffix": "_red_sleep", "texture": "minecraft:textures/textured_entity/minecraft/fox/strawberry_sleep" },
+    { "prefix": "", "suffix": "_snow", "texture": "minecraft:textures/textured_entity/minecraft/fox/strawberry" },
+    { "prefix": "", "suffix": "_snow_sleep", "texture": "minecraft:textures/textured_entity/minecraft/fox/strawberry_sleep" },
+    { "prefix": "", "suffix": "_cape", "texture": "perspective:textures/entity/minecraft/fox/fox_cape" }
   ],
   "enabled": true
 }

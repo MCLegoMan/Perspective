@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client;
 
 import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.entity.Entity;
 import com.mclegoman.perspective.client.events.AprilFoolsPrank;
 import com.mclegoman.perspective.client.contributor.Contributor;
 import com.mclegoman.perspective.client.data.ClientData;
@@ -16,7 +17,6 @@ import com.mclegoman.perspective.client.hud.Overlays;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.Shaders;
-import com.mclegoman.perspective.client.entity.TexturedEntity;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
@@ -45,7 +45,7 @@ public class PerspectiveClient implements ClientModInitializer {
 			Panorama.init();
 			PerspectiveLogo.init();
 			Shader.init();
-			TexturedEntity.init();
+			Entity.init();
 			Tick.init();
 			ConfigHelper.init();
 			ClientData.setFinishedInitializing(true);
