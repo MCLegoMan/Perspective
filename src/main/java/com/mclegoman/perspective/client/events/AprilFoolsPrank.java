@@ -45,7 +45,7 @@ public class AprilFoolsPrank {
 				}
 			}
 		}
-		if (shouldSave) ConfigHelper.saveConfig(ConfigHelper.ConfigType.warning);
+		if (shouldSave) ConfigHelper.saveConfig();
 	}
 	public static boolean isAprilFools() {
 		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_april_fools")) return false;

@@ -57,7 +57,7 @@ public abstract class AbstractConfigScreen extends Screen {
 		try {
 			if (this.refresh) ClientData.minecraft.setScreen(getRefreshScreen());
 			if (this.shouldClose) {
-				if (saveOnClose()) ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal, ConfigHelper.ConfigType.experimental);
+				if (saveOnClose()) ConfigHelper.saveConfig();
 				ClientData.minecraft.setScreen(this.parentScreen);
 			}
 		} catch (Exception error) {

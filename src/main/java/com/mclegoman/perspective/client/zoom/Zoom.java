@@ -66,7 +66,7 @@ public class Zoom {
 					}
 				}
 				if (hasUpdated) {
-					ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
+					ConfigHelper.saveConfig();
 					hasUpdated = false;
 				}
 				resetCinematicZoom();

@@ -24,19 +24,19 @@ public class HUDHelper {
 		}
 		if (Keybindings.toggleVerOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "version_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "version_overlay"));
-			ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
+			ConfigHelper.saveConfig();
 		}
 		if (Keybindings.togglePosOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "position_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "position_overlay"));
-			ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
+			ConfigHelper.saveConfig();
 		}
 		if (Keybindings.toggleDayOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "day_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "day_overlay"));
-			ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
+			ConfigHelper.saveConfig();
 		}
 		if (Keybindings.toggleBiomeOverlay.wasPressed()) {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
-			ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
+			ConfigHelper.saveConfig();
 		}
 	}
 	public static boolean shouldHideHUD() {

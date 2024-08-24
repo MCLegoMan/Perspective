@@ -194,7 +194,7 @@ public class ConfigHelper {
 				shouldSaveConfig = true;
 			}
 			if (fixConfig()) shouldSaveConfig = true;
-			if (shouldSaveConfig) saveConfig();
+			if (shouldSaveConfig) addSaveConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to update config!");
 		}
@@ -215,7 +215,10 @@ public class ConfigHelper {
 			Data.version.sendToLog(LogType.WARN, "Failed to save config!");
 		}
 	}
-	public static void saveConfig(ConfigType... configTypes) {
+	public static void saveConfig() {
+		saveViaTick = true;
+	}
+	private static void addSaveConfig(ConfigType... configTypes) {
 		try {
 			if (configTypes.length != 0) {
 				for (ConfigType configType : configTypes) {
@@ -227,12 +230,11 @@ public class ConfigHelper {
 					}
 				}
 			} else {
-				saveConfigs.add(ConfigType.normal);
-				saveConfigs.add(ConfigType.experimental);
-				saveConfigs.add(ConfigType.tutorial);
-				saveConfigs.add(ConfigType.warning);
+				if (!saveConfigs.contains(ConfigType.normal)) saveConfigs.add(ConfigType.normal);
+				if (!saveConfigs.contains(ConfigType.experimental)) saveConfigs.add(ConfigType.experimental);
+				if (!saveConfigs.contains(ConfigType.tutorial)) saveConfigs.add(ConfigType.tutorial);
+				if (!saveConfigs.contains(ConfigType.warning)) saveConfigs.add(ConfigType.warning);
 			}
-			saveViaTick = true;
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to add save config!");
 		}
@@ -577,7 +579,7 @@ public class ConfigHelper {
 							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", ID));
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.normal);
+					if (configChanged) addSaveConfig(ConfigType.normal);
 				}
 				case experimental -> {
 					switch (ID) {
@@ -585,7 +587,7 @@ public class ConfigHelper {
 							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.experimental);
+					if (configChanged) addSaveConfig(ConfigType.experimental);
 				}
 				case tutorial -> {
 					switch (ID) {
@@ -597,7 +599,7 @@ public class ConfigHelper {
 							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", ID));
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.tutorial);
+					if (configChanged) addSaveConfig(ConfigType.tutorial);
 				}
 				case warning -> {
 					switch (ID) {
@@ -617,7 +619,7 @@ public class ConfigHelper {
 							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
 						}
 					}
-					if (configChanged) saveConfig(ConfigType.warning);
+					if (configChanged) addSaveConfig(ConfigType.warning);
 				}
 				default -> {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", ID));
