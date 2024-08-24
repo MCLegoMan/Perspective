@@ -100,4 +100,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 	public int getMaxPage() {
 		return 2;
 	}
+	public boolean saveOnClose() {
+		return true;
+	}
 }

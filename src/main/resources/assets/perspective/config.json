@@ -9,6 +9,8 @@
 	"zoom_reset": false,
 	"zoom_cinematic": false,
 	"zoom_show_percentage": false,
+	"hold_perspective_back_multiplier": 1.0,
+	"hold_perspective_front_multiplier": 1.0,
 	"hold_perspective_hide_hud": true,
 	"super_secret_settings_shader": "minecraft:box_blur",
 	"super_secret_settings_mode": "game",

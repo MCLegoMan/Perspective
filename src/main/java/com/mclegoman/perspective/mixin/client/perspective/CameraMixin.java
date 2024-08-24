@@ -22,8 +22,8 @@ public abstract class CameraMixin {
 	private float perspective$update(float original) {
 		if (this.thirdPerson && Perspective.isHoldingPerspective()) {
 			switch (Perspective.getPerspective()) {
-				case THIRD_PERSON_BACK -> {return this.clipToSpace(original * Perspective.getHoldPerspectiveBackMultiplier());}
-				case THIRD_PERSON_FRONT -> {return this.clipToSpace(original * Perspective.getHoldPerspectiveFrontMultiplier());}
+				case THIRD_PERSON_BACK -> {return this.clipToSpace(original * (float) Perspective.getHoldPerspectiveBackMultiplier());}
+				case THIRD_PERSON_FRONT -> {return this.clipToSpace(original * (float) Perspective.getHoldPerspectiveFrontMultiplier());}
 			}
 		}
 		return original;

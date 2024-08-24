@@ -260,6 +260,14 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: zoom_type was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "zoom_type") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "zoom_type", ConfigDataLoader.zoomType));
 			}
+			if ((double) getConfig(ConfigType.normal, "hold_perspective_back_multiplier") < 0.5D || (double) getConfig(ConfigType.normal, "hold_perspective_back_multiplier") > 4.0D) {
+				Data.version.sendToLog(LogType.WARN, "Config: hold_perspective_back_multiplier was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "hold_perspective_back_multiplier") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "hold_perspective_back_multiplier", ConfigDataLoader.holdPerspectiveBackMultiplier));
+			}
+			if ((double) getConfig(ConfigType.normal, "hold_perspective_front_multiplier") < 0.5D || (double) getConfig(ConfigType.normal, "hold_perspective_front_multiplier") > 4.0D) {
+				Data.version.sendToLog(LogType.WARN, "Config: hold_perspective_front_multiplier was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "hold_perspective_front_multiplier") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "hold_perspective_front_multiplier", ConfigDataLoader.holdPerspectiveBackMultiplier));
+			}
 			//if (!Shader.isShaderAvailable((String) ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader"))) {
 				//Data.version.sendToLog(LogType.WARN, "Config: super_secret_settings_shader was invalid and have been reset to prevent any unexpected issues. (" + ConfigHelper.getConfig(ConfigType.NORMAL, "super_secret_settings_shader") + ")");
 				//Shader.superSecretSettingsIndex = (!Shader.isShaderAvailable(ConfigDataLoader.superSecretSettingsShader)) ? Math.min(Shader.superSecretSettingsIndex, ShaderDataLoader.registry.size() - 1) : Shader.getShaderValue(ConfigDataLoader.superSecretSettingsShader);
@@ -314,6 +322,8 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "zoom_type", ConfigDataLoader.zoomType));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_reset", ConfigDataLoader.zoomReset));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_cinematic", ConfigDataLoader.zoomCinematic));
+			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_back_multiplier", MathHelper.clamp(ConfigDataLoader.holdPerspectiveBackMultiplier, 0.5D, 4.0D)));
+			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_front_multiplier", MathHelper.clamp(ConfigDataLoader.holdPerspectiveFrontMultiplier, 0.5D, 4.0D)));
 			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
@@ -408,6 +418,14 @@ public class ConfigHelper {
 						}
 						case "zoom_cinematic" -> {
 							Config.zoomCinematic = (boolean) value;
+							configChanged = true;
+						}
+						case "hold_perspective_back_multiplier" -> {
+							Config.holdPerspectiveBackMultiplier = MathHelper.clamp((double) value, 0.5D, 4.0D);
+							configChanged = true;
+						}
+						case "hold_perspective_front_multiplier" -> {
+							Config.holdPerspectiveFrontMultiplier = MathHelper.clamp((double) value, 0.5D, 4.0D);
 							configChanged = true;
 						}
 						case "hold_perspective_hide_hud" -> {
@@ -639,6 +657,12 @@ public class ConfigHelper {
 					}
 					case "zoom_cinematic" -> {
 						return Config.zoomCinematic;
+					}
+					case "hold_perspective_back_multiplier" -> {
+						return MathHelper.clamp(Config.holdPerspectiveBackMultiplier, 0.5D, 4.0D);
+					}
+					case "hold_perspective_front_multiplier" -> {
+						return MathHelper.clamp(Config.holdPerspectiveFrontMultiplier, 0.5D, 4.0D);
 					}
 					case "hold_perspective_hide_hud" -> {
 						return Config.holdPerspectiveHideHud;

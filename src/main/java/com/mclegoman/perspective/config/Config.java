@@ -28,6 +28,8 @@ public class Config {
 	protected static String zoomType;
 	protected static boolean zoomReset;
 	protected static boolean zoomCinematic;
+	protected static double holdPerspectiveBackMultiplier;
+	protected static double holdPerspectiveFrontMultiplier;
 	protected static boolean holdPerspectiveHideHud;
 	protected static String superSecretSettingsShader;
 	protected static String superSecretSettingsMode;
@@ -87,6 +89,8 @@ public class Config {
 		configProvider.add(new Couple<>("zoom_type", ConfigDataLoader.zoomType));
 		configProvider.add(new Couple<>("zoom_reset", ConfigDataLoader.zoomReset));
 		configProvider.add(new Couple<>("zoom_cinematic", ConfigDataLoader.zoomCinematic));
+		configProvider.add(new Couple<>("hold_perspective_back_multiplier", ConfigDataLoader.holdPerspectiveBackMultiplier));
+		configProvider.add(new Couple<>("hold_perspective_front_multiplier", ConfigDataLoader.holdPerspectiveFrontMultiplier));
 		configProvider.add(new Couple<>("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
 		configProvider.add(new Couple<>("super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
 		configProvider.add(new Couple<>("super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
@@ -136,6 +140,8 @@ public class Config {
 		zoomReset = config.getOrDefault("zoom_reset", ConfigDataLoader.zoomReset);
 		zoomCinematic = config.getOrDefault("zoom_cinematic", ConfigDataLoader.zoomCinematic);
 		holdPerspectiveHideHud = config.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud);
+		holdPerspectiveBackMultiplier = config.getOrDefault("hold_perspective_back_multiplier", ConfigDataLoader.holdPerspectiveBackMultiplier);
+		holdPerspectiveFrontMultiplier = config.getOrDefault("hold_perspective_front_multiplier", ConfigDataLoader.holdPerspectiveFrontMultiplier);
 		superSecretSettingsShader = config.getOrDefault("super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader);
 		superSecretSettingsMode = config.getOrDefault("super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode);
 		superSecretSettingsEnabled = config.getOrDefault("super_secret_settings_enabled", ConfigDataLoader.superSecretSettingsEnabled);
@@ -184,6 +190,8 @@ public class Config {
 		configProvider.setConfig("zoom_type", zoomType);
 		configProvider.setConfig("zoom_reset", zoomReset);
 		configProvider.setConfig("zoom_cinematic", zoomCinematic);
+		configProvider.setConfig("hold_perspective_back_multiplier", holdPerspectiveBackMultiplier);
+		configProvider.setConfig("hold_perspective_front_multiplier", holdPerspectiveFrontMultiplier);
 		configProvider.setConfig("hold_perspective_hide_hud", holdPerspectiveHideHud);
 		configProvider.setConfig("super_secret_settings_shader", superSecretSettingsShader);
 		configProvider.setConfig("super_secret_settings_mode", superSecretSettingsMode);
@@ -232,6 +240,8 @@ public class Config {
 				zoomType,
 				zoomReset,
 				zoomCinematic,
+				holdPerspectiveBackMultiplier,
+				holdPerspectiveFrontMultiplier,
 				holdPerspectiveHideHud,
 				superSecretSettingsShader,
 				superSecretSettingsMode,
