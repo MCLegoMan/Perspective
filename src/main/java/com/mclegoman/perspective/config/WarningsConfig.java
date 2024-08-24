@@ -43,14 +43,14 @@ public class WarningsConfig {
 	protected static void assign() {
 		photosensitivity = config.getOrDefault("photosensitivity", false);
 		prank = config.getOrDefault("prank", false);
-		prank = config.getOrDefault("halloween", false);
+		halloween = config.getOrDefault("halloween", false);
 	}
 
 	protected static void save() {
 		Data.version.sendToLog(LogType.INFO,"Writing warning config to file.");
 		configProvider.setConfig("photosensitivity", photosensitivity);
 		configProvider.setConfig("prank", prank);
-		configProvider.setConfig("halloween", prank);
+		configProvider.setConfig("halloween", halloween);
 		configProvider.saveConfig(Data.version, id);
 	}
 	static {

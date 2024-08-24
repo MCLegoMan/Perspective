@@ -377,12 +377,12 @@ public class ConfigHelper {
 		}
 		return configChanged.contains(true);
 	}
-	public static boolean setConfig(ConfigType CONFIG_TYPE, String ID, Object value) {
+	public static boolean setConfig(ConfigType type, String key, Object value) {
 		boolean configChanged = false;
 		try {
-			switch (CONFIG_TYPE) {
+			switch (type) {
 				case normal -> {
-					switch (ID) {
+					switch (key) {
 						case "zoom_enabled" -> {
 							Config.zoomEnabled = (boolean) value;
 							configChanged = true;
@@ -576,33 +576,33 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						default -> {
-							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.normal);
 				}
 				case experimental -> {
-					switch (ID) {
+					switch (key) {
 						default -> {
-							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", key));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.experimental);
 				}
 				case tutorial -> {
-					switch (ID) {
+					switch (key) {
 						case "super_secret_settings" -> {
 							TutorialsConfig.superSecretSettings = (Boolean) value;
 							configChanged = true;
 						}
 						default -> {
-							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set tutorial {} config value!: Invalid Key", key));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.tutorial);
 				}
 				case warning -> {
-					switch (ID) {
+					switch (key) {
 						case "photosensitivity" -> {
 							WarningsConfig.photosensitivity = (boolean) value;
 							configChanged = true;
@@ -616,25 +616,25 @@ public class ConfigHelper {
 							configChanged = true;
 						}
 						default -> {
-							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", ID));
+							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set warning {} config value!: Invalid Key", key));
 						}
 					}
 					if (configChanged) addSaveConfig(ConfigType.warning);
 				}
 				default -> {
-					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", ID));
+					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Config", key));
 					return false;
 				}
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", ID, error));
+			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", key, error));
 		}
 		return configChanged;
 	}
-	public static Object getConfig(ConfigType CONFIG_TYPE, String ID) {
-		switch (CONFIG_TYPE) {
+	public static Object getConfig(ConfigType type, String key) {
+		switch (type) {
 			case normal -> {
-				switch (ID) {
+				switch (key) {
 					case "zoom_enabled" -> {
 						return Config.zoomEnabled;
 					}
@@ -783,30 +783,30 @@ public class ConfigHelper {
 						return Config.configVersion;
 					}
 					default -> {
-						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", key));
 						return new Object();
 					}
 				}
 			}
 			case experimental -> {
-				switch (ID) {
+				switch (key) {
 					default -> {
-						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", key));
 						return new Object();
 					}
 				}
 			}
 			case tutorial -> {
-				switch (ID) {
+				switch (key) {
 					case "super_secret_settings" -> {return TutorialsConfig.superSecretSettings;}
 					default -> {
-						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get tutorial {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get tutorial {} config value!: Invalid Key", key));
 						return new Object();
 					}
 				}
 			}
 			case warning -> {
-				switch (ID) {
+				switch (key) {
 					case "photosensitivity" -> {
 						return WarningsConfig.photosensitivity;
 					}
@@ -817,13 +817,13 @@ public class ConfigHelper {
 						return WarningsConfig.halloween;
 					}
 					default -> {
-						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get warning {} config value!: Invalid Key", ID));
+						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get warning {} config value!: Invalid Key", key));
 						return new Object();
 					}
 				}
 			}
 			default -> {
-				Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Config", ID));
+				Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Config", key));
 				return new Object();
 			}
 		}
