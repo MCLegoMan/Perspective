@@ -32,8 +32,9 @@ public class Zoom {
 	public static final String[] zoomScaleModes = new String[]{"scaled", "vanilla"};
 	private static boolean isZooming;
 	private static boolean hasUpdated;
-	private static double prevMultiplier;
-	private static double multiplier;
+	private static double prevMultiplier = 1.0D;
+	//private static double speedMultiplier = 1.0D; // This multiplier will be used in adjusting smooth zoom speed.
+	private static double multiplier = 1.0D;
 	public static double fov;
 	public static double zoomFOV;
 	public static double timeDelta = Double.MIN_VALUE;
