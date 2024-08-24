@@ -15,6 +15,7 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
@@ -47,7 +48,7 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			protected void applyValue() {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_back_multiplier", Double.valueOf(String.format("%.2f", ((value * 3.5D) + 0.5D))));
 			}
-		});
+		}).setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back_multiplier", true)));
 		holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.front_multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_front_multiplier"))}, false), (((double) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_front_multiplier") - 0.5F) / 3.5F)) {
 			@Override
 			protected void updateMessage() {
@@ -57,7 +58,7 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			protected void applyValue() {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_front_multiplier", Double.valueOf(String.format("%.2f", ((value * 3.5D) + 0.5D))));
 			}
-		});
+		}).setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.front_multiplier", true)));
 		holdPerspectiveGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"));
 			this.refresh = true;
