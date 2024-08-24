@@ -26,11 +26,11 @@ public class Perspective {
 	public static net.minecraft.client.option.Perspective getPerspective() {
 		return ClientData.minecraft.options.getPerspective();
 	}
-	public static double getHoldPerspectiveBackMultiplier() {
-		return (double) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_back_multiplier");
+	public static float getHoldPerspectiveBackMultiplier() {
+		return (float) ((double) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_back_multiplier"));
 	}
-	public static double getHoldPerspectiveFrontMultiplier() {
-		return (double) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_front_multiplier");
+	public static float getHoldPerspectiveFrontMultiplier() {
+		return (float) ((double) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_front_multiplier"));
 	}
 	public static void tick() {
 		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
