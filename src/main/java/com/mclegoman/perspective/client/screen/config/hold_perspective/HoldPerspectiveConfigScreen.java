@@ -38,10 +38,6 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 		GridWidget holdPerspectiveGrid = new GridWidget();
 		holdPerspectiveGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder holdPerspectiveGridAdder = holdPerspectiveGrid.createAdder(2);
-		holdPerspectiveGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"));
-			this.refresh = true;
-		}).width(304).build(), 2);
 		holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back_multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_back_multiplier"))}, false), (((double) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_back_multiplier") - 0.5F) / 3.5F)) {
 			@Override
 			protected void updateMessage() {
@@ -62,6 +58,10 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_front_multiplier", Double.valueOf(String.format("%.2f", ((value * 3.5D) + 0.5D))));
 			}
 		});
+		holdPerspectiveGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "hold_perspective_hide_hud"));
+			this.refresh = true;
+		}).width(304).build(), 2);
 		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
 		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
 		return holdPerspectiveGrid;
