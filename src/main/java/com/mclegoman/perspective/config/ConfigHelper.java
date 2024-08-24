@@ -41,7 +41,7 @@ public class ConfigHelper {
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
-	protected static final int defaultConfigVersion = 21;
+	protected static final int defaultConfigVersion = 22;
 	protected static final boolean defaultDebug = false;
 	protected static boolean saveViaTick = false;
 	protected static int saveViaTickTicks = 0;
