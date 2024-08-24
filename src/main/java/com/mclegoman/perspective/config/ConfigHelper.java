@@ -147,7 +147,8 @@ public class ConfigHelper {
 						else setConfig(ConfigType.normal, "super_secret_settings_mode", "game");
 						Boolean HIDE_HUD = Config.config.getOrDefault("hide_hud", true);
 						setConfig(ConfigType.normal, "zoom_hide_hud", HIDE_HUD);
-						setConfig(ConfigType.normal, "hold_perspective_hide_hud", HIDE_HUD);
+						setConfig(ConfigType.normal, "hold_perspective_back_hide_hud", HIDE_HUD);
+						setConfig(ConfigType.normal, "hold_perspective_front_hide_hud", HIDE_HUD);
 					}
 					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 8) {
 						showLicenseUpdateNotice = true;
@@ -179,6 +180,10 @@ public class ConfigHelper {
 						if (crosshairType.equals("false")) crosshairType = "vanilla";
 						else if (crosshairType.equals("true")) crosshairType = "hidden";
 						setConfig(ConfigType.normal, "crosshair_type", crosshairType);
+					}
+					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 22) {
+						setConfig(ConfigType.normal, "hold_perspective_back_hide_hud", Config.config.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveBackHideHud));
+						setConfig(ConfigType.normal, "hold_perspective_front_hide_hud", Config.config.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveFrontHideHud));
 					}
 					setConfig(ConfigType.normal, "config_version", defaultConfigVersion);
 					Data.version.sendToLog(LogType.INFO, Translation.getString("Successfully updated config to the latest version."));
@@ -324,7 +329,8 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "zoom_cinematic", ConfigDataLoader.zoomCinematic));
 			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_back_multiplier", MathHelper.clamp(ConfigDataLoader.holdPerspectiveBackMultiplier, 0.5D, 4.0D)));
 			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_front_multiplier", MathHelper.clamp(ConfigDataLoader.holdPerspectiveFrontMultiplier, 0.5D, 4.0D)));
-			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveHideHud));
+			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_back_hide_hud", ConfigDataLoader.holdPerspectiveBackHideHud));
+			configChanged.add(setConfig(ConfigType.normal, "hold_perspective_front_hide_hud", ConfigDataLoader.holdPerspectiveFrontHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_shader", ConfigDataLoader.superSecretSettingsShader));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_mode", ConfigDataLoader.superSecretSettingsMode));
 			configChanged.add(setConfig(ConfigType.normal, "super_secret_settings_enabled", ConfigDataLoader.superSecretSettingsEnabled));
@@ -428,8 +434,12 @@ public class ConfigHelper {
 							Config.holdPerspectiveFrontMultiplier = MathHelper.clamp((double) value, 0.5D, 4.0D);
 							configChanged = true;
 						}
-						case "hold_perspective_hide_hud" -> {
-							Config.holdPerspectiveHideHud = (boolean) value;
+						case "hold_perspective_back_hide_hud" -> {
+							Config.holdPerspectiveBackHideHud = (boolean) value;
+							configChanged = true;
+						}
+						case "hold_perspective_front_hide_hud" -> {
+							Config.holdPerspectiveFrontHideHud = (boolean) value;
 							configChanged = true;
 						}
 						case "super_secret_settings_shader" -> {
@@ -664,8 +674,11 @@ public class ConfigHelper {
 					case "hold_perspective_front_multiplier" -> {
 						return MathHelper.clamp(Config.holdPerspectiveFrontMultiplier, 0.5D, 4.0D);
 					}
-					case "hold_perspective_hide_hud" -> {
-						return Config.holdPerspectiveHideHud;
+					case "hold_perspective_back_hide_hud" -> {
+						return Config.holdPerspectiveBackHideHud;
+					}
+					case "hold_perspective_front_hide_hud" -> {
+						return Config.holdPerspectiveFrontHideHud;
 					}
 					case "super_secret_settings_shader" -> {
 						return Config.superSecretSettingsShader;

@@ -17,11 +17,13 @@ public class Perspective {
 	private static boolean holdThirdPersonFrontLock;
 	private static net.minecraft.client.option.Perspective holdThirdPersonFrontPrev;
 	public static boolean isHoldingPerspective() {
-		try {
-			return holdThirdPersonBackLock || holdThirdPersonFrontLock;
-		} catch (Exception ignored) {
-		}
-		return false;
+		return isHoldingPerspectiveBack() || isHoldingPerspectiveFront();
+	}
+	public static boolean isHoldingPerspectiveBack() {
+		return holdThirdPersonBackLock ;
+	}
+	public static boolean isHoldingPerspectiveFront() {
+		return holdThirdPersonFrontLock;
 	}
 	public static net.minecraft.client.option.Perspective getPerspective() {
 		return ClientData.minecraft.options.getPerspective();

@@ -40,7 +40,7 @@ public class HUDHelper {
 		}
 	}
 	public static boolean shouldHideHUD() {
-		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspective);
+		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveBack) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveFront);
 	}
 	public static int addY(int y) {
 		return y + 12;

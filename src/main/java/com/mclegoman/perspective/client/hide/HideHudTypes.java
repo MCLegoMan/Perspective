@@ -9,5 +9,6 @@ package com.mclegoman.perspective.client.hide;
 
 public enum HideHudTypes {
 	zoom,
-	holdPerspective;
+	holdPerspectiveBack,
+	holdPerspectiveFront;
 }

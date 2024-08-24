@@ -37,7 +37,8 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean zoomCinematic;
 	public static double holdPerspectiveBackMultiplier;
 	public static double holdPerspectiveFrontMultiplier;
-	public static boolean holdPerspectiveHideHud;
+	public static boolean holdPerspectiveBackHideHud;
+	public static boolean holdPerspectiveFrontHideHud;
 	public static String superSecretSettingsShader;
 	public static String superSecretSettingsMode;
 	public static boolean superSecretSettingsEnabled;
@@ -92,7 +93,8 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				zoomShowPercentage = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "zoom_show_percentage", false);
 				holdPerspectiveBackMultiplier = JsonHelper.getDouble(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_back_multiplier", 1.0D);
 				holdPerspectiveFrontMultiplier = JsonHelper.getDouble(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_front_multiplier", 1.0D);
-				holdPerspectiveHideHud = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_hide_hud", true);
+				holdPerspectiveBackHideHud = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_back_hide_hud", false);
+				holdPerspectiveFrontHideHud = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hold_perspective_front_hide_hud", true);
 				superSecretSettingsShader = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_shader", "minecraft:blur");
 				superSecretSettingsMode = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_mode", "game");
 				superSecretSettingsEnabled = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "super_secret_settings_enabled", false);

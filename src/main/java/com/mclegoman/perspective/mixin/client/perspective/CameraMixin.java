@@ -21,13 +21,11 @@ public abstract class CameraMixin {
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;clipToSpace(F)F"), method = "update")
 	private float perspective$update(float original) {
 		if (this.thirdPerson && Perspective.isHoldingPerspective()) {
-			switch (Perspective.getPerspective()) {
-				case THIRD_PERSON_BACK -> {
-					return Perspective.getHoldPerspectiveBackMultiplier() != 1.0F ? this.clipToSpace(original * Perspective.getHoldPerspectiveBackMultiplier()) : original;
-				}
-				case THIRD_PERSON_FRONT -> {
-					return Perspective.getHoldPerspectiveFrontMultiplier() != 1.0F ? this.clipToSpace(original * Perspective.getHoldPerspectiveFrontMultiplier()) : original;
-				}
+			if (Perspective.isHoldingPerspectiveBack()) {
+				return Perspective.getHoldPerspectiveBackMultiplier() != 1.0F ? this.clipToSpace(original * Perspective.getHoldPerspectiveBackMultiplier()) : original;
+			}
+			else if (Perspective.isHoldingPerspectiveFront()) {
+				return Perspective.getHoldPerspectiveFrontMultiplier() != 1.0F ? this.clipToSpace(original * Perspective.getHoldPerspectiveFrontMultiplier()) : original;
 			}
 		}
 		return original;

@@ -98,11 +98,12 @@
 	"gui.perspective.config.zoom.cinematic": "Cinematic: %s",
 
 	"gui.perspective.config.hold_perspective": "Hold Perspective",
-	"gui.perspective.config.hold_perspective.back_multiplier": "Back Multiplier: %s",
-	"gui.perspective.config.hold_perspective.back_multiplier.hover": "Sets how far away the camera is when using Hold Perspective Back.",
-	"gui.perspective.config.hold_perspective.front_multiplier": "Front Multiplier: %s",
-	"gui.perspective.config.hold_perspective.front_multiplier.hover": "Sets how far away the camera is when using Hold Perspective Front.",
-	"gui.perspective.config.hold_perspective.hide_hud": "Hide HUD: %s",
+	"gui.perspective.config.hold_perspective.back.multiplier": "Back Multiplier: %s",
+	"gui.perspective.config.hold_perspective.back.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Back.",
+	"gui.perspective.config.hold_perspective.front.multiplier": "Front Multiplier: %s",
+	"gui.perspective.config.hold_perspective.front.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Front.",
+	"gui.perspective.config.hold_perspective.back.hide_hud": "Back Hide HUD: %s",
+	"gui.perspective.config.hold_perspective.front.hide_hud": "Front Hide HUD: %s",
 
 	"gui.perspective.config.shaders": "Super Secret Settings",
 	"gui.perspective.config.shaders_raw": "Shaders",
