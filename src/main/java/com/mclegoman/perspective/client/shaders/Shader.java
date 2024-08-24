@@ -99,7 +99,7 @@ public class Shader {
 			if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"))
 				set(true, false, false, false);
 			prepEntityShader(ClientData.minecraft.getCameraEntity());
-			if (saveConfig) ConfigHelper.saveConfig();
+			if (saveConfig) ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
 			finishedAfterInit = true;
 		}
 		entityShaderEntityPrev = entityShaderEntity;
@@ -142,7 +142,7 @@ public class Shader {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.warning, "photosensitivity", true);
 			save = true;
 		}
-		if (save) ConfigHelper.saveConfig();
+		if (save) ConfigHelper.saveConfig(ConfigHelper.ConfigType.warning);
 	}
 	public static void toggle(boolean playSound, boolean showShaderName, boolean skipDisableScreenModeWhenWorldNull, boolean SAVE_CONFIG) {
 		ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"));
@@ -154,7 +154,7 @@ public class Shader {
 		if (showShaderName) {
 			setOverlay(Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"), Translation.Type.ENDISABLE));
 		}
-		if (SAVE_CONFIG) ConfigHelper.saveConfig();
+		if (SAVE_CONFIG) ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
 	}
 
 	public static void cycle(boolean shouldCycle, boolean forwards, boolean playSound, boolean showShaderName, boolean saveConfig) {
@@ -232,7 +232,7 @@ public class Shader {
 			}
 			if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "super_secret_settings_enabled"))
 				toggle(true, false, true, false);
-			if (saveConfig) ConfigHelper.saveConfig();
+			if (saveConfig) ConfigHelper.saveConfig(ConfigHelper.ConfigType.normal);
 
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("An error occurred whilst trying to set Super Secret Settings: {}", error));

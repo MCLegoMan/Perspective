@@ -38,7 +38,7 @@ public class Halloween {
 				}
 			}
 		}
-		if (shouldSave) ConfigHelper.saveConfig();
+		if (shouldSave) ConfigHelper.saveConfig(ConfigHelper.ConfigType.warning);
 	}
 	public static boolean isHalloween() {
 		if (!(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "allow_halloween")) return false;
