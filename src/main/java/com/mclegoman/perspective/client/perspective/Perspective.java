@@ -22,6 +22,15 @@ public class Perspective {
 		}
 		return false;
 	}
+	public static net.minecraft.client.option.Perspective getPerspective() {
+		return ClientData.minecraft.options.getPerspective();
+	}
+	public static float getHoldPerspectiveBackMultiplier() {
+		return 1.0F;
+	}
+	public static float getHoldPerspectiveFrontMultiplier() {
+		return 1.0F;
+	}
 	public static void tick() {
 		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
 			setPerspective(net.minecraft.client.option.Perspective.FIRST_PERSON);

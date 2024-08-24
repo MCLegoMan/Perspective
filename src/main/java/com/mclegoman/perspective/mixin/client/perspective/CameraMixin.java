@@ -20,8 +20,12 @@ public abstract class CameraMixin {
 	@Shadow private boolean thirdPerson;
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;clipToSpace(F)F"), method = "update")
 	private float perspective$update(float original) {
-		// TODO: Customizable Hold Perspective Distance Multiplier.
-		if (Perspective.isHoldingPerspective() && this.thirdPerson) return this.clipToSpace(original);// * 10.0F);
+		if (this.thirdPerson && Perspective.isHoldingPerspective()) {
+			switch (Perspective.getPerspective()) {
+				case THIRD_PERSON_BACK -> {return this.clipToSpace(original * Perspective.getHoldPerspectiveBackMultiplier());}
+				case THIRD_PERSON_FRONT -> {return this.clipToSpace(original * Perspective.getHoldPerspectiveFrontMultiplier());}
+			}
+		}
 		return original;
 	}
 }
