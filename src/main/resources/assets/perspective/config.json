@@ -3,6 +3,8 @@
 	"zoom_level": 40,
 	"zoom_increment_size": 1,
 	"zoom_transition": "smooth",
+	"zoom_smooth_speed_in": 1.0,
+	"zoom_smooth_speed_out": 1.0,
 	"zoom_scale_mode": "scaled",
 	"zoom_hide_hud": false,
 	"zoom_type": "perspective:logarithmic",
