@@ -85,6 +85,9 @@
 
 	"gui.perspective.config.zoom.show_percentage": "Show Percentage: %s",
 
+	"gui.perspective.config.zoom.smooth_speed_in": "Smooth Speed In: %s",
+	"gui.perspective.config.zoom.smooth_speed_out": "Smooth Speed Out: %s",
+
 	"gui.perspective.config.zoom.enabled": "Allow Zoom: %s",
 	"gui.perspective.config.zoom.enabled.hover": "%s",
 	"gui.perspective.config.zoom.enabled.true.hover": "§rZoom is §a§lenabled§r and will function normally.",

@@ -33,7 +33,6 @@ public class Zoom {
 	private static boolean isZooming;
 	private static boolean hasUpdated;
 	private static double prevMultiplier = 1.0D;
-	//private static double speedMultiplier = 1.0D; // This multiplier will be used in adjusting smooth zoom speed.
 	private static double multiplier = 1.0D;
 	public static double fov;
 	public static double zoomFOV;
@@ -110,8 +109,9 @@ public class Zoom {
 	}
 	public static void updateTransition() {
 		try {
-			if (ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition").equals("smooth")) {
-				multiplier = (prevMultiplier + multiplier) * 0.5;
+			if ((ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_transition")).equals("smooth")) {
+				double speedMultiplier = ((prevMultiplier + multiplier) * 0.5);
+				multiplier = MathHelper.lerp((prevMultiplier < speedMultiplier) ? (double)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_smooth_speed_out") : (double)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_smooth_speed_in"), prevMultiplier, speedMultiplier);
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to update zoom transition: {}", error));

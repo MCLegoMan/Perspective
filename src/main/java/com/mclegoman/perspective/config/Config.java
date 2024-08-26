@@ -22,6 +22,8 @@ public class Config {
 	protected static int zoomLevel;
 	protected static int zoomIncrementSize;
 	protected static String zoomTransition;
+	protected static double zoomSmoothSpeedIn;
+	protected static double zoomSmoothSpeedOut;
 	protected static String zoomScaleMode;
 	protected static boolean zoomHideHud;
 	protected static boolean zoomShowPercentage;
@@ -84,6 +86,8 @@ public class Config {
 		configProvider.add(new Couple<>("zoom_level", ConfigDataLoader.zoomLevel));
 		configProvider.add(new Couple<>("zoom_increment_size", ConfigDataLoader.zoomIncrementSize));
 		configProvider.add(new Couple<>("zoom_transition", ConfigDataLoader.zoomTransition));
+		configProvider.add(new Couple<>("zoom_smooth_speed_in", ConfigDataLoader.zoomSmoothSpeedIn));
+		configProvider.add(new Couple<>("zoom_smooth_speed_out", ConfigDataLoader.zoomSmoothSpeedOut));
 		configProvider.add(new Couple<>("zoom_scale_mode", ConfigDataLoader.zoomScaleMode));
 		configProvider.add(new Couple<>("zoom_hide_hud", ConfigDataLoader.zoomHideHud));
 		configProvider.add(new Couple<>("zoom_show_percentage", ConfigDataLoader.zoomShowPercentage));
@@ -135,6 +139,8 @@ public class Config {
 		zoomLevel = config.getOrDefault("zoom_level", ConfigDataLoader.zoomLevel);
 		zoomIncrementSize = config.getOrDefault("zoom_increment_size", ConfigDataLoader.zoomIncrementSize);
 		zoomTransition = config.getOrDefault("zoom_transition", ConfigDataLoader.zoomTransition);
+		zoomSmoothSpeedIn = config.getOrDefault("zoom_smooth_speed_in", ConfigDataLoader.zoomSmoothSpeedIn);
+		zoomSmoothSpeedOut = config.getOrDefault("zoom_smooth_speed_out", ConfigDataLoader.zoomSmoothSpeedOut);
 		zoomScaleMode = config.getOrDefault("zoom_scale_mode", ConfigDataLoader.zoomScaleMode);
 		zoomHideHud = config.getOrDefault("zoom_hide_hud", ConfigDataLoader.zoomHideHud);
 		zoomShowPercentage = config.getOrDefault("zoom_show_percentage", ConfigDataLoader.zoomShowPercentage);
@@ -187,6 +193,8 @@ public class Config {
 		configProvider.setConfig("zoom_level", zoomLevel);
 		configProvider.setConfig("zoom_increment_size", zoomIncrementSize);
 		configProvider.setConfig("zoom_transition", zoomTransition);
+		configProvider.setConfig("zoom_smooth_speed_in", zoomSmoothSpeedIn);
+		configProvider.setConfig("zoom_smooth_speed_out", zoomSmoothSpeedOut);
 		configProvider.setConfig("zoom_scale_mode", zoomScaleMode);
 		configProvider.setConfig("zoom_hide_hud", zoomHideHud);
 		configProvider.setConfig("zoom_show_percentage", zoomShowPercentage);
@@ -238,6 +246,8 @@ public class Config {
 				zoomLevel,
 				zoomIncrementSize,
 				zoomTransition,
+				zoomSmoothSpeedIn,
+				zoomSmoothSpeedOut,
 				zoomScaleMode,
 				zoomHideHud,
 				zoomShowPercentage,

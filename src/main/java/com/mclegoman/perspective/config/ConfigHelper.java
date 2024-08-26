@@ -250,6 +250,14 @@ public class ConfigHelper {
 				Data.version.sendToLog(LogType.WARN, "Config: zoom_increment_size was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "zoom_increment_size") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "zoom_increment_size", ConfigDataLoader.zoomIncrementSize));
 			}
+			if ((double) getConfig(ConfigType.normal, "zoom_smooth_speed_in") < 0.001D || (double) getConfig(ConfigType.normal, "zoom_smooth_speed_in") > 2.0D) {
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_smooth_speed_in was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "zoom_smooth_speed_in") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "zoom_smooth_speed_in", ConfigDataLoader.zoomSmoothSpeedIn));
+			}
+			if ((double) getConfig(ConfigType.normal, "zoom_smooth_speed_out") < 0.001D || (double) getConfig(ConfigType.normal, "zoom_smooth_speed_out") > 2.0D) {
+				Data.version.sendToLog(LogType.WARN, "Config: zoom_smooth_speed_out was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "zoom_smooth_speed_out") + ")");
+				hasFixedConfig.add(setConfig(ConfigType.normal, "zoom_smooth_speed_out", ConfigDataLoader.zoomSmoothSpeedOut));
+			}
 			if (!Arrays.stream(Zoom.zoomTransitions).toList().contains((String) getConfig(ConfigType.normal, "zoom_transition"))) {
 				Data.version.sendToLog(LogType.WARN, "Config: zoom_transition was invalid and have been reset to prevent any unexpected issues. (" + getConfig(ConfigType.normal, "zoom_transition") + ")");
 				hasFixedConfig.add(setConfig(ConfigType.normal, "zoom_transition", ConfigDataLoader.zoomTransition));
@@ -318,6 +326,8 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "zoom_level", MathHelper.clamp(ConfigDataLoader.zoomLevel, 0, 100)));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_increment_size", MathHelper.clamp(ConfigDataLoader.zoomIncrementSize, 1, 10)));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_transition", ConfigDataLoader.zoomTransition));
+			configChanged.add(setConfig(ConfigType.normal, "zoom_smooth_speed_in", MathHelper.clamp(ConfigDataLoader.zoomSmoothSpeedIn, 0.001D, 2.0D)));
+			configChanged.add(setConfig(ConfigType.normal, "zoom_smooth_speed_out", MathHelper.clamp(ConfigDataLoader.zoomSmoothSpeedOut, 0.001D, 2.0D)));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_scale_mode", ConfigDataLoader.zoomScaleMode));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_hide_hud", ConfigDataLoader.zoomHideHud));
 			configChanged.add(setConfig(ConfigType.normal, "zoom_show_percentage", ConfigDataLoader.zoomShowPercentage));
@@ -397,6 +407,14 @@ public class ConfigHelper {
 						}
 						case "zoom_transition" -> {
 							Config.zoomTransition = (String) value;
+							configChanged = true;
+						}
+						case "zoom_smooth_speed_in" -> {
+							Config.zoomSmoothSpeedIn = MathHelper.clamp((double) value, 0.001D, 2.0D);
+							configChanged = true;
+						}
+						case "zoom_smooth_speed_out" -> {
+							Config.zoomSmoothSpeedOut = (double) value;
 							configChanged = true;
 						}
 						case "zoom_scale_mode" -> {
@@ -646,6 +664,12 @@ public class ConfigHelper {
 					}
 					case "zoom_transition" -> {
 						return Config.zoomTransition;
+					}
+					case "zoom_smooth_speed_in" -> {
+						return MathHelper.clamp(Config.zoomSmoothSpeedIn, 0.001D, 2.0D);
+					}
+					case "zoom_smooth_speed_out" -> {
+						return MathHelper.clamp(Config.zoomSmoothSpeedOut, 0.001D, 2.0D);
 					}
 					case "zoom_scale_mode" -> {
 						return Config.zoomScaleMode;
