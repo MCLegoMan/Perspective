@@ -88,7 +88,7 @@ public class EntityCapeFeatureRenderer<T extends LivingEntity> extends FeatureRe
 		matrixStack.translate(this.offsetX, this.offsetY, this.offsetZ);
 		matrixStack.multiply(rotation);
 		double f = 0.0F;
-		double g = (Math.cos(EntityModels.getPiglinCapeY(livingEntity) * (2.0F * 3.141592653589793F / 80.0F)) + 1.0F) * 0.48F;
+		double g = (Math.cos(EntityModels.getEntityCapeY(livingEntity) * (2.0F * 3.141592653589793F / 80.0F)) + 1.0F) * 0.48F;
 		double h = 0.0F;
 		float i = MathHelper.lerpAngleDegrees(delta, livingEntity.prevBodyYaw, livingEntity.bodyYaw);
 		double j = MathHelper.sin(i * 0.017453292F);

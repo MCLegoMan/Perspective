@@ -21,7 +21,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class EntityModels {
-	public static double piglinCapeY = 0.0F;
+	public static double entityCapeY = 0.0F;
 	public static final EntityModelLayer entityCape = new EntityModelLayer(Identifier.of(Data.version.getID(), "entity"), "cape");
 	public static final EntityModelLayer pigOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "pig"), "outer");
 	public static final EntityModelLayer beeOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "bee"), "outer");
@@ -41,10 +41,10 @@ public class EntityModels {
 		EntityModelLayerRegistry.registerModelLayer(halloweenHat, HalloweenHatModel::getTexturedModelData);
 	}
 	public static void tick() {
-		piglinCapeY = (piglinCapeY + 0.5F) % 80.0F;
+		entityCapeY = (entityCapeY + 0.5F) % 80.0F;
 	}
-	public static double getPiglinCapeY(LivingEntity entity) {
-		return (piglinCapeY + entity.hashCode()) % 80.0F;
+	public static double getEntityCapeY(LivingEntity entity) {
+		return (entityCapeY + entity.hashCode()) % 80.0F;
 	}
 	public static TexturedModelData getBipedEntityModelData(Dilation dilation, int width, int height) {
 		return TexturedModelData.of(BipedEntityModel.getModelData(dilation, 0.0F), width, height);
