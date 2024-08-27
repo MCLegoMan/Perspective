@@ -12,6 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.util.TextureHelper;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -50,20 +51,20 @@ public class TexturedEntity {
 	private static Identifier getOverrideTexture(JsonArray overrides, Identifier fallback) {
 		return getOverrideTexture("", "", overrides, fallback);
 	}
-	public static Identifier getTexture(Entity entity, Identifier defaultIdentifier) {
-		return getTexture(entity, "", "", "", defaultIdentifier);
+	public static Identifier getTexture(Entity entity, Identifier fallback) {
+		return getTexture(entity, "", "", "", fallback);
 	}
-	public static Identifier getTexture(Entity entity, String overrideNamespace, Identifier defaultIdentifier) {
-		return getTexture(entity, overrideNamespace, "", "", defaultIdentifier);
+	public static Identifier getTexture(Entity entity, String overrideNamespace, Identifier fallback) {
+		return getTexture(entity, overrideNamespace, "", "", fallback);
 	}
-	public static Identifier getTexture(Entity entity, String prefix, String suffix, Identifier defaultIdentifier) {
-		return getTexture(entity, "", prefix, suffix, defaultIdentifier);
+	public static Identifier getTexture(Entity entity, String prefix, String suffix, Identifier fallback) {
+		return getTexture(entity, "", prefix, suffix, fallback);
 	}
-	public static Identifier getTexture(Entity entity, String overrideNamespace, String prefix, String suffix, Identifier defaultIdentifier) {
+	public static Identifier getTexture(Entity entity, String overrideNamespace, String prefix, String suffix, Identifier fallback) {
 		try {
 			if (TexturedEntityDataLoader.isReady) {
 				Identifier entityType = Registries.ENTITY_TYPE.getId(entity.getType());
-				String namespace = defaultIdentifier.getNamespace();
+				String namespace = fallback.getNamespace();
 				if (!overrideNamespace.isEmpty()) namespace = overrideNamespace;
 				TexturedEntityData entityData = getEntity(entity);
 				if (entityData != null) {
@@ -87,13 +88,13 @@ public class TexturedEntity {
 								}
 							}
 						}
-					if (shouldReplaceTexture) return getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(namespace, "textures/textured_entity/" + entityType.getNamespace() + "/" + entityType.getPath() + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png"));
+					if (shouldReplaceTexture) return TextureHelper.getTexture(getOverrideTexture(prefix, suffix, entityData.getOverrides(), Identifier.of(namespace, "textures/textured_entity/" + entityType.getNamespace() + "/" + entityType.getPath() + "/" + (prefix + entityData.getName().toLowerCase() + suffix) + ".png")), fallback);
 				}
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to set textured entity texture: {}", error));
 		}
-		return defaultIdentifier;
+		return fallback;
 	}
 	private static List<TexturedEntityData> getRegistry(String namespace, String entity_type) {
 		List<TexturedEntityData> entityRegistry = new ArrayList<>();
