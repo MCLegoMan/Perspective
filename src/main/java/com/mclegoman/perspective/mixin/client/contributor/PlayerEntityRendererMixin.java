@@ -7,7 +7,9 @@
 
 package com.mclegoman.perspective.mixin.client.contributor;
 
+import com.mclegoman.perspective.client.entity.EntityModels;
 import com.mclegoman.perspective.client.entity.renderer.feature.ContributorHeadFeatureRenderer;
+import com.mclegoman.perspective.client.entity.renderer.feature.ContributorOverlayFeatureRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -26,5 +28,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void perspective$init(EntityRendererFactory.Context context, boolean slim, CallbackInfo ci) {
 		this.addFeature(new ContributorHeadFeatureRenderer<>(this, context.getModelLoader(), context.getHeldItemRenderer()));
+		this.addFeature(new ContributorOverlayFeatureRenderer<>(this, new PlayerEntityModel<>(context.getPart(slim ? EntityModels.contributorOverlaySlim : EntityModels.contributorOverlayWide), slim)));
 	}
 }

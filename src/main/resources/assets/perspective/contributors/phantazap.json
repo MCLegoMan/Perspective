@@ -10,5 +10,7 @@
 	"shouldReplaceCape": false,
 	"capeTexture": "none",
 	"shouldRenderHeadItem": false,
-	"headItem": "minecraft:air"
+	"headItem": "minecraft:air",
+	"shouldRenderOverlay": false,
+	"overlayTexture": "none"
 }

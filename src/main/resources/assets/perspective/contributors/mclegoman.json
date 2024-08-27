@@ -14,5 +14,7 @@
 	"shouldReplaceCape": true,
 	"capeTexture": "perspective:textures/contributors/cape/dev_oneyear",
 	"shouldRenderHeadItem": false,
-	"headItem": "minecraft:air"
+	"headItem": "minecraft:air",
+	"shouldRenderOverlay": false,
+	"overlayTexture": "none"
 }

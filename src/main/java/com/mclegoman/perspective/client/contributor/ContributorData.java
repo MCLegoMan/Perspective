@@ -20,7 +20,9 @@ public class ContributorData {
 	private final Identifier capeTexture;
 	private final boolean shouldRenderHeadItem;
 	private final Identifier headItem;
-	public ContributorData(List<String> ids, String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, Identifier capeTexture, boolean shouldRenderHeadItem, Identifier headItem) {
+	private final boolean shouldRenderOverlay;
+	private final Identifier overlayTexture;
+	public ContributorData(List<String> ids, String uuid, String type, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, Identifier capeTexture, boolean shouldRenderHeadItem, Identifier headItem, boolean shouldRenderOverlay, Identifier overlayTexture) {
 		this.ids = ids;
 		this.uuid = uuid;
 		this.type = type;
@@ -29,6 +31,8 @@ public class ContributorData {
 		this.capeTexture = capeTexture;
 		this.shouldRenderHeadItem = shouldRenderHeadItem;
 		this.headItem = headItem;
+		this.shouldRenderOverlay = shouldRenderOverlay;
+		this.overlayTexture = overlayTexture;
 	}
 	public List<String> getIds() {
 		return this.ids;
@@ -53,5 +57,11 @@ public class ContributorData {
 	}
 	public Identifier getHeadItem() {
 		return this.headItem;
+	}
+	public boolean getShouldRenderOverlay() {
+		return this.shouldRenderOverlay;
+	}
+	public Identifier getOverlayTexture() {
+		return this.overlayTexture;
 	}
 }

@@ -39,7 +39,7 @@ public class AbstractClientPlayerEntityMixin {
 			Identifier skinTexture = currentSkinTextures.texture();
 			Identifier capeTexture = currentSkinTextures.capeTexture();
 			SkinTextures.Model model = currentSkinTextures.model();
-			String uuid = playerListEntry.getProfile().getId().toString();
+			String uuid = String.valueOf(this.playerListEntry.getProfile().getId());
 			if (isAprilFools) {
 				Couple<Identifier, Boolean> skin = AprilFoolsPrankDataLoader.registry.get(AprilFoolsPrank.getAprilFoolsIndex(this.playerListEntry.getProfile().getId().getLeastSignificantBits(), AprilFoolsPrankDataLoader.registry.size()));
 				skinTexture = skin.getFirst();

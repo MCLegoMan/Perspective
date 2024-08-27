@@ -17,11 +17,14 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.PigEntityModel;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class EntityModels {
 	public static double entityCapeY = 0.0F;
+	public static final EntityModelLayer contributorOverlaySlim = new EntityModelLayer(Identifier.of(Data.version.getID(), "contributor"), "slim");
+	public static final EntityModelLayer contributorOverlayWide = new EntityModelLayer(Identifier.of(Data.version.getID(), "contributor"), "wide");
 	public static final EntityModelLayer entityCape = new EntityModelLayer(Identifier.of(Data.version.getID(), "entity"), "cape");
 	public static final EntityModelLayer pigOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "pig"), "outer");
 	public static final EntityModelLayer beeOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "bee"), "outer");
@@ -31,6 +34,8 @@ public class EntityModels {
 	public static final EntityModelLayer armorStandOverlay = new EntityModelLayer(Identifier.of(Data.version.getID(), "armor_stand"), "outer");
 	public static final EntityModelLayer halloweenHat = new EntityModelLayer(Identifier.of(Data.version.getID(), "player"), "halloween_hat");
 	public static void init() {
+		EntityModelLayerRegistry.registerModelLayer(contributorOverlaySlim, () -> TexturedModelData.of(PlayerEntityModel.getTexturedModelData(new Dilation(0.001F), true), 64, 64));
+		EntityModelLayerRegistry.registerModelLayer(contributorOverlayWide, () -> TexturedModelData.of(PlayerEntityModel.getTexturedModelData(new Dilation(0.001F), false), 64, 64));
 		EntityModelLayerRegistry.registerModelLayer(entityCape, () -> TexturedModelData.of(LivingEntityCapeModel.getModelData(new Dilation(0.0F)), 64, 64));
 		EntityModelLayerRegistry.registerModelLayer(pigOverlay, () -> PigEntityModel.getTexturedModelData(new Dilation(0.499F)));
 		EntityModelLayerRegistry.registerModelLayer(beeOverlay, () -> getBeeEntityModelData(new Dilation(0.5F)));
