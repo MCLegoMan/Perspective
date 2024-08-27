@@ -40,7 +40,7 @@ public class Contributor {
 	private static void initAttributionUuids() {
 		addAllowedUuid(Type.ATTRIBUTION, "1f7a5ac1-664b-479d-9e2d-15ed891b080c"); // Phantazap: "Jester" Giant Textured Entity Texture.
 	}
-	protected static void addAllowedUuid(Type type, String... uuids) {
+	private static void addAllowedUuid(Type type, String... uuids) {
 		for (String uuid : uuids) {
 			if (getUuid(uuid) == null) allowedUuids.add(new ContributorLockData(type, uuid));
 		}

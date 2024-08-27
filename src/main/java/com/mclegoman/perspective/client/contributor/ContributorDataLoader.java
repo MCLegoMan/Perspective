@@ -39,7 +39,7 @@ public class ContributorDataLoader extends JsonDataLoader implements Identifiabl
 				registry.removeIf(contributorData -> contributorData.getUuid().equals(uuid));
 				List<String> outputIds = new ArrayList<>();
 				for (JsonElement id : inputIds) outputIds.add(id.getAsString());
-				registry.add(new ContributorData(outputIds, uuid, lockData.getType().getName(), shouldFlipUpsideDown, shouldReplaceCape, IdentifierHelper.identifierFromString(capeTexture), shouldRenderHeadItem, IdentifierHelper.identifierFromString(headItem), shouldRenderOverlay, IdentifierHelper.identifierFromString(overlayTexture)));
+				registry.add(ContributorData.builder(uuid).id(outputIds).type(lockData.getType().getName()).shouldFlipUpsideDown(shouldFlipUpsideDown).shouldReplaceCape(shouldReplaceCape).capeTexture(IdentifierHelper.identifierFromString(capeTexture)).shouldRenderHeadItem(shouldRenderHeadItem).headItem(IdentifierHelper.identifierFromString(headItem)).shouldRenderOverlay(shouldRenderOverlay).overlayTexture(IdentifierHelper.identifierFromString(overlayTexture)).build());
 			} else {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
 			}
