@@ -32,14 +32,14 @@ public class ContributorDataLoader extends JsonDataLoader implements Identifiabl
 	public ContributorDataLoader() {
 		super(new Gson(), id);
 	}
-	private void add(List<JsonElement> inputIds, String uuid, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture, boolean shouldRenderHeadItem, String headItem, boolean shouldRenderOverlay, String overlayTexture) {
+	private void add(List<JsonElement> inputIds, String uuid, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture, boolean shouldRenderHeadItem, String headItem, boolean shouldRenderOverlay, String overlayTexture, boolean isOverlayEmissive) {
 		try {
 			ContributorLockData lockData = Contributor.getUuid(uuid);
 			if (lockData != null) {
 				registry.removeIf(contributorData -> contributorData.getUuid().equals(uuid));
 				List<String> outputIds = new ArrayList<>();
 				for (JsonElement id : inputIds) outputIds.add(id.getAsString());
-				registry.add(ContributorData.builder(uuid).id(outputIds).type(lockData.getType().getName()).shouldFlipUpsideDown(shouldFlipUpsideDown).shouldReplaceCape(shouldReplaceCape).capeTexture(IdentifierHelper.identifierFromString(capeTexture)).shouldRenderHeadItem(shouldRenderHeadItem).headItem(IdentifierHelper.identifierFromString(headItem)).shouldRenderOverlay(shouldRenderOverlay).overlayTexture(IdentifierHelper.identifierFromString(overlayTexture)).build());
+				registry.add(ContributorData.builder(uuid).id(outputIds).type(lockData.getType().getName()).shouldFlipUpsideDown(shouldFlipUpsideDown).shouldReplaceCape(shouldReplaceCape).capeTexture(IdentifierHelper.identifierFromString(capeTexture)).shouldRenderHeadItem(shouldRenderHeadItem).headItem(IdentifierHelper.identifierFromString(headItem)).shouldRenderOverlay(shouldRenderOverlay).overlayTexture(IdentifierHelper.identifierFromString(overlayTexture), isOverlayEmissive).build());
 			} else {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
 			}
@@ -78,7 +78,8 @@ public class ContributorDataLoader extends JsonDataLoader implements Identifiabl
 			String headItem = JsonHelper.getString(reader, "headItem", "minecraft:air");
 			boolean shouldRenderOverlay = JsonHelper.getBoolean(reader, "shouldRenderOverlay", false);
 			String overlayTexture = JsonHelper.getString(reader, "overlayTexture", "none");
-			for (JsonElement uuid : uuids) add(id, uuid.getAsString(), shouldFlipUpsideDown, shouldReplaceCape, capeTexture, shouldRenderHeadItem, headItem, shouldRenderOverlay, overlayTexture);
+			boolean isOverlayEmissive = JsonHelper.getBoolean(reader, "isOverlayEmissive", false);
+			for (JsonElement uuid : uuids) add(id, uuid.getAsString(), shouldFlipUpsideDown, shouldReplaceCape, capeTexture, shouldRenderHeadItem, headItem, shouldRenderOverlay, overlayTexture, isOverlayEmissive);
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
 		}

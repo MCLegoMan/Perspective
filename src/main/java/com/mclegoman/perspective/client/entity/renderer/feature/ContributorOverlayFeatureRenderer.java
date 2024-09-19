@@ -63,7 +63,7 @@ public class ContributorOverlayFeatureRenderer<P extends PlayerEntity, M extends
 				playerModel.copyStateTo(this.model);
 				this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
 				this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-				this.model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(texture)), light, LivingEntityRenderer.getOverlay(entity, 0.0F));
+				this.model.render(matrices, vertexConsumers.getBuffer(isEmissive(uuid) ? RenderLayer.getEntityTranslucentEmissive(texture) : RenderLayer.getEntityTranslucent(texture)), light, LivingEntityRenderer.getOverlay(entity, 0.0F));
 			}
 		}
 	}
@@ -78,6 +78,10 @@ public class ContributorOverlayFeatureRenderer<P extends PlayerEntity, M extends
 	private boolean shouldOverlayTexture(String uuid) {
 		ContributorData contributorData = getContributorData(uuid);
 		return contributorData != null && contributorData.getShouldRenderOverlay();
+	}
+	private boolean isEmissive(String uuid) {
+		ContributorData contributorData = getContributorData(uuid);
+		return contributorData != null && contributorData.getIsOverlayEmissive();
 	}
 	private Identifier getOverlayTexture(String uuid) {
 		ContributorData contributorData = getContributorData(uuid);

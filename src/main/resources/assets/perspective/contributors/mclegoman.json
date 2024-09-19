@@ -16,5 +16,6 @@
 	"shouldRenderHeadItem": false,
 	"headItem": "minecraft:air",
 	"shouldRenderOverlay": false,
-	"overlayTexture": "none"
+	"overlayTexture": "none",
+	"isOverlayEmissive": false
 }
