@@ -23,6 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DeathScreenMixin {
 	@Inject(method = "render", at = @At("TAIL"))
 	private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates") && ClientData.minecraft.player != null) context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Overlays.getEntityPositionTextTitle(), Overlays.getEntityPositionTextDescription(ClientData.minecraft.player.getPos())}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 115, 16777215);
+		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "show_death_coordinates") && ClientData.minecraft.player != null) {
+			context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "show_death_coordinates", new Object[]{Overlays.getEntityPositionTextTitle(), Overlays.getEntityPositionTextDescription(ClientData.minecraft.player.getPos())}), ClientData.minecraft.getWindow().getScaledWidth() / 2, 115, 16777215);
+		}
 	}
 }

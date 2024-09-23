@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.hud;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.util.Position;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.SharedConstants;
@@ -42,9 +43,9 @@ public class Overlays {
 	}
 	public static Text getEntityPositionTextDescription(Vec3d pos) {
 		return Translation.getTranslation(Data.version.getID(), "position.description", new Object[]{
-				(int) pos.getX(),
-				(int) pos.getY(),
-				(int) pos.getZ(),
+				Position.getX(pos, true),
+				Position.getY(pos, true),
+				Position.getZ(pos, true),
 		});
 	}
 	public static void renderOverlays(DrawContext context) {
