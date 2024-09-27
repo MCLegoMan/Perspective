@@ -74,6 +74,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean tutorials;
 	public static String detectUpdateChannel;
 	public static int rippleDensity;
+	public static int fallingLeavesDensity;
 
 	public ConfigDataLoader() {
 		super(new Gson(), ID);
@@ -132,7 +133,8 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				hideShowMessage = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_show_message", true);
 				tutorials = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "tutorials", true);
 				detectUpdateChannel = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "detect_update_channel", "release");
-				rippleDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "ripple_density", 8);
+				rippleDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "ripple_density", 0);
+				fallingLeavesDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "falling_leaves", 0);
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {

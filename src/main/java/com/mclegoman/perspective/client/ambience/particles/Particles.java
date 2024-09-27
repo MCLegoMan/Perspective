@@ -14,13 +14,25 @@ import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class Particles {
 	public static SimpleParticleType ripple;
+	public static SimpleParticleType leaf;
 	public static void init() {
 		ParticleFactoryRegistry.getInstance().register(ripple, RippleParticle.DefaultFactory::new);
+		ParticleFactoryRegistry.getInstance().register(leaf, LeafParticle.DefaultFactory::new);
+	}
+	public static void addRipple(World world, Vec3d pos) {
+		world.addParticle(Particles.ripple, pos.getX(), pos.getY(), pos.getZ(), 0.0F, 0.0F, 0.0F);
+	}
+	public static void addLeaf(World world, BlockPos pos) {
+		world.addParticle(Particles.leaf, pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
 	}
 	static {
 		ripple = Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Data.version.getID(), "ripple"), FabricParticleTypes.simple(true));
+		leaf = Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Data.version.getID(), "leaf"), FabricParticleTypes.simple(true));
 	}
 }

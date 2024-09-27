@@ -373,6 +373,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "tutorials", ConfigDataLoader.tutorials));
 			configChanged.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 			configChanged.add(setConfig(ConfigType.normal, "ripple_density", ConfigDataLoader.rippleDensity));
+			configChanged.add(setConfig(ConfigType.normal, "falling_leaves_density", ConfigDataLoader.fallingLeavesDensity));
 			fixConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
@@ -588,6 +589,10 @@ public class ConfigHelper {
 						}
 						case "ripple_density" -> {
 							Config.rippleDensity = (int) value;
+							configChanged = true;
+						}
+						case "falling_leaves_density" -> {
+							Config.fallingLeavesDensity = (int) value;
 							configChanged = true;
 						}
 						case "debug" -> {
@@ -811,6 +816,9 @@ public class ConfigHelper {
 					}
 					case "ripple_density" -> {
 						return Config.rippleDensity;
+					}
+					case "falling_leaves_density" -> {
+						return Config.fallingLeavesDensity;
 					}
 					case "debug" -> {
 						return Config.debug;

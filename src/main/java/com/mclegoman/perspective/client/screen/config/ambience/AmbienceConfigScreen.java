@@ -37,15 +37,24 @@ public class AmbienceConfigScreen extends AbstractConfigScreen {
 		GridWidget ambienceGrid = new GridWidget();
 		ambienceGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder ambienceGridAdder = ambienceGrid.createAdder(2);
-		double rippleDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) / 16;
+		double rippleDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) / 64;
 		ambienceGridAdder.add(new ConfigSliderWidget(ambienceGridAdder.getGridWidget().getX(), ambienceGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "ambience.ripple_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")))}, false), rippleDensity) {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "ambience.ripple_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")))}, false));
 			}
 			protected void applyValue() {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_density", (int) (value * 16));
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_density", (int) (value * 64));
 			}
-		}, 2);
+		}, 1);
+		double fallingLeavesDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")) / 64;
+		ambienceGridAdder.add(new ConfigSliderWidget(ambienceGridAdder.getGridWidget().getX(), ambienceGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "ambience.falling_leaves_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")))}, false), fallingLeavesDensity) {
+			protected void updateMessage() {
+				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "ambience.falling_leaves_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")))}, false));
+			}
+			protected void applyValue() {
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density", (int) (value * 64));
+			}
+		}, 1);
 		return ambienceGrid;
 	}
 	public Screen getRefreshScreen() {
@@ -53,5 +62,8 @@ public class AmbienceConfigScreen extends AbstractConfigScreen {
 	}
 	public String getPageId() {
 		return "ambience";
+	}
+	public boolean getExperimental() {
+		return true;
 	}
 }

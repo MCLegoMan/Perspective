@@ -3,6 +3,9 @@
 	"package": "com.mclegoman.perspective.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
+		"client.ambience.fluid.EntityMixin",
+		"client.ambience.fluid.WaterFluidMixin",
+		"client.ambience.leaves.LeavesBlockMixin",
 		"client.contributor.AbstractClientPlayerEntityMixin",
 		"client.contributor.LivingEntityRendererMixin",
 		"client.contributor.PlayerEntityRendererMixin",
@@ -21,6 +24,8 @@
 		"client.shaders.RenderPhaseMixin",
 		"client.shaders.WorldRendererMixin",
 		"client.show_death_coordinates.DeathScreenMixin",
+		"client.texture.NativeImageAccessor",
+		"client.texture.SpriteContentsAccessor",
 		"client.textured_entity.minecraft.EyesFeatureRendererMixin",
 		"client.textured_entity.minecraft.allay.AllayEntityRendererMixin",
 		"client.textured_entity.minecraft.armadillo.ArmadilloEntityRendererMixin",
@@ -131,9 +136,7 @@
 		"client.ui.ScreenMixin",
 		"client.ui.TitleScreenMixin",
 		"client.zoom.GameRendererMixin",
-		"client.zoom.MouseMixin",
-		"client.ambience.fluid.EntityMixin",
-		"client.ambience.fluid.WaterFluidMixin"
+		"client.zoom.MouseMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

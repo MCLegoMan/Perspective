@@ -47,6 +47,7 @@
 	"hide_show_message": true,
 	"tutorials": true,
 	"detect_update_channel": "release",
-	"ripple_density": 8,
+	"ripple_density": 14,
+	"falling_leaves": 2,
 	"debug": false
 }
