@@ -31,7 +31,7 @@ public abstract class EntityMixin {
 	protected void perspective$onSwimmingStart(CallbackInfo ci) {
 		if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.experimental, "ambience") && (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density") > 0) {
 			if (ClientData.minecraft.world != null) {
-				Water.spawnRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + 0.9F, this.getZ()));
+				Water.spawnRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + 0.92F, this.getZ()));
 			}
 		}
 	}
