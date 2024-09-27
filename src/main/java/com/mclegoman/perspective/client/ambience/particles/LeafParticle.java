@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class LeafParticle extends CherryLeavesParticle {
 	public LeafParticle(ClientWorld world, double x, double y, double z, SpriteProvider spriteProvider) {
-		super(world, x, y, z, spriteProvider);
+		super(world, x + world.random.nextDouble(), y - 0.05, z + world.random.nextDouble(), spriteProvider);
 		BlockPos blockPos = BlockPos.ofFloored(x, y, z);
 		double[] color = TextureHelper.getAverageColorFromBlock(world, blockPos, world.getBlockState(blockPos));
 		this.red = (float) color[0];
