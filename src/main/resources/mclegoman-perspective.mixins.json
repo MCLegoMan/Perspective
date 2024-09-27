@@ -131,7 +131,9 @@
 		"client.ui.ScreenMixin",
 		"client.ui.TitleScreenMixin",
 		"client.zoom.GameRendererMixin",
-		"client.zoom.MouseMixin"
+		"client.zoom.MouseMixin",
+		"client.ambience.fluid.EntityMixin",
+		"client.ambience.fluid.WaterFluidMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

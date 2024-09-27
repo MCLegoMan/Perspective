@@ -20,8 +20,6 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.Text;
 
-import java.text.DecimalFormat;
-
 public class ZoomConfigScreen extends AbstractConfigScreen {
 	public ZoomConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {
 		super(parentScreen, refresh, saveOnClose, page);

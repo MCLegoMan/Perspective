@@ -9,11 +9,13 @@ package com.mclegoman.perspective.client.screen.config.experimental;
 
 import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
+import com.mclegoman.perspective.client.screen.config.ambience.AmbienceConfigScreen;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.util.Formatting;
 
@@ -44,8 +46,16 @@ public class ExperimentalConfigScreen extends AbstractConfigScreen {
 	private GridWidget createPageOne() {
 		GridWidget experimentalGrid = new GridWidget();
 		experimentalGrid.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder experimentalGridAdder = experimentalGrid.createAdder(1);
-		experimentalGridAdder.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.textRenderer).setCentered(true));
+		GridWidget.Adder experimentalGridAdder = experimentalGrid.createAdder(2);
+		experimentalGridAdder.add(new MultilineTextWidget(Translation.getConfigTranslation(Data.version.getID(), "experimental.warning", new Formatting[]{Formatting.RED, Formatting.BOLD}), ClientData.minecraft.textRenderer).setCentered(true), 2);
+
+		experimentalGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "experimental.ambience", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.experimental, "ambience"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.experimental, "ambience", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.experimental, "ambience"));
+			refresh = true;
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "experimental.ambience", true))).build(), 1);
+
+		experimentalGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ambience"), (button) -> ClientData.minecraft.setScreen(new AmbienceConfigScreen(getRefreshScreen(), false, false, 1))).build());
+
 		return experimentalGrid;
 	}
 	protected GridWidget createFooter() {

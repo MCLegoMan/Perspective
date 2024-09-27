@@ -8,6 +8,7 @@
 package com.mclegoman.perspective.client;
 
 import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.ambience.Ambience;
 import com.mclegoman.perspective.client.entity.Entity;
 import com.mclegoman.perspective.client.events.AprilFoolsPrank;
 import com.mclegoman.perspective.client.contributor.Contributor;
@@ -35,6 +36,7 @@ public class PerspectiveClient implements ClientModInitializer {
 		try {
 			Data.version.sendToLog(LogType.INFO, Translation.getString("Initializing {}", Data.version.getName()));
 			ResourcePacks.init();
+			Ambience.init();
 			AprilFoolsPrank.init();
 			UIBackground.init();
 			Overlays.init();

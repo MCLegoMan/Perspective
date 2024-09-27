@@ -67,6 +67,7 @@ public class Config {
 	protected static String detectUpdateChannel;
 	protected static boolean tutorials;
 	protected static boolean debug;
+	protected static int rippleDensity;
 	protected static int configVersion;
 	protected static final Object[] options;
 
@@ -130,6 +131,7 @@ public class Config {
 		configProvider.add(new Couple<>("hide_show_message", ConfigDataLoader.hideShowMessage));
 		configProvider.add(new Couple<>("tutorials", ConfigDataLoader.tutorials));
 		configProvider.add(new Couple<>("detect_update_channel", ConfigDataLoader.detectUpdateChannel));
+		configProvider.add(new Couple<>("ripple_density", ConfigDataLoader.rippleDensity));
 		configProvider.add(new Couple<>("debug", ConfigHelper.defaultDebug));
 		configProvider.add(new Couple<>("config_version", ConfigHelper.defaultConfigVersion));
 	}
@@ -183,6 +185,7 @@ public class Config {
 		hideShowMessage = config.getOrDefault("hide_show_message", ConfigDataLoader.hideShowMessage);
 		tutorials = config.getOrDefault("tutorials", ConfigDataLoader.tutorials);
 		detectUpdateChannel = config.getOrDefault("detect_update_channel", ConfigDataLoader.detectUpdateChannel);
+		rippleDensity = config.getOrDefault("ripple_density", ConfigDataLoader.rippleDensity);
 		debug = config.getOrDefault("debug", ConfigHelper.defaultDebug);
 		configVersion = config.getOrDefault("config_version", ConfigHelper.defaultConfigVersion);
 	}
@@ -237,6 +240,7 @@ public class Config {
 		configProvider.setConfig("hide_show_message", hideShowMessage);
 		configProvider.setConfig("tutorials", tutorials);
 		configProvider.setConfig("detect_update_channel", detectUpdateChannel);
+		configProvider.setConfig("ripple_density", rippleDensity);
 		configProvider.setConfig("debug", debug);
 		configProvider.setConfig("config_version", ConfigHelper.defaultConfigVersion);
 		configProvider.saveConfig(Data.version, id);
@@ -290,6 +294,7 @@ public class Config {
 				hideShowMessage,
 				detectUpdateChannel,
 				tutorials,
+				rippleDensity,
 				debug,
 				configVersion
 		};

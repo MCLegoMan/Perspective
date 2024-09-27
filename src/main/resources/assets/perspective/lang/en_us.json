@@ -220,8 +220,12 @@
 	"gui.perspective.config.experimental.warning": "Experiments are potential new features.\nYou may experience bugs and/or issues.",
 	"gui.perspective.config.experimental.none": "There are no experiments currently available.",
 
-	"gui.perspective.config.experimental.improved_shader_renderer": "Improved Shader Renderer %s",
-	"gui.perspective.config.experimental.improved_shader_renderer.hover": "This experiment changes how depth shaders are rendered, and enables support for entity linked shaders.",
+	"gui.perspective.config.experimental.ambience": "Update 1.4: %s",
+	"gui.perspective.config.experimental.ambience.hover": "This experiment enables ambience features planned for Perspective 1.4",
+
+	"gui.perspective.config.experimental.ambience.config": "Ambience",
+	"gui.perspective.config.ambience": "Ambience",
+	"gui.perspective.config.ambience.ripple_density": "Ripple Density: %s",
 
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.experiments": "Disable All Experiments",

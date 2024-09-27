@@ -18,6 +18,7 @@ public class ExperimentalConfig {
 	protected static final String id = Data.version.getID() + "-experimental";
 	protected static SimpleConfig config;
 	protected static ConfigProvider configProvider;
+	protected static boolean ambience;
 	protected static final Object[] options;
 
 	protected static void init() {
@@ -32,20 +33,21 @@ public class ExperimentalConfig {
 	}
 
 	protected static void create() {
-		configProvider.add(new Couple<>("improved_shader_renderer", false));
+		configProvider.add(new Couple<>("ambience", false));
 	}
 
 	protected static void assign() {
+		ambience = config.getOrDefault("ambience", false);
 	}
 
 	protected static void save() {
-		if (ConfigHelper.experimentsAvailable) {
-			Data.version.sendToLog(LogType.INFO,"Writing experimental config to file.");
-			configProvider.saveConfig(Data.version, id);
-		}
+		Data.version.sendToLog(LogType.INFO,"Writing experimental config to file.");
+		configProvider.setConfig("ambience", ambience);
+		configProvider.saveConfig(Data.version, id);
 	}
 	static {
 		options = new Object[]{
+				ambience
 		};
 	}
 }

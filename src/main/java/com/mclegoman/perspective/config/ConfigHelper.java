@@ -372,6 +372,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "hide_show_message", ConfigDataLoader.hideShowMessage));
 			configChanged.add(setConfig(ConfigType.normal, "tutorials", ConfigDataLoader.tutorials));
 			configChanged.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
+			configChanged.add(setConfig(ConfigType.normal, "ripple_density", ConfigDataLoader.rippleDensity));
 			fixConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
@@ -381,7 +382,7 @@ public class ConfigHelper {
 	public static boolean resetExperiments() {
 		ArrayList<Boolean> configChanged = new ArrayList<>();
 		try {
-			configChanged.add(false);//setConfig(ConfigType.experimental, "key", false));
+			configChanged.add(setConfig(ConfigType.experimental, "ambience", false));
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset experiments!");
 		}
@@ -585,6 +586,10 @@ public class ConfigHelper {
 							Config.detectUpdateChannel = (String) value;
 							configChanged = true;
 						}
+						case "ripple_density" -> {
+							Config.rippleDensity = (int) value;
+							configChanged = true;
+						}
 						case "debug" -> {
 							Config.debug = (boolean) value;
 							configChanged = true;
@@ -601,6 +606,10 @@ public class ConfigHelper {
 				}
 				case experimental -> {
 					switch (key) {
+						case "ambience" -> {
+							ExperimentalConfig.ambience = (Boolean) value;
+							configChanged = true;
+						}
 						default -> {
 							Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set experimental {} config value!: Invalid Key", key));
 						}
@@ -800,6 +809,9 @@ public class ConfigHelper {
 					case "detect_update_channel" -> {
 						return Config.detectUpdateChannel;
 					}
+					case "ripple_density" -> {
+						return Config.rippleDensity;
+					}
 					case "debug" -> {
 						return Config.debug;
 					}
@@ -814,6 +826,9 @@ public class ConfigHelper {
 			}
 			case experimental -> {
 				switch (key) {
+					case "ambience" -> {
+						return ExperimentalConfig.ambience;
+					}
 					default -> {
 						Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get experimental {} config value!: Invalid Key", key));
 						return new Object();

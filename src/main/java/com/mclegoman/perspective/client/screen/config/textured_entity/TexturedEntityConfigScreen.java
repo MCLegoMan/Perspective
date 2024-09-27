@@ -13,12 +13,10 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.util.Formatting;
 
 public class TexturedEntityConfigScreen extends AbstractConfigScreen {
 	public TexturedEntityConfigScreen(Screen parentScreen, boolean refresh) {
