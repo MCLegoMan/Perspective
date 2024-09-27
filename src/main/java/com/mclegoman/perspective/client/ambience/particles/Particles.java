@@ -10,9 +10,11 @@ package com.mclegoman.perspective.client.ambience.particles;
 import com.mclegoman.perspective.common.data.Data;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -22,6 +24,7 @@ public class Particles {
 	public static SimpleParticleType ripple;
 	public static SimpleParticleType leaf;
 	public static void init() {
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new IgnoreLeavesDataLoader());
 		ParticleFactoryRegistry.getInstance().register(ripple, RippleParticle.DefaultFactory::new);
 		ParticleFactoryRegistry.getInstance().register(leaf, LeafParticle.DefaultFactory::new);
 	}

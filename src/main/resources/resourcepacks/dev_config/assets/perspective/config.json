@@ -48,6 +48,6 @@
 	"tutorials": true,
 	"detect_update_channel": "release",
 	"ripple_density": 14,
-	"falling_leaves": 2,
+	"falling_leaves": 4,
 	"debug": false
 }
