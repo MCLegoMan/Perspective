@@ -11,6 +11,9 @@ import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Final;
@@ -32,7 +35,8 @@ public abstract class EntityMixin {
 		try {
 			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) > 0) {
 				if (ClientData.minecraft.world != null) {
-					ParticleEffects.addRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + 0.92F, this.getZ()));
+					FluidState fluidState = ClientData.minecraft.world.getFluidState(BlockPos.ofFloored(getX(), getY(), getZ()));
+					if (fluidState.isIn(FluidTags.WATER) && fluidState.isStill()) ParticleEffects.addRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + fluidState.getHeight(), this.getZ()));
 				}
 			}
 		} catch (Exception ignored) {}
