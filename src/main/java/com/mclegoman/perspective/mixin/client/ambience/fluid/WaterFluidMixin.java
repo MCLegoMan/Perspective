@@ -30,7 +30,7 @@ public class WaterFluidMixin {
 			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) > 0) {
 				// We check if it's water, so it doesn't get spawned on flowing water.
 				if (world.getFluidState(pos).isOf(Fluids.WATER)) {
-					if (world.isSkyVisibleAllowingSea(pos) && world.isRaining() && world.getBlockState(pos.add(0, 1, 0)).isAir() && world.getBiome(pos).value().getPrecipitation(pos) == Biome.Precipitation.RAIN) {
+					if (world.isSkyVisible(pos) && world.isRaining() && world.getBlockState(pos.add(0, 1, 0)).isAir() && world.getBiome(pos).value().getPrecipitation(pos) == Biome.Precipitation.RAIN) {
 						if (random.nextInt(64) <= (int)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) ParticleEffects.addRipple(world, Vec3d.ofCenter(pos).add(random.nextFloat() - random.nextFloat(), 0.40F, random.nextFloat() - random.nextFloat()));
 					}
 				}
