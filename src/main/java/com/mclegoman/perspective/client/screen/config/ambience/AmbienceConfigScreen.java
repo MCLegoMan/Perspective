@@ -15,6 +15,7 @@ import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.text.Text;
 
@@ -37,24 +38,28 @@ public class AmbienceConfigScreen extends AbstractConfigScreen {
 		GridWidget ambienceGrid = new GridWidget();
 		ambienceGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder ambienceGridAdder = ambienceGrid.createAdder(2);
-		double rippleDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) / 64;
+		double rippleDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) / 32;
 		ambienceGridAdder.add(new ConfigSliderWidget(ambienceGridAdder.getGridWidget().getX(), ambienceGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "ambience.ripple_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")))}, false), rippleDensity) {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "ambience.ripple_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")))}, false));
 			}
 			protected void applyValue() {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_density", (int) (value * 64));
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_density", (int) (value * 32));
 			}
 		}, 1);
-		double fallingLeavesDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")) / 64;
+		ambienceGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ambience.ripple_sound", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_sound"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_sound", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_sound"));
+			this.refresh = true;
+		}).build(), 1);
+		double fallingLeavesDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")) / 32;
 		ambienceGridAdder.add(new ConfigSliderWidget(ambienceGridAdder.getGridWidget().getX(), ambienceGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "ambience.falling_leaves_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")))}, false), fallingLeavesDensity) {
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "ambience.falling_leaves_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")))}, false));
 			}
 			protected void applyValue() {
-				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density", (int) (value * 64));
+				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density", (int) (value * 32));
 			}
-		}, 1);
+		}, 2);
 		return ambienceGrid;
 	}
 	public Screen getRefreshScreen() {

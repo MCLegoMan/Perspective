@@ -373,6 +373,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "tutorials", ConfigDataLoader.tutorials));
 			configChanged.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 			configChanged.add(setConfig(ConfigType.normal, "ripple_density", ConfigDataLoader.rippleDensity));
+			configChanged.add(setConfig(ConfigType.normal, "ripple_sound", ConfigDataLoader.rippleSound));
 			configChanged.add(setConfig(ConfigType.normal, "falling_leaves_density", ConfigDataLoader.fallingLeavesDensity));
 			fixConfig();
 		} catch (Exception error) {
@@ -589,6 +590,10 @@ public class ConfigHelper {
 						}
 						case "ripple_density" -> {
 							Config.rippleDensity = (int) value;
+							configChanged = true;
+						}
+						case "ripple_sound" -> {
+							Config.rippleSound = (boolean) value;
 							configChanged = true;
 						}
 						case "falling_leaves_density" -> {
@@ -816,6 +821,9 @@ public class ConfigHelper {
 					}
 					case "ripple_density" -> {
 						return Config.rippleDensity;
+					}
+					case "ripple_sound" -> {
+						return Config.rippleSound;
 					}
 					case "falling_leaves_density" -> {
 						return Config.fallingLeavesDensity;

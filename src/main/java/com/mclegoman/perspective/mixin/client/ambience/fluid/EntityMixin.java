@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.mixin.client.ambience.fluid;
 
-import com.mclegoman.perspective.client.ambience.particles.Particles;
+import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.entity.Entity;
@@ -29,10 +29,12 @@ public abstract class EntityMixin {
 	@Shadow public abstract int getBlockY();
 	@Inject(method = "onSwimmingStart", at = @At("TAIL"))
 	protected void perspective$onSwimmingStart(CallbackInfo ci) {
-		if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.experimental, "ambience") && (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density") > 0) {
-			if (ClientData.minecraft.world != null) {
-				Particles.addRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + 0.92F, this.getZ()));
+		try {
+			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) > 0) {
+				if (ClientData.minecraft.world != null) {
+					ParticleEffects.addRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + 0.92F, this.getZ()));
+				}
 			}
-		}
+		} catch (Exception ignored) {}
 	}
 }

@@ -68,6 +68,7 @@ public class Config {
 	protected static boolean tutorials;
 	protected static boolean debug;
 	protected static int rippleDensity;
+	protected static boolean rippleSound;
 	protected static int fallingLeavesDensity;
 	protected static int configVersion;
 	protected static final Object[] options;
@@ -133,6 +134,7 @@ public class Config {
 		configProvider.add(new Couple<>("tutorials", ConfigDataLoader.tutorials));
 		configProvider.add(new Couple<>("detect_update_channel", ConfigDataLoader.detectUpdateChannel));
 		configProvider.add(new Couple<>("ripple_density", ConfigDataLoader.rippleDensity));
+		configProvider.add(new Couple<>("ripple_sound", ConfigDataLoader.rippleSound));
 		configProvider.add(new Couple<>("falling_leaves", ConfigDataLoader.fallingLeavesDensity));
 		configProvider.add(new Couple<>("debug", ConfigHelper.defaultDebug));
 		configProvider.add(new Couple<>("config_version", ConfigHelper.defaultConfigVersion));
@@ -188,6 +190,7 @@ public class Config {
 		tutorials = config.getOrDefault("tutorials", ConfigDataLoader.tutorials);
 		detectUpdateChannel = config.getOrDefault("detect_update_channel", ConfigDataLoader.detectUpdateChannel);
 		rippleDensity = config.getOrDefault("ripple_density", ConfigDataLoader.rippleDensity);
+		rippleSound = config.getOrDefault("ripple_sound", ConfigDataLoader.rippleSound);
 		fallingLeavesDensity = config.getOrDefault("falling_leaves", ConfigDataLoader.fallingLeavesDensity);
 		debug = config.getOrDefault("debug", ConfigHelper.defaultDebug);
 		configVersion = config.getOrDefault("config_version", ConfigHelper.defaultConfigVersion);
@@ -244,6 +247,7 @@ public class Config {
 		configProvider.setConfig("tutorials", tutorials);
 		configProvider.setConfig("detect_update_channel", detectUpdateChannel);
 		configProvider.setConfig("ripple_density", rippleDensity);
+		configProvider.setConfig("ripple_sound", rippleSound);
 		configProvider.setConfig("falling_leaves", fallingLeavesDensity);
 		configProvider.setConfig("debug", debug);
 		configProvider.setConfig("config_version", ConfigHelper.defaultConfigVersion);
@@ -299,6 +303,7 @@ public class Config {
 				detectUpdateChannel,
 				tutorials,
 				rippleDensity,
+				rippleSound,
 				fallingLeavesDensity,
 				debug,
 				configVersion

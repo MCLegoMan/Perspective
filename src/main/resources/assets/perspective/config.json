@@ -49,6 +49,7 @@
 	"tutorials": true,
 	"detect_update_channel": "release",
 	"ripple_density": 0,
+	"ripple_sound": true,
 	"falling_leaves": 0,
 	"debug": false
 }

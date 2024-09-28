@@ -7,8 +7,10 @@
 
 package com.mclegoman.perspective.mixin.client.ambience.fluid;
 
-import com.mclegoman.perspective.client.ambience.particles.Particles;
+import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
+import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.config.ConfigHelper;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.util.math.BlockPos;
@@ -25,14 +27,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WaterFluidMixin {
 	@Inject(method = "randomDisplayTick", at = @At("HEAD"))
 	protected void perspective$randomDisplayTick(World world, BlockPos pos, FluidState state, Random random, CallbackInfo ci) {
-		if ((boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.experimental, "ambience") && (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density") > 0) {
-			if (world.getFluidState(pos).isStill() && world.isRaining() && world.getBlockState(pos.add(0, 1, 0)).isAir()) {
-				if (random.nextInt(64) <= (int)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) {
-					if (world.getBiome(pos).value().getPrecipitation(pos) == Biome.Precipitation.RAIN && world.isSkyVisibleAllowingSea(pos)) {
-						Particles.addRipple(world, Vec3d.ofCenter(pos).add(random.nextFloat() - random.nextFloat(), 0.40F, random.nextFloat() - random.nextFloat()));
+		try {
+			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) > 0) {
+				if (world.getFluidState(pos).isStill() && world.isRaining() && world.getBlockState(pos.add(0, 1, 0)).isAir()) {
+					if (random.nextInt(64) <= (int)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) {
+						if (world.getBiome(pos).value().getPrecipitation(pos) == Biome.Precipitation.RAIN && world.isSkyVisibleAllowingSea(pos)) {
+							ParticleEffects.addRipple(world, Vec3d.ofCenter(pos).add(random.nextFloat() - random.nextFloat(), 0.40F, random.nextFloat() - random.nextFloat()));
+						}
 					}
 				}
 			}
-		}
+		} catch (Exception ignored) {}
 	}
 }
