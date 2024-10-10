@@ -36,21 +36,25 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
+	flatDir {
+		dirs("libs")
+	}
 }
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft}"
-	mappings "net.fabricmc:yarn:${project.mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+	minecraft("com.mojang:minecraft:${project.minecraft}")
+	mappings("net.fabricmc:yarn:${project.mappings}:v2")
+	modImplementation("net.fabricmc:fabric-loader:${project.fabric_loader}")
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
-	//include(modImplementation "maven.modrinth:luminance:${project.luminance}")
-	modImplementation fileTree(dir: 'libs', include: '*.jar')
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api}")
+	//include(modImplementation("maven.modrinth:luminance:${project.luminance}"))
+	include(modImplementation("luminance:luminance-1.0.0-alpha.5+1.21.1+dirty.1723953035"))
+	//modImplementation(fileTree(dir: 'libs', include: '*.jar'))
 
 	// Compatibility
-	modImplementation "com.terraformersmc:modmenu:${project.modmenu}"
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu}")
 
 	// Development Environment Only
-	modImplementation "com.ptsmods:devlogin:3.4.1"
+	//modImplementation("com.ptsmods:devlogin:3.4.1")
 	//modImplementation "com.github.Nettakrim:Souper-Secret-Settings:${project.souper_secret_settings}"
 }
 processResources {
