@@ -34,8 +34,8 @@ public class Zoom {
 	private static boolean hasUpdated;
 	private static double prevMultiplier = 1.0D;
 	private static double multiplier = 1.0D;
-	public static double fov;
-	public static double zoomFOV;
+	public static double fov = 70.0D;
+	public static double zoomFOV = 70.0D;
 	public static double timeDelta = Double.MIN_VALUE;
 	public static Smoother smoothX = new Smoother();
 	public static Smoother smoothY = new Smoother();
@@ -85,7 +85,7 @@ public class Zoom {
 		return canZoom() && ClientData.minecraft.player != null && (isZooming != Keybindings.holdZoom.isPressed());
 	}
 	public static boolean canZoom() {
-		return (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled");
+		return ClientData.minecraft.cameraEntity != null && (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_enabled");
 	}
 	public static boolean isScaled() {
 		return ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_scale_mode").equals("scaled");
