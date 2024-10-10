@@ -7,7 +7,7 @@
 
 package com.mclegoman.perspective.client.ambience.particles;
 
-import com.mclegoman.perspective.client.util.TextureHelper;
+import com.mclegoman.perspective.client.texture.TextureHelper;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;

@@ -18,13 +18,14 @@ import com.mclegoman.perspective.client.hud.Overlays;
 import com.mclegoman.perspective.client.panorama.Panorama;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.shaders.Shaders;
+import com.mclegoman.perspective.client.texture.TextureHelper;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
 import com.mclegoman.perspective.client.logo.PerspectiveLogo;
-import com.mclegoman.perspective.client.util.ResourcePacks;
+import com.mclegoman.perspective.client.texture.ResourcePacks;
 import com.mclegoman.perspective.client.util.Tick;
-import com.mclegoman.perspective.client.util.Update;
+import com.mclegoman.perspective.client.update.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -35,7 +36,7 @@ public class PerspectiveClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		try {
 			Data.version.sendToLog(LogType.INFO, Translation.getString("Initializing {}", Data.version.getName()));
-			ResourcePacks.init();
+			TextureHelper.init();
 			Ambience.init();
 			AprilFoolsPrank.init();
 			UIBackground.init();

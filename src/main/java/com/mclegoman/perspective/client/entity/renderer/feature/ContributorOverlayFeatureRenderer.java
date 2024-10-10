@@ -11,7 +11,7 @@ import com.mclegoman.perspective.client.contributor.ContributorData;
 import com.mclegoman.perspective.client.contributor.ContributorDataLoader;
 import com.mclegoman.perspective.client.events.AprilFoolsPrank;
 import com.mclegoman.perspective.client.events.AprilFoolsPrankDataLoader;
-import com.mclegoman.perspective.client.util.TextureHelper;
+import com.mclegoman.perspective.client.texture.TextureHelper;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;

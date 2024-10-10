@@ -18,9 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 100, value = MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 	@Inject(at = @At("RETURN"), method = "render")
-	private void perspective$onAttack(CallbackInfo ci) {
-		Mouse.updateLeftClick(ClientData.minecraft.mouse.wasLeftButtonClicked());
-		Mouse.updateMiddleClick(ClientData.minecraft.mouse.wasMiddleButtonClicked());
-		Mouse.updateRightClick(ClientData.minecraft.mouse.wasRightButtonClicked());
+	private void perspective$render(CallbackInfo ci) {
+		if (Mouse.ProcessCPS.shouldProcessCPS()) {
+			Mouse.updateLeftClick(ClientData.minecraft.mouse.wasLeftButtonClicked());
+			Mouse.updateMiddleClick(ClientData.minecraft.mouse.wasMiddleButtonClicked());
+			Mouse.updateRightClick(ClientData.minecraft.mouse.wasRightButtonClicked());
+		}
 	}
 }

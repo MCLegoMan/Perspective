@@ -13,7 +13,7 @@ import com.mclegoman.luminance.common.util.Couple;
 import com.mclegoman.perspective.client.contributor.ContributorData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.contributor.ContributorDataLoader;
-import com.mclegoman.perspective.client.util.TextureHelper;
+import com.mclegoman.perspective.client.texture.TextureHelper;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.SkinTextures;

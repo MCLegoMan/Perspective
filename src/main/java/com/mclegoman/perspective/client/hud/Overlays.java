@@ -17,6 +17,7 @@ import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Overlays {
 		timeOverlayTypes.add("false");
 		timeOverlayTypes.add("twelve_hour");
 		timeOverlayTypes.add("twenty_four_hour");
+		Mouse.ProcessCPS.register(Identifier.of(Data.version.getID(), "cps_overlay"), () -> (boolean)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "cps_overlay"));
 	}
 	public static String getCurrentTimeOverlay() {
 		return (String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay");

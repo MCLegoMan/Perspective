@@ -8,8 +8,13 @@
 package com.mclegoman.perspective.client.util;
 
 import com.google.common.collect.Lists;
+import com.mclegoman.luminance.common.util.LogType;
+import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.common.data.Data;
+import net.minecraft.util.Identifier;
 
-import java.util.Queue;
+import java.util.*;
+import java.util.concurrent.Callable;
 
 public class Mouse {
 	private static boolean leftClicked;
@@ -57,5 +62,21 @@ public class Mouse {
 	public static int getClicksFromQueue(Queue<Long> queue) {
 		while (!queue.isEmpty() && queue.peek() < System.currentTimeMillis()) queue.remove();
 		return queue.size();
+	}
+	public static class ProcessCPS {
+		private static final Map<Identifier, Callable<Boolean>> registry = new HashMap<>();
+		public static void register(Identifier identifier, Callable<Boolean> callable) {
+			registry.putIfAbsent(identifier, callable);
+		}
+		public static boolean shouldProcessCPS() {
+			for (Map.Entry<Identifier, Callable<Boolean>> entry : registry.entrySet()) {
+				try {
+					if (entry.getValue().call()) return true;
+				} catch (Exception error) {
+					Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to process cps: {}", error));
+				}
+			}
+			return false;
+		}
 	}
 }

@@ -11,7 +11,7 @@ import com.mclegoman.luminance.common.util.LogType;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.screen.config.AbstractConfigScreen;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.Update;
+import com.mclegoman.perspective.client.update.Update;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.GridWidget;

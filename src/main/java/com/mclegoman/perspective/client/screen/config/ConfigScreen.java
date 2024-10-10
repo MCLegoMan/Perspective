@@ -24,7 +24,7 @@ import com.mclegoman.perspective.client.screen.config.textured_entity.TexturedEn
 import com.mclegoman.perspective.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.perspective.client.shaders.Shader;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.Update;
+import com.mclegoman.perspective.client.update.Update;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;

@@ -20,7 +20,7 @@ import com.mclegoman.perspective.client.toasts.Toast;
 import com.mclegoman.perspective.client.translation.Translation;
 import com.mclegoman.perspective.client.ui.UIBackground;
 import com.mclegoman.perspective.client.keybindings.Keybindings;
-import com.mclegoman.perspective.client.util.Update;
+import com.mclegoman.perspective.client.update.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.luminance.common.util.Couple;

@@ -10,7 +10,7 @@ package com.mclegoman.perspective.client.hud;
 import com.mclegoman.perspective.client.events.AprilFoolsPrank;
 import com.mclegoman.perspective.config.ConfigHelper;
 import com.mclegoman.perspective.client.translation.Translation;
-import com.mclegoman.perspective.client.util.Update;
+import com.mclegoman.perspective.client.update.Update;
 import com.mclegoman.perspective.client.zoom.Zoom;
 import com.mclegoman.perspective.common.data.Data;
 import net.minecraft.client.gui.DrawContext;
