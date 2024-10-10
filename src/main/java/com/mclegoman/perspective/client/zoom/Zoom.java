@@ -129,7 +129,7 @@ public class Zoom {
 		return zoomTypeIdentifier;
 	}
 	public static float getZoomLevel() {
-		return MathHelper.clamp(getRawZoomLevel(), 0.0F, 99.9F);
+		return MathHelper.clamp(getRawZoomLevel(), 0.0F, 99.5F);
 	}
 	public static int getRawZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level");
