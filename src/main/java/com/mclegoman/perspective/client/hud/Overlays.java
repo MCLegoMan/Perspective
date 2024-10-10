@@ -74,7 +74,7 @@ public class Overlays {
 						int rawHour = (int)(time / 1000 + 6) % 24;
 						int rawMinute = (int)(time / 16.666666) % 60;
 						String hour = ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay").equals("twelve_hour") ? String.valueOf(rawHour == 0 || rawHour == 12 ? 12 : rawHour % 12) : String.valueOf(rawHour);
-						if (rawHour < 10) hour = "0" + hour;
+						if (rawHour < 10 && rawHour != 0) hour = "0" + hour;
 						Text timePeriod = ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "time_overlay").equals("twelve_hour") ? (rawHour < 12 ? Translation.getTranslation(Data.version.getID(), "time_overlay.am") : Translation.getTranslation(Data.version.getID(), "time_overlay.pm")) : Text.empty();
 						overlayTexts.add(Translation.getTranslation(Data.version.getID(), "time_overlay", new Object[]{
 								hour, (rawMinute < 10 ? "0" + rawMinute : String.valueOf(rawMinute)), timePeriod
