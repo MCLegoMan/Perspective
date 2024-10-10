@@ -57,11 +57,11 @@ public abstract class GameRendererMixin {
 	}
 	@ModifyExpressionValue(method = "tiltViewWhenHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;"))
 	private Object perspective$getDamageTiltStrength(Object value) {
-		return (value instanceof Double && Zoom.canZoom() && Zoom.isScaled()) ? ((Double)value) * Math.max(Zoom.getMultiplier(), 0.001) : value;
+		return (value instanceof Double && Zoom.canZoom() && Zoom.isScaled()) ? ((Double)value) * Math.max(Zoom.getMultiplierFromFOV(), 0.001) : value;
 	}
 	@ModifyExpressionValue(method = "tiltViewWhenHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getDamageTiltYaw()F"))
 	private float perspective$getDamageTiltYaw(float value) {
-		return (Zoom.canZoom() && Zoom.isScaled()) ? (float) (value * Math.max(Zoom.getMultiplier(), 0.001)) : value;
+		return (Zoom.canZoom() && Zoom.isScaled()) ? (float) (value * Math.max(Zoom.getMultiplierFromFOV(), 0.001)) : value;
 	}
 	@Inject(method = "bobView", at = @At(value = "HEAD"), cancellable = true)
 	private void perspective$bobViewStrideDistance(MatrixStack matrices, float tickDelta, CallbackInfo ci) {

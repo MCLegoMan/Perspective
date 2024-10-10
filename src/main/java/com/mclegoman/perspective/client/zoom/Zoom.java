@@ -123,13 +123,16 @@ public class Zoom {
 	public static double getMultiplier() {
 		return multiplier;
 	}
+	public static double getMultiplierFromFOV() {
+		return zoomFOV/fov;
+	}
 	public static Identifier getZoomType() {
 		Identifier zoomTypeIdentifier = IdentifierHelper.identifierFromString((String) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_type"));
 		while (!isValidZoomType(zoomTypeIdentifier)) zoomTypeIdentifier = IdentifierHelper.identifierFromString(cycleZoomType());
 		return zoomTypeIdentifier;
 	}
 	public static float getZoomLevel() {
-		return MathHelper.clamp(getRawZoomLevel(), 0.0F, 99.5F);
+		return MathHelper.clamp(getRawZoomLevel(), 0.0F, 100.0F);
 	}
 	public static int getRawZoomLevel() {
 		return (int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "zoom_level");
@@ -200,7 +203,7 @@ public class Zoom {
 			return Identifier.of(Data.version.getID(), "logarithmic");
 		}
 		public static double getLimitFOV(double input) {
-			return MathHelper.clamp(input, 0.01, 179.99);
+			return MathHelper.clamp(input, 0.1, 179.9);
 		}
 		public static void updateMultiplier() {
 			Multiplier.setMultiplier((float) (1.0F - (Math.log(Zoom.getZoomLevel() + 1.0F) / Math.log(100.0 + 1.0F))));
@@ -211,7 +214,7 @@ public class Zoom {
 			return Identifier.of(Data.version.getID(), "linear");
 		}
 		public static double getLimitFOV(double input) {
-			return MathHelper.clamp(input, 0.01, 179.99);
+			return MathHelper.clamp(input, 0.1, 179.9);
 		}
 		public static void updateMultiplier() {
 			Multiplier.setMultiplier(1.0F - (Zoom.getZoomLevel() / 100.0F));
