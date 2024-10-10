@@ -26,7 +26,7 @@ public class Position {
 		return hidePos.isEmpty();
 	}
 	public static Text getX(Vec3d pos, boolean integer) {
-		return shouldShowPos() ? Text.of(String.valueOf((integer ? (int) pos.getX() : pos.getX()))) : Text.of("?");
+		return Text.of(!shouldShowPos() ? "?" : (integer ? String.valueOf((int) pos.x) : String.valueOf(pos.x)));
 	}
 	public static Text getX(Vec3d pos) {
 		return getX(pos, false);
@@ -38,7 +38,7 @@ public class Position {
 		return getX(entity.getPos(), integer);
 	}
 	public static Text getY(Vec3d pos, boolean integer) {
-		return shouldShowPos() ? Text.of(String.valueOf((integer ? (int) pos.getY() : pos.getY()))) : Text.of("?");
+		return Text.of(!shouldShowPos() ? "?" : (integer ? String.valueOf((int) pos.y) : String.valueOf(pos.y)));
 	}
 	public static Text getY(Vec3d pos) {
 		return getY(pos, false);
@@ -50,7 +50,7 @@ public class Position {
 		return getY(entity.getPos(), integer);
 	}
 	public static Text getZ(Vec3d pos, boolean integer) {
-		return shouldShowPos() ? Text.of(String.valueOf((integer ? (int) pos.getZ() : pos.getZ()))) : Text.of("?");
+		return Text.of(!shouldShowPos() ? "?" : (integer ? String.valueOf((int) pos.z) : String.valueOf(pos.z)));
 	}
 	public static Text getZ(Vec3d pos) {
 		return getZ(pos, false);

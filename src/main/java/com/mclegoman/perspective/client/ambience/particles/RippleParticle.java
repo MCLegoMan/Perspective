@@ -7,14 +7,11 @@
 
 package com.mclegoman.perspective.client.ambience.particles;
 
-import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
@@ -33,7 +30,6 @@ public class RippleParticle extends SpriteBillboardParticle {
 		int randomAge = 1 + new Random().nextInt(16);
 		this.scale *= 2.0F + random.nextFloat() / 16.0F * randomAge;
 		this.maxAge = 10 + new Random().nextInt(randomAge);
-		if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_sound")) world.playSound(x, y, z, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.AMBIENT, 0.025F, Math.clamp(2.0F - this.scale, 0.0F, 2.0F), true);
 	}
 	public ParticleTextureSheet getType() {
 		return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;

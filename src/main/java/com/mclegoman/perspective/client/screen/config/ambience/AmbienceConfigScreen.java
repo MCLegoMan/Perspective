@@ -47,10 +47,6 @@ public class AmbienceConfigScreen extends AbstractConfigScreen {
 				ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_density", (int) (value * 32));
 			}
 		}, 1);
-		ambienceGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ambience.ripple_sound", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_sound"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "ripple_sound", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_sound"));
-			this.refresh = true;
-		}).build(), 1);
 		double fallingLeavesDensity = (double) ((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")) / 32;
 		ambienceGridAdder.add(new ConfigSliderWidget(ambienceGridAdder.getGridWidget().getX(), ambienceGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "ambience.falling_leaves_density", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")))}, false), fallingLeavesDensity) {
 			protected void updateMessage() {
