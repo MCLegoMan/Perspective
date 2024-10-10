@@ -23,6 +23,6 @@ public abstract class MinecraftClientMixin {
 			Mouse.updateLeftClick(ClientData.minecraft.mouse.wasLeftButtonClicked());
 			Mouse.updateMiddleClick(ClientData.minecraft.mouse.wasMiddleButtonClicked());
 			Mouse.updateRightClick(ClientData.minecraft.mouse.wasRightButtonClicked());
-		}
+		} else Mouse.clearQueues();
 	}
 }

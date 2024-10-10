@@ -63,6 +63,11 @@ public class Mouse {
 		while (!queue.isEmpty() && queue.peek() < System.currentTimeMillis()) queue.remove();
 		return queue.size();
 	}
+	public static void clearQueues() {
+		if (!leftClickQueue.isEmpty()) leftClickQueue.clear();
+		if (!middleClickQueue.isEmpty()) middleClickQueue.clear();
+		if (!rightClickQueue.isEmpty()) rightClickQueue.clear();
+	}
 	public static class ProcessCPS {
 		private static final Map<Identifier, Callable<Boolean>> registry = new HashMap<>();
 		public static void register(Identifier identifier, Callable<Boolean> callable) {
