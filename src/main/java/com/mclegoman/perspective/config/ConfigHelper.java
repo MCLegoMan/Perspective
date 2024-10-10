@@ -356,6 +356,7 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "time_overlay", ConfigDataLoader.timeOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "day_overlay", ConfigDataLoader.dayOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "biome_overlay", ConfigDataLoader.biomeOverlay));
+			configChanged.add(setConfig(ConfigType.normal, "cps_overlay", ConfigDataLoader.cpsOverlay));
 			configChanged.add(setConfig(ConfigType.normal, "force_pride", ConfigDataLoader.forcePride));
 			configChanged.add(setConfig(ConfigType.normal, "force_pride_type", ConfigDataLoader.forcePrideType));
 			configChanged.add(setConfig(ConfigType.normal, "show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
@@ -526,6 +527,10 @@ public class ConfigHelper {
 						}
 						case "biome_overlay" -> {
 							Config.biomeOverlay = (boolean) value;
+							configChanged = true;
+						}
+						case "cps_overlay" -> {
+							Config.cpsOverlay = (boolean) value;
 							configChanged = true;
 						}
 						case "force_pride" -> {
@@ -770,6 +775,9 @@ public class ConfigHelper {
 					}
 					case "biome_overlay" -> {
 						return Config.biomeOverlay;
+					}
+					case "cps_overlay" -> {
+						return Config.cpsOverlay;
 					}
 					case "force_pride" -> {
 						return Config.forcePride;

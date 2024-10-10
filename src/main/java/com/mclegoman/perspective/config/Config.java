@@ -51,6 +51,7 @@ public class Config {
 	protected static String timeOverlay;
 	protected static boolean dayOverlay;
 	protected static boolean biomeOverlay;
+	protected static boolean cpsOverlay;
 	protected static boolean forcePride;
 	protected static String forcePrideType;
 	protected static boolean showDeathCoordinates;
@@ -118,6 +119,7 @@ public class Config {
 		configProvider.add(new Couple<>("time_overlay", ConfigDataLoader.timeOverlay));
 		configProvider.add(new Couple<>("day_overlay", ConfigDataLoader.dayOverlay));
 		configProvider.add(new Couple<>("biome_overlay", ConfigDataLoader.biomeOverlay));
+		configProvider.add(new Couple<>("cps_overlay", ConfigDataLoader.cpsOverlay));
 		configProvider.add(new Couple<>("force_pride", ConfigDataLoader.forcePride));
 		configProvider.add(new Couple<>("force_pride_type", ConfigDataLoader.forcePrideType));
 		configProvider.add(new Couple<>("show_death_coordinates", ConfigDataLoader.showDeathCoordinates));
@@ -174,6 +176,7 @@ public class Config {
 		timeOverlay = config.getOrDefault("time_overlay", ConfigDataLoader.timeOverlay);
 		dayOverlay = config.getOrDefault("day_overlay", ConfigDataLoader.dayOverlay);
 		biomeOverlay = config.getOrDefault("biome_overlay", ConfigDataLoader.biomeOverlay);
+		cpsOverlay = config.getOrDefault("cps_overlay", ConfigDataLoader.cpsOverlay);
 		forcePride = config.getOrDefault("force_pride", ConfigDataLoader.forcePride);
 		forcePrideType = config.getOrDefault("force_pride_type", ConfigDataLoader.forcePrideType);
 		showDeathCoordinates = config.getOrDefault("show_death_coordinates", ConfigDataLoader.showDeathCoordinates);
@@ -231,6 +234,7 @@ public class Config {
 		configProvider.setConfig("time_overlay", timeOverlay);
 		configProvider.setConfig("day_overlay", dayOverlay);
 		configProvider.setConfig("biome_overlay", biomeOverlay);
+		configProvider.setConfig("cps_overlay", cpsOverlay);
 		configProvider.setConfig("force_pride", forcePride);
 		configProvider.setConfig("force_pride_type", forcePrideType);
 		configProvider.setConfig("show_death_coordinates", showDeathCoordinates);
@@ -287,6 +291,7 @@ public class Config {
 				timeOverlay,
 				dayOverlay,
 				biomeOverlay,
+				cpsOverlay,
 				forcePride,
 				forcePrideType,
 				showDeathCoordinates,

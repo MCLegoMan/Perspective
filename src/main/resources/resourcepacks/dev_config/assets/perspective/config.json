@@ -33,6 +33,7 @@
 	"time_overlay": "twenty_four_hour",
 	"day_overlay": true,
 	"biome_overlay": true,
+	"cps_overlay": false,
 	"force_pride": true,
 	"force_pride_type": "trans",
 	"show_death_coordinates": true,

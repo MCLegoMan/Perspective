@@ -10,6 +10,7 @@ package com.mclegoman.perspective.client.hud;
 import com.mclegoman.luminance.common.util.IdentifierHelper;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.client.translation.Translation;
+import com.mclegoman.perspective.client.util.Mouse;
 import com.mclegoman.perspective.client.util.Position;
 import com.mclegoman.perspective.common.data.Data;
 import com.mclegoman.perspective.config.ConfigHelper;
@@ -92,6 +93,9 @@ public class Overlays {
 								Translation.getText("biome." + IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, biome) + "." + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome), true)
 						}));
 					}
+				}
+				if ((boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "cps_overlay")) {
+					overlayTexts.add(Translation.getTranslation(Data.version.getID(), "cps_overlay", new Object[]{Mouse.getLeftCPS(), Mouse.getMiddleCPS(), Mouse.getRightCPS()}));
 				}
 				renderOverlays(context, overlayTexts, 0, y, false);
 			} else DebugOverlay.renderDebugHUD(context);

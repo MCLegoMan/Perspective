@@ -38,6 +38,10 @@ public class HUDHelper {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
 			ConfigHelper.saveConfig();
 		}
+		if (Keybindings.toggleCPSOverlay.wasPressed()) {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "cps_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "cps_overlay"));
+			ConfigHelper.saveConfig();
+		}
 	}
 	public static boolean shouldHideHUD() {
 		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveBack) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveFront);

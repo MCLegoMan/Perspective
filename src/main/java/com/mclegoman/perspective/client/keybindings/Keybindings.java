@@ -36,6 +36,7 @@ public class Keybindings {
 	public static final KeyBinding togglePosOverlay;
 	public static final KeyBinding toggleDayOverlay;
 	public static final KeyBinding toggleBiomeOverlay;
+	public static final KeyBinding toggleCPSOverlay;
 	public static final KeyBinding toggleShaders;
 	public static final KeyBinding toggleZoom;
 	public static final KeyBinding toggleZoomCinematic;
@@ -63,6 +64,7 @@ public class Keybindings {
 				togglePosOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleDayOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_day_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleBiomeOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_biome_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				toggleCPSOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_cps_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleShaders = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
 				toggleZoom = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN),
 				toggleZoomCinematic = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_zoom_cinematic", GLFW.GLFW_KEY_UNKNOWN)

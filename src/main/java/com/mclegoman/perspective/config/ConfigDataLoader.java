@@ -58,6 +58,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static String timeOverlay;
 	public static boolean dayOverlay;
 	public static boolean biomeOverlay;
+	public static boolean cpsOverlay;
 	public static boolean forcePride;
 	public static String forcePrideType;
 	public static boolean showDeathCoordinates;
@@ -119,6 +120,7 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				timeOverlay = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "time_overlay", "false");
 				dayOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "day_overlay", false);
 				biomeOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "biome_overlay", false);
+				cpsOverlay = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "cps_overlay", false);
 				forcePride = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "force_pride", false);
 				forcePrideType = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "force_pride_type", "random");
 				showDeathCoordinates = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "show_death_coordinates", false);

@@ -57,7 +57,11 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.biome_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "biome_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "biome_overlay"));
 			this.refresh = true;
-		}).width(304).build(), 2);
+		}).build());
+		overlaysGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays.cps_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "cps_overlay"), Translation.Type.ONFF)}), (button) -> {
+			ConfigHelper.setConfig(ConfigHelper.ConfigType.normal, "cps_overlay", !(boolean) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "cps_overlay"));
+			this.refresh = true;
+		}).build());
 		overlaysGridAdder.add(new EmptyWidget(20, 20), 2);
 		return overlaysGrid;
 	}

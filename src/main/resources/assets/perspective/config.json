@@ -32,6 +32,7 @@
 	"time_overlay": "false",
 	"day_overlay": false,
 	"biome_overlay": false,
+	"cps_overlay": false,
 	"force_pride": false,
 	"force_pride_type": "random",
 	"force_pride_type_index": 0,

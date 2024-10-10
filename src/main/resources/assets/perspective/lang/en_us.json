@@ -170,6 +170,8 @@
 
 	"gui.perspective.config.overlays.biome_overlay": "Biome Overlay: %s",
 
+	"gui.perspective.config.overlays.cps_overlay": "CPS Overlay: %s",
+
 	"gui.perspective.config.force_pride": "Force Pride: %s",
 
 	"gui.perspective.config.show_death_coordinates": "Death Coordinates: %s",
@@ -292,6 +294,8 @@
 
 	"gui.perspective.keybindings.keybinding.toggle_biome_overlay": "Toggle Biome Overlay",
 
+	"gui.perspective.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay",
+
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
@@ -360,6 +364,7 @@
 	"gui.perspective.time_overlay.pm": " pm",
 	"gui.perspective.day_overlay": "Days played: %s",
 	"gui.perspective.biome_overlay": "Biome: %s",
+	"gui.perspective.cps_overlay": "CPS: %s:%s:%s",
 
 	"gui.perspective.show_death_coordinates": "%s: %s",
 
