@@ -7,11 +7,13 @@
 
 package com.mclegoman.perspective.client.ambience.particles;
 
+import com.mclegoman.perspective.client.texture.TextureHelper;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
@@ -39,6 +41,7 @@ public class RippleParticle extends SpriteBillboardParticle {
 		this.prevPosY = this.y;
 		this.prevPosZ = this.z;
 		if (this.age++ >= this.maxAge) this.markDead();
+		else this.alpha = Math.max(0.0F, this.alpha - (1.0F/this.maxAge));
 	}
 	public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
 		this.setSpriteForAge(spriteProvider);

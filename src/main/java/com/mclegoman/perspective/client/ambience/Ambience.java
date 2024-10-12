@@ -7,10 +7,10 @@
 
 package com.mclegoman.perspective.client.ambience;
 
-import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
+import com.mclegoman.perspective.client.ambience.particles.ParticleTypes;
 
 public class Ambience {
 	public static void init() {
-		ParticleEffects.init();
+		ParticleTypes.init();
 	}
 }

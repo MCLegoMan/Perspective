@@ -49,8 +49,8 @@
 	"hide_show_message": true,
 	"tutorials": true,
 	"detect_update_channel": "release",
-	"ripple_density": 0,
-	"ripple_sound": true,
-	"falling_leaves": 0,
+	"water_ripple_density": 0,
+	"falling_leaves_density": 0,
+	"chet_bubbles_density": 0,
 	"debug": false
 }

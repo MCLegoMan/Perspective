@@ -5,10 +5,10 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.mixin.client.ambience.leaves;
+package com.mclegoman.perspective.mixin.client.ambience.falling_leaves;
 
 import com.mclegoman.perspective.client.ambience.particles.IgnoreLeavesDataLoader;
-import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
+import com.mclegoman.perspective.client.ambience.particles.ParticleTypes;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,7 +32,7 @@ public class LeavesBlockMixin {
 				if (random.nextInt(64) <= (int)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "falling_leaves_density")) {
 					BlockPos blockPos = pos.down();
 					if (!Block.isFaceFullSquare(world.getBlockState(blockPos).getCollisionShape(world, blockPos), Direction.UP)) {
-						if (!IgnoreLeavesDataLoader.registry.contains(Registries.BLOCK.getId(world.getBlockState(pos).getBlock()))) ParticleEffects.addLeaf(world, pos);
+						if (!IgnoreLeavesDataLoader.registry.contains(Registries.BLOCK.getId(world.getBlockState(pos).getBlock()))) ParticleTypes.addLeaf(world, pos);
 					}
 				}
 			}

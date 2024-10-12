@@ -54,8 +54,10 @@ public class ExperimentalConfigScreen extends AbstractConfigScreen {
 			refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "experimental.ambience", true))).build(), 1);
 
+
 		experimentalGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "ambience"), (button) -> ClientData.minecraft.setScreen(new AmbienceConfigScreen(getRefreshScreen(), false, false, 1))).build());
 
+		experimentalGridAdder.add(new EmptyWidget(46, 46), 2);
 		return experimentalGrid;
 	}
 	protected GridWidget createFooter() {

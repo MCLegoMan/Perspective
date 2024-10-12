@@ -22,6 +22,10 @@ public class LeafParticle extends CherryLeavesParticle {
 		this.green = (float) color[1];
 		this.blue = (float) color[2];
 	}
+	public void tick() {
+		super.tick();
+		//TODO: Rewrite tick function so we can have leaves be on the floor then fade before despawning.
+	}
 	public ParticleTextureSheet getType() {
 		return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
 	}

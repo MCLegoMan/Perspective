@@ -5,9 +5,9 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.mixin.client.ambience.fluid;
+package com.mclegoman.perspective.mixin.client.ambience.water_ripples;
 
-import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
+import com.mclegoman.perspective.client.ambience.particles.ParticleTypes;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.WaterFluid;
@@ -26,9 +26,9 @@ public class WaterFluidMixin {
 	@Inject(method = "randomDisplayTick", at = @At("HEAD"))
 	protected void perspective$randomDisplayTick(World world, BlockPos pos, FluidState state, Random random, CallbackInfo ci) {
 		try {
-			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) > 0) {
+			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "water_ripple_density")) > 0) {
 				if (state.isStill() && world.isSkyVisibleAllowingSea(pos) && world.isRaining() && world.getBlockState(pos.add(0, 1, 0)).isAir() && world.getBiome(pos).value().getPrecipitation(pos) == Biome.Precipitation.RAIN) {
-					if (random.nextInt(64) <= (int)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) ParticleEffects.addRipple(world, Vec3d.ofCenter(pos).add(random.nextFloat() - random.nextFloat(), 0.40F, random.nextFloat() - random.nextFloat()));
+					if (random.nextInt(64) <= (int)ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "water_ripple_density")) ParticleTypes.addRipple(world, Vec3d.ofCenter(pos).add(random.nextFloat() - random.nextFloat(), 0.40F, random.nextFloat() - random.nextFloat()));
 				}
 			}
 		} catch (Exception ignored) {}

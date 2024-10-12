@@ -5,9 +5,9 @@
     Licence: GNU LGPLv3
 */
 
-package com.mclegoman.perspective.mixin.client.ambience.fluid;
+package com.mclegoman.perspective.mixin.client.ambience.water_ripples;
 
-import com.mclegoman.perspective.client.ambience.particles.ParticleEffects;
+import com.mclegoman.perspective.client.ambience.particles.ParticleTypes;
 import com.mclegoman.perspective.client.data.ClientData;
 import com.mclegoman.perspective.config.ConfigHelper;
 import net.minecraft.entity.Entity;
@@ -33,10 +33,10 @@ public abstract class EntityMixin {
 	@Inject(method = "onSwimmingStart", at = @At("TAIL"))
 	protected void perspective$onSwimmingStart(CallbackInfo ci) {
 		try {
-			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "ripple_density")) > 0) {
+			if (((int) ConfigHelper.getConfig(ConfigHelper.ConfigType.normal, "water_ripple_density")) > 0) {
 				if (ClientData.minecraft.world != null) {
 					FluidState fluidState = ClientData.minecraft.world.getFluidState(BlockPos.ofFloored(getX(), getY(), getZ()));
-					if (fluidState.isIn(FluidTags.WATER) && fluidState.isStill()) ParticleEffects.addRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + fluidState.getHeight(), this.getZ()));
+					if (fluidState.isIn(FluidTags.WATER) && fluidState.isStill()) ParticleTypes.addRipple(ClientData.minecraft.world, new Vec3d(this.getX(), this.getBlockY() + fluidState.getHeight(), this.getZ()));
 				}
 			}
 		} catch (Exception ignored) {}

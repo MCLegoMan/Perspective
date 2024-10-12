@@ -227,9 +227,9 @@
 
 	"gui.perspective.config.experimental.ambience.config": "Ambience",
 	"gui.perspective.config.ambience": "Ambience",
-	"gui.perspective.config.ambience.ripple_density": "Ripple Density: %s",
-	"gui.perspective.config.ambience.ripple_sound": "Ripple Sound: %s",
-	"gui.perspective.config.ambience.falling_leaves_density": "Leaves Density: %s",
+	"gui.perspective.config.ambience.water_ripple_density": "Water Ripple Density: %s",
+	"gui.perspective.config.ambience.falling_leaves_density": "Falling Leaves Density: %s",
+	"gui.perspective.config.ambience.chest_bubbles_density": "Chest Bubbles Density: %s",
 
 	"gui.perspective.config.reset": "Reset to Default",
 	"gui.perspective.config.reset.experiments": "Disable All Experiments",

@@ -74,8 +74,9 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 	public static boolean hideShowMessage;
 	public static boolean tutorials;
 	public static String detectUpdateChannel;
-	public static int rippleDensity;
+	public static int waterRippleDensity;
 	public static int fallingLeavesDensity;
+	public static int chestBubblesDensity;
 
 	public ConfigDataLoader() {
 		super(new Gson(), ID);
@@ -135,8 +136,9 @@ public class ConfigDataLoader extends JsonDataLoader implements IdentifiableReso
 				hideShowMessage = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "hide_show_message", true);
 				tutorials = JsonHelper.getBoolean(JsonHelper.deserialize(resource.get().getReader()), "tutorials", true);
 				detectUpdateChannel = JsonHelper.getString(JsonHelper.deserialize(resource.get().getReader()), "detect_update_channel", "release");
-				rippleDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "ripple_density", 0);
-				fallingLeavesDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "falling_leaves", 0);
+				waterRippleDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "water_ripple_density", 0);
+				fallingLeavesDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "falling_leaves_density", 0);
+				chestBubblesDensity = JsonHelper.getInt(JsonHelper.deserialize(resource.get().getReader()), "chest_bubbles_density", 0);
 			}
 			ConfigHelper.loadConfig();
 		} catch (Exception error) {

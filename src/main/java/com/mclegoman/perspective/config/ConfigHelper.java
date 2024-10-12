@@ -41,7 +41,7 @@ public class ConfigHelper {
 	public static boolean showReloadOverlay = false;
 	public static int showReloadOverlayTicks = 20;
 	protected static final int saveViaTickSaveTick = 20;
-	protected static final int defaultConfigVersion = 22;
+	protected static final int defaultConfigVersion = 23;
 	protected static final boolean defaultDebug = false;
 	protected static boolean saveViaTick = false;
 	protected static int saveViaTickTicks = 0;
@@ -182,6 +182,10 @@ public class ConfigHelper {
 					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 22) {
 						setConfig(ConfigType.normal, "hold_perspective_back_hide_hud", Config.config.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveBackHideHud));
 						setConfig(ConfigType.normal, "hold_perspective_front_hide_hud", Config.config.getOrDefault("hold_perspective_hide_hud", ConfigDataLoader.holdPerspectiveFrontHideHud));
+					}
+					if (Config.config.getOrDefault("config_version", defaultConfigVersion) < 23) {
+						setConfig(ConfigType.normal, "falling_leaves_density", Config.config.getOrDefault("falling_leaves", ConfigDataLoader.fallingLeavesDensity));
+						setConfig(ConfigType.normal, "water_ripple_density", Config.config.getOrDefault("ripple_density", ConfigDataLoader.waterRippleDensity));
 					}
 					setConfig(ConfigType.normal, "config_version", defaultConfigVersion);
 					Data.version.sendToLog(LogType.INFO, Translation.getString("Successfully updated config to the latest version."));
@@ -373,8 +377,9 @@ public class ConfigHelper {
 			configChanged.add(setConfig(ConfigType.normal, "hide_show_message", ConfigDataLoader.hideShowMessage));
 			configChanged.add(setConfig(ConfigType.normal, "tutorials", ConfigDataLoader.tutorials));
 			configChanged.add(setConfig(ConfigType.normal, "detect_update_channel", ConfigDataLoader.detectUpdateChannel));
-			configChanged.add(setConfig(ConfigType.normal, "ripple_density", ConfigDataLoader.rippleDensity));
+			configChanged.add(setConfig(ConfigType.normal, "water_ripple_density", ConfigDataLoader.waterRippleDensity));
 			configChanged.add(setConfig(ConfigType.normal, "falling_leaves_density", ConfigDataLoader.fallingLeavesDensity));
+			configChanged.add(setConfig(ConfigType.normal, "chest_bubbles_density", ConfigDataLoader.chestBubblesDensity));
 			fixConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
@@ -592,12 +597,16 @@ public class ConfigHelper {
 							Config.detectUpdateChannel = (String) value;
 							configChanged = true;
 						}
-						case "ripple_density" -> {
-							Config.rippleDensity = (int) value;
+						case "water_ripple_density" -> {
+							Config.waterRippleDensity = (int) value;
 							configChanged = true;
 						}
 						case "falling_leaves_density" -> {
 							Config.fallingLeavesDensity = (int) value;
+							configChanged = true;
+						}
+						case "chest_bubbles_density" -> {
+							Config.chestBubblesDensity = (int) value;
 							configChanged = true;
 						}
 						case "debug" -> {
@@ -822,11 +831,14 @@ public class ConfigHelper {
 					case "detect_update_channel" -> {
 						return Config.detectUpdateChannel;
 					}
-					case "ripple_density" -> {
-						return Config.rippleDensity;
+					case "water_ripple_density" -> {
+						return Config.waterRippleDensity;
 					}
 					case "falling_leaves_density" -> {
 						return Config.fallingLeavesDensity;
+					}
+					case "chest_bubbles_density" -> {
+						return Config.chestBubblesDensity;
 					}
 					case "debug" -> {
 						return Config.debug;
